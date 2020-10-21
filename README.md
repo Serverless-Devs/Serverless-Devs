@@ -38,6 +38,4 @@ Serverless Devs邮箱地址：service@serverlessfans.com
 
 ## 关于Serverless Devs
 
-我们是一群开发者，一群Serverless的爱好者，我们开源，我们开放，我们期待您的加入。我们的工具，不以任何厂商为核心，只以开发者为核心，我们期待更多的开发者，可以为"开发者群体"服务，服务自己，创造更多价值。
-
-和我们一起，Go Serverless
+Serverless Devs 是一个开源开放的 Serverless 开发者平台，该平台致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
