@@ -1,0 +1,9 @@
+{
+  "In operation......": "In operation......",
+  "Welcome to the Serverless Tool.": "Welcome to the Serverless Tool.",
+  "You can use the corresponding function through the following instructions.": "You can use the corresponding function through the following instructions.",
+  "s config add help": "You can add an account.\n\n    Example:\n        $ s config add\n        $ s config add -p alibaba\n        $ s config add -p alibaba --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******\n        $ s config add -p huaweicloud --AccessKey ****** --SecretKey ******\n\n    Configuration parameters for cloud vendors:\n        alibaba: AccountID, AccessKeyID, AccessKeySecret\n        aws: AccessKeyID, SecretAccessKey\n        baidu: AccessKeyID, SecretAccessKey\n        huawei: AccessKey, SecretKey\n        tencent: AccountID, SecretID, SecretKey",
+  "s config delete help": "You can delete an account.\n\n     Example:\n        $ s config delete -p alibaba -a demo\n",
+  "s config get help": "You can get accounts.\n \n     Example:\n        $ s config get -l\n        $ s config get -p alibaba -a demo\n ",
+  "s config update help": "You can delete an account.\n \n     Example:\n        $ s config update -p alibaba -a demo\n        $ s config update -p alibaba -a demo --AccountID ************\n"
+}
