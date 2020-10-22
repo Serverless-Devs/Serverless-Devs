@@ -406,7 +406,9 @@ export class ComponentExeCute {
       },
       Command: this.method,
       Args: Params || '',
-      Path: process.env.templateFile || ''
+      Path: {
+        ConfigPath: process.env.templateFile || ''
+      }
     };
     const ComponentClass = await this.loadComponent();
 
