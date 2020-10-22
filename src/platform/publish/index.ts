@@ -12,7 +12,7 @@ const description = ` ${i18n.__('Publish package.')}
         $ s platform publish`;
 program
   .name('s platform publish')
-  .option('-g, --gui', i18n.__('Start gui service.'))
+  .option('-g, --gui', i18n.__('Start gui service'))
   // .option('-s, --skip', i18n.__('Skip the update configuration information step and publish directly'))
   .description(description)
   .helpOption('-h, --help', i18n.__('Display help for command'))

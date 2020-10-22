@@ -184,8 +184,8 @@
   "Example:": "例如：",
   "Here you can set whether the output has color.": "您可以在这里设置输出信息是否带有颜色",
   "Package management.For component/plugin/application developers:  including publishing, query, delete and other functions.": "包管理，组件/插件/应用开发者开在这里进行发布、更新、删除等操作",
-  "Username of Serverless Devs Tool Platform.": "Serverless Devs Tool 平台账号",
-  "Password of Serverless Devs Tool Platform.": "Serverless Devs Tool 平台密码",
+  "Username of Serverless Devs Tool Platform": "Serverless Devs Tool 平台账号",
+  "Password of Serverless Devs Tool Platform": "Serverless Devs Tool 平台密码",
   "Publish successfully": "发布成功",
   "[Required] Package name and version, like: test@0.0.1": "[必填] 包名称和版本，例如：test@0.0.1",
   "[Required] Package version": "[必填] 包版本",
@@ -210,6 +210,7 @@
   "Unable to format the output, the system will display the original output of the component:": "无法格式化输出，系统即将把组件的原始输出展示出来：",
   "Calling @serverless-devs/s tools in Extends requires configuring Access in Yaml.": "在Extends中使用@serverless-devs/s工具需要配置Access在您的Yaml中。",
   "Start GUI service.": "启动GUI服务。",
+  "Start GUI service": "启动GUI服务",
   "Check that you don’t have a gui client, download it now, it will take you about 1 minute.": "系统未监测到GUI客户端，现在开始下载，请您稍等1分钟左右。",
   ":Loading ...": ":加载中",
   ":Unziping ...": ":解压中",
@@ -220,6 +221,8 @@
   "GUI updating ......": "GUI 升级中",
   "    You can upgrade through : npm install @serverless-devs/s -g": "    您可以通过：npm install @serverless-devs/s -g 进行升级",
   "    Update information:": "    升级信息：",
-  "Init project through GUI service": "通过GUI进行项目初始化"
+  "Init project through GUI service": "通过GUI进行项目初始化",
+  "You could get a project from Serverless Devs App Store. Like:": "您可以通过Serverless Devs应用中心获取一个项目。例如：",
+  "Package type [Component/Plugin/Application]": "包类型 [Component/Plugin/Application]"
 
 }

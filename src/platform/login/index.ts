@@ -10,9 +10,9 @@ const description = `${i18n.__('Login Serverless Tool.')}
 program
   .name('s platform login')
 
-  .option('-u, --username', i18n.__('Username of Serverless Devs Tool Platform.'))
-  .option('-p, --password', i18n.__('Password of Serverless Devs Tool Platform.'))
-  .option('-g, --gui', i18n.__('Start gui service.'))
+  .option('-u, --username', i18n.__('Username of Serverless Devs Tool Platform'))
+  .option('-p, --password', i18n.__('Password of Serverless Devs Tool Platform'))
+  .option('-g, --gui', i18n.__('Start gui service'))
   .description(description)
   .helpOption('-h, --help', i18n.__('Display help for command'))
   .parse(process.argv);

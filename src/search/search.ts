@@ -5,6 +5,7 @@ import i18n from '../utils/i18n';
 import { SearchError } from '../error/search-error';
 import { SERVERLESS_SEARCH_URL } from '../constants/static-variable';
 import {CommandError} from '../error/command-error';
+import GUIService from '../gui/gui-service';
 
 const description = `${i18n.__('Search packages')}.
 
@@ -18,24 +19,33 @@ program
   .option('-p, --provider [provider]', i18n.__('The cloud service provider.'))
   .helpOption('-h, --help', i18n.__('Display help for command'))
   .option('-t, --type [type]', i18n.__('The package type. [component/plugin/application]'))
+  .option('-g, --gui', i18n.__('Start gui service'))
   .description(description)
   .parse(process.argv);
 
 
 (async () => {
-  if (program.args.length === 0) {
+
+  const gui = program.gui || false;
+  
+  if (program.args.length === 0 && gui === false) {
     program.help();
     return;
   }
 
-  const name = program.args[0];
-  const provider = program.provider;
-  const type = program.type || 'application';
+  if (gui === true) {
+    const guiService = new GUIService();
+    await guiService.start();
+  } else {
+    const name = program.args[0];
+    const provider = program.provider;
+    const type = program.type || 'application';
 
-  try {
-    await search(name, provider, type);
-  } catch (err) {
-    throw new SearchError('Could not get packages.');
+    try {
+      await search(name, provider, type);
+    } catch (err) {
+      throw new SearchError('Could not get packages.');
+    }
   }
 })().catch((err) => {
   throw new CommandError(err.message);

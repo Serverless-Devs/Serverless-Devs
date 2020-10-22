@@ -10,8 +10,8 @@ const description = `${i18n.__('Initialize a package to be released.')}
         $ s platform init -t plugin`;
 program
   .name('s platform init')
-  .option('-t, --type <type>', i18n.__('Package type [Component/Plugin/Application].'))
-  .option('-g, --gui', i18n.__('Start gui service.'))
+  .option('-t, --type <type>', i18n.__('Package type [Component/Plugin/Application]'))
+  .option('-g, --gui', i18n.__('Start gui service'))
   .description(description)
   .helpOption('-h, --help', i18n.__('Display help for command'))
   .parse(process.argv);

@@ -11,7 +11,13 @@ const description = `${i18n.__('Initialize a new project based on a template.')}
         $ s init
         $ s init project
         $ s init git@github.com:foo/bar.git
-        $ s init https://github.com/foo/bar.git`;
+        $ s init https://github.com/foo/bar.git
+    
+    ${i18n.__('You could get a project from Serverless Devs App Store. Like:')}
+        $ s search keywords
+        $ s search --gui
+        $ s init --gui
+    `;
 
 program
   .name('s init')
@@ -19,7 +25,7 @@ program
   .usage('[options] [name | url]')
   .option('-p, --provider [provider]', i18n.__('The cloud service provider'))
   .option('-d, --dir [dir]', i18n.__('Where to output the initialized app into (default: ./ )'))
-  .option('--gui', i18n.__('Init project through GUI service'))
+  .option('-g, --gui', i18n.__('Init project through GUI service'))
   .description(description)
   .parse(process.argv);
 

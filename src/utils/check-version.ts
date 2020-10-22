@@ -68,7 +68,7 @@ export class CheckVersion {
 
     let SERVERLESS_CHECK_VERSION_URL;
     try {
-      const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' }))['locale'];
+      const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' }))['locale'] || 'en';
       SERVERLESS_CHECK_VERSION_URL = SERVERLESS_CHECK_VERSION + '?lang=' + lang;
     } catch (err) {
       SERVERLESS_CHECK_VERSION_URL = SERVERLESS_CHECK_VERSION;

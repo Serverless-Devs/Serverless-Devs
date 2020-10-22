@@ -1,8 +1,8 @@
 {
   "name": "@serverless-devs/s",
-  "version": "0.0.37",
+  "version": "0.0.39",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
-  "homepage": "https://www.serverless.cn",
+  "homepage": "https://www.serverless-devs.cn",
   "keywords": [
     "serverless",
     "alibaba",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/serverless-devs/"
+    "url": "https://github.com/serverless-devs/s-cli"
   },
   "bugs": {
     "email": "service@serverlessfans.com"

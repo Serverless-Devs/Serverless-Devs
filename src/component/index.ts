@@ -394,7 +394,7 @@ export class ComponentExeCute {
       Component,
       ProjectName
     } = this.componentConfig;
-
+    
     const inputs = {
       Properties,
       Credentials: this.credentials,
@@ -405,7 +405,8 @@ export class ComponentExeCute {
         AccessAlias: Access || ''
       },
       Command: this.method,
-      Args: Params || ''
+      Args: Params || '',
+      Path: process.env.templateFile || ''
     };
     const ComponentClass = await this.loadComponent();
 

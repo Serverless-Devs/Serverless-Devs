@@ -150,7 +150,7 @@ export default class GUIService {
       logger.info('The system has detected a new version of the GUI. You can use `s gui --update` to upgrade.');
       // 输出更新信息 versions[2]
       try {
-        const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' }))['locale'];
+        const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' }))['locale'] || 'en';
         logger.log('\n');
         logger.log('    Update information:');
         const data = versions[2][lang] || versions[2];
