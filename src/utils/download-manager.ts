@@ -108,7 +108,6 @@ export class DownloadManager {
     }
 
     const providers: string[] = result.data.Response.Providers;
-    console.log(providers,'providers');
     if (!providers || providers.length === 0) {
       throw new InitError('No available provider for {{project}}', {project: project});
     }
