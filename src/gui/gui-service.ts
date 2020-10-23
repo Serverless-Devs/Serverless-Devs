@@ -114,10 +114,11 @@ export default class GUIService {
           clearInterval(timmer);
           newBar.terminate();
           logger.success('Unzip success begin to start.');
-          fs.unlinkSync(tmpZipFile);
           const appInfo = this.getGuiAppInfo(osType);
           await this.setVersion(data[0]['version']);
           this.open(appInfo);
+
+          fs.unlinkSync(tmpZipFile);
         } catch (e) {
           logger.error(e.message);
         }
