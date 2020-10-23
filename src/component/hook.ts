@@ -61,12 +61,8 @@ export class Hook {
     const cwdPath = executePath ? path.resolve(currentDir, executePath) : currentDir;
     if (fs.existsSync(cwdPath) && fs.lstatSync(cwdPath).isDirectory()) {
       process.env['next-command-execute-flag'] = 'true';
-      process.stdout.write(i18n.__('Executing ...'));
+      logger.info(i18n.__('Executing ...'));
       const { stdout, stderr } = await exec(command, { cwd: cwdPath });
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      process.stdout.clearLine();
-      process.stdout.write('\n');
       if (stderr) {
         logger.error(i18n.__('Execute:'), stderr);
       } else {

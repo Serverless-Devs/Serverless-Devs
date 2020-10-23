@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s",
-  "version": "0.0.41",
+  "version": "0.0.45",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.cn",
   "keywords": [

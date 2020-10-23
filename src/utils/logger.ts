@@ -2,7 +2,7 @@ import { ServerlessError } from '../error/serverless-error';
 import i18n from '../utils/i18n';
 
 const colors = require('colors');
-const { red, white, gray, blue, yellow, green } = colors;
+const { red, white, gray, cyan, yellow, green } = colors;
 
 // 输出信息颜色启用或关闭
 export const colorSwitch = (flag: boolean) => {
@@ -63,7 +63,7 @@ export const error = (...message: any) => {
 // 提醒信息 蓝色
 export const info = (...message: any) => {
   for (let m of message) {
-    console.log(blue(i18n.__(m)));
+    console.log(cyan(i18n.__(m)));
   }
 };
 // 警告信息 黄色
