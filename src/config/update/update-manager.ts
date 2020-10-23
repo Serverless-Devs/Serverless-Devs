@@ -61,17 +61,20 @@ export class UpdateManager {
     } catch (err) {
       throw new ConfigUpdateError(err.message);
     }
-    const tempAccess = this.userInformation[`${providerAlias['Provider']}.${providerAlias['AliasName'] || 'default'}`];
+    const tempAccess = Object.assign({}, this.userInformation[`${providerAlias['Provider']}.${providerAlias['AliasName'] || 'default'}`]);
+    const hiddenMapping: ConfigMap = {};
     for (let i = 0;i < this.promptList.length;i++) {
       const tempName = this.promptList[i]['name'];
       const valueOfValueLength = tempAccess[tempName].length;
+      const oldValue = tempAccess[tempName];
       tempAccess[tempName] = valueOfValueLength > 6 ? tempAccess[tempName].slice(0, 3) + printn(valueOfValueLength - 6, '*') + tempAccess[tempName].slice(valueOfValueLength - 3, valueOfValueLength) : tempAccess[tempName];
+      hiddenMapping[tempAccess[tempName]] = oldValue;
       this.promptList[i]['default'] = tempAccess[tempName];
     }
     await inquirer.prompt(this.promptList).then((answers: any) => {
       this.inputSecretData = answers;
     });
-    await this.userInputCheck(this.inputSecretData);
+    await this.userInputCheck(this.inputSecretData, hiddenMapping);
   }
 
   async inputSecretNotZero(inputSecret: any) {
@@ -82,20 +85,24 @@ export class UpdateManager {
   }
 
   // 校验用户输入的信息, 并更新用户信息
-  async userInputCheck(inputSecret: any) {
+  async userInputCheck(inputSecret: any, hiddenMapping ?: any) {
     let providerAccessFormatSecret: Array<string> = providerAccessFormat[this.provider];
     this.oldSecretID = this.userInformation[this.inputProviderAlias];
     Object.keys(inputSecret).forEach((item) => {
       if (!providerAccessFormatSecret.includes(item)) {
         throw new ConfigUpdateError('Please Input Right Secret Format: [{{providerAccessFormatSecret}}]', {providerAccessFormatSecret: providerAccessFormatSecret});
       } else if (providerAccessFormatSecret.includes(item) && inputSecret[item]) {
-        this.oldSecretID[item] = inputSecret[item];
+        let value = inputSecret[item];
+        if (hiddenMapping && hiddenMapping[value]) {
+          value = hiddenMapping[value];
+        }
+        this.oldSecretID[item] = value;
       }
     });
 
     this.userInformation[this.inputProviderAlias] = this.oldSecretID;
     await this.writeFileWay(this.filePath, this.userInformation);
-    this.output();
+    // this.output();
   }
 
   async writeFileWay(filePath: string, text: ConfigMap) {
