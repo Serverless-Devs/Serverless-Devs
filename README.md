@@ -16,7 +16,6 @@
 * [安装文档](https://github.com/Serverless-Devs/docs/blob/master/开发者工具/快速入门/工具安装.md)
 * [账号配置](https://github.com/Serverless-Devs/docs/blob/master/开发者工具/快速入门/密钥配置.md)
 * [Yaml配置](https://github.com/Serverless-Devs/docs/blob/master/开发者工具/快速入门/Yaml格式规范.md)
-
 * [入门案例](https://github.com/Serverless-Devs/docs/blob/master/开发者工具/快速入门/入门案例.md)
 
 ### 指令相关
