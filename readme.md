@@ -1,9 +1,8 @@
 # 欢迎使用Serverless Devs
 
 
-<center>
-![](https://images.serverlessfans.com/devs-github/logo.jpg)
-</center>
+<div align=center> ![](https://images.serverlessfans.com/devs-github/logo.jpg) </div>
+
 
 <p align="center">
   <span>像使用手机一样使用Serverless</span>
