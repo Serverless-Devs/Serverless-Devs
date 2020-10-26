@@ -114,9 +114,9 @@ Commands:
 
 <div align=center>
 
-| <div align=center> <a href="https://images.serverlessfans.com/s-tool/demo/poem.mp4"> <img src="https://images.serverlessfans.com/devs-github/cli.jpg" width="200px"/> </a> </div> | <div align=center> <a href="https://images.serverlessfans.com/s-gui/docs/app-store.mp4">  <img src="https://images.serverlessfans.com/devs-github/app-store.jpg" width="200px"/> </a> </div> |
+| <div align=center> <a href="https://images.serverlessfans.com/s-tool/demo/poem.mp4"> <img src="https://images.serverlessfans.com/devs-github/cli.jpg" width="80%"/> </a> </div> | <div align=center> <a href="https://images.serverlessfans.com/s-gui/docs/app-store.mp4">  <img src="https://images.serverlessfans.com/devs-github/app-store.jpg" width="80%"/> </a> </div> |
 | ------ | ------ |
-| <p align="center"> <span> 点击图片播放CLI视频 <a href="https://github.com/Serverless-Devs/docs/blob/master/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B.md"> 也可以点击此处查看CLI入门案例 </a> </span> </p> | <p align="center"> <span> 点击图片播放应用中心视频 <a href="https://github.com/Serverless-Devs/docs/blob/master/%E5%BA%94%E7%94%A8%E4%B8%AD%E5%BF%83/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B.md"> 也可以点击此处查看应用中心入门案例 </a> </span> </p> |
+| <p align="center"> <span> 点击图片播放CLI视频 <br> <a href="https://github.com/Serverless-Devs/docs/blob/master/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B.md"> 也可以点击此处查看CLI入门案例 </a> </span> </p> | <p align="center"> <span> 点击图片播放应用中心视频 <br>  <a href="https://github.com/Serverless-Devs/docs/blob/master/%E5%BA%94%E7%94%A8%E4%B8%AD%E5%BF%83/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B.md"> 也可以点击此处查看应用中心入门案例 </a> </span> </p> |
 
 </div>
 
