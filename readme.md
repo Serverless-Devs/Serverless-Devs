@@ -13,7 +13,7 @@
 - [ :iphone: 像使用手机一样玩转 Serverless](#像使用手机一样玩转-Serverless)
 - [ :house_with_garden: Serverless的使用场景](#使用场景)
 - [ :heavy_check_mark: 快入安装和使用](#快入安装和使用)
-- [ :running:: 极速入门体验](#入门体验)
+- [ :running: 极速入门体验](#入门体验)
 - [ :book: 使用文档](#使用文档)
 
 Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
@@ -111,6 +111,9 @@ Commands:
 
 ## 极速体验
 
+| <video id="video" controls="" preload="none" poster="https://images.serverlessfans.com/devs-github/cli.jpg"> <source id="mp4" src="https://images.serverlessfans.com/s-tool/demo/poem.mp4" type="video/mp4"> </video>| |
+| ---- | ---- |
+
 ## 更多文档
 
 * [项目介绍](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Serverless-Devs介绍.md)
@@ -142,7 +145,12 @@ Commands:
 
 ## 联系我们
 
-Serverless Devs：
+| <div align=center>  <img src="https://images.serverlessfans.com/devs-github/wechat-helper.png" width="200px"/> </div> | <div align=center>  <img src="https://images.serverlessfans.com/devs-github/dingtalk-group.png" width="200px"/> </div> |
+| ------ | ------ |
+| <p align="center"> <span>微信扫码添加小助手进群</span> </p> | <p align="center"> <span>钉钉扫码进讨论交流群</span> </p> |
 
-- 网址：https://www.serverless-devs.com
-- 邮箱：service@serverlessfans.com
+- 其他联系方式：
+  - 网址：
+    - https://www.serverless.cn
+    - https://www.serverless-devs.com
+  - 邮箱：service@serverlessfans.com
