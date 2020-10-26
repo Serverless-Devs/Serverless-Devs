@@ -1,7 +1,7 @@
 # 欢迎使用Serverless Devs
 
 
-<div align=center> ![](https://images.serverlessfans.com/devs-github/logo.jpg) </div>
+<div align=center> <img src="https://images.serverlessfans.com/devs-github/logo.jpg" width="100%"/> </div>
 
 
 <p align="center">
@@ -60,9 +60,7 @@ Serverless Devs 的这种灵活与开放的使用方法，可以在自动化部�
 
 Serverless Devs 是多云多资源全链路/生命周期管理平台。该平台可以在组件化和插件化共同作用下，参与到项目的创建、开发、调试、部署与运维的全流程中，以阿里云函数计算组件为例：
 
-<center>
-![](https://images.serverlessfans.com/devs-github/use.png)
-</center>
+<div align=center> <img src="https://images.serverlessfans.com/devs-github/use.png" width="100%"/> </div>
 
 可以通过命令行工具或者应用中心进行项目的最初创建；在项目开发过程中，我们可以通过本地调试等能力，来验证本地开发的正确性等；在项目调试的环节，可以通过本地调试与远程调用、日志查询等能力，来进行项目的最终调试；在部署环节，可以先通过依赖安装、项目构建等流程构建出完整的部署包，在进行项目的部署；在后期运维缓解，可以通过指标查询来进行项目健康度检查，可通过日志查询等来进行问题定位，可以通过项目发布等能力进行版本发布，别名发布以及灰度发布等；
 
