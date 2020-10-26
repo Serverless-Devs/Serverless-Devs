@@ -20,9 +20,9 @@ Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于�
 
 Serverless Devs 包括 Serverless Devs Tool （Serverless 开发者工具）和 Serverless Devs App Store（Serverless 应用中心）：
 
-• Serverless Devs Tool 是一款可以让 Serverless 开发者开发和运维效率翻倍的工具。通过使用该工具，开发者可以更简单、更快速的进行应用创建、项目开发、测试、发布部署等，实现项目的全生命周期管理
+• **Serverless Devs Tool** 是一款可以让 Serverless 开发者开发和运维效率翻倍的工具。通过使用该工具，开发者可以更简单、更快速的进行应用创建、项目开发、测试、发布部署等，实现项目的全生命周期管理
 
-• Serverless Devs App Store 是一个集 Serverless 应用在线搜索，一键部署以及资源可视化编辑于一体的应用中心产品。该应用中心拥有海量的生产级项目模板、案例模板，开发者可以自由选择，并将项目一键部署到指定的云平台上
+• **Serverless Devs App Store** 是一个集 Serverless 应用在线搜索，一键部署以及资源可视化编辑于一体的应用中心产品。该应用中心拥有海量的生产级项目模板、案例模板，开发者可以自由选择，并将项目一键部署到指定的云平台上
 
 ## 项目优势
 
@@ -111,8 +111,15 @@ Commands:
 
 ## 极速体验
 
-| <video id="video" controls="" preload="none" poster="https://images.serverlessfans.com/devs-github/cli.jpg"> <source id="mp4" src="https://images.serverlessfans.com/s-tool/demo/poem.mp4" type="video/mp4"> </video>| |
-| ---- | ---- |
+
+<div align=center>
+
+| <div align=center> <a href="https://images.serverlessfans.com/s-tool/demo/poem.mp4"> <img src="https://images.serverlessfans.com/devs-github/cli.jpg" width="200px"/> </a> </div> | <div align=center> <a href="https://images.serverlessfans.com/s-gui/docs/app-store.mp4">  <img src="https://images.serverlessfans.com/devs-github/app-store.jpg" width="200px"/> </a> </div> |
+| ------ | ------ |
+| <p align="center"> <span> 点击图片播放CLI视频 <a href="https://github.com/Serverless-Devs/docs/blob/master/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B.md"> 也可以点击此处查看CLI入门案例 </a> </span> </p> | <p align="center"> <span> 点击图片播放应用中心视频 <a href="https://github.com/Serverless-Devs/docs/blob/master/%E5%BA%94%E7%94%A8%E4%B8%AD%E5%BF%83/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B.md"> 也可以点击此处查看应用中心入门案例 </a> </span> </p> |
+
+</div>
+
 
 ## 更多文档
 
@@ -145,9 +152,13 @@ Commands:
 
 ## 联系我们
 
+<div align=center>
+
 | <div align=center>  <img src="https://images.serverlessfans.com/devs-github/wechat-helper.png" width="200px"/> </div> | <div align=center>  <img src="https://images.serverlessfans.com/devs-github/dingtalk-group.png" width="200px"/> </div> |
 | ------ | ------ |
 | <p align="center"> <span>微信扫码添加小助手进群</span> </p> | <p align="center"> <span>钉钉扫码进讨论交流群</span> </p> |
+
+</div>
 
 - 其他联系方式：
   - 网址：
