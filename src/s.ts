@@ -12,7 +12,7 @@ const description = `  _________                               .__
 /_______  /\\___  >__|    \\_/  \\___  >__|  |____/\\___  >____  >____  >
         \\/     \\/                 \\/                \\/     \\/     \\/
 
-${i18n.__('Welcome to the Serverless Tool.')}
+${i18n.__('Welcome to the Serverless Devs Tool.')}
 ${i18n.__('You can use the corresponding function through the following instructions.')}
 `;
 

@@ -52,7 +52,7 @@ Serverless Devs 的这种灵活与开放的使用方法，可以在自动化部�
 通过 Serverless Devs，我们可以像使用手机一样的使用 Serverless。在使用手机时，我们需要通过在手机应用市场中搜索、下载各种应用，并安装到手机中进行使用；对于 Serverless Devs 开发平台来说，我们可以通过 s gui 快捷调出 Serverless Devs App Store，并在其中搜索并下载组件/插件到 Serverless Devs Tool 开始使用 Serverless，如图所示：
 
 
-<div align=center> <img src="https://images.serverlessfans.com/devs-github/cli-app-like-phone.png" width="100%"/> </div>
+<div align=center> <img src="https://images.serverlessfans.com/devs-github/cli-app-like-phone-v2.png" width="100%"/> </div>
 
 ## 使用场景
 
