@@ -76,21 +76,21 @@ export const providerCollection: any = {
 
     {
       type: 'input',
-      message: 'TENANT_ID',
-      name: 'TENANT_ID',
+      message: 'TenantID',
+      name: 'TenantID',
       default: '' // 默认值
     },
     {
       type: 'input',
-      message: 'CLIENT_ID',
-      name: 'CLIENT_ID',
+      message: 'ClentID',
+      name: 'ClentID',
       default: '' // 默认值
     },
 
     {
       type: 'input',
-      message: 'CLIENT_SECRET',
-      name: 'CLIENT_SECRET',
+      message: 'ClientSecret',
+      name: 'ClientSecret',
       default: '' // 默认值
     }
   ],
@@ -146,7 +146,7 @@ export const providerAccessFormat: any = {
   aws: ['AccessKeyID', 'SecretAccessKey'],
   baidu: ['AccessKeyID', 'SecretAccessKey'],
   huawei: ['AccessKeyID', 'SecretAccessKey'],
-  azure: ['KeyVaultName', 'TENANT_ID', 'CLIENT_ID', 'CLIENT_SECRET'],
+  azure: ['KeyVaultName', 'TenantID', 'ClientID', 'ClientSecret'],
   tencent: ['AccountID', 'SecretID', 'SecretKey'],
   google: ['PrivateKeyData']
 };
@@ -191,14 +191,14 @@ export function getInputData(program: any) {
   if (program.KeyVaultName) {
     inputSecretCheck['KeyVaultName'] = program.KeyVaultName;
   }
-  if (program.TENANT_ID) {
-    inputSecretCheck['TENANT_ID'] = program.TENANT_ID;
+  if (program.TenantID) {
+    inputSecretCheck['TenantID'] = program.TenantID;
   }
-  if (program.CLIENT_ID) {
-    inputSecretCheck['CLIENT_ID'] = program.CLIENT_ID;
+  if (program.ClientID) {
+    inputSecretCheck['ClientID'] = program.ClientID;
   }
-  if (program.CLIENT_SECRET) {
-    inputSecretCheck['CLIENT_SECRET'] = program.CLIENT_SECRET;
+  if (program.ClientSecret) {
+    inputSecretCheck['ClientSecret'] = program.ClientSecret;
   }
   if (program.PrivateKeyData) {
     inputSecretCheck['PrivateKeyData'] = program.PrivateKeyData;
