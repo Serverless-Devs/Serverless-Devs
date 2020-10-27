@@ -69,15 +69,28 @@ export const providerCollection: any = {
   azure: [
     {
       type: 'input',
-      message: 'KeyVault',
-      name: 'KeyVault',
+      message: 'KeyVaultName',
+      name: 'KeyVaultName',
       default: '' // 默认值
     },
 
     {
       type: 'input',
-      message: 'Secret',
-      name: 'Secret',
+      message: 'TENANT_ID',
+      name: 'TENANT_ID',
+      default: '' // 默认值
+    },
+    {
+      type: 'input',
+      message: 'CLIENT_ID',
+      name: 'CLIENT_ID',
+      default: '' // 默认值
+    },
+
+    {
+      type: 'input',
+      message: 'CLIENT_SECRET',
+      name: 'CLIENT_SECRET',
       default: '' // 默认值
     }
   ],
@@ -98,13 +111,6 @@ export const providerCollection: any = {
     }
   ],
   google: [
-    {
-      type: 'input',
-      message: 'AccountID',
-      name: 'AccountID',
-      default: '' // 默认值
-    },
-
     {
       type: 'input',
       message: 'PrivateKeyData',
@@ -140,9 +146,9 @@ export const providerAccessFormat: any = {
   aws: ['AccessKeyID', 'SecretAccessKey'],
   baidu: ['AccessKeyID', 'SecretAccessKey'],
   huawei: ['AccessKeyID', 'SecretAccessKey'],
-  azure: ['KeyVault', 'Secret'],
+  azure: ['KeyVaultName', 'TENANT_ID', 'CLIENT_ID', 'CLIENT_SECRET'],
   tencent: ['AccountID', 'SecretID', 'SecretKey'],
-  google: ['AccountID', 'PrivateKeyData']
+  google: ['PrivateKeyData']
 };
 
 export const checkProviderList: Array<any> = [
@@ -182,5 +188,21 @@ export function getInputData(program: any) {
   if (program.SecretAccessKey) {
     inputSecretCheck['SecretAccessKey'] = program.SecretAccessKey;
   }
+  if (program.KeyVaultName) {
+    inputSecretCheck['KeyVaultName'] = program.KeyVaultName;
+  }
+  if (program.TENANT_ID) {
+    inputSecretCheck['TENANT_ID'] = program.TENANT_ID;
+  }
+  if (program.CLIENT_ID) {
+    inputSecretCheck['CLIENT_ID'] = program.CLIENT_ID;
+  }
+  if (program.CLIENT_SECRET) {
+    inputSecretCheck['CLIENT_SECRET'] = program.CLIENT_SECRET;
+  }
+  if (program.PrivateKeyData) {
+    inputSecretCheck['PrivateKeyData'] = program.PrivateKeyData;
+  }
+
   return inputSecretCheck;
 }

@@ -26,8 +26,10 @@ program
   .option('--SecretID [name]', i18n.__('Configure the SecretID'))
   .option('--SecretKey [name]', i18n.__('Configure the SecretKey'))
   .option('--SecretAccessKey [name]', i18n.__('Configure the SecretAccessKey'))
-  .option('--KeyVault [name]', i18n.__('Configure the KeyVault'))
-  .option('--Secret [name]', i18n.__('Configure the Secret'))
+  .option('--KeyVaultName [name]', i18n.__('Configure the KeyVaultName'))
+  .option('--TENANT_ID [name]', i18n.__('Configure the TENANT_ID'))
+  .option('--CLIENT_ID [name]', i18n.__('Configure the CLIENT_ID'))
+  .option('--CLIENT_SECRET [name]', i18n.__('Configure the CLIENT_SECRET'))
   .option('--PrivateKeyData [name]', i18n.__('Configure the PrivateKeyData'))
   .description(description)
   .parse(process.argv);
