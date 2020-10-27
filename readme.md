@@ -146,7 +146,7 @@ Commands:
     * [Package汇总](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/Package汇总.md)
   * 应用中心版 awesome
     * [组件列表](https://github.com/Serverless-Devs/Components)
-    * [应用列表](https://github.com/Serverless-Devs/Application)
+    * [应用列表](https://github.com/Serverless-Devs/Applications)
     * [插件列表](https://github.com/Serverless-Devs/Plugin)
 * 其他文档
   * [Package概念](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Package相关/Package概念区分.md)
