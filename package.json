@@ -29,19 +29,6 @@
   "bin": {
     "s": "./bin/s"
   },
-  "pkg": {
-    "scripts": [
-      "./lib/**/*.js"
-    ],
-    "assets": [
-      "./bin",
-      "./lib/*/*.map",
-      "./lib/*/*.ts",
-      "./src/utils/locales/*.json",
-      "./templates",
-      "./configs"
-    ]
-  },
   "main": "",
   "typings": "",
   "scripts": {
