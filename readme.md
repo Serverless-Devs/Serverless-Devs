@@ -5,7 +5,8 @@
 
 
 <p align="center">
-  <span>像使用手机一样使用Serverless</span>
+  <span>像使用手机一样使用Serverless</span><br>
+  <span>中文文档 ｜ English(Not yet available)</span>
 </p>
 
 
@@ -123,40 +124,52 @@ Commands:
 
 ## 更多文档
 
-* [项目介绍](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Serverless-Devs介绍.md)
-* [快速入门](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/快速入门.md)
+> 您也可以直接访问我们的文档页面：
+> - 文档地址：[https://www.serverles-devs.com/docs/](https://www.serverles-devs.com/docs/)
+
+* [项目介绍](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/Serverless-Devs介绍.md)
+* [快速入门](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/快速入门.md)
 * 命令行工具
   * 入门文档
-    * [快速入门](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/快速开始.md)
-    * [安装文档](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/工具安装.md)
-    * [账号配置](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/密钥配置.md)
-    * [Yaml配置](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/Yaml格式规范.md)
+    * [快速入门](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/快速开始.md)
+    * [安装文档](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/工具安装.md)
+    * [账号配置](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/密钥配置.md)
+    * [Yaml配置](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/Yaml格式规范.md)
   * 指令文档
-    * [Config指令](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/指令相关/Config指令.md)
-    * [Init指令](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/指令相关/Init指令.md)
-    * [Search指令](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/指令相关/Search指令.md)
-    * [Set指令](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/指令相关/Set指令.md)
-    * [Platform指令](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/指令相关/Platform指令.md)
-    * [GUI指令](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/指令相关/Gui指令.md)
-    * [泛指令](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/指令相关/泛指令.md)
+    * [Config指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Config指令.md)
+    * [Init指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Init指令.md)
+    * [Search指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Search指令.md)
+    * [Set指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Set指令.md)
+    * [Platform指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Platform指令.md)
+    * [GUI指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Gui指令.md)
+    * [泛指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/泛指令.md)
 * 应用中心
   * 入门相关
-    * [快速入门](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/快速开始.md)
-    * [应用中心简介](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/Serverless-Devs-App-Store介绍.md)
-    * [Package汇总](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/Package汇总.md)
+    * [快速入门](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/快速开始.md)
+    * [应用中心简介](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/Serverless-Devs-App-Store介绍.md)
+    * [Package汇总](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/Package汇总.md)
   * 应用中心版 awesome
     * [组件列表](https://github.com/Serverless-Devs/Components)
     * [应用列表](https://github.com/Serverless-Devs/Applications)
     * [插件列表](https://github.com/Serverless-Devs/Plugins)
 * 其他文档
-  * [Package概念](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Package相关/Package概念区分.md)
-  * [Package开发指南](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Package相关/Package开发指南.md)
+  * [Package概念](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package概念区分.md)
+  * [Package开发指南](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package开发指南.md)
   * Package开发文档
-    * [Component开发](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Package相关/开发文档/Component开发.md) 
-    * [Application开发](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Package相关/开发文档/Application开发.md) 
-    * [Plugin开发](https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs/Package相关/开发文档/Plugin开发.md) 
+    * [Component开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Component开发.md) 
+    * [Application开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Application开发.md) 
+    * [Plugin开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Plugin开发.md) 
+  * 各云厂商密钥（凭证）获取方法
+    * [阿里云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/阿里云密钥获取.md)
+    * [百度云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/百度云密钥获取.md)
+    * [AWS](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/AWS密钥获取.md)
+    * [Azure](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/Azure密钥获取.md)
+    * [Google Cloud](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/GoogleCloud密钥获取.md)
+    * [华为云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/华为云密钥获取.md)
+    * [腾讯云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/腾讯云密钥获取.md)
 * 常见问答：
   * [常见问答](https://github.com/Serverless-Devs/docs/blob/master/faq.md)
+
 ## 联系我们
 
 <div align=center>
