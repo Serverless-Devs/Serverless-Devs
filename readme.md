@@ -125,7 +125,7 @@ Commands:
 ## 更多文档
 
 > 您也可以直接访问我们的文档页面：
-> - 文档地址：[https://www.serverles-devs.com/docs/](https://www.serverles-devs.com/docs/)
+> - 文档地址：[https://www.serverless-devs.com/docs/](https://www.serverless-devs.com/docs/)
 
 * [项目介绍](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/Serverless-Devs介绍.md)
 * [快速入门](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/快速入门.md)
