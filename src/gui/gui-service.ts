@@ -15,7 +15,7 @@ import i18n from '../utils/i18n';
 // eslint-disable-next-line no-unused-vars
 import { ProgressService, ProgressType, ProgressBarOptions } from '@serverless-devs/s-progress-bar';
 import { green } from 'colors';
-const S_CLIENT_VERSION_CHECK = 'http://app-store-client.serverlessfans.com/version.json';
+const S_CLIENT_VERSION_CHECK = 'https://app-store-client.serverlessfans.com/version.json';
 const S_GUI_BASE_PATH = path.join(os.homedir(), `.s/client`);
 
 export default class GUIService {

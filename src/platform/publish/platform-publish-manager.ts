@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as os from 'os';
 const Zip = require('adm-zip');
 
-const PUBLISH_PACKAGE_URL = 'http://tool.serverlessfans.com/api/package/put/object/url';
+const PUBLISH_PACKAGE_URL = 'https://tool.serverlessfans.com/api/package/put/object/url';
 
 export class PlatformPublishManager {
   async publish(user: string, content: string, readme: string) {
