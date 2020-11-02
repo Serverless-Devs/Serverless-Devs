@@ -149,9 +149,9 @@ Commands:
     * [应用中心简介](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/Serverless-Devs-App-Store介绍.md)
     * [Package汇总](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/Package汇总.md)
   * 应用中心版 awesome
-    * [组件列表](https://github.com/Serverless-Devs/Components)
-    * [应用列表](https://github.com/Serverless-Devs/Applications)
-    * [插件列表](https://github.com/Serverless-Devs/Plugins)
+    * [组件列表](https://github.com/Serverless-Devs-Awesome/Components)
+    * [应用列表](https://github.com/Serverless-Devs-Awesome/Applications)
+    * [插件列表](https://github.com/Serverless-Devs-Awesome/Plugins)
 * 其他文档
   * [Package概念](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package概念区分.md)
   * [Package开发指南](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package开发指南.md)
