@@ -19,7 +19,7 @@ export class Parse {
   protected globalJsonKeyMap: any = {};
   protected globalKeyArr: any[] = [];
   protected magicVariablesArray: any[] = [];
-  private globalJsonKeyMparentKeyap: any;
+  // private globalJsonKeyMparentKeyap: any;
   constructor(protected path: string) {
     if (fs.existsSync(path)) {
       try {
@@ -56,7 +56,7 @@ export class Parse {
     const { variableName, type, funName, funVariable } = variableObj;
     let result = '';
     if (type === 'Literal') {
-      return this.globalJsonKeyMparentKeyap[variableName] || '${' + variableName + '}';
+      return this.globalJsonKeyMap[variableName] || '${' + variableName + '}';
     }
     if (type === 'Fun' && funName === 'Env') {
       return process.env[funVariable];

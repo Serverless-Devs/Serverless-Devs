@@ -117,7 +117,6 @@ export default class GUIService {
           const appInfo = this.getGuiAppInfo(osType);
           await this.setVersion(data[0]['version']);
           this.open(appInfo);
-
           fs.unlinkSync(tmpZipFile);
         } catch (e) {
           logger.error(e.message);
