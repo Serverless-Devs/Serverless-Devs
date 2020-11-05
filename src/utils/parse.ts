@@ -10,7 +10,7 @@ const COMMON_VARIABLE_TYPE_REG = new RegExp(/\$\{(.*)\}/, 'i');
 const SPECIALL_VARIABLE_TYPE_REG = new RegExp(/(.*)\((.*)\)/, 'i');
 
 const OTHER_BASIC_DATA_TYPE = ['[object Number]', '[object Boolean]'];
-const BASIC_DATA_TYPE = ['string', 'number', 'boolean'];
+// const BASIC_DATA_TYPE = ['string', 'number', 'boolean'];
 // parse file get variables
 // find variables value
 export class Parse {
@@ -52,6 +52,7 @@ export class Parse {
   getOriginalParsedObj() {
     return this.parsedObj;
   }
+
   private findVariableValue(variableObj: any) {
     const { variableName, type, funName, funVariable } = variableObj;
     let result = '';
@@ -76,13 +77,13 @@ export class Parse {
         let objValue = value[key];
         arr.push(showKey);
         arr.concat(this.generateMagicVariables(objValue, arr, `${showKey}`));
-        try {
-          if (!BASIC_DATA_TYPE.includes(typeof objValue)) {
-            objValue = JSON.stringify(objValue);
-          }
-        } catch (e) {
-          objValue = objValue.toString();
-        }
+        // try {
+        //   if (!BASIC_DATA_TYPE.includes(typeof objValue)) {
+        //     objValue = JSON.stringify(objValue);
+        //   }
+        // } catch (e) {
+        //   objValue = objValue.toString();
+        // }
         this.globalJsonKeyMap[showKey] = objValue;
       });
     } else if (Object.prototype.toString.call(value) === '[object Array]') {
@@ -93,13 +94,13 @@ export class Parse {
         arr.push(showKeyNe);
         arr.concat(this.generateMagicVariables(_arrValue, arr, `${showKey}`));
         arr.concat(this.generateMagicVariables(_arrValue, arr, `${showKeyNe}`));
-        try {
-          if (typeof _arrValue !== 'string') {
-            _arrValue = JSON.stringify(_arrValue);
-          }
-        } catch (e) {
-          _arrValue = _arrValue.toString();
-        }
+        // try {
+        //   if (typeof _arrValue !== 'string') {
+        //     _arrValue = JSON.stringify(_arrValue);
+        //   }
+        // } catch (e) {
+        //   _arrValue = _arrValue.toString();
+        // }
         this.globalJsonKeyMap[showKey] = _arrValue;
         this.globalJsonKeyMap[showKeyNe] = _arrValue;
       });
@@ -108,6 +109,7 @@ export class Parse {
     }
     return arr;
   }
+
   isProjectProperties(topKey: string, parentKey: any) {
     let projProperties = false;
     if (parentKey === 'Properties' && this.globalJsonKeyMap[`${topKey}.${parentKey}`]) {
@@ -117,6 +119,7 @@ export class Parse {
   }
 
   iteratorToSetValue(objValue: any, topKey: string, parentKey?: any) {
+    console.log(objValue);
     if (OTHER_BASIC_DATA_TYPE.includes(Object.prototype.toString.call(objValue))) {
       return objValue;
     }
