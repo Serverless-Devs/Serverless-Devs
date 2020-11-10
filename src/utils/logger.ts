@@ -1,7 +1,7 @@
-import { ServerlessError } from '../error/serverless-error';
-import i18n from '../utils/i18n';
+import { ServerlessError } from "../error/serverless-error";
+import i18n from "../utils/i18n";
 
-const colors = require('colors');
+const colors = require("colors");
 const { red, white, gray, cyan, yellow, green } = colors;
 
 // 输出信息颜色启用或关闭
@@ -10,13 +10,14 @@ export const colorSwitch = (flag: boolean) => {
 
   if (flag) {
     colors.enable();
-  } else {
+  }
+ else {
     colors.disable();
   }
 };
 
-if (typeof process.env.COLORFLAG === 'string') {
-  colorSwitch(process.env.COLORFLAG === 'true');
+if (typeof process.env.COLORFLAG === "string") {
+  colorSwitch(process.env.COLORFLAG === "true");
 }
 /*
   debug 只有 debug 模式才可以输出
@@ -24,7 +25,7 @@ if (typeof process.env.COLORFLAG === 'string') {
 */
 // 框架信息输出 白色
 export const log = (...message: any) => {
-  for (let m of message) {
+  for (const m of message) {
     console.log(white(i18n.__(m)));
   }
 };
@@ -36,13 +37,15 @@ export const debug = (...message: any) => {
 };
 // 错误输出 红色
 export const error = (...message: any) => {
-  for (let m of message) {
-    if (typeof m === 'string' || m instanceof String) {
+  for (const m of message) {
+    if (typeof m === "string" || m instanceof String) {
       console.log(red(i18n.__(m)));
-    } else if (m instanceof ServerlessError) {
-      //already i18n for serverless error
+    }
+ else if (m instanceof ServerlessError) {
+      // already i18n for serverless error
       console.log(red(m));
-    } else if (m instanceof Error) {
+    }
+ else if (m instanceof Error) {
       console.log(red(i18n.__(m.message)));
     }
   }
@@ -62,23 +65,29 @@ export const error = (...message: any) => {
 };
 // 提醒信息 蓝色
 export const info = (...message: any) => {
-  for (let m of message) {
+  for (const m of message) {
     console.log(cyan(i18n.__(m)));
   }
 };
 // 警告信息 黄色
 export const warning = (...message: any) => {
-  for (let m of message) {
+  for (const m of message) {
     console.log(yellow(i18n.__(m)));
   }
 };
 // 成功信息 绿色
 export const success = (...message: any) => {
-  for (let m of message) {
+  for (const m of message) {
     console.log(green(i18n.__(m)));
   }
 };
 
 export default {
-  info, debug, error, log, warning, success, colorSwitch
+  info,
+  debug,
+  error,
+  log,
+  warning,
+  success,
+  colorSwitch,
 };

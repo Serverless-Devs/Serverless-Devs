@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../lib/set/output-color');
+require("../lib/set/output-color");

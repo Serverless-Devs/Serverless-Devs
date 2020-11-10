@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../lib/search/search');
+require("../lib/search/search");

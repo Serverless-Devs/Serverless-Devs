@@ -1,31 +1,32 @@
-const path = require('path');
-const fs = require('fs');
+import { handlerProfileFile } from "./handler-set-config";
 
-
+const path = require("path");
+const fs = require("fs");
 
 export function checkAndReturnTemplateFile() {
   const currentDir = process.cwd();
-  const index = process.argv.indexOf('-t') || process.argv.indexOf('--template');
+  const index = process.argv.indexOf("-t") || process.argv.indexOf("--template");
   if (index !== -1) {
     const tempFileIndex = index + 1;
     const tempFileName = process.argv[tempFileIndex];
     if (tempFileName) {
-      if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml')) {
+      if (tempFileName.endsWith(".yaml") || tempFileName.endsWith(".yml")) {
         if (fs.existsSync(path.join(currentDir, tempFileName))) {
           process.argv.splice(index, 2);
           return path.join(currentDir, tempFileName);
-        } else if (fs.existsSync(tempFileName)) {
+        }
+ else if (fs.existsSync(tempFileName)) {
           process.argv.splice(index, 2);
           return tempFileName;
         }
       }
     }
   }
-  if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
-    return path.join(currentDir, 'template.yaml');
+  if (fs.existsSync(path.join(currentDir, "template.yaml"))) {
+    return path.join(currentDir, "template.yaml");
   }
-  if (fs.existsSync(path.join(currentDir, 'template.yml'))) {
-    return path.join(currentDir, 'template.yml');
+  if (fs.existsSync(path.join(currentDir, "template.yml"))) {
+    return path.join(currentDir, "template.yml");
   }
   return null;
 }
@@ -37,11 +38,19 @@ export function checkTemplateFile(templateFile: string) {
   return null;
 }
 
-
-export function printn(n: number, str = ' ') {
-  let temp_str = '';
-  for (let i = 0;i < n;i++) {
+export function printn(n: number, str = " ") {
+  let temp_str = "";
+  for (let i = 0; i < n; i++) {
     temp_str = temp_str + str;
   }
   return temp_str;
+}
+
+export async function getLang() {
+  try {
+    return (await handlerProfileFile({ read: true, filePath: "set-config.yml" })).locale || "en";
+  }
+ catch (e) {
+    return "en";
+  }
 }

@@ -1,4 +1,3 @@
-'use strict';
 /*
 To enable the initializer feature (https://help.aliyun.com/document_detail/156876.html)
 please implement the initializer function as below：
@@ -8,6 +7,6 @@ exports.initializer = (context, callback) => {
 };
 */
 exports.handler = (event, context, callback) => {
-  console.log('hello world');
-  callback(null, 'hello world');
+  console.log("hello world");
+  callback(null, "hello world");
 };

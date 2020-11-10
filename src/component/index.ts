@@ -1,29 +1,28 @@
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
-const util = require('util');
-const inquirer = require('inquirer');
-const exec = util.promisify(require('child_process').exec);
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import axios from 'axios';
-import i18n from '../utils/i18n';
-import { DownloadManager } from '../utils/download-manager';
-import { GetManager } from '../config/get/get-manager';
-import { AddManager } from '../config/add/add-manager';
-import * as logger from '../utils/logger';
-import { PackageType } from '../utils/package-type';
-import { Hook } from './hook';
-// eslint-disable-next-line no-unused-vars
-import { Parse } from '../utils/parse';
-import { ConfigError } from '../error/config-error';
-import { SERVERLESS_CHECK_COMPONENT_VERSION } from '../constants/static-variable';
-const S_COMPONENT_BASE_PATH = path.join(os.homedir(), `.s/components`);
+const fs = require("fs");
+const path = require("path");
+const os = require("os");
+const util = require("util");
+const inquirer = require("inquirer");
 
+import axios from "axios";
+import i18n from "../utils/i18n";
+import { DownloadManager } from "../utils/download-manager";
+import { GetManager } from "../config/get/get-manager";
+import { AddManager } from "../config/add/add-manager";
+import * as logger from "../utils/logger";
+import { PackageType } from "../utils/package-type";
+import { Hook } from "./hook";
+// eslint-disable-next-line no-unused-vars
+import { Parse } from "../utils/parse";
+import { ConfigError } from "../error/config-error";
+import { SERVERLESS_CHECK_COMPONENT_VERSION } from "../constants/static-variable";
+
+const S_COMPONENT_BASE_PATH = path.join(os.homedir(), `.s/components`);
+const exec = util.promisify(require("child_process").exec);
 const TYPE_MAP = {
-  [PackageType.component]: 'Component',
-  [PackageType.plugin]: 'Plugin',
-  [PackageType.application]: 'Application'
+  [PackageType.component]: "Component",
+  [PackageType.plugin]: "Plugin",
+  [PackageType.application]: "Application"
 };
 export interface ComponentConfig {
   Component: string;
@@ -41,7 +40,7 @@ export interface VersionCheckParams {
 }
 
 export interface GenerateComponentExeParams {
-  list: Array<string>;
+  list: string[];
   parse: Parse;
   parsedObj: any;
   method: string;
@@ -73,27 +72,29 @@ export function generateSynchronizeComponentExeList(
     projectName: string,
     parsedObj: any
   ) => Promise<ComponentConfig>
-): Array<any> {
+): any[] {
   return list.map((projectName) => {
     return () => {
       return new Promise(async (resolve, reject) => {
         try {
-          parsedObj.Params = params || '';
-          logger.info(i18n.__(`Start executing project {{projectName}}`, { projectName: projectName }));
+          parsedObj.Params = params || "";
+          logger.info(i18n.__(`Start executing project {{projectName}}`, { projectName }));
           const projectConfig = await equipment(parse, projectName, parsedObj);
           const componentExecute = new ComponentExeCute(projectConfig, method);
           const Output = await componentExecute.init();
           parsedObj[projectName].Output = Output;
-          logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, { projectName: projectName }));
+          logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, { projectName }));
           resolve({ name: projectName, data: Output });
-        } catch (e) {
-          if (String(e).indexOf('method does not exist') !== -1) {
-            logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, { projectName: projectName, method: method }));
+        }
+ catch (e) {
+          if (String(e).indexOf("method does not exist") !== -1) {
+            logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, { projectName, method }));
             resolve({});
-          } else {
+          }
+ else {
             logger.error(e);
-            logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName: projectName }));
-            resolve({ name: projectName, data: '' });
+            logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName }));
+            resolve({ name: projectName, data: "" });
           }
         }
       });
@@ -111,17 +112,17 @@ export class ComponentExeCute {
     if (!fs.existsSync(S_COMPONENT_BASE_PATH)) {
       fs.mkdirSync(S_COMPONENT_BASE_PATH);
     }
-    let { Component: name } = this.componentConfig;
+    const { Component: name } = this.componentConfig;
     this.componentPath = path.join(S_COMPONENT_BASE_PATH, `/${name}`);
     this.isPackageProject = fs.existsSync(
-      path.join(this.componentPath, '/package.json')
+      path.join(this.componentPath, "/package.json")
     );
   }
 
   async init() {
     let { Component: name, Provider } = this.componentConfig;
 
-    const providerOnlyPrefix = Provider.split('.')[0];
+    const providerOnlyPrefix = Provider.split(".")[0];
     let credentials = await this.getCredentials();
 
     if (!credentials) {
@@ -132,20 +133,23 @@ export class ComponentExeCute {
     // 将密钥缓存到临时环境变量中
     try {
       process.env.temp_credentials = JSON.stringify(this.credentials);
-    } catch (e) {}
+    }
+ catch (e) {}
 
     let version;
     if (await fs.existsSync(name)) {
       this.componentPath = name;
-    } else {
-      if (name.indexOf('@') !== -1) {
-        const temp = name.split('@');
+    }
+ else {
+      if (name.indexOf("@") !== -1) {
+        const temp = name.split("@");
         name = temp[0];
         version = temp[1];
         if (!(name && version)) {
-          throw new Error('Could not get component name and version, please check you component content.');
+          throw new Error("Could not get component name and version, please check you component content.");
         }
-      } else {
+      }
+ else {
         version = await this.getRemoteComponentVersion({
           name,
           provider: providerOnlyPrefix,
@@ -155,7 +159,7 @@ export class ComponentExeCute {
       // 判断组件是否已存在
       const tempPath = path.join(S_COMPONENT_BASE_PATH, `/${name}-${providerOnlyPrefix}@${version}`);
       if (!(await fs.existsSync(tempPath))) {
-        logger.info(i18n.__(`No component {{name}}-{{provider}}@{{version}} is found, it will be downloaded soon, this may take a few minutes......`, { name: name, version: version, provider: providerOnlyPrefix }));
+        logger.info(i18n.__(`No component {{name}}-{{provider}}@{{version}} is found, it will be downloaded soon, this may take a few minutes......`, { name, version, provider: providerOnlyPrefix }));
         await this.downLoadAndUnCompressComponentV2(PackageType.component, name, providerOnlyPrefix, version);
       }
       this.componentPath = tempPath;
@@ -165,73 +169,75 @@ export class ComponentExeCute {
 
   async getCredentials() {
     const { Provider, Access } = this.componentConfig;
-    const configUserInput = { 'Provider': Provider, 'AliasName': Access };
+    const configUserInput = { Provider, AliasName: Access };
     const getManager = new GetManager();
     await getManager.initAccessData(configUserInput);
     const providerMap: {
       [key: string]: any;
     } = await getManager.getUserSecretID(configUserInput);
-    const accessData = Provider && Access ? providerMap : providerMap[`${Provider}.${Access || 'default'}`];
+    const accessData = Provider && Access ? providerMap : providerMap[`${Provider}.${Access || "default"}`];
     if (accessData) {
       return accessData;
     }
     if (!Access) {
 
       // 2020-9-24 循环调用可能出现循环卡死
-      if (process.env['next-command-execute-flag'] === 'true') {
+      if (process.env["next-command-execute-flag"] === "true") {
         try {
           // 使用现有的缓存密钥
-          return JSON.parse(process.env.temp_credentials || 'error');
-        } catch (e) {
+          return JSON.parse(process.env.temp_credentials || "error");
+        }
+ catch (e) {
           // 抛出错误
-          throw new ConfigError('Calling @serverless-devs/s tools in Extends requires configuring Access in Yaml.');
+          throw new ConfigError("Calling @serverless-devs/s tools in Extends requires configuring Access in Yaml.");
         }
       }
 
-      logger.warning('\n');
-      logger.warning('  You can configure the specified key in yaml. For example:');
+      logger.warning("\n");
+      logger.warning("  You can configure the specified key in yaml. For example:");
       logger.warning(`\n  ${this.componentConfig.ProjectName}`);
       logger.warning(`    Component: ${this.componentConfig.Component}`);
       logger.warning(`    Provider: ${Provider}`);
-      logger.warning('    Access: Fill in the specified key here');
-      logger.warning('\n');
-      let result = '';
+      logger.warning("    Access: Fill in the specified key here");
+      logger.warning("\n");
+      let result = "";
       const selectObject = [];
       Object.keys(providerMap).forEach(item => {
         const temp = {
-          name: item.startsWith('project') ? `${item.replace('project.', 'project: ')}` : `${item.replace(Provider + '.', Provider + ': ')}`,
+          name: item.startsWith("project") ? `${item.replace("project.", "project: ")}` : `${item.replace(Provider + ".", Provider + ": ")}`,
           value: item
         };
         if (Provider) {
-          if (item.startsWith(Provider) || item.startsWith('project')) {
+          if (item.startsWith(Provider) || item.startsWith("project")) {
             selectObject.push(temp);
           }
-        } else {
+        }
+ else {
           selectObject.push(temp);
         }
       });
 
-      selectObject.push({ name: 'Create a new account', value: 'create' });
+      selectObject.push({ name: "Create a new account", value: "create" });
       await inquirer
         .prompt([
           {
-            type: 'list',
-            name: 'access',
-            message: i18n.__('Please select an access:'),
+            type: "list",
+            name: "access",
+            message: i18n.__("Please select an access:"),
             choices: selectObject
           }
         ])
         .then((answers: any) => {
           result = answers.access;
         });
-      if (result === 'create') {
+      if (result === "create") {
         return undefined;
       }
       return providerMap[result];
 
     }
     // 没找到密钥信息
-    throw new ConfigError('Failed to get the specified key: {{access}}', {
+    throw new ConfigError("Failed to get the specified key: {{access}}", {
       access: Access
     });
 
@@ -242,7 +248,7 @@ export class ComponentExeCute {
     const result = await addManager.inputLengthZero(provider);
 
     // 2020-9-23 修复部署过程中增加密钥信息，无法存储到系统的bug
-    const inputProviderAlias = `${provider}.${addManager.aliasName || 'default'}`;
+    const inputProviderAlias = `${provider}.${addManager.aliasName || "default"}`;
     addManager.inputFullData[inputProviderAlias] = result;
     addManager.writeData(addManager.globalFilePath, addManager.inputFullData);
 
@@ -270,10 +276,12 @@ export class ComponentExeCute {
       });
       if (result.data && result.data.Response && result.data.Response.Version) {
         version = result.data.Response.Version;
-      } else {
-        throw new Error('Please Check the provider and component');
       }
-    } catch (e) {
+ else {
+        throw new Error("Please Check the provider and component");
+      }
+    }
+ catch (e) {
       logger.error(e.message);
     }
     return version;
@@ -292,15 +300,16 @@ export class ComponentExeCute {
   private async preLoadNodeModules() {
     if (
       this.isPackageProject &&
-      !fs.existsSync(path.join(this.componentPath, 'node_modules'))
+      !fs.existsSync(path.join(this.componentPath, "node_modules"))
     ) {
-      logger.info('npm install');
-      const { stdout, stderr } = await exec('npm install', {
+      logger.info("npm install");
+      const { stdout, stderr } = await exec("npm install", {
         cwd: this.componentPath
       });
       if (stderr) {
         logger.error(stderr);
-      } else {
+      }
+ else {
         logger.info(stdout);
       }
     }
@@ -378,7 +387,8 @@ export class ComponentExeCute {
         const componentInstance = new ComponentClass();
         const result = await componentInstance[method](data);
         resolve(result);
-      } catch (e) {
+      }
+ catch (e) {
         reject(new Error(e.message));
       }
     });
@@ -394,20 +404,20 @@ export class ComponentExeCute {
       Component,
       ProjectName
     } = this.componentConfig;
-    
+
     const inputs = {
       Properties,
       Credentials: this.credentials,
       Project: {
         ProjectName,
         Component,
-        Provider: Provider,
-        AccessAlias: Access || ''
+        Provider,
+        AccessAlias: Access || ""
       },
       Command: this.method,
-      Args: Params || '',
+      Args: Params || "",
       Path: {
-        ConfigPath: process.env.templateFile || ''
+        ConfigPath: process.env.templateFile || ""
       }
     };
     const ComponentClass = await this.loadComponent();
@@ -422,9 +432,7 @@ export class ComponentExeCute {
 
   async startExecute(): Promise<any> {
     let outData = {};
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const extend = process.env['skip-extends'] === 'true' ? null : await this.loadExtends();
+    const extend = process.env["skip-extends"] === "true" ? null : await this.loadExtends();
     await this.loadPreExtends(extend);
     outData = await this.executeCommand();
     await this.loadAfterExtend(extend);

@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../lib/platform/delete');
+require("../lib/platform/delete");

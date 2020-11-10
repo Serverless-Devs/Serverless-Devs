@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../lib/platform/publish');
+require("../lib/platform/publish");

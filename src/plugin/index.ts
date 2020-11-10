@@ -1,17 +1,16 @@
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
-import axios from 'axios';
-import { DownloadManager } from '../utils/download-manager';
-import * as logger from '../utils/logger';
-import { PackageType } from '../utils/package-type';
+const fs = require("fs");
+const path = require("path");
+const os = require("os");
+import axios from "axios";
+import { DownloadManager } from "../utils/download-manager";
+import * as logger from "../utils/logger";
+import { PackageType } from "../utils/package-type";
 const S_PLUGIN_BASE_PATH = path.join(os.homedir(), `.s/plugins`);
-const BASE_API_URL = 'https://tool.serverlessfans.com/api';
-const CHECK_VERSION_URL = '/package/object/version';
+import { SERVERLESS_CHECK_VERSION_URL } from "../constants/static-variable";
 const TYPE_MAP: { [key: number]: string } = {
-  [PackageType.component]: 'Component',
-  [PackageType.plugin]: 'Plugin',
-  [PackageType.application]: 'Application'
+  [PackageType.component]: "Component",
+  [PackageType.plugin]: "Plugin",
+  [PackageType.application]: "Application"
 };
 export interface PluginConifg {
   name: string
@@ -32,7 +31,8 @@ export class PluginExeCute {
 
     if (!this.pluginExist()) {
       await this.downLoadPlugin(PackageType.plugin, name);
-    } else {
+    }
+ else {
       const localVersion = this.getLocalComponentVersion();
       const remoteVersion = await this.getRemotePluginVersion({ name, type: PackageType.plugin });
       const isSameVersion = this.checkVersion(localVersion, remoteVersion);
@@ -45,21 +45,21 @@ export class PluginExeCute {
     return fs.existsSync(this.pluginPath);
   }
   async getRemotePluginVersion({ name, type }: { name: string, type: PackageType }) {
-    const url = `${BASE_API_URL}${CHECK_VERSION_URL}`;
-
     let version = null;
     try {
-      const result: any = await axios.get(url, {
+      const result: any = await axios.get(SERVERLESS_CHECK_VERSION_URL, {
         params: {
           name, type: TYPE_MAP[type]
         }
       });
       if (result.data && result.data.Response && result.data.Response.Version) {
         version = result.data.Response.Version;
-      } else {
+      }
+ else {
         // throw new Error("Please Check the plugin name");
       }
-    } catch (e) {
+    }
+ catch (e) {
       logger.error(e.message);
     }
     return version;

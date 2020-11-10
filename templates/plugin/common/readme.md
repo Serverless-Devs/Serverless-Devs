@@ -96,7 +96,7 @@ export function plugin(inputs) {
 
 这里要额外注意参数格式：
 
-```json
+```
 {
     "Command": "deploy", // 用户使用的方法名称
     "Project": {

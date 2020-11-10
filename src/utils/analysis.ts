@@ -20,7 +20,7 @@ export class Analysis {
   }
   getProjectOrder() {
 
-    const componentKeys = Object.keys(this.dependenciesMap).filter(key => key !== 'Global');
+    const componentKeys = Object.keys(this.dependenciesMap).filter(key => key !== "Global");
     this.getComponentOrderKeyMap(componentKeys); //
     this.calculateOrderNumber(componentKeys);
     const projectArray = Object.keys(this.componentOrderKeyMap).map((key) => {

@@ -1,10 +1,8 @@
-const express = require('express');
-const { execSync } = require('child_process');
-import logger from './logger';
+const express = require("express");
+const { execSync } = require("child_process");
+import logger from "./logger";
 
-interface Callback {
-  (app: any): void
-}
+type Callback = (app: any) => void;
 
 interface StartServiceData {
   port?: number,
@@ -41,17 +39,18 @@ export default class StartService {
       logger.log(uri);
 
       if (this.context.openBrowser) {
-        const startInstruction = process.platform === 'win32' ? 'start' : 'open';
+        const startInstruction = process.platform === "win32" ? "start" : "open";
         execSync(`${startInstruction} ${uri}`);
       }
     });
 
-    this.server.on('error', (e: any) => {
-      if (e.code === 'EADDRINUSE') {
+    this.server.on("error", (e: any) => {
+      if (e.code === "EADDRINUSE") {
         if (this.counter < 5) {
           this.port = this.randomNum();
           this.listen();
-        } else {
+        }
+ else {
           logger.error(e);
         }
       }

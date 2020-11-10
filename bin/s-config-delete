@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../lib/config/delete');
+require("../lib/config/delete");
