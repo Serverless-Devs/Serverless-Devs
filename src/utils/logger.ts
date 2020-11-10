@@ -1,8 +1,10 @@
-import { ServerlessError } from "../error/serverless-error";
-import i18n from "../utils/i18n";
+/** @format */
 
-const colors = require("colors");
-const { red, white, gray, cyan, yellow, green } = colors;
+import {ServerlessError} from '../error/serverless-error';
+import i18n from '../utils/i18n';
+
+const colors = require('colors');
+const {red, white, gray, cyan, yellow, green} = colors;
 
 // 输出信息颜色启用或关闭
 export const colorSwitch = (flag: boolean) => {
@@ -10,14 +12,13 @@ export const colorSwitch = (flag: boolean) => {
 
   if (flag) {
     colors.enable();
-  }
- else {
+  } else {
     colors.disable();
   }
 };
 
-if (typeof process.env.COLORFLAG === "string") {
-  colorSwitch(process.env.COLORFLAG === "true");
+if (typeof process.env.COLORFLAG === 'string') {
+  colorSwitch(process.env.COLORFLAG === 'true');
 }
 /*
   debug 只有 debug 模式才可以输出
@@ -38,14 +39,12 @@ export const debug = (...message: any) => {
 // 错误输出 红色
 export const error = (...message: any) => {
   for (const m of message) {
-    if (typeof m === "string" || m instanceof String) {
+    if (typeof m === 'string' || m instanceof String) {
       console.log(red(i18n.__(m)));
-    }
- else if (m instanceof ServerlessError) {
+    } else if (m instanceof ServerlessError) {
       // already i18n for serverless error
       console.log(red(m));
-    }
- else if (m instanceof Error) {
+    } else if (m instanceof Error) {
       console.log(red(i18n.__(m.message)));
     }
   }

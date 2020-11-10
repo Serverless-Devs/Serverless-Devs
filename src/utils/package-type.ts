@@ -1,3 +1,7 @@
+/** @format */
+
 export enum PackageType {
-    application, component, plugin
+  application,
+  component,
+  plugin,
 }

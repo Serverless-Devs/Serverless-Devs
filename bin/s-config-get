@@ -1,3 +1,2 @@
 #!/usr/bin/env node
-
-require("../lib/config/get");
+require('../lib/config/get');

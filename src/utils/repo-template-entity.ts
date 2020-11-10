@@ -1,3 +1,5 @@
+/** @format */
+
 export interface RepoTemplate {
   zipFile: string;
   subPath?: string;

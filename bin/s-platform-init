@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require("../lib/platform/init");
+require('../lib/platform/init');

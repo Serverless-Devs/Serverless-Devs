@@ -1,7 +1,8 @@
+/** @format */
+
 export class Analysis {
-  protected componentOrderKeyMap: { [key: string]: any } = {};
-  constructor(protected readonly parsedObj: any, protected readonly dependenciesMap: any) {
-  }
+  protected componentOrderKeyMap: {[key: string]: any} = {};
+  constructor(protected readonly parsedObj: any, protected readonly dependenciesMap: any) {}
   private getComponentOrderKeyMap(projKeys: string[]) {
     projKeys.forEach((key: string) => {
       this.componentOrderKeyMap[key] = 1;
@@ -19,18 +20,16 @@ export class Analysis {
     });
   }
   getProjectOrder() {
-
-    const componentKeys = Object.keys(this.dependenciesMap).filter(key => key !== "Global");
+    const componentKeys = Object.keys(this.dependenciesMap).filter(key => key !== 'Global');
     this.getComponentOrderKeyMap(componentKeys); //
     this.calculateOrderNumber(componentKeys);
-    const projectArray = Object.keys(this.componentOrderKeyMap).map((key) => {
-      return { name: key, order: this.componentOrderKeyMap[key] };
+    const projectArray = Object.keys(this.componentOrderKeyMap).map(key => {
+      return {name: key, order: this.componentOrderKeyMap[key]};
     });
-    return projectArray.sort((item1, item2) => {
-      return item2.order - item1.order;
-    }).map((item) => item.name);
-
+    return projectArray
+      .sort((item1, item2) => {
+        return item2.order - item1.order;
+      })
+      .map(item => item.name);
   }
 }
-
-

@@ -1,4 +1,6 @@
-const { Component } = require("@serverless-devs/s-core");
+/** @format */
+
+const {Component} = require('@serverless-devs/s-core');
 class MyComponent extends Component {
   async test(inputs) {
     // 输入的inputs参数结构
@@ -9,7 +11,7 @@ class MyComponent extends Component {
 
     // 返回结果
     return {
-      Result: "hello world",
+      Result: 'hello world',
       Args: tempArgs,
     };
   }

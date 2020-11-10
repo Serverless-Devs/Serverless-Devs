@@ -1,3 +1,5 @@
+/** @format */
+
 export function plugin(inputs) {
   // 输入的参数信息
   console.log(JSON.stringify(inputs));

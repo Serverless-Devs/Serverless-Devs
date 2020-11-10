@@ -1,3 +1,5 @@
+/** @format */
+
 export interface CommandType {
   type: string;
   message: string;

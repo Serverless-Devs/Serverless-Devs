@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require("../lib/platform/login");
+require('../lib/platform/login');

@@ -1,6 +1,8 @@
-import logger from "../utils/logger";
+/** @format */
 
-const i18n = require("i18n");
+import logger from '../utils/logger';
+
+const i18n = require('i18n');
 
 // export class ServerlessError extends Error {
 //     constructor(phase: string, message: string, params?: any) {
@@ -11,7 +13,7 @@ const i18n = require("i18n");
 
 export class ServerlessError {
   constructor(phase: string, message: string, params?: any) {
-    logger.error(i18n.__(phase) + ": " + i18n.__(message, params));
+    logger.error(i18n.__(phase) + ': ' + i18n.__(message, params));
     process.exit(-1);
   }
 }

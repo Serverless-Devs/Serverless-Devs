@@ -223,6 +223,7 @@
   "    Update information:": "    升级信息：",
   "Init project through GUI service": "通过GUI进行项目初始化",
   "You could get a project from Serverless Devs App Store. Like:": "您可以通过Serverless Devs应用中心获取一个项目。例如：",
-  "Package type [Component/Plugin/Application]": "包类型 [Component/Plugin/Application]"
+  "Package type [Component/Plugin/Application]": "包类型 [Component/Plugin/Application]",
+  "Skip the extends section": "跳过Extends部分"
 
 }
