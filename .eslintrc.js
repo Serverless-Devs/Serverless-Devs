@@ -5,7 +5,7 @@ module.exports = {
   extends: ['plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', 'plugin:prettier/recommended'],
   plugins: ['@typescript-eslint'],
   rules: {
-    'linebreak-style': [2, 'unix'],
+    'linebreak-style': ['error', 'unix'],
     indent: ['error', 2],
     quotes: [2, 'single', {allowTemplateLiterals: true}],
     semi: [2, 'always'],

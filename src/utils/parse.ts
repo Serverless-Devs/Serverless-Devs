@@ -164,7 +164,7 @@ export class Parse {
       return objValue;
     }
   }
-  replaceVariable(variable: MAP_OBJECT) {
+  replaceVariable(variable: any | MAP_OBJECT) {
     Object.keys(variable).forEach(key => {
       const objValue = variable[key];
       variable[key] = this.iteratorToSetValue(objValue, key);

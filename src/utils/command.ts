@@ -37,7 +37,9 @@ export async function getCommandDetail(name: any, provider: any, version: any): 
 export async function getParsedTemplateObj(templateFile: any) {
   const parse = new Parse(templateFile);
   const parsedObj = parse.getOriginalParsedObj();
-  return await parse.getRealVariables(parsedObj);
+  const result = await parse.getRealVariables(parsedObj);
+  return result;
+  // return await parse.getRealVariables(parsedObj);
 }
 
 export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
