@@ -123,7 +123,7 @@ export class Parse {
   }
 
   iteratorToSetValue(objValue: any, topKey: string, parentKey?: any) {
-    console.log(objValue);
+    // console.log(objValue);
     if (OTHER_BASIC_DATA_TYPE.includes(Object.prototype.toString.call(objValue))) {
       return objValue;
     }
