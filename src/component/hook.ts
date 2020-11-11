@@ -3,7 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
-const i18n = require('../utils/i18n');
 
 import {PluginExeCute} from '../plugin';
 import * as logger from '../utils/logger';
@@ -16,9 +15,11 @@ export interface HookConfig {
   Hook?: string;
   Path?: string;
 }
+
 export class Hook {
   preHooks: HookConfig[] = [];
   afterHooks: HookConfig[] = [];
+
   constructor(extendsParams: HookConfig[] = []) {
     extendsParams.forEach((_extend: HookConfig) => {
       if (_extend.Pre) {
@@ -31,7 +32,7 @@ export class Hook {
 
   async executePreHook() {
     if (this.preHooks.length > 0) {
-      logger.info(i18n.__('Start the pre-hook'));
+      logger.info('Start the pre-hook');
       for (let i = 0; i < this.preHooks.length; i++) {
         logger.info(`[Hook / Plugin] ${this.preHooks[i].Hook || this.preHooks[i].Plugin}`);
         try {
@@ -40,13 +41,13 @@ export class Hook {
           logger.error(`[Hook / Plugin] [Error]: ${ex.stdout || ex.stderr}`);
         }
       }
-      logger.info(i18n.__('End the pre-hook'));
+      logger.info('End the pre-hook');
     }
   }
 
   async executeAfterHook() {
     if (this.afterHooks.length > 0) {
-      logger.info(i18n.__('Start the after-hook'));
+      logger.info('Start the after-hook');
 
       // 2020-9-23 修复afterHooks无法处理的bug
       for (let i = 0; i < this.afterHooks.length; i++) {
@@ -57,20 +58,23 @@ export class Hook {
           logger.error(`[Hook / Plugin] [Error]: ${ex.stdout || ex.stderr}`);
         }
       }
-      logger.info(i18n.__('End the after-hook'));
+      logger.info('End the after-hook');
     }
   }
+
   async commandExecute(command: string, executePath: string | undefined) {
     const currentDir = process.cwd();
     const cwdPath = executePath ? path.resolve(currentDir, executePath) : currentDir;
     if (fs.existsSync(cwdPath) && fs.lstatSync(cwdPath).isDirectory()) {
       process.env['next-command-execute-flag'] = 'true';
-      logger.info(i18n.__('Executing ...'));
+      logger.info('Executing ...');
       const {stdout, stderr} = await exec(command, {cwd: cwdPath});
       if (stderr) {
-        logger.error(i18n.__('Execute:'), stderr);
+        logger.warning('Execute:');
+        logger.warning(stderr);
       } else {
-        logger.info(i18n.__('Execute:'), stdout);
+        logger.info('Execute:');
+        logger.info(stdout);
       }
     }
   }

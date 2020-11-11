@@ -1,7 +1,6 @@
 /** @format */
 
-// @ts-ignore
-import yaml from 'js-yaml';
+const yaml = require('js-yaml');
 import i18n from '../utils/i18n';
 import * as logger from '../utils/logger';
 import {Parse} from '../utils/parse';

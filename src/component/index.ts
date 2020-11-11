@@ -14,7 +14,6 @@ import {AddManager} from '../config/add/add-manager';
 import * as logger from '../utils/logger';
 import {PackageType} from '../utils/package-type';
 import {Hook} from './hook';
-// eslint-disable-next-line no-unused-vars
 import {Parse} from '../utils/parse';
 import {ConfigError} from '../error/config-error';
 import {SERVERLESS_CHECK_COMPONENT_VERSION} from '../constants/static-variable';
