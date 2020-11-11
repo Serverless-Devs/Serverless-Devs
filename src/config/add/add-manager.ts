@@ -5,8 +5,6 @@ const os = require('os');
 const inquirer = require('inquirer');
 const fs = require('fs');
 const yaml = require('js-yaml');
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import * as program from 'commander';
 import i18n from '../../utils/i18n';
 import logger from '../../utils/logger';

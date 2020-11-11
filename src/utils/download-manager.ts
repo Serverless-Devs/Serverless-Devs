@@ -15,7 +15,6 @@ import {PackageType} from '../utils/package-type';
 import {RepoTemplate} from './repo-template-entity';
 import i18n from './i18n';
 import {SERVERLESS_GET_PACKAGE_PROVIDER, SERVERLESS_GET_APP_INFO_URL} from '../constants/static-variable';
-// eslint-disable-next-line no-unused-vars
 import {ProgressService, ProgressType, ProgressBarOptions} from '@serverless-devs/s-progress-bar';
 const got = require('got');
 import {green} from 'colors';
