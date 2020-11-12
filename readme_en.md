@@ -124,41 +124,41 @@ Commands:
 > You can also directly visit our documentation page：
 > - Document address：[https://www.serverless-devs.com/docs_en/](https://www.serverless-devs.com/docs_en/)
 
-* [Project Introduction ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/serverless_devs_introduce.md)
+* [Introduction ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/serverless_devs_introduce.md)
 * [Quickstart ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/quick_start.md)
 * CLI
    * Getting started
       * [Quickstart ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/quick_start.md)
-      * [Installation Instructions ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/install.md)
+      * [Installation ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/install.md)
       * [Account configuration ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/access_config.md)
       * [Configure Yaml ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/yaml_format.md)
    * Instruction document
-      * [Config directive ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/config.md)
-      * [Init commands ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/init.md)
-      * [Search instruction ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/search.md)
-      * [Set instruction ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/set.md)
-      * [Platform instructions ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/platform.md)
-      * [GUI directives ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/gui.md)
-      * [Extensive instruction ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/more_command.md)
-* Go to Application Center
+      * [Config ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/config.md)
+      * [Init ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/init.md)
+      * [Search ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/search.md)
+      * [Set ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/set.md)
+      * [Platform ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/platform.md)
+      * [GUI ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/gui.md)
+      * [Extensive ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/more_command.md)
+* Application Center
    * Getting started
       * [Quickstart ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/app-store/quick_start.md)
       * [Application Center ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/app-store/serverless_devs_app_store_introduce.md)
       * [Package Summary ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/app-store/package_awesome.md)
-   * awesome application center edition
+   * Application awesome
       * [Components ](https://github.com/Serverless-Devs-Awesome/Components)
-      * [Application List ](https://github.com/Serverless-Devs-Awesome/Applications)
-      * [Plug-ins ](https://github.com/Serverless-Devs-Awesome/Plugins)
+      * [Application ](https://github.com/Serverless-Devs-Awesome/Applications)
+      * [Plugins ](https://github.com/Serverless-Devs-Awesome/Plugins)
 * References
    * [The concept of Package ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/package_type.md)
    * [Package Development Guide ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/package_dev.md)
-   * Package Development documentation
-      * [Component Development ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/component.md)
-      * [Application Development ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/application.md)
-      * [Plugin Development ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/plugin.md)
+   * Package Dev documentation
+      * [Component ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/component.md)
+      * [Application ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/application.md)
+      * [Plugin ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/plugin.md)
    * Method for obtaining the key (certificate) of a cloud vendor
       * [Alibaba Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/alibaba_cloud.md)
-      * [Baiduyun ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/baidu_cloud.md)
+      * [Baidu Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/baidu_cloud.md)
       * [AWS ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/aws.md)
       * [Azure ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/azure.md)
       * [Google Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/google_cloud.md)
