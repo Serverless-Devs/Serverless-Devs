@@ -1,83 +1,80 @@
-# 欢迎使用Serverless Devs
+# Welcome to Serverless Devs
 
 
 <div align=center> <img src="https://images.serverlessfans.com/devs-github/logo.jpg" width="100%"/> </div>
 
 
 <p align="center">
-  <span>像使用手机一样使用Serverless</span><br>
-  <span>中文文档 ｜ <a href="./readme_en.md">English</a></span>
+  <span>Use serverless like a mobile phone</span><br>
+  <span> <a href="readme_zh.md">中文文档</a> ｜ English</span>
 </p>
 
+- [:thumbsup: Project advantage ](#Project-advantages)
+- [:iphone: perform Serverless like a mobile phone ](#Perform-Serverless-like-a-mobile-phone)
+- [:house_with_garden: the scenario of Serverless ](#Use-scenarios)
+- [:heavy_check_mark: quick-in installation and use ](#Fast-entry-installation-and-use)
+- [:running: Quick start experience](#Quick-start-experience)
+- [:book: Use documentation](#Use-documentation)
 
-- [ :thumbsup: 项目优势](#项目优势)
-- [ :iphone: 像使用手机一样玩转 Serverless](#像使用手机一样玩转-Serverless)
-- [ :house_with_garden: Serverless的使用场景](#使用场景)
-- [ :heavy_check_mark: 快入安装和使用](#快入安装和使用)
-- [ :running: 极速入门体验](#入门体验)
-- [ :book: 使用文档](#使用文档)
+Serverless Devs is an open-source and Serverless developer platform, dedicated to providing developers with a powerful tool chain system. Through this platform, developers can experience multi-cloud Serverless products in one click and quickly deploy Serverless projects.
 
-Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
+Serverless DevTools include Serverless DevTools and Serverless Devs App Store(Serverless Application Center):
 
-Serverless Devs 包括 Serverless Devs Tool （Serverless 开发者工具）和 Serverless Devs App Store（Serverless 应用中心）：
+**Serverless Devs Tool** is a tool that can double the development and O & M efficiency for Serverless developers. By using this tool, developers can perform application creation, project development, testing, release, and deployment tasks in a simpler and faster manner, enabling end-to-end management of projects.
 
-• **Serverless Devs Tool** 是一款可以让 Serverless 开发者开发和运维效率翻倍的工具。通过使用该工具，开发者可以更简单、更快速的进行应用创建、项目开发、测试、发布部署等，实现项目的全生命周期管理
+**Serverless Devs App Store** web + is an application center that integrates online search, one-click deployment, and visual editing of Serverless Applications. The application center contains a large number of production-level project and case templates. You can select from these templates and deploy each project to the specified Apsara stack platform with one click.
 
-• **Serverless Devs App Store** 是一个集 Serverless 应用在线搜索，一键部署以及资源可视化编辑于一体的应用中心产品。该应用中心拥有海量的生产级项目模板、案例模板，开发者可以自由选择，并将项目一键部署到指定的云平台上
+## Project advantages
 
-## 项目优势
+### Supports mainstream Serverless services/frameworks
 
-### 可支持主流 Serverless 服务/框架
+Serverless Devs is a Serverless developer platform with components and plugins. In this platform, each user can pluggable different Serverless services and frameworks, at the same time, each user can participate in the development of components and plugins. In Serverless Devs, both industrial-grade Serverless services and various open-source Serverless frameworks are well supported. Without the need to study and learn about every Serverless tool on the market, developers can get started with mainstream Serverless services and frameworks simply by using Serverless Devs.
 
-Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，在该平台中，每个使用者都可以可插拔式的使用不同 Serverless 的服务和框架，同时每个使用者都可以参与开发组件和插件。在 Serverless Devs 中无论是工业级的 Serverless 服务，还是各类开源的 Serverless 框架，都可以得到非常友好的支持。开发者无需对市面上每一款 Serverless 工具进行研究和学习，只需通过 Serverless Devs ，就可以简单、快捷的“上手”主流 Serverless 服务和框架。
+### Visual editing and deployment
 
-### 可视化编辑和部署
+Serverless Devs is a complete visual editing and deployment process. In the Serverless Devs App Store, users can quickly search for desired application cases or components using keywords, visually edit the project configuration, and complete project deployment with a mouse click.
 
-Serverless Devs 拥有完善的可视化编辑和部署流程。在 Serverless Devs App Store 中，使用者可以通过关键词快速检索到自己所需的应用案例或组件，并且可以通过可视化编辑完成项目配置，通过鼠标点击完成项目部署。
-
-无论是进行项目体验，还是进行项目开发、运维，在应用中心的加持下，在可视化编辑和部署的加持下，Serverless 项目的整体部署时间缩短了近 1 倍。同时，Serverless Devs App Store 也是一个开发者开源共建的平台，所有用户都可以在应用中心发布自己的组件和应用供更多人学习、参考以及使用。
+For project experience, development, and O & M, under the auspices of the application center and visual editing and deployment, the overall deployment time of the Serverless project is nearly doubled. At the same time, Serverless Devs App Store is an open-source co-construction platform for developers. All users can publish their components and applications in the application center for learning, reference, and use by more people.
 
 | ![](https://images.serverlessfans.com/devs-github/app-store.jpg) | ![](https://images.serverlessfans.com/devs-github/app-store-edit.jpg) |
 | ------ | ------ |
 
+### Flexible and open use
 
-### 灵活与开放的使用方法
+Unlike most developer tools, Serverless Devs can describe resources such as function compute, API Gateway, and OSS during project description, you can also use plugins and hooks provided by Serverless Devs to Install, Build, and Publish code. In addition, Serverless Devs does not restrict the commands for each component. Instead, developers are encouraged to develop different capabilities for different components to cope with more complex scenarios. For example, Alibaba Cloud function Compute components, in addition to deploying and removing functions, function compute also supports custom features such as log query, metric query, local construction, dependency installation, and debugging.
 
-与绝大部分的开发者工具不同的是，Serverless Devs 在进行项目描述时不仅仅可以对函数计算、API 网关、对象存储等资源进行描述，也可以通过 Serverless Devs 提供的插件以及 Hook 进行Install, Build, Publish等行为描述。与此同时 Serverless Devs 不会对每个组件的命令进行限制，而是鼓励开发者针对不同的组件，开发不同的能力来应对更多、更复杂的场景，例如阿里云函数计算组件，不仅仅支持函数的部署和移除这样的传统能力，还支持日志查询，指标查询，本地构建，依赖安装，调试等更多定制化的能力。
+The flexible and open use of Serverless Devs plays an important role in areas such as automated deployment and O & M, and organically integrates Serverless Devs with the full lifecycle of a project, it improves the development and O & M efficiency of Serverless projects by 90%.
 
-Serverless Devs 的这种灵活与开放的使用方法，可以在自动化部署、运维等领域发挥非常大的作用，将Serverless Devs与项目全生命周期进行有机融合，可使得 Serverless 项目的开发运维效能提升 90%。
+## Perform Serverless like a mobile phone
 
-
-## 像使用手机一样玩转 Serverless
-
-通过 Serverless Devs，我们可以像使用手机一样的使用 Serverless。在使用手机时，我们需要通过在手机应用市场中搜索、下载各种应用，并安装到手机中进行使用；对于 Serverless Devs 开发平台来说，我们可以通过 s gui 快捷调出 Serverless Devs App Store，并在其中搜索并下载组件/插件到 Serverless Devs Tool 开始使用 Serverless，如图所示：
-
+We can use Serverless Devs in the same way as we would use a mobile phone. When using a mobile phone, we need to search and download various applications in the mobile application market and install them in the mobile phone for use. For the Serverless Devs development platform, we can call up the Serverless Devs App Store via quick gui, search and download the components/plugins to the Serverless Devs Tool to start using Serverless, as shown in the figure:
 
 <div align=center> <img src="https://images.serverlessfans.com/devs-github/cli-app-like-phone-v2.png" width="100%"/> </div>
 
-## 使用场景
+## Use scenarios
 
-Serverless Devs 是多云多资源全链路/生命周期管理平台。该平台可以在组件化和插件化共同作用下，参与到项目的创建、开发、调试、部署与运维的全流程中，以阿里云函数计算组件为例：
+Serverless Devs is a multi-cloud and multi-resource end-to-end/lifecycle management platform. With the joint action of componentization and plugin, the platform can participate in the whole process of project creation, development, debugging, deployment, and maintenance. Taking Alibaba Cloud function compute as an example:
 
 <div align=center> <img src="https://images.serverlessfans.com/devs-github/use.png" width="100%"/> </div>
 
-可以通过命令行工具或者应用中心进行项目的最初创建；在项目开发过程中，我们可以通过本地调试等能力，来验证本地开发的正确性等；在项目调试的环节，可以通过本地调试与远程调用、日志查询等能力，来进行项目的最终调试；在部署环节，可以先通过依赖安装、项目构建等流程构建出完整的部署包，在进行项目的部署；在后期运维缓解，可以通过指标查询来进行项目健康度检查，可通过日志查询等来进行问题定位，可以通过项目发布等能力进行版本发布，别名发布以及灰度发布等；
+You can use the command line tool or application center to initially create a project. During project development, you can perform local debugging to verify local development; you can debug projects locally, remotely, and through log querying. When deploying projects, you can install dependencies, the process of project construction and so on to build a complete deployment package, the project is deployed; In the later operation and maintenance mitigation, the project health can be checked through the indicator query, you can locate problems by using methods such as log query, release the versions, aliases, and phased release by using the capabilities such as Project release;
 
-## 快入安装和使用
+## Fast entry installation and use
 
-通过 npm 包管理安装：适用于已经预装了 npm 的 Windows、Mac、Linux 平台。
+npm package-based installation: this installation mode is suitable for Windows, Mac, and Linux platforms that already have npm pre-installed.
 
-在 Windows、Mac、Linux 平台执行以下命令安装 Serverless Devs Tool工具。
+Run the following command to install the Serverless Devs Tool on Windows, Mac, or Linux.
 
 ```shell script
 $ npm install @serverless-devs/s -g
 ```
 
-> 说明:
-> - 如果在 Linux 或 MacOS 下执行该命令报错且报错信息为 Error: EACCES: permission denied，请执行命令 sudo npm install @serverless-devs/s -g。   
-> - 如果安装过程较慢，可以考虑使用淘宝 npm 源，安装命令为 npm --registry=https://registry.npm.taobao.org install @serverless-devs/s -g。
+> Instructions
 
-安装完成之后，可以输入`s`，并按回车，来看看Serverless是否被打印出来：
+- If you run this command on Linux or MacOS with the Error message "Error: EACCES: permission denied", run the sudo npm install @ serverless-devs/s -g command.
+- If the installation process is slow, run npm -- registry = https://registry.npm.taobao.org install @ serverless-devs-g to install the npm repository on Taobao.
+
+After the installation is complete, you can enter `S `and press enter to see if Serverless is printed:
 
 ```
 jiangyu@B-165MLVDL-0004 ~ % s
@@ -107,81 +104,81 @@ Commands:
   search          Search the package.
   platform        Publish a(an) Component/Plugin/Application.
   set             Settings for the tool.
-
 ```
 
-## 极速体验
+
+## Quick start experience
 
 
 <div align=center>
 
 | <div align=center> <a href="https://images.serverlessfans.com/s-tool/demo/poem.mp4"> <img src="https://images.serverlessfans.com/devs-github/cli.jpg" width="80%"/> </a> </div> | <div align=center> <a href="https://images.serverlessfans.com/s-gui/docs/app-store.mp4">  <img src="https://images.serverlessfans.com/devs-github/app-store.jpg" width="80%"/> </a> </div> |
 | ------ | ------ |
-| <p align="center"> <span> 点击图片播放CLI视频 <br> <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> 也可以点击此处查看CLI入门案例 </a> </span> </p> | <p align="center"> <span> 点击图片播放应用中心视频 <br>  <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> 也可以点击此处查看应用中心入门案例 </a> </span> </p> |
+| <p align="center"> <span> Click the picture to play the CLI video <br> <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> You can also click here to view the CLI entry case </a> </span> </p> | <p align="center"> <span> Click on the picture to play the video <br>  <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> You can also click here to view the application center entry case </a> </span> </p> |
 
 </div>
 
 
-## 更多文档
+## Use documentation
 
-> 您也可以直接访问我们的文档页面：
-> - 文档地址：[https://www.serverless-devs.com/docs/](https://www.serverless-devs.com/docs/)
+> You can also directly visit our documentation page：
+> - Document address：[https://www.serverless-devs.com/docs_en/](https://www.serverless-devs.com/docs_en/)
 
-* [项目介绍](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/Serverless-Devs介绍.md)
-* [快速入门](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/快速入门.md)
-* 命令行工具
-  * 入门文档
-    * [快速入门](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/快速开始.md)
-    * [安装文档](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/工具安装.md)
-    * [账号配置](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/密钥配置.md)
-    * [Yaml配置](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/Yaml格式规范.md)
-  * 指令文档
-    * [Config指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Config指令.md)
-    * [Init指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Init指令.md)
-    * [Search指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Search指令.md)
-    * [Set指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Set指令.md)
-    * [Platform指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Platform指令.md)
-    * [GUI指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/Gui指令.md)
-    * [泛指令](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/tool/指令相关/泛指令.md)
-* 应用中心
-  * 入门相关
-    * [快速入门](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/快速开始.md)
-    * [应用中心简介](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/Serverless-Devs-App-Store介绍.md)
-    * [Package汇总](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/app-store/Package汇总.md)
-  * 应用中心版 awesome
-    * [组件列表](https://github.com/Serverless-Devs-Awesome/Components)
-    * [应用列表](https://github.com/Serverless-Devs-Awesome/Applications)
-    * [插件列表](https://github.com/Serverless-Devs-Awesome/Plugins)
-* 其他文档
-  * [Package概念](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package概念区分.md)
-  * [Package开发指南](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package开发指南.md)
-  * Package开发文档
-    * [Component开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Component开发.md) 
-    * [Application开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Application开发.md) 
-    * [Plugin开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Plugin开发.md) 
-  * 各云厂商密钥（凭证）获取方法
-    * [阿里云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/阿里云密钥获取.md)
-    * [百度云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/百度云密钥获取.md)
-    * [AWS](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/AWS密钥获取.md)
-    * [Azure](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/Azure密钥获取.md)
-    * [Google Cloud](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/GoogleCloud密钥获取.md)
-    * [华为云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/华为云密钥获取.md)
-    * [腾讯云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/腾讯云密钥获取.md)
-* 常见问答：
-  * [常见问答](https://github.com/Serverless-Devs/docs/blob/master/faq.md)
+* [Introduction ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/serverless_devs_introduce.md)
+* [Quickstart ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/quick_start.md)
+* CLI
+   * Getting started
+      * [Quickstart ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/quick_start.md)
+      * [Installation ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/install.md)
+      * [Account configuration ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/access_config.md)
+      * [Configure Yaml ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/yaml_format.md)
+   * Instruction document
+      * [Config ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/config.md)
+      * [Init ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/init.md)
+      * [Search ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/search.md)
+      * [Set ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/set.md)
+      * [Platform ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/platform.md)
+      * [GUI ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/gui.md)
+      * [Extensive ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/tool/commands/more_command.md)
+* Application Center
+   * Getting started
+      * [Quickstart ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/app-store/quick_start.md)
+      * [Application Center ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/app-store/serverless_devs_app_store_introduce.md)
+      * [Package Summary ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/app-store/package_awesome.md)
+   * Application awesome
+      * [Components ](https://github.com/Serverless-Devs-Awesome/Components)
+      * [Application ](https://github.com/Serverless-Devs-Awesome/Applications)
+      * [Plugins ](https://github.com/Serverless-Devs-Awesome/Plugins)
+* References
+   * [The concept of Package ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/package_type.md)
+   * [Package Development Guide ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/package_dev.md)
+   * Package Dev documentation
+      * [Component ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/component.md)
+      * [Application ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/application.md)
+      * [Plugin ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/package/devs_docs/plugin.md)
+   * Method for obtaining the key (certificate) of a cloud vendor
+      * [Alibaba Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/alibaba_cloud.md)
+      * [Baidu Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/baidu_cloud.md)
+      * [AWS ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/aws.md)
+      * [Azure ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/azure.md)
+      * [Google Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/google_cloud.md)
+      * [Huawei Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/huawei_cloud.md)
+      * [Tencent Cloud ](https://github.com/Serverless-Devs/docs/blob/master/docs/en/others/access/tencent_cloud.md)
+* Common questions and answers:
+   * [Common questions and answers ](https://github.com/Serverless-Devs/docs/blob/master/faq_en.md)
 
-## 联系我们
+## Contact us
 
 <div align=center>
 
 | <div align=center>  <img src="https://images.serverlessfans.com/devs-github/wechat-helper.png" width="200px"/> </div> | <div align=center>  <img src="https://images.serverlessfans.com/devs-github/dingtalk-group.png" width="200px"/> </div> |
 | ------ | ------ |
-| <p align="center"> <span>微信扫码添加小助手进群</span> </p> | <p align="center"> <span>钉钉扫码进讨论交流群</span> </p> |
+| <p align="center"> <span>WeChat scan code to add a small assistant to the group</span> </p> | <p align="center"> <span>Scan the QR code to enter the discussion group</span> </p> |
 
 </div>
 
-- 其他联系方式：
-  - 网址：
+- Other ways of contact：
+  - Website：
     - https://www.serverless.cn
     - https://www.serverless-devs.com
-  - 邮箱：service@serverlessfans.com
+  - Email：service@serverlessfans.com
