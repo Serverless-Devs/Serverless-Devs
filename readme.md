@@ -6,7 +6,7 @@
 
 <p align="center">
   <span>像使用手机一样使用Serverless</span><br>
-  <span>中文文档 ｜ English(Not yet available)</span>
+  <span>中文文档 ｜ <a href="./readme_en.md">English</a></span>
 </p>
 
 
