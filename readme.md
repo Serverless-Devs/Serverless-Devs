@@ -10,9 +10,9 @@
 </p>
 
 - [:thumbsup: Project advantage ](#Project-advantages)
-- [:iphone: perform Serverless like a mobile phone ](#Perform-Serverless-like-a-mobile-phone)
-- [:house_with_garden: the scenario of Serverless ](#Use-scenarios)
-- [:heavy_check_mark: quick-in installation and use ](#Fast-entry-installation-and-use)
+- [:iphone: Perform Serverless like a mobile phone ](#Perform-Serverless-like-a-mobile-phone)
+- [:house_with_garden: Use scenarios ](#Use-scenarios)
+- [:heavy_check_mark: Fast entry installation and use ](#Fast-entry-installation-and-use)
 - [:running: Quick start experience](#Quick-start-experience)
 - [:book: Use documentation](#Use-documentation)
 
