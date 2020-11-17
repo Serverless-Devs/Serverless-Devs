@@ -80,9 +80,8 @@ $ npm install @serverless-devs/s -g
 ```
 
 > Instructions
-
-- If you run this command on Linux or MacOS with the Error message "Error: EACCES: permission denied", run the sudo npm install @ serverless-devs/s -g command.
-- If the installation process is slow, run npm -- registry = https://registry.npm.taobao.org install @ serverless-devs-g to install the npm repository on Taobao.
+> - If you run this command on Linux or MacOS with the Error message "Error: EACCES: permission denied", run the sudo npm install @ serverless-devs/s -g command.
+> - If the installation process is slow, run npm -- registry = https://registry.npm.taobao.org install @ serverless-devs-g to install the npm repository on Taobao.
 
 After the installation is completed, run the s command in the control terminal to view version information.
 
