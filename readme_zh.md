@@ -65,6 +65,16 @@ Serverless Devs 是多云多资源全链路/生命周期管理平台。该平台
 
 ## 快入安装和使用
 
+### 快速安装
+
+针对 Mac/Linux 用户
+
+```bash
+curl -o- -L http://cli.so/install.sh | bash
+```
+
+## 通过Npm安装
+
 通过 npm 包管理安装：适用于已经预装了 npm 的 Windows、Mac、Linux 平台。
 
 在 Windows、Mac、Linux 平台执行以下命令安装 Serverless Devs Tool工具。
