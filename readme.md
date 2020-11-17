@@ -61,11 +61,21 @@ You can use the command line tool or application center to initially create a pr
 
 ## Fast entry installation and use
 
+### Quick installation
+
+Only for Mac/Linux
+
+```bash
+curl -o- -L http://cli.so/install.sh | bash
+```
+
+### Npm based installation
+
 npm package-based installation: this installation mode is suitable for Windows, Mac, and Linux platforms that already have npm pre-installed.
 
 Run the following command to install the Serverless Devs Tool on Windows, Mac, or Linux.
 
-```shell script
+```bash
 $ npm install @serverless-devs/s -g
 ```
 
@@ -74,7 +84,7 @@ $ npm install @serverless-devs/s -g
 - If you run this command on Linux or MacOS with the Error message "Error: EACCES: permission denied", run the sudo npm install @ serverless-devs/s -g command.
 - If the installation process is slow, run npm -- registry = https://registry.npm.taobao.org install @ serverless-devs-g to install the npm repository on Taobao.
 
-After the installation is complete, you can enter `S `and press enter to see if Serverless is printed:
+After the installation is completed, run the s command in the control terminal to view version information.
 
 ```
 jiangyu@B-165MLVDL-0004 ~ % s
