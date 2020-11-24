@@ -10,10 +10,12 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import createUniversalCommand from '../command';
 import {SERVERLESS_COMMAND_DESC_URL} from '../constants/static-variable';
+import {handlerProfileFile} from "./handler-set-config";
 export async function getCommandDetail(name: any, provider: any, version: any): Promise<any[]> {
   let command_list: any = [];
   try {
-    const result: any = await axios.get(SERVERLESS_COMMAND_DESC_URL, {
+    const lang = (await handlerProfileFile({read: true, filePath: 'set-config.yml'})).locale || 'en';
+    const result: any = await axios.get(SERVERLESS_COMMAND_DESC_URL + `?lang=${lang}`, {
       params: {
         name,
         provider,

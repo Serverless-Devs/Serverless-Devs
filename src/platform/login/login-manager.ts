@@ -1,3 +1,5 @@
+import {handlerProfileFile} from "../../utils/handler-set-config";
+
 /** @format */
 
 const inquirer = require('inquirer');
@@ -78,8 +80,9 @@ export class PlatformLoginManager {
 
     let result;
     try {
+      const lang = (await handlerProfileFile({read: true, filePath: 'set-config.yml'})).locale || 'en';
       result = await axios.post(
-        SERVERLESS_LOGIN_URL,
+        SERVERLESS_LOGIN_URL + `?lang=${lang}`,
         {username: loginData.username, password: loginData.password},
         options,
       );

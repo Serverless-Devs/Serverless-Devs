@@ -4,12 +4,14 @@ import axios from 'axios';
 import logger from '../../utils/logger';
 import {PlatformDeleteError} from '../../error/platform-delete-error';
 import {SERVERLESS_DELETE_PACKAGE_URL} from '../../constants/static-variable';
+import {handlerProfileFile} from "../../utils/handler-set-config";
 
 export class PlatformDeleteManager {
   async delete(name: string, version: string, type: string, provider: string, user: string) {
     let result;
     try {
       logger.info('Deleting......');
+      const lang = (await handlerProfileFile({read: true, filePath: 'set-config.yml'})).locale || 'en';
       result = await axios.request({
         url: SERVERLESS_DELETE_PACKAGE_URL,
         method: 'delete',
@@ -21,6 +23,7 @@ export class PlatformDeleteManager {
           type,
           provider,
           user,
+          lang: lang
         },
       });
     } catch (err) {

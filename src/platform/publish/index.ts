@@ -44,8 +44,9 @@ program
   const publishManager = new PlatformPublishManager();
   const encoding = 'utf-8';
   const publish: string = fs.readFileSync('publish.yaml', encoding); // TODO encoding
-  const readme: string = fs.readFileSync('readme.md', encoding); // TODO encoding
-
+  const readme_zh: string = fs.readFileSync('readme_zh.md', encoding); // TODO encoding
+  const readme_en: string = fs.readFileSync('readme_en.md', encoding); // TODO encoding
+  const readme = {zh: readme_zh, en: readme_en}
   await publishManager.publish(token, publish, readme);
 })().catch(err => {
   throw new CommandError(err.message);
