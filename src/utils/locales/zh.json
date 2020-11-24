@@ -105,7 +105,7 @@
   "Download Success......": "下载成功",
 
   "Detailed output information is not available.": "未获得到详细输出信息。",
-  "s config add help": "您可以添加一个云厂商的账号信息。\n\n    例如:\n        $ s config add\n        $ s config add -p alibaba\n        $ s config add -p alibaba --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******\n        $ s config add -p huaweicloud --AccessKey ****** --SecretKey ******\n\n     配置不同云厂商所需要的密钥内容:\n        alibaba: AccountID, AccessKeyID, AccessKeySecret\n        aws: AccessKeyID, SecretAccessKey\n        baidu: AccessKeyID, SecretAccessKey\n        huawei: AccessKey, SecretKey\n        tencent: AccountID, SecretID, SecretKey",
+  "s config add help": "您可以添加一个云厂商的账号信息。\n\n    例如:\n        $ s config add\n        $ s config add -p alibaba\n        $ s config add -p alibaba --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******\n        $ s config add -p huawei --AccessKey ****** --SecretKey ******\n\n     配置不同云厂商所需要的密钥内容:\n        alibaba: AccountID, AccessKeyID, AccessKeySecret\n        aws: AccessKeyID, SecretAccessKey\n        azure: KeyVaultName, TenantID, ClentID, ClientSecret\n        baidu: AccessKeyID, SecretAccessKey\n        huawei: AccessKey, SecretKey\n        google: PrivateKeyData\n        tencent: AccountID, SecretID, SecretKey",
   "s config delete help": "您可以删除一个云厂商的账号信息.\n\n     例如:\n        $ s config delete -p alibaba -a demo\n ",
   "s config get help": "您可以获取一个云厂商的账号信息.\n \n     例如:\n        $ s config get -l\n        $ s config get -p alibaba -a demo\n",
   "s config update help": "您可以更新一个云厂商的账号信息.\n \n     例如:\n        $ s config update -p alibaba -a demo\n        $ s config update -p alibaba -a demo --AccountID ************\n",
