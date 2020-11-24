@@ -8,6 +8,7 @@ import {SearchError} from '../error/search-error';
 import {SERVERLESS_SEARCH_URL} from '../constants/static-variable';
 import {CommandError} from '../error/command-error';
 import GUIService from '../gui/gui-service';
+import {handlerProfileFile} from "../utils/handler-set-config";
 
 const description = `${i18n.__('Search packages')}.
 
@@ -59,6 +60,7 @@ async function printn(n: number, str = ' ') {
 }
 
 async function search(name: string, provider?: string, type?: string) {
+  const lang = (await handlerProfileFile({read: true, filePath: 'set-config.yml'})).locale || 'en';
   const options = {
     url: SERVERLESS_SEARCH_URL,
     type: 'get',
@@ -67,6 +69,7 @@ async function search(name: string, provider?: string, type?: string) {
       'User-Agent': 's',
     },
     params: {
+      lang: lang,
       keyword: name,
       type,
       provider,

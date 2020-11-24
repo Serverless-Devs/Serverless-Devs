@@ -9,7 +9,7 @@ const Zip = require('adm-zip');
 import {SERVERLESS_PUBLISH_PACKAGE_URL} from '../../constants/static-variable';
 
 export class PlatformPublishManager {
-  async publish(user: string, content: string, readme: string) {
+  async publish(user: string, content: string, readme: any) {
     try {
       logger.info('Publishing......');
       //zip
