@@ -1,5 +1,5 @@
 {
-  "name": "Serverless Component",
+  "name": "ServerlessComponent",
   "version": "0.0.1",
   "dependencies": {
     "@serverless-devs/s-core": "^0.0.22"
