@@ -67,7 +67,8 @@
     "request": "^2.88.2",
     "single-line-log": "^1.1.2",
     "superagent": "^6.1.0",
-    "superagent-proxy": "^2.0.0"
+    "superagent-proxy": "^2.0.0",
+    "fast-glob": "^3.2.4"
   },
   "devDependencies": {
     "@types/assert": "^1.5.1",

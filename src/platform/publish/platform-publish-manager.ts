@@ -5,7 +5,9 @@ import {PlatformPublishError} from '../../error/platform-publish-error';
 import logger from '../../utils/logger';
 import * as path from 'path';
 import * as os from 'os';
+const fs = require('fs');
 const Zip = require('adm-zip');
+const fg = require('fast-glob');
 import {SERVERLESS_PUBLISH_PACKAGE_URL} from '../../constants/static-variable';
 
 export class PlatformPublishManager {
@@ -15,10 +17,23 @@ export class PlatformPublishManager {
       //zip
       const zipFile = path.join(os.tmpdir(), this.generateUUID() + '.zip');
       const zipper = new Zip();
-      zipper.addLocalFolder('src', 'src');
+      // zipper.addLocalFolder('src', 'src');
+      // 增加 .signore
+      const ignoreList = []
+      if(fs.existsSync(".signore")){
+        const tempRead = await fs.readFileSync(".signore", 'utf-8')
+        const tempData = tempRead.split(/\s+|\n|\r|\r\n/)
+        for(let i=0;i<tempData.length;i++){
+          if(tempData[i].length>0){
+            ignoreList.push(tempData[i])
+          }
+        }
+      }
+      const paths = fg.sync('**', { onlyFiles: true, cwd: 'src', ignore: ignoreList});
+      for(let i=0; i<paths.length;i++){
+        zipper.addLocalFile(path.join("./src", paths[i]))
+      }
       zipper.writeZip(zipFile);
-      //console.log(zipFile);
-
       const result = await axios.post(SERVERLESS_PUBLISH_PACKAGE_URL, {
         user,
         publish: content,

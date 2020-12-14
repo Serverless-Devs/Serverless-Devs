@@ -86,5 +86,11 @@ async function globalParameterProcessing() {
     recordCommandHistory(process.argv);
   } catch (ex) {}
 
+  system_command.exitOverride(function (error){
+    if(error.code == 'commander.help'){
+      process.exit(program.args.length > 0 ? 1: 0)
+    }
+  })
+
   system_command.parse(process.argv);
 })();
