@@ -4,7 +4,7 @@ import {Command} from 'commander';
 import axios from 'axios';
 import logger from './logger';
 import * as storage from './storage';
-import {CheckVersion} from './check-version';
+// import {CheckVersion} from './check-version';
 import {Parse} from './parse';
 import * as fs from 'fs-extra';
 import * as os from 'os';
@@ -82,13 +82,13 @@ export function registerCommandChecker(program: any) {
   });
 }
 
-export async function registerExitOverride(program: any) {
-  const checkVersion = new CheckVersion();
-  await checkVersion.init();
-  program.exitOverride(async () => {
-    checkVersion.showMessage();
-  });
-}
+// export async function registerExitOverride(program: any) {
+//   const checkVersion = new CheckVersion();
+//   await checkVersion.init();
+//   program.exitOverride(async () => {
+//     checkVersion.showMessage();
+//   });
+// }
 
 export async function registerCustomerCommand(system_command: any, templateFile: string) {
   if (templateFile) {

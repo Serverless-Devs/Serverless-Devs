@@ -6,13 +6,14 @@ import {handlerProfileFile} from './utils/handler-set-config';
 import logger from './utils/logger';
 import {
   registerCommandChecker,
-  registerExitOverride,
+  // registerExitOverride,
   recordCommandHistory,
   registerCustomerCommand,
   regiserUniversalCommand,
 } from './utils/command';
 import {checkAndReturnTemplateFile} from './utils/common';
 import {PROCESS_ENV_TEMPLATE_NAME} from './constants/static-variable';
+import {CheckVersion} from "./utils/check-version";
 
 const description = `  _________                               .__
  /   _____/ ______________  __ ___________|  |   ____   ______ ______
@@ -79,17 +80,21 @@ async function globalParameterProcessing() {
   await setSpecialCommand();
 
   // Verification version
-  await registerExitOverride(program);
+  // await registerExitOverride(program);
 
   try {
     // Record command
     recordCommandHistory(process.argv);
   } catch (ex) {}
 
+  const checkVersion = new CheckVersion();
+  await checkVersion.init();
+
   system_command.exitOverride(function (error){
     if(error.code == 'commander.help'){
       process.exit(program.args.length > 0 ? 1: 0)
     }
+    checkVersion.showMessage();
   })
 
   system_command.parse(process.argv);

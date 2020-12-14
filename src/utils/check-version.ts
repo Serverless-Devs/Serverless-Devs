@@ -125,6 +125,7 @@ export class CheckVersion {
         } catch (ex) {}
       }
     } catch (e) {
+      console.log(e)
       this.checkVersionResult = {};
     }
     await handlerProfileFile({
