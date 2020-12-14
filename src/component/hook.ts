@@ -38,6 +38,10 @@ export class Hook {
         try {
           await this.executeByConfig(this.preHooks[i]);
         } catch (ex) {
+          process.env['project_error'] = String(true)
+          const thisMessage = `> Execute Error: ${this.preHooks[i].Hook || this.preHooks[i].Plugin}\n${ex}`
+          const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+          process.env['project_error_message'] = tempMessage + thisMessage
           logger.error(`[Hook / Plugin] [Error]: ${ex.stdout || ex.stderr}`);
         }
       }
@@ -48,13 +52,16 @@ export class Hook {
   async executeAfterHook() {
     if (this.afterHooks.length > 0) {
       logger.info('Start the after-hook');
-
       // 2020-9-23 修复afterHooks无法处理的bug
       for (let i = 0; i < this.afterHooks.length; i++) {
         logger.info(`[Hook / Plugin] ${this.afterHooks[i].Hook || this.afterHooks[i].Plugin}`);
         try {
           await this.executeByConfig(this.afterHooks[i]);
         } catch (ex) {
+          process.env['project_error'] = String(true)
+          const thisMessage = `> Execute Error: ${this.preHooks[i].Hook || this.preHooks[i].Plugin}\n${ex}`
+          const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+          process.env['project_error_message'] = tempMessage + thisMessage
           logger.error(`[Hook / Plugin] [Error]: ${ex.stdout || ex.stderr}`);
         }
       }
@@ -70,6 +77,10 @@ export class Hook {
       logger.info('Executing ...');
       const {stdout, stderr} = await exec(command, {cwd: cwdPath});
       if (stderr) {
+        process.env['project_error'] = String(true)
+        const thisMessage = `> Execute Error: ${command}\n${stderr}`
+        const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+        process.env['project_error_message'] = tempMessage + thisMessage
         logger.warning('Execute:');
         logger.warning(stderr);
       } else {

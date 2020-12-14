@@ -89,15 +89,25 @@ export default class CommandManager {
             : outResult,
         );
       } else {
-        logger.error(
-          i18n.__('Cannot find {{template}} file, please check the directory {{filepath}}', {
-            template: TEMPLATE_FILE,
-            filepath: this.templateFile,
-          }),
-        );
+        const errMessage = i18n.__('Cannot find {{template}} file, please check the directory {{filepath}}', {
+              template: TEMPLATE_FILE,
+              filepath: this.templateFile,
+            })
+        logger.error(errMessage);
+
+        process.env['project_error'] = String(true)
+        process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + errMessage
+
       }
     } catch (e) {
+      process.env['project_error'] = String(true)
+      process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + e.message
       logger.error(e.message);
+    }
+    if(process.env['project_error']){
+      logger.error("\n********** " + i18n.__("The operation was not fully successful") + " **********")
+      logger.error(process.env['project_error_message'])
+      process.exit(1)
     }
   }
 }

@@ -76,9 +76,17 @@ export function generateSynchronizeComponentExeList(
           resolve({name: projectName, data: Output});
         } catch (e) {
           if (String(e).indexOf('method does not exist') !== -1) {
+            process.env['project_error'] = String(true)
+            const thisMessage = `> Project Method Error: ${projectName}\n${e}`
+            const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+            process.env['project_error_message'] = tempMessage + thisMessage
             logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, {projectName, method}));
             resolve({});
           } else {
+            process.env['project_error'] = String(true)
+            const thisMessage = `> Project Run Error: ${projectName}\n${e}`
+            const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+            process.env['project_error_message'] = tempMessage + thisMessage
             logger.error(e);
             logger.error(i18n.__(`Project {{projectName}} failed to execute`, {projectName}));
             resolve({name: projectName, data: ''});
@@ -273,12 +281,19 @@ export class ComponentExeCute {
   }
 
   private async preLoadNodeModules() {
-    if (this.isPackageProject && !fs.existsSync(path.join(this.componentPath, 'node_modules'))) {
-      logger.info('npm install');
-      const {stdout, stderr} = await exec('npm install', {
+    const havePackageJson = fs.existsSync(path.join(this.componentPath, '/package.json'))
+    const haveNodeModules = fs.existsSync(path.join(this.componentPath, 'node_modules'))
+    if (havePackageJson && !haveNodeModules) {
+      logger.info('Installing dependencies ...');
+      const {stdout, stderr} = await exec('npm install --registry=https://registry.npm.taobao.org', {
         cwd: this.componentPath,
       });
       if (stderr) {
+        process.env['project_error'] = String(true)
+        const {Component: name} = this.componentConfig;
+        const thisMessage = `> Load Package Error: ${name}\n${stderr}`
+        const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+        process.env['project_error_message'] = tempMessage + thisMessage
         logger.error(stderr);
       } else {
         logger.info(stdout);
@@ -377,7 +392,9 @@ export class ComponentExeCute {
 
   async startExecute(): Promise<any> {
     let outData = {};
-    const extend = process.env['skip-extends'] === 'true' ? null : await this.loadExtends();
+    const tempParams = process.env.temp_params || ""
+    const helpArgs = tempParams.includes("--help") || tempParams.includes("-h")
+    const extend = process.env['skip-extends'] === 'true' || helpArgs ? null : await this.loadExtends();
     await this.loadPreExtends(extend);
     outData = await this.executeCommand();
     await this.loadAfterExtend(extend);
