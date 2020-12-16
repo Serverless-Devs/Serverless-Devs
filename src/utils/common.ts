@@ -12,7 +12,7 @@ export function checkAndReturnTemplateFile() {
     const tempFileIndex = index + 1;
     const tempFileName = process.argv[tempFileIndex];
     if (tempFileName) {
-      if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml')) {
+      if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml') || tempFileName.endsWith('.json')) {
         if (fs.existsSync(path.join(currentDir, tempFileName))) {
           process.argv.splice(index, 2);
           return path.join(currentDir, tempFileName);
@@ -24,10 +24,22 @@ export function checkAndReturnTemplateFile() {
     }
   }
   if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
+    return path.join(currentDir, 's.yaml');
+  }
+  if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
+    return path.join(currentDir, 's.yml');
+  }
+  if (fs.existsSync(path.join(currentDir, 's.json'))) {
+    return path.join(currentDir, 's.json');
+  }
+  if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
     return path.join(currentDir, 'template.yaml');
   }
   if (fs.existsSync(path.join(currentDir, 'template.yml'))) {
     return path.join(currentDir, 'template.yml');
+  }
+  if (fs.existsSync(path.join(currentDir, 'template.json'))) {
+    return path.join(currentDir, 'template.json');
   }
   return null;
 }
