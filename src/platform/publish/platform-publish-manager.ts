@@ -31,9 +31,10 @@ export class PlatformPublishManager {
       }
       const paths = fg.sync('**', { onlyFiles: true, cwd: 'src', ignore: ignoreList});
       for(let i=0; i<paths.length;i++){
-        zipper.addLocalFile(path.join("./src", paths[i]))
+        zipper.addLocalFile(path.join("./src", paths[i]), path.join("./src", path.dirname(paths[i])));
       }
       zipper.writeZip(zipFile);
+
       const result = await axios.post(SERVERLESS_PUBLISH_PACKAGE_URL, {
         user,
         publish: content,

@@ -283,6 +283,7 @@ export class ComponentExeCute {
   private async preLoadNodeModules() {
     const havePackageJson = fs.existsSync(path.join(this.componentPath, '/package.json'))
     const haveNodeModules = fs.existsSync(path.join(this.componentPath, 'node_modules'))
+    // console.log(havePackageJson,haveNodeModules )
     if (havePackageJson && !haveNodeModules) {
       logger.info('Installing dependencies ...');
       const {stdout, stderr} = await exec('npm install --registry=https://registry.npm.taobao.org', {

@@ -9,6 +9,7 @@ import * as path from 'path';
 import {InitError} from '../error/init-error';
 import {DownloadManager} from '../utils/download-manager';
 import {PackageType} from '../utils/package-type';
+import i18n from "../utils/i18n";
 
 export class InitManager {
   downloadManager: DownloadManager;
@@ -35,9 +36,10 @@ export class InitManager {
   async downloadAppTemplate(project: string, provider?: string, dir?: any) {
     const outputDir = path.resolve(process.cwd(), dir || project);
     if (fs.existsSync(outputDir)) {
-      throw new InitError('Directory already exists: {{{outputDir}}}', {
-        outputDir,
-      });
+      logger.warning("  " + i18n.__('Directory already exists: {{{outputDir}}}', {outputDir}))
+      // throw new InitError('Directory already exists: {{{outputDir}}}', {
+      //   outputDir,
+      // });
     }
 
     try {

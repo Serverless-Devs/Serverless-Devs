@@ -23,10 +23,10 @@ export function checkAndReturnTemplateFile() {
       }
     }
   }
-  if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
+  if (fs.existsSync(path.join(currentDir, 's.yaml'))) {
     return path.join(currentDir, 's.yaml');
   }
-  if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
+  if (fs.existsSync(path.join(currentDir, 's.yml'))) {
     return path.join(currentDir, 's.yml');
   }
   if (fs.existsSync(path.join(currentDir, 's.json'))) {
