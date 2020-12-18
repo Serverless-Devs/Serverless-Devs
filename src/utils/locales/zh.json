@@ -226,5 +226,6 @@
   "Package type [Component/Plugin/Application]": "包类型 [Component/Plugin/Application]",
   "Skip the extends section": "跳过Extends部分",
   "Installing dependencies ...": "正在安装依赖 ...",
-  "The operation was not fully successful": "操作未完全成功"
+  "The operation was not fully successful": "操作未完全成功",
+  "> Execute Error": "> 执行出错"
 }
