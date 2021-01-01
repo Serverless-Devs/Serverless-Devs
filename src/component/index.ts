@@ -161,8 +161,9 @@ export class ComponentExeCute {
     const providerMap: {
       [key: string]: any;
     } = await getManager.getUserSecretID(configUserInput);
+    console.log(providerMap)
+    const accessData = Provider && Access ? providerMap : providerMap[`project.${Access || 'default'}`] || providerMap[`${Provider}.${Access || 'default'}`];
 
-    const accessData = Provider && Access ? providerMap : providerMap[`${Provider}.${Access || 'default'}`];
     return accessData || {}
   }
 
