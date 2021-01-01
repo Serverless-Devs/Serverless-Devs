@@ -17,7 +17,7 @@ program
   .option('-t, --type <type>', i18n.__('[Required] Package type [Component/Plugin/Application]'))
   .option('-p, --provider <provider>', i18n.__('[Required] Provider'))
   .description(description)
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', i18n.__('Display help for command')).addHelpCommand(false)
   .parse(process.argv);
 (async () => {
   const opts = program.opts();

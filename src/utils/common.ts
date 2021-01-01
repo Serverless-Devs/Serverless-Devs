@@ -4,6 +4,18 @@ import {handlerProfileFile} from './handler-set-config';
 
 const path = require('path');
 const fs = require('fs');
+const yaml = require('js-yaml');
+
+function checkTemplateFormat(filePath: string, json=false){
+  const content = fs.readFileSync(filePath, 'utf8')
+  let fileObj = json ? JSON.parse(content): yaml.safeLoad(content);
+  for(const eveKey in fileObj){
+    if(fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties){
+      return true
+    }
+  }
+  return false
+}
 
 export function checkAndReturnTemplateFile() {
   const currentDir = process.cwd();
@@ -13,10 +25,11 @@ export function checkAndReturnTemplateFile() {
     const tempFileName = process.argv[tempFileIndex];
     if (tempFileName) {
       if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml') || tempFileName.endsWith('.json')) {
-        if (fs.existsSync(path.join(currentDir, tempFileName))) {
+        const jsonType = tempFileName.endsWith('.json')?true:false
+        if (fs.existsSync(path.join(currentDir, tempFileName)) && checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)) {
           process.argv.splice(index, 2);
           return path.join(currentDir, tempFileName);
-        } else if (fs.existsSync(tempFileName)) {
+        } else if (fs.existsSync(tempFileName) && checkTemplateFormat(tempFileName, jsonType)) {
           process.argv.splice(index, 2);
           return tempFileName;
         }

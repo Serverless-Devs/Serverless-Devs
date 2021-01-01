@@ -17,7 +17,7 @@ program
   .option('-g, --gui', i18n.__('Start gui service'))
   // .option('-s, --skip', i18n.__('Skip the update configuration information step and publish directly'))
   .description(description)
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', i18n.__('Display help for command')).addHelpCommand(false)
   .parse(process.argv);
 (async () => {
   const {gui} = program;

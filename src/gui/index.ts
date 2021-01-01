@@ -14,8 +14,7 @@ program
   .name('s gui')
   .helpOption('-h, --help', i18n.__('Display help for command'))
   .description(description)
-  .option('--update', i18n.__('Upgrade GUI'))
-  .parse(process.argv);
+  .option('--update', i18n.__('Upgrade GUI')).addHelpCommand(false).parse(process.argv);
 (async () => {
   const update = program.update || false;
   const guiService = new GUIService();

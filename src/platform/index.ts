@@ -13,7 +13,7 @@ program
   .command('publish', i18n.__('Publish package.'))
   .command('delete', i18n.__('Delete package.'))
   .description(description)
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', i18n.__('Display help for command')).addHelpCommand(false)
   .parse(process.argv);
 
 // (async () => {

@@ -46,10 +46,10 @@ export class GetManager {
           const provider: string = String(userInput.Provider).toLocaleLowerCase();
           const userInformationKey: string[] = Object.keys(userInformation);
           if (userInput.AliasName) {
-            const aliasName: string = String(userInput.AliasName).toLocaleLowerCase();
+            const aliasName: string = String(userInput.AliasName);
             this.providerAlias = this.localPath === filePath ? aliasName : `${provider}.${aliasName}`;
             userInformationKey.forEach(item => {
-              if (item === this.providerAlias) {
+              if (item === this.providerAlias ) {
                 this.resUserInformation[this.providerAlias] = userInformation[this.providerAlias];
               }
             });
@@ -87,7 +87,6 @@ export class GetManager {
       if (userInput.Provider && userInput.AliasName) {
         return this.resUserInformation[userInput.AliasName] || this.resUserInformation[this.providerAlias];
       }
-      // await this.initAccessData(userInput)
       return this.resUserInformation;
     }
     throw new ConfigGetError(
@@ -133,11 +132,6 @@ export class GetManager {
             : valueOfValue;
         logger.info(`   ${valueOfKey}: ${valueOfValue} `);
       }
-      // for (let [valueOfKey, valueOfValue] of Object.entries(resObject)) {
-      //   const valueOfValueLength: any = valueOfValue.length;
-      //   valueOfValue = valueOfValueLength > 6 ? valueOfValue.slice(0, 3) + printn(valueOfValueLength - 6, '*') + valueOfValue.slice(valueOfValueLength - 3, valueOfValueLength) : valueOfValue;
-      //   logger.info(`   ${valueOfKey}: ${valueOfValue} `);
-      // }
       logger.info(` `);
     }
   }

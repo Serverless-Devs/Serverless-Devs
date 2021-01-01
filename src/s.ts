@@ -9,7 +9,7 @@ import {
   // registerExitOverride,
   recordCommandHistory,
   registerCustomerCommand,
-  regiserUniversalCommand,
+  registerUniversalCommand,
 } from './utils/command';
 import {checkAndReturnTemplateFile} from './utils/common';
 import {PROCESS_ENV_TEMPLATE_NAME} from './constants/static-variable';
@@ -33,7 +33,7 @@ async function setSpecialCommand() {
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
     if (!['init', 'config', 'platform', 'search', 'set', 'gui'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
-      await regiserUniversalCommand(program, templateFile); // Register pan instruction
+      await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
   }
 }

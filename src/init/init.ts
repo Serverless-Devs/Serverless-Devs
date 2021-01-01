@@ -28,8 +28,7 @@ program
   .option('-p, --provider [provider]', i18n.__('The cloud service provider'))
   .option('-d, --dir [dir]', i18n.__('Where to output the initialized app into (default: ./ )'))
   .option('-g, --gui', i18n.__('Init project through GUI service'))
-  .description(description)
-  .parse(process.argv);
+  .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
   const gui = program.gui || false;
 

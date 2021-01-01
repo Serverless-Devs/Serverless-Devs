@@ -23,7 +23,7 @@ program
   .helpOption('-h, --help', i18n.__('Display help for command'))
   .option('-t, --type [type]', i18n.__('The package type. [component/plugin/application]'))
   .option('-g, --gui', i18n.__('Start gui service'))
-  .description(description)
+  .description(description).addHelpCommand(false)
   .parse(process.argv);
 (async () => {
   const gui = program.gui || false;

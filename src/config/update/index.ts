@@ -31,8 +31,7 @@ program
   .option('--ClientID [name]', i18n.__('Configure the ClientID'))
   .option('--ClientSecret [name]', i18n.__('Configure the ClientSecret'))
   .option('--PrivateKeyData [name]', i18n.__('Configure the PrivateKeyData'))
-  .description(description)
-  .parse(process.argv);
+  .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
   if (program.args.length === 0 && (program.provider == undefined || program.aliasName == undefined)) {
     program.help();

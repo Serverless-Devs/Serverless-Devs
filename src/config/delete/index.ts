@@ -17,8 +17,7 @@ program
     i18n.__('The cloud service provider. [alibaba/aws/azure/baidu/google/huawei/tencent]'),
   )
   .option('-a , --alias-name [name]', i18n.__('Key pair alia, if the alias is not set, use default instead'))
-  .description(description)
-  .parse(process.argv);
+  .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
   const providerAlias: Object = {
     Provider: program.provider,

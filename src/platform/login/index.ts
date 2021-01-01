@@ -16,7 +16,7 @@ program
   .option('-p, --password', i18n.__('Password of Serverless Devs Tool Platform'))
   .option('-g, --gui', i18n.__('Start gui service'))
   .description(description)
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', i18n.__('Display help for command')).addHelpCommand(false)
   .parse(process.argv);
 (async () => {
   const {username, password, gui} = program;

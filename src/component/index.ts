@@ -4,18 +4,15 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const util = require('util');
-const inquirer = require('inquirer');
 
 import axios from 'axios';
 import i18n from '../utils/i18n';
 import {DownloadManager} from '../utils/download-manager';
 import {GetManager} from '../config/get/get-manager';
-import {AddManager} from '../config/add/add-manager';
 import * as logger from '../utils/logger';
 import {PackageType} from '../utils/package-type';
 import {Hook} from './hook';
 import {Parse} from '../utils/parse';
-import {ConfigError} from '../error/config-error';
 import {SERVERLESS_CHECK_COMPONENT_VERSION} from '../constants/static-variable';
 
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), `.s/components`);
@@ -111,14 +108,8 @@ export class ComponentExeCute {
 
   async init() {
     let {Component: name, Provider} = this.componentConfig;
-
     const providerOnlyPrefix = Provider.split('.')[0];
-    let credentials = await this.getCredentials();
-
-    if (!credentials) {
-      credentials = await this.setCredentials(providerOnlyPrefix);
-    }
-    this.credentials = credentials;
+    this.credentials = (await this.getCredentials()) || {};
 
     // 将密钥缓存到临时环境变量中
     try {
@@ -145,7 +136,8 @@ export class ComponentExeCute {
       }
       // 判断组件是否已存在
       const tempPath = path.join(S_COMPONENT_BASE_PATH, `/${name}-${providerOnlyPrefix}@${version}`);
-      if (!(await fs.existsSync(tempPath))) {
+      const tempPathFile = path.join(tempPath, '.s.lock')
+      if (!(await fs.existsSync(tempPathFile))) {
         logger.info(
           i18n.__(
             `No component {{name}}-{{provider}}@{{version}} is found, it will be downloaded soon, this may take a few minutes......`,
@@ -153,6 +145,7 @@ export class ComponentExeCute {
           ),
         );
         await this.downLoadAndUnCompressComponentV2(PackageType.component, name, providerOnlyPrefix, version);
+        await fs.writeFileSync(tempPathFile, `${name}-${version}`)
       }
       this.componentPath = tempPath;
     }
@@ -162,86 +155,15 @@ export class ComponentExeCute {
   async getCredentials() {
     const {Provider, Access} = this.componentConfig;
     const configUserInput = {Provider, AliasName: Access};
+
     const getManager = new GetManager();
     await getManager.initAccessData(configUserInput);
     const providerMap: {
       [key: string]: any;
     } = await getManager.getUserSecretID(configUserInput);
+
     const accessData = Provider && Access ? providerMap : providerMap[`${Provider}.${Access || 'default'}`];
-    if (accessData) {
-      return accessData;
-    }
-    if (!Access) {
-      // 2020-9-24 循环调用可能出现循环卡死
-      if (process.env['next-command-execute-flag'] === 'true') {
-        try {
-          // 使用现有的缓存密钥
-          return JSON.parse(process.env.temp_credentials || 'error');
-        } catch (e) {
-          // 抛出错误
-          throw new ConfigError('Calling @serverless-devs/s tools in Extends requires configuring Access in Yaml.');
-        }
-      }
-
-      logger.warning('\n');
-      logger.warning('  You can configure the specified key in yaml. For example:');
-      logger.warning(`\n  ${this.componentConfig.ProjectName}`);
-      logger.warning(`    Component: ${this.componentConfig.Component}`);
-      logger.warning(`    Provider: ${Provider}`);
-      logger.warning('    Access: Fill in the specified key here');
-      logger.warning('\n');
-      let result = '';
-      const selectObject = [];
-      Object.keys(providerMap).forEach(item => {
-        const temp = {
-          name: item.startsWith('project')
-            ? `${item.replace('project.', 'project: ')}`
-            : `${item.replace(Provider + '.', Provider + ': ')}`,
-          value: item,
-        };
-        if (Provider) {
-          if (item.startsWith(Provider) || item.startsWith('project')) {
-            selectObject.push(temp);
-          }
-        } else {
-          selectObject.push(temp);
-        }
-      });
-
-      selectObject.push({name: 'Create a new account', value: 'create'});
-      await inquirer
-        .prompt([
-          {
-            type: 'list',
-            name: 'access',
-            message: i18n.__('Please select an access:'),
-            choices: selectObject,
-          },
-        ])
-        .then((answers: any) => {
-          result = answers.access;
-        });
-      if (result === 'create') {
-        return undefined;
-      }
-      return providerMap[result];
-    }
-    // 没找到密钥信息
-    throw new ConfigError('Failed to get the specified key: {{access}}', {
-      access: Access,
-    });
-  }
-
-  async setCredentials(provider: any) {
-    const addManager = new AddManager();
-    const result = await addManager.inputLengthZero(provider);
-
-    // 2020-9-23 修复部署过程中增加密钥信息，无法存储到系统的bug
-    const inputProviderAlias = `${provider}.${addManager.aliasName || 'default'}`;
-    addManager.inputFullData[inputProviderAlias] = result;
-    addManager.writeData(addManager.globalFilePath, addManager.inputFullData);
-
-    return result;
+    return accessData || {}
   }
 
   componentExist(): boolean {
@@ -386,8 +308,21 @@ export class ComponentExeCute {
       },
     };
     const ComponentClass = await this.loadComponent();
+    let data
+    try{
+      data = await this.invokeMethod(ComponentClass, this.method, inputs);
+    }catch (ex){
+      if(String(ex).includes("componentInstance[method] is not a function")){
+        try{
+          data = await this.invokeMethod(ComponentClass, "default", inputs);
+        }catch (ex){
+          logger.error("The specified method and default method were not found in the component")
+        }
+      }else{
+        throw Error(ex)
+      }
+    }
 
-    const data = await this.invokeMethod(ComponentClass, this.method, inputs);
     return data;
   }
 

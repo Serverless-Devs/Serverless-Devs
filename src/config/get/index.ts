@@ -20,8 +20,7 @@ program
   )
   .option('-a, --aliasName [name]', i18n.__('Key pair alia, if the alias is not set, use default instead'))
   .option('-l, --list [name]', i18n.__('Show user configuration list'))
-  .description(description)
-  .parse(process.argv);
+  .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
   const providerAlias: Object = {
     Provider: program.provider,
