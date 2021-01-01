@@ -136,7 +136,8 @@ export class ComponentExeCute {
       }
       // 判断组件是否已存在
       const tempPath = path.join(S_COMPONENT_BASE_PATH, `/${name}-${providerOnlyPrefix}@${version}`);
-      if (!(await fs.existsSync(tempPath))) {
+      const tempPathFile = path.join(tempPath, '.s.lock')
+      if (!(await fs.existsSync(tempPathFile))) {
         logger.info(
           i18n.__(
             `No component {{name}}-{{provider}}@{{version}} is found, it will be downloaded soon, this may take a few minutes......`,
@@ -144,6 +145,7 @@ export class ComponentExeCute {
           ),
         );
         await this.downLoadAndUnCompressComponentV2(PackageType.component, name, providerOnlyPrefix, version);
+        await fs.writeFileSync(tempPathFile, `${name}-${version}`)
       }
       this.componentPath = tempPath;
     }
@@ -314,11 +316,6 @@ export class ComponentExeCute {
         try{
           data = await this.invokeMethod(ComponentClass, "default", inputs);
         }catch (ex){
-          if(String(ex).includes("componentInstance[method] is not a function")){
-            if(['init', 'config', 'platform', 'search', 'set', 'gui'].includes(this.method)){
-              console.log("-----------")
-            }
-          }
           logger.error("The specified method and default method were not found in the component")
         }
       }else{
