@@ -94,7 +94,7 @@ export async function registerUniversalCommand(system_command: any, templateFile
   if (templateFile) {
     const parsedTemplateObj = await getParsedTemplateObj(templateFile);
     const customerCommands = getCustomerCommandInfo(parsedTemplateObj);
-    if (process.argv[2] && !customerCommands.includes(process.argv[2])) {
+    if (process.argv[2] && !customerCommands.includes(process.argv[2]) && !['-h', '--help'].includes(process.argv[2])) {
       system_command.addCommand(createUniversalCommand(process.argv[2]));
     } else if (
       process.argv[2] &&
