@@ -15,7 +15,7 @@ program
   .option('-t, --type <type>', i18n.__('Package type [Component/Plugin/Application]'))
   .option('-g, --gui', i18n.__('Start gui service'))
   .description(description)
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', i18n.__('Display help for command')).addHelpCommand(false)
   .parse(process.argv);
 (async () => {
   if (!program.type && !program.gui) {

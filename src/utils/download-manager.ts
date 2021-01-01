@@ -204,5 +204,6 @@ export class DownloadManager {
       bar.update(progress.transferred);
     });
     bar.terminate();
+
   }
 }

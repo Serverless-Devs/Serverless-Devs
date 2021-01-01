@@ -20,7 +20,7 @@ program
         $ s set language zh
         $ s set language en`,
   )
-  .parse(process.argv);
+    .addHelpCommand(false).parse(process.argv);
 (async () => {
   if (program.args.length === 0) {
     program.help();

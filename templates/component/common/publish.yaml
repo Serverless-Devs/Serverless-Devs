@@ -1,7 +1,7 @@
 Type: Component
 Name: 名称
 Provider:
-  - 云厂商名称 # Alibaba/Baidu/Huawei/AWS/Google Cloud/Azure/Vercel/Tencent
+  - 云厂商名称 # Alibaba/Baidu/Huawei/AWS/Google/Azure/Vercel/Tencent
 Version: 版本，例如0.0.1
 Description:
   zh: 简短的描述/介绍

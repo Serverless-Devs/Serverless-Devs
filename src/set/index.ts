@@ -11,7 +11,8 @@ program
   .command('output-color', i18n.__('Control color output'))
   .command('language', i18n.__('Output language switch'))
   .command('analysis', i18n.__('Upload your usage habits to help us improve our products'))
-  .description(i18n.__('You can make some default settings for the tool here.'));
+  .description(i18n.__('You can make some default settings for the tool here.'))
+    .addHelpCommand(false).parse(process.argv);;
 
 registerCommandChecker(program);
 

@@ -20,7 +20,7 @@ program
         # ${i18n.__('Do not upload your usage habits')}: 
             $ s set analysis disable`,
   )
-  .parse(process.argv);
+    .addHelpCommand(false).parse(process.argv);
 (async () => {
   // console.log("language")
   if (program.args.length === 0) {

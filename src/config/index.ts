@@ -15,5 +15,4 @@ program
     i18n.__(
       'You can configure provider accounts, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.',
     ),
-  )
-  .parse(process.argv);
+  ).addHelpCommand(false).parse(process.argv);

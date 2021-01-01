@@ -4,10 +4,10 @@ import {Command} from 'commander';
 import axios from 'axios';
 import logger from './logger';
 import * as storage from './storage';
-// import {CheckVersion} from './check-version';
 import {Parse} from './parse';
 import * as fs from 'fs-extra';
 import * as os from 'os';
+import i18n from '../utils/i18n';
 import createUniversalCommand from '../command';
 import {SERVERLESS_COMMAND_DESC_URL} from '../constants/static-variable';
 import {handlerProfileFile} from "./handler-set-config";
@@ -41,7 +41,6 @@ export async function getParsedTemplateObj(templateFile: any) {
   const parsedObj = parse.getOriginalParsedObj();
   const result = await parse.getRealVariables(parsedObj);
   return result;
-  // return await parse.getRealVariables(parsedObj);
 }
 
 export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
@@ -60,6 +59,8 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
   const commondListDetail = await Promise.all(commandListPromise);
   commondListDetail.forEach(({projectName, commandList, projectDocDetail}) => {
     const customerCommand = new Command(projectName);
+    const customerCommandDescription = i18n.__("[Custom] The {{component}}@{{provider}} project.", {component: projectDocDetail.Component, provider: projectDocDetail.Provider})
+    customerCommand.description(customerCommandDescription)
     commandList.forEach(async command => {
       const {name: commandName, desc} = command;
       const universialCommandInstance = await createUniversalCommand(commandName, projectName, desc);
@@ -73,7 +74,6 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
 export function registerCommandChecker(program: any) {
   program.on('command:*', (cmds: any) => {
     const commands = program.commands.map((command: any) => command.name());
-
     if (!commands.includes(cmds[0])) {
       logger.error(`  error: unknown command ${cmds[0]}`);
       logger.error();
@@ -81,14 +81,6 @@ export function registerCommandChecker(program: any) {
     }
   });
 }
-
-// export async function registerExitOverride(program: any) {
-//   const checkVersion = new CheckVersion();
-//   await checkVersion.init();
-//   program.exitOverride(async () => {
-//     checkVersion.showMessage();
-//   });
-// }
 
 export async function registerCustomerCommand(system_command: any, templateFile: string) {
   if (templateFile) {
@@ -98,7 +90,7 @@ export async function registerCustomerCommand(system_command: any, templateFile:
     });
   }
 }
-export async function regiserUniversalCommand(system_command: any, templateFile: string) {
+export async function registerUniversalCommand(system_command: any, templateFile: string) {
   if (templateFile) {
     const parsedTemplateObj = await getParsedTemplateObj(templateFile);
     const customerCommands = getCustomerCommandInfo(parsedTemplateObj);

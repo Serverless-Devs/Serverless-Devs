@@ -20,7 +20,7 @@ program
             $ s set output-color disable
   `,
   )
-  .parse(process.argv);
+    .addHelpCommand(false).parse(process.argv);
 (async () => {
   let openColorStr = '';
   if (program.args.length > 0) {

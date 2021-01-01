@@ -94,7 +94,6 @@ export default class CommandManager {
               filepath: this.templateFile,
             })
         logger.error(errMessage);
-
         process.env['project_error'] = String(true)
         process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + errMessage
 
