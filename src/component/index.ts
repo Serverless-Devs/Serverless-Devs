@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const util = require('util');
+// const util = require('util');
 
 import axios from 'axios';
 import i18n from '../utils/i18n';
