@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const util = require('util');
+// const util = require('util');
 
 import axios from 'axios';
 import i18n from '../utils/i18n';
@@ -16,7 +16,8 @@ import {Parse} from '../utils/parse';
 import {SERVERLESS_CHECK_COMPONENT_VERSION} from '../constants/static-variable';
 
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), `.s/components`);
-const exec = util.promisify(require('child_process').exec);
+const spawnSync = require('child_process').spawnSync;
+// const exec = util.promisify(require('child_process').exec);
 const TYPE_MAP = {
   [PackageType.component]: 'Component',
   [PackageType.plugin]: 'Plugin',
@@ -209,18 +210,9 @@ export class ComponentExeCute {
     // console.log(havePackageJson,haveNodeModules )
     if (havePackageJson && !haveNodeModules) {
       logger.info('Installing dependencies ...');
-      const {stdout, stderr} = await exec('npm install --registry=https://registry.npm.taobao.org', {
-        cwd: this.componentPath,
-      });
-      if (stderr) {
-        process.env['project_error'] = String(true)
-        const {Component: name} = this.componentConfig;
-        const thisMessage = `> Load Package Error: ${name}\n${stderr}`
-        const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
-        process.env['project_error_message'] = tempMessage + thisMessage
-        logger.error(stderr);
-      } else {
-        logger.info(stdout);
+      const result = spawnSync('npm install --registry=https://registry.npm.taobao.org', [], {cwd: this.componentPath, stdio:'inherit', shell: true});
+      if(result && result.status !== 0){
+        throw Error("> Execute Error")
       }
     }
   }
