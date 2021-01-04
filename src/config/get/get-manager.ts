@@ -77,7 +77,7 @@ export class GetManager {
         }
       }
     } catch (ex) {
-      this.resUserInformation = {};
+      this.resUserInformation = this.resUserInformation || {};
     }
   }
 
@@ -93,6 +93,7 @@ export class GetManager {
       'Query failed : Please input right format. You can obtain the key information through: s config get -h',
     );
   }
+
 
   outputFormat(resUserInformation: any): void {
     const sortUserKey: string[] = Object.keys(resUserInformation).sort((a: string, b: string) => {
