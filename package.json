@@ -53,7 +53,7 @@
   "dependencies": {
     "@serverless-devs/s-progress-bar": "^0.0.2",
     "adm-zip": "^0.4.16",
-    "axios": "^0.19.2",
+    "axios": ">=0.21.1",
     "colors": "^1.4.0",
     "commander": "^6.0.0",
     "download": "^7.1.0",
