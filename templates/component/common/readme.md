@@ -365,6 +365,11 @@ HexoComponent:
     CodeUri: './src'
 ```
 
+#### 获取密钥信息
+
+通过`await this.credentials(inputs)`可获取密钥信息。
+
+
 ## 额外说明
 
 * 包类型+包名称+云厂商+版本 是包的唯一标识，全局唯一不可重复；
