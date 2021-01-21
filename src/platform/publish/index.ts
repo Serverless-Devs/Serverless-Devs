@@ -14,13 +14,15 @@ const description = ` ${i18n.__('Publish package.')}
         $ s platform publish`;
 program
   .name('s platform publish')
+  .option('-s, --source [letters]', i18n.__('to pack folder'))
   .option('-g, --gui', i18n.__('Start gui service'))
   // .option('-s, --skip', i18n.__('Skip the update configuration information step and publish directly'))
   .description(description)
   .helpOption('-h, --help', i18n.__('Display help for command')).addHelpCommand(false)
   .parse(process.argv);
+
 (async () => {
-  const {gui} = program;
+  const {gui, source} = program;
   if (gui) {
     const guiService = new GUIService('/publish');
     guiService.start();
@@ -57,7 +59,7 @@ program
     readme_en = ""
   }
   const readme = {zh: readme_zh, en: readme_en}
-  await publishManager.publish(token, publish, readme);
+  await publishManager.publish(token, publish, readme, source);
 })().catch(err => {
   throw new CommandError(err.message);
 });

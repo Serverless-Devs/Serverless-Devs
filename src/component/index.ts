@@ -6,6 +6,7 @@ const os = require('os');
 // const util = require('util');
 
 import axios from 'axios';
+import { get } from 'lodash';
 import i18n from '../utils/i18n';
 import {DownloadManager} from '../utils/download-manager';
 import {GetManager} from '../config/get/get-manager';
@@ -266,7 +267,7 @@ export class ComponentExeCute {
   async loadComponent() {
     await this.preLoadNodeModules(); // check and install node_module
     const componentModule = require(this.componentPath);
-    return componentModule;
+    return get(componentModule, "default") ? get(componentModule, "default") : componentModule;
   }
 
   async invokeMethod(ComponentClass: any, method: string, data: any) {

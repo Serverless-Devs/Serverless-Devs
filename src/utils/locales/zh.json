@@ -229,5 +229,6 @@
   "The operation was not fully successful": "操作未完全成功",
   "> Execute Error": "> 执行出错",
   "The specified method and default method were not found in the component": "组件中未找到指定方法和默认方法",
-  "[Custom] The {{component}}@{{provider}} project.": "[自定义] {{component}}@{{provicer}} 项目."
+  "[Custom] The {{component}}@{{provider}} project.": "[自定义] {{component}}@{{provicer}} 项目.",
+  "to pack folder": "待打包的文件夹"
 }
