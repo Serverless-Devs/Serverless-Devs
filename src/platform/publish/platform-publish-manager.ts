@@ -11,7 +11,7 @@ const fg = require('fast-glob');
 import {SERVERLESS_PUBLISH_PACKAGE_URL} from '../../constants/static-variable';
 
 export class PlatformPublishManager {
-  async publish(user: string, content: string, readme: any) {
+  async publish(user: string, content: string, readme: any, publishSource: string) {
     try {
       logger.info('Publishing......');
       //zip
@@ -29,9 +29,11 @@ export class PlatformPublishManager {
           }
         }
       }
-      const paths = fg.sync('**', { onlyFiles: true, cwd: 'src', ignore: ignoreList});
+      const tsConfig = fg.sync('*tsconfig.json', { onlyFiles: true, cwd: './', ignore: ignoreList});
+      const publishPath = publishSource ? `./${publishSource}` : tsConfig.length > 0 ? "./dist": './src';
+      const paths = fg.sync('**', { onlyFiles: true, cwd: publishPath, ignore: ignoreList});
       for(let i=0; i<paths.length;i++){
-        zipper.addLocalFile(path.join("./src", paths[i]), path.join("./src", path.dirname(paths[i])));
+        zipper.addLocalFile(path.join(publishPath, paths[i]), path.join(publishPath, path.dirname(paths[i])));
       }
       zipper.writeZip(zipFile);
 
