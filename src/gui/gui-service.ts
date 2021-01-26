@@ -4,18 +4,18 @@ const rimraf = require('rimraf');
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
-const {execSync} = require('child_process');
+const { execSync } = require('child_process');
 const got = require('got');
-const decompress = require('decompress');
-const decompressUnzip = require('decompress-unzip');
+const extract = require('extract-zip');
+const compressing = require('compressing');
 import * as download from 'download';
 import axios from 'axios';
 import * as logger from '../utils/logger';
 import i18n from '../utils/i18n';
-import {handlerProfileFile} from '../utils/handler-set-config';
-import {SERVERLESS_GUI_CLIENT_VERSION_CHECK} from '../constants/static-variable';
-import {ProgressService, ProgressType, ProgressBarOptions} from '@serverless-devs/s-progress-bar';
-import {green} from 'colors';
+import { handlerProfileFile } from '../utils/handler-set-config';
+import { SERVERLESS_GUI_CLIENT_VERSION_CHECK } from '../constants/static-variable';
+import { ProgressService, ProgressType, ProgressBarOptions } from '@serverless-devs/s-progress-bar';
+import { green } from 'colors';
 
 const S_GUI_BASE_PATH = path.join(os.homedir(), `.s/client`);
 
@@ -28,16 +28,16 @@ export default class GUIService {
   }
 
   getOsType() {
-    const {platform} = process;
+    const { platform } = process;
     let osType = 'macos';
     switch (platform) {
-    case 'darwin':
-      osType = 'macos';
-      break;
+      case 'darwin':
+        osType = 'macos';
+        break;
       case 'win32':
         osType = 'windows';
         break;
-    default:
+      default:
         osType = 'linux';
         break;
     }
@@ -66,7 +66,7 @@ export default class GUIService {
         const downloadPath = url[osType];
         let len;
         try {
-          const {headers} = await got(downloadPath, {method: 'HEAD'});
+          const { headers } = await got(downloadPath, { method: 'HEAD' });
           len = parseInt(headers['content-length'], 10);
         } catch (err) {
           // ignore error
@@ -104,10 +104,11 @@ export default class GUIService {
           const timmer = setInterval(() => {
             newBar.update();
           }, 500);
-
-          await decompress(tmpZipFile, S_GUI_BASE_PATH, {
-            plugins: [decompressUnzip()],
-          });
+          if (osType === 'windows') {
+            await compressing.zip.uncompress(tmpZipFile, S_GUI_BASE_PATH);
+          } else {
+            await extract(tmpZipFile, { dir: S_GUI_BASE_PATH });
+          }
           clearInterval(timmer);
           newBar.terminate();
           logger.success('Unzip success begin to start.');
@@ -135,7 +136,7 @@ export default class GUIService {
     if (!fs.existsSync(appInfo) || update === true) {
       if (update === true) {
         logger.info('GUI updating ......');
-        await rimraf(appInfo, function(err: any) {
+        await rimraf(appInfo, function (err: any) {
           // 删除当前目录下的 aaa
           if (err) {
             logger.error(err);
@@ -150,7 +151,7 @@ export default class GUIService {
       logger.info('The system has detected a new version of the GUI. You can use `s gui --update` to upgrade.');
       // 输出更新信息 versions[2]
       try {
-        const lang = (await handlerProfileFile({read: true, filePath: 'set-config.yml'})).locale || 'en';
+        const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
         logger.log('\n');
         logger.log('    Update information:');
         const data = versions[2][lang] || versions[2];
@@ -158,13 +159,13 @@ export default class GUIService {
           logger.log(`        ${index + 1}. ${message}`);
         });
         logger.log('\n');
-      } catch (err) {}
+      } catch (err) { }
     }
     this.open(appInfo);
   }
 
   async getVersionResult() {
-    const profile = await handlerProfileFile({read: true, filePath: 'cache.yml'});
+    const profile = await handlerProfileFile({ read: true, filePath: 'cache.yml' });
     const localVersion = profile['app-store-client-version'];
     const result = await axios.get(SERVERLESS_GUI_CLIENT_VERSION_CHECK);
     const data = result.data || [];
@@ -179,3 +180,4 @@ export default class GUIService {
     });
   }
 }
+
