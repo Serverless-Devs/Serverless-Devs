@@ -1,8 +1,15 @@
 # Welcome to Serverless Devs
 
-
 <div align=center> <img src="https://images.serverlessfans.com/devs-github/logo.jpg" width="100%"/> </div>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@serverless-devs/s">
+    <img src="https://img.shields.io/npm/v/@serverless-devs/s" alt="npm version">
+  </a>
+  <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+  </a>
+</p>
 
 <p align="center">
   <span>Use serverless like a mobile phone</span><br>
