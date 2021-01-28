@@ -31,13 +31,16 @@
   },
   "main": "",
   "typings": "",
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "scripts": {
-    "watch": "tsc -w -p compile.tsconfig.json",
+    "watch": "tsc -w",
     "test": "nyc mocha -r ts-node/register scripts/tests/**/*.ts",
     "lint": "eslint --ext .js,.ts,.tsx ",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ",
-    "build": "tsc -p compile.tsconfig.json",
-    "release": "rm -rf ./lib && tsc -p compile.tsconfig.json && npm publish",
+    "build": "tsc",
+    "release": "rm -rf ./lib && tsc && npm publish",
     "release-ignore": "npm publish"
   },
   "lint-staged": {
@@ -71,11 +74,10 @@
     "rimraf": "^3.0.2",
     "single-line-log": "^1.1.2",
     "superagent": "^6.1.0",
-    "superagent-proxy": "^2.0.0",
-    "fast-glob": "^3.2.4",
-    "lodash": "^4.17.20"
+    "superagent-proxy": "^2.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.168",
     "@types/assert": "^1.5.1",
     "@types/chai": "^4.2.12",
     "@types/download": "^6.2.4",

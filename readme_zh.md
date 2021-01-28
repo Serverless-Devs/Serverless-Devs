@@ -3,6 +3,14 @@
 
 <div align=center> <img src="https://images.serverlessfans.com/devs-github/logo.jpg" width="100%"/> </div>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@serverless-devs/s">
+    <img src="https://img.shields.io/npm/v/@serverless-devs/s" alt="npm version">
+  </a>
+  <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+  </a>
+</p>
 
 <p align="center">
   <span>像使用手机一样使用Serverless</span><br>
@@ -84,7 +92,7 @@ $ npm install @serverless-devs/s -g
 ```
 
 > 说明:
-> - 如果在 Linux 或 MacOS 下执行该命令报错且报错信息为 Error: EACCES: permission denied，请执行命令 sudo npm install @serverless-devs/s -g。   
+> - 如果在 Linux 或 MacOS 下执行该命令报错且报错信息为 Error: EACCES: permission denied，请执行命令 sudo npm install @serverless-devs/s -g。
 > - 如果安装过程较慢，可以考虑使用淘宝 npm 源，安装命令为 npm --registry=https://registry.npm.taobao.org install @serverless-devs/s -g。
 
 安装完成之后，可以输入`s`，并按回车，来看看Serverless是否被打印出来：
@@ -166,9 +174,9 @@ Commands:
   * [Package概念](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package概念区分.md)
   * [Package开发指南](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/Package开发指南.md)
   * Package开发文档
-    * [Component开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Component开发.md) 
-    * [Application开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Application开发.md) 
-    * [Plugin开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Plugin开发.md) 
+    * [Component开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Component开发.md)
+    * [Application开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Application开发.md)
+    * [Plugin开发](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/package/开发文档/Plugin开发.md)
   * 各云厂商密钥（凭证）获取方法
     * [阿里云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/阿里云密钥获取.md)
     * [百度云](https://github.com/Serverless-Devs/docs/blob/master/docs/zh/others/密钥相关/百度云密钥获取.md)
