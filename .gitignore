@@ -220,3 +220,4 @@ jdt.ls-java-projec
 download/
 lib/
 package-lock.json
+.package-lock.json
