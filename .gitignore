@@ -212,3 +212,11 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node,code,jetbrains+all
 
+.DS_Store
+.metadata
+jdt.ls-java-projec
+*ui-spec.ts
+*slow-spec.ts
+download/
+lib/
+package-lock.json
