@@ -31,6 +31,9 @@
   },
   "main": "",
   "typings": "",
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "scripts": {
     "watch": "tsc -w -p compile.tsconfig.json",
     "test": "nyc mocha -r ts-node/register scripts/tests/**/*.ts",
@@ -71,9 +74,7 @@
     "rimraf": "^3.0.2",
     "single-line-log": "^1.1.2",
     "superagent": "^6.1.0",
-    "superagent-proxy": "^2.0.0",
-    "fast-glob": "^3.2.4",
-    "lodash": "^4.17.20"
+    "superagent-proxy": "^2.0.0"
   },
   "devDependencies": {
     "@types/assert": "^1.5.1",
