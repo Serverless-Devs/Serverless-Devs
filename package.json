@@ -35,12 +35,12 @@
     "node": ">=10.13.0"
   },
   "scripts": {
-    "watch": "tsc -w -p tsconfig.json",
+    "watch": "tsc -w",
     "test": "nyc mocha -r ts-node/register scripts/tests/**/*.ts",
     "lint": "eslint --ext .js,.ts,.tsx ",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ",
-    "build": "tsc -p tsconfig.json",
-    "release": "rm -rf ./lib && tsc -p tsconfig.json && npm publish",
+    "build": "tsc",
+    "release": "rm -rf ./lib && tsc && npm publish",
     "release-ignore": "npm publish"
   },
   "lint-staged": {
