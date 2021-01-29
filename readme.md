@@ -16,12 +16,12 @@
   <span> <a href="readme_zh.md">中文文档</a> ｜ English</span>
 </p>
 
-- [:thumbsup: Project advantage ](#Project-advantages)
-- [:iphone: Perform Serverless like a mobile phone ](#Perform-Serverless-like-a-mobile-phone)
-- [:house_with_garden: Use scenarios ](#Use-scenarios)
-- [:heavy_check_mark: Fast entry installation and use ](#Fast-entry-installation-and-use)
-- [:running: Quick start experience](#Quick-start-experience)
-- [:book: Use documentation](#Use-documentation)
+- [:thumbsup: Project advantage ](#project-advantages)
+- [:iphone: Perform Serverless like a mobile phone ](#perform-serverless-like-a-mobile-phone)
+- [:house_with_garden: Use scenarios ](#use-scenarios)
+- [:heavy_check_mark: Fast entry installation and use ](#fast-entry-installation-and-use)
+- [:running: Quick start experience](#quick-start-experience)
+- [:book: Use documentation](#use-documentation)
 
 Serverless Devs is an open-source and Serverless developer platform, dedicated to providing developers with a powerful tool chain system. Through this platform, developers can experience multi-cloud Serverless products in one click and quickly deploy Serverless projects.
 
