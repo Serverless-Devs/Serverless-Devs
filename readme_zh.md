@@ -19,11 +19,11 @@
 
 
 - [ :thumbsup: 项目优势](#项目优势)
-- [ :iphone: 像使用手机一样玩转 Serverless](#像使用手机一样玩转-Serverless)
+- [ :iphone: 像使用手机一样玩转 Serverless](#像使用手机一样玩转-serverless)
 - [ :house_with_garden: Serverless的使用场景](#使用场景)
 - [ :heavy_check_mark: 快入安装和使用](#快入安装和使用)
-- [ :running: 极速入门体验](#入门体验)
-- [ :book: 使用文档](#使用文档)
+- [ :running: 极速入门体验](#极速体验)
+- [ :book: 使用文档](#更多文档)
 
 Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
 

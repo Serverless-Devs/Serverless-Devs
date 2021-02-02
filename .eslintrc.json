@@ -79,7 +79,7 @@
     "no-process-exit": 1,
     "comma-spacing": 2,
     "key-spacing": 2,
-    "comma-dangle": 2,
+    "comma-dangle": 0,
     "space-infix-ops": 2,
     "prefer-const": "off",
     "no-var": "off",
@@ -95,7 +95,8 @@
   "env": {
     "es6": true,
     "node": true,
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "globals": {
     "describe": true,
