@@ -3,10 +3,11 @@
 const yaml = require('js-yaml');
 import i18n from '../utils/i18n';
 import * as logger from '../utils/logger';
-import {Parse} from '../utils/parse';
-import {Analysis} from '../utils/analysis';
-import {checkTemplateFile} from '../utils/common';
-import {TEMPLATE_FILE} from '../constants/static-variable';
+import { Parse } from '../utils/parse';
+import { Analysis } from '../utils/analysis';
+import { checkTemplateFile } from '../utils/common';
+import { TEMPLATE_FILE } from '../constants/static-variable';
+import { getServiceConfig } from '../utils/version';
 import {
   ComponentExeCute,
   ComponentConfig,
@@ -26,8 +27,11 @@ export default class CommandManager {
   }
 
   async assemblyProjectConfig(parse: Parse, projectName: string, parsedObj: any): Promise<ComponentConfig> {
+
     const realVariables = await parse.getRealVariables(parsedObj); // Get the original conversion data
-    const projectConfig = realVariables[projectName];
+
+    const projectConfig: any = getServiceConfig(realVariables, projectName);
+
     projectConfig.ProjectName = projectName;
     if (this.deployParams) {
       projectConfig.Params = this.deployParams;
@@ -43,10 +47,9 @@ export default class CommandManager {
         const outPutData: any = {};
         const parse = new Parse(templateFile);
         const parsedObj = parse.getOriginalParsedObj();
-
         if (this.customerCommandName) {
           const projectConfig = await this.assemblyProjectConfig(parse, this.customerCommandName, parsedObj);
-          const componentExecute = new ComponentExeCute(projectConfig, this.method);
+          const componentExecute = new ComponentExeCute(projectConfig, this.method, parsedObj.edition);
           const tempResult = await componentExecute.init();
           if (tempResult) {
             outPutData[projectConfig.ProjectName] = tempResult;
@@ -59,11 +62,11 @@ export default class CommandManager {
           logger.info(
             i18n.__(
               'It is detected that your project has the following project/projects < {{projects}} > to be execute',
-              {projects: executeOrderList.join(',')},
+              { projects: executeOrderList.join(',') },
             ),
           );
           const componentList = generateSynchronizeComponentExeList(
-            {list: executeOrderList, parse, parsedObj, method: this.method, params},
+            { list: executeOrderList, parse, parsedObj, method: this.method, params },
             this.assemblyProjectConfig.bind(this),
           );
           const tempResult = await synchronizeExecuteComponentList(componentList);
@@ -85,14 +88,14 @@ export default class CommandManager {
 
         logger.success(
           Object.keys(outPutData).length === 0
-            ? i18n.__('End of method: {{method}}', {method: this.method})
+            ? i18n.__('End of method: {{method}}', { method: this.method })
             : outResult,
         );
       } else {
         const errMessage = i18n.__('Cannot find {{template}} file, please check the directory {{filepath}}', {
-              template: TEMPLATE_FILE,
-              filepath: this.templateFile,
-            })
+          template: TEMPLATE_FILE,
+          filepath: this.templateFile,
+        })
         logger.error(errMessage);
         process.env['project_error'] = String(true)
         process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + errMessage
@@ -103,7 +106,7 @@ export default class CommandManager {
       process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + e.message
       logger.error(e.message);
     }
-    if(process.env['project_error']){
+    if (process.env['project_error']) {
       logger.error("\n********** " + i18n.__("The operation was not fully successful") + " **********")
       logger.error(process.env['project_error_message'])
       process.exit(1)

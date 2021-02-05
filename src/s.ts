@@ -2,18 +2,19 @@
 
 import i18n from './utils/i18n';
 import * as program from 'commander';
-import {handlerProfileFile} from './utils/handler-set-config';
+import { handlerProfileFile } from './utils/handler-set-config';
 import logger from './utils/logger';
 import {
   registerCommandChecker,
   // registerExitOverride,
   recordCommandHistory,
+  registerExecCommand,
   registerCustomerCommand,
   registerUniversalCommand,
 } from './utils/command';
-import {checkAndReturnTemplateFile} from './utils/common';
-import {PROCESS_ENV_TEMPLATE_NAME} from './constants/static-variable';
-import {CheckVersion} from "./utils/check-version";
+import { checkAndReturnTemplateFile } from './utils/common';
+import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
+import { CheckVersion } from "./utils/check-version";
 
 const description = `  _________                               .__
  /   _____/ ______________  __ ___________|  |   ____   ______ ______
@@ -31,11 +32,17 @@ async function setSpecialCommand() {
   if (templateFile) {
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    if (!['init', 'config', 'platform', 'search', 'set', 'gui'].includes(process.argv[2])) {
+    if (!['init', 'config', 'platform', 'search', 'set', 'gui', 'exec'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
       await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
   }
+}
+
+async function setExecCommand() {
+  const templateFile = checkAndReturnTemplateFile();
+  process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
+  await registerExecCommand(program, templateFile);
 }
 
 async function globalParameterProcessing() {
@@ -51,7 +58,7 @@ async function globalParameterProcessing() {
 
 (async () => {
   // Initialize the print configuration, open by default
-  const setConfigObject = await handlerProfileFile({read: true});
+  const setConfigObject = await handlerProfileFile({ read: true });
   const outputColorFlag = setConfigObject['output-color'] === false ? false : true;
 
   // Set output color
@@ -79,20 +86,21 @@ async function globalParameterProcessing() {
   // Universal instruction processing
   await setSpecialCommand();
 
+  await setExecCommand();
   // Verification version
   // await registerExitOverride(program);
 
   try {
     // Record command
     recordCommandHistory(process.argv);
-  } catch (ex) {}
+  } catch (ex) { }
 
   const checkVersion = new CheckVersion();
   await checkVersion.init();
 
-  system_command.exitOverride(function (error){
-    if(error.code == 'commander.help'){
-      process.exit(program.args.length > 0 ? 1: 0)
+  system_command.exitOverride(function (error) {
+    if (error.code == 'commander.help') {
+      process.exit(program.args.length > 0 ? 1 : 0)
     }
     checkVersion.showMessage();
   })

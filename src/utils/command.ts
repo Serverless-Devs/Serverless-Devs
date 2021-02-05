@@ -1,20 +1,21 @@
 /** @format */
 
-import {Command} from 'commander';
+import { Command } from 'commander';
 import axios from 'axios';
 import logger from './logger';
 import * as storage from './storage';
-import {Parse} from './parse';
+import { Parse } from './parse';
 import * as fs from 'fs-extra';
 import * as os from 'os';
 import i18n from '../utils/i18n';
 import createUniversalCommand from '../command';
-import {SERVERLESS_COMMAND_DESC_URL} from '../constants/static-variable';
-import {handlerProfileFile} from "./handler-set-config";
+import { SERVERLESS_COMMAND_DESC_URL } from '../constants/static-variable';
+import { handlerProfileFile } from "./handler-set-config";
+import { getSubcommand, getServiceConfig } from './version';
 export async function getCommandDetail(name: any, provider: any, version: any): Promise<any[]> {
   let command_list: any = [];
   try {
-    const lang = (await handlerProfileFile({read: true, filePath: 'set-config.yml'})).locale || 'en';
+    const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
     const result: any = await axios.get(SERVERLESS_COMMAND_DESC_URL + `?lang=${lang}`, {
       params: {
         name,
@@ -44,25 +45,30 @@ export async function getParsedTemplateObj(templateFile: any) {
 }
 
 export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
-  return Object.keys(parsedTemplateObj).filter(key => key !== 'Global');
+
+  return getSubcommand(parsedTemplateObj);
+
 }
 
 export async function createCustomerCommand(templateFile: string): Promise<any[]> {
   const customerCommands: any = [];
   const doc = await getParsedTemplateObj(templateFile);
   const commandListPromise = getCustomerCommandInfo(doc).map(async projectName => {
-    const projectDocDetail = doc[projectName];
-    const {Provider, Component} = projectDocDetail;
-    const commandList = await getCommandDetail(Component, Provider, '');
-    return {projectName, commandList, projectDocDetail};
+    const projectDocDetail: any = getServiceConfig(doc, projectName);
+    const provider = projectDocDetail.Provider || projectDocDetail.provider;
+    const component = projectDocDetail.Component || projectDocDetail.component;
+    const commandList = await getCommandDetail(component, provider, '');
+    return { projectName, commandList, projectDocDetail };
   });
   const commondListDetail = await Promise.all(commandListPromise);
-  commondListDetail.forEach(({projectName, commandList, projectDocDetail}) => {
+  commondListDetail.forEach(({ projectName, commandList, projectDocDetail }) => {
     const customerCommand = new Command(projectName);
-    const customerCommandDescription = i18n.__("[Custom] The {{component}}@{{provider}} project.", {component: projectDocDetail.Component, provider: projectDocDetail.Provider})
+    const provider = projectDocDetail.Provider || projectDocDetail.provider;
+    const component = projectDocDetail.Component || projectDocDetail.component;
+    const customerCommandDescription = i18n.__("[Custom] The {{component}}@{{provider}} project.", { component, provider })
     customerCommand.description(customerCommandDescription)
     commandList.forEach(async command => {
-      const {name: commandName, desc} = command;
+      const { name: commandName, desc } = command;
       const universialCommandInstance = await createUniversalCommand(commandName, projectName, desc);
       customerCommand.addCommand(universialCommandInstance);
     });
@@ -82,6 +88,31 @@ export function registerCommandChecker(program: any) {
   });
 }
 
+export async function registerExecCommand(system_command: any, templateFile: string) {
+  const execCommand = new Command('exec');
+  const customerCommandDescription = i18n.__("Subcommand execution analysis");
+  execCommand.description(customerCommandDescription);
+  execCommand.usage("[subcommand] -- [method] [params]");
+  if (templateFile) {
+    let commandName = '';
+    let projectName = '';
+    if (process.argv[3] === '--') {
+      commandName = process.argv[4];
+      const universialCommandInstance = await createUniversalCommand(commandName, projectName,'');
+      execCommand.addCommand(universialCommandInstance);
+    } 
+    if (process.argv[4] === '--' && process.argv[5]) {
+      projectName = process.argv[3];
+      commandName = process.argv[5];
+      const customerCommand =  new Command(projectName);
+      const universialCommandInstance = await createUniversalCommand(commandName, projectName,'');
+      customerCommand.addCommand(universialCommandInstance);
+      execCommand.addCommand(customerCommand);
+    }
+  }
+  system_command.addCommand(execCommand);
+}
+
 export async function registerCustomerCommand(system_command: any, templateFile: string) {
   if (templateFile) {
     const customerCommands = await createCustomerCommand(templateFile);
@@ -90,6 +121,7 @@ export async function registerCustomerCommand(system_command: any, templateFile:
     });
   }
 }
+
 export async function registerUniversalCommand(system_command: any, templateFile: string) {
   if (templateFile) {
     const parsedTemplateObj = await getParsedTemplateObj(templateFile);
@@ -106,6 +138,7 @@ export async function registerUniversalCommand(system_command: any, templateFile
     }
   }
 }
+
 export function registerVerbose(program: any) {
   if (process.argv.includes('--verbose')) {
     process.env.VERBOSE = program.verbose;

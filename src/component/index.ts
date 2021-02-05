@@ -8,14 +8,14 @@ const os = require('os');
 import axios from 'axios';
 import { get } from 'lodash';
 import i18n from '../utils/i18n';
-import {DownloadManager} from '../utils/download-manager';
-import {GetManager} from '../config/get/get-manager';
+import { DownloadManager } from '../utils/download-manager';
+import { GetManager } from '../config/get/get-manager';
 import * as logger from '../utils/logger';
-import {PackageType} from '../utils/package-type';
-import {Hook} from './hook';
-import {Parse} from '../utils/parse';
-import {SERVERLESS_CHECK_COMPONENT_VERSION} from '../constants/static-variable';
-
+import { PackageType } from '../utils/package-type';
+import { Hook } from './hook';
+import { Parse } from '../utils/parse';
+import { SERVERLESS_CHECK_COMPONENT_VERSION } from '../constants/static-variable';
+import { getServiceConfigDetail, getServiceInputs, getServiceActions } from '../utils/version';
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), `.s/components`);
 const spawnSync = require('child_process').spawnSync;
 // const exec = util.promisify(require('child_process').exec);
@@ -29,7 +29,7 @@ export interface ComponentConfig {
   Provider: string;
   Access?: string;
   Extends: any;
-  Properties: {[key: string]: any};
+  Properties: { [key: string]: any };
   Params: any;
   ProjectName: string;
 }
@@ -49,7 +49,7 @@ export interface GenerateComponentExeParams {
 
 export async function synchronizeExecuteComponentList(list: any = [], index: any = 0, initData: any = {}) {
   if (index >= 0 && index < list.length) {
-    return await list[index]().then(async ({name, data}: any) => {
+    return await list[index]().then(async ({ name, data }: any) => {
       initData[name] = data;
       return await synchronizeExecuteComponentList(list, index + 1, initData);
     });
@@ -58,7 +58,7 @@ export async function synchronizeExecuteComponentList(list: any = [], index: any
 }
 
 export function generateSynchronizeComponentExeList(
-  {list, parse, parsedObj, method, params}: GenerateComponentExeParams,
+  { list, parse, parsedObj, method, params }: GenerateComponentExeParams,
   equipment: (parse: Parse, projectName: string, parsedObj: any) => Promise<ComponentConfig>,
 ): any[] {
   return list.map(projectName => {
@@ -66,20 +66,25 @@ export function generateSynchronizeComponentExeList(
       return new Promise(async (resolve, reject) => {
         try {
           parsedObj.Params = params || '';
-          logger.info(i18n.__(`Start executing project {{projectName}}`, {projectName}));
+          logger.info(i18n.__(`Start executing project {{projectName}}`, { projectName }));
           const projectConfig = await equipment(parse, projectName, parsedObj);
-          const componentExecute = new ComponentExeCute(projectConfig, method);
+          const componentExecute = new ComponentExeCute(projectConfig, method, parsedObj.edition);
           const Output = await componentExecute.init();
-          parsedObj[projectName].Output = Output;
-          logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, {projectName}));
-          resolve({name: projectName, data: Output});
+          if(parsedObj.edition) { //  兼容新版规范
+            parsedObj.services[projectName].outPut = Output;
+          }else {
+            parsedObj[projectName].Output = Output;
+          }
+          
+          logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, { projectName }));
+          resolve({ name: projectName, data: Output });
         } catch (e) {
           if (String(e).indexOf('method does not exist') !== -1) {
             process.env['project_error'] = String(true)
             const thisMessage = `> Project Method Error: ${projectName}\n${e}`
             const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
             process.env['project_error_message'] = tempMessage + thisMessage
-            logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, {projectName, method}));
+            logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, { projectName, method }));
             resolve({});
           } else {
             process.env['project_error'] = String(true)
@@ -87,8 +92,8 @@ export function generateSynchronizeComponentExeList(
             const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
             process.env['project_error_message'] = tempMessage + thisMessage
             logger.error(e);
-            logger.error(i18n.__(`Project {{projectName}} failed to execute`, {projectName}));
-            resolve({name: projectName, data: ''});
+            logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName }));
+            resolve({ name: projectName, data: '' });
           }
         }
       });
@@ -99,24 +104,24 @@ export class ComponentExeCute {
   protected componentPath: string;
   protected credentials: any;
   protected isPackageProject = false;
-  constructor(protected componentConfig: ComponentConfig, protected method: string) {
+  constructor(protected componentConfig: ComponentConfig, protected method: string, protected version: string = '0.0.1') {
     if (!fs.existsSync(S_COMPONENT_BASE_PATH)) {
       fs.mkdirSync(S_COMPONENT_BASE_PATH);
     }
-    const {Component: name} = this.componentConfig;
+    const { name } = getServiceConfigDetail(this.componentConfig);
     this.componentPath = path.join(S_COMPONENT_BASE_PATH, `/${name}`);
     this.isPackageProject = fs.existsSync(path.join(this.componentPath, '/package.json'));
   }
 
   async init() {
-    let {Component: name, Provider} = this.componentConfig;
-    const providerOnlyPrefix = Provider.split('.')[0];
+    let { name, provider } = getServiceConfigDetail(this.componentConfig);
+    const providerOnlyPrefix = provider.split('.')[0];
     this.credentials = (await this.getCredentials()) || {};
 
     // 将密钥缓存到临时环境变量中
     try {
       process.env.temp_credentials = JSON.stringify(this.credentials);
-    } catch (e) {}
+    } catch (e) { }
 
     let version;
     if (await fs.existsSync(name)) {
@@ -143,7 +148,7 @@ export class ComponentExeCute {
         logger.info(
           i18n.__(
             `No component {{name}}-{{provider}}@{{version}} is found, it will be downloaded soon, this may take a few minutes......`,
-            {name, version, provider: providerOnlyPrefix},
+            { name, version, provider: providerOnlyPrefix },
           ),
         );
         await this.downLoadAndUnCompressComponentV2(PackageType.component, name, providerOnlyPrefix, version);
@@ -155,8 +160,8 @@ export class ComponentExeCute {
   }
 
   async getCredentials() {
-    const {Provider, Access} = this.componentConfig;
-    const configUserInput = {Provider, AliasName: Access};
+    const { access, provider } = getServiceConfigDetail(this.componentConfig);
+    const configUserInput = { Provider: provider, AliasName: access };
 
     const getManager = new GetManager();
     await getManager.initAccessData(configUserInput);
@@ -164,7 +169,7 @@ export class ComponentExeCute {
       [key: string]: any;
     } = await getManager.getUserSecretID(configUserInput);
     // console.log(providerMap)
-    const accessData = Provider && Access ? providerMap : providerMap[`project.${Access || 'default'}`] || providerMap[`${Provider}.${Access || 'default'}`];
+    const accessData = provider && access ? providerMap : providerMap[`project.${access || 'default'}`] || providerMap[`${provider}.${access || 'default'}`];
 
     return accessData || {}
   }
@@ -173,7 +178,7 @@ export class ComponentExeCute {
     return fs.existsSync(this.componentPath);
   }
 
-  async getRemoteComponentVersion({name, provider, type}: VersionCheckParams) {
+  async getRemoteComponentVersion({ name, provider, type }: VersionCheckParams) {
     const url = SERVERLESS_CHECK_COMPONENT_VERSION;
     let version = null;
     try {
@@ -196,8 +201,8 @@ export class ComponentExeCute {
   }
 
   getLocalComponentVersion(): string | null {
-    const {Component: name} = this.componentConfig;
-    const pkgFile = path.join(S_COMPONENT_BASE_PATH, `/${name}/package.json`);
+    const { Component: name } = this.componentConfig;
+    const pkgFile = path.join(S_COMPONENT_BASE_PATH, name, 'package.json');
     if (!fs.existsSync(pkgFile)) {
       return null;
     }
@@ -206,13 +211,13 @@ export class ComponentExeCute {
   }
 
   private async preLoadNodeModules() {
-    const havePackageJson = fs.existsSync(path.join(this.componentPath, '/package.json'))
+    const havePackageJson = fs.existsSync(path.join(this.componentPath, 'package.json'))
     const haveNodeModules = fs.existsSync(path.join(this.componentPath, 'node_modules'))
     // console.log(havePackageJson,haveNodeModules )
     if (havePackageJson && !haveNodeModules) {
       logger.info('Installing dependencies ...');
-      const result = spawnSync('npm install --registry=https://registry.npm.taobao.org', [], {cwd: this.componentPath, stdio:'inherit', shell: true});
-      if(result && result.status !== 0){
+      const result = spawnSync('npm install --registry=https://registry.npm.taobao.org', [], { cwd: this.componentPath, stdio: 'inherit', shell: true });
+      if (result && result.status !== 0) {
         throw Error("> Execute Error")
       }
     }
@@ -220,7 +225,7 @@ export class ComponentExeCute {
 
   async downLoadAndUnCompressComponent(type: PackageType, name: string, provider: string) {
     const downloadManager = new DownloadManager();
-    const componentPath = path.join(S_COMPONENT_BASE_PATH, `/${name}`);
+    const componentPath = path.join(S_COMPONENT_BASE_PATH, `${name}`);
     if (!fs.existsSync(componentPath)) {
       fs.mkdirSync(componentPath);
     }
@@ -242,10 +247,8 @@ export class ComponentExeCute {
   }
 
   private loadExtends(): Hook | null {
-    const {Extends = {}} = this.componentConfig;
-    const method = this.method;
+    const hooks = getServiceActions(this.componentConfig, this.version, { method: this.method });
     let hookExecuteInstance = null;
-    const hooks = Extends[method];
     if (hooks) {
       hookExecuteInstance = new Hook(hooks);
     }
@@ -284,35 +287,19 @@ export class ComponentExeCute {
   }
 
   async executeCommand(): Promise<any> {
-    const {Properties, Params, Provider, Access, Component, ProjectName} = this.componentConfig;
-
-    const inputs = {
-      Properties,
-      Credentials: this.credentials,
-      Project: {
-        ProjectName,
-        Component,
-        Provider,
-        AccessAlias: Access || '',
-      },
-      Command: this.method,
-      Args: Params || '',
-      Path: {
-        ConfigPath: process.env.templateFile || '',
-      },
-    };
-    const ComponentClass = await this.loadComponent();
+    const inputs = getServiceInputs(this.componentConfig, this.version, { method: this.method, credentials: this.credentials })
+    const componentClass = await this.loadComponent();
     let data
-    try{
-      data = await this.invokeMethod(ComponentClass, this.method, inputs);
-    }catch (ex){
-      if(String(ex).includes("componentInstance[method] is not a function")){
-        try{
-          data = await this.invokeMethod(ComponentClass, "default", inputs);
-        }catch (ex){
+    try {
+      data = await this.invokeMethod(componentClass, this.method, inputs);
+    } catch (ex) {
+      if (String(ex).includes("componentInstance[method] is not a function")) {
+        try {
+          data = await this.invokeMethod(componentClass, "default", inputs);
+        } catch (ex) {
           logger.error("The specified method and default method were not found in the component")
         }
-      }else{
+      } else {
         throw Error(ex)
       }
     }
