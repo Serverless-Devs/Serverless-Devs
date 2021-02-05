@@ -4,6 +4,7 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 const path = require('path');
 import * as logger from './logger';
+import { getServiceList } from './version';
 interface MAP_OBJECT {
   [key: string]: any;
 }
@@ -17,7 +18,7 @@ const OTHER_BASIC_DATA_TYPE = ['[object Number]', '[object Boolean]'];
 // find variables value
 export class Parse {
   protected parsedObj: any = {};
-  public dependenciesMap: {[key: string]: any} = {};
+  public dependenciesMap: { [key: string]: any } = {};
   protected globalJsonKeyMap: any = {};
   protected globalKeyArr: any[] = [];
   protected magicVariablesArray: any[] = [];
@@ -56,10 +57,10 @@ export class Parse {
   }
 
   private findVariableValue(variableObj: any) {
-    const {variableName, type, funName, funVariable} = variableObj;
+    const { variableName, type, funName, funVariable } = variableObj;
     const result = '';
-    if (type === 'Literal') {
-      return this.globalJsonKeyMap[variableName] || '${' + variableName + '}';
+    if (type === 'Literal') { // 兼容新版本的规范 services
+      return this.globalJsonKeyMap[variableName] || this.globalJsonKeyMap[`services.${variableName}`] || '${' + variableName + '}';
     }
     if (type === 'Fun' && funName === 'Env') {
       return process.env[funVariable];
@@ -130,7 +131,7 @@ export class Parse {
       const regResult = objValue.match(COMMON_VARIABLE_TYPE_REG);
       if (regResult) {
         const matchResult = regResult[1]; // get match result like projectName.key.variable
-        const variableObj = {variableName: matchResult, type: 'Literal', funName: null, funVariable: ''};
+        const variableObj = { variableName: matchResult, type: 'Literal', funName: null, funVariable: '' };
         const funMatchResult = matchResult.match(SPECIALL_VARIABLE_TYPE_REG);
         if (funMatchResult) {
           // eg Env(SecretId) or ${File(./path)}
@@ -165,10 +166,16 @@ export class Parse {
     }
   }
   replaceVariable(variable: any | MAP_OBJECT) {
-    Object.keys(variable).forEach(key => {
-      const objValue = variable[key];
-      variable[key] = this.iteratorToSetValue(objValue, key);
+    const _variable = getServiceList(variable);
+    Object.keys(_variable).forEach(key => {
+      const objValue = _variable[key];
+      _variable[key] = this.iteratorToSetValue(objValue, key);
     });
+    if (variable.services) {
+      variable.services = _variable;
+    } else {
+      variable = _variable;
+    }
     return variable;
   }
 

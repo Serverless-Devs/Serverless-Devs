@@ -28,7 +28,6 @@ export default function create(command: string, customerCommandName?: string, de
   }
 
   process.argv = processArgv;
-
   _command.description(description || '').action(() => {
     const template: string | undefined = process.env[PROCESS_ENV_TEMPLATE_NAME];
     if (template) {
