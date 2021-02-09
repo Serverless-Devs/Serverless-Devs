@@ -27,14 +27,13 @@ export default class CommandManager {
   }
 
   async assemblyProjectConfig(parse: Parse, projectName: string, parsedObj: any): Promise<ComponentConfig> {
-
     const realVariables = await parse.getRealVariables(parsedObj); // Get the original conversion data
-
     const projectConfig: any = getServiceConfig(realVariables, projectName);
-
+    projectConfig.appName = realVariables.name; // app name;
     projectConfig.ProjectName = projectName;
     if (this.deployParams) {
-      projectConfig.Params = this.deployParams;
+      projectConfig.params = this.deployParams;
+      projectConfig.Params = this.deployParams; // compatible with old specifications
     }
     return projectConfig;
   }

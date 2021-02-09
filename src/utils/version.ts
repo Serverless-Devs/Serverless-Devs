@@ -53,15 +53,18 @@ export function getServiceInputs(configData: any, version: string, options: any)
         };
         return inputs;
     } else {
-        const { props, params, provider, access, component, ProjectName } = configData;
+        const { props, params, provider, access, component, ProjectName, appName } = configData;
         const { credentials, method } = options;
         const inputs = {
             props,
             Properties: props,
             Credentials: credentials,
             credentials: credentials,
+            appName: appName,
+
             Project: {
                 ProjectName,
+                projectName: ProjectName,
                 component,
                 Component: component,
                 provider,
