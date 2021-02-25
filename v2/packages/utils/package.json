@@ -1,0 +1,62 @@
+{
+  "name": "@serverless-devs-cli/util",
+  "version": "0.0.1",
+  "description": "Serverless Devs Tool Core Component",
+  "keywords": [
+    "Serverless",
+    "Serverless-Devs"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "https://www.serverless-devs.com",
+  "scripts": {
+    "watch": "tsc -w",
+    "test": "npx jest",
+    "build": "npx tsc -w",
+    "test:cov": "jest --coverage",
+    "lint": "npm run typecheck && f2elint scan -i src",
+    "fix": "f2elint fix",
+    "typecheck": "npx tsc -p tsconfig.json --noEmit"
+  },
+  "main": "./lib/index.js",
+  "dependencies": {
+    "@serverless-devs/s-progress-bar": "^0.0.2",
+    "adm-zip": "^0.4.16",
+    "axios": ">=0.21.1",
+    "colors": "^1.4.0",
+    "commander": "^6.0.0",
+    "compressing": "^1.5.1",
+    "download": "^7.1.0",
+    "extract-zip": "^2.0.1",
+    "fast-glob": "^3.2.4",
+    "follow-redirects": "^1.13.0",
+    "fs-extra": "^8.1.0",
+    "inquirer": "^7.3.3",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.20",
+    "progress": "^2.0.3",
+    "request": "^2.88.2",
+    "rimraf": "^3.0.2",
+    "single-line-log": "^1.1.2",
+    "superagent": "^6.1.0",
+    "superagent-proxy": "^2.0.0"
+  },
+  "peerDependencies": {
+    "colors": "^1.4.0",
+    "i18n": "^0.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/progress": "^2.0.3",
+    "typescript": "^4.1.3"
+  }
+}

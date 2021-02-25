@@ -1,12 +1,10 @@
 /** @format */
-
-import i18n from './utils/i18n';
 import * as program from 'commander';
+import i18n from './utils/i18n';
 import { handlerProfileFile } from './utils/handler-set-config';
 import logger from './utils/logger';
 import {
   registerCommandChecker,
-  // registerExitOverride,
   recordCommandHistory,
   registerExecCommand,
   registerCustomerCommand,

@@ -2,16 +2,19 @@
 
 import { Command } from 'commander';
 import axios from 'axios';
+import * as fs from 'fs-extra';
+import * as os from 'os';
+
 import logger from './logger';
 import * as storage from './storage';
 import { Parse } from './parse';
-import * as fs from 'fs-extra';
-import * as os from 'os';
-import i18n from '../utils/i18n';
+import i18n from './i18n';
 import createUniversalCommand from '../command';
-import { SERVERLESS_COMMAND_DESC_URL } from '../constants/static-variable';
 import { handlerProfileFile } from "./handler-set-config";
 import { getSubcommand, getServiceConfig } from './version';
+
+import { SERVERLESS_COMMAND_DESC_URL } from '../constants/static-variable';
+
 export async function getCommandDetail(name: any, provider: any, version: any): Promise<any[]> {
   let command_list: any = [];
   try {

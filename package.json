@@ -27,7 +27,7 @@
     "email": "service@serverlessfans.com"
   },
   "bin": {
-    "s": "./bin/s"
+    "s": "./v2/packages/core/bin/s"
   },
   "main": "",
   "typings": "",

@@ -1,10 +1,7 @@
 /** @format */
-
-import {ServerlessError} from '../error/serverless-error';
-import i18n from '../utils/i18n';
-
 const colors = require('colors');
-const {red, white, gray, cyan, yellow, green} = colors;
+import i18n from './i18n';
+const { red, white, gray, cyan, yellow, green } = colors;
 
 // 输出信息颜色启用或关闭
 export const colorSwitch = (flag: boolean) => {
@@ -41,26 +38,12 @@ export const error = (...message: any) => {
   for (const m of message) {
     if (typeof m === 'string' || m instanceof String) {
       console.log(red(i18n.__(m)));
-    } else if (m instanceof ServerlessError) {
-      // already i18n for serverless error
-      console.log(red(m));
     } else if (m instanceof Error) {
       console.log(red(i18n.__(m.message)));
+    } else {
+      console.log(red(m));
     }
   }
-  /*
-  if (process.env.VERBOSE) {
-    console.log(red(...message));
-  } else {
-    const m: any[] = message.map((item: any) => {
-      if (item instanceof Error) {
-        return item.message;
-      }
-      return item;
-    });
-    console.log(red(...m));
-  }
-  */
 };
 // 提醒信息 蓝色
 export const info = (...message: any) => {

@@ -1,14 +1,15 @@
 /** @format */
 
 import axios from 'axios';
-import logger from './logger';
-import {handlerProfileFile, getConfig} from './handler-set-config';
-import {getHistoryFile} from './storage';
-import {printn} from './common';
 import * as fs from 'fs-extra';
-import {SERVERLESS_CHECK_VERSION} from '../constants/static-variable';
-import {GetManager} from '../config/get/get-manager';
-import {providerArray} from '../config/common/common';
+
+import logger from './logger';
+import { handlerProfileFile, getConfig } from './handler-set-config';
+import { getHistoryFile } from './storage';
+import { printn } from './common';
+import { SERVERLESS_CHECK_VERSION } from '../constants/static-variable';
+import { GetManager } from '../config/get/get-manager';
+import { providerArray } from '../config/common/common';
 const pkg = require('../../package.json');
 
 interface CheckVersionResult {

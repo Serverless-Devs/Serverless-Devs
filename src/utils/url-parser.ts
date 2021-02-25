@@ -1,9 +1,9 @@
 /** @format */
 
 import * as URL from 'url';
-import {GitRepoTemplate} from './repo-template-entity';
 import * as path from 'path';
-import {InitError} from '../error/init-error';
+import { GitRepoTemplate } from './repo-template-entity';
+import { InitError } from '../error/init-error';
 
 export function parse(url: string): URL.Url {
   return URL.parse(url);
@@ -32,7 +32,7 @@ export function extractTemplateInfo(url: URL.Url): GitRepoTemplate {
   }
   const pathArr = pathname.split('/');
   if (pathArr.length < 3) {
-    throw new InitError('Git repo url not correct.');
+    throw new Error('Git repo url not correct.');
   }
   const ownerName = pathArr[1];
   const repoName = pathArr[2];
