@@ -7,20 +7,20 @@ import * as os from 'os';
 import * as fs from 'fs-extra';
 import axios from 'axios';
 import * as inquirer from 'inquirer';
-import {InitError} from '../error/init-error';
+import { InitError } from '../error/init-error';
 import * as ChildProcess from 'child_process';
 import * as util from 'util';
 import logger from '../utils/logger';
-import {PackageType} from '../utils/package-type';
-import {RepoTemplate} from './repo-template-entity';
+import { PackageType } from '../utils/package-type';
+import { RepoTemplate } from './repo-template-entity';
 import i18n from './i18n';
-import {SERVERLESS_GET_PACKAGE_PROVIDER, SERVERLESS_GET_APP_INFO_URL} from '../constants/static-variable';
-import {ProgressService, ProgressType, ProgressBarOptions} from '@serverless-devs/s-progress-bar';
+import { SERVERLESS_GET_PACKAGE_PROVIDER, SERVERLESS_GET_APP_INFO_URL } from '../constants/static-variable';
+import { ProgressService, ProgressType, ProgressBarOptions } from '@serverless-devs/s-progress-bar';
 const got = require('got');
-import {green} from 'colors';
+import { green } from 'colors';
 
 export class DownloadManager {
-  constructor() {}
+  constructor() { }
 
   /**
    * Download template from app center
@@ -39,7 +39,7 @@ export class DownloadManager {
       try {
         provider = await this.getPackageProvider(packageType, packageName);
         logger.info('  Init Information:');
-        logger.info(i18n.__(`    Package: {{package}}    Provider: {{provider}}`, {package: packageName, provider}));
+        logger.info(i18n.__(`    Package: {{package}}    Provider: {{provider}}`, { package: packageName, provider }));
       } catch (err) {
         throw new InitError(err.message);
       }
@@ -64,17 +64,17 @@ export class DownloadManager {
     const uuid = this.generateUUID();
     const srcDirName = path.join(os.tmpdir(), `${uuid}`);
     try {
-      await this.proxyDownload(template.zipFile, srcDirName, {extract: true, strip: 1});
+      await this.proxyDownload(template.zipFile, srcDirName, { extract: true, strip: 1 });
     } catch (err) {
-      throw new InitError('Download template by url failed, error: {{msg}}', {msg: err.message});
+      throw new InitError('Download template by url failed, error: {{msg}}', { msg: err.message });
     }
 
     if (!template.hasSubPath) {
-      fs.copySync(srcDirName, outputDir, {dereference: true});
+      fs.copySync(srcDirName, outputDir, { dereference: true });
     } else {
       const srcSubDirName = path.join(srcDirName, template.subPath || '');
       const destSubDirName = path.join(outputDir, template.subPath || '');
-      fs.copySync(srcSubDirName, destSubDirName, {dereference: true});
+      fs.copySync(srcSubDirName, destSubDirName, { dereference: true });
     }
   }
 
@@ -104,18 +104,18 @@ export class DownloadManager {
     try {
       result = await axios.request(options);
     } catch (err) {
-      throw new InitError('Failed to get package provider, error: {{msg}}', {msg: err.message});
+      throw new InitError('Failed to get package provider, error: {{msg}}', { msg: err.message });
     }
     if (result.status !== 200) {
-      throw new InitError('Failed to get package provider, http code: {{code}}', {code: result.status});
+      throw new InitError('Failed to get package provider, http code: {{code}}', { code: result.status });
     }
     if (result.data.Error) {
-      throw new InitError('Failed to get package provider, error message: {{msg}}', {msg: result.data.Error});
+      throw new InitError('Failed to get package provider, error message: {{msg}}', { msg: result.data.Error });
     }
 
     const providers: string[] = result.data.Response.Providers;
     if (!providers || providers.length === 0) {
-      throw new InitError('No available provider for {{project}}', {project});
+      throw new InitError('No available provider for {{project}}', { project });
     }
 
     if (providers.length === 0) {
@@ -123,7 +123,7 @@ export class DownloadManager {
     } else if (providers.length === 1) {
       return providers[0];
     } else {
-      const {provider} = await inquirer.prompt([
+      const { provider } = await inquirer.prompt([
         {
           type: 'list',
           name: 'provider',
@@ -153,7 +153,7 @@ export class DownloadManager {
     };
     const result = await axios.request(options);
     if (result.status !== 200) {
-      throw new InitError('Failed to get package information, http code: {{code}}', {code: result.status});
+      throw new InitError('Failed to get package information, http code: {{code}}', { code: result.status });
     }
     if (!result.data.Response) {
       throw new InitError('Failed to get package information, error: {{msg}}', {
@@ -179,7 +179,7 @@ export class DownloadManager {
   async proxyDownload(url: string, dest: string, options: download.DownloadOptions) {
     let len;
     try {
-      const {headers} = await got(url, {method: 'HEAD'});
+      const { headers } = await got(url, { method: 'HEAD' });
       len = parseInt(headers['content-length'], 10);
     } catch (err) {
       // ignore error
