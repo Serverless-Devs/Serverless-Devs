@@ -1,22 +1,23 @@
-/** @format */
 
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
-// const util = require('util');
-
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 import axios from 'axios';
 import { get } from 'lodash';
-
+import { spawnSync } from 'child_process';
+import { PackageType } from '@serverless-devs/entity';
 import { DownloadManager } from '@serverless-devs-cli/init';
-import { logger, i18n, version, Parse, PackageType } from '@serverless-devs-cli/util';
-import { GetManager } from '../config/get/get-manager';
-import { Hook } from './hook';
-import { SERVERLESS_CHECK_COMPONENT_VERSION } from '../constants/static-variable';
+import { version, Parse } from '@serverless-devs-cli/specification';
 
+import i18n from '../utils/i18n';
+import logger from '../utils/logger';
+import { GetManager } from './get-manager';
+import { Hook } from './hook';
+
+const SERVERLESS_CHECK_COMPONENT_VERSION = 'https://tool.serverlessfans.com/api/package/object/version';
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
-const S_COMPONENT_BASE_PATH = path.join(os.homedir(), `.s/components`);
-const spawnSync = require('child_process').spawnSync;
+const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
+// const spawnSync = require('child_process').spawnSync;
 
 const TYPE_MAP = {
   [PackageType.component]: 'Component',
@@ -58,7 +59,7 @@ export async function synchronizeExecuteComponentList(list: any = [], index: any
 
 export function generateSynchronizeComponentExeList(
   { list, parse, parsedObj, method, params }: GenerateComponentExeParams,
-  equipment: (parse: Parse, projectName: string, parsedObj: any) => Promise<ComponentConfig>,
+  equipment: (parse: Parse, projectName: string, parsedObj: any) => Promise<ComponentConfig>
 ): any[] {
   return list.map(projectName => {
     return () => {
@@ -108,8 +109,8 @@ export class ComponentExeCute {
       fs.mkdirSync(S_COMPONENT_BASE_PATH);
     }
     const { name } = getServiceConfigDetail(this.componentConfig);
-    this.componentPath = path.join(S_COMPONENT_BASE_PATH, `/${name}`);
-    this.isPackageProject = fs.existsSync(path.join(this.componentPath, '/package.json'));
+    this.componentPath = path.join(S_COMPONENT_BASE_PATH, name);
+    this.isPackageProject = fs.existsSync(path.join(this.componentPath, 'package.json'));
   }
 
   async init() {

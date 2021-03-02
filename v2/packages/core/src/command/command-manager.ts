@@ -1,6 +1,8 @@
 import yaml from 'js-yaml';
-import { common, logger, i18n, version, Parse, Analysis } from '@serverless-devs-cli/util';
-import { TEMPLATE_FILE } from '../constants/static-variable';
+import { common } from '@serverless-devs-cli/util';
+import { version, Parse, Analysis } from '@serverless-devs-cli/specification';
+import i18n from '../utils/i18n';
+import logger from '../utils/logger';
 import {
   ComponentExeCute,
   ComponentConfig,
@@ -10,8 +12,9 @@ import {
 
 const { checkTemplateFile } = common;
 const { getServiceConfig } = version;
+const TEMPLATE_FILE = 'template.yaml';
 
-export default class CommandManager {
+export class CommandManager {
   protected deployParams: any;
   constructor(
     protected templateFile: string,

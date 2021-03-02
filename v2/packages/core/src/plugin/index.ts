@@ -1,14 +1,13 @@
-/** @format */
-
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import axios from 'axios';
-import { logger, PackageType } from '@serverless-devs-cli/util';
+import { PackageType } from '@serverless-devs/entity';
 import { DownloadManager } from '@serverless-devs-cli/init';
+import logger from '../utils/logger';
 
 
-import { SERVERLESS_CHECK_VERSION_URL } from '../constants/static-variable';
+const SERVERLESS_CHECK_VERSION_URL = 'https://tool.serverlessfans.com/api/package/object/version';
 
 const S_PLUGIN_BASE_PATH = path.join(os.homedir(), '.s', 'plugins');
 const TYPE_MAP: { [key: number]: string } = {
@@ -68,7 +67,7 @@ export class PluginExeCute {
   }
   getLocalComponentVersion() {
     const { name } = this.pluginConfig;
-    const pkgFile = path.join(S_PLUGIN_BASE_PATH, `/${name}/package.json`);
+    const pkgFile = path.join(S_PLUGIN_BASE_PATH, name, 'package.json');
     if (!fs.existsSync(pkgFile)) {
       return null;
     }
@@ -80,7 +79,7 @@ export class PluginExeCute {
   }
   async downLoadPlugin(type: PackageType, name: string) {
     const downloadManager = new DownloadManager();
-    const pluginPath = path.join(S_PLUGIN_BASE_PATH, `/${name}`);
+    const pluginPath = path.join(S_PLUGIN_BASE_PATH, name);
     if (!fs.existsSync(pluginPath)) {
       fs.mkdirSync(pluginPath);
     }

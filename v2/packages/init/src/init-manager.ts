@@ -1,14 +1,13 @@
-/** @format */
-
-
-
 import fs from 'fs-extra';
 import path from 'path';
 
 import * as msg from './init-message';
 
-import { logger, urlParser, i18n, PackageType } from '@serverless-devs-cli/util';
+import { urlParser, } from '@serverless-devs-cli/util';
 import { InitError } from '@serverless-devs-cli/error';
+import { PackageType } from '@serverless-devs/entity';
+import logger from './logger';
+import i18n from './i18n';
 
 import { DownloadManager } from './download-manager';
 
@@ -17,7 +16,10 @@ import { DownloadManager } from './download-manager';
 export class InitManager {
     downloadManager: DownloadManager;
 
-    constructor() {
+    constructor(content = '') {
+        if (content) {
+            logger.setContent(content)
+        }
         this.downloadManager = new DownloadManager();
     }
 
@@ -47,7 +49,7 @@ export class InitManager {
 
         try {
             await this.downloadManager.downloadTemplateFromAppCenter(PackageType.application, project, outputDir, provider);
-        } catch (err) { 
+        } catch (err) {
             throw err;
         }
     }

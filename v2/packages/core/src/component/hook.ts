@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { logger } from '@serverless-devs-cli/util';
+
+import logger from '../utils/logger';
+
 import { PluginExeCute } from '../plugin';
 const spawnSync = require('child_process').spawnSync;
 
@@ -30,15 +32,7 @@ export class Hook {
       logger.info('Start the pre-hook');
       for (let i = 0; i < this.preHooks.length; i++) {
         logger.info(`[Hook / Plugin] ${this.preHooks[i].Hook || this.preHooks[i].Plugin}`);
-        // try {
         await this.executeByConfig(this.preHooks[i]);
-        // } catch (ex) {
-        //   process.env['project_error'] = String(true)
-        //   const thisMessage = `> Execute Error: ${this.preHooks[i].Hook || this.preHooks[i].Plugin}\n${ex}`
-        //   const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
-        //   process.env['project_error_message'] = tempMessage + thisMessage
-        //   logger.error(`[Hook / Plugin] [Error]: ${ex.stdout || ex.stderr}`);
-        // }
       }
       logger.info('End the pre-hook');
     }

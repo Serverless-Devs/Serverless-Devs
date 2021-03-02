@@ -2,8 +2,7 @@
 
 import URL from 'url';
 import path from 'path';
-import { GitRepoTemplate } from './repo-template-entity';
-
+import { GitRepoTemplate } from '@serverless-devs/entity';
 
 export function parse(url: string): URL.Url {
   return URL.parse(url);
@@ -64,5 +63,5 @@ export default {
   extractTemplateInfo,
   getProjectNameFromUrl,
   isUrlFormat,
-  parse 
+  parse
 }

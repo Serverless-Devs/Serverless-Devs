@@ -15,7 +15,6 @@ interface Profile {
 }
 
 
-
 function setProfileFile(profile: Profile) {
   const profileFilePath = getDefaultProfilePath();
   fs.writeFileSync(profileFilePath, yaml.dump(profile));

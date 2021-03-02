@@ -17,8 +17,9 @@ import { green } from 'colors';
 
 import { ProgressService, ProgressType, ProgressBarOptions } from '@serverless-devs/s-progress-bar';
 import { InitError } from '@serverless-devs-cli/error';
-import { i18n, logger, PackageType, RepoTemplate } from '@serverless-devs-cli/util';
-
+import { PackageType, RepoTemplate } from '@serverless-devs/entity';
+import logger from './logger';
+import i18n from './i18n';
 
 const SERVERLESS_API = 'https://tool.serverlessfans.com/api';
 const SERVERLESS_GET_PACKAGE_PROVIDER = SERVERLESS_API + '/package/object/provider';
