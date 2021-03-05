@@ -18,6 +18,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,85 +27,48 @@
   "bugs": {
     "email": "service@serverlessfans.com"
   },
-  "bin": {
-    "s": "./v2/packages/cli/bin/s"
-  },
-  "main": "",
-  "typings": "",
-  "engines": {
-    "node": ">=10.13.0"
-  },
   "scripts": {
-    "watch": "tsc -w",
-    "test": "nyc mocha -r ts-node/register scripts/tests/**/*.ts",
-    "lint": "eslint --ext .js,.ts,.tsx ",
-    "lint:fix": "eslint --fix --ext .js,.ts,.tsx ",
-    "build": "tsc",
-    "release": "rm -rf ./lib && tsc && npm publish",
-    "release-ignore": "npm publish"
+    "bootstrap": "lerna bootstrap",
+    "publish": "lerna publish",
+    "link:local": "lerna link --force-local",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "lint": "f2elint scan -i src",
+    "fix": "f2elint fix",
+    "typecheck": "npx tsc -p tsconfig.json --noEmit"
   },
-  "lint-staged": {
-    "**/*.{js,ts,tsx}": [
-      "npm run lint:fix",
-      "git add ."
-    ],
-    "**/*.{css,html,js,json,md,yaml,yml}": [
-      "npm run prettier:fix",
-      "git add ."
-    ]
+  "bin": {
+    "s": "packages/cli/bin/s"
   },
-  "dependencies": {
-    "@serverless-devs/s-progress-bar": "^0.0.2",
-    "@types/lodash": "^4.14.168",
-    "adm-zip": "^0.4.16",
-    "axios": ">=0.21.1",
-    "colors": "^1.4.0",
-    "commander": "^6.0.0",
-    "compressing": "^1.5.1",
-    "download": "^7.1.0",
-    "extract-zip": "^2.0.1",
-    "fast-glob": "^3.2.4",
-    "follow-redirects": "^1.13.0",
-    "fs-extra": "^8.1.0",
-    "i18n": "^0.12.0",
-    "inquirer": "^7.3.3",
-    "js-yaml": "^3.14.0",
-    "lodash": "^4.17.20",
-    "progress": "^2.0.3",
-    "request": "^2.88.2",
-    "rimraf": "^3.0.2",
-    "single-line-log": "^1.1.2",
-    "superagent": "^6.1.0",
-    "superagent-proxy": "^2.0.0"
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.168",
-    "@types/assert": "^1.5.1",
-    "@types/chai": "^4.2.12",
-    "@types/download": "^6.2.4",
-    "@types/fs-extra": "^9.0.1",
-    "@types/inquirer": "^7.3.0",
-    "@types/mocha": "^8.0.1",
-    "@types/node": "^14.0.23",
-    "@types/js-yaml": "^3.12.5",
-    "@typescript-eslint/eslint-plugin": "^4.14.1",
-    "@typescript-eslint/parser": "^4.14.1",
-    "chai": "^4.2.0",
-    "eslint": "^7.7.0",
-    "mocha": "^8.1.1",
-    "nyc": "^15.1.0",
-    "sinon": "^9.0.2",
-    "sinon-chai": "^3.5.0",
+    "@types/i18n": "^0.12.0",
+    "@types/jest": "^26.0.10",
+    "@types/node": "^12.12.6",
+    "f2elint": "^0.4.4",
+    "git-cz": "^4.7.6",
+    "jest": "^26.4.0",
+    "lerna": "^3.22.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.2.0",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.2.3",
-    "jest": "^26.4.2",
-    "lint-staged": "^10.0.8",
-    "prettier": "^2.2.1",
-    "semantic-release": "^17.0.4",
-    "babel-eslint": "^10.1.0"
+    "typescript": "^3.9.7"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "f2elint exec commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "f2elint exec lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts}": "f2elint exec eslint"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }

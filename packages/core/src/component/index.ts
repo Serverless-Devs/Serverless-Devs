@@ -50,7 +50,9 @@ export interface GenerateComponentExeParams {
 export async function synchronizeExecuteComponentList(list: any = [], index: any = 0, initData: any = {}) {
   if (index >= 0 && index < list.length) {
     return await list[index]().then(async ({ name, data }: any) => {
-      initData[name] = data;
+      if (name) {
+        initData[name] = data;
+      }
       return await synchronizeExecuteComponentList(list, index + 1, initData);
     });
   }
@@ -79,22 +81,23 @@ export function generateSynchronizeComponentExeList(
           logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, { projectName }));
           resolve({ name: projectName, data: Output });
         } catch (e) {
-          if (String(e).indexOf('method does not exist') !== -1) {
-            process.env['project_error'] = String(true)
-            const thisMessage = `> Project Method Error: ${projectName}\n${e}`
-            const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
-            process.env['project_error_message'] = tempMessage + thisMessage
-            logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, { projectName, method }));
-            resolve({});
-          } else {
-            process.env['project_error'] = String(true)
-            const thisMessage = `> Project Run Error: ${projectName}\n${e}`
-            const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
-            process.env['project_error_message'] = tempMessage + thisMessage
-            logger.error(e);
-            logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName }));
-            resolve({ name: projectName, data: '' });
-          }
+          logger.error(e);
+          logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName }));
+          resolve({});
+          // if (String(e).indexOf('method does not exist') !== -1) {
+          //   const thisMessage = `> Project Method Error: ${projectName}\n${e}`
+          //   const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+          //   process.env['project_error_message'] = tempMessage + thisMessage
+          //   logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, { projectName, method }));
+          //   resolve({});
+          // } else {
+          //   const thisMessage = `> Project Run Error: ${projectName}\n${e}`
+          //   const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
+          //   process.env['project_error_message'] = tempMessage + thisMessage;
+
+          //   logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName }));
+          //   resolve({ name: projectName, data: '', hasError: true });
+          // }
         }
       });
     };
