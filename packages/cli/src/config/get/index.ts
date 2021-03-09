@@ -33,7 +33,6 @@ program
     logger.error(wrongInput);
     throw new ConfigError('Query failed');
   }
-
   const getManager = new GetManager();
   await getManager.initAccessData(providerAlias);
   getManager.consoleRes();

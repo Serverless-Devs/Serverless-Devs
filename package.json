@@ -29,6 +29,7 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
     "publish": "lerna publish",
     "link:local": "lerna link --force-local",
     "test": "jest",

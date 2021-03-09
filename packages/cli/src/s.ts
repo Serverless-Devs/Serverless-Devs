@@ -1,5 +1,5 @@
 import program from 'commander';
-import { configSet, common } from '@serverless-devs-cli/util';
+import { common } from '@serverless-devs-cli/util';
 
 import {
   registerCommandChecker,

@@ -25,7 +25,7 @@
         "debug": "ts-node test/fixtures/spinner.ts",
         "test": "npx jest",
         "link:local": "lerna link --force-local",
-        "build": "npx tsc",
+        "build": "tsc",
         "test:cov": "jest --coverage",
         "lint": "npm run typecheck && f2elint scan -i src",
         "fix": "f2elint fix",

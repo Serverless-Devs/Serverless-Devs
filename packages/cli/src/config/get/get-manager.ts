@@ -142,9 +142,7 @@ export class GetManager {
     if (Object.keys(this.resUserInformation).length > 0) {
       this.outputFormat(this.resUserInformation);
     } else {
-      throw new ConfigGetError(
-        'Query failed : The key information is not found. You can obtain the key information through: s config get -l',
-      );
+      logger.error('Query failed : The key information is not found. You can obtain the key information through: s config get -l');
     }
   }
 }
