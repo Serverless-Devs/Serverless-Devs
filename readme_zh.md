@@ -18,12 +18,21 @@
 </p>
 
 
-- [ :thumbsup: 项目优势](#项目优势)
-- [ :iphone: 像使用手机一样玩转 Serverless](#像使用手机一样玩转-serverless)
-- [ :house_with_garden: Serverless的使用场景](#使用场景)
-- [ :heavy_check_mark: 快入安装和使用](#快入安装和使用)
-- [ :running: 极速入门体验](#极速体验)
-- [ :book: 使用文档](#更多文档)
+- [欢迎使用Serverless Devs](#欢迎使用serverless-devs)
+  - [项目优势](#项目优势)
+    - [可支持主流 Serverless 服务/框架](#可支持主流-serverless-服务框架)
+    - [可视化编辑和部署](#可视化编辑和部署)
+    - [灵活与开放的使用方法](#灵活与开放的使用方法)
+  - [像使用手机一样玩转 Serverless](#像使用手机一样玩转-serverless)
+  - [使用场景](#使用场景)
+  - [快入安装和使用](#快入安装和使用)
+    - [快速安装](#快速安装)
+  - [通过Npm安装](#通过npm安装)
+  - [极速体验](#极速体验)
+  - [如何开发](#如何开发)
+  - [更多文档](#更多文档)
+  - [联系我们](#联系我们)
+
 
 Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
 
@@ -138,6 +147,30 @@ Commands:
 | <p align="center"> <span> 点击图片播放CLI视频 <br> <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> 也可以点击此处查看CLI入门案例 </a> </span> </p> | <p align="center"> <span> 点击图片播放应用中心视频 <br>  <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> 也可以点击此处查看应用中心入门案例 </a> </span> </p> |
 
 </div>
+
+## 如何开发
++ 1.项目克隆到本地后，进入根目录下执行
+```
+npm install
+```
++ 2.通过leran 安装子包的依赖
+```
+npm run bootstrap
+```
++ 3.执行编译
+```
+npm run build
+```
++ 4.使用npm link 将本地包软链到全局指令 (部分系统需要sudo)
+```
+npm link
+```
++ 5.调试具体的包，比如 cli，可以进入cli目录下，执行
+```
+npm run watch
+```
+即可实时调试打印结果
+
 
 
 ## 更多文档

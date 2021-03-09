@@ -21,6 +21,7 @@
 - [:house_with_garden: Use scenarios ](#use-scenarios)
 - [:heavy_check_mark: Fast entry installation and use ](#fast-entry-installation-and-use)
 - [:running: Quick start experience](#quick-start-experience)
+- [:heavy_check_mark: How to develop](#how-to-develop)
 - [:book: Use documentation](#use-documentation)
 
 Serverless Devs is an open-source and Serverless developer platform, dedicated to providing developers with a powerful tool chain system. Through this platform, developers can experience multi-cloud Serverless products in one click and quickly deploy Serverless projects.
@@ -134,6 +135,27 @@ Commands:
 
 </div>
 
+## How to develop
++ 1.After the project is cloned locally, enter the root directory to execute
+```
+npm install
+```
++ 2.Install sub-package dependencies through leran
+```
+npm run bootstrap
+```
++ 3.Execute compilation
+```
+npm run build
+```
++ 4.Use npm link to soft link the local package to the global command (some systems require sudo)
+```
+npm link
+```
++ 5.To debug specific packages, such as cli, you can enter the cli directory and execute
+```
+npm run watch
+```
 
 ## Use documentation
 
