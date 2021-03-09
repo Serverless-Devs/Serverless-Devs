@@ -6,7 +6,6 @@ import { SERVERLESS_CHECK_VERSION } from '../constants/static-variable';
 import { GetManager } from '../config/get/get-manager';
 import { providerArray } from '../config/common/common';
 import logger from './logger';
-import { Console } from 'console';
 
 const { handlerProfileFile, getConfig } = configSet;
 const { printn } = common;
@@ -52,7 +51,7 @@ export class CheckVersion {
     } else {
       if (isNewVersion) {
         logger.log(`Serverless Tool Version: ${pkg.version} `);
-        console.log('\n\n');
+        logger.log('\n\n');
       } else {
         logger.log('Serverless Tool Version: ');
         logger.log(`    Release: ${data.version} `);
@@ -63,7 +62,7 @@ export class CheckVersion {
         data.message.forEach((message: any, index: any) => {
           logger.log(`        ${index + 1}. ${message}`);
         });
-        console.log('\n\n');
+        logger.log('\n\n');
       }
     }
   }
@@ -89,7 +88,6 @@ export class CheckVersion {
           const tempData = await getManager.getUserSecretID({ Provider: providerArray[i] });
           if (providerArray[i] === 'alibaba') {
             providerMap[providerArray[i]] = providerMap[providerArray[i]] || [];
-            // eslint-disable-next-line guard-for-in
             for (const item in tempData) {
               providerMap[providerArray[i]].push(tempData[item].AccountID);
             }
@@ -110,7 +108,7 @@ export class CheckVersion {
             SERVERLESS_CHECK_VERSION_URL,
             { state: 1, data: postData },
             {
-              timeout: 2000,
+              timeout: 20000,
             },
           );
           fs.removeSync(historyFile);
@@ -127,7 +125,6 @@ export class CheckVersion {
         } catch (ex) { }
       }
     } catch (e) {
-      // console.log(e)
       this.checkVersionResult = {};
     }
     await handlerProfileFile({
@@ -141,7 +138,6 @@ export class CheckVersion {
   private async checkTime() {
     const profile = await handlerProfileFile({ read: true, filePath: 'cache.yml' });
     const checkVersionTime = profile['check-version-time'];
-    console.log();
     //
     if (checkVersionTime) {
       this.hasCheckedToday = new Date(checkVersionTime).toDateString() === new Date().toDateString();

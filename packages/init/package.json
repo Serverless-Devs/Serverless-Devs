@@ -21,7 +21,7 @@
     "scripts": {
         "watch": "tsc -w",
         "test": "npx jest",
-        "build": "tsc -w",
+        "build": "tsc",
         "test:cov": "jest --coverage",
         "lint": "npm run typecheck && f2elint scan -i src",
         "fix": "f2elint fix",
