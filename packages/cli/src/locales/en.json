@@ -6,5 +6,6 @@
   "s config delete help": "You can delete an account.\n\n     Example:\n        $ s config delete -p alibaba -a demo\n",
   "s config get help": "You can get accounts.\n \n     Example:\n        $ s config get -l\n        $ s config get -p alibaba -a demo\n ",
   "s config update help": "You can update an account.\n \n     Example:\n        $ s config update -p alibaba -a demo\n        $ s config update -p alibaba -a demo --AccountID ************\n",
-  "to pack folder": "Folder to be packaged"
+  "to pack folder": "Folder to be packaged",
+  "Set up a custom registry": "Set up a custom registry"
 }

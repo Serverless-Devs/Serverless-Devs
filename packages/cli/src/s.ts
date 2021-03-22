@@ -13,7 +13,6 @@ import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
 import { CheckVersion } from "./utils/check-version";
 import i18n from './utils/i18n';
 
-// const { handlerProfileFile } = configSet;
 const { checkAndReturnTemplateFile } = common;
 
 const description = `  _________                               .__
@@ -31,7 +30,7 @@ async function setSpecialCommand() {
   if (templateFile) {
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    if (!['init', 'config', 'search', 'set', 'gui', 'exec'].includes(process.argv[2])) {
+    if (!['init', 'config', 'set', 'exec'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
       await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
@@ -71,7 +70,6 @@ async function globalParameterProcessing() {
     .helpOption('-h, --help', i18n.__('Display help for command'))
     .command('config', i18n.__('Configure cloud service account.'))
     .command('init', i18n.__('Initializing a project.'))
-    .command('search', i18n.__('Search the package.'))
     .command('set', i18n.__('Settings for the tool.'))
     .option('--skip-extends', i18n.__('Skip the extends section'))
     .addHelpCommand(false);

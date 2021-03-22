@@ -2,28 +2,19 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import axios from 'axios';
-import { get } from 'lodash';
-import { spawnSync } from 'child_process';
-import { PackageType } from '@serverless-devs/entity';
-import { DownloadManager } from '@serverless-devs-cli/init';
-import { version, Parse } from '@serverless-devs-cli/specification';
 
+import { PackageType } from '@serverless-devs/entity';
+import { loadComponent } from '@serverless-devs/core';
+import { configSet } from '@serverless-devs-cli/util';
+import { version, Parse } from '@serverless-devs-cli/specification';
 import i18n from '../utils/i18n';
 import logger from '../utils/logger';
 import { GetManager } from './get-manager';
 import { Hook } from './hook';
-
-const SERVERLESS_CHECK_COMPONENT_VERSION = 'https://tool.serverlessfans.com/api/package/object/version';
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
-// const spawnSync = require('child_process').spawnSync;
-
-const TYPE_MAP = {
-  [PackageType.component]: 'Component',
-  [PackageType.plugin]: 'Plugin',
-  [PackageType.application]: 'Application',
-};
+const DEFAULT_REPO = 'Serverless-Devs-Awesome';
+const DEFAULT_REGIRSTRY = 'https://api.github.com/repos';
 export interface ComponentConfig {
   Component: string;
   Provider: string;
@@ -84,169 +75,39 @@ export function generateSynchronizeComponentExeList(
           logger.error(e);
           logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName }));
           resolve({});
-          // if (String(e).indexOf('method does not exist') !== -1) {
-          //   const thisMessage = `> Project Method Error: ${projectName}\n${e}`
-          //   const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
-          //   process.env['project_error_message'] = tempMessage + thisMessage
-          //   logger.error(i18n.__(`Project {{projectName}} doesn't have the method: {{method}}`, { projectName, method }));
-          //   resolve({});
-          // } else {
-          //   const thisMessage = `> Project Run Error: ${projectName}\n${e}`
-          //   const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
-          //   process.env['project_error_message'] = tempMessage + thisMessage;
-
-          //   logger.error(i18n.__(`Project {{projectName}} failed to execute`, { projectName }));
-          //   resolve({ name: projectName, data: '', hasError: true });
-          // }
         }
       });
     };
   });
 }
 export class ComponentExeCute {
-  protected componentPath: string;
   protected credentials: any;
-  protected isPackageProject = false;
   constructor(protected componentConfig: ComponentConfig, protected method: string, protected version: string = '0.0.1') {
     if (!fs.existsSync(S_COMPONENT_BASE_PATH)) {
       fs.mkdirSync(S_COMPONENT_BASE_PATH);
     }
-    const { name } = getServiceConfigDetail(this.componentConfig);
-    this.componentPath = path.join(S_COMPONENT_BASE_PATH, name);
-    this.isPackageProject = fs.existsSync(path.join(this.componentPath, 'package.json'));
   }
 
   async init() {
-    let { name, provider } = getServiceConfigDetail(this.componentConfig);
-    const providerOnlyPrefix = provider.split('.')[0];
-    this.credentials = (await this.getCredentials()) || {};
 
+    this.credentials = (await this.getCredentials()) || {};
     // 将密钥缓存到临时环境变量中
     try {
       process.env.temp_credentials = JSON.stringify(this.credentials);
     } catch (e) { }
-
-    let version;
-    if (await fs.existsSync(name)) {
-      this.componentPath = name;
-    } else {
-      if (name.indexOf('@') !== -1) {
-        const temp = name.split('@');
-        name = temp[0];
-        version = temp[1];
-        if (!(name && version)) {
-          throw new Error('Could not get component name and version, please check you component content.');
-        }
-      } else {
-        version = await this.getRemoteComponentVersion({
-          name,
-          provider: providerOnlyPrefix,
-          type: PackageType.component,
-        });
-      }
-      // 判断组件是否已存在
-      const tempPath = path.join(S_COMPONENT_BASE_PATH, `/${name}-${providerOnlyPrefix}@${version}`);
-      const tempPathFile = path.join(tempPath, '.s.lock')
-      if (!(await fs.existsSync(tempPathFile))) {
-        logger.info(
-          i18n.__(
-            `No component {{name}}-{{provider}}@{{version}} is found, it will be downloaded soon, this may take a few minutes......`,
-            { name, version, provider: providerOnlyPrefix },
-          ),
-        );
-        await this.downLoadAndUnCompressComponentV2(PackageType.component, name, providerOnlyPrefix, version);
-        await fs.writeFileSync(tempPathFile, `${name}-${version}`)
-      }
-      this.componentPath = tempPath;
-    }
     return await this.startExecute();
   }
 
   async getCredentials() {
     const { access, provider } = getServiceConfigDetail(this.componentConfig);
     const configUserInput = { Provider: provider, AliasName: access };
-
     const getManager = new GetManager();
     await getManager.initAccessData(configUserInput);
     const providerMap: {
       [key: string]: any;
     } = await getManager.getUserSecretID(configUserInput);
-    // console.log(providerMap)
     const accessData = provider && access ? providerMap : providerMap[`project.${access || 'default'}`] || providerMap[`${provider}.${access || 'default'}`];
-
     return accessData || {}
-  }
-
-  componentExist(): boolean {
-    return fs.existsSync(this.componentPath);
-  }
-
-  async getRemoteComponentVersion({ name, provider, type }: VersionCheckParams) {
-    const url = SERVERLESS_CHECK_COMPONENT_VERSION;
-    let version = null;
-    try {
-      const result: any = await axios.get(url, {
-        params: {
-          name,
-          provider,
-          type: TYPE_MAP[type],
-        },
-      });
-      if (result.data && result.data.Response && result.data.Response.Version) {
-        version = result.data.Response.Version;
-      } else {
-        throw new Error('Please Check the provider and component');
-      }
-    } catch (e) {
-      logger.error(e.message);
-    }
-    return version;
-  }
-
-  getLocalComponentVersion(): string | null {
-    const { Component: name } = this.componentConfig;
-    const pkgFile = path.join(S_COMPONENT_BASE_PATH, name, 'package.json');
-    if (!fs.existsSync(pkgFile)) {
-      return null;
-    }
-    const componentPackageJsonObj = require(pkgFile);
-    return componentPackageJsonObj.version;
-  }
-
-  private async preLoadNodeModules() {
-    const havePackageJson = fs.existsSync(path.join(this.componentPath, 'package.json'))
-    const haveNodeModules = fs.existsSync(path.join(this.componentPath, 'node_modules'))
-    // console.log(havePackageJson,haveNodeModules )
-    if (havePackageJson && !haveNodeModules) {
-      logger.info('Installing dependencies ...');
-      const result = spawnSync('npm install --registry=https://registry.npm.taobao.org', [], { cwd: this.componentPath, stdio: 'inherit', shell: true });
-      if (result && result.status !== 0) {
-        throw Error("> Execute Error")
-      }
-    }
-  }
-
-  async downLoadAndUnCompressComponent(type: PackageType, name: string, provider: string) {
-    const downloadManager = new DownloadManager();
-    const componentPath = path.join(S_COMPONENT_BASE_PATH, `${name}`);
-    if (!fs.existsSync(componentPath)) {
-      fs.mkdirSync(componentPath);
-    }
-    await downloadManager.downloadTemplateFromAppCenter(type, name, componentPath, provider);
-  }
-
-  async downLoadAndUnCompressComponentV2(
-    type: PackageType,
-    name: string,
-    provider: string,
-    version: string,
-  ): Promise<void> {
-    const downloadManager = new DownloadManager();
-    const componentPath = path.join(S_COMPONENT_BASE_PATH, `/${name}-${provider}@${version}`);
-    if (!fs.existsSync(componentPath)) {
-      fs.mkdirSync(componentPath);
-    }
-    await downloadManager.downloadTemplateFromAppCenter(type, name, componentPath, provider);
   }
 
   private loadExtends(): Hook | null {
@@ -270,16 +131,11 @@ export class ComponentExeCute {
     }
   }
 
-  async loadComponent() {
-    await this.preLoadNodeModules(); // check and install node_module
-    const componentModule = require(this.componentPath);
-    return get(componentModule, "default") ? get(componentModule, "default") : componentModule;
-  }
 
-  async invokeMethod(ComponentClass: any, method: string, data: any) {
+
+  async invokeMethod(componentInstance: any, method: string, data: any) {
     const promise = new Promise(async (resolve, reject) => {
       try {
-        const componentInstance = new ComponentClass();
         const result = await componentInstance[method](data);
         resolve(result);
       } catch (e) {
@@ -291,7 +147,13 @@ export class ComponentExeCute {
 
   async executeCommand(): Promise<any> {
     const inputs = getServiceInputs(this.componentConfig, this.version, { method: this.method, credentials: this.credentials })
-    const componentClass = await this.loadComponent();
+    let { name } = getServiceConfigDetail(this.componentConfig);
+    if (name.split('/').length === 1) {
+      const provider = configSet.getConfig('repo') || DEFAULT_REPO;
+      name = `${provider}/${name}`;
+    }
+    const regirstry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+    const componentClass = await loadComponent(name, regirstry);
     let data
     try {
       data = await this.invokeMethod(componentClass, this.method, inputs);

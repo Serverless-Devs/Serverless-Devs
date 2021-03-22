@@ -95,10 +95,5 @@ export class CommandManager {
       process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + errMessage
 
     }
-    // if (process.env['project_error']) {
-    //   logger.error("\n********** " + i18n.__("The operation was not fully successful") + " **********")
-    //   logger.error(process.env['project_error_message'])
-    //   process.exit(1)
-    // }
   }
 }

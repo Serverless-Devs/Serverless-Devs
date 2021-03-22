@@ -1,100 +1,68 @@
-import fs from 'fs-extra';
 import path from 'path';
-
-import * as msg from './init-message';
-
-import { urlParser, } from '@serverless-devs-cli/util';
+import os from 'os';
+import fs from 'fs-extra';
+import * as inquirer from 'inquirer';
+import { loadApplication } from '@serverless-devs/core';
+import { configSet } from '@serverless-devs-cli/util';
 import { InitError } from '@serverless-devs-cli/error';
-import { PackageType } from '@serverless-devs/entity';
 import logger from './logger';
 import i18n from './i18n';
-
-import { DownloadManager } from './download-manager';
-
-
+import { DEFAULT_REGIRSTRY, DEFAULT_REPO, APPLICATION_TEMPLATE } from './config';
 
 export class InitManager {
-    downloadManager: DownloadManager;
-
     constructor(content = '') {
         if (content) {
             logger.setContent(content)
         }
-        this.downloadManager = new DownloadManager();
     }
 
-    async init(target: string, provider: string, dir: any) {
-        logger.info('Initializing......');
+    private generateUUID(): string {
+        return (
+            Math.random()
+                .toString(36)
+                .substring(2, 15) +
+            Math.random()
+                .toString(36)
+                .substring(2, 15)
+        );
+    }
+
+    async executeInit(name: string, dir?: string) {
+        logger.info(i18n.__('Initializing......'));
+        if (name.split('/').length === 1) {
+            const repo = configSet.getConfig('repo') || DEFAULT_REPO;
+            name = `${repo}/${name}`;
+        }
+        const appName = name.split('/')[1] || name;
+        const registry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+        const tmpDir = path.join(os.tmpdir(), this.generateUUID());
+        fs.mkdirSync(tmpDir);
+        const result = await loadApplication(name, registry, tmpDir);
+       
+        const appSrc = path.join(result, 'src');
+        if (!dir) {
+            dir = process.cwd();
+        }
+        fs.copySync(appSrc, path.join(dir, appName), { dereference: true });
+        fs.removeSync(tmpDir);
+        logger.success(i18n.__('Initialization successfully'));
+    }
+
+    async init(name: string, dir?: string) {
         try {
-            if (urlParser.isUrlFormat(target)) {
-                await this.downloadUrlTemplate(target, dir);
+            if (!name) {
+                inquirer.prompt(APPLICATION_TEMPLATE).then(async (answers) => {
+                    const appKey = Object.keys(answers)[0];
+                    const appName = answers[appKey];
+                    await this.executeInit(appName, dir);
+                });
             } else {
-                await this.downloadAppTemplate(target, provider, dir);
+                await this.executeInit(name, dir);
             }
-            logger.success(msg.INIT_SUCCESS_TIPS);
         } catch (err) {
-            throw err;
-            // logger.error(err);
+            throw new InitError(err.message);
         }
     }
 
-    async downloadAppTemplate(project: string, provider?: string, dir?: any) {
-        const outputDir = path.resolve(process.cwd(), dir || project);
-        if (fs.existsSync(outputDir)) {
-            logger.warning("  " + i18n.__('Directory already exists: {{{outputDir}}}', { outputDir }))
-            // throw new InitError('Directory already exists: {{{outputDir}}}', {
-            //   outputDir,
-            // });
-        }
 
-        try {
-            await this.downloadManager.downloadTemplateFromAppCenter(PackageType.application, project, outputDir, provider);
-        } catch (err) {
-            throw err;
-        }
-    }
-
-    async downloadUrlTemplate(address: string, dir?: any) {
-        const url = urlParser.parse(address);
-
-        if (url.protocol && (url.protocol.startsWith('https') || url.protocol.startsWith('http'))) {
-            if (!url.hostname || !url.hostname.includes('github')) {
-                throw new InitError('Unknown host({{host}}), we support github currently.', {
-                    host: url.host,
-                });
-            }
-            // do with normal download
-            const repoTemplate = urlParser.extractTemplateInfo(url);
-            const outputDir = path.resolve(process.cwd(), dir || repoTemplate.repoName);
-            if (fs.existsSync(outputDir)) {
-                throw new InitError('Directory already exists: {{{outputDir}}}', {
-                    outputDir,
-                });
-            }
-
-            try {
-                await this.downloadManager.downloadTemplateByUrl(repoTemplate, outputDir);
-            } catch (err) {
-                throw err;
-            }
-        } else if (url.href.startsWith('git@')) {
-            const outputDir = path.resolve(process.cwd(), dir || urlParser.getProjectNameFromUrl(url.href));
-            if (fs.existsSync(outputDir)) {
-                throw new InitError('Directory already exists: {{{outputDir}}}', {
-                    outputDir,
-                });
-            }
-            try {
-                await this.downloadManager.downloadTemplateByGitClone(url, outputDir);
-            } catch (err) {
-                throw new InitError('Git clone Template failed: {{msg}}', {
-                    msg: err.message,
-                });
-            }
-        } else {
-            throw new InitError('Unknown project format: {{target}}', {
-                target: url.href,
-            });
-        }
-    }
 }
