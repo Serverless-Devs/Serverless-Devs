@@ -1,4 +1,3 @@
-
 import i18n from './i18n';
 import { Logger, spinner as LogSpinner } from '@serverless-devs/core';
 

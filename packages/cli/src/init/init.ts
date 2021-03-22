@@ -23,20 +23,13 @@ program
   .name('s init')
   .helpOption('-h, --help', i18n.__('Display help for command'))
   .usage('[options] [name | url]')
-  .option('-p, --provider [provider]', i18n.__('The cloud service provider'))
   .option('-d, --dir [dir]', i18n.__('Where to output the initialized app into (default: ./ )'))
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
-
-
-  if (program.args.length === 0) {
-    program.help();
-  }
   const initManager = new InitManager('S-CLI');
-  const target = program.args[0];
-  const { provider } = program;
-  const { dir } = program;
-  await initManager.init(target, provider, dir);
+  const { dir} = program;
+  const name = program.args[0];
+  await initManager.init(name, dir);
 })().catch(err => {
   throw new CommandError(err.message);
 });

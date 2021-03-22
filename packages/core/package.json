@@ -29,7 +29,7 @@
     },
     "main": "./lib/index.js",
     "dependencies": {
-        "@serverless-devs/core": "0.0.20",
+        "@serverless-devs/core": "0.0.40",
         "@serverless-devs/entity": "0.0.1",
         "@serverless-devs-cli/init": "0.0.1",
         "@serverless-devs-cli/util": "0.0.1",

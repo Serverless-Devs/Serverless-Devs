@@ -32,7 +32,7 @@
   },
   "main": "./lib/index.js",
   "dependencies": {
-    "@serverless-devs/core": "0.0.20"
+    "@serverless-devs/core": "0.0.35"
   },
   "peerDependencies": {
     "i18n": "^0.12.0"

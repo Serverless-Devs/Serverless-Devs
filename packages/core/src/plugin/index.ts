@@ -1,20 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import axios from 'axios';
-import { PackageType } from '@serverless-devs/entity';
-import { DownloadManager } from '@serverless-devs-cli/init';
-import logger from '../utils/logger';
-
-
-const SERVERLESS_CHECK_VERSION_URL = 'https://tool.serverlessfans.com/api/package/object/version';
-
+// import {InitManager} from '@serverless-devs-cli/init';
 const S_PLUGIN_BASE_PATH = path.join(os.homedir(), '.s', 'plugins');
-const TYPE_MAP: { [key: number]: string } = {
-  [PackageType.component]: 'Component',
-  [PackageType.plugin]: 'Plugin',
-  [PackageType.application]: 'Application',
-};
+
 export interface PluginConifg {
   name: string;
 }
@@ -31,60 +20,24 @@ export class PluginExeCute {
   }
   async init() {
     const { name } = this.pluginConfig;
-
     if (!this.pluginExist()) {
-      await this.downLoadPlugin(PackageType.plugin, name);
-    } else {
-      const localVersion = this.getLocalComponentVersion();
-      const remoteVersion = await this.getRemotePluginVersion({ name, type: PackageType.plugin });
-      const isSameVersion = this.checkVersion(localVersion, remoteVersion);
-      if (!isSameVersion) {
-        await this.downLoadPlugin(PackageType.plugin, name);
-      }
+      await this.downLoadPlugin(name);
     }
   }
   pluginExist() {
     return fs.existsSync(this.pluginPath);
   }
-  async getRemotePluginVersion({ name, type }: { name: string; type: PackageType }) {
-    let version = null;
-    try {
-      const result: any = await axios.get(SERVERLESS_CHECK_VERSION_URL, {
-        params: {
-          name,
-          type: TYPE_MAP[type],
-        },
-      });
-      if (result.data && result.data.Response && result.data.Response.Version) {
-        version = result.data.Response.Version;
-      } else {
-        // throw new Error("Please Check the plugin name");
-      }
-    } catch (e) {
-      logger.error(e.message);
-    }
-    return version;
-  }
-  getLocalComponentVersion() {
-    const { name } = this.pluginConfig;
-    const pkgFile = path.join(S_PLUGIN_BASE_PATH, name, 'package.json');
-    if (!fs.existsSync(pkgFile)) {
-      return null;
-    }
-    const componentPackageJsonObj = require(pkgFile);
-    return componentPackageJsonObj.version;
-  }
-  checkVersion(localVersion: string | null, remoteVersion: string) {
-    return remoteVersion === localVersion;
-  }
-  async downLoadPlugin(type: PackageType, name: string) {
-    const downloadManager = new DownloadManager();
+  
+
+  async downLoadPlugin(name: string) {
+   // const initManager = new InitManager();
     const pluginPath = path.join(S_PLUGIN_BASE_PATH, name);
     if (!fs.existsSync(pluginPath)) {
       fs.mkdirSync(pluginPath);
     }
-    await downloadManager.downloadTemplateFromAppCenter(type, name, pluginPath);
+    // await initManager.init(name, S_PLUGIN_BASE_PATH);
   }
+
   async loadPlugin() {
     const PluginModule = require(this.pluginPath);
     return PluginModule;

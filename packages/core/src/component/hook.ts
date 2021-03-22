@@ -68,18 +68,6 @@ export class Hook {
       if (result && result.status !== 0) {
         throw Error("> Execute Error")
       }
-      // const {stdout, stderr} = await exec(command, {cwd: cwdPath});
-      // if (stderr) {
-      //   process.env['project_error'] = String(true)
-      //   const thisMessage = `> Execute Error: ${command}\n${stderr}`
-      //   const tempMessage = process.env['project_error_message'] ? process.env['project_error_message'] + "\n" : ""
-      //   process.env['project_error_message'] = tempMessage + thisMessage
-      //   logger.warning('Execute:');
-      //   logger.warning(stderr);
-      // } else {
-      //   logger.info('Execute:');
-      //   logger.info(stdout);
-      // }
     }
   }
 

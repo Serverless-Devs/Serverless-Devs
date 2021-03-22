@@ -10,7 +10,7 @@ import logger from './logger';
 const { handlerProfileFile, getConfig } = configSet;
 const { printn } = common;
 const { getHistoryFile } = storage;
-const pkg = require('../../package.json');
+const pkg = require('../../../../package.json');
 
 interface CheckVersionResult {
   [key: string]: any;
