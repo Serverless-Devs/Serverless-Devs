@@ -1,41 +1,50 @@
 
+import path from 'path';
+import os from 'os';
+import fs from 'fs';
 import program from 'commander';
-import { ConfigError, CommandError } from '@serverless-devs-cli/error';
+import yaml from 'js-yaml';
+import { getCredential, decryptCredential } from '@serverless-devs/core';
+import { CommandError } from '../../error';
 
 import i18n from '../../utils/i18n';
 import logger from '../../utils/logger';
-import { GetManager } from './get-manager';
 
 
-const wrongInput = 'Get failed: Please input right format. You can obtain the key information through: s config get -h';
+
 const description = i18n.__('s config get help');
 
 program
   .name('s config get')
   .usage('[options] [name]')
   .helpOption('-h, --help', i18n.__('Display help for command'))
-  .option(
-    '-p, --provider [name]',
-    i18n.__('The cloud service provider. [alibaba/aws/azure/baidu/google/huawei/tencent]'),
-  )
   .option('-a, --aliasName [name]', i18n.__('Key pair alia, if the alias is not set, use default instead'))
-  .option('-l, --list [name]', i18n.__('Show user configuration list'))
+  .option('-l, --list', i18n.__('Show user configuration list'))
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
-  const providerAlias: Object = {
-    Provider: program.provider,
-    AliasName: program.aliasName,
-    List: program.list,
-  };
-  if (program.args.length === 0 && program.provider === undefined && !program.list) {
+  const { aliasName, list } = program;
+  if (!aliasName && !list) {
     program.help();
-  } else if (program.args.length > 0) {
-    logger.error(wrongInput);
-    throw new ConfigError('Query failed');
   }
-  const getManager = new GetManager();
-  await getManager.initAccessData(providerAlias);
-  getManager.consoleRes();
+  let accessInfo = {};
+  if (aliasName) {
+    let tempAccessInfo = await getCredential(aliasName);
+    if (tempAccessInfo) {
+      let alias = tempAccessInfo.Alias;
+      delete tempAccessInfo.Alias;
+      accessInfo[alias] = tempAccessInfo;
+    }
+  }
+  if (list) {
+    const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+    accessInfo = yaml.load(fs.readFileSync(accessFile, 'utf8'));
+    Object.keys(accessInfo).forEach((key)=>{
+     const translacedData = decryptCredential(accessInfo[key]);
+     accessInfo[key] = translacedData;
+    });
+  }
+  logger.info(`\n${yaml.dump(accessInfo)}`);
+
 })().catch(err => {
   throw new CommandError(err.message);
 });

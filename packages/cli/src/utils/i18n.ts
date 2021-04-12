@@ -1,7 +1,8 @@
 import path from 'path';
 import { I18n } from 'i18n';
-import { configSet } from '@serverless-devs-cli/util';
+import configSet from './handler-set-config';
 const i18n = new I18n();
+
 i18n.configure({
     logDebugFn(msg?: any) { },
     logWarnFn(msg?: any) { },

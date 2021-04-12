@@ -2,7 +2,7 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { ConfigDeleteError } from '@serverless-devs-cli/error';
+import { ConfigDeleteError } from '../../error';
 import logger from '../../utils/logger';
 
 export class DeleteManager {

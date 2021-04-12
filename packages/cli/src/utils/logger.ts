@@ -1,12 +1,12 @@
 
-import i18n from './i18n';
 import { Logger, spinner as LogSpinner } from '@serverless-devs/core';
+import i18n from './i18n';
+
 
 
 const CLI_CONTENT = 'S-CLI';
 
 export default class ServerlessDevsCliLogger {
-
     static log(m) {
         Logger.log(i18n.__(m) || m);
     }

@@ -1,11 +1,6 @@
-/** @format */
-
 import program from 'commander';
-import { configSet } from '@serverless-devs-cli/util';
-import { CommandError, SetAnalysisError } from '@serverless-devs-cli/error';
-
-import i18n from '../../utils/i18n';
-import logger from '../../utils/logger';
+import { CommandError, SetAnalysisError } from '../../error';
+import { configSet, i18n, logger } from '../../utils';
 
 const { setConfig } = configSet;
 

@@ -5,5 +5,12 @@
 	"The cloud service provider.": "云提供商",
 	"    Package: {{package}}    Provider: {{provider}}": "    包名：{{package}}    云厂商：{{provider}}",
 	" Initialize a new project based on a template.": "基于模板等初始化一个项目。",
-	"Please select an application template": "请选择一个应用模板"
+	"Please select an application template": "请选择一个应用模板",
+	"正在初始化......": "正在初始化......",
+	"Hello, serverlessor.Which template do you like?": "Hello, serverlessor.Which template do you like?",
+	"Cloning into 'Serverless-Devs'...\n": "Cloning into 'Serverless-Devs'...\n",
+	"fatal: destination path 'Serverless-Devs' already exists and is not an empty directory.\n": "fatal: destination path 'Serverless-Devs' already exists and is not an empty directory.\n",
+	"get project success": "get project success",
+	"The \"path\" argument must be of type string. Received undefined": "The \"path\" argument must be of type string. Received undefined",
+	"初始化成功": "初始化成功"
 }

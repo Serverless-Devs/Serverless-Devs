@@ -1,4 +1,4 @@
-import i18n from '../../utils/i18n';
+import { i18n } from '../../utils';
 
 
 export const providerArray: string[] = ['alibaba', 'baidu', 'huawei', 'aws', 'azure', 'google', 'tencent'];
@@ -19,19 +19,19 @@ export const providerCollection: any = {
       type: 'input',
       message: 'AccountID',
       name: 'AccountID',
-      default: '', // 默认值
+      default: '',
     },
     {
       type: 'input',
       message: 'AccessKeyID',
       name: 'AccessKeyID',
-      default: '', // 默认值
+      default: '',
     },
     {
       type: 'input',
       message: 'AccessKeySecret',
       name: 'AccessKeySecret',
-      default: '', // 默认值
+      default: '',
     },
   ],
 
@@ -40,14 +40,14 @@ export const providerCollection: any = {
       type: 'input',
       message: 'AccessKeyID',
       name: 'AccessKeyID',
-      default: '', // 默认值
+      default: '',
     },
 
     {
       type: 'input',
       message: 'SecretAccessKey',
       name: 'SecretAccessKey',
-      default: '', // 默认值
+      default: '',
     },
   ],
 
@@ -56,14 +56,14 @@ export const providerCollection: any = {
       type: 'input',
       message: 'AccessKeyID',
       name: 'AccessKeyID',
-      default: '', // 默认值
+      default: '',
     },
 
     {
       type: 'input',
       message: 'SecretAccessKey',
       name: 'SecretAccessKey',
-      default: '', // 默认值
+      default: '',
     },
   ],
 
@@ -72,27 +72,27 @@ export const providerCollection: any = {
       type: 'input',
       message: 'KeyVaultName',
       name: 'KeyVaultName',
-      default: '', // 默认值
+      default: '',
     },
 
     {
       type: 'input',
       message: 'TenantID',
       name: 'TenantID',
-      default: '', // 默认值
+      default: '',
     },
     {
       type: 'input',
       message: 'ClentID',
       name: 'ClentID',
-      default: '', // 默认值
+      default: '',
     },
 
     {
       type: 'input',
       message: 'ClientSecret',
       name: 'ClientSecret',
-      default: '', // 默认值
+      default: '',
     },
   ],
 
@@ -101,14 +101,14 @@ export const providerCollection: any = {
       type: 'input',
       message: 'AccessKeyID',
       name: 'AccessKeyID',
-      default: '', // 默认值
+      default: '',
     },
 
     {
       type: 'input',
       message: 'SecretAccessKey',
       name: 'SecretAccessKey',
-      default: '', // 默认值
+      default: '',
     },
   ],
   google: [
@@ -116,7 +116,7 @@ export const providerCollection: any = {
       type: 'input',
       message: 'PrivateKeyData',
       name: 'PrivateKeyData',
-      default: '', // 默认值
+      default: '',
     },
   ],
 
@@ -125,19 +125,19 @@ export const providerCollection: any = {
       type: 'input',
       message: 'AccountID',
       name: 'AccountID',
-      default: '', // 默认值
+      default: '',
     },
     {
       type: 'input',
       message: 'SecretID',
       name: 'SecretID',
-      default: '', // 默认值
+      default: '',
     },
     {
       type: 'input',
       message: 'SecretKey',
       name: 'SecretKey',
-      default: '', // 默认值
+      default: '',
     },
   ],
 };
@@ -158,13 +158,13 @@ export const checkProviderList: any[] = [
     name: 'provider',
     message: i18n.__('Please select a provider:'),
     choices: [
-      {name: i18n.__('Alibaba Cloud (alibaba)'), value: 'alibaba'},
-      {name: i18n.__('AWS (aws)'), value: 'aws'},
-      {name: i18n.__('Azure (azure)'), value: 'azure'},
-      {name: i18n.__('Baidu Cloud (baidu)'), value: 'baidu'},
-      {name: i18n.__('Google Cloud (google)'), value: 'google'},
-      {name: i18n.__('Huawei Cloud (huawei)'), value: 'huawei'},
-      {name: i18n.__('Tencent Cloud (tencent)'), value: 'tencent'},
+      { name: i18n.__('Alibaba Cloud (alibaba)'), value: 'alibaba' },
+      { name: i18n.__('AWS (aws)'), value: 'aws' },
+      { name: i18n.__('Azure (azure)'), value: 'azure' },
+      { name: i18n.__('Baidu Cloud (baidu)'), value: 'baidu' },
+      { name: i18n.__('Google Cloud (google)'), value: 'google' },
+      { name: i18n.__('Huawei Cloud (huawei)'), value: 'huawei' },
+      { name: i18n.__('Tencent Cloud (tencent)'), value: 'tencent' },
     ],
   },
 ];

@@ -1,18 +1,14 @@
-/** @format */
-
-import { Command } from 'commander';
-import axios from 'axios';
 import fs from 'fs-extra';
 import os from 'os';
-import { configSet, storage } from '@serverless-devs-cli/util';
-import { CommandManager } from '@serverless-devs-cli/core';
-import { version, Parse } from '@serverless-devs-cli/specification';
-import { SERVERLESS_COMMAND_DESC_URL, PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
+import { Command } from 'commander';
 
-import i18n from '../utils/i18n';
-import logger from '../utils/logger';
+import { CommandManager } from '../core';
+import { version, Parse } from '../specification';
+import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
+import storage from './storage';
+import i18n from './i18n';
+import logger from './logger';
 
-const { handlerProfileFile } = configSet;
 const { getSubcommand, getServiceConfig } = version;
 
 export function createUniversalCommand(command: string, customerCommandName?: string, description?: string) {
@@ -52,27 +48,27 @@ export function createUniversalCommand(command: string, customerCommandName?: st
 
 export async function getCommandDetail(name: any, provider: any, version: any): Promise<any[]> {
     let command_list: any = [];
-    try {
-        const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
-        const result: any = await axios.get(SERVERLESS_COMMAND_DESC_URL + `?lang=${lang}`, {
-            params: {
-                name,
-                provider,
-                version,
-            },
-        });
-        if (result.data && result.data.Response) {
-            const command = result.data.Response.Command || {};
-            command_list = Object.keys(command).map(key => {
-                return {
-                    name: key,
-                    desc: command[key],
-                };
-            });
-        }
-    } catch (e) {
-        logger.error(e.message);
-    }
+    // try {
+    //     const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
+    //     const result: any = await axios.get(SERVERLESS_COMMAND_DESC_URL + `?lang=${lang}`, {
+    //         params: {
+    //             name,
+    //             provider,
+    //             version,
+    //         },
+    //     });
+    //     if (result.data && result.data.Response) {
+    //         const command = result.data.Response.Command || {};
+    //         command_list = Object.keys(command).map(key => {
+    //             return {
+    //                 name: key,
+    //                 desc: command[key],
+    //             };
+    //         });
+    //     }
+    // } catch (e) {
+    //     logger.error(e.message);
+    // }
     return command_list;
 }
 export async function getParsedTemplateObj(templateFile: any) {
@@ -188,3 +184,11 @@ export function recordCommandHistory(argv: string[]) {
 }
 
 
+
+export default {
+    registerCommandChecker,
+    recordCommandHistory,
+    registerExecCommand,
+    registerCustomerCommand,
+    registerUniversalCommand,
+}
