@@ -5,7 +5,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import program from 'commander';
 
-import { ConfigError } from '@serverless-devs-cli/error';
+import { ConfigError } from '../../error';
 
 import {
   providerArray,
@@ -39,7 +39,7 @@ interface ConfigMap {
 
 export class AddManager {
   globalFilePath: string;
-  inputFullData: ConfigMap; // 用户输入的inputProviderAlias为键 与 inputSecretID 为值 组成的对象
+  inputFullData: ConfigMap;
   protected inputProviderAlias = '';
   protected inputSecretID: any;
   protected provider: string;
@@ -68,11 +68,9 @@ export class AddManager {
         }
 
         this.inputSecretID = {};
-        const inputSecretCheckKeys: string[] = Object.keys(inputSecretCheck); // 用户输入的秘钥对象的key
-
-        //正确秘钥形式
+        const inputSecretCheckKeys: string[] = Object.keys(inputSecretCheck);
         const providerAccessFormatSecret: string[] = providerAccessFormat[this.provider];
-        //检查用户输入的秘钥的格式与对应云厂商的格式是否相同
+
         if (isEqualArray(providerAccessFormatSecret, inputSecretCheckKeys)) {
           for (const item of inputSecretCheckKeys) {
             this.inputSecretID[item] = inputSecretCheck[item];

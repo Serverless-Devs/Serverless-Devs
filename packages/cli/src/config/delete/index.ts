@@ -1,9 +1,12 @@
+import path from 'path';
+import os from 'os';
+import fs from 'fs';
+import yaml from 'js-yaml';
 import program from 'commander';
-
-import { DeleteManager } from './delete-manager';
-import { ConfigError, CommandError } from '@serverless-devs-cli/error';
+import { CommandError } from '../../error';
 
 import i18n from '../../utils/i18n';
+import { logger } from '../../utils';
 
 const description = i18n.__('s config delete help');
 
@@ -11,26 +14,24 @@ program
   .name('s config delete')
   .usage('[options] [name]')
   .helpOption('-h,--help', i18n.__('Display help for command'))
-  .option(
-    '-p,  --provider [name]',
-    i18n.__('The cloud service provider. [alibaba/aws/azure/baidu/google/huawei/tencent]'),
-  )
-  .option('-a , --alias-name [name]', i18n.__('Key pair alia, if the alias is not set, use default instead'))
+  .option('-a , --aliasName [name]', i18n.__('Key pair alia, if the alias is not set, use default instead'))
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
-  const providerAlias: Object = {
-    Provider: program.provider,
-    AliasName: program.aliasName,
-  };
-
-  if (program.args.length === 0 && (program.provider == undefined || program.aliasName == undefined)) {
+  const { aliasName } = program;
+  if (!aliasName) {
     program.help();
-  } else if (program.args.length > 0) {
-    throw new ConfigError(
-      'Please input right format , You can obtain the key information through: s config delete -h.'
-    );
   }
-  await new DeleteManager().init(providerAlias);
+  const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+  const doc = yaml.load(fs.readFileSync(accessFile, 'utf8'));
+  if (doc[aliasName]) {
+    delete doc[aliasName]
+    fs.writeFileSync(accessFile, yaml.dump(doc));
+    logger.success('delete success');
+  } else {
+    logger.info(`There is no secret key information whose name is [${aliasName}]`);
+  }
+  logger.info('The current secret key information is as follows');
+  console.log(yaml.dump(doc));
 })().catch(err => {
   throw new CommandError(err.message);
 });

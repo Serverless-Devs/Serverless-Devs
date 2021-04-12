@@ -1,20 +1,23 @@
+import 'v8-compile-cache';
 import program from 'commander';
-import { common } from '@serverless-devs-cli/util';
-
+import { execSync } from 'child_process';
 import {
-  registerCommandChecker,
+  common,
+  i18n,
+  logger,
+  registerAction,
+  configSet
+} from './utils';
+
+import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
+
+const { checkAndReturnTemplateFile } = common;
+const { registerCommandChecker,
   recordCommandHistory,
   registerExecCommand,
   registerCustomerCommand,
-  registerUniversalCommand,
-} from './utils/command-util';
-
-import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
-import { CheckVersion } from "./utils/check-version";
-import i18n from './utils/i18n';
-
-const { checkAndReturnTemplateFile } = common;
-
+  registerUniversalCommand } = registerAction;
+const { getConfig } = configSet;
 const description = `  _________                               .__
  /   _____/ ______________  __ ___________|  |   ____   ______ ______
  \\_____  \\_/ __ \\_  __ \\  \\/ // __ \\_  __ \\  | _/ __ \\ /  ___//  ___/
@@ -24,13 +27,15 @@ const description = `  _________                               .__
 
 ${i18n.__('Welcome to the Serverless Devs Tool.')}
 ${i18n.__('You can use the corresponding function through the following instructions.')}
+${i18n.__('Documents:https://www.github.com/serverless-devs/docs')}
+${i18n.__(`Current Registry is ${getConfig('registry')}`)}
 `;
 async function setSpecialCommand() {
   const templateFile = checkAndReturnTemplateFile();
   if (templateFile) {
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    if (!['init', 'config', 'set', 'exec'].includes(process.argv[2])) {
+    if (!['init', 'config', 'set', 'exec', 'cli'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
       await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
@@ -54,14 +59,16 @@ async function globalParameterProcessing() {
   }
 }
 
-(async () => {
-  // Initialize the print configuration, open by default
-  // const setConfigObject = await handlerProfileFile({ read: true });
-  // const outputColorFlag = setConfigObject['output-color'] === false ? false : true;
+function versionCheck() {
+  const pkg = require('../package.json');
+  const result = execSync('npm view @serverless-devs/s versions');
+  const versions = result.toString().replace(/\'/g, '').replace(/\[/g, '').replace(/\]/g, '').split(',');
+  const lastVersion = versions[versions.length - 1].replace(/\n\s/g,'');
+  logger.log(`local version : ${pkg.version}`);
+  logger.log(`remote version : ${lastVersion}`);
 
-  // Set output color
-  // logger.colorSwitch(outputColorFlag);
-  // Wrong instruction
+}
+(async () => {
   registerCommandChecker(program);
 
   const system_command = program
@@ -71,7 +78,8 @@ async function globalParameterProcessing() {
     .command('config', i18n.__('Configure cloud service account.'))
     .command('init', i18n.__('Initializing a project.'))
     .command('set', i18n.__('Settings for the tool.'))
-    .option('--skip-extends', i18n.__('Skip the extends section'))
+    .command('cli', i18n.__('Command line operation through yaml free mode.'))
+    .option('--skip-actions', i18n.__('Skip the extends section'))
     .addHelpCommand(false);
 
   // Global parameter processing
@@ -89,14 +97,17 @@ async function globalParameterProcessing() {
     recordCommandHistory(process.argv);
   } catch (ex) { }
 
-  const checkVersion = new CheckVersion();
-  await checkVersion.init();
 
-  system_command.exitOverride(function (error) {
-    if (error.code == 'commander.help') {
+
+  system_command.exitOverride(async (error) => {
+    if (error.code === 'commander.help') {
       process.exit(program.args.length > 0 ? 1 : 0)
     }
-    checkVersion.showMessage();
+    if (error.code === 'commander.executeSubCommandAsync') {
+      process.exit(0)
+    }
+
+    versionCheck();
   })
 
   system_command.parse(process.argv);

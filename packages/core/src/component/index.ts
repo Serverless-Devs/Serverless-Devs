@@ -176,7 +176,7 @@ export class ComponentExeCute {
     let outData = {};
     const tempParams = process.env.temp_params || ""
     const helpArgs = tempParams.includes("--help") || tempParams.includes("-h")
-    const extend = process.env['skip-extends'] === 'true' || helpArgs ? null : await this.loadExtends();
+    const extend = process.env['skip-actions'] === 'true' || helpArgs ? null : await this.loadExtends();
     await this.loadPreExtends(extend);
     outData = await this.executeCommand();
     await this.loadAfterExtend(extend);

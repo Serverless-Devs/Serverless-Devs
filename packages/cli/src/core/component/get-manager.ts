@@ -1,26 +1,31 @@
-/** @format */
-
-
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { common } from '@serverless-devs-cli/util';
-import { ConfigGetError } from '@serverless-devs-cli/error';
-import { providerObject } from '../common/common';
-import logger from '../../utils/logger';
-
+import { ConfigGetError } from '../../error';
+import { common, logger } from '../../utils';
+import i18n from '../../utils/i18n';
 const { printn } = common;
+const providerObject: any = {
+  alibaba: i18n.__('Alibaba Cloud'),
+  baidu: i18n.__('Baidu Cloud'),
+  huawei: i18n.__('Huawei Cloud'),
+  aws: i18n.__('AWS Cloud'),
+  azure: i18n.__('Azure Cloud'),
+  google: i18n.__('Google Cloud'),
+  tencent: i18n.__('Tencent Cloud'),
+};
+
 export class GetManager {
-  protected localPath: string = path.join(process.cwd(), '/access.yaml');
-  protected globalPath: string = path.join(os.homedir(), `.s/access.yaml`);
+  protected localPath: string = path.join(process.cwd(), 'access.yaml');
+  protected globalPath: string = path.join(os.homedir(), '.s', 'access.yaml');
   protected programArgsLength = 0;
   protected resUserInformation: any = {};
   protected providerAlias: string;
 
   constructor() {
-    if (!fs.existsSync(path.join(process.cwd(), '/access.yaml'))) {
-      this.localPath = path.join(process.cwd(), '/access.yml');
+    if (!fs.existsSync(path.join(process.cwd(), 'access.yaml'))) {
+      this.localPath = path.join(process.cwd(), 'access.yml');
     }
 
     if (!fs.existsSync(this.globalPath)) {
@@ -142,7 +147,9 @@ export class GetManager {
     if (Object.keys(this.resUserInformation).length > 0) {
       this.outputFormat(this.resUserInformation);
     } else {
-      logger.error('Query failed : The key information is not found. You can obtain the key information through: s config get -l');
+      throw new ConfigGetError(
+        'Query failed : The key information is not found. You can obtain the key information through: s config get -l',
+      );
     }
   }
 }

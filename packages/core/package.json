@@ -1,6 +1,6 @@
 {
     "name": "@serverless-devs-cli/core",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "description": "Serverless Devs Tool Cli",
     "keywords": [
         "Serverless",
@@ -31,7 +31,7 @@
     "dependencies": {
         "@serverless-devs/core": "0.0.40",
         "@serverless-devs/entity": "0.0.1",
-        "@serverless-devs-cli/init": "0.0.1",
+        "@serverless-devs-cli/init": "0.0.2",
         "@serverless-devs-cli/util": "0.0.1",
         "@serverless-devs-cli/error": "0.0.1",
         "@serverless-devs-cli/specification": "0.0.1",
