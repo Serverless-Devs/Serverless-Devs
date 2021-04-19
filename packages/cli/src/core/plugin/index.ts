@@ -15,7 +15,7 @@ export class PluginExeCute {
       fs.mkdirSync(S_PLUGIN_BASE_PATH);
     }
     const { name } = this.pluginConfig;
-    this.pluginPath = path.join(S_PLUGIN_BASE_PATH, `/${name}`);
+    this.pluginPath = path.join(S_PLUGIN_BASE_PATH, name);
   }
   async init() {
     const { name } = this.pluginConfig;

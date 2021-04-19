@@ -13,7 +13,7 @@ export class DeleteManager {
   protected inputProviderAlias: string;
 
   constructor() {
-    this.globalPath = path.join(os.homedir(), '.s/access.yaml');
+    this.globalPath = path.join(os.homedir(), '.s', 'access.yaml');
   }
   async init(providerAlias: any) {
     const userInformation: any = yaml.safeLoad(fs.readFileSync(this.globalPath, 'utf8'));

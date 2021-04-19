@@ -5,7 +5,8 @@ import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import { loadApplication } from '@serverless-devs/core';
 import { configSet, logger, i18n } from '../utils';
-import { DEFAULT_REGIRSTRY, APPLICATION_TEMPLATE } from './init-config';
+import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
+import { APPLICATION_TEMPLATE } from './init-config';
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 
 export class InitManager {
@@ -34,13 +35,18 @@ export class InitManager {
             if (!dir) {
                 dir = process.cwd();
             }
-            fs.copySync(appSrc, path.join(dir, appName), { dereference: true });
-            fs.removeSync(tmpDir);
+            if (fs.existsSync(appSrc)) {
+                fs.copySync(appSrc, path.join(dir, appName), { dereference: true });
+            } else {
+                fs.copySync(result, path.join(dir, appName), { dereference: true });
+            }
+
+
             logger.success(i18n.__('Initialization successfully'));
         } catch (e) {
             logger.error(e.message);
-            fs.removeSync(tmpDir);
         }
+        // fs.removeSync(tmpDir);
 
     }
     async gitCloneProject(name: string, dir?: string) {

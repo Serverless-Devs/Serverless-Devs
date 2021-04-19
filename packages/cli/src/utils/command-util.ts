@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import os from 'os';
+import path from 'path';
 import { Command } from 'commander';
 
 import { CommandManager } from '../core';
@@ -8,6 +9,7 @@ import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
 import storage from './storage';
 import i18n from './i18n';
 import logger from './logger';
+import { loadComponent } from '@serverless-devs/core';
 
 const { getSubcommand, getServiceConfig } = version;
 
@@ -35,6 +37,8 @@ export function createUniversalCommand(command: string, customerCommandName?: st
     }
 
     process.argv = processArgv;
+
+
     _command.description(description || '').action(() => {
         const template: string | undefined = process.env[PROCESS_ENV_TEMPLATE_NAME];
         if (template) {
@@ -87,25 +91,45 @@ export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
 export async function createCustomerCommand(templateFile: string): Promise<any[]> {
     const customerCommands: any = [];
     const doc = await getParsedTemplateObj(templateFile);
-    const commandListPromise = getCustomerCommandInfo(doc).map(async projectName => {
+    const subCommands = getCustomerCommandInfo(doc);
+    const commandListPromise = subCommands.map(async projectName => {
         const projectDocDetail: any = getServiceConfig(doc, projectName);
-        const provider = projectDocDetail.Provider || projectDocDetail.provider;
-        const component = projectDocDetail.Component || projectDocDetail.component;
-        const commandList = await getCommandDetail(component, provider, '');
-        return { projectName, commandList, projectDocDetail };
+        // const provider = projectDocDetail.Provider || projectDocDetail.provider;
+        // const component = projectDocDetail.Component || projectDocDetail.component;
+        // const commandList = await getCommandDetail(component, provider, '');
+        return { projectName, projectDocDetail };
     });
-    const commondListDetail = await Promise.all(commandListPromise);
-    commondListDetail.forEach(({ projectName, commandList, projectDocDetail }) => {
+    const commandListDetail = await Promise.all(commandListPromise);
+    commandListDetail.forEach(({ projectName, projectDocDetail }) => {
         const customerCommand = new Command(projectName);
-        const provider = projectDocDetail.Provider || projectDocDetail.provider;
-        const component = projectDocDetail.Component || projectDocDetail.component;
-        const customerCommandDescription = i18n.__("[Custom] The {{component}}@{{provider}} project.", { component, provider })
-        customerCommand.description(customerCommandDescription)
-        commandList.forEach(async command => {
-            const { name: commandName, desc } = command;
-            const universialCommandInstance = await createUniversalCommand(commandName, projectName, desc);
-            customerCommand.addCommand(universialCommandInstance);
+        const customerCommandDescription = i18n.__(`Customer command please use [s ${projectName} -d]  obtain the documentation`)
+        customerCommand.description(customerCommandDescription);
+        // commandList.forEach(async command => {
+        //     const { name: commandName, desc } = command;
+        //     const universialCommandInstance = await createUniversalCommand(commandName, projectName, desc);
+        //     customerCommand.addCommand(universialCommandInstance);
+        // });
+        const methodName = process.argv[3];
+        if (methodName) {
+            customerCommand.addCommand(createUniversalCommand(methodName));
+        }
+        customerCommand.option('-d, --doc', i18n.__('Print usage document'))
+        customerCommand.action(async () => {
+
+            const { args, doc } = customerCommand;
+            if (args.length === 0 && !doc) {
+                customerCommand.help();
+            }
+            const { component } = projectDocDetail;
+            const componentInstance: any = await loadComponent(component);
+            if (componentInstance && componentInstance.__doc) {
+               const docResult = componentInstance.__doc(projectName);
+               logger.info(`\n${docResult}`);
+            }else {
+                logger.info('No document set');
+            }
         });
+
         customerCommands.push(customerCommand);
     });
     return customerCommands;
@@ -160,6 +184,7 @@ export async function registerUniversalCommand(system_command: any, templateFile
         const parsedTemplateObj = await getParsedTemplateObj(templateFile);
         const customerCommands = getCustomerCommandInfo(parsedTemplateObj);
         if (process.argv[2] && !customerCommands.includes(process.argv[2]) && !['-h', '--help'].includes(process.argv[2])) {
+
             system_command.addCommand(createUniversalCommand(process.argv[2]));
         } else if (
             process.argv[2] &&
@@ -183,9 +208,17 @@ export function recordCommandHistory(argv: string[]) {
     fs.appendFileSync(file, argv.join(',') + os.EOL);
 }
 
+export function initSetFile() {
+    const file = path.join(storage.getHomeDir(), 'set-config.yml');
+    if (!fs.existsSync(file)) {
+        fs.createFileSync(file);
+    }
+    return file;
+}
 
 
 export default {
+    initSetFile,
     registerCommandChecker,
     recordCommandHistory,
     registerExecCommand,

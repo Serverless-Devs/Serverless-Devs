@@ -59,10 +59,14 @@ export class Parse {
         if (type === 'Literal') { // 兼容新版本的规范 services
             return this.globalJsonKeyMap[variableName] || this.globalJsonKeyMap[`services.${variableName}`] || '${' + variableName + '}';
         }
-        if (type === 'Fun' && funName === 'Env') {
+        if (type === 'Fun' && (funName === 'Env' || funName === 'env')) {
             return process.env[funVariable];
         }
-        if (type === 'Fun' && funName === 'File') {
+        if (type === 'Fun' && (funName === 'Path' || funName === 'path')) {
+            return path.join(process.cwd(), funVariable);
+        }
+
+        if (type === 'Fun' && (funName === 'File' || funName === 'file')) {
             return this.getFileObj(funVariable);
         }
         return result;

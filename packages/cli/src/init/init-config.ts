@@ -1,7 +1,7 @@
 import * as inquirer from 'inquirer';
 import i18n from '../utils/i18n';
 
-export const DEFAULT_REGIRSTRY = 'https://api.github.com/repos';
+
 
 const data = [new inquirer.Separator('\n⊙ Hello World Example'), {
     key: 'https://download.registry.serverlessfans.cn/init/alibaba-node.js12-http',

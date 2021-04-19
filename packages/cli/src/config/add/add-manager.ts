@@ -48,7 +48,7 @@ export class AddManager {
   protected isRightFormat = true;
   protected context: string[];
   constructor() {
-    this.globalFilePath = path.join(os.homedir(), '.s/access.yaml');
+    this.globalFilePath = path.join(os.homedir(), '.s', 'access.yaml');
     this.inputFullData = {};
     this.context = program.args;
   }

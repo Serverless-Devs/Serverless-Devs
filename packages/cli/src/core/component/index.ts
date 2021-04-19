@@ -59,11 +59,10 @@ export function generateSynchronizeComponentExeList(
           const componentExecute = new ComponentExeCute(projectConfig, method, parsedObj.edition);
           const Output = await componentExecute.init();
           if (parsedObj.edition) { //  兼容新版规范
-            parsedObj.services[projectName].outPut = Output;
+            parsedObj.services[projectName].output = Output;
           } else {
             parsedObj[projectName].Output = Output;
           }
-
           logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, { projectName }));
           resolve({ name: projectName, data: Output });
         } catch (e) {
@@ -94,7 +93,7 @@ export class ComponentExeCute {
   }
 
   async getCredentials() {
-    const { access, provider } = getServiceConfigDetail(this.componentConfig);
+    const { access } = getServiceConfigDetail(this.componentConfig);
     // const configUserInput = { Provider: provider, AliasName: access };
     // const getManager = new GetManager();
     // await getManager.initAccessData(configUserInput);
@@ -135,7 +134,7 @@ export class ComponentExeCute {
         const result = await componentInstance[method](data);
         resolve(result);
       } catch (e) {
-        reject(new Error(e.message));
+        reject(e);
       }
     });
     return promise;
@@ -146,21 +145,7 @@ export class ComponentExeCute {
     let { name } = getServiceConfigDetail(this.componentConfig);
     const regirstry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
     const componentClass = await loadComponent(name, regirstry);
-    let data
-    try {
-      data = await this.invokeMethod(componentClass, this.method, inputs);
-    } catch (ex) {
-      if (String(ex).includes("componentInstance[method] is not a function")) {
-        try {
-          data = await this.invokeMethod(componentClass, "default", inputs);
-        } catch (ex) {
-          logger.error("The specified method and default method were not found in the component")
-        }
-      } else {
-        throw Error(ex)
-      }
-    }
-
+    const data = await this.invokeMethod(componentClass, this.method, inputs);
     return data;
   }
 

@@ -9,7 +9,6 @@ program
   .helpOption('-h, --help', i18n.__('Display help for command'))
   .command('registry', i18n.__('Set up a custom registry'))
   .command('language', i18n.__('Output language switch'))
-  .command('analysis', i18n.__('Upload your usage habits to help us improve our products'))
   .description(i18n.__('You can make some default settings for the tool here.'))
   .addHelpCommand(false).parse(process.argv);
 
