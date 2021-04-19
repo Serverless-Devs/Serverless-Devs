@@ -9,27 +9,24 @@ import {
   configSet
 } from './utils';
 
-import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
-
+import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
 const { checkAndReturnTemplateFile } = common;
-const { registerCommandChecker,
+const {
+  initSetFile,
+  registerCommandChecker,
   recordCommandHistory,
   registerExecCommand,
   registerCustomerCommand,
   registerUniversalCommand } = registerAction;
-const { getConfig } = configSet;
-const description = `  _________                               .__
- /   _____/ ______________  __ ___________|  |   ____   ______ ______
- \\_____  \\_/ __ \\_  __ \\  \\/ // __ \\_  __ \\  | _/ __ \\ /  ___//  ___/
- /        \\  ___/|  | \\/\\   /\\  ___/|  | \\/  |_\\  ___/ \\___ \\ \\___ \\
-/_______  /\\___  >__|    \\_/  \\___  >__|  |____/\\___  >____  >____  >
-        \\/     \\/                 \\/                \\/     \\/     \\/
-
-${i18n.__('Welcome to the Serverless Devs Tool.')}
-${i18n.__('You can use the corresponding function through the following instructions.')}
-${i18n.__('Documents:https://www.github.com/serverless-devs/docs')}
-${i18n.__(`Current Registry is ${getConfig('registry')}`)}
-`;
+const { getConfig ,setConfig} = configSet;
+function getRegistry() {
+  let registry = getConfig('registry');
+  if(!registry) {
+    registry = DEFAULT_REGIRSTRY;
+    setConfig('registry',registry);
+  } 
+  return registry;
+}
 async function setSpecialCommand() {
   const templateFile = checkAndReturnTemplateFile();
   if (templateFile) {
@@ -37,7 +34,7 @@ async function setSpecialCommand() {
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
     if (!['init', 'config', 'set', 'exec', 'cli'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
-      await registerUniversalCommand(program, templateFile); // Register pan instruction
+      // await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
   }
 }
@@ -63,14 +60,26 @@ function versionCheck() {
   const pkg = require('../package.json');
   const result = execSync('npm view @serverless-devs/s versions');
   const versions = result.toString().replace(/\'/g, '').replace(/\[/g, '').replace(/\]/g, '').split(',');
-  const lastVersion = versions[versions.length - 1].replace(/\n\s/g,'');
+  const lastVersion = versions[versions.length - 1].replace(/\n\s/g, '');
   logger.log(`local version : ${pkg.version}`);
   logger.log(`remote version : ${lastVersion}`);
 
 }
+
+const description = `  _________                               .__
+ /   _____/ ______________  __ ___________|  |   ____   ______ ______
+ \\_____  \\_/ __ \\_  __ \\  \\/ // __ \\_  __ \\  | _/ __ \\ /  ___//  ___/
+ /        \\  ___/|  | \\/\\   /\\  ___/|  | \\/  |_\\  ___/ \\___ \\ \\___ \\
+/_______  /\\___  >__|    \\_/  \\___  >__|  |____/\\___  >____  >____  >
+        \\/     \\/                 \\/                \\/     \\/     \\/
+
+${i18n.__('Welcome to the Serverless Devs Tool.')}
+${i18n.__('You can use the corresponding function through the following instructions.')}
+${i18n.__('Documents:https://www.github.com/serverless-devs/docs')}
+${i18n.__(`Current Registry is ${getRegistry()}`)}
+`;
 (async () => {
   registerCommandChecker(program);
-
   const system_command = program
     .version('', '-v, --version', i18n.__('Output the version number'))
     .description(description)
@@ -82,22 +91,15 @@ function versionCheck() {
     .option('--skip-actions', i18n.__('Skip the extends section'))
     .addHelpCommand(false);
 
-  // Global parameter processing
-  await globalParameterProcessing();
 
-  // Universal instruction processing
-  await setSpecialCommand();
+  await globalParameterProcessing(); // global parameter processing
 
-  await setExecCommand();
-  // Verification version
-  // await registerExitOverride(program);
+  await setExecCommand(); // regist exec command
 
-  try {
-    // Record command
-    recordCommandHistory(process.argv);
-  } catch (ex) { }
+  await setSpecialCommand(); // universal instruction processing
 
-
+  initSetFile(); // init config-set.yml;
+  recordCommandHistory(process.argv); // add history record
 
   system_command.exitOverride(async (error) => {
     if (error.code === 'commander.help') {

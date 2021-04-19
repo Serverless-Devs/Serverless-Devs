@@ -28,8 +28,11 @@ export class Hook {
     if (this.preHooks.length > 0) {
       logger.info('Start the pre-hook');
       for (let i = 0; i < this.preHooks.length; i++) {
-        logger.info(`[Hook / Plugin] ${this.preHooks[i].Hook || this.preHooks[i].Plugin}`);
-        await this.executeByConfig(this.preHooks[i]);
+        (async (index) => {
+          let hookIndex = index;
+          logger.info(`[Hook / Plugin] ${this.preHooks[hookIndex].Hook || this.preHooks[hookIndex].Plugin}`);
+          await this.executeByConfig(this.preHooks[hookIndex]);
+        })(i);
       }
       logger.info('End the pre-hook');
     }
@@ -38,11 +41,13 @@ export class Hook {
   async executeAfterHook() {
     if (this.afterHooks.length > 0) {
       logger.info('Start the after-hook');
-      // 2020-9-23 修复afterHooks无法处理的bug
       for (let i = 0; i < this.afterHooks.length; i++) {
         // logger.info(`[Hook / Plugin] ${this.afterHooks[i].Hook || this.afterHooks[i].Plugin}`);
         // try {
-        await this.executeByConfig(this.afterHooks[i]);
+        (async (index) => {
+          let hookIndex = index;
+          await await this.executeByConfig(this.afterHooks[hookIndex]);
+        })(i);
         // } catch (ex) {
         //   process.env['project_error'] = String(true)
         //   const thisMessage = `> Execute Error: ${this.preHooks[i].Hook || this.preHooks[i].Plugin}\n${ex}`

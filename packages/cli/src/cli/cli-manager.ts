@@ -27,7 +27,6 @@ export default class CliManager {
                 try {
                     methodInput = JSON.parse(params);
                 } catch (e) {
-                    
                 }
                 const result = await componentInstance[command](methodInput);
                 logger.info(result);
