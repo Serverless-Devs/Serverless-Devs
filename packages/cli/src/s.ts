@@ -34,7 +34,7 @@ async function setSpecialCommand() {
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
     if (!['init', 'config', 'set', 'exec', 'cli'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
-      // await registerUniversalCommand(program, templateFile); // Register pan instruction
+      await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
   }
 }
