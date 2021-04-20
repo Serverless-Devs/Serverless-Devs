@@ -134,7 +134,7 @@ export class ComponentExeCute {
         const result = await componentInstance[method](data);
         resolve(result);
       } catch (e) {
-        reject(e);
+        reject(new Error(`${method} command does not exist`));
       }
     });
     return promise;
