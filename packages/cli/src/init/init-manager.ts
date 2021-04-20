@@ -23,65 +23,18 @@ export class InitManager {
         that.sTemplateWrapper(object, callback);
       } else if (typeof object === 'string') {
         if (templateRegexp.test(object)) {
-          // const [name, desc] = key.split('|');
           callback(key, sObject);
-          // that.promptList.push({
-          //   type: 'input',
-          //   message: `please input ${desc || name}:`,
-          //   name,
-          // });
         }
       }
     }
   }
-  // private generateTemplate(sObject: any) {
-  //   // const that = this;
-  //   // const templateRegexp = /^({{).*(}})$/;
-  //   // for (let key in sObject) {
-  //   //   const object = sObject[key];
-  //   //   if (Object.prototype.toString.call(object) === '[object Object]') {
-  //   //     that.generateTemplate(object);
-  //   //   } else if (typeof object === 'string') {
-  //   //     if (templateRegexp.test(object)) {
-  //   //       const [name, desc] = key.split('|');
-  //   //       that.promptList.push({
-  //   //         type: 'input',
-  //   //         message: `please input ${desc || name}:`,
-  //   //         name,
-  //   //       });
-  //   //     }
-  //   //   }
-  //   // }
-  // }
-
-  // private writeTemplate(sObject: any, result: any) {
-  //   const that = this;
-  //   const templateRegexp = /^({{).*(}})$/;
-  //   for (let key in sObject) {
-  //     const object = sObject[key];
-  //     if (Object.prototype.toString.call(object) === '[object Object]') {
-  //       that.writeTemplate(object, result);
-  //     } else if (typeof object === 'string') {
-  //       if (templateRegexp.test(object)) {
-  //         const [name] = key.split('|');
-  //         for (let prop in result) {
-  //           if (name === prop) {
-  //             sObject[key] = result[prop];
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
     const appSath = await loadApplication(name, registry, dir);
-    const sPath = path.join(appSath, 's.yml') || path.join(appSath, 's.yaml');
+    const sPath = fs.existsSync(path.join(appSath, 's.yml')) ? path.join(appSath, 's.yml'): path.join(appSath, 's.yaml');
     if (sPath) {
       const sContent = await getYamlContent(sPath);
       this.sTemplateWrapper(sContent, key => {
-        console.log(key);
         const [name, desc] = key.split('|');
         this.promptList.push({
           type: 'input',
@@ -91,10 +44,9 @@ export class InitManager {
       });
       const result = await inquirer.prompt(this.promptList);
       this.sTemplateWrapper(sContent, (key, sObject) => {
-        console.log(key);
         const [name] = key.split('|');
         for (let prop in result) {
-          if (name === prop) {
+          if (name === prop && result[prop]) {
             sObject[key] = result[prop];
           }
         }
