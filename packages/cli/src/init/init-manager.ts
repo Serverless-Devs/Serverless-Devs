@@ -46,7 +46,7 @@ export class InitManager {
       this.sTemplateWrapper(sContent, (key, sObject) => {
         const [name] = key.split('|');
         for (let prop in result) {
-          if (name === prop) {
+          if (name === prop && result[prop]) {
             sObject[key] = result[prop];
           }
         }
