@@ -1,7 +1,7 @@
 
 import program, { Command } from 'commander';
 import { CommandError } from '../error';
-import { i18n, logger } from '../utils';
+import { i18n } from '../utils';
 import CliManager from './cli-manager';
 const description = `${i18n.__('Directly use serverless devs to use components, develop and manage applications without yaml configuration.')}
 
