@@ -81,7 +81,6 @@ export class InitManager {
     if (sPath) {
       const sContent = await getYamlContent(sPath);
       this.sTemplateWrapper(sContent, key => {
-        console.log(key);
         const [name, desc] = key.split('|');
         this.promptList.push({
           type: 'input',
@@ -91,7 +90,6 @@ export class InitManager {
       });
       const result = await inquirer.prompt(this.promptList);
       this.sTemplateWrapper(sContent, (key, sObject) => {
-        console.log(key);
         const [name] = key.split('|');
         for (let prop in result) {
           if (name === prop) {
