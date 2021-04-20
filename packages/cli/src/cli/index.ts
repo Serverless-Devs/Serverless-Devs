@@ -38,7 +38,7 @@ if (subCommandName) {
     
     const { params, doc, region, access } = program;
 
-
+    
     const cliManager = new CliManager({ command, component, params, doc, region, access });
     cliManager.init();
 })().catch(err => {

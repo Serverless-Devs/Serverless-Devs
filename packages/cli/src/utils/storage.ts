@@ -20,16 +20,9 @@ export function getHistoryFile(): string {
   return file;
 }
 
-export function getConfigSetFile(): string {
-  const file = path.join(getHomeDir(), 'set-config.yml');
-  if (!fs.existsSync(file)) {
-    fs.createFileSync(file);
-  }
-  return file;
-}
+
 
 export default {
   getHomeDir,
   getHistoryFile,
-  getConfigSetFile
 }

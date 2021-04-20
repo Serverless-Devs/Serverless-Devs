@@ -115,7 +115,6 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
         }
         customerCommand.option('-d, --doc', i18n.__('Print usage document'))
         customerCommand.action(async () => {
-
             const { args, doc } = customerCommand;
             if (args.length === 0 && !doc) {
                 customerCommand.help();
