@@ -12,19 +12,18 @@ import {
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
 const { checkAndReturnTemplateFile } = common;
 const {
-  initSetFile,
   registerCommandChecker,
   recordCommandHistory,
   registerExecCommand,
   registerCustomerCommand,
   registerUniversalCommand } = registerAction;
-const { getConfig ,setConfig} = configSet;
+const { getConfig, setConfig } = configSet;
 function getRegistry() {
   let registry = getConfig('registry');
-  if(!registry) {
+  if (!registry) {
     registry = DEFAULT_REGIRSTRY;
-    setConfig('registry',registry);
-  } 
+    setConfig('registry', registry);
+  }
   return registry;
 }
 async function setSpecialCommand() {
@@ -60,7 +59,7 @@ function versionCheck() {
   const pkg = require('../package.json');
   const result = execSync('npm view @serverless-devs/s versions');
   const versions = result.toString().replace(/\'/g, '').replace(/\[/g, '').replace(/\]/g, '').split(',');
-  const lastVersion = versions[versions.length - 1].replace(/\n\s/g, '');
+  const lastVersion = versions[versions.length - 1].replace(/\n/g, '').replace(/\s/g, '');
   logger.log(`local version : ${pkg.version}`);
   logger.log(`remote version : ${lastVersion}`);
 
@@ -78,7 +77,9 @@ ${i18n.__('You can use the corresponding function through the following instruct
 ${i18n.__('Documents:https://www.github.com/serverless-devs/docs')}
 ${i18n.__(`Current Registry is ${getRegistry()}`)}
 `;
+
 (async () => {
+
   registerCommandChecker(program);
   const system_command = program
     .version('', '-v, --version', i18n.__('Output the version number'))
@@ -91,21 +92,20 @@ ${i18n.__(`Current Registry is ${getRegistry()}`)}
     .option('--skip-actions', i18n.__('Skip the extends section'))
     .addHelpCommand(false);
 
-
   await globalParameterProcessing(); // global parameter processing
 
   await setExecCommand(); // regist exec command
 
   await setSpecialCommand(); // universal instruction processing
 
-  initSetFile(); // init config-set.yml;
+
   recordCommandHistory(process.argv); // add history record
 
   system_command.exitOverride(async (error) => {
     if (error.code === 'commander.help') {
       process.exit(program.args.length > 0 ? 1 : 0)
     }
-    if (error.code === 'commander.executeSubCommandAsync') {
+    if (error.code === 'commander.executeSubCommandAsync' || error.code === 'commander.helpDisplayed') {
       process.exit(0)
     }
 

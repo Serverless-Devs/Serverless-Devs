@@ -22,7 +22,7 @@ program
   .option('-l, --list', i18n.__('Show user configuration list'))
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
-  const { aliasName, list } = program;
+  const { aliasName, list } = program as any;
   if (!aliasName && !list) {
     program.help();
   }

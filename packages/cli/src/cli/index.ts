@@ -35,9 +35,7 @@ if (subCommandName) {
         program.help();
     }
     const [component, command] = program.args;
-    
-    const { params, doc, region, access } = program;
-
+    const { params, doc, region, access } = program as any;
 
     const cliManager = new CliManager({ command, component, params, doc, region, access });
     cliManager.init();

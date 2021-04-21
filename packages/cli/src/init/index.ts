@@ -20,7 +20,7 @@ program
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
   const initManager = new InitManager();
-  const { dir, registry } = program;
+  const { dir, registry } = program as any;
   if (registry) {
     configSet.setConfig('registry', registry);
   }

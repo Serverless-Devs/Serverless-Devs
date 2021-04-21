@@ -1,8 +1,8 @@
 import os from 'os';
-import fs from 'fs';
+import fs from 'fs-extra';
 import path from 'path';
 import yaml from 'js-yaml';
-
+import storage from './storage';
 interface ProfileParams {
   data?: any;
   configKey?: string;
@@ -13,7 +13,6 @@ interface ProfileParams {
 interface Profile {
   [key: string]: any;
 }
-
 
 function setProfileFile(profile: Profile) {
   const profileFilePath = getDefaultProfilePath();
@@ -34,7 +33,11 @@ function getProfileFile(): Profile {
 }
 
 function getDefaultProfilePath(): string {
-  return path.join(os.homedir(), '.s', 'set-config.yml');
+  const file = path.join(storage.getHomeDir(), 'set-config.yml');
+  if (!fs.existsSync(file)) {
+      fs.createFileSync(file);
+  }
+  return file;
 }
 
 export function setConfig(key: string, value: any) {

@@ -1,8 +1,6 @@
 import fs from 'fs-extra';
 import os from 'os';
-import path from 'path';
 import { Command } from 'commander';
-
 import { CommandManager } from '../core';
 import { version, Parse } from '../specification';
 import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
@@ -94,38 +92,25 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     const subCommands = getCustomerCommandInfo(doc);
     const commandListPromise = subCommands.map(async projectName => {
         const projectDocDetail: any = getServiceConfig(doc, projectName);
-        // const provider = projectDocDetail.Provider || projectDocDetail.provider;
-        // const component = projectDocDetail.Component || projectDocDetail.component;
-        // const commandList = await getCommandDetail(component, provider, '');
         return { projectName, projectDocDetail };
     });
     const commandListDetail = await Promise.all(commandListPromise);
     commandListDetail.forEach(({ projectName, projectDocDetail }) => {
         const customerCommand = new Command(projectName);
-        const customerCommandDescription = i18n.__(`Customer command please use [s ${projectName} -d]  obtain the documentation`)
+        const customerCommandDescription = i18n.__(`This is a customer command please use [s ${projectName} -h]  obtain the documentation`)
         customerCommand.description(customerCommandDescription);
-        // commandList.forEach(async command => {
-        //     const { name: commandName, desc } = command;
-        //     const universialCommandInstance = await createUniversalCommand(commandName, projectName, desc);
-        //     customerCommand.addCommand(universialCommandInstance);
-        // });
         const methodName = process.argv[3];
         if (methodName) {
             customerCommand.addCommand(createUniversalCommand(methodName));
         }
-        customerCommand.option('-d, --doc', i18n.__('Print usage document'))
+        customerCommand.option('-h, --help', i18n.__('Print usage document'))
         customerCommand.action(async () => {
-
-            const { args, doc } = customerCommand;
-            if (args.length === 0 && !doc) {
-                customerCommand.help();
-            }
             const { component } = projectDocDetail;
             const componentInstance: any = await loadComponent(component);
             if (componentInstance && componentInstance.__doc) {
-               const docResult = componentInstance.__doc(projectName);
-               logger.info(`\n${docResult}`);
-            }else {
+                const docResult = componentInstance.__doc(projectName);
+                logger.info(`\n${docResult}`);
+            } else {
                 logger.info('No document set');
             }
         });
@@ -208,17 +193,8 @@ export function recordCommandHistory(argv: string[]) {
     fs.appendFileSync(file, argv.join(',') + os.EOL);
 }
 
-export function initSetFile() {
-    const file = path.join(storage.getHomeDir(), 'set-config.yml');
-    if (!fs.existsSync(file)) {
-        fs.createFileSync(file);
-    }
-    return file;
-}
-
 
 export default {
-    initSetFile,
     registerCommandChecker,
     recordCommandHistory,
     registerExecCommand,
