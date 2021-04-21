@@ -4,12 +4,13 @@ import path from 'path';
 import os from 'os';
 import { getCredential, loadComponent } from '@serverless-devs/core';
 import { PackageType } from '../../entiry';
+import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
 import { configSet, i18n, logger } from '../../utils';
 import { Hook } from './hook';
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
-const DEFAULT_REGIRSTRY = 'https://api.github.com/repos';
+
 export interface ComponentConfig {
   Component: string;
   Provider: string;
@@ -94,14 +95,6 @@ export class ComponentExeCute {
 
   async getCredentials() {
     const { access } = getServiceConfigDetail(this.componentConfig);
-    // const configUserInput = { Provider: provider, AliasName: access };
-    // const getManager = new GetManager();
-    // await getManager.initAccessData(configUserInput);
-    // const providerMap: {
-    //   [key: string]: any;
-    // } = await getManager.getUserSecretID(configUserInput);
-    // const accessData = provider && access ? providerMap : providerMap[`project.${access || 'default'}`] || providerMap[`${provider}.${access || 'default'}`];
-    // return accessData || {}
     return await await getCredential(access);
   }
 
@@ -134,7 +127,7 @@ export class ComponentExeCute {
         const result = await componentInstance[method](data);
         resolve(result);
       } catch (e) {
-        reject(new Error(`${method} command does not exist`));
+        reject(e);
       }
     });
     return promise;
