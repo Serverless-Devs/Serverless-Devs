@@ -2,18 +2,18 @@
 
 import path from 'path';
 import fs from 'fs-extra';
-import {spawn} from 'child_process';
+import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import {loadApplication,  getYamlContent} from '@serverless-devs/core';
-import {configSet} from '../utils';
-import {DEFAULT_REGIRSTRY} from '../constants/static-variable';
-import {APPLICATION_TEMPLATE} from './init-config';
+import { loadApplication, getYamlContent } from '@serverless-devs/core';
+import { configSet } from '../utils';
+import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
+import { APPLICATION_TEMPLATE } from './init-config';
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 
 export class InitManager {
   protected promptList: any[] = [];
-  constructor() {}
+  constructor() { }
   private sTemplateWrapper(sObject: any, callback) {
     const that = this;
     const templateRegexp = /^({{).*(}})$/;
@@ -31,7 +31,7 @@ export class InitManager {
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
     const appSath = await loadApplication(name, registry, dir);
-    const sPath = fs.existsSync(path.join(appSath, 's.yml')) ? path.join(appSath, 's.yml'): path.join(appSath, 's.yaml');
+    const sPath = fs.existsSync(path.join(appSath, 's.yml')) ? path.join(appSath, 's.yml') : path.join(appSath, 's.yaml');
     if (sPath) {
       const sContent = await getYamlContent(sPath);
       this.sTemplateWrapper(sContent, key => {
@@ -62,7 +62,7 @@ export class InitManager {
         stdio: ['ignore', 'inherit', 'inherit'],
       });
       gitCmd.on('close', code => {
-        resolve({code});
+        resolve({ code });
       });
     });
   }
@@ -71,9 +71,9 @@ export class InitManager {
     if (!name) {
       inquirer.prompt(APPLICATION_TEMPLATE).then(async answers => {
         const appKey = Object.keys(answers)[0];
-        const appName = answers[appKey];
-        const formatName = appName.substr(appName.lastIndexOf('/') + 1);
-        await this.executeInit(formatName, dir, appName);
+        const appValue = answers[appKey];
+        const formatName = appValue.substr(appValue.lastIndexOf('/') + 1);
+        await this.executeInit(formatName, dir, appValue.indexOf('http') !== -1 ? appValue : '');
       });
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);

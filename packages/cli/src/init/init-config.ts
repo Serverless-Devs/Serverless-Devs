@@ -29,6 +29,10 @@ new inquirer.Separator('\n⊙ Web Framework Example'),
     key: 'https://download.registry.serverlessfans.cn/init/alibaba-midway-faas',
     name: 'Midway-FaaS',
     value: 'https://download.registry.serverlessfans.cn/init/alibaba-midway-faas'
+}, {
+    key: 'start-malagu',
+    name: 'Malagu',
+    value: 'start-malagu'
 }, new inquirer.Separator('\n⊙ Serverless Dev template'), {
     key: 'https://download.registry.serverlessfans.cn/init/application',
     name: 'Application',
