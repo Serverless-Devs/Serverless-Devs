@@ -39,7 +39,7 @@ export class InitManager {
         that.sTemplateWrapper(object, callback);
       } else if (typeof object === 'string') {
         if (templateRegexp.test(object)) {
-          callback(key, sObject);
+          callback(object.replace(/^{{\s/,'').replace(/\s}}$/,''), sObject);
         }
       }
     }
