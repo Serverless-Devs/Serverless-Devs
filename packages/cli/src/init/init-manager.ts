@@ -53,7 +53,8 @@ export class InitManager {
     if (sPath) {
       const sContent = await getYamlContent(sPath);
       this.sTemplateWrapper(sContent, key => {
-        const [name, desc] = key.split('|');
+        const [keyName, desc] = key.split('|');
+        const name = _.trim(keyName);
         if (name === 'access') {
           const credentialAliasList = getCredentialAliasList();
           if (Array.isArray(credentialAliasList) && credentialAliasList.length > 0) {
@@ -86,7 +87,7 @@ export class InitManager {
         const credential = await setCredential();
         result.access = credential.Alias;
       } else {
-        result.access = 'default';
+        result.access = typeof result.access === 'string' ? result.access : 'default';
       }
 
       this.sTemplateWrapper(sContent, (key, sObject) => {
