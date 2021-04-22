@@ -100,6 +100,7 @@ export class InitManager {
       });
 
       fs.writeFileSync(sPath, yaml.dump(sContent));
+      console.log("Enjoy you serverless journey!")
     }
   }
   async gitCloneProject(name: string, dir?: string) {
