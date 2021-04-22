@@ -3,10 +3,11 @@
 import path from 'path';
 import fs from 'fs-extra';
 import os from 'os';
+import _ from 'lodash';
 import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import { loadApplication, getYamlContent } from '@serverless-devs/core';
+import { loadApplication, getYamlContent, setCredential } from '@serverless-devs/core';
 import { configSet, getYamlPath } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE } from './init-config';
@@ -27,7 +28,7 @@ const getCredentialAliasList = () => {
 };
 
 export class InitManager {
-  protected promptList: any[] = [];
+  protected promps: any = {};
   constructor() {}
   private sTemplateWrapper(sObject: any, callback) {
     const that = this;
@@ -54,21 +55,40 @@ export class InitManager {
       this.sTemplateWrapper(sContent, key => {
         const [name, desc] = key.split('|');
         if (name === 'access') {
-          this.promptList.push({
-            type: 'list',
-            name: 'access',
-            message: 'please select credential alias',
-            choices: getCredentialAliasList(),
-          });
+          const credentialAliasList = getCredentialAliasList();
+          if (Array.isArray(credentialAliasList) && credentialAliasList.length > 0) {
+            this.promps['access'] = {
+              type: 'list',
+              name: 'access',
+              message: 'please select credential alias',
+              choices: credentialAliasList,
+            };
+          } else {
+            this.promps['access'] = {
+              type: 'confirm',
+              name: 'access',
+              message: 'create credentia?',
+              default: true,
+            };
+          }
         } else {
-          this.promptList.push({
+          this.promps[name] = {
             type: 'input',
             message: `please input ${desc || name}:`,
             name,
-          });
+          };
         }
       });
-      const result = await inquirer.prompt(this.promptList);
+      const result = await inquirer.prompt(
+        _.concat(_.values(_.omit(this.promps, ['access'])), _.values(_.pick(this.promps, ['access']))),
+      );
+      if (result.access === true) {
+        const credential = await setCredential();
+        result.access = credential.Alias;
+      } else {
+        result.access = 'default';
+      }
+
       this.sTemplateWrapper(sContent, (key, sObject) => {
         const [name] = key.split('|');
         for (let prop in result) {
