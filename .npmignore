@@ -3,6 +3,7 @@ node_modules
 build
 *.log
 .idea
+packages
 .metadata
 jdt.ls-java-project
 lerna-debug.log
@@ -14,3 +15,4 @@ download
 dist
 .vscode
 .package-lock.json
+src

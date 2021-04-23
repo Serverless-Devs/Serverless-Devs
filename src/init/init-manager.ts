@@ -7,8 +7,8 @@ import _ from 'lodash';
 import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import { loadApplication, getYamlContent, setCredential } from '@serverless-devs/core';
-import { configSet, getYamlPath } from '../utils';
+import { loadApplication, getYamlContent, setCredential, colors } from '@serverless-devs/core';
+import { logger, configSet, getYamlPath } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE } from './init-config';
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -33,13 +33,14 @@ export class InitManager {
   private sTemplateWrapper(sObject: any, callback) {
     const that = this;
     const templateRegexp = /^({{).*(}})$/;
+    // eslint-disable-next-line guard-for-in
     for (let key in sObject) {
       const object = sObject[key];
       if (Object.prototype.toString.call(object) === '[object Object]') {
         that.sTemplateWrapper(object, callback);
       } else if (typeof object === 'string') {
         if (templateRegexp.test(object)) {
-          callback(object.replace(/^{{\s/,'').replace(/\s}}$/,''), sObject);
+          callback(object.replace(/^{{\s/, '').replace(/\s}}$/, ''), sObject);
         }
       }
     }
@@ -91,16 +92,20 @@ export class InitManager {
       }
 
       this.sTemplateWrapper(sContent, (key, sObject) => {
-        const [name] = key.split('|');
+        const [keyName] = key.split('|');
+        const name = _.trim(keyName);
         for (let prop in result) {
           if (name === prop && result[prop]) {
-            sObject[key] = result[prop];
+            sObject[name] = result[prop];
           }
         }
       });
 
       fs.writeFileSync(sPath, yaml.dump(sContent));
-      console.log("Enjoy you serverless journey!")
+      logger.success('Thanks for using Serverless-Devs');
+      console.log(
+        colors.bgBlack('\nDocument ❤ Star：') + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs'),
+      );
     }
   }
   async gitCloneProject(name: string, dir?: string) {

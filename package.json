@@ -1,6 +1,6 @@
 {
     "name": "@serverless-devs/s",
-    "version": "2.0.1",
+    "version": "2.0.3",
     "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
     "homepage": "https://www.serverless-devs.cn",
     "keywords": [
@@ -31,6 +31,7 @@
         "watch": "tsc -w",
         "test": "npx jest",
         "build": "tsc",
+        "postbuild": "./pre-publish.sh",
         "test:cov": "jest --coverage",
         "lint": "npm run typecheck && f2elint scan -i src",
         "fix": "f2elint fix",
