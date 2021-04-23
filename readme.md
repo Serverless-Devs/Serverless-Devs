@@ -16,7 +16,6 @@
 
 <p align="center">
   <span>像使用手机一样使用Serverless</span><br>
-  <span> <a href="./zh/readme.md">中文文档</a> ｜English(It's coming) </span>
 </p>
 
 ## 项目简介
@@ -45,11 +44,11 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 
 ## 帮助文档
 
-- [安装文档](./zh/install.md)
-- [命令行指令文档](./zh/command.md)
-- [Yaml规范文档](./zh/yaml.md)
-- [Package开发者文档](./zh/dev.md)
-- [源文档](./zh/registry.md)
+- [安装文档](https://github.com/Serverless-Devs/docs/blob/master/zh/install.md)
+- [命令行指令文档](https://github.com/Serverless-Devs/docs/blob/master/zh/command.md)
+- [Yaml规范文档](https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md)
+- [Package开发者文档](https://github.com/Serverless-Devs/docs/blob/master/zh/dev.md)
+- [源文档](https://github.com/Serverless-Devs/docs/blob/master/zh/registry.md)
 
 ## 相关资源
 
