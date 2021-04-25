@@ -7,7 +7,8 @@ import _ from 'lodash';
 import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import { loadApplication, getYamlContent, setCredential, colors } from '@serverless-devs/core';
+import { loadApplication, getYamlContent, setCredential } from '@serverless-devs/core';
+import colors from 'chalk';
 import { logger, configSet, getYamlPath } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE } from './init-config';
@@ -123,10 +124,10 @@ export class InitManager {
 
   async init(name: string, dir?: string) {
     if (!name) {
+    
       inquirer.prompt(APPLICATION_TEMPLATE).then(async answers => {
         const appKey = Object.keys(answers)[0];
         const appValue = answers[appKey];
-        // const formatName = appValue.substr(appValue.lastIndexOf('/') + 1);
         await this.executeInit(appValue, dir);
       });
     } else if (name.lastIndexOf('.git') !== -1) {

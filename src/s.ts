@@ -79,7 +79,6 @@ ${i18n.__(`Current Registry is ${getRegistry()}`)}
 `;
 
 (async () => {
-
   registerCommandChecker(program);
   const system_command = program
     .version('', '-v, --version', i18n.__('Output the version number'))

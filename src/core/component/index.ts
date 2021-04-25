@@ -86,16 +86,12 @@ export class ComponentExeCute {
   async init() {
 
     this.credentials = (await this.getCredentials()) || {};
-    // 将密钥缓存到临时环境变量中
-    try {
-      process.env.temp_credentials = JSON.stringify(this.credentials);
-    } catch (e) { }
     return await this.startExecute();
   }
 
   async getCredentials() {
     const { access } = getServiceConfigDetail(this.componentConfig);
-    return await await getCredential(access);
+    return await getCredential(access);
   }
 
   private loadExtends(): Hook | null {
