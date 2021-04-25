@@ -5,65 +5,66 @@ import i18n from '../utils/i18n';
 
 const data = [new inquirer.Separator('\n⊙ Hello World Example'), {
     key: 'devsapp/start-fc',
-    name: 'Aliyun FC node.js12-http         (s init devsapp/start-fc)',
+    name: 'Aliyun FC node.js12-http',
     value: 'devsapp/start-fc'
 }, {
     key: 'devscomp/start-lambda',
-    name: 'AWS Lambda nodejs12.x-http       (s init devscomp/start-lambda)',
+    name: 'AWS Lambda nodejs12.x-http',
     value: 'devscomp/start-lambda'
 }, {
     key: 'devscomp/start-scf',
-    name: 'Tencent SCF nodejs12.x-http      (s init devscomp/start-scf)',
+    name: 'Tencent SCF nodejs12.x-http',
     value: 'devscomp/start-scf'
 },
 new inquirer.Separator('\n⊙ Web Framework Example'),
 {
     key: 'devsapp/start-express',
-    name: 'Express                 (s init devsapp/start-express)',
+    name: 'Express',
     value: 'devsapp/start-express'
 }, {
     key: 'devsapp/start-flask',
-    name: 'Flask                   (s init devsapp/start-flask)',
+    name: 'Flask',
     value: 'devsapp/start-flask'
 }, {
     key: 'devsapp/start-zblog',
-    name: 'Zblog                   (s init devsapp/start-zblog)',
+    name: 'Zblog',
     value: 'devsapp/start-zblog'
 }, {
     key: 'devsapp/midway-hook-vue',
-    name: 'Midway                  (s init devsapp/midway-hook-vue)',
+    name: 'Midway',
     value: 'devsapp/midway-hook-vue'
 }, {
     key: 'devsapp/start-malagu',
-    name: 'Malagu                  (s init devsapp/start-malagu)',
+    name: 'Malagu',
     value: 'devsapp/start-malagu'
-}, new inquirer.Separator('\n⊙ Static Website'), {
-    key: 'devsapp/start-vue',
-    name: 'Vue                   (s init devsapp/start-vue)',
-    value: 'devsapp/start-vue'
+}, new inquirer.Separator('\n⊙ Static Website'),
+{
+    key: 'devsapp/website-vue',
+    name: 'Vue',
+    value: 'devsapp/website-vue'
 }, {
-    key: 'devsapp/start-react',
-    name: 'React                 (s init devsapp/start-react)',
-    value: 'devsapp/start-react'
+    key: 'devsapp/website-react',
+    name: 'React',
+    value: 'devsapp/website-react'
 }, {
-    key: 'devsapp/start-docusaurus',
-    name: 'Docusaurus            (s init devsapp/start-docusaurus)',
-    value: 'devsapp/start-docusaurus'
+    key: 'devsapp/website-docusaurus',
+    name: 'Docusaurus',
+    value: 'devsapp/website-docusaurus'
 }, {
-    key: 'devsapp/start-hexo',
-    name: 'Hexo                  (s init devsapp/start-hexo)',
-    value: 'devsapp/start-hexo'
+    key: 'devsapp/website-hexo',
+    name: 'Hexo',
+    value: 'devsapp/website-hexo'
 }, {
-    key: 'devsapp/start-vuepress',
-    name: 'Vuepress              (s init devsapp/start-vuepress)',
-    value: 'devsapp/start-vuepress'
+    key: 'devsapp/website-vuepress',
+    name: 'Vuepress',
+    value: 'devsapp/website-vuepress'
 }, new inquirer.Separator('\n⊙ Serverless Dev template'), {
     key: 'devsapp/start-application',
-    name: 'Application      (s init devsapp/start-application)',
+    name: 'Application',
     value: 'devsapp/start-application'
 }, {
     key: 'devsapp/start-component',
-    name: 'Component        (s init devsapp/start-component)',
+    name: 'Component',
     value: 'devsapp/start-component'
 }];
 

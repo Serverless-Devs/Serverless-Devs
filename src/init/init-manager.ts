@@ -29,7 +29,7 @@ const getCredentialAliasList = () => {
 
 export class InitManager {
   protected promps: any = {};
-  constructor() {}
+  constructor() { }
   private sTemplateWrapper(sObject: any, callback) {
     const that = this;
     const templateRegexp = /^({{).*(}})$/;
@@ -126,8 +126,8 @@ export class InitManager {
       inquirer.prompt(APPLICATION_TEMPLATE).then(async answers => {
         const appKey = Object.keys(answers)[0];
         const appValue = answers[appKey];
-        const formatName = appValue.substr(appValue.lastIndexOf('/') + 1);
-        await this.executeInit(formatName, dir, appValue.indexOf('http') !== -1 ? appValue : '');
+        // const formatName = appValue.substr(appValue.lastIndexOf('/') + 1);
+        await this.executeInit(appValue, dir);
       });
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
