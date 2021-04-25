@@ -79,12 +79,6 @@
         "semantic-release": "^17.0.4",
         "babel-eslint": "^10.1.0"
     },
-    "husky": {
-        "hooks": {
-            "commit-msg": "f2elint exec commitlint -E HUSKY_GIT_PARAMS",
-            "pre-commit": "f2elint exec lint-staged"
-        }
-    },
     "lint-staged": {
         "**/*.{js,jsx,ts}": "f2elint exec eslint"
     },
