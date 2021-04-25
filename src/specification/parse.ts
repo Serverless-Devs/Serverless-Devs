@@ -133,7 +133,7 @@ export class Parse {
                     topKeyDependencisMap[dependProjName] = 1; // Dependent priority
                     this.dependenciesMap[topKey] = topKeyDependencisMap;
                 }
-                return this.findVariableValue(variableObj);
+                return objValue.replace(COMMON_VARIABLE_TYPE_REG, this.findVariableValue(variableObj));
             }
             this.dependenciesMap[topKey] = {};
 
