@@ -30,7 +30,7 @@ const getCredentialAliasList = () => {
 
 export class InitManager {
   protected promps: any = {};
-  constructor() { }
+  constructor() {}
   private sTemplateWrapper(sObject: any, callback) {
     const that = this;
     const templateRegexp = /^({{).*(}})$/;
@@ -49,9 +49,7 @@ export class InitManager {
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
     const appSath = await loadApplication(name, registry, dir);
-    const sPath = fs.existsSync(path.join(appSath, 's.yml'))
-      ? path.join(appSath, 's.yml')
-      : path.join(appSath, 's.yaml');
+    const sPath = getYamlPath(appSath, 's');
     if (sPath) {
       const sContent = await getYamlContent(sPath);
       this.sTemplateWrapper(sContent, key => {

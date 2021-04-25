@@ -14,6 +14,6 @@ export const getYamlPath = (prePath: string, name: string) => {
   const S_PATH1 = path.join(prePath, `${name}.yaml`);
   const S_PATH2 = path.join(prePath, `${name}.yml`);
 
-  const S_PATH = fs.ensureFile(S_PATH1) ? S_PATH1 : fs.ensureFile(S_PATH2) ? S_PATH2 : undefined;
+  const S_PATH = fs.existsSync(S_PATH1) ? S_PATH1 : fs.existsSync(S_PATH2) ? S_PATH2 : undefined;
   return S_PATH;
 };
