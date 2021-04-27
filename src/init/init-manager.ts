@@ -30,7 +30,7 @@ const getCredentialAliasList = () => {
 
 export class InitManager {
   protected promps: any = {};
-  constructor() {}
+  constructor() { }
   private sTemplateWrapper(sObject: any, callback) {
     const that = this;
     const templateRegexp = /^({{).*(}})$/;
@@ -102,6 +102,7 @@ export class InitManager {
 
       fs.writeFileSync(sPath, yaml.dump(sContent));
       logger.success('Thanks for using Serverless-Devs');
+      console.log(colors.bgBlack(` \n You could "cd ${path.dirname(sPath)}"  and enjoy you serverless journey!`));
       console.log(
         colors.bgBlack('\nDocument ❤ Star：') + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs'),
       );
@@ -122,7 +123,7 @@ export class InitManager {
 
   async init(name: string, dir?: string) {
     if (!name) {
-    
+
       inquirer.prompt(APPLICATION_TEMPLATE).then(async answers => {
         const appKey = Object.keys(answers)[0];
         const appValue = answers[appKey];

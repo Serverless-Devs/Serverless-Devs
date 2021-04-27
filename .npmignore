@@ -16,3 +16,7 @@ dist
 .vscode
 .package-lock.json
 src
+lib
+bin-dev
+.github
+pre-public

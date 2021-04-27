@@ -1,5 +1,5 @@
 #!/bin/bash
-
+ncc cache clean
 ncc build lib/init/index.js -o release/init
 ncc build lib/s.js -o release/s
 ncc build lib/cli/index.js -o release/cli
