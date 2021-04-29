@@ -83,8 +83,13 @@ npm package-based installation: this installation mode is suitable for Windows, 
 
 Run the following command to install the Serverless Devs Tool on Windows, Mac, or Linux.
 
+use [npm](https://www.npmjs.com/)
 ```bash
 $ npm install @serverless-devs/s -g
+```
+or you can use [yarn](https://yarnpkg.com/)
+```bash
+$ yarn global add @serverless-devs/s
 ```
 
 > Instructions

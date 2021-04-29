@@ -96,9 +96,18 @@ curl -o- -L http://cli.so/install.sh | bash
 
 在 Windows、Mac、Linux 平台执行以下命令安装 Serverless Devs Tool工具。
 
-```shell script
+
+
+你可以使用 [npm](https://www.npmjs.com/) 进行安装
+```bash
 $ npm install @serverless-devs/s -g
 ```
+也可以使用 [yarn](https://yarnpkg.com/) 进行安装
+
+```bash
+$ yarn global add @serverless-devs/s
+```
+
 
 > 说明:
 > - 如果在 Linux 或 MacOS 下执行该命令报错且报错信息为 Error: EACCES: permission denied，请执行命令 sudo npm install @serverless-devs/s -g。

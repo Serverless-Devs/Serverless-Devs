@@ -102,9 +102,9 @@ export class InitManager {
 
       fs.writeFileSync(sPath, yaml.dump(sContent));
       logger.success('Thanks for using Serverless-Devs');
-      console.log(colors.bgBlack(` \n You could "cd ${path.dirname(sPath)}"  and enjoy you serverless journey!`));
+      console.log(`\nYou could "cd ${path.dirname(sPath)}"  and enjoy you serverless journey!`);
       console.log(
-        colors.bgBlack('\nDocument ❤ Star：') + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs'),
+        '\nDocument ❤ Star：' + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs'),
       );
     }
   }
