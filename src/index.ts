@@ -86,8 +86,8 @@ ${i18n.__(`Current Registry is ${getRegistry()}`)}
     .helpOption('-h, --help', i18n.__('Display help for command'))
     .command('config', i18n.__('Configure cloud service account.'))
     .command('init', i18n.__('Initializing a project.'))
-    .command('set', i18n.__('Settings for the tool.'))
     .command('cli', i18n.__('Command line operation through yaml free mode.'))
+    .command('set', i18n.__('Settings for the tool.'))
     .option('--skip-actions', i18n.__('Skip the extends section'))
     .option('--debug', i18n.__('Debug model'))
     .addHelpCommand(false);

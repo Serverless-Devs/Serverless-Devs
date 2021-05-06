@@ -29,7 +29,8 @@ export function getServiceConfigDetail(configData: any) {
     const name = configData.Component || configData.component;
     const provider = configData.Provider || configData.provider;
     const access = configData.Access || configData.access;
-    return { name, provider, access };
+    const autoCredential = configData.autoCredential;
+    return { name, provider, access, autoCredential };
 }
 
 export function getServiceInputs(configData: any, version: string, options: any) {

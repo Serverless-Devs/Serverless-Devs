@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../release/set/language');
+require('../lib/set/language');

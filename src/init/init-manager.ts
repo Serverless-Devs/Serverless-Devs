@@ -7,13 +7,13 @@ import _ from 'lodash';
 import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import { loadApplication, getYamlContent, setCredential } from '@serverless-devs/core';
+import { loadApplication, setCredential } from '@serverless-devs/core';
 import colors from 'chalk';
-import { logger, configSet, getYamlPath } from '../utils';
+import { logger, configSet, getYamlPath, common } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
-import { APPLICATION_TEMPLATE } from './init-config';
+import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
-
+const { replaceTemplate, getTemplatekey, replaceFun } = common;
 const getCredentialAliasList = () => {
   const ACCESS_PATH = getYamlPath(path.join(os.homedir(), '.s'), 'access');
   if (!ACCESS_PATH) {
@@ -31,31 +31,16 @@ const getCredentialAliasList = () => {
 export class InitManager {
   protected promps: any = {};
   constructor() { }
-  private sTemplateWrapper(sObject: any, callback) {
-    const that = this;
-    const templateRegexp = /^({{).*(}})$/;
-    // eslint-disable-next-line guard-for-in
-    for (let key in sObject) {
-      const object = sObject[key];
-      if (Object.prototype.toString.call(object) === '[object Object]') {
-        that.sTemplateWrapper(object, callback);
-      } else if (typeof object === 'string') {
-        if (templateRegexp.test(object)) {
-          callback(object.replace(/^{{\s/, '').replace(/\s}}$/, ''), sObject);
-        }
-      }
-    }
-  }
-  async executeInit(name: string, dir?: string, downloadurl?: boolean) {
-    const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
-    const appSath = await loadApplication(name, registry, dir);
+
+  async initSconfig(appSath) {
     const sPath = getYamlPath(appSath, 's');
     if (sPath) {
-      const sContent = await getYamlContent(sPath);
-      this.sTemplateWrapper(sContent, key => {
-        const [keyName, desc] = key.split('|');
+      let sContent = fs.readFileSync(sPath, 'utf-8');
+      const templateKeys = getTemplatekey(sContent);
+      templateKeys.forEach((item) => {
+        const { name: keyName, desc } = item;
         const name = _.trim(keyName);
-        if (name === 'access') {
+        if (keyName === 'access') {
           const credentialAliasList = getCredentialAliasList();
           if (Array.isArray(credentialAliasList) && credentialAliasList.length > 0) {
             this.promps['access'] = {
@@ -89,24 +74,34 @@ export class InitManager {
       } else {
         result.access = typeof result.access === 'string' ? result.access : 'default';
       }
+      sContent = replaceFun(sContent, result);
+      fs.writeFileSync(sPath, sContent, 'utf-8');
+    }
+    return sPath;
+  }
 
-      this.sTemplateWrapper(sContent, (key, sObject) => {
-        const [keyName] = key.split('|');
-        const name = _.trim(keyName);
-        for (let prop in result) {
-          if (name === prop && result[prop]) {
-            sObject[name] = result[prop];
-          }
-        }
-      });
+  async assemblySpecialApp(appName, { projectName, appPath }) {
+    if (appName === 'start-component' || appName === 'devsapp/start-component') {
+      const packageJsonPath = path.join(appPath, 'package.json');
+      const publishYamlPath = path.join(appPath, 'publish.yaml');
+      replaceTemplate([packageJsonPath, publishYamlPath], { projectName });
+    }
 
-      fs.writeFileSync(sPath, yaml.dump(sContent));
+  }
+  async executeInit(name: string, dir?: string, downloadurl?: boolean) {
+    const { projectName } = await inquirer.prompt(PROJECT_NAME_INPUT);
+    const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+    let appPath = await loadApplication({ registry, target: dir, source: name, name: projectName });
+    if (appPath) {
+      await this.initSconfig(appPath);
+      await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
       logger.success('Thanks for using Serverless-Devs');
-      console.log(`\nYou could "cd ${path.dirname(sPath)}"  and enjoy you serverless journey!`);
+      console.log(`\nYou could "cd ${appPath}"  and enjoy you serverless journey!`);
       console.log(
         '\nDocument ❤ Star：' + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs'),
       );
     }
+
   }
   async gitCloneProject(name: string, dir?: string) {
     return new Promise(resolve => {
@@ -123,12 +118,9 @@ export class InitManager {
 
   async init(name: string, dir?: string) {
     if (!name) {
-
-      inquirer.prompt(APPLICATION_TEMPLATE).then(async answers => {
-        const appKey = Object.keys(answers)[0];
-        const appValue = answers[appKey];
-        await this.executeInit(appValue, dir);
-      });
+      const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
+      const answerValue = answers['template'];
+      await this.executeInit(answerValue, dir);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {

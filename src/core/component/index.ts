@@ -84,13 +84,15 @@ export class ComponentExeCute {
   }
 
   async init() {
-
     this.credentials = (await this.getCredentials()) || {};
     return await this.startExecute();
   }
 
   async getCredentials() {
-    const { access } = getServiceConfigDetail(this.componentConfig);
+    const { access, autoCredential } = getServiceConfigDetail(this.componentConfig);
+    if (autoCredential === false) {
+      return null;
+    }
     return await getCredential(access);
   }
 

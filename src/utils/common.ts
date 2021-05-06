@@ -2,6 +2,7 @@
 import path from 'path';
 import fs from 'fs';
 import yaml from 'js-yaml';
+import _ from 'lodash';
 import { handlerProfileFile } from './handler-set-config';
 
 function checkTemplateFormat(filePath: string, json = false) {
@@ -77,7 +78,42 @@ export async function getLang() {
     return 'en';
   }
 }
+export function replaceFun(str, obj) {
+  const reg = /\{\{(.*?)\}\}/g;
+  let arr = str.match(reg);
+  for (let i = 0; i < arr.length; i++) {
+   
+    let keyContent = arr[i].replace(/{{|}}/g, '');
+    let realKey = _.trim(keyContent.split('|')[0]);
+    if (obj[realKey]) {
+      str = str.replace(arr[i], obj[realKey]);
+    }
+  }
+  return str;
+}
 
+export function getTemplatekey(str) {
+  const reg = /\{\{(.*?)\}\}/g;
+  const arr = str.match(reg);
+  return arr.filter(result => result).map((matchValue) => {
+    let keyContent = matchValue.replace(/{{|}}/g, '');
+    let realKey = keyContent.split('|');
+    return {
+      name: _.trim(realKey[0]),
+      desc: realKey[1] || ''
+    }
+  })
+}
+
+export function replaceTemplate(files: Array<string>, content: { [key: string]: string }) {
+  files.forEach((path: string) => {
+    if (fs.existsSync(path)) {
+      const oldFileContent = fs.readFileSync(path, 'utf-8');
+      const newFileContent = replaceFun(oldFileContent, content);
+      fs.writeFileSync(path, newFileContent, 'utf-8');
+    }
+  });
+}
 
 export function mark(source: string): string {
   if (!source) { return source; }
@@ -90,5 +126,8 @@ export default {
   checkTemplateFile,
   printn,
   mark,
-  getLang
+  getLang,
+  replaceTemplate,
+  replaceFun,
+  getTemplatekey
 }

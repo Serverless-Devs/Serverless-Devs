@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../release/config/add');
+require('../lib/config/add');

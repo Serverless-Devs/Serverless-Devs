@@ -71,7 +71,7 @@ new inquirer.Separator('\n⊙ Web Framework Example'),
 export const APPLICATION_TEMPLATE = [
     {
         type: 'autocomplete',
-        name: 'application',
+        name: 'template',
         message: i18n.__('Hello, serverlessor.Which template do you like?'),
         loop: false,
         pageSize: 40,
@@ -82,3 +82,11 @@ export const APPLICATION_TEMPLATE = [
             return data.filter((item: any) => item.name && item.name.indexOf(input) !== -1);
         }
     }];
+
+export const PROJECT_NAME_INPUT = [
+    {
+        type: 'input',
+        name: 'projectName',
+        message: i18n.__('Please input your project name'),
+    }
+]
