@@ -1,4 +1,4 @@
-import 'v8-compile-cache';
+// import 'v8-compile-cache';
 import program from 'commander';
 import { execSync } from 'child_process';
 import {
