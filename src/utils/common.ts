@@ -1,16 +1,15 @@
-/** @format */
 
-import {handlerProfileFile} from './handler-set-config';
+import path from 'path';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import _ from 'lodash';
+import { handlerProfileFile } from './handler-set-config';
 
-const path = require('path');
-const fs = require('fs');
-const yaml = require('js-yaml');
-
-function checkTemplateFormat(filePath: string, json=false){
+function checkTemplateFormat(filePath: string, json = false) {
   const content = fs.readFileSync(filePath, 'utf8')
-  let fileObj = json ? JSON.parse(content): yaml.safeLoad(content);
-  for(const eveKey in fileObj){
-    if(fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties){
+  let fileObj = json ? JSON.parse(content) : yaml.safeLoad(content);
+  for (const eveKey in fileObj) {
+    if (fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties) {
       return true
     }
   }
@@ -25,7 +24,7 @@ export function checkAndReturnTemplateFile() {
     const tempFileName = process.argv[tempFileIndex];
     if (tempFileName) {
       if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml') || tempFileName.endsWith('.json')) {
-        const jsonType = tempFileName.endsWith('.json')?true:false
+        const jsonType = tempFileName.endsWith('.json') ? true : false
         if (fs.existsSync(path.join(currentDir, tempFileName)) && checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)) {
           process.argv.splice(index, 2);
           return path.join(currentDir, tempFileName);
@@ -74,8 +73,66 @@ export function printn(n: number, str = ' ') {
 
 export async function getLang() {
   try {
-    return (await handlerProfileFile({read: true, filePath: 'set-config.yml'})).locale || 'en';
+    return (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
   } catch (e) {
     return 'en';
   }
+}
+export function replaceFun(str, obj) {
+  const reg = /\{\{(.*?)\}\}/g;
+  let arr = str.match(reg);
+  if (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let keyContent = arr[i].replace(/{{|}}/g, '');
+      let realKey = _.trim(keyContent.split('|')[0]);
+      if (obj[realKey]) {
+        str = str.replace(arr[i], obj[realKey]);
+      }
+    }
+  }
+
+  return str;
+}
+
+export function getTemplatekey(str) {
+  const reg = /\{\{(.*?)\}\}/g;
+  const arr = str.match(reg);
+  if (!arr) {
+    return [];
+  }
+  return arr.filter(result => result).map((matchValue) => {
+    let keyContent = matchValue.replace(/{{|}}/g, '');
+    let realKey = keyContent.split('|');
+    return {
+      name: _.trim(realKey[0]),
+      desc: realKey[1] || ''
+    }
+  })
+}
+
+export function replaceTemplate(files: Array<string>, content: { [key: string]: string }) {
+  files.forEach((path: string) => {
+    if (fs.existsSync(path)) {
+      const oldFileContent = fs.readFileSync(path, 'utf-8');
+      const newFileContent = replaceFun(oldFileContent, content);
+      fs.writeFileSync(path, newFileContent, 'utf-8');
+    }
+  });
+}
+
+export function mark(source: string): string {
+  if (!source) { return source; }
+  const subStr = source.slice(-4);
+  return `***********${subStr}`;
+}
+
+export default {
+  checkAndReturnTemplateFile,
+  checkTemplateFile,
+  printn,
+  mark,
+  getLang,
+  replaceTemplate,
+  replaceFun,
+  getTemplatekey
 }

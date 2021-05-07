@@ -1,8 +1,8 @@
 /** @format */
 
-import * as os from 'os';
-import * as path from 'path';
-import * as fs from 'fs-extra';
+import os from 'os';
+import path from 'path';
+import fs from 'fs-extra';
 
 export function getHomeDir(): string {
   const home = path.join(os.homedir(), '.s');
@@ -18,4 +18,11 @@ export function getHistoryFile(): string {
     fs.createFileSync(file);
   }
   return file;
+}
+
+
+
+export default {
+  getHomeDir,
+  getHistoryFile,
 }

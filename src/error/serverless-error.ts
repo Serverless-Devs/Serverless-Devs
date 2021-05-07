@@ -1,19 +1,18 @@
-/** @format */
 
-import logger from '../utils/logger';
-
-const i18n = require('i18n');
-
-// export class ServerlessError extends Error {
-//     constructor(phase: string, message: string, params?: any) {
-//         super(i18n.__(phase) + ": " + i18n.__(message, params));
-//         //super(message);
-//     }
-// }
+import i18n from 'i18n';
+import { HLogger, ILogger } from '@serverless-devs/core';
 
 export class ServerlessError {
+  @HLogger('S-CLI-ERROR') logger: ILogger;
   constructor(phase: string, message: string, params?: any) {
-    logger.error(i18n.__(phase) + ': ' + i18n.__(message, params));
+    i18n.configure({
+      logDebugFn: function (msg) { },
+      logWarnFn: function (msg) { },
+      logErrorFn: function (msg) { },
+      locales: ['en', 'zh'],
+      register: global
+    });
+    this.logger.error(i18n.__(phase) + ': ' + i18n.__(message, params));
     process.exit(-1);
   }
 }

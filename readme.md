@@ -1,7 +1,6 @@
-
 # Serverless Devs Cli 帮助文档
 
-<div align=center> <img src="https://images.serverlessfans.com/devs-github/logo.jpg" width="100%"/> </div>
+<div align=center> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@serverless-devs/s">

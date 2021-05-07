@@ -1,11 +1,11 @@
-/** @format */
+import program from 'commander';
+import { configSet, i18n, logger } from '../../utils';
 
-import * as program from 'commander';
-import {setConfig} from '../../utils/handler-set-config';
-import i18n from '../../utils/i18n';
-import logger from '../../utils/logger';
-import {SetLanguageError} from '../../error/set-language-error';
-import {CommandError} from '../../error/command-error';
+import { CommandError, SetLanguageError } from '../../error';
+
+
+const { setConfig } = configSet;
+
 
 const defaultLanguage = ['zh', 'en'];
 
@@ -20,7 +20,7 @@ program
         $ s set language zh
         $ s set language en`,
   )
-    .addHelpCommand(false).parse(process.argv);
+  .addHelpCommand(false).parse(process.argv);
 (async () => {
   if (program.args.length === 0) {
     program.help();

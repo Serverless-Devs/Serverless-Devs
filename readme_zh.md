@@ -1,7 +1,7 @@
 # 欢迎使用Serverless Devs
 
 
-<div align=center> <img src="https://images.serverlessfans.com/devs-github/logo.jpg" width="100%"/> </div>
+<div align=center> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@serverless-devs/s">
@@ -18,12 +18,21 @@
 </p>
 
 
-- [ :thumbsup: 项目优势](#项目优势)
-- [ :iphone: 像使用手机一样玩转 Serverless](#像使用手机一样玩转-serverless)
-- [ :house_with_garden: Serverless的使用场景](#使用场景)
-- [ :heavy_check_mark: 快入安装和使用](#快入安装和使用)
-- [ :running: 极速入门体验](#极速体验)
-- [ :book: 使用文档](#更多文档)
+- [欢迎使用Serverless Devs](#欢迎使用serverless-devs)
+  - [项目优势](#项目优势)
+    - [可支持主流 Serverless 服务/框架](#可支持主流-serverless-服务框架)
+    - [可视化编辑和部署](#可视化编辑和部署)
+    - [灵活与开放的使用方法](#灵活与开放的使用方法)
+  - [像使用手机一样玩转 Serverless](#像使用手机一样玩转-serverless)
+  - [使用场景](#使用场景)
+  - [快入安装和使用](#快入安装和使用)
+    - [快速安装](#快速安装)
+  - [通过Npm安装](#通过npm安装)
+  - [极速体验](#极速体验)
+  - [如何开发](#如何开发)
+  - [更多文档](#更多文档)
+  - [联系我们](#联系我们)
+
 
 Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
 
@@ -45,7 +54,7 @@ Serverless Devs 拥有完善的可视化编辑和部署流程。在 Serverless D
 
 无论是进行项目体验，还是进行项目开发、运维，在应用中心的加持下，在可视化编辑和部署的加持下，Serverless 项目的整体部署时间缩短了近 1 倍。同时，Serverless Devs App Store 也是一个开发者开源共建的平台，所有用户都可以在应用中心发布自己的组件和应用供更多人学习、参考以及使用。
 
-| ![](https://images.serverlessfans.com/devs-github/app-store.jpg) | ![](https://images.serverlessfans.com/devs-github/app-store-edit.jpg) |
+| ![](https://images.devsapp.cn/devs-github/app-store.jpg) | ![](https://images.devsapp.cn/devs-github/app-store-edit.jpg) |
 | ------ | ------ |
 
 
@@ -61,13 +70,13 @@ Serverless Devs 的这种灵活与开放的使用方法，可以在自动化部�
 通过 Serverless Devs，我们可以像使用手机一样的使用 Serverless。在使用手机时，我们需要通过在手机应用市场中搜索、下载各种应用，并安装到手机中进行使用；对于 Serverless Devs 开发平台来说，我们可以通过 s gui 快捷调出 Serverless Devs App Store，并在其中搜索并下载组件/插件到 Serverless Devs Tool 开始使用 Serverless，如图所示：
 
 
-<div align=center> <img src="https://images.serverlessfans.com/devs-github/cli-app-like-phone-v2.png" width="100%"/> </div>
+<div align=center> <img src="https://images.devsapp.cn/devs-github/cli-app-like-phone-v2.png" width="100%"/> </div>
 
 ## 使用场景
 
 Serverless Devs 是多云多资源全链路/生命周期管理平台。该平台可以在组件化和插件化共同作用下，参与到项目的创建、开发、调试、部署与运维的全流程中，以阿里云函数计算组件为例：
 
-<div align=center> <img src="https://images.serverlessfans.com/devs-github/use.png" width="100%"/> </div>
+<div align=center> <img src="https://images.devsapp.cn/devs-github/use.png" width="100%"/> </div>
 
 可以通过命令行工具或者应用中心进行项目的最初创建；在项目开发过程中，我们可以通过本地调试等能力，来验证本地开发的正确性等；在项目调试的环节，可以通过本地调试与远程调用、日志查询等能力，来进行项目的最终调试；在部署环节，可以先通过依赖安装、项目构建等流程构建出完整的部署包，在进行项目的部署；在后期运维缓解，可以通过指标查询来进行项目健康度检查，可通过日志查询等来进行问题定位，可以通过项目发布等能力进行版本发布，别名发布以及灰度发布等；
 
@@ -87,9 +96,18 @@ curl -o- -L http://cli.so/install.sh | bash
 
 在 Windows、Mac、Linux 平台执行以下命令安装 Serverless Devs Tool工具。
 
-```shell script
+
+
+你可以使用 [npm](https://www.npmjs.com/) 进行安装
+```bash
 $ npm install @serverless-devs/s -g
 ```
+也可以使用 [yarn](https://yarnpkg.com/) 进行安装
+
+```bash
+$ yarn global add @serverless-devs/s
+```
+
 
 > 说明:
 > - 如果在 Linux 或 MacOS 下执行该命令报错且报错信息为 Error: EACCES: permission denied，请执行命令 sudo npm install @serverless-devs/s -g。
@@ -133,11 +151,35 @@ Commands:
 
 <div align=center>
 
-| <div align=center> <a href="https://images.serverlessfans.com/s-tool/demo/poem.mp4"> <img src="https://images.serverlessfans.com/devs-github/cli.jpg" width="80%"/> </a> </div> | <div align=center> <a href="https://images.serverlessfans.com/s-gui/docs/app-store.mp4">  <img src="https://images.serverlessfans.com/devs-github/app-store.jpg" width="80%"/> </a> </div> |
+| <div align=center> <a href="https://images.devsapp.cn/s-tool/demo/poem.mp4"> <img src="https://images.devsapp.cn/devs-github/cli.jpg" width="80%"/> </a> </div> | <div align=center> <a href="https://images.devsapp.cn/s-gui/docs/app-store.mp4">  <img src="https://images.devsapp.cn/devs-github/app-store.jpg" width="80%"/> </a> </div> |
 | ------ | ------ |
 | <p align="center"> <span> 点击图片播放CLI视频 <br> <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-Tool/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> 也可以点击此处查看CLI入门案例 </a> </span> </p> | <p align="center"> <span> 点击图片播放应用中心视频 <br>  <a href="https://github.com/Serverless-Devs/docs/blob/master/Serverless-Devs-App-Store/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.md"> 也可以点击此处查看应用中心入门案例 </a> </span> </p> |
 
 </div>
+
+## 如何开发
++ 1.项目克隆到本地后，进入根目录下执行
+```
+npm install
+```
++ 2.通过leran 安装子包的依赖
+```
+npm run bootstrap
+```
++ 3.执行编译
+```
+npm run build
+```
++ 4.使用npm link 将本地包软链到全局指令 (部分系统需要sudo)
+```
+npm link
+```
++ 5.调试具体的包，比如 cli，可以进入cli目录下，执行
+```
+npm run watch
+```
+即可实时调试打印结果
+
 
 
 ## 更多文档
@@ -192,7 +234,7 @@ Commands:
 
 <div align=center>
 
-| <div align=center>  <img src="https://images.serverlessfans.com/devs-github/wechat-helper.png" width="200px"/> </div> | <div align=center>  <img src="https://images.serverlessfans.com/devs-github/dingtalk-group.png" width="200px"/> </div> |
+| <div align=center>  <img src="https://images.devsapp.cn/devs-github/wechat-helper.png" width="200px"/> </div> | <div align=center>  <img src="https://images.devsapp.cn/devs-github/dingtalk-group.png" width="200px"/> </div> |
 | ------ | ------ |
 | <p align="center"> <span>微信扫码添加小助手进群</span> </p> | <p align="center"> <span>钉钉扫码进讨论交流群</span> </p> |
 
@@ -202,4 +244,4 @@ Commands:
   - 网址：
     - https://www.serverless.cn
     - https://www.serverless-devs.com
-  - 邮箱：service@serverlessfans.com
+  - 邮箱：service@devsapp.cn

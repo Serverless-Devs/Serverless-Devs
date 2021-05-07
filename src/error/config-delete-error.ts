@@ -1,6 +1,4 @@
-/** @format */
-
-import {ServerlessError} from './serverless-error';
+import { ServerlessError } from './serverless-error';
 
 export class ConfigDeleteError extends ServerlessError {
   constructor(message: string, params?: any) {

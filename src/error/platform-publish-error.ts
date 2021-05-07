@@ -1,6 +1,6 @@
 /** @format */
 
-import {ServerlessError} from './serverless-error';
+import { ServerlessError } from './serverless-error';
 
 export class PlatformPublishError extends ServerlessError {
   constructor(message: string) {

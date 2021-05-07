@@ -1,14 +1,12 @@
-/** @format */
+import path from 'path';
+import os from 'os';
+import inquirer from 'inquirer';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import program from 'commander';
 
-const path = require('path');
-const os = require('os');
-const inquirer = require('inquirer');
-const fs = require('fs');
-const yaml = require('js-yaml');
-import * as program from 'commander';
-import i18n from '../../utils/i18n';
-import logger from '../../utils/logger';
-import {ConfigError} from '../../error/config-error';
+import { ConfigError } from '../../error';
+
 import {
   providerArray,
   providerObject,
@@ -16,6 +14,9 @@ import {
   providerAccessFormat,
   checkProviderList,
 } from '../common/common';
+
+import i18n from '../../utils/i18n';
+import logger from '../../utils/logger';
 
 function isEqualArray(rightFormat: string[], inputFormat: string[]): boolean {
   if (!(rightFormat || inputFormat)) {
@@ -38,7 +39,7 @@ interface ConfigMap {
 
 export class AddManager {
   globalFilePath: string;
-  inputFullData: ConfigMap; // 用户输入的inputProviderAlias为键 与 inputSecretID 为值 组成的对象
+  inputFullData: ConfigMap;
   protected inputProviderAlias = '';
   protected inputSecretID: any;
   protected provider: string;
@@ -47,7 +48,7 @@ export class AddManager {
   protected isRightFormat = true;
   protected context: string[];
   constructor() {
-    this.globalFilePath = path.join(os.homedir(), '.s/access.yaml');
+    this.globalFilePath = path.join(os.homedir(), '.s', 'access.yaml');
     this.inputFullData = {};
     this.context = program.args;
   }
@@ -62,16 +63,14 @@ export class AddManager {
         if (providerArray.indexOf(this.provider) === -1) {
           throw new ConfigError(
             'The cloud vendor[{{provider}}] was not found. [alibaba/aws/azure/baidu/google/huawei/tencent]',
-            {provider: this.provider},
+            { provider: this.provider },
           );
         }
 
         this.inputSecretID = {};
-        const inputSecretCheckKeys: string[] = Object.keys(inputSecretCheck); // 用户输入的秘钥对象的key
-
-        //正确秘钥形式
+        const inputSecretCheckKeys: string[] = Object.keys(inputSecretCheck);
         const providerAccessFormatSecret: string[] = providerAccessFormat[this.provider];
-        //检查用户输入的秘钥的格式与对应云厂商的格式是否相同
+
         if (isEqualArray(providerAccessFormatSecret, inputSecretCheckKeys)) {
           for (const item of inputSecretCheckKeys) {
             this.inputSecretID[item] = inputSecretCheck[item];
@@ -94,9 +93,9 @@ export class AddManager {
 
   output() {
     logger.log('');
-    logger.info(i18n.__('  Provider: {{provider}}', {provider: `${providerObject[this.provider]} (${this.provider})`}));
+    logger.info(i18n.__('  Provider: {{provider}}', { provider: `${providerObject[this.provider]} (${this.provider})` }));
     if (this.aliasName) {
-      logger.info(i18n.__('    Alias: {{alias}}', {alias: this.aliasName}));
+      logger.info(i18n.__('    Alias: {{alias}}', { alias: this.aliasName }));
     }
     // eslint-disable-next-line guard-for-in
     for (const item in this.inputSecretID) {
@@ -120,7 +119,7 @@ export class AddManager {
     if (!providerArray.includes(this.provider)) {
       throw new ConfigError(
         'The cloud vendor[{{provider}}] was not found. [alibaba/aws/azure/baidu/google/huawei/tencent]',
-        {provider: this.provider},
+        { provider: this.provider },
       );
     }
 
@@ -194,7 +193,7 @@ export class AddManager {
         if (isExistProviderAlias) {
           throw new ConfigError(
             'Provider + Alias already exists. You can set a different alias or modify it through: {{input}}',
-            {input: `s config update -p ${this.provider} -a ${this.aliasName || 'default'}`},
+            { input: `s config update -p ${this.provider} -a ${this.aliasName || 'default'}` },
           );
         } else {
           try {

@@ -1,42 +1,31 @@
-/** @format */
+import program from 'commander';
+import { setCredential } from '@serverless-devs/core';
 
-import * as program from 'commander';
-import {AddManager} from './add-manager';
-import i18n from '../../utils/i18n';
-import {getInputData} from '../common/common';
-import {CommandError} from '../../error/command-error';
+import { CommandError } from '../../error';
+import { i18n } from '../../utils';
 
-const description = i18n.__('s config add help');
+const intro = i18n.__('You can add an account');
+const example = [i18n.__('Example:'),
+  '\t$ s config add',
+  '\t$ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******',
+  '\t$ s config add --AccessKey ****** --SecretKey ******',
+  `    ${i18n.__('Configuration parameters for cloud vendors:')}`,
+  `\t${i18n.__('alibaba: AccountID, AccessKeyID, AccessKeySecret')}`,
+  `\t${i18n.__('aws: AccessKeyID, SecretAccessKey')}`,
+  `\t${i18n.__('baidu: AccessKeyID, SecretAccessKey')}`,
+  `\t${i18n.__('huawei: AccessKey, SecretKey')}`,
+  `\t${i18n.__('google: PrivateKeyData')}`,
+  `\t${i18n.__('tencent: AccountID, SecretID, SecretKey')}`
+].join('\n');
+const description = `${intro}\n\n    ${example}\n`    // i18n.__('You can add an account');
 
 program
   .name('s config add')
-  .usage('[options] [name]')
+  .usage('[commands] [name]')
   .helpOption('-h, --help', i18n.__('Display help for command'))
-  .option(
-    '-p, --provider [name]',
-    i18n.__('The cloud service provider. [alibaba/aws/azure/baidu/google/huawei/tencent]'),
-  )
-  .option('-a, --alias-name [name]', i18n.__('Key pair alias, if the alias is not set, use default instead'))
-  .option('--AccountID [name]', i18n.__('Configure the AccountID'))
-  .option('--AccessKeyID [name]', i18n.__('Configure the AccessKeyID'))
-  .option('--AccessKeySecret [name]', i18n.__('Configure the AccessKeySecret'))
-  .option('--SecretID [name]', i18n.__('Configure the SecretID'))
-  .option('--SecretKey [name]', i18n.__('Configure the SecretKey'))
-  .option('--SecretAccessKey [name]', i18n.__('Configure the SecretAccessKey'))
-  .option('--KeyVaultName [name]', i18n.__('Configure the KeyVaultName'))
-  .option('--TenantID [name]', i18n.__('Configure the TenantID'))
-  .option('--ClientID [name]', i18n.__('Configure the ClientID'))
-  .option('--ClientSecret [name]', i18n.__('Configure the ClientSecret'))
-  .option('--PrivateKeyData [name]', i18n.__('Configure the PrivateKeyData'))
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
-  await new AddManager().init(
-    {
-      Provider: program.provider,
-      AliasName: program.aliasName,
-    },
-    getInputData(program),
-  );
+  setCredential();
 })().catch(err => {
   throw new CommandError(err.message);
 });

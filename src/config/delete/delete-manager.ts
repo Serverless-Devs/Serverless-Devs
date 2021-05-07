@@ -1,11 +1,9 @@
-/** @format */
-
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
-const yaml = require('js-yaml');
+import path from 'path';
+import os from 'os';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import { ConfigDeleteError } from '../../error';
 import logger from '../../utils/logger';
-import {ConfigDeleteError} from '../../error/config-delete-error';
 
 export class DeleteManager {
   protected findProviderAliasFlag = true;
@@ -15,7 +13,7 @@ export class DeleteManager {
   protected inputProviderAlias: string;
 
   constructor() {
-    this.globalPath = path.join(os.homedir(), '.s/access.yaml');
+    this.globalPath = path.join(os.homedir(), '.s', 'access.yaml');
   }
   async init(providerAlias: any) {
     const userInformation: any = yaml.safeLoad(fs.readFileSync(this.globalPath, 'utf8'));

@@ -1,95 +1,130 @@
 /** @format */
 
-import * as logger from '../utils/logger';
-import * as urlParser from '../utils/url-parser';
-import * as msg from './init-message';
-import * as fs from 'fs-extra';
-import * as path from 'path';
-// import * as bluebird from "bluebird";
-import {InitError} from '../error/init-error';
-import {DownloadManager} from '../utils/download-manager';
-import {PackageType} from '../utils/package-type';
-import i18n from "../utils/i18n";
+import path from 'path';
+import fs from 'fs-extra';
+import os from 'os';
+import _ from 'lodash';
+import { spawn } from 'child_process';
+import * as inquirer from 'inquirer';
+import yaml from 'js-yaml';
+import { loadApplication, setCredential } from '@serverless-devs/core';
+import colors from 'chalk';
+import { logger, configSet, getYamlPath, common } from '../utils';
+import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
+import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
+inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+const { replaceTemplate, getTemplatekey, replaceFun } = common;
+const getCredentialAliasList = () => {
+  const ACCESS_PATH = getYamlPath(path.join(os.homedir(), '.s'), 'access');
+  if (!ACCESS_PATH) {
+    return [];
+  }
+
+  try {
+    const result = yaml.safeLoad(fs.readFileSync(ACCESS_PATH, 'utf8'));
+    return Object.keys(result);
+  } catch (error) {
+    return [];
+  }
+};
 
 export class InitManager {
-  downloadManager: DownloadManager;
+  protected promps: any = {};
+  constructor() { }
 
-  constructor() {
-    this.downloadManager = new DownloadManager();
-  }
-
-  async init(target: string, provider: string, dir: any) {
-    logger.info('Initializing......');
-    try {
-      if (urlParser.isUrlFormat(target)) {
-        await this.downloadUrlTemplate(target, dir);
-      } else {
-        await this.downloadAppTemplate(target, provider, dir);
-      }
-      logger.success(msg.INIT_SUCCESS_TIPS);
-    } catch (err) {
-      throw err;
-      // logger.error(err);
-    }
-  }
-
-  async downloadAppTemplate(project: string, provider?: string, dir?: any) {
-    const outputDir = path.resolve(process.cwd(), dir || project);
-    if (fs.existsSync(outputDir)) {
-      logger.warning("  " + i18n.__('Directory already exists: {{{outputDir}}}', {outputDir}))
-      // throw new InitError('Directory already exists: {{{outputDir}}}', {
-      //   outputDir,
-      // });
-    }
-
-    try {
-      await this.downloadManager.downloadTemplateFromAppCenter(PackageType.application, project, outputDir, provider);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  async downloadUrlTemplate(address: string, dir?: any) {
-    const url = urlParser.parse(address);
-
-    if (url.protocol && (url.protocol.startsWith('https') || url.protocol.startsWith('http'))) {
-      if (!url.hostname || !url.hostname.includes('github')) {
-        throw new InitError('Unknown host({{host}}), we support github currently.', {
-          host: url.host,
-        });
-      }
-      // do with normal download
-      const repoTemplate = urlParser.extractTemplateInfo(url);
-      const outputDir = path.resolve(process.cwd(), dir || repoTemplate.repoName);
-      if (fs.existsSync(outputDir)) {
-        throw new InitError('Directory already exists: {{{outputDir}}}', {
-          outputDir,
-        });
-      }
-
-      try {
-        await this.downloadManager.downloadTemplateByUrl(repoTemplate, outputDir);
-      } catch (err) {
-        throw err;
-      }
-    } else if (url.href.startsWith('git@')) {
-      const outputDir = path.resolve(process.cwd(), dir || urlParser.getProjectNameFromUrl(url.href));
-      if (fs.existsSync(outputDir)) {
-        throw new InitError('Directory already exists: {{{outputDir}}}', {
-          outputDir,
-        });
-      }
-      try {
-        await this.downloadManager.downloadTemplateByGitClone(url, outputDir);
-      } catch (err) {
-        throw new InitError('Git clone Template failed: {{msg}}', {
-          msg: err.message,
-        });
-      }
-    } else {
-      throw new InitError('Unknown project format: {{target}}', {
-        target: url.href,
+  async initSconfig(appSath) {
+    const sPath = getYamlPath(appSath, 's');
+    if (sPath) {
+      let sContent = fs.readFileSync(sPath, 'utf-8');
+      const templateKeys = getTemplatekey(sContent);
+      templateKeys.forEach((item) => {
+        const { name: keyName, desc } = item;
+        const name = _.trim(keyName);
+        if (keyName === 'access') {
+          const credentialAliasList = getCredentialAliasList();
+          if (Array.isArray(credentialAliasList) && credentialAliasList.length > 0) {
+            this.promps['access'] = {
+              type: 'list',
+              name: 'access',
+              message: 'please select credential alias',
+              choices: credentialAliasList,
+            };
+          } else {
+            this.promps['access'] = {
+              type: 'confirm',
+              name: 'access',
+              message: 'create credentia?',
+              default: true,
+            };
+          }
+        } else {
+          this.promps[name] = {
+            type: 'input',
+            message: `please input ${desc || name}:`,
+            name,
+          };
+        }
       });
+      const result = await inquirer.prompt(
+        _.concat(_.values(_.omit(this.promps, ['access'])), _.values(_.pick(this.promps, ['access']))),
+      );
+      if (result.access === true) {
+        const credential = await setCredential();
+        result.access = credential.Alias;
+      } else {
+        result.access = typeof result.access === 'string' ? result.access : 'default';
+      }
+      sContent = replaceFun(sContent, result);
+      fs.writeFileSync(sPath, sContent, 'utf-8');
+    }
+    return sPath;
+  }
+
+  async assemblySpecialApp(appName, { projectName, appPath }) {
+    if (appName === 'start-component' || appName === 'devsapp/start-component') {
+      const packageJsonPath = path.join(appPath, 'package.json');
+      const publishYamlPath = path.join(appPath, 'publish.yaml');
+      replaceTemplate([packageJsonPath, publishYamlPath], { projectName });
+    }
+
+  }
+  async executeInit(name: string, dir?: string, downloadurl?: boolean) {
+    const { projectName } = await inquirer.prompt(PROJECT_NAME_INPUT);
+    const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+    let appPath = await loadApplication({ registry, target: dir, source: name, name: projectName });
+    if (appPath) {
+      await this.initSconfig(appPath);
+      await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
+      logger.success('Thanks for using Serverless-Devs');
+      console.log(`\nYou could "cd ${appPath}"  and enjoy you serverless journey!`);
+      console.log(
+        '\nDocument ❤ Star：' + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs'),
+      );
+    }
+
+  }
+  async gitCloneProject(name: string, dir?: string) {
+    return new Promise(resolve => {
+      const gitCmd = spawn('git', ['clone', name], {
+        shell: true,
+        cwd: dir ? dir : './',
+        stdio: ['ignore', 'inherit', 'inherit'],
+      });
+      gitCmd.on('close', code => {
+        resolve({ code });
+      });
+    });
+  }
+
+  async init(name: string, dir?: string) {
+    if (!name) {
+      const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
+      const answerValue = answers['template'];
+      await this.executeInit(answerValue, dir);
+    } else if (name.lastIndexOf('.git') !== -1) {
+      await this.gitCloneProject(name, dir);
+    } else {
+      await this.executeInit(name, dir);
     }
   }
 }
