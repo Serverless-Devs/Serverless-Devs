@@ -81,20 +81,25 @@ export async function getLang() {
 export function replaceFun(str, obj) {
   const reg = /\{\{(.*?)\}\}/g;
   let arr = str.match(reg);
-  for (let i = 0; i < arr.length; i++) {
-   
-    let keyContent = arr[i].replace(/{{|}}/g, '');
-    let realKey = _.trim(keyContent.split('|')[0]);
-    if (obj[realKey]) {
-      str = str.replace(arr[i], obj[realKey]);
+  if (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let keyContent = arr[i].replace(/{{|}}/g, '');
+      let realKey = _.trim(keyContent.split('|')[0]);
+      if (obj[realKey]) {
+        str = str.replace(arr[i], obj[realKey]);
+      }
     }
   }
+
   return str;
 }
 
 export function getTemplatekey(str) {
   const reg = /\{\{(.*?)\}\}/g;
   const arr = str.match(reg);
+  if (!arr) {
+    return [];
+  }
   return arr.filter(result => result).map((matchValue) => {
     let keyContent = matchValue.replace(/{{|}}/g, '');
     let realKey = keyContent.split('|');

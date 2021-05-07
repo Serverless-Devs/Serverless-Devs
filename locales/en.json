@@ -58,5 +58,15 @@
 	"Documents:https://www.github.com/serverless-devs/docs": "Documents:https://www.github.com/serverless-devs/docs",
 	"Current Registry is http://registry.serverlessfans.cn/simple": "Current Registry is http://registry.serverlessfans.cn/simple",
 	"local version : 2.0.17": "local version : 2.0.17",
-	"remote version : 2.0.17": "remote version : 2.0.17"
+	"remote version : 2.0.17": "remote version : 2.0.17",
+	"Current Registry is http://registry.devsapp.cn/simple": "Current Registry is http://registry.devsapp.cn/simple",
+	"This is a customer command please use [s expressCart -h]  obtain the documentation": "This is a customer command please use [s expressCart -h]  obtain the documentation",
+	"It is detected that your project has the following project/projects < expressCart > to be execute": "It is detected that your project has the following project/projects < expressCart > to be execute",
+	"Start executing project expressCart": "Start executing project expressCart",
+	"Project expressCart successfully to execute \n\t": "Project expressCart successfully to execute \n\t",
+	"expressCart:\n  serviceName: expresscart-test\n  functionName: express-cart2\n  domain: 50304284-1611387345152601.test.functioncompute.com\n": "expressCart:\n  serviceName: expresscart-test\n  functionName: express-cart2\n  domain: 50304284-1611387345152601.test.functioncompute.com\n",
+	"expressCart:\n  serviceName: expresscart-test2\n  functionName: express-cart2\n  domain: 50304925-1611387345152601.test.functioncompute.com\n": "expressCart:\n  serviceName: expresscart-test2\n  functionName: express-cart2\n  domain: 50304925-1611387345152601.test.functioncompute.com\n",
+	"This is a customer command please use [s fc-base-test -h]  obtain the documentation": "This is a customer command please use [s fc-base-test -h]  obtain the documentation",
+	"It is detected that your project has the following project/projects < fc-base-test > to be execute": "It is detected that your project has the following project/projects < fc-base-test > to be execute",
+	"Start executing project fc-base-test": "Start executing project fc-base-test"
 }

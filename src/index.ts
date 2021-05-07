@@ -20,7 +20,7 @@ const {
 const { getConfig, setConfig } = configSet;
 function getRegistry() {
   let registry = getConfig('registry');
-  if (!registry) {
+  if (!registry || registry.indexOf('serverlessfans.cn') !== -1) {
     registry = DEFAULT_REGIRSTRY;
     setConfig('registry', registry);
   }
