@@ -231,5 +231,16 @@
   "The specified method and default method were not found in the component": "组件中未找到指定方法和默认方法",
   "[Custom] The {{component}}@{{provider}} project.": "[自定义] {{component}}@{{provicer}} 项目.",
   "to pack folder": "待打包的文件夹",
-  "Set up a custom registry": "设置自定义注册源"
+  "Set up a custom registry": "设置自定义注册源",
+  "AccountID of key information": "配置密钥 AccountID",
+  "AccessKeyID of key information": "配置密钥 AccessKeyID",
+  "AccessKeySecret of key information": "配置密钥 AccessKeySecret",
+  "SecretAccessKey of key information": "配置密钥 SecretAccessKey",
+  "AccessKey of key information": "配置密钥 AccessKey",
+  "SecretKey of key information": "配置密钥 SecretKey",
+  "SecretID of key information": "配置密钥 SecretID",
+  "PrivateKeyData of key information": "配置密钥 PrivateKeyData",
+  "Keys of key information, like: -kl key1,key2,key3": "配置密钥 Keys，例如：-kl key1,key2,key3",
+  "Values of key information, like: -kl info1,info2,info3": "配置密钥 Values，例如：-kl info1,info2,info3",
+  "Please make sure -kl/--keyList is as long as -il/--infoList": "请保证 -kl/--keyList的长度和-il/--infoList一致"
 }
