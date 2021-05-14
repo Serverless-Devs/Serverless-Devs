@@ -12,9 +12,11 @@ import { loadComponent } from '@serverless-devs/core';
 const { getSubcommand, getServiceConfig } = version;
 
 export function createUniversalCommand(command: string, customerCommandName?: string, description?: string) {
-    let params: string[] = [];
+
     const _command = new Command(command);
     const processArgv: string[] = [];
+    let params: string[] = [];
+    let _customerCommandName = customerCommandName;
     let start = false;
 
     for (let i = 0; i < process.argv.length; i++) {
@@ -36,11 +38,11 @@ export function createUniversalCommand(command: string, customerCommandName?: st
 
     process.argv = processArgv;
 
-
     _command.description(description || '').action(() => {
         const template: string | undefined = process.env[PROCESS_ENV_TEMPLATE_NAME];
         if (template) {
-            const commandManager = new CommandManager(template, command, customerCommandName, params.join(' '));
+
+            const commandManager = new CommandManager(template, command, _customerCommandName, params.join(' '));
             commandManager.init();
         }
     });
@@ -101,7 +103,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
         customerCommand.description(customerCommandDescription);
         const methodName = process.argv[3];
         if (methodName) {
-            customerCommand.addCommand(createUniversalCommand(methodName));
+            customerCommand.addCommand(createUniversalCommand(methodName, projectName));
         }
         customerCommand.option('-h, --help', i18n.__('Print usage document'))
         customerCommand.action(async () => {
@@ -169,7 +171,6 @@ export async function registerUniversalCommand(system_command: any, templateFile
         const parsedTemplateObj = await getParsedTemplateObj(templateFile);
         const customerCommands = getCustomerCommandInfo(parsedTemplateObj);
         if (process.argv[2] && !customerCommands.includes(process.argv[2]) && !['-h', '--help'].includes(process.argv[2])) {
-
             system_command.addCommand(createUniversalCommand(process.argv[2]));
         } else if (
             process.argv[2] &&
@@ -177,7 +178,7 @@ export async function registerUniversalCommand(system_command: any, templateFile
             process.argv[3] &&
             !customerCommands.includes(process.argv[3])
         ) {
-            system_command.addCommand(createUniversalCommand(process.argv[3]));
+            system_command.addCommand(createUniversalCommand(process.argv[3], process.argv[2]));
         }
     }
 }

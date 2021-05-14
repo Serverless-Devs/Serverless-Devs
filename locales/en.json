@@ -68,5 +68,9 @@
 	"expressCart:\n  serviceName: expresscart-test2\n  functionName: express-cart2\n  domain: 50304925-1611387345152601.test.functioncompute.com\n": "expressCart:\n  serviceName: expresscart-test2\n  functionName: express-cart2\n  domain: 50304925-1611387345152601.test.functioncompute.com\n",
 	"This is a customer command please use [s fc-base-test -h]  obtain the documentation": "This is a customer command please use [s fc-base-test -h]  obtain the documentation",
 	"It is detected that your project has the following project/projects < fc-base-test > to be execute": "It is detected that your project has the following project/projects < fc-base-test > to be execute",
-	"Start executing project fc-base-test": "Start executing project fc-base-test"
+	"Start executing project fc-base-test": "Start executing project fc-base-test",
+	"  error: unknown command hanxie222": "  error: unknown command hanxie222",
+	"local version : 2.0.22": "local version : 2.0.22",
+	"remote version : 2.0.22": "remote version : 2.0.22",
+	"  error: unknown command conifg": "  error: unknown command conifg"
 }
