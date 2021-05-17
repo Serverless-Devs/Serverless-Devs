@@ -1,5 +1,6 @@
 import {loadComponent} from '@serverless-devs/core';
 import {i18n, logger} from '../utils';
+import yaml from "js-yaml";
 
 interface CliParams {
     component: string;
@@ -57,9 +58,15 @@ export default class CliManager {
                     Path: {
                         ConfigPath: '/Users/jiangyu/Desktop/untitled/express/start-express/s.yaml'
                     }
-                });
+                }) || {};
 
-                logger.info(result);
+                let outResult = yaml.safeDump(JSON.parse(JSON.stringify(result)));
+                logger.success(
+                  Object.keys(result).length === 0
+                    ? i18n.__('End of method: {{method}}', { method: command })
+                    : outResult,
+                );
+                // logger.info(result);
             }
         }
     }
