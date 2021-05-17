@@ -20,32 +20,12 @@ export default class CliManager {
         const componentInstance = await loadComponent(component, null, {access});
         if (componentInstance) {
             if (componentInstance[command]) {
-
                 let tempProp = {}
                 try{
-                    tempProp = JSON.parse(props)
+                    tempProp = JSON.parse(props || '{}')
                 }catch (e) {
                     throw new Error(i18n.__("-p/--prop parameter format error"))
                 }
-
-                let start = false;
-                const processArgv: string[] = [];
-                let params: string[] = [];
-                for (let i = 0; i < process.argv.length; i++) {
-                    if (!start) {
-                        processArgv.push(process.argv[i]);
-                    } else {
-                        params.push(process.argv[i]);
-                    }
-                    if (process.argv[i] === command) {
-                        start = true;
-                    }
-                }
-                if (params.length !== 0) {
-                    process.env.temp_params = params.concat(process.env.temp_params).join(' ');
-                }
-
-                process.argv = processArgv;
                 const result = await componentInstance[command]({
                     props: tempProp,
                     Properties: tempProp,
