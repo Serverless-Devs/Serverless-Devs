@@ -31,7 +31,7 @@ export function createUniversalCommand(command: string, customerCommandName?: st
     }
 
     if (params.length !== 0) {
-        process.env.temp_params = params.join(' ');
+        process.env.temp_params = params.concat(process.env.temp_params).join(' ');
     } else {
         params = process.env.temp_params ? process.env.temp_params.split(' ') : [];
     }
@@ -41,8 +41,7 @@ export function createUniversalCommand(command: string, customerCommandName?: st
     _command.description(description || '').action(() => {
         const template: string | undefined = process.env[PROCESS_ENV_TEMPLATE_NAME];
         if (template) {
-
-            const commandManager = new CommandManager(template, command, _customerCommandName, params.join(' '));
+            const commandManager = new CommandManager(template, command, _customerCommandName, process.env.temp_params);
             commandManager.init();
         }
     });

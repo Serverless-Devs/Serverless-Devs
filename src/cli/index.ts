@@ -15,10 +15,8 @@ const description = `${i18n.__('Directly use serverless devs to use components, 
 program
     .name('s cli')
     .usage('s cli [component] [method] [options]')
-    .option('-d, --doc [component]', i18n.__('View component documentation'))
-    .option('-r, --region [regionname]', i18n.__('Specify the region name default is cn-hangzhou'))
-    .option('-a, --access [accessname]', i18n.__('Specify the key name'))
-    .option('-p, --params [component-method-input]', i18n.__('Component props which in Yaml file'))
+    .option('-a, --access [access-alias]', i18n.__('Specify the key name'))
+    .option('-p, --props [json-string]', i18n.__('The json string of props'))
     .helpOption('-h, --help', i18n.__('Display help for command'))
     .description(description).addHelpCommand(false).parse(process.argv);
 const subCommandName = process.argv[2];
@@ -35,9 +33,8 @@ if (subCommandName) {
         program.help();
     }
     const [component, command] = program.args;
-    const { params, doc, region, access } = program as any;
-
-    const cliManager = new CliManager({ command, component, params, doc, region, access });
+    const { access, props } = program as any;
+    const cliManager = new CliManager({ command, component, access, props });
     cliManager.init();
 })().catch(err => {
     throw new CommandError(err.message);
