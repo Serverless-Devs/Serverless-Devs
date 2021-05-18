@@ -7,7 +7,6 @@ import {CommandManager} from '../core';
 import {version, Parse} from '../specification';
 import {PROCESS_ENV_TEMPLATE_NAME} from '../constants/static-variable';
 import storage from './storage';
-import i18n from './i18n';
 import logger from './logger';
 import {loadComponent} from '@serverless-devs/core';
 
@@ -101,13 +100,13 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     const commandListDetail = await Promise.all(commandListPromise);
     commandListDetail.forEach(({projectName, projectDocDetail}) => {
         const customerCommand = new Command(projectName);
-        const customerCommandDescription = '👉 ' + i18n.__(`This is a customer command please use [s ${projectName} -h]  obtain the documentation`)
+        const customerCommandDescription = `👉 This is a customer command please use [s ${projectName} -h]  obtain the documentation`
         customerCommand.description(customerCommandDescription);
         const methodName = process.argv[3];
         if (methodName) {
             customerCommand.addCommand(createUniversalCommand(methodName, projectName));
         }
-        customerCommand.option('-h, --help', i18n.__('Print usage document'))
+        customerCommand.option('-h, --help', 'Print usage document')
         customerCommand.action(async () => {
             const {component} = projectDocDetail;
             const componentInstance: any = await loadComponent(component);
@@ -151,7 +150,7 @@ export function registerCommandChecker(program: any) {
 
 export async function registerExecCommand(system_command: any, templateFile: string) {
     const execCommand = new Command('exec');
-    const customerCommandDescription = '🚀 ' + i18n.__("Subcommand execution analysis.");
+    const customerCommandDescription = '🚀 Subcommand execution analysis.';
     execCommand.description(customerCommandDescription)
     execCommand.usage("[subcommand] -- [method] [params]");
     if (templateFile) {

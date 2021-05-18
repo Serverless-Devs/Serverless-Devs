@@ -1,10 +1,10 @@
 import program from 'commander';
 import { CommandError } from '../error';
-import {i18n, configSet, logger} from '../utils';
+import {configSet, logger} from '../utils';
 import { InitManager } from './init-manager';
-const description = `${i18n.__('Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.')}
+const description = `Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
-    ${i18n.__('Example:')}
+    Example:
         $ s init
         $ s init project
         $ s init git@github.com:foo/bar.git
@@ -14,10 +14,10 @@ const description = `${i18n.__('Initialize a new project based on a template. Yo
 
 program
   .name('s init')
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', 'Display help for command')
   .usage('[options] [name | url]')
-  .option('-d, --dir [dir]', i18n.__('Where to output the initialized app into (default: ./<ProjectName> )'))
-  .option('-r, --registry [url]', i18n.__('Use specify registry '))
+  .option('-d, --dir [dir]', 'Where to output the initialized app into (default: ./<ProjectName> )')
+  .option('-r, --registry [url]', 'Use specify registry ')
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
   const initManager = new InitManager();

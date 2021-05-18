@@ -1,6 +1,6 @@
 import program from 'commander';
 import * as inquirer from 'inquirer';
-import { configSet, i18n, logger } from '../../utils';
+import { configSet, logger } from '../../utils';
 import { CommandError } from '../../error';
 
 
@@ -28,15 +28,16 @@ export const registryInquire = [
     {
         type: 'list',
         name: 'registry',
-        message: i18n.__('Choose a registry?'),
+        message: 'Choose a registry?',
         choices: registryList
     }];
 program
     .name('s set registry')
     .usage('[options] [name]')
-    .helpOption('-h, --help', i18n.__('Display help for command'))
-    .description(`${i18n.__('You can set your registry.')}
-     ${i18n.__('Example')}:
+    .helpOption('-h, --help', 'Display help for command')
+    .description(`You can set your registry.
+
+     Example:
         $ s set registry <url>`,)
     .addHelpCommand(false).parse(process.argv);
 (async () => {
@@ -46,7 +47,7 @@ program
             answers = await inquirer.prompt([{
                 type: 'input',
                 name: 'registry',
-                message: i18n.__('Please input your customer registry?'),
+                message: 'Please input your customer registry?',
             }])
         }
         let registry = answers.registry;

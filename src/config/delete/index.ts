@@ -4,20 +4,18 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import program from 'commander';
 import { CommandError } from '../../error';
-
-import i18n from '../../utils/i18n';
 import { logger } from '../../utils';
 
-const description = i18n.__(`You can delete an account.
+const description = `You can delete an account.
 
      Example:
-        $ s config delete -a demo`);
+        $ s config delete -a demo`;
 
 program
   .name('s config delete')
   .usage('[options] [name]')
-  .helpOption('-h,--help', i18n.__('Display help for command'))
-  .option('-a , --aliasName [name]', i18n.__('Key pair alia, if the alias is not set, use default instead'))
+  .helpOption('-h,--help', 'Display help for command')
+  .option('-a , --aliasName [name]', 'Key pair alia, if the alias is not set, use default instead')
   .description(description).addHelpCommand(false).parse(process.argv);
 (async () => {
   const { aliasName } = program;

@@ -1,6 +1,4 @@
 import * as inquirer from 'inquirer';
-import i18n from '../utils/i18n';
-
 
 
 const data = [new inquirer.Separator('\n👋 Hello World Example'), {
@@ -72,7 +70,7 @@ export const APPLICATION_TEMPLATE = [
     {
         type: 'autocomplete',
         name: 'template',
-        message: i18n.__('Hello, serverlessor. Which template do you like? \n🚀 More: https://github.com/Serverless-Devs/package-awesome\nPlease select or input: '),
+        message: 'Hello, serverlessor. Which template do you like? \n🚀 More: https://github.com/Serverless-Devs/package-awesome\nPlease select or input: ',
         loop: false,
         pageSize: 40,
         source: function (answersSoFar, input) {
@@ -87,6 +85,6 @@ export const PROJECT_NAME_INPUT = [
     {
         type: 'input',
         name: 'projectName',
-        message: i18n.__('Please input your project name'),
+        message: 'Please input your project name',
     }
 ]

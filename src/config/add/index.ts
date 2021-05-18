@@ -4,42 +4,40 @@ import program from 'commander';
 import { setCredential, setKnownCredential } from '@serverless-devs/core';
 // import { setCredential, setKnownCredential } from '/Users/jiangyu/Desktop/core-master/packages/core/lib';
 import { CommandError } from '../../error';
-import { i18n } from '../../utils';
 
-const intro = i18n.__('You can add an account');
+const intro = 'You can add an account';
 const example = [
-  i18n.__('Example:'),
+  'Example:',
   '\t$ s config add',
   '\t$ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******',
   '\t$ s config add --AccessKey ****** --SecretKey ******',
-  `\n    ${i18n.__('Configuration parameters for cloud vendors:')}`,
-  `\t${i18n.__('alibaba: AccountID, AccessKeyID, AccessKeySecret')}`,
-  `\t${i18n.__('aws: AccessKeyID, SecretAccessKey')}`,
-  `\t${i18n.__('baidu: AccessKeyID, SecretAccessKey')}`,
-  `\t${i18n.__('huawei: AccessKey, SecretKey')}`,
-  `\t${i18n.__('google: PrivateKeyData')}`,
-  `\t${i18n.__('tencent: AccountID, SecretID, SecretKey')}
-
-📘 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`,
+  '\n    Configuration parameters for cloud vendors:',
+  '\talibaba: AccountID, AccessKeyID, AccessKeySecret',
+  '\taws: AccessKeyID, SecretAccessKey',
+  '\tbaidu: AccessKeyID, SecretAccessKey',
+  '\thuawei: AccessKey, SecretKey',
+  '\tgoogle: PrivateKeyData',
+  '\ttencent: AccountID, SecretID, SecretKey',
+'📘 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config',
 ].join('\n');
-const description = `${intro}\n\n    ${example}\n`; // i18n.__('You can add an account');
+const description = `${intro}\n\n    ${example}\n`;
 
 program
   .name('s config add')
   .usage('[commands] [name]')
-  .option('--AccountID [AccountID]', i18n.__('AccountID of key information'))
-  .option('--AccessKeyID [AccessKeyID]', i18n.__('AccessKeyID of key information'))
-  .option('--AccessKeySecret [AccessKeySecret]', i18n.__('AccessKeySecret of key information'))
-  .option('--SecretAccessKey [SecretAccessKey]', i18n.__('SecretAccessKey of key information'))
-  .option('--AccessKey [AccessKey]', i18n.__('AccessKey of key information'))
-  .option('--SecretKey [SecretKey]', i18n.__('SecretKey of key information'))
-  .option('--SecretID [SecretID]', i18n.__('SecretID of key information'))
-  .option('--PrivateKeyData [PrivateKeyData]', i18n.__('PrivateKeyData of key information'))
-  .option('-kl , --keyList [keyList]', i18n.__('Keys of key information, like: -kl key1,key2,key3'))
-  .option('-il , --infoList [infoList]', i18n.__('Values of key information, like: -kl info1,info2,info3'))
-  .option('-a , --aliasName [name]', i18n.__('Key pair alias, if the alias is not set, use default instead'))
+  .option('--AccountID [AccountID]', 'AccountID of key information')
+  .option('--AccessKeyID [AccessKeyID]', 'AccessKeyID of key information')
+  .option('--AccessKeySecret [AccessKeySecret]', 'AccessKeySecret of key information')
+  .option('--SecretAccessKey [SecretAccessKey]', 'SecretAccessKey of key information')
+  .option('--AccessKey [AccessKey]', 'AccessKey of key information')
+  .option('--SecretKey [SecretKey]', 'SecretKey of key information')
+  .option('--SecretID [SecretID]', 'SecretID of key information')
+  .option('--PrivateKeyData [PrivateKeyData]','PrivateKeyData of key information')
+  .option('-kl , --keyList [keyList]', 'Keys of key information, like: -kl key1,key2,key3')
+  .option('-il , --infoList [infoList]', 'Values of key information, like: -kl info1,info2,info3')
+  .option('-a , --aliasName [name]', 'Key pair alias, if the alias is not set, use default instead')
 
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', 'Display help for command')
   .description(description)
   .addHelpCommand(false)
   .parse(process.argv);
@@ -66,7 +64,7 @@ program
         keyInformation[infoKeyList[i]] = infoValueList[i];
       }
     } else {
-      throw new CommandError(i18n.__('Please make sure -kl/--keyList is as long as -il/--infoList'));
+      throw new CommandError('Please make sure -kl/--keyList is as long as -il/--infoList');
     }
   }
   if (AccountID) {

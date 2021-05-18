@@ -6,28 +6,28 @@ import program from 'commander';
 import yaml from 'js-yaml';
 import { getCredential, decryptCredential } from '@serverless-devs/core';
 import { CommandError } from '../../error';
-
-import i18n from '../../utils/i18n';
 import logger from '../../utils/logger';
 import {
   common,
 } from '../../utils';
 
 const { mark } = common;
-const description = i18n.__(`You can get accounts.
+const description = `You can get accounts.
  
      Example:
         $ s config get -l
-        $ s config get -a demo`);
+        $ s config get -a demo`
 
 program
   .name('s config get')
   .usage('[options] [name]')
-  .helpOption('-h, --help', i18n.__('Display help for command'))
-  .option('-a, --aliasName [name]', i18n.__('Key pair alia, if the alias is not set, use default instead'))
-  .option('-l, --list', i18n.__('Show user configuration list'))
+  .helpOption('-h, --help', 'Display help for command')
+  .option('-a, --aliasName [name]', 'Key pair alia, if the alias is not set, use default instead')
+  .option('-l, --list', 'Show user configuration list')
   .description(description).addHelpCommand(false).parse(process.argv);
+
 (async () => {
+
   let { aliasName, list } = program as any;
   if (!aliasName && !list) {
     program.help();

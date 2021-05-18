@@ -15,7 +15,6 @@ import {
   checkProviderList,
 } from '../common/common';
 
-import i18n from '../../utils/i18n';
 import logger from '../../utils/logger';
 
 function isEqualArray(rightFormat: string[], inputFormat: string[]): boolean {
@@ -93,9 +92,9 @@ export class AddManager {
 
   output() {
     logger.log('');
-    logger.info(i18n.__('  Provider: {{provider}}', { provider: `${providerObject[this.provider]} (${this.provider})` }));
+    logger.info(`  Provider: ${providerObject[this.provider]} (${this.provider})`);
     if (this.aliasName) {
-      logger.info(i18n.__('    Alias: {{alias}}', { alias: this.aliasName }));
+      logger.info(`    Alias: ${this.aliasName}`);
     }
     // eslint-disable-next-line guard-for-in
     for (const item in this.inputSecretID) {
@@ -131,7 +130,7 @@ export class AddManager {
       });
       this.promptList.push({
         type: 'input',
-        message: i18n.__('Please create alias for key pair. If not, please enter to skip'),
+        message: 'Please create alias for key pair. If not, please enter to skip',
         name: 'aliasName',
         default: 'default', // 默认值
       });
