@@ -12,13 +12,15 @@ const example = [
   '\t$ s config add',
   '\t$ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******',
   '\t$ s config add --AccessKey ****** --SecretKey ******',
-  `    ${i18n.__('Configuration parameters for cloud vendors:')}`,
+  `\n    ${i18n.__('Configuration parameters for cloud vendors:')}`,
   `\t${i18n.__('alibaba: AccountID, AccessKeyID, AccessKeySecret')}`,
   `\t${i18n.__('aws: AccessKeyID, SecretAccessKey')}`,
   `\t${i18n.__('baidu: AccessKeyID, SecretAccessKey')}`,
   `\t${i18n.__('huawei: AccessKey, SecretKey')}`,
   `\t${i18n.__('google: PrivateKeyData')}`,
-  `\t${i18n.__('tencent: AccountID, SecretID, SecretKey')}`,
+  `\t${i18n.__('tencent: AccountID, SecretID, SecretKey')}
+
+📘 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`,
 ].join('\n');
 const description = `${intro}\n\n    ${example}\n`; // i18n.__('You can add an account');
 

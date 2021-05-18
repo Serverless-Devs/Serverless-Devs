@@ -6,9 +6,9 @@ import CliManager from './cli-manager';
 const description = `${i18n.__('Directly use serverless devs to use components, develop and manage applications without yaml configuration.')}
 
     ${i18n.__('Example:')}
-        $ s cli fc list-service
-        $ s cli fc list-function --service-name my-service
-        $ s cli fc deploy -p "{/"function/": /"function-name/"}"
+        $ s cli fc-api listServices
+        $ s cli fc-api listFunctions --service-name my-service
+        $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
     `;
 
 
@@ -21,16 +21,15 @@ const cliCommand = program
     .description(description).addHelpCommand(false);
 
 const subCommandName = process.argv[2];
-if (subCommandName) {
+if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     const execCommand = new Command(subCommandName);
-    const customerCommandDescription = i18n.__("Subcommand execution analysis");
+    const customerCommandDescription = i18n.__("Subcommand execution analysis.");
     execCommand.usage("[subcommand] -- [method] [params]");
     execCommand.description(customerCommandDescription).addHelpCommand(true)
     program.addCommand(execCommand);
 }
 
 (async () => {
-
     if ((process.argv.length == 2) || (process.argv.length == 3 && ['-h', '--help'].includes(process.argv[2]))) {
         program.help();
     } else {
@@ -46,12 +45,15 @@ if (subCommandName) {
             }
             if (process.argv[i] === tempCommand) {
                 start = true;
+                if(['-h', '--help'].includes(tempCommand)){
+                    processArgv.pop()
+                    processArgv.push("cli-help-options")
+                }
             }
         }
         if (params.length !== 0) {
             process.env.temp_params = params.concat(process.env.temp_params).join(' ');
         }
-        processArgv.push(tempCommand)
         process.argv = processArgv;
         cliCommand.parse(process.argv)
         const [component, command] = program.args;

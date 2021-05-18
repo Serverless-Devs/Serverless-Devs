@@ -14,7 +14,11 @@ import {
 } from '../../utils';
 
 const { mark } = common;
-const description = i18n.__('s config get help');
+const description = i18n.__(`You can get accounts.
+ 
+     Example:
+        $ s config get -l
+        $ s config get -a demo`);
 
 program
   .name('s config get')

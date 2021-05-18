@@ -7,7 +7,7 @@ export default class CliSubCommandManager {
     }
     async init() {
         const execCommand = new Command(this.subCommandName);
-        const customerCommandDescription = i18n.__("Subcommand execution analysis");
+        const customerCommandDescription = '🚀 ' + i18n.__("Subcommand execution analysis.");
         execCommand.usage("[method] [options]");
         const subCommandInstance: any = await loadComponent(this.subCommandName);
         if (subCommandInstance) {

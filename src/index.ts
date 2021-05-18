@@ -60,8 +60,8 @@ function versionCheck() {
   const result = execSync('npm view @serverless-devs/s versions');
   const versions = result.toString().replace(/\'/g, '').replace(/\[/g, '').replace(/\]/g, '').split(',');
   const lastVersion = versions[versions.length - 1].replace(/\n/g, '').replace(/\s/g, '');
-  logger.log(`local version : ${pkg.version}`);
-  logger.log(`remote version : ${lastVersion}`);
+  logger.log(`💻 local  version : ${pkg.version}`);
+  logger.log(`☁️  remote version : ${lastVersion}\n`);
 
 }
 
@@ -69,14 +69,19 @@ const description = `  _________                               .__
  /   _____/ ______________  __ ___________|  |   ____   ______ ______
  \\_____  \\_/ __ \\_  __ \\  \\/ // __ \\_  __ \\  | _/ __ \\ /  ___//  ___/
  /        \\  ___/|  | \\/\\   /\\  ___/|  | \\/  |_\\  ___/ \\___ \\ \\___ \\
-/_______  /\\___  >__|    \\_/  \\___  >__|  |____/\\___  >____  >____  >
-        \\/     \\/                 \\/                \\/     \\/     \\/
+/_________/\\_____>__|    \\_/  \\_____>__|  |____/\\_____>______>______>
 
-${i18n.__('Welcome to the Serverless Devs Tool.')}
+${i18n.__('Welcome to the Serverless Devs.')}
 ${i18n.__('You can use the corresponding function through the following instructions.')}
-${i18n.__('Documents:https://www.github.com/serverless-devs/docs')}
-${i18n.__(`Current Registry is ${getRegistry()}`)}
-`;
+
+${i18n.__('More: ')}
+📘 ${i18n.__('Documents: https://www.github.com/serverless-devs/docs')}
+🙌 ${i18n.__('Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
+⁉️  ${i18n.__('Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues')}
+👀 ${i18n.__(`Current Registry: ${getRegistry()}`)}
+
+${i18n.__('Quick start: ')}
+🍻 ${i18n.__(`Can perform [s init] fast experience`)}`;
 
 (async () => {
   registerCommandChecker(program);
@@ -84,10 +89,10 @@ ${i18n.__(`Current Registry is ${getRegistry()}`)}
     .version('', '-v, --version', i18n.__('Output the version number'))
     .description(description)
     .helpOption('-h, --help', i18n.__('Display help for command'))
-    .command('config', i18n.__('Configure cloud service account.'))
-    .command('init', i18n.__('Initializing a project.'))
-    .command('cli', i18n.__('Command line operation through yaml free mode.'))
-    .command('set', i18n.__('Settings for the tool.'))
+    .command('config', '👤 ' + i18n.__('Configure cloud service account.'))
+    .command('init', '💞 ' + i18n.__('Initializing a project.'))
+    .command('cli', '🐚 ' + i18n.__('Command line operation through yaml free mode.'))
+    .command('set', '🔧 ' + i18n.__('Settings for the tool.'))
     .option('--skip-actions', i18n.__('Skip the extends section'))
     .option('--debug', i18n.__('Debug model'))
     .addHelpCommand(false);

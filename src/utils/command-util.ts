@@ -1,15 +1,17 @@
 import fs from 'fs-extra';
 import os from 'os';
-import { Command } from 'commander';
-import { CommandManager } from '../core';
-import { version, Parse } from '../specification';
-import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
+import yaml from 'js-yaml';
+import path from 'path';
+import {Command} from 'commander';
+import {CommandManager} from '../core';
+import {version, Parse} from '../specification';
+import {PROCESS_ENV_TEMPLATE_NAME} from '../constants/static-variable';
 import storage from './storage';
 import i18n from './i18n';
 import logger from './logger';
-import { loadComponent } from '@serverless-devs/core';
+import {loadComponent} from '@serverless-devs/core';
 
-const { getSubcommand, getServiceConfig } = version;
+const {getSubcommand, getServiceConfig} = version;
 
 export function createUniversalCommand(command: string, customerCommandName?: string, description?: string) {
 
@@ -74,6 +76,7 @@ export async function getCommandDetail(name: any, provider: any, version: any): 
     // }
     return command_list;
 }
+
 export async function getParsedTemplateObj(templateFile: any) {
     const parse = new Parse(templateFile);
     const parsedObj = parse.getOriginalParsedObj();
@@ -93,12 +96,12 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     const subCommands = getCustomerCommandInfo(doc);
     const commandListPromise = subCommands.map(async projectName => {
         const projectDocDetail: any = getServiceConfig(doc, projectName);
-        return { projectName, projectDocDetail };
+        return {projectName, projectDocDetail};
     });
     const commandListDetail = await Promise.all(commandListPromise);
-    commandListDetail.forEach(({ projectName, projectDocDetail }) => {
+    commandListDetail.forEach(({projectName, projectDocDetail}) => {
         const customerCommand = new Command(projectName);
-        const customerCommandDescription = i18n.__(`This is a customer command please use [s ${projectName} -h]  obtain the documentation`)
+        const customerCommandDescription = '👉 ' + i18n.__(`This is a customer command please use [s ${projectName} -h]  obtain the documentation`)
         customerCommand.description(customerCommandDescription);
         const methodName = process.argv[3];
         if (methodName) {
@@ -106,11 +109,26 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
         }
         customerCommand.option('-h, --help', i18n.__('Print usage document'))
         customerCommand.action(async () => {
-            const { component } = projectDocDetail;
+            const {component} = projectDocDetail;
             const componentInstance: any = await loadComponent(component);
-            if (componentInstance && componentInstance.__doc) {
-                const docResult = componentInstance.__doc(projectName);
-                logger.info(`\n${docResult}`);
+            if (componentInstance) {
+                if (componentInstance.__doc) {
+                    const docResult = componentInstance.__doc(projectName);
+                    logger.info(`\n${docResult}`);
+                } else {
+                    try {
+                        const componentPathYaml = path.join(componentInstance.__path, "publish.yaml")
+                        const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'))
+                        logger.info(`Help Information: 
+                    
+${publishYamlInfor['Name']}@${publishYamlInfor['version']}: ${publishYamlInfor['Description']}
+
+${yaml.dump(publishYamlInfor['Commands'])}
+${publishYamlInfor['HomePage'] ? "🛸  More information :" + publishYamlInfor['HomePage'] + "\n" : ""}`);
+                    }catch (e) {
+                        logger.info('No document set');
+                    }
+                }
             } else {
                 logger.info('No document set');
             }
@@ -133,8 +151,8 @@ export function registerCommandChecker(program: any) {
 
 export async function registerExecCommand(system_command: any, templateFile: string) {
     const execCommand = new Command('exec');
-    const customerCommandDescription = i18n.__("Subcommand execution analysis");
-    execCommand.description(customerCommandDescription);
+    const customerCommandDescription = '🚀 ' + i18n.__("Subcommand execution analysis.");
+    execCommand.description(customerCommandDescription)
     execCommand.usage("[subcommand] -- [method] [params]");
     if (templateFile) {
         let commandName = '';
