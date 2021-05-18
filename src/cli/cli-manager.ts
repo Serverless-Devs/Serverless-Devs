@@ -54,23 +54,23 @@ export default class CliManager {
                                 Component: component,
                                 provider: undefined,
                                 Provider: undefined,
-                                accessAlias: 'default',
-                                AccessAlias: 'default'
+                                accessAlias: access || 'default',
+                                AccessAlias: access || 'default'
                             },
                             project: {
-                                component: '/Users/jiangyu/Desktop/untitled/express/dist',
-                                access: 'default',
-                                projectName: 'function-test'
+                                component: '',
+                                access: access || 'default',
+                                projectName: ''
                             },
                             command: command,
                             Command: command,
                             args: process.env.temp_params,
                             Args: process.env.temp_params,
                             path: {
-                                configPath: '/Users/jiangyu/Desktop/untitled/express/start-express/s.yaml'
+                                configPath: ''
                             },
                             Path: {
-                                ConfigPath: '/Users/jiangyu/Desktop/untitled/express/start-express/s.yaml'
+                                ConfigPath: ''
                             }
                         }) || {};
 
