@@ -15,13 +15,14 @@ export default class CliManager {
     }
 
     async init() {
-        const { component, command, params, doc, region, access } = this.inputs;
+        let { component, command, params, doc, region, access } = this.inputs;
         const componentInstance = await loadComponent(component, null, { region, access });
         if (componentInstance) {
             if (doc) {
                 const result = await componentInstance.__doc();
                 logger.info(`文档查询结果：\n${result}`);
             }
+            command = command ? command : 'index'; // default index
             if (componentInstance[command]) {
                 let methodInput = params;
                 try {
@@ -30,7 +31,7 @@ export default class CliManager {
                 }
                 const result = await componentInstance[command](methodInput);
                 logger.info(result);
-            }
+            } 
 
         }
     }

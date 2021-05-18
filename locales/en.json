@@ -72,5 +72,10 @@
 	"  error: unknown command hanxie222": "  error: unknown command hanxie222",
 	"local version : 2.0.22": "local version : 2.0.22",
 	"remote version : 2.0.22": "remote version : 2.0.22",
-	"  error: unknown command conifg": "  error: unknown command conifg"
+	"  error: unknown command conifg": "  error: unknown command conifg",
+	"static-site:\n  serviceName: websitex\n  functionName: websitex\n  domain: 51322947-1611387345152601.test.functioncompute.com\n": "static-site:\n  serviceName: websitex\n  functionName: websitex\n  domain: 51322947-1611387345152601.test.functioncompute.com\n",
+	"static-site:\n  serviceName: website1621324974885\n  functionName: website1621324974885\n  domain: 51325002-1611387345152601.test.functioncompute.com\n": "static-site:\n  serviceName: website1621324974885\n  functionName: website1621324974885\n  domain: 51325002-1611387345152601.test.functioncompute.com\n",
+	"static-site:\n  serviceName: website1621326334635\n  functionName: website1621326334635\n  domain: 51326356-1611387345152601.test.functioncompute.com\n": "static-site:\n  serviceName: website1621326334635\n  functionName: website1621326334635\n  domain: 51326356-1611387345152601.test.functioncompute.com\n",
+	"static-site:\n  serviceName: website1621327360113\n  functionName: website1621327360113\n  domain: 51327384-1611387345152601.test.functioncompute.com\n": "static-site:\n  serviceName: website1621327360113\n  functionName: website1621327360113\n  domain: 51327384-1611387345152601.test.functioncompute.com\n",
+	"static-site:\n  serviceName: website1621328560306\n  functionName: website1621328560306\n  domain: 51328645-1611387345152601.test.functioncompute.com\n": "static-site:\n  serviceName: website1621328560306\n  functionName: website1621328560306\n  domain: 51328645-1611387345152601.test.functioncompute.com\n"
 }
