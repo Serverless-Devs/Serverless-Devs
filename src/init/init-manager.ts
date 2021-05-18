@@ -95,11 +95,11 @@ export class InitManager {
     if (appPath) {
       await this.initSconfig(appPath);
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
-      logger.success('Thanks for using Serverless-Devs');
-      console.log(`\nYou could "cd ${appPath}"  and enjoy you serverless journey!`);
-      console.log(
-        '\nDocument ❤ Star：' + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs'),
-      );
+//       console.log(projectName)
+      logger.success('\n🏄‍ Thanks for using Serverless-Devs');
+      console.log(`👉 You could [cd ${appPath}] and enjoy your serverless journey!`);
+      console.log(`🧭 If you need help for this example, you can use [s -h] after you enter folder.`);
+      console.log('💞 Document ❤ Star：' + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'));
     }
 
   }

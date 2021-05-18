@@ -8,7 +8,10 @@ import { CommandError } from '../../error';
 import i18n from '../../utils/i18n';
 import { logger } from '../../utils';
 
-const description = i18n.__('s config delete help');
+const description = i18n.__(`You can delete an account.
+
+     Example:
+        $ s config delete -a demo`);
 
 program
   .name('s config delete')

@@ -3,7 +3,7 @@ import i18n from '../utils/i18n';
 
 
 
-const data = [new inquirer.Separator('\n⊙ Hello World Example'), {
+const data = [new inquirer.Separator('\n👋 Hello World Example'), {
     key: 'devsapp/start-fc',
     name: 'Aliyun FC node.js12-http',
     value: 'devsapp/start-fc'
@@ -16,7 +16,7 @@ const data = [new inquirer.Separator('\n⊙ Hello World Example'), {
     name: 'Tencent SCF nodejs12.x-http',
     value: 'devscomp/start-scf'
 },
-new inquirer.Separator('\n⊙ Web Framework Example'),
+new inquirer.Separator('\n🚢 Web Framework Example'),
 {
     key: 'devsapp/start-express',
     name: 'Express',
@@ -37,7 +37,7 @@ new inquirer.Separator('\n⊙ Web Framework Example'),
     key: 'devsapp/start-malagu',
     name: 'Malagu',
     value: 'devsapp/start-malagu'
-}, new inquirer.Separator('\n⊙ Static Website'),
+}, new inquirer.Separator('\n🖥️  Static Website'),
 {
     key: 'devsapp/website-vue',
     name: 'Vue',
@@ -58,7 +58,7 @@ new inquirer.Separator('\n⊙ Web Framework Example'),
     key: 'devsapp/website-vuepress',
     name: 'Vuepress',
     value: 'devsapp/website-vuepress'
-}, new inquirer.Separator('\n⊙ Serverless Dev template'), {
+}, new inquirer.Separator('\n🍼 Serverless Dev template'), {
     key: 'devsapp/start-application',
     name: 'Application',
     value: 'devsapp/start-application'
@@ -72,7 +72,7 @@ export const APPLICATION_TEMPLATE = [
     {
         type: 'autocomplete',
         name: 'template',
-        message: i18n.__('Hello, serverlessor.Which template do you like?'),
+        message: i18n.__('Hello, serverlessor. Which template do you like? \n🚀 More: https://github.com/Serverless-Devs/package-awesome\nPlease select or input: '),
         loop: false,
         pageSize: 40,
         source: function (answersSoFar, input) {

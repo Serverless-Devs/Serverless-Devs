@@ -242,5 +242,6 @@
   "PrivateKeyData of key information": "配置密钥 PrivateKeyData",
   "Keys of key information, like: -kl key1,key2,key3": "配置密钥 Keys，例如：-kl key1,key2,key3",
   "Values of key information, like: -kl info1,info2,info3": "配置密钥 Values，例如：-kl info1,info2,info3",
-  "Please make sure -kl/--keyList is as long as -il/--infoList": "请保证 -kl/--keyList的长度和-il/--infoList一致"
+  "Please make sure -kl/--keyList is as long as -il/--infoList": "请保证 -kl/--keyList的长度和-il/--infoList一致",
+  "-p/--prop parameter format error": "-p/--prop 参数格式错误"
 }

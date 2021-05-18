@@ -1,6 +1,6 @@
 import program from 'commander';
 import { CommandError } from '../error';
-import { i18n, configSet } from '../utils';
+import {i18n, configSet, logger} from '../utils';
 import { InitManager } from './init-manager';
 const description = `${i18n.__('Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.')}
 
@@ -9,7 +9,8 @@ const description = `${i18n.__('Initialize a new project based on a template. Yo
         $ s init project
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
-    `;
+        
+🚀 More Case: https://github.com/Serverless-Devs/package-awesome`;
 
 program
   .name('s init')
@@ -27,5 +28,6 @@ program
   const name = program.args[0];
   await initManager.init(name, dir);
 })().catch(err => {
+    logger.error("No application found?\n   1️⃣  Start quickly with 's init'\n   2️⃣  See some cases on GitHub: https://github.com/Serverless-Devs/package-awesome\n   😬 Give us an issue to solve: https://github.com/Serverless-Devs/Serverless-Devs/issues")
   throw new CommandError(err.message);
 });

@@ -35,12 +35,9 @@ program
     .name('s set registry')
     .usage('[options] [name]')
     .helpOption('-h, --help', i18n.__('Display help for command'))
-    .description(
-        `${i18n.__('You can set your registry.')}
-    
-         ${i18n.__('Example')}:
-            $ s set registry <url>`,
-    )
+    .description(`${i18n.__('You can set your registry.')}
+     ${i18n.__('Example')}:
+        $ s set registry <url>`,)
     .addHelpCommand(false).parse(process.argv);
 (async () => {
     if (program.args.length === 0) {
