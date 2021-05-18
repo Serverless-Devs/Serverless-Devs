@@ -18,9 +18,16 @@ export default class CliManager {
 
     async init() {
         try {
-            const {component, command, access, props} = this.inputs;
+            let {component, command, access, props} = this.inputs;
             const componentInstance = await loadComponent(component, null, {access})
             if (componentInstance) {
+                if(!command){
+                    if(componentInstance['index']){
+                        command = 'index'
+                    }else{
+                        command = 'cli-help-options'
+                    }
+                }
                 if (command === "cli-help-options") {
                     const docResult = componentInstance.__doc();
                     logger.info(`\n${docResult}`);
