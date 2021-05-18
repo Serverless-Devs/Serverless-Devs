@@ -10,6 +10,8 @@ i18n.configure({
     locales: ['en', 'zh'],
     directory: path.join(__dirname, '..', 'locales'),
     register: global,
+    retryInDefaultLocale: false,
+    updateFiles: false
 });
 
 const locale = configSet.getConfig('locale');
