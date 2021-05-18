@@ -1,5 +1,5 @@
 import {loadComponent} from '@serverless-devs/core';
-import {i18n, logger} from '../utils';
+import {logger} from '../utils';
 import yaml from "js-yaml";
 
 interface CliParams {
@@ -38,7 +38,7 @@ export default class CliManager {
                     try {
                         tempProp = JSON.parse(props || '{}')
                     } catch (e) {
-                        throw new Error(i18n.__("-p/--prop parameter format error"))
+                        throw new Error("-p/--prop parameter format error")
                     }
                     try {
                         const result = await componentInstance[command]({
@@ -78,7 +78,7 @@ export default class CliManager {
 
                         logger.success(
                             Object.keys(result).length === 0
-                                ? i18n.__('End of method: {{method}}', {method: command})
+                                ? `End of method: ${command}`
                                 : outResult,
                         );
                     } catch (e) {

@@ -3,7 +3,6 @@ import program from 'commander';
 import { execSync } from 'child_process';
 import {
   common,
-  i18n,
   logger,
   registerAction,
   configSet
@@ -71,33 +70,35 @@ const description = `  _________                               .__
  /        \\  ___/|  | \\/\\   /\\  ___/|  | \\/  |_\\  ___/ \\___ \\ \\___ \\
 /_________/\\_____>__|    \\_/  \\_____>__|  |____/\\_____>______>______>
 
-${i18n.__('Welcome to the Serverless Devs.')}
-${i18n.__('You can use the corresponding function through the following instructions.')}
+Welcome to the Serverless Devs.
+You can use the corresponding function through the following instructions.
 
-${i18n.__('More: ')}
-📘 ${i18n.__('Documents: https://www.github.com/serverless-devs/docs')}
-🙌 ${i18n.__('Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
-⁉️  ${i18n.__('Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues')}
-👀 ${i18n.__(`Current Registry: ${getRegistry()}`)}
+More: 
+📘 Documents: https://www.github.com/serverless-devs/docs
+🙌 Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
+⁉️ Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues
+👀 Current Registry: ${getRegistry()}
 
-${i18n.__('Quick start: ')}
-🍻 ${i18n.__(`Can perform [s init] fast experience`)}`;
+Quick start:
+🍻 Can perform [s init] fast experience`;
 
 (async () => {
   registerCommandChecker(program);
   const system_command = program
-    .version('', '-v, --version', i18n.__('Output the version number'))
+    .version('', '-v, --version', 'Output the version number')
     .description(description)
-    .helpOption('-h, --help', i18n.__('Display help for command'))
-    .command('config', '👤 ' + i18n.__('Configure cloud service account.'))
-    .command('init', '💞 ' + i18n.__('Initializing a project.'))
-    .command('cli', '🐚 ' + i18n.__('Command line operation through yaml free mode.'))
-    .command('set', '🔧 ' + i18n.__('Settings for the tool.'))
-    .option('--skip-actions', i18n.__('Skip the extends section'))
-    .option('--debug', i18n.__('Debug model'))
+    .helpOption('-h, --help', 'Display help for command')
+    .command('config', '👤 ' + 'Configure cloud service account.')
+    .command('init', '💞 ' + 'Initializing a project.')
+    .command('cli', '🐚 Command line operation through yaml free mode.')
+    .command('set', '🔧 Settings for the tool.')
+    .option('--skip-actions', 'Skip the extends section')
+    .option('--debug', 'Debug model')
     .addHelpCommand(false);
 
   await globalParameterProcessing(); // global parameter processing
+
+
 
   await setExecCommand(); // regist exec command
 

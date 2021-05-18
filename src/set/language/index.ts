@@ -1,5 +1,5 @@
 import program from 'commander';
-import { configSet, i18n, logger } from '../../utils';
+import { configSet, logger } from '../../utils';
 
 import { CommandError, SetLanguageError } from '../../error';
 
@@ -12,11 +12,11 @@ const defaultLanguage = ['zh', 'en'];
 program
   .name('s set language')
   .usage('[options] [name]')
-  .helpOption('-h, --help', i18n.__('Display help for command'))
+  .helpOption('-h, --help', 'Display help for command')
   .description(
-    `${i18n.__('You can set language.')}
+    `You can set language.
 
-     ${i18n.__('Example')}:
+     Example:
         $ s set language zh
         $ s set language en`,
   )

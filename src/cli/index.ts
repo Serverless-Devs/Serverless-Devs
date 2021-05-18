@@ -1,11 +1,10 @@
 import program, {Command} from 'commander';
 import {CommandError} from '../error';
-import {i18n} from '../utils';
 import CliManager from './cli-manager';
 
-const description = `${i18n.__('Directly use serverless devs to use components, develop and manage applications without yaml configuration.')}
+const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
 
-    ${i18n.__('Example:')}
+    Example:
         $ s cli fc-api listServices
         $ s cli fc-api listFunctions --service-name my-service
         $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
@@ -15,15 +14,15 @@ const description = `${i18n.__('Directly use serverless devs to use components, 
 const cliCommand = program
     .name('s cli')
     .usage('s cli [component] [method] [options]')
-    .option('-a, --access [access-alias]', i18n.__('Specify the key name'))
-    .option('-p, --props [json-string]', i18n.__('The json string of props'))
-    .helpOption('-h, --help', i18n.__('Display help for command'))
+    .option('-a, --access [access-alias]', 'Specify the key name')
+    .option('-p, --props [json-string]', 'The json string of props')
+    .helpOption('-h, --help', 'Display help for command')
     .description(description).addHelpCommand(false);
 
 const subCommandName = process.argv[2];
 if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     const execCommand = new Command(subCommandName);
-    const customerCommandDescription = i18n.__("Subcommand execution analysis.");
+    const customerCommandDescription = "Subcommand execution analysis.";
     execCommand.usage("[subcommand] -- [method] [params]");
     execCommand.description(customerCommandDescription).addHelpCommand(true)
     program.addCommand(execCommand);
@@ -51,6 +50,7 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
                     processArgv.push("cli-help-options")
                 }
             }
+            lastArgs = process.argv[i]
         }
         if (params.length !== 0) {
             process.env.temp_params = params.concat(process.env.temp_params).join(' ');
