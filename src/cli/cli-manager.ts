@@ -25,6 +25,7 @@ export default class CliManager {
                 logger.info(`\n${docResult}`);
                 return;
             }
+            command = command ? command : 'index'; // default index
             if (componentInstance[command]) {
                 let tempProp = {}
                 try {

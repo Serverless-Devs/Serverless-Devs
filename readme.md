@@ -69,3 +69,4 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 - 进入项目后部署项目：cd start-metinfo && s deploy
 
 更多案例： `s init`
+
