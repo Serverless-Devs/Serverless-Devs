@@ -114,7 +114,10 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
                     logger.info(`\n${docResult}`);
                 } else {
                     try {
-                        const componentPathYaml = path.join(componentInstance.__path, "publish.yaml")
+                        let componentPathYaml = path.join(componentInstance.__path, "publish.yml")
+                        if(!await fs.existsSync(componentPathYaml)){
+                            componentPathYaml = path.join(componentInstance.__path, "publish.yaml")
+                        }
                         const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'))
                         logger.info(`Help Information: 
                     
