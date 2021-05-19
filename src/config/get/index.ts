@@ -53,7 +53,9 @@ function getSecretValue(n: number, str = ' ') {
 
     if (aliasName) {
         if (Object.keys(accessInfo).includes(aliasName)) {
-            logger.info(`\n\n` + yaml.dump({aliasName: accessInfo[typeof aliasName === 'boolean' ? 'default' : aliasName]}))
+            const accessData = {}
+            accessData[aliasName] = accessInfo[typeof aliasName === 'boolean' ? 'default' : aliasName]
+            logger.info(`\n\n` + yaml.dump(accessData))
         } else {
             logger.error(`\n\n  ❌ Message: Unable to get key information with alias ${aliasName}.
   🤔 You have configured these keys: [${String(Object.keys(accessInfo))}].
