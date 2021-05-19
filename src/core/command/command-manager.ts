@@ -7,6 +7,7 @@ import {
     generateSynchronizeComponentExeList,
     synchronizeExecuteComponentList,
 } from '../component';
+
 const {checkTemplateFile} = common;
 const {getServiceConfig} = version;
 
@@ -76,9 +77,7 @@ export class CommandManager {
                         }
                     }
                 }
-
                 let outResult = yaml.safeDump(JSON.parse(JSON.stringify(outPutData)));
-
                 if (process.env['s-execute-file']) {
                     throw new Error(`All projects were not deployed successfully.\n\n${yaml.dump(JSON.parse(process.env['s-execute-file']))}\n😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
                 } else {
@@ -89,13 +88,19 @@ export class CommandManager {
                     );
                 }
             } else {
-                const errMessage = `Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${this.templateFile}`
-                logger.error(errMessage);
-                process.env['project_error'] = String(true)
-                process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + errMessage
+                logger.error(`Failed to execute:\n
+  ❌ Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${this.templateFile}
+  🧭 If you want to use Serverless Devs, you should have a s.yaml or use [s cli] command.
+      1️⃣ Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
+      2️⃣ Cli document: [s cli -h]
+  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
+                process.exit(-1);
+
             }
         } catch (e) {
-            logger.error(e.message);
+            logger.error(`Failed to execute:\n
+  ❌ Message: ${e.message}
+  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
             process.exit(-1);
         }
     }
