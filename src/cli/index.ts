@@ -53,8 +53,9 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
             lastArgs = process.argv[i]
         }
         if (params.length !== 0) {
-            process.env.temp_params = params.concat(process.env.temp_params).join(' ');
+            process.env.temp_params = params.join(' ');
         }
+
         process.argv = processArgv;
         cliCommand.parse(process.argv)
         const [component, command] = program.args;

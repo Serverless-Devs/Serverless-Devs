@@ -32,9 +32,7 @@ export function createUniversalCommand(command: string, customerCommandName?: st
     }
 
     if (params.length !== 0) {
-        process.env.temp_params = params.concat(process.env.temp_params).join(' ');
-    } else {
-        params = process.env.temp_params ? process.env.temp_params.split(' ') : [];
+        process.env.temp_params = params.join(' ');
     }
 
     process.argv = processArgv;
@@ -120,10 +118,10 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
                         const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'))
                         logger.info(`Help Information: 
                     
-${publishYamlInfor['Name']}@${publishYamlInfor['version']}: ${publishYamlInfor['Description']}
+${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}
 
 ${yaml.dump(publishYamlInfor['Commands'])}
-${publishYamlInfor['HomePage'] ? "🛸  More information :" + publishYamlInfor['HomePage'] + "\n" : ""}`);
+${publishYamlInfor['HomePage'] ? "🧭  More information: " + publishYamlInfor['HomePage'] + "\n" : ""}`);
                     }catch (e) {
                         logger.info('No document set');
                     }
