@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import yaml from 'js-yaml';
 
-import { getServiceList } from './version';
+import {getServiceList} from './version';
 import {logger} from "../utils";
 
 interface MAP_OBJECT {
@@ -30,6 +30,7 @@ export class Parse {
             }
         }
     }
+
     getFileObj(filePath: string) {
         let fileObj = {};
         try {
@@ -41,12 +42,14 @@ export class Parse {
                 fileObj = JSON.parse(fs.readFileSync(filePath).toString());
             }
         } catch (e) {
-            logger.error(`Failed to execute:\n
+            if (process.env["process_argv_length"] !== '2') {
+                logger.error(`Failed to execute:\n
   ❌ Message: The file converted by parse is abnormal ${e.message}
   🧭 Please make sure your Yaml/JSON file is standard. 
       📚 Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
-                    process.exit(-1);
+                process.exit(-1);
+            }
         }
         return fileObj;
     }
@@ -54,12 +57,13 @@ export class Parse {
     async init(filePath: string) {
         this.parsedObj = this.getFileObj(filePath);
     }
+
     getOriginalParsedObj() {
         return this.parsedObj;
     }
 
     private findVariableValue(variableObj: any) {
-        const { variableName, type, funName, funVariable } = variableObj;
+        const {variableName, type, funName, funVariable} = variableObj;
         const result = '';
         if (type === 'Literal') { // 兼容新版本的规范 services
             return this.globalJsonKeyMap[variableName] || this.globalJsonKeyMap[`services.${variableName}`] || '${' + variableName + '}';
@@ -76,6 +80,7 @@ export class Parse {
         }
         return result;
     }
+
     generateMagicVariables(value: any, arr: any[] = [], parentStr = '') {
         if (Object.prototype.toString.call(value) === '[object Object]') {
             if (parentStr !== '') {
@@ -122,7 +127,7 @@ export class Parse {
             const regResult = objValue.match(COMMON_VARIABLE_TYPE_REG);
             if (regResult) {
                 const matchResult = regResult[1]; // get match result like projectName.key.variable
-                const variableObj = { variableName: matchResult, type: 'Literal', funName: null, funVariable: '' };
+                const variableObj = {variableName: matchResult, type: 'Literal', funName: null, funVariable: ''};
                 const funMatchResult = matchResult.match(SPECIALL_VARIABLE_TYPE_REG);
                 if (funMatchResult) {
                     // eg Env(SecretId) or File(./path)
@@ -157,6 +162,7 @@ export class Parse {
             return objValue;
         }
     }
+
     replaceVariable(variable: any | MAP_OBJECT) {
         const _variable = getServiceList(variable);
         Object.keys(_variable).forEach(key => {

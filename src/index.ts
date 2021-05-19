@@ -98,6 +98,8 @@ Quick start:
         .option('--skip-actions', 'Skip the extends section')
         .option('--debug', 'Debug model')
         .addHelpCommand(false);
+
+    process.env["process_argv_length"] = String(process.argv.length)
     await globalParameterProcessing(); // global parameter processing
     await setExecCommand(); // regist exec command
     await setSpecialCommand(); // universal instruction processing
