@@ -51,8 +51,7 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 
 ## 相关资源
 
-- 应用列表：https://github.com/devsapp/Application-Awesome
-- 组件列表：https://github.com/devsapp/Component-Awesome
+https://github.com/Serverless-Devs/package-awesome
 
 ## 快速体验
 
