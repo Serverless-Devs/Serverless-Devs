@@ -79,7 +79,11 @@ export class CommandManager {
                 }
                 let outResult = yaml.safeDump(JSON.parse(JSON.stringify(outPutData)));
                 if (process.env['s-execute-file']) {
-                    throw new Error(`All projects were not deployed successfully.\n\n${yaml.dump(JSON.parse(process.env['s-execute-file']))}\n😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
+                    logger.error(`All projects were not deployed successfully.
+  
+  ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+`)
+                    process.exit(-1)
                 } else {
                     logger.success(
                         Object.keys(outPutData).length === 0
