@@ -3,6 +3,7 @@ import * as path from 'path';
 import yaml from 'js-yaml';
 
 import { getServiceList } from './version';
+import {logger} from "../utils";
 
 interface MAP_OBJECT {
     [key: string]: any;
@@ -40,9 +41,13 @@ export class Parse {
                 fileObj = JSON.parse(fs.readFileSync(filePath).toString());
             }
         } catch (e) {
-            throw new Error(`The file converted by parse is abnormal ${e.message}`);
+            logger.error(`Failed to execute:\n
+  ❌ Message: The file converted by parse is abnormal ${e.message}
+  🧭 Please make sure your Yaml/JSON file is standard. 
+      📚 Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
+  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
+                    process.exit(-1);
         }
-
         return fileObj;
     }
 

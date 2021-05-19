@@ -50,27 +50,6 @@ export function createUniversalCommand(command: string, customerCommandName?: st
 
 export async function getCommandDetail(name: any, provider: any, version: any): Promise<any[]> {
     let command_list: any = [];
-    // try {
-    //     const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
-    //     const result: any = await axios.get(SERVERLESS_COMMAND_DESC_URL + `?lang=${lang}`, {
-    //         params: {
-    //             name,
-    //             provider,
-    //             version,
-    //         },
-    //     });
-    //     if (result.data && result.data.Response) {
-    //         const command = result.data.Response.Command || {};
-    //         command_list = Object.keys(command).map(key => {
-    //             return {
-    //                 name: key,
-    //                 desc: command[key],
-    //             };
-    //         });
-    //     }
-    // } catch (e) {
-    //     logger.error(e.message);
-    // }
     return command_list;
 }
 

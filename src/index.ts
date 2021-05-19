@@ -98,16 +98,10 @@ Quick start:
         .option('--skip-actions', 'Skip the extends section')
         .option('--debug', 'Debug model')
         .addHelpCommand(false);
-
     await globalParameterProcessing(); // global parameter processing
-
-
     await setExecCommand(); // regist exec command
-
     await setSpecialCommand(); // universal instruction processing
-
     recordCommandHistory(process.argv); // add history record
-
 
     system_command.exitOverride(async (error) => {
         if (error.code === 'commander.help') {
@@ -118,7 +112,6 @@ Quick start:
         }
         versionCheck();
     })
-
     system_command.parse(process.argv);
 })().catch(err => {
     logger.error(`\n\n  ❌ Message: ${err.message}.
