@@ -1,5 +1,4 @@
 import program from 'commander';
-// import { registerCommandChecker } from '../utils/command-util';
 
 
 program

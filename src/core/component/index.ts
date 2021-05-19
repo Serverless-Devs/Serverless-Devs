@@ -7,6 +7,7 @@ import {DEFAULT_REGIRSTRY} from '../../constants/static-variable';
 import {version, Parse} from '../../specification';
 import {configSet, logger} from '../../utils';
 import {Hook} from './hook';
+import yaml from "js-yaml";
 
 const {getServiceConfigDetail, getServiceInputs, getServiceActions} = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
@@ -102,7 +103,15 @@ export class ComponentExeCute {
         if (autoCredential === false) {
             return null;
         }
-        return await getCredential(access);
+        try {
+            const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+            const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || "{}");
+            if (accessFileInfo[access]) {
+                return await getCredential(access);
+            }
+        } catch (e) {
+        }
+        return {}
     }
 
     private loadExtends(): Hook | null {
