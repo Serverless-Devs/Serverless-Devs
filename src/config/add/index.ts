@@ -2,25 +2,24 @@
 
 import program from 'commander';
 import { setCredential, setKnownCredential } from '@serverless-devs/core';
-// import { setCredential, setKnownCredential } from '/Users/jiangyu/Desktop/core-master/packages/core/lib';
 import { CommandError } from '../../error';
 
-const intro = 'You can add an account';
-const example = [
-  'Example:',
-  '\t$ s config add',
-  '\t$ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******',
-  '\t$ s config add --AccessKey ****** --SecretKey ******',
-  '\n    Configuration parameters for cloud vendors:',
-  '\talibaba: AccountID, AccessKeyID, AccessKeySecret',
-  '\taws: AccessKeyID, SecretAccessKey',
-  '\tbaidu: AccessKeyID, SecretAccessKey',
-  '\thuawei: AccessKey, SecretKey',
-  '\tgoogle: PrivateKeyData',
-  '\ttencent: AccountID, SecretID, SecretKey',
-'📘 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config',
-].join('\n');
-const description = `${intro}\n\n    ${example}\n`;
+const description = `You can add an account
+
+    Example:
+        $ s config add
+        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******
+        $ s config add --AccessKey ****** --SecretKey ******
+  
+    Configuration parameters for cloud vendors:
+        alibaba: AccountID, AccessKeyID, AccessKeySecret
+        aws: AccessKeyID, SecretAccessKey
+        baidu: AccessKeyID, SecretAccessKey
+        huawei: AccessKey, SecretKey
+        google: PrivateKeyData
+        tencent: AccountID, SecretID, SecretKey
+
+🧭 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`
 
 program
   .name('s config add')

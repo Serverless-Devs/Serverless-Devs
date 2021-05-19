@@ -1,4 +1,4 @@
-# Serverless Devs Cli 帮助文档
+# Serverless Devs 帮助文档
 
 <div align=center> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
 
