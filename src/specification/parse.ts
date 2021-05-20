@@ -42,7 +42,7 @@ export class Parse {
                 fileObj = JSON.parse(fs.readFileSync(filePath).toString());
             }
         } catch (e) {
-            if (process.env["process_argv_length"] !== '2') {
+            if (process.env["serverless_devs_out_put_help"] !== 'true') {
                 logger.error(`Failed to execute:\n
   ❌ Message: The file converted by parse is abnormal ${e.message}
   🧭 Please make sure your Yaml/JSON file is standard. 

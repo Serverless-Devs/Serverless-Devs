@@ -8,7 +8,7 @@ import fs from "fs";
 interface CliParams {
     component: string;
     command: string;
-    access: string;
+    aliasName: string;
     props: string
 }
 
@@ -21,21 +21,21 @@ export default class CliManager {
 
     async init() {
         try {
-            let {component, command, access, props} = this.inputs;
+            let {component, command, aliasName, props} = this.inputs;
 
             // 获取密钥信息
             let credentials = {}
             try {
                 const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
                 const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || "{}");
-                if (accessFileInfo[access]) {
-                    credentials = await getCredential(access);
+                if (accessFileInfo[aliasName]) {
+                    credentials = await getCredential(aliasName);
                 }
             } catch (e) {
                 credentials = {}
             }
 
-            const componentInstance = await loadComponent(component, null, {access})
+            const componentInstance = await loadComponent(component, null, {aliasName})
             if (componentInstance) {
                 if (!command) {
                     if (componentInstance['index']) {
@@ -70,12 +70,12 @@ export default class CliManager {
                                 Component: component,
                                 provider: undefined,
                                 Provider: undefined,
-                                accessAlias: access || 'default',
-                                AccessAlias: access || 'default'
+                                accessAlias: aliasName || 'default',
+                                AccessAlias: aliasName || 'default'
                             },
                             project: {
                                 component: '',
-                                access: access || 'default',
+                                access: aliasName || 'default',
                                 projectName: ''
                             },
                             command: command,

@@ -99,7 +99,9 @@ Quick start:
         .option('--debug', 'Debug model')
         .addHelpCommand(false);
 
-    process.env["process_argv_length"] = String(process.argv.length)
+    if(process.argv.length===2 || (process.argv.length===3 && ['-h', '--help'].includes(process.argv[2]))){
+        process.env["serverless_devs_out_put_help"] = 'true'
+    }
     await globalParameterProcessing(); // global parameter processing
     await setExecCommand(); // regist exec command
     await setSpecialCommand(); // universal instruction processing
