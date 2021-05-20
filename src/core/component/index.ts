@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import {getCredential, loadComponent} from '@serverless-devs/core';
-import {PackageType} from '../../entiry';
-import {DEFAULT_REGIRSTRY} from '../../constants/static-variable';
-import {version, Parse} from '../../specification';
-import {configSet, i18n, logger} from '../../utils';
-import {Hook} from './hook';
+import { getCredential, loadComponent } from '@serverless-devs/core';
+import { PackageType } from '../../entiry';
+import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
+import { version, Parse } from '../../specification';
+import { configSet, i18n, logger } from '../../utils';
+import { Hook } from './hook';
 
-const {getServiceConfigDetail, getServiceInputs, getServiceActions} = version;
+const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
 
 export interface ComponentConfig {
@@ -37,7 +37,7 @@ export interface GenerateComponentExeParams {
 
 export async function synchronizeExecuteComponentList(list: any = [], index: any = 0, initData: any = {}) {
     if (index >= 0 && index < list.length) {
-        return await list[index]().then(async ({name, data}: any) => {
+        return await list[index]().then(async ({ name, data }: any) => {
             if (name) {
                 initData[name] = data;
             }
@@ -48,7 +48,7 @@ export async function synchronizeExecuteComponentList(list: any = [], index: any
 }
 
 export function generateSynchronizeComponentExeList(
-    {list, parse, parsedObj, method, params}: GenerateComponentExeParams,
+    { list, parse, parsedObj, method, params }: GenerateComponentExeParams,
     equipment: (parse: Parse, projectName: string, parsedObj: any) => Promise<ComponentConfig>
 ): any[] {
     return list.map(projectName => {
@@ -56,7 +56,7 @@ export function generateSynchronizeComponentExeList(
             return new Promise(async (resolve, reject) => {
                 try {
                     parsedObj.Params = params || '';
-                    logger.info(i18n.__(`Start executing project {{projectName}}`, {projectName}));
+                    logger.info(i18n.__(`Start executing project {{projectName}}`, { projectName }));
                     const projectConfig = await equipment(parse, projectName, parsedObj);
                     const componentExecute = new ComponentExeCute(projectConfig, method, parsedObj.edition);
                     const Output = await componentExecute.init();
@@ -65,8 +65,8 @@ export function generateSynchronizeComponentExeList(
                     } else {
                         parsedObj[projectName].Output = Output;
                     }
-                    logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, {projectName}));
-                    resolve({name: projectName, data: Output});
+                    logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, { projectName }));
+                    resolve({ name: projectName, data: Output });
                 } catch (e) {
                     const tempError = JSON.parse(process.env['s-execute-file'] || '{"Error": []}')
                     const tempErrorAttr = {}
@@ -98,7 +98,7 @@ export class ComponentExeCute {
     }
 
     async getCredentials() {
-        const {access, autoCredential} = getServiceConfigDetail(this.componentConfig);
+        const { access, autoCredential } = getServiceConfigDetail(this.componentConfig);
         if (autoCredential === false) {
             return null;
         }
@@ -106,7 +106,7 @@ export class ComponentExeCute {
     }
 
     private loadExtends(): Hook | null {
-        const hooks = getServiceActions(this.componentConfig, this.version, {method: this.method});
+        const hooks = getServiceActions(this.componentConfig, this.version, { method: this.method });
         let hookExecuteInstance = null;
         if (hooks) {
             hookExecuteInstance = new Hook(hooks);
@@ -144,7 +144,7 @@ export class ComponentExeCute {
             method: this.method,
             credentials: this.credentials
         })
-        let {name} = getServiceConfigDetail(this.componentConfig);
+        let { name } = getServiceConfigDetail(this.componentConfig);
         const regirstry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
         const componentClass = await loadComponent(name, regirstry);
         const data = await this.invokeMethod(componentClass, this.method, inputs);
