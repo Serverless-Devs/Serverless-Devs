@@ -14,7 +14,7 @@ const description = `Directly use serverless devs to use components, develop and
 const cliCommand = program
     .name('s cli')
     .usage('s cli [component] [method] [options]')
-    .option('-a, --access [access-alias]', 'Specify the key name')
+    .option('-a, --aliasName [name]', 'Specify the key name')
     .option('-p, --props [json-string]', 'The json string of props')
     .helpOption('-h, --help', 'Display help for command')
     .description(description).addHelpCommand(false);
@@ -32,13 +32,14 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     if ((process.argv.length == 2) || (process.argv.length == 3 && ['-h', '--help'].includes(process.argv[2]))) {
         program.help();
     } else {
+        console.log(process.argv)
         const tempCommand = process.argv[3]
         let start = false;
         const processArgv: string[] = [];
         let params: string[] = [];
         let lastArgs = undefined
         for (let i = 0; i < process.argv.length; i++) {
-            if (!start || (['-a', '--access', '-p', '--props'].includes(lastArgs) || ['-a', '--access', '-p', '--props'].includes(process.argv[i]))) {
+            if (!start || (['-a', '--aliasName', '-p', '--props'].includes(lastArgs) || ['-a', '--aliasName', '-p', '--props'].includes(process.argv[i]))) {
                 processArgv.push(process.argv[i]);
             } else {
                 params.push(process.argv[i]);
@@ -59,8 +60,8 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
         process.argv = processArgv;
         cliCommand.parse(process.argv)
         const [component, command] = program.args;
-        const {access, props} = program as any;
-        const cliManager = new CliManager({command, component, access, props});
+        const {aliasName, props} = program as any;
+        const cliManager = new CliManager({command, component, aliasName, props});
         cliManager.init();
 
     }
