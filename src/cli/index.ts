@@ -37,7 +37,7 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
         let start = false;
         const processArgv: string[] = [];
         let params: string[] = [];
-        let lastArgs = undefined
+        let lastArgs = undefined;
         for (let i = 0; i < process.argv.length; i++) {
             if (!start || (['-a', '--access', '-p', '--props'].includes(lastArgs) || ['-a', '--access', '-p', '--props'].includes(process.argv[i]))) {
                 processArgv.push(process.argv[i]);
