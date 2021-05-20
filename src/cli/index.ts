@@ -32,7 +32,6 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     if ((process.argv.length == 2) || (process.argv.length == 3 && ['-h', '--help'].includes(process.argv[2]))) {
         program.help();
     } else {
-        console.log(process.argv)
         const tempCommand = process.argv[3]
         let start = false;
         const processArgv: string[] = [];
