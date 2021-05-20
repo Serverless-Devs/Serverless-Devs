@@ -7,7 +7,6 @@ import {CommandManager} from '../core';
 import {version, Parse} from '../specification';
 import {PROCESS_ENV_TEMPLATE_NAME} from '../constants/static-variable';
 import storage from './storage';
-import i18n from './i18n';
 import logger from './logger';
 import {loadComponent} from '@serverless-devs/core';
 
@@ -33,9 +32,7 @@ export function createUniversalCommand(command: string, customerCommandName?: st
     }
 
     if (params.length !== 0) {
-        process.env.temp_params = params.concat(process.env.temp_params).join(' ');
-    } else {
-        params = process.env.temp_params ? process.env.temp_params.split(' ') : [];
+        process.env.temp_params = params.join(' ');
     }
 
     process.argv = processArgv;
@@ -53,27 +50,6 @@ export function createUniversalCommand(command: string, customerCommandName?: st
 
 export async function getCommandDetail(name: any, provider: any, version: any): Promise<any[]> {
     let command_list: any = [];
-    // try {
-    //     const lang = (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
-    //     const result: any = await axios.get(SERVERLESS_COMMAND_DESC_URL + `?lang=${lang}`, {
-    //         params: {
-    //             name,
-    //             provider,
-    //             version,
-    //         },
-    //     });
-    //     if (result.data && result.data.Response) {
-    //         const command = result.data.Response.Command || {};
-    //         command_list = Object.keys(command).map(key => {
-    //             return {
-    //                 name: key,
-    //                 desc: command[key],
-    //             };
-    //         });
-    //     }
-    // } catch (e) {
-    //     logger.error(e.message);
-    // }
     return command_list;
 }
 
@@ -101,13 +77,13 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     const commandListDetail = await Promise.all(commandListPromise);
     commandListDetail.forEach(({projectName, projectDocDetail}) => {
         const customerCommand = new Command(projectName);
-        const customerCommandDescription = '👉 ' + i18n.__(`This is a customer command please use [s ${projectName} -h]  obtain the documentation`)
+        const customerCommandDescription = `👉 This is a customer command please use [s ${projectName} -h]  obtain the documentation`
         customerCommand.description(customerCommandDescription);
         const methodName = process.argv[3];
         if (methodName) {
             customerCommand.addCommand(createUniversalCommand(methodName, projectName));
         }
-        customerCommand.option('-h, --help', i18n.__('Print usage document'))
+        customerCommand.option('-h, --help', 'Print usage document')
         customerCommand.action(async () => {
             const {component} = projectDocDetail;
             const componentInstance: any = await loadComponent(component);
@@ -117,14 +93,17 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
                     logger.info(`\n${docResult}`);
                 } else {
                     try {
-                        const componentPathYaml = path.join(componentInstance.__path, "publish.yaml")
+                        let componentPathYaml = path.join(componentInstance.__path, "publish.yml")
+                        if(!await fs.existsSync(componentPathYaml)){
+                            componentPathYaml = path.join(componentInstance.__path, "publish.yaml")
+                        }
                         const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'))
                         logger.info(`Help Information: 
                     
-${publishYamlInfor['Name']}@${publishYamlInfor['version']}: ${publishYamlInfor['Description']}
+${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}
 
 ${yaml.dump(publishYamlInfor['Commands'])}
-${publishYamlInfor['HomePage'] ? "🛸  More information :" + publishYamlInfor['HomePage'] + "\n" : ""}`);
+${publishYamlInfor['HomePage'] ? "🧭  More information: " + publishYamlInfor['HomePage'] + "\n" : ""}`);
                     }catch (e) {
                         logger.info('No document set');
                     }
@@ -151,7 +130,7 @@ export function registerCommandChecker(program: any) {
 
 export async function registerExecCommand(system_command: any, templateFile: string) {
     const execCommand = new Command('exec');
-    const customerCommandDescription = '🚀 ' + i18n.__("Subcommand execution analysis.");
+    const customerCommandDescription = '🚀 Subcommand execution analysis.';
     execCommand.description(customerCommandDescription)
     execCommand.usage("[subcommand] -- [method] [params]");
     if (templateFile) {

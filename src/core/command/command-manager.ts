@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 import {version, Parse, Analysis} from '../../specification';
-import {common, i18n, logger} from '../../utils';
+import {common, logger} from '../../utils';
 import {
     ComponentExeCute,
     ComponentConfig,
@@ -38,7 +38,7 @@ export class CommandManager {
 
     async init(): Promise<void> {
         try {
-            logger.info(i18n.__('Start ...'));
+            logger.info('Start ...');
             const templateFile = checkTemplateFile(this.templateFile);
             if (templateFile) {
                 const outPutData: any = {};
@@ -65,12 +65,7 @@ export class CommandManager {
                     const realVariables = await parse.getRealVariables(parsedObj); // Get the original conversion data
                     const analysis = new Analysis(realVariables, parse.dependenciesMap);
                     const executeOrderList = analysis.getProjectOrder();
-                    logger.info(
-                        i18n.__(
-                            'It is detected that your project has the following projects < {{projects}} > to be execute',
-                            {projects: executeOrderList.join(',')},
-                        ),
-                    );
+                    logger.info(`It is detected that your project has the following projects < ${executeOrderList.join(',')} > to be execute`);
                     const componentList = generateSynchronizeComponentExeList(
                         {list: executeOrderList, parse, parsedObj, method: this.method, params},
                         this.assemblyProjectConfig.bind(this),
@@ -82,29 +77,34 @@ export class CommandManager {
                         }
                     }
                 }
-
-                let outResult = yaml.safeDump(JSON.parse(JSON.stringify(outPutData)));
-
+                let outResult = yaml.dump(JSON.parse(JSON.stringify(outPutData)));
                 if (process.env['s-execute-file']) {
-                    throw new Error(`All projects were not deployed successfully.\n\n${yaml.dump(JSON.parse(process.env['s-execute-file']))}\n😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
+                    logger.error(`All projects were not deployed successfully.
+  
+  ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+`)
+                    process.exit(-1)
                 } else {
                     logger.success(
                         Object.keys(outPutData).length === 0
-                            ? i18n.__('End of method: {{method}}', {method: this.method})
+                            ? `End of method: ${this.method}`
                             : outResult,
                     );
                 }
             } else {
-                const errMessage = i18n.__('Cannot find {{template}} file, please check the directory {{filepath}}', {
-                    template: 's.yaml / s.yml / template.yaml / template.yml',
-                    filepath: this.templateFile,
-                })
-                logger.error(errMessage);
-                process.env['project_error'] = String(true)
-                process.env['project_error_message'] = process.env['project_error_message'] || "" + "\n" + errMessage
+                logger.error(`Failed to execute:\n
+  ❌ Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${this.templateFile}
+  🧭 If you want to use Serverless Devs, you should have a s.yaml or use [s cli] command.
+      1️⃣ Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
+      2️⃣ Cli document: [s cli -h]
+  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
+                process.exit(-1);
+
             }
         } catch (e) {
-            logger.error(e.message);
+            logger.error(`Failed to execute:\n
+  ❌ Message: ${e.message}
+  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
             process.exit(-1);
         }
     }

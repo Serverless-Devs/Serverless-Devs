@@ -1,13 +1,13 @@
 import { Command } from 'commander';
 import { loadComponent } from '@serverless-devs/core';
-import { i18n, logger } from '../utils';
+import { logger } from '../utils';
 export default class CliSubCommandManager {
     constructor(protected cliCommand, protected subCommandName) {
 
     }
     async init() {
         const execCommand = new Command(this.subCommandName);
-        const customerCommandDescription = '🚀 ' + i18n.__("Subcommand execution analysis.");
+        const customerCommandDescription = '🚀 ' + "Subcommand execution analysis.";
         execCommand.usage("[method] [options]");
         const subCommandInstance: any = await loadComponent(this.subCommandName);
         if (subCommandInstance) {

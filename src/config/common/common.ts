@@ -1,16 +1,14 @@
-import { i18n } from '../../utils';
-
 
 export const providerArray: string[] = ['alibaba', 'baidu', 'huawei', 'aws', 'azure', 'google', 'tencent'];
 
 export const providerObject: any = {
-  alibaba: i18n.__('Alibaba Cloud'),
-  baidu: i18n.__('Baidu Cloud'),
-  huawei: i18n.__('Huawei Cloud'),
-  aws: i18n.__('AWS Cloud'),
-  azure: i18n.__('Azure Cloud'),
-  google: i18n.__('Google Cloud'),
-  tencent: i18n.__('Tencent Cloud'),
+  alibaba: 'Alibaba Cloud',
+  baidu: 'Baidu Cloud',
+  huawei: 'Huawei Cloud',
+  aws: 'AWS Cloud',
+  azure: 'Azure Cloud',
+  google: 'Google Cloud',
+  tencent: 'Tencent Cloud',
 };
 
 export const providerCollection: any = {
@@ -156,15 +154,15 @@ export const checkProviderList: any[] = [
   {
     type: 'list',
     name: 'provider',
-    message: i18n.__('Please select a provider:'),
+    message: 'Please select a provider:',
     choices: [
-      { name: i18n.__('Alibaba Cloud (alibaba)'), value: 'alibaba' },
-      { name: i18n.__('AWS (aws)'), value: 'aws' },
-      { name: i18n.__('Azure (azure)'), value: 'azure' },
-      { name: i18n.__('Baidu Cloud (baidu)'), value: 'baidu' },
-      { name: i18n.__('Google Cloud (google)'), value: 'google' },
-      { name: i18n.__('Huawei Cloud (huawei)'), value: 'huawei' },
-      { name: i18n.__('Tencent Cloud (tencent)'), value: 'tencent' },
+      { name: 'Alibaba Cloud (alibaba)', value: 'alibaba' },
+      { name: 'AWS (aws)', value: 'aws' },
+      { name: 'Azure (azure)', value: 'azure' },
+      { name: 'Baidu Cloud (baidu)', value: 'baidu' },
+      { name: 'Google Cloud (google)', value: 'google' },
+      { name: 'Huawei Cloud (huawei)', value: 'huawei' },
+      { name: 'Tencent Cloud (tencent)', value: 'tencent' },
     ],
   },
 ];

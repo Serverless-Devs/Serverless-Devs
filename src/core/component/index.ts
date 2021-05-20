@@ -5,8 +5,9 @@ import { getCredential, loadComponent } from '@serverless-devs/core';
 import { PackageType } from '../../entiry';
 import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
-import { configSet, i18n, logger } from '../../utils';
+import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
+import yaml from "js-yaml";
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
@@ -56,7 +57,7 @@ export function generateSynchronizeComponentExeList(
             return new Promise(async (resolve, reject) => {
                 try {
                     parsedObj.Params = params || '';
-                    logger.info(i18n.__(`Start executing project {{projectName}}`, { projectName }));
+                    logger.info(`Start executing project ${projectName}`);
                     const projectConfig = await equipment(parse, projectName, parsedObj);
                     const componentExecute = new ComponentExeCute(projectConfig, method, parsedObj.edition);
                     const Output = await componentExecute.init();
@@ -65,7 +66,7 @@ export function generateSynchronizeComponentExeList(
                     } else {
                         parsedObj[projectName].Output = Output;
                     }
-                    logger.info(i18n.__(`Project {{projectName}} successfully to execute \n\t`, { projectName }));
+                    logger.info(`Project ${projectName} successfully to execute \n\t`);
                     resolve({ name: projectName, data: Output });
                 } catch (e) {
                     const tempError = JSON.parse(process.env['s-execute-file'] || '{"Error": []}')
@@ -102,7 +103,15 @@ export class ComponentExeCute {
         if (autoCredential === false) {
             return null;
         }
-        return await getCredential(access);
+        try {
+            const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+            const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || "{}");
+            if (accessFileInfo[access]) {
+                return await getCredential(access);
+            }
+        } catch (e) {
+        }
+        return {}
     }
 
     private loadExtends(): Hook | null {

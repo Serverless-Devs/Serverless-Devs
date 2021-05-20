@@ -25,7 +25,7 @@ function getProfileFile(): Profile {
     return {};
   }
   try {
-    const profileResult = yaml.safeLoad(fs.readFileSync(profileFilePath, 'utf8')) as Profile || {};
+    const profileResult = yaml.load(fs.readFileSync(profileFilePath, 'utf8')) as Profile || {};
     return profileResult;
   } catch (e) {
     throw e;
@@ -66,7 +66,7 @@ export async function handlerProfileFile(params: ProfileParams) {
     }
   } else {
     try {
-      profile = yaml.safeLoad(fs.readFileSync(profPath, 'utf8')) as Profile || {};
+      profile = yaml.load(fs.readFileSync(profPath, 'utf8')) as Profile || {};
     } catch (e) {
       throw e;
     }

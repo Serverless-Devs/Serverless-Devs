@@ -1,11 +1,14 @@
-import {loadComponent} from '@serverless-devs/core';
-import {i18n, logger} from '../utils';
+import {getCredential, loadComponent} from '@serverless-devs/core';
+import {logger} from '../utils';
 import yaml from "js-yaml";
+import path from "path";
+import os from "os";
+import fs from "fs";
 
 interface CliParams {
     component: string;
     command: string;
-    access: string;
+    aliasName: string;
     props: string
 }
 
@@ -18,13 +21,26 @@ export default class CliManager {
 
     async init() {
         try {
-            let {component, command, access, props} = this.inputs;
-            const componentInstance = await loadComponent(component, null, {access})
+            let {component, command, aliasName, props} = this.inputs;
+
+            // 获取密钥信息
+            let credentials = {}
+            try {
+                const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+                const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || "{}");
+                if (accessFileInfo[aliasName]) {
+                    credentials = await getCredential(aliasName);
+                }
+            } catch (e) {
+                credentials = {}
+            }
+
+            const componentInstance = await loadComponent(component, null, {aliasName})
             if (componentInstance) {
-                if(!command){
-                    if(componentInstance['index']){
+                if (!command) {
+                    if (componentInstance['index']) {
                         command = 'index'
-                    }else{
+                    } else {
                         command = 'cli-help-options'
                     }
                 }
@@ -38,14 +54,14 @@ export default class CliManager {
                     try {
                         tempProp = JSON.parse(props || '{}')
                     } catch (e) {
-                        throw new Error(i18n.__("-p/--prop parameter format error"))
+                        throw new Error("-p/--prop parameter format error")
                     }
                     try {
                         const result = await componentInstance[command]({
                             props: tempProp,
                             Properties: tempProp,
-                            Credentials: {},
-                            credentials: {},
+                            Credentials: credentials,
+                            credentials: credentials,
                             appName: 'default',
                             Project: {
                                 ProjectName: 'default',
@@ -54,12 +70,12 @@ export default class CliManager {
                                 Component: component,
                                 provider: undefined,
                                 Provider: undefined,
-                                accessAlias: access || 'default',
-                                AccessAlias: access || 'default'
+                                accessAlias: aliasName || 'default',
+                                AccessAlias: aliasName || 'default'
                             },
                             project: {
                                 component: '',
-                                access: access || 'default',
+                                access: aliasName || 'default',
                                 projectName: ''
                             },
                             command: command,
@@ -74,34 +90,34 @@ export default class CliManager {
                             }
                         }) || {};
 
-                        let outResult = yaml.safeDump(JSON.parse(JSON.stringify(result)));
+                        let outResult = yaml.dump(JSON.parse(JSON.stringify(result)));
 
                         logger.success(
                             Object.keys(result).length === 0
-                                ? i18n.__('End of method: {{method}}', {method: command})
+                                ? `End of method: ${command}`
                                 : outResult,
                         );
                     } catch (e) {
                         logger.error(`Failed to execute:\n
-  📝 Message: ${e.message}
+  ❌ Message: ${e.message}
   🧭 You can get help for this component by [s ${component} -h]
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
                         process.exit(-1);
                     }
                 } else {
                     logger.error(`Failed to execute:\n
-  📝 Message: Component ${component} does not include [${command}] method
+  ❌ Message: Component ${component} does not include [${command}] method
   🧭 You can get help for this component by [s ${component} -h]
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
                     process.exit(-1);
                 }
             }
-        }catch (e) {
+        } catch (e) {
             logger.error(`Failed to execute:\n
-  📝 Message: ${e.message}
+  ❌ Message: ${e.message}
   🧭 You can get more component on: https://github.com/Serverless-Devs/package-awesome
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
-                    process.exit(-1);
+            process.exit(-1);
         }
     }
 }
