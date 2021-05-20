@@ -7,7 +7,7 @@ import { handlerProfileFile } from './handler-set-config';
 
 function checkTemplateFormat(filePath: string, json = false) {
   const content = fs.readFileSync(filePath, 'utf8')
-  let fileObj = json ? JSON.parse(content) : yaml.safeLoad(content);
+  let fileObj = json ? JSON.parse(content) : yaml.load(content);
   for (const eveKey in fileObj) {
     if (fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties) {
       return true
