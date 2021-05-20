@@ -21,7 +21,7 @@ const getCredentialAliasList = () => {
   }
 
   try {
-    const result = yaml.safeLoad(fs.readFileSync(ACCESS_PATH, 'utf8'));
+    const result = yaml.load(fs.readFileSync(ACCESS_PATH, 'utf8'));
     return Object.keys(result);
   } catch (error) {
     return [];

@@ -77,7 +77,7 @@ export class CommandManager {
                         }
                     }
                 }
-                let outResult = yaml.safeDump(JSON.parse(JSON.stringify(outPutData)));
+                let outResult = yaml.dump(JSON.parse(JSON.stringify(outPutData)));
                 if (process.env['s-execute-file']) {
                     logger.error(`All projects were not deployed successfully.
   

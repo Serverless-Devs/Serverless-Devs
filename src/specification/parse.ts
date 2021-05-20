@@ -36,7 +36,7 @@ export class Parse {
         try {
             const extname = path.extname(filePath);
             if (extname.indexOf('.yaml') !== -1 || extname.indexOf('.yml') !== -1) {
-                fileObj = yaml.safeLoad(fs.readFileSync(filePath, 'utf8'));
+                fileObj = yaml.load(fs.readFileSync(filePath, 'utf8'));
             }
             if (extname.indexOf('.json') !== -1) {
                 fileObj = JSON.parse(fs.readFileSync(filePath).toString());

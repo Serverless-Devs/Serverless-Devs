@@ -90,7 +90,7 @@ export default class CliManager {
                             }
                         }) || {};
 
-                        let outResult = yaml.safeDump(JSON.parse(JSON.stringify(result)));
+                        let outResult = yaml.dump(JSON.parse(JSON.stringify(result)));
 
                         logger.success(
                             Object.keys(result).length === 0
