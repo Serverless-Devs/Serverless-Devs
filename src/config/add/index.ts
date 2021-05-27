@@ -19,7 +19,7 @@ const description = `You can add an account
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-🧭 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`
+🧭 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`;
 
 program
   .name('s config add')
@@ -31,7 +31,7 @@ program
   .option('--AccessKey [AccessKey]', 'AccessKey of key information')
   .option('--SecretKey [SecretKey]', 'SecretKey of key information')
   .option('--SecretID [SecretID]', 'SecretID of key information')
-  .option('--PrivateKeyData [PrivateKeyData]','PrivateKeyData of key information')
+  .option('--PrivateKeyData [PrivateKeyData]', 'PrivateKeyData of key information')
   .option('-kl , --keyList [keyList]', 'Keys of key information, like: -kl key1,key2,key3')
   .option('-il , --infoList [infoList]', 'Values of key information, like: -kl info1,info2,info3')
   .option('-a , --aliasName [name]', 'Key pair alias, if the alias is not set, use default instead')

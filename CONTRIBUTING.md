@@ -4,12 +4,20 @@ It is warmly welcomed if you have interest to hack on Serverless Devs. First, we
 
 ## Topics
 
-* [Reporting security issues](#reporting-security-issues)
-* [Reporting general issues](#reporting-general-issues)
-* [Code and doc contribution](#code-and-doc-contribution)
-* [Test case contribution](#test-case-contribution)
-* [Package contribution](#package-contribution)
-* [Engage to help anything](#engage-to-help-anything)
+- [Contributing to Serverless Devs](#contributing-to-serverless-devs)
+  - [Topics](#topics)
+  - [Reporting security issues](#reporting-security-issues)
+  - [Reporting general issues](#reporting-general-issues)
+  - [Code and doc contribution](#code-and-doc-contribution)
+    - [Workspace Preparation](#workspace-preparation)
+    - [Branch Definition](#branch-definition)
+    - [Commit Rules](#commit-rules)
+      - [Commit Message](#commit-message)
+      - [Commit Content](#commit-content)
+    - [PR Description](#pr-description)
+  - [Test case contribution](#test-case-contribution)
+  - [Package contribution](#package-contribution)
+  - [Engage to help anything](#engage-to-help-anything)
 
 
 
