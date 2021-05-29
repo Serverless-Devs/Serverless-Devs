@@ -13,7 +13,6 @@ import {loadComponent} from '@serverless-devs/core';
 const {getSubcommand, getServiceConfig} = version;
 
 export function createUniversalCommand(command: string, customerCommandName?: string, description?: string) {
-
     const _command = new Command(command);
     const processArgv: string[] = [];
     let params: string[] = [];
@@ -79,7 +78,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
         const customerCommand = new Command(projectName);
         const customerCommandDescription = `👉 This is a customer command please use [s ${projectName} -h]  obtain the documentation`
         customerCommand.description(customerCommandDescription);
-        const methodName = process.argv[3];
+        const methodName = process.argv[2] === projectName ? process.argv[3] : process.argv[2]
         if (methodName) {
             customerCommand.addCommand(createUniversalCommand(methodName, projectName));
         }

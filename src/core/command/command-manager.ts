@@ -31,7 +31,6 @@ export class CommandManager {
         projectConfig.ProjectName = projectName;
         if (this.deployParams) {
             projectConfig.params = this.deployParams;
-            projectConfig.Params = this.deployParams; // compatible with old specifications
         }
         return projectConfig;
     }
