@@ -88,6 +88,7 @@
         "preset": "ts-jest",
         "testMatch": [
             "**/test/**/*test.[jt]s"
-        ]
+        ],
+        "setupFilesAfterEnv":["./jest.setup.ts"]
     }
 }
