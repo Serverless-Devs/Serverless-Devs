@@ -1,17 +1,29 @@
+/** @format */
 
-export const providerArray: string[] = ['alibaba', 'baidu', 'huawei', 'aws', 'azure', 'google', 'tencent'];
+export type ProviderName = 'alibaba' | 'baidu' | 'huawei' | 'aws' | 'azure' | 'google' | 'tencent';
 
-export const providerObject: any = {
-  alibaba: 'Alibaba Cloud',
-  baidu: 'Baidu Cloud',
-  huawei: 'Huawei Cloud',
-  aws: 'AWS Cloud',
-  azure: 'Azure Cloud',
-  google: 'Google Cloud',
-  tencent: 'Tencent Cloud',
+export enum ProviderObject {
+  alibaba = 'Alibaba Cloud (alibaba)',
+  baidu = 'Baidu Cloud (baidu)',
+  huawei = 'Huawei Cloud (huawei)',
+  aws = 'AWS (aws)',
+  azure = 'Azure (azure)',
+  google = 'Google Cloud (google)',
+  tencent = 'Tencent Cloud (tencent)',
+}
+
+export const providerArray: ProviderName[] = ['alibaba', 'baidu', 'huawei', 'aws', 'azure', 'google', 'tencent'];
+
+export type ProviderCollectionConfig = {
+  [k in ProviderName]: {
+    type: string;
+    message: string;
+    name: string;
+    default: string;
+  }[];
 };
 
-export const providerCollection: any = {
+export const providerCollection: ProviderCollectionConfig = {
   alibaba: [
     {
       type: 'input',
@@ -140,35 +152,58 @@ export const providerCollection: any = {
   ],
 };
 
-export const providerAccessFormat: any = {
+export interface AccessFormat {
+  AccountID?: string;
+  AccessKeyID?: string;
+  AccessKeySecret?: string;
+  SecretAccessKey?: string;
+  KeyVaultName?: string;
+  TenantID?: string;
+  ClientID?: string;
+  ClientSecret?: string;
+  SecretID?: string;
+  PrivateKeyData?: string;
+}
+
+export const providerAccessFormat: {
+  [k in ProviderName]: (keyof AccessFormat)[];
+} = {
   alibaba: ['AccountID', 'AccessKeyID', 'AccessKeySecret'],
   aws: ['AccessKeyID', 'SecretAccessKey'],
   baidu: ['AccessKeyID', 'SecretAccessKey'],
   huawei: ['AccessKeyID', 'SecretAccessKey'],
   azure: ['KeyVaultName', 'TenantID', 'ClientID', 'ClientSecret'],
-  tencent: ['AccountID', 'SecretID', 'SecretKey'],
+  tencent: ['AccountID', 'SecretID'],
   google: ['PrivateKeyData'],
 };
 
-export const checkProviderList: any[] = [
+export const checkProviderList: {
+  type: string;
+  name: string;
+  message: string;
+  choices: {
+    name: ProviderObject;
+    value: ProviderName;
+  }[];
+}[] = [
   {
     type: 'list',
     name: 'provider',
     message: 'Please select a provider:',
     choices: [
-      { name: 'Alibaba Cloud (alibaba)', value: 'alibaba' },
-      { name: 'AWS (aws)', value: 'aws' },
-      { name: 'Azure (azure)', value: 'azure' },
-      { name: 'Baidu Cloud (baidu)', value: 'baidu' },
-      { name: 'Google Cloud (google)', value: 'google' },
-      { name: 'Huawei Cloud (huawei)', value: 'huawei' },
-      { name: 'Tencent Cloud (tencent)', value: 'tencent' },
+      { name: ProviderObject.alibaba, value: 'alibaba' },
+      { name: ProviderObject.aws, value: 'aws' },
+      { name: ProviderObject.azure, value: 'azure' },
+      { name: ProviderObject.baidu, value: 'baidu' },
+      { name: ProviderObject.google, value: 'google' },
+      { name: ProviderObject.huawei, value: 'huawei' },
+      { name: ProviderObject.tencent, value: 'tencent' },
     ],
   },
 ];
 
-export function getInputData(program: any) {
-  const inputSecretCheck: any = {};
+export function getInputData(program: AccessFormat): AccessFormat {
+  const inputSecretCheck: AccessFormat = {};
   if (program.AccountID) {
     inputSecretCheck.AccountID = program.AccountID;
   }
@@ -180,9 +215,6 @@ export function getInputData(program: any) {
   }
   if (program.SecretID) {
     inputSecretCheck.SecretID = program.SecretID;
-  }
-  if (program.SecretKey) {
-    inputSecretCheck.SecretKey = program.SecretKey;
   }
   if (program.SecretAccessKey) {
     inputSecretCheck.SecretAccessKey = program.SecretAccessKey;

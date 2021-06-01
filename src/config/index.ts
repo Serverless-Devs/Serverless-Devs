@@ -1,3 +1,5 @@
+/** @format */
+
 import program from 'commander';
 
 program
@@ -7,5 +9,8 @@ program
   .command('add', '➕ ' + 'Add an account')
   .command('get', '✔️  ' + 'Get accounts')
   .command('delete', '✖️  ' + 'Delete an account')
-  .description('You can configure provider accounts, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.')
-  .addHelpCommand(false).parse(process.argv);
+  .description(
+    'You can configure provider accounts, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.',
+  )
+  .addHelpCommand(false)
+  .parse(process.argv);

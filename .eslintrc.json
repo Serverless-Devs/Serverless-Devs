@@ -54,12 +54,6 @@
     "no-shadow-restricted-names": 2,
     "no-undef-init": 2,
     "no-use-before-define": 0,
-    "no-unused-vars": [
-      2,
-      {
-        "args": "none"
-      }
-    ],
     "no-undef": 2,
     "callback-return": [
       1,
@@ -76,7 +70,7 @@
     "block-spacing": 2,
     "keyword-spacing": 2,
     "space-before-blocks": 2,
-    "no-process-exit": 1,
+    "no-process-exit": "off",
     "comma-spacing": 2,
     "key-spacing": 2,
     "comma-dangle": 0,
@@ -90,7 +84,12 @@
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-this-alias": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      {
+        "args": "none"
+      }
+    ]
   },
   "env": {
     "es6": true,
