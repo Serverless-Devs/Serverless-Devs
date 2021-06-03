@@ -53,7 +53,7 @@ export class InitManager {
             this.promps['access'] = {
               type: 'confirm',
               name: 'access',
-              message: 'create credentia?',
+              message: 'create credential?',
               default: true,
             };
           }
@@ -89,9 +89,9 @@ export class InitManager {
 
   }
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
-    const { projectName } = await inquirer.prompt(PROJECT_NAME_INPUT);
+    const projectName = dir || (await inquirer.prompt(PROJECT_NAME_INPUT)).projectName || "./"
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
-    let appPath = await loadApplication({ registry, target: dir, source: name, name: projectName });
+    let appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
       await this.initSconfig(appPath);
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content

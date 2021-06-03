@@ -85,6 +85,6 @@ export const PROJECT_NAME_INPUT = [
     {
         type: 'input',
         name: 'projectName',
-        message: 'Please input your project name',
+        message: 'Please input your project name (init dir)',
     }
 ]
