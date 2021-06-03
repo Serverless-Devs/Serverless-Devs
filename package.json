@@ -1,6 +1,6 @@
 {
     "name": "@serverless-devs/s",
-    "version": "2.0.36",
+    "version": "2.0.37",
     "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
     "homepage": "https://www.serverless-devs.com",
     "keywords": [
@@ -89,6 +89,8 @@
         "testMatch": [
             "**/test/**/*test.[jt]s"
         ],
-        "setupFilesAfterEnv":["./jest.setup.ts"]
+        "setupFilesAfterEnv": [
+            "./jest.setup.ts"
+        ]
     }
 }
