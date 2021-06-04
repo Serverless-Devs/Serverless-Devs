@@ -30,12 +30,11 @@ describe('init cli', () => {
         props: undefined,
       };
       const cli = new CliManager(input);
-      // TODO通过 return 去匹配当前的object
       const result = await cli.init();
-      expect(result).toHaveProperty('props')
-      expect(result).toHaveProperty('credentials');
-      expect(result).toHaveProperty('project');
-      expect(result).toHaveProperty('appName');
+      expect(result).toHaveProperty('props'); // 判断输入到组件的参数是否包含props
+      expect(result).toHaveProperty('credentials'); // 判断输入到组件的参数是否包含credentials
+      expect(result).toHaveProperty('project'); // 判断输入到组件的参数是否包含project
+      expect(result).toHaveProperty('appName'); // 判断输入到组件的参数是否包含appName
     } catch (e) {
       expect(e).toMatch('error');
     }
@@ -49,11 +48,10 @@ describe('init cli', () => {
         props: '{"hello":"serverless devs"}',
       };
       const cli = new CliManager(input);
-      // TODO通过 return 去匹配当前的object
       const result = await cli.init();
       expect(result).toHaveProperty('props')
       expect(result.props).toHaveProperty('hello');
-      expect(result.props).toMatchObject({hello:'serverless devs'});
+      expect(result.props).toMatchObject({ hello: 'serverless devs' }); // 判断经过入参转换后是否为对象
     } catch (e) {
       expect(e).toMatch('error');
     }
