@@ -45,8 +45,28 @@ export default class CliManager {
                     }
                 }
                 if (command === "cli-help-options") {
-                    const docResult = componentInstance.__doc();
-                    logger.info(`\n${docResult}`);
+                    if (componentInstance.__doc) {
+                        const docResult = componentInstance.__doc();
+                        logger.info(`\n${docResult}`);
+                    } else {
+                        try {
+                            let componentPathYaml = path.join(componentInstance.__path, "publish.yml")
+                            if(!await fs.existsSync(componentPathYaml)){
+                                componentPathYaml = path.join(componentInstance.__path, "publish.yaml")
+                            }
+                            const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'))
+                            logger.info(`Help Information: 
+                    
+${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}
+
+${yaml.dump(publishYamlInfor['Commands'])}
+${publishYamlInfor['HomePage'] ? "🧭  More information: " + publishYamlInfor['HomePage'] + "\n" : ""}`);
+                        }catch (e) {
+                            logger.info('No document set');
+                        }
+                    }
+                    // const docResult = componentInstance.__doc();
+                    // logger.info(`\n${docResult}`);
                     return;
                 }
                 if (componentInstance[command]) {
