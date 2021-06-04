@@ -75,6 +75,10 @@
                 <img src="https://avatars.githubusercontent.com/u/48934955?v=4" width="20%" style="min-width: 100px"><br>
                 <p>Ellison<br><a href="https://github.com/coco-super"> Github</a> | Blog</p>
             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/23737468?v=4" width="20%" style="min-width: 100px"><br>
+                <p>黄沐<br><a href="https://github.com/huangfushan"> Github</a> | Blog</p>
+            </td>
         </tr>
     </table>
 </center>
