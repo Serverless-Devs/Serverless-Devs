@@ -1,11 +1,11 @@
-import {getCredential, loadComponent} from '@serverless-devs/core';
-import {logger} from '../utils';
+import { getCredential, loadComponent } from '@serverless-devs/core';
+import { logger } from '../utils';
 import yaml from "js-yaml";
 import path from "path";
 import os from "os";
 import fs from "fs";
 
-interface CliParams {
+export interface CliParams {
     component: string;
     command: string;
     aliasName: string;
@@ -19,10 +19,10 @@ export default class CliManager {
         this.inputs = inputs
     }
 
-    async init() {
+    async init(): Promise<any> {
+        let result = '';
         try {
-            let {component, command, aliasName, props} = this.inputs;
-
+            let { component, command, aliasName, props } = this.inputs;
             // 获取密钥信息
             let credentials = {}
             try {
@@ -35,7 +35,7 @@ export default class CliManager {
                 credentials = {}
             }
 
-            const componentInstance = await loadComponent(component, null, {aliasName})
+            const componentInstance = await loadComponent(component, null, { aliasName })
             if (componentInstance) {
                 if (!command) {
                     if (componentInstance['index']) {
@@ -51,7 +51,7 @@ export default class CliManager {
                     } else {
                         try {
                             let componentPathYaml = path.join(componentInstance.__path, "publish.yml")
-                            if(!await fs.existsSync(componentPathYaml)){
+                            if (!await fs.existsSync(componentPathYaml)) {
                                 componentPathYaml = path.join(componentInstance.__path, "publish.yaml")
                             }
                             const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'))
@@ -61,13 +61,11 @@ ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['
 
 ${yaml.dump(publishYamlInfor['Commands'])}
 ${publishYamlInfor['HomePage'] ? "🧭  More information: " + publishYamlInfor['HomePage'] + "\n" : ""}`);
-                        }catch (e) {
+                        } catch (e) {
                             logger.info('No document set');
                         }
                     }
-                    // const docResult = componentInstance.__doc();
-                    // logger.info(`\n${docResult}`);
-                    return;
+                    return 'help';
                 }
                 if (componentInstance[command]) {
                     let tempProp = {}
@@ -77,7 +75,7 @@ ${publishYamlInfor['HomePage'] ? "🧭  More information: " + publishYamlInfor['
                         throw new Error("-p/--prop parameter format error")
                     }
                     try {
-                        const result = await componentInstance[command]({
+                        result = await componentInstance[command]({
                             props: tempProp,
                             Properties: tempProp,
                             Credentials: credentials,
@@ -117,6 +115,7 @@ ${publishYamlInfor['HomePage'] ? "🧭  More information: " + publishYamlInfor['
                                 ? `End of method: ${command}`
                                 : outResult,
                         );
+
                     } catch (e) {
                         logger.error(`Failed to execute:\n
   ❌ Message: ${e.message}
@@ -139,5 +138,6 @@ ${publishYamlInfor['HomePage'] ? "🧭  More information: " + publishYamlInfor['
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`)
             process.exit(-1);
         }
+        return result;
     }
 }
