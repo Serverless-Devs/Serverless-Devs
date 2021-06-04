@@ -1,4 +1,4 @@
-# Serverless Devs 帮助文档
+# Serverless Devs help documentation
 
 <div align=center> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
 
@@ -14,10 +14,11 @@
 
 
 <p align="center">
-  <span>像使用手机一样使用Serverless</span><br>
+  <span>Use Serverless like a mobile phone</span><br>
+    <span> <a href="./readme_zh.md">中文文档</a> ｜English </span>
 </p>
 
-## 项目简介
+## Project introduction
 
 ```text
   _________                               .__                         ________                     
@@ -28,44 +29,43 @@
         \/     \/                 \/                \/     \/     \/          \/     \/         \/ 
 ```
 
-Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
+Serverless Devs is an open source serverless platform that provides a robust set of tools for developers. Developers can use Serverless Devs to experience serverless products on multiple clouds and deploy serverless projects.
 
 
 
-### 可支持主流 Serverless 服务/框架
+### Support for mainstream serverless services and frameworks
 
-Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，在该平台中，每个使用者都可以可插拔式的使用不同 Serverless 的服务和框架，同时每个使用者都可以参与开发组件和插件。在 Serverless Devs 中无论是工业级的 Serverless 服务，还是各类开源的 Serverless 框架，都可以得到非常友好的支持。开发者无需对市面上每一款 Serverless 工具进行研究和学习，只需通过 Serverless Devs ，就可以简单、快捷的“上手”主流 Serverless 服务和框架；
+Serverless Devs is a developer platform where components and plug-ins are provided. Serverless Devs allows each user to use the services and frameworks of serverless projects in a pluggable manner and participate in the development of components and plug-ins. Serverless Devs provides friendly support for both industry-grade serverless services and open source serverless frameworks. Developers can quickly get started with mainstream serverless services and frameworks without the need to learn all serverless tools.
 
-### 灵活与开放的使用方法
+### Flexible and open
 
-与绝大部分的开发者工具不同的是，Serverless Devs 在进行项目描述时不仅仅可以对函数计算、API 网关、对象存储等资源进行描述，也可以通过 Serverless Devs 提供的插件以及 Hook 进行Install, Build, Publish等行为描述。与此同时 Serverless Devs 不会对每个组件的命令进行限制，而是鼓励开发者针对不同的组件，开发不同的能力来应对更多、更复杂的场景，例如阿里云函数计算组件，不仅仅支持函数的部署和移除这样的传统能力，还支持日志查询，指标查询，本地构建，依赖安装，调试等更多定制化的能力。Serverless Devs 的这种灵活与开放的使用方法，可以在自动化部署、运维等领域发挥非常大的作用，将Serverless Devs与项目全生命周期进行有机融合，可使得 Serverless 项目的开发运维效能提升 90%。
+Serverless Devs can describe resources in Alibaba Cloud services such as Function Compute, API Gateway, and Object Storage Service. It can also describe actions such as install, build, and publish by using the plug-ins and hooks provided by Serverless Devs. Serverless Devs does not restrict component commands. Developers are encouraged to develop more capabilities for different components to deal with more complicated scenarios. For example, Alibaba Cloud Function Compute components support conventional capabilities such as function deployment and removal, as well as customized capabilities such as log querying, metric querying, local building, dependency installation, and debugging. Such a flexible and open platform is especially useful for automated deployment and operations and maintenance (O&M). You can improve the O&M efficiency of your serverless projects by 90% if you integrate Serverless Devs into the full lifecycle of your projects.
 
 
-## 帮助文档
+## Help documentation
 
-- [安装文档](https://github.com/Serverless-Devs/docs/blob/master/zh/install.md)
-- [命令行指令文档](https://github.com/Serverless-Devs/docs/blob/master/zh/command.md)
-- [Yaml规范文档](https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md)
-- [Package开发者文档](https://github.com/Serverless-Devs/docs/blob/master/zh/dev.md)
-- [源文档](https://github.com/Serverless-Devs/docs/blob/master/zh/registry.md)
+- [Installation](https://github.com/Serverless-Devs/docs/blob/master/en/install.md)
+- [Command Instruction](https://github.com/Serverless-Devs/docs/blob/master/en/command.md)
+- [Yaml Specification](https://github.com/Serverless-Devs/docs/blob/master/en/yaml.md)
+- [Package Dev](https://github.com/Serverless-Devs/docs/blob/master/en/dev.md)
+- [Registry](https://github.com/Serverless-Devs/docs/blob/master/en/registry.md)
 
-## 相关资源
+## References
 
-https://github.com/Serverless-Devs/package-awesome
+[https://github.com/Serverless-Devs/package-awesome](https://github.com/Serverless-Devs/package-awesome)
 
-## 快速体验
+## Get started
 
-### 零基础部署一个博客系统
+### Steps to deploy a blog system for beginners
 
-- 下载命令行工具：npm install -g @serverless-devs/s
-- 初始化一个模版项目：s init devsapp/start-zblog
-- 进入项目后部署项目：cd start-zblog && s deploy
+- Download the command-line tool: `npm install -g @serverless-devs/s`
+- Initialize a template project: `s init devsapp/start-zblog`
+- Deploy the project: `cd start-zblog && s deploy`
 
-### 零基础部署一个企业官网
+### Steps to build an enterprise website for beginners
 
-- 下载命令行工具：npm install -g @serverless-devs/s
-- 初始化一个模版项目：s init devsapp/start-metinfo
-- 进入项目后部署项目：cd start-metinfo && s deploy
+- Download the command-line tool: `npm install -g @serverless-devs/s`
+- Initialize a template project: `s init devsapp/start-metinfo`
+- Deploy the project: `cd start-metinfo && s deploy`
 
-更多案例： `s init`
-
+For more examples, enter `s init`.
