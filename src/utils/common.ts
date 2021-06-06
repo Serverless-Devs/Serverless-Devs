@@ -14,10 +14,20 @@ function checkTemplateFormat(filePath: string, json = false) {
       return true;
     }
   }
+  // 新版本规范
+  const tempServices = fileObj.services || {};
+  for (const eveKey in tempServices) {
+    if (tempServices[eveKey].component && tempServices[eveKey].props) {
+      return true;
+    }
+  }
   return false;
 }
 
 export function checkAndReturnTemplateFile() {
+  if (process.env['serverless_devs_temp_template']) {
+    return process.env['serverless_devs_temp_template'];
+  }
   const currentDir = process.cwd();
   const index = process.argv.indexOf('-t') || process.argv.indexOf('--template');
   if (index !== -1) {
@@ -31,30 +41,38 @@ export function checkAndReturnTemplateFile() {
           checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)
         ) {
           process.argv.splice(index, 2);
+          process.env['serverless_devs_temp_template'] = path.join(currentDir, tempFileName);
           return path.join(currentDir, tempFileName);
         } else if (fs.existsSync(tempFileName) && checkTemplateFormat(tempFileName, jsonType)) {
           process.argv.splice(index, 2);
+          process.env['serverless_devs_temp_template'] = tempFileName;
           return tempFileName;
         }
       }
     }
   }
   if (fs.existsSync(path.join(currentDir, 's.yaml'))) {
+    process.env['serverless_devs_temp_template'] = process.env['serverless_devs_temp_template'];
     return path.join(currentDir, 's.yaml');
   }
   if (fs.existsSync(path.join(currentDir, 's.yml'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.yml');
     return path.join(currentDir, 's.yml');
   }
   if (fs.existsSync(path.join(currentDir, 's.json'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.json');
     return path.join(currentDir, 's.json');
   }
   if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.yaml');
     return path.join(currentDir, 'template.yaml');
   }
   if (fs.existsSync(path.join(currentDir, 'template.yml'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.yml');
     return path.join(currentDir, 'template.yml');
   }
   if (fs.existsSync(path.join(currentDir, 'template.json'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.json');
     return path.join(currentDir, 'template.json');
   }
   return null;

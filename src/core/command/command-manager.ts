@@ -53,7 +53,9 @@ export class CommandManager {
               outPutData[projectConfig.ProjectName] = tempResult;
             }
           } catch (e) {
-            const errorMessage = e.message.includes('componentInstance[method] is not a function') ? `Project ${projectConfig.ProjectName} does not include [${this.method}] method` : e.message;
+            const errorMessage = e.message.includes('componentInstance[method] is not a function')
+              ? `Project ${projectConfig.ProjectName} does not include [${this.method}] method`
+              : e.message;
             throw new Error(`Project ${projectConfig.ProjectName} failed to execute:
   
   📝 Message:  ${errorMessage}
@@ -65,10 +67,14 @@ export class CommandManager {
           const realVariables = await parse.getRealVariables(parsedObj); // Get the original conversion data
           const analysis = new Analysis(realVariables, parse.dependenciesMap);
           const executeOrderList = analysis.getProjectOrder();
-          logger.info(`It is detected that your project has the following projects < ${executeOrderList.join(',')} > to be execute`);
+          logger.info(
+            `It is detected that your project has the following projects < ${executeOrderList.join(
+              ',',
+            )} > to be execute`,
           );
+
           const componentList = generateSynchronizeComponentExeList(
-            {list: executeOrderList, parse, parsedObj, method: this.method, params},
+            { list: executeOrderList, parse, parsedObj, method: this.method, params },
             this.assemblyProjectConfig.bind(this),
           );
           const tempResult = await synchronizeExecuteComponentList(componentList);
@@ -88,11 +94,7 @@ export class CommandManager {
 `);
           process.exit(-1);
         } else {
-          logger.success(
-            Object.keys(outPutData).length === 0
-              ? `End of method: ${this.method}`
-              : outResult,
-          );
+          logger.success(Object.keys(outPutData).length === 0 ? `End of method: ${this.method}` : outResult);
         }
       } else {
         logger.error(`Failed to execute:\n

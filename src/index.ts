@@ -45,7 +45,7 @@ async function setExecCommand() {
 }
 
 async function globalParameterProcessing() {
-  const tempGlobal = ['skip-extends', 'verbose'];
+  const tempGlobal = ['skip-action', 'debug'];
   for (let i = 0; i < tempGlobal.length; i++) {
     process.env[tempGlobal[i]] = 'false';
     if (process.argv.includes('--' + tempGlobal[i])) {
@@ -90,9 +90,9 @@ Quick start:
     .command('init', '💞 ' + 'Initializing a project.')
     .command('cli', '🐚 Command line operation through yaml free mode.')
     .command('set', '🔧 Settings for the tool.')
-    .option('-t, --template', 'Specify the name of the template, which is s.yaml by default')
-    .option('--debug', 'Debug model')
+    .option('-t, --template', 'Specify the template file')
     .option('--skip-actions', 'Skip the extends section')
+    .option('--debug', 'Debug model')
     .version('', '-v, --version', 'Output the version number')
     .addHelpCommand(false);
 

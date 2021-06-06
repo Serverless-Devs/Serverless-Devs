@@ -9,24 +9,24 @@ const { setConfig } = configSet;
 const CUSTOMER_KEY = 'custom';
 const registryList = [
   {
-  key: 'https://api.github.com/repos',
-  name: 'open source registry [Github source]',
-  value: 'https://api.github.com/repos',
+    key: 'https://api.github.com/repos',
+    name: 'open source registry [Github source]',
+    value: 'https://api.github.com/repos',
   },
   {
-  key: 'http://gitee.registry.devsapp.cn/simple',
-  name: 'open source registry [Gitee source] ',
-  value: 'http://gitee.registry.devsapp.cn/simple',
+    key: 'http://gitee.registry.devsapp.cn/simple',
+    name: 'open source registry [Gitee source] ',
+    value: 'http://gitee.registry.devsapp.cn/simple',
   },
   {
-  key: 'http://registry.devsapp.cn/simple',
-  name: 'serverless devs offical registry [http://registry.devsapp.cn/simple]',
-  value: 'http://registry.devsapp.cn/simple',
+    key: 'http://registry.devsapp.cn/simple',
+    name: 'serverless devs offical registry [http://registry.devsapp.cn/simple]',
+    value: 'http://registry.devsapp.cn/simple',
   },
   {
-  key: CUSTOMER_KEY,
-  name: 'custom registry',
-  value: CUSTOMER_KEY,
+    key: CUSTOMER_KEY,
+    name: 'custom registry',
+    value: CUSTOMER_KEY,
   },
 ];
 
@@ -35,26 +35,32 @@ export const registryInquire = [
     type: 'list',
     name: 'registry',
     message: 'Choose a registry?',
-    choices: registryList
-  }];
+    choices: registryList,
+  },
+];
 program
   .name('s set registry')
   .usage('[options] [name]')
   .helpOption('-h, --help', 'Display help for command')
-  .description(`You can set your registry.
+  .description(
+    `You can set your registry.
 
      Example:
         $ s set registry <url>`,
-  .addHelpCommand(false).parse(process.argv);
+  )
+  .addHelpCommand(false)
+  .parse(process.argv);
 (async () => {
   if (program.args.length === 0) {
     let answers = await inquirer.prompt(registryInquire);
     if (answers.registry === CUSTOMER_KEY) {
-      answers = await inquirer.prompt([{
-        type: 'input',
+      answers = await inquirer.prompt([
+        {
+          type: 'input',
           name: 'registry',
           message: 'Please input your customer registry?',
-      }]);
+        },
+      ]);
     }
     let registry = answers.registry;
     setConfig('registry', registry);

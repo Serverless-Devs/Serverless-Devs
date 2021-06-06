@@ -23,7 +23,7 @@ export default class CliManager {
 
   async init() {
     try {
-      let {component, command, aliasName, props} = this.inputs;
+      let { component, command, aliasName, props } = this.inputs;
 
       // 获取密钥信息
       let credentials = {};
@@ -37,7 +37,7 @@ export default class CliManager {
         credentials = {};
       }
 
-      const componentInstance = await loadComponent(component, null, {aliasName});
+      const componentInstance = await loadComponent(component, null, { aliasName });
       if (componentInstance) {
         if (!command) {
           if (componentInstance['index']) {
@@ -53,7 +53,7 @@ export default class CliManager {
           } else {
             try {
               let componentPathYaml = path.join(componentInstance.__path, 'publish.yml');
-              if (!await fs.existsSync(componentPathYaml)) {
+              if (!(await fs.existsSync(componentPathYaml))) {
                 componentPathYaml = path.join(componentInstance.__path, 'publish.yaml');
               }
               const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'));
@@ -79,46 +79,43 @@ ${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['
             throw new Error('-p/--prop parameter format error');
           }
           try {
-            const result = await componentInstance[command]({
-              props: tempProp,
-              Properties: tempProp,
-              Credentials: credentials,
-              credentials: credentials,
-              appName: 'default',
-              Project: {
-                ProjectName: 'default',
-                projectName: 'default',
-                component: component,
-                Component: component,
-                provider: undefined,
-                Provider: undefined,
-                accessAlias: aliasName || 'default',
-                AccessAlias: aliasName || 'default',
-              },
-              project: {
-                component: '',
-                access: aliasName || 'default',
-                projectName: '',
-              },
-              command: command,
-              Command: command,
-              args: process.env.temp_params,
-              Args: process.env.temp_params,
-              path: {
-                configPath: '',
-              },
-              Path: {
-                ConfigPath: '',
-              },
-            })) || {};
+            const result =
+              (await componentInstance[command]({
+                props: tempProp,
+                Properties: tempProp,
+                Credentials: credentials,
+                credentials: credentials,
+                appName: 'default',
+                Project: {
+                  ProjectName: 'default',
+                  projectName: 'default',
+                  component: component,
+                  Component: component,
+                  provider: undefined,
+                  Provider: undefined,
+                  accessAlias: aliasName || 'default',
+                  AccessAlias: aliasName || 'default',
+                },
+                project: {
+                  component: '',
+                  access: aliasName || 'default',
+                  projectName: '',
+                },
+                command: command,
+                Command: command,
+                args: process.env.temp_params,
+                Args: process.env.temp_params,
+                path: {
+                  configPath: '',
+                },
+                Path: {
+                  ConfigPath: '',
+                },
+              })) || {};
 
             let outResult = yaml.dump(JSON.parse(JSON.stringify(result)));
 
-            logger.success(
-              Object.keys(result).length === 0
-                ? `End of method: ${command}`
-                : outResult,
-            );
+            logger.success(Object.keys(result).length === 0 ? `End of method: ${command}` : outResult);
           } catch (e) {
             logger.error(`Failed to execute:\n
   ❌ Message: ${e.message}
