@@ -7,7 +7,7 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 
-interface CliParams {
+export interface CliParams {
   component: string;
   command: string;
   aliasName: string;
@@ -21,10 +21,10 @@ export default class CliManager {
     this.inputs = inputs;
   }
 
-  async init() {
+  async init(): Promise<any> {
+    let result = '';
     try {
       let { component, command, aliasName, props } = this.inputs;
-
       // 获取密钥信息
       let credentials = {};
       try {
@@ -60,16 +60,13 @@ export default class CliManager {
               logger.info(`Help Information: 
                     
 ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}
-
 ${yaml.dump(publishYamlInfor['Commands'])}
 ${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['HomePage'] + '\n' : ''}`);
             } catch (e) {
               logger.info('No document set');
             }
           }
-          // const docResult = componentInstance.__doc();
-          // logger.info(`\n${docResult}`);
-          return;
+          return 'help';
         }
         if (componentInstance[command]) {
           let tempProp = {};
@@ -79,7 +76,7 @@ ${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['
             throw new Error('-p/--prop parameter format error');
           }
           try {
-            const result =
+            result =
               (await componentInstance[command]({
                 props: tempProp,
                 Properties: tempProp,
@@ -138,5 +135,6 @@ ${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
       process.exit(-1);
     }
+    return result;
   }
 }
