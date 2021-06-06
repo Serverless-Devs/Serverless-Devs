@@ -1,3 +1,4 @@
+/** @format */
 
 import { ServerlessError } from './serverless-error';
 

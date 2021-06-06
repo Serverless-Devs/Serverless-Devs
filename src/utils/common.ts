@@ -1,3 +1,4 @@
+/** @format */
 
 import path from 'path';
 import fs from 'fs';
@@ -6,14 +7,14 @@ import _ from 'lodash';
 import { handlerProfileFile } from './handler-set-config';
 
 function checkTemplateFormat(filePath: string, json = false) {
-  const content = fs.readFileSync(filePath, 'utf8')
+  const content = fs.readFileSync(filePath, 'utf8');
   let fileObj = json ? JSON.parse(content) : yaml.load(content);
   for (const eveKey in fileObj) {
     if (fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties) {
-      return true
+      return true;
     }
   }
-  return false
+  return false;
 }
 
 export function checkAndReturnTemplateFile() {
@@ -24,8 +25,11 @@ export function checkAndReturnTemplateFile() {
     const tempFileName = process.argv[tempFileIndex];
     if (tempFileName) {
       if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml') || tempFileName.endsWith('.json')) {
-        const jsonType = tempFileName.endsWith('.json') ? true : false
-        if (fs.existsSync(path.join(currentDir, tempFileName)) && checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)) {
+        const jsonType = tempFileName.endsWith('.json') ? true : false;
+        if (
+          fs.existsSync(path.join(currentDir, tempFileName)) &&
+          checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)
+        ) {
           process.argv.splice(index, 2);
           return path.join(currentDir, tempFileName);
         } else if (fs.existsSync(tempFileName) && checkTemplateFormat(tempFileName, jsonType)) {
@@ -100,14 +104,16 @@ export function getTemplatekey(str) {
   if (!arr) {
     return [];
   }
-  return arr.filter(result => result).map((matchValue) => {
-    let keyContent = matchValue.replace(/{{|}}/g, '');
-    let realKey = keyContent.split('|');
-    return {
-      name: _.trim(realKey[0]),
-      desc: realKey[1] || ''
-    }
-  })
+  return arr
+    .filter(result => result)
+    .map(matchValue => {
+      let keyContent = matchValue.replace(/{{|}}/g, '');
+      let realKey = keyContent.split('|');
+      return {
+        name: _.trim(realKey[0]),
+        desc: realKey[1] || '',
+      };
+    });
 }
 
 export function replaceTemplate(files: Array<string>, content: { [key: string]: string }) {
@@ -121,7 +127,9 @@ export function replaceTemplate(files: Array<string>, content: { [key: string]: 
 }
 
 export function mark(source: string): string {
-  if (!source) { return source; }
+  if (!source) {
+    return source;
+  }
   const subStr = source.slice(-4);
   return `***********${subStr}`;
 }
@@ -134,5 +142,5 @@ export default {
   getLang,
   replaceTemplate,
   replaceFun,
-  getTemplatekey
-}
+  getTemplatekey,
+};

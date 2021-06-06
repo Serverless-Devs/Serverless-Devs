@@ -1,3 +1,5 @@
+/** @format */
+
 import { ServerlessError } from './serverless-error';
 
 export class ConfigDeleteError extends ServerlessError {

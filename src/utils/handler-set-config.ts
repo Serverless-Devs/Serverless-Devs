@@ -1,3 +1,5 @@
+/** @format */
+
 import os from 'os';
 import fs from 'fs-extra';
 import path from 'path';
@@ -25,7 +27,7 @@ function getProfileFile(): Profile {
     return {};
   }
   try {
-    const profileResult = yaml.load(fs.readFileSync(profileFilePath, 'utf8')) as Profile || {};
+    const profileResult = (yaml.load(fs.readFileSync(profileFilePath, 'utf8')) as Profile) || {};
     return profileResult;
   } catch (e) {
     throw e;
@@ -35,7 +37,7 @@ function getProfileFile(): Profile {
 function getDefaultProfilePath(): string {
   const file = path.join(storage.getHomeDir(), 'set-config.yml');
   if (!fs.existsSync(file)) {
-      fs.createFileSync(file);
+    fs.createFileSync(file);
   }
   return file;
 }
@@ -66,7 +68,7 @@ export async function handlerProfileFile(params: ProfileParams) {
     }
   } else {
     try {
-      profile = yaml.load(fs.readFileSync(profPath, 'utf8')) as Profile || {};
+      profile = (yaml.load(fs.readFileSync(profPath, 'utf8')) as Profile) || {};
     } catch (e) {
       throw e;
     }
@@ -87,5 +89,5 @@ export async function handlerProfileFile(params: ProfileParams) {
 export default {
   setConfig,
   getConfig,
-  handlerProfileFile
-}
+  handlerProfileFile,
+};
