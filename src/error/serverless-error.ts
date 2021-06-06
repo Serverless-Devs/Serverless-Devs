@@ -1,3 +1,5 @@
+/** @format */
+
 import { HLogger, ILogger } from '@serverless-devs/core';
 
 export class ServerlessError {

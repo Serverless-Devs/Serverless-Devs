@@ -1,3 +1,4 @@
+/** @format */
 
 import path from 'path';
 import fs from 'fs';
@@ -6,17 +7,27 @@ import _ from 'lodash';
 import { handlerProfileFile } from './handler-set-config';
 
 function checkTemplateFormat(filePath: string, json = false) {
-  const content = fs.readFileSync(filePath, 'utf8')
+  const content = fs.readFileSync(filePath, 'utf8');
   let fileObj = json ? JSON.parse(content) : yaml.load(content);
   for (const eveKey in fileObj) {
     if (fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties) {
-      return true
+      return true;
     }
   }
-  return false
+  // 新版本规范
+  const tempServices = fileObj.services || {};
+  for (const eveKey in tempServices) {
+    if (tempServices[eveKey].component && tempServices[eveKey].props) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export function checkAndReturnTemplateFile() {
+  if (process.env['serverless_devs_temp_template']) {
+    return process.env['serverless_devs_temp_template'];
+  }
   const currentDir = process.cwd();
   const index = process.argv.indexOf('-t') || process.argv.indexOf('--template');
   if (index !== -1) {
@@ -24,33 +35,44 @@ export function checkAndReturnTemplateFile() {
     const tempFileName = process.argv[tempFileIndex];
     if (tempFileName) {
       if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml') || tempFileName.endsWith('.json')) {
-        const jsonType = tempFileName.endsWith('.json') ? true : false
-        if (fs.existsSync(path.join(currentDir, tempFileName)) && checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)) {
+        const jsonType = tempFileName.endsWith('.json') ? true : false;
+        if (
+          fs.existsSync(path.join(currentDir, tempFileName)) &&
+          checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)
+        ) {
           process.argv.splice(index, 2);
+          process.env['serverless_devs_temp_template'] = path.join(currentDir, tempFileName);
           return path.join(currentDir, tempFileName);
         } else if (fs.existsSync(tempFileName) && checkTemplateFormat(tempFileName, jsonType)) {
           process.argv.splice(index, 2);
+          process.env['serverless_devs_temp_template'] = tempFileName;
           return tempFileName;
         }
       }
     }
   }
   if (fs.existsSync(path.join(currentDir, 's.yaml'))) {
+    process.env['serverless_devs_temp_template'] = process.env['serverless_devs_temp_template'];
     return path.join(currentDir, 's.yaml');
   }
   if (fs.existsSync(path.join(currentDir, 's.yml'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.yml');
     return path.join(currentDir, 's.yml');
   }
   if (fs.existsSync(path.join(currentDir, 's.json'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.json');
     return path.join(currentDir, 's.json');
   }
   if (fs.existsSync(path.join(currentDir, 'template.yaml'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.yaml');
     return path.join(currentDir, 'template.yaml');
   }
   if (fs.existsSync(path.join(currentDir, 'template.yml'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.yml');
     return path.join(currentDir, 'template.yml');
   }
   if (fs.existsSync(path.join(currentDir, 'template.json'))) {
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.json');
     return path.join(currentDir, 'template.json');
   }
   return null;
@@ -100,14 +122,16 @@ export function getTemplatekey(str) {
   if (!arr) {
     return [];
   }
-  return arr.filter(result => result).map((matchValue) => {
-    let keyContent = matchValue.replace(/{{|}}/g, '');
-    let realKey = keyContent.split('|');
-    return {
-      name: _.trim(realKey[0]),
-      desc: realKey[1] || ''
-    }
-  })
+  return arr
+    .filter(result => result)
+    .map(matchValue => {
+      let keyContent = matchValue.replace(/{{|}}/g, '');
+      let realKey = keyContent.split('|');
+      return {
+        name: _.trim(realKey[0]),
+        desc: realKey[1] || '',
+      };
+    });
 }
 
 export function replaceTemplate(files: Array<string>, content: { [key: string]: string }) {
@@ -121,7 +145,9 @@ export function replaceTemplate(files: Array<string>, content: { [key: string]: 
 }
 
 export function mark(source: string): string {
-  if (!source) { return source; }
+  if (!source) {
+    return source;
+  }
   const subStr = source.slice(-4);
   return `***********${subStr}`;
 }
@@ -134,5 +160,5 @@ export default {
   getLang,
   replaceTemplate,
   replaceFun,
-  getTemplatekey
-}
+  getTemplatekey,
+};

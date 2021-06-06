@@ -20,9 +20,7 @@ export function getHistoryFile(): string {
   return file;
 }
 
-
-
 export default {
   getHomeDir,
   getHistoryFile,
-}
+};
