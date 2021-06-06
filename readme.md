@@ -52,7 +52,7 @@ Serverless Devs can describe resources in Alibaba Cloud services such as Functio
 
 ## References
 
-[https://github.com/Serverless-Devs/package-awesome](https://github.com/Serverless-Devs/package-awesome)
+[[Component / Application Awesome]](https://github.com/Serverless-Devs/package-awesome)
 
 ## Get started
 
