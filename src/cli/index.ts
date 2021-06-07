@@ -15,8 +15,8 @@ const description = `Directly use serverless devs to use components, develop and
 const cliCommand = program
   .name('s cli')
   .usage('s cli [component] [method] [options]')
-  .option('-a, --access [name]', 'Specify the access alias name')
-  .option('-p, --props [json-string]', 'The json string of props')
+  .option('-a, --access [aliasName]', 'Specify the access alias name')
+  .option('-p, --props [jsonString]', 'The json string of props')
   .helpOption('-h, --help', 'Display help for command')
   .description(description)
   .addHelpCommand(false);
