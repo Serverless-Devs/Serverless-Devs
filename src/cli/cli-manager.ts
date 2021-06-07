@@ -10,7 +10,7 @@ import fs from 'fs';
 export interface CliParams {
   component: string;
   command: string;
-  aliasName: string;
+  access: string;
   props: string;
 }
 
@@ -24,20 +24,20 @@ export default class CliManager {
   async init(): Promise<any> {
     let result = '';
     try {
-      let { component, command, aliasName, props } = this.inputs;
+      let { component, command, access, props } = this.inputs;
       // 获取密钥信息
       let credentials = {};
       try {
         const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
         const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
-        if (accessFileInfo[aliasName]) {
-          credentials = await getCredential(aliasName);
+        if (accessFileInfo[access]) {
+          credentials = await getCredential(access);
         }
       } catch (e) {
         credentials = {};
       }
 
-      const componentInstance = await loadComponent(component, null, { aliasName });
+      const componentInstance = await loadComponent(component, null, { access });
       if (componentInstance) {
         if (!command) {
           if (componentInstance['index']) {
@@ -90,12 +90,12 @@ ${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['
                   Component: component,
                   provider: undefined,
                   Provider: undefined,
-                  accessAlias: aliasName || 'default',
-                  AccessAlias: aliasName || 'default',
+                  accessAlias: access || 'default',
+                  AccessAlias: access || 'default',
                 },
                 project: {
                   component: '',
-                  access: aliasName || 'default',
+                  access: access || 'default',
                   projectName: '',
                 },
                 command: command,

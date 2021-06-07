@@ -15,7 +15,7 @@ const description = `Directly use serverless devs to use components, develop and
 const cliCommand = program
   .name('s cli')
   .usage('s cli [component] [method] [options]')
-  .option('-a, --aliasName [name]', 'Specify the key name')
+  .option('-a, --access [name]', 'Specify the access alias name')
   .option('-p, --props [json-string]', 'The json string of props')
   .helpOption('-h, --help', 'Display help for command')
   .description(description)
@@ -31,7 +31,7 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
 }
 
 (async () => {
-  if (process.argv.length == 2 || (process.argv.length == 3 && ['-h', '--help'].includes(process.argv[2]))) {
+  if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     program.help();
   } else {
     const tempCommand = process.argv[3];
@@ -65,8 +65,8 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     process.argv = processArgv;
     cliCommand.parse(process.argv);
     const [component, command] = program.args;
-    const { aliasName, props } = program as any;
-    const cliManager = new CliManager({ command, component, aliasName, props });
+    const { access, props } = program as any;
+    const cliManager = new CliManager({ command, component, access, props });
     cliManager.init();
   }
 })().catch(err => {

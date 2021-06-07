@@ -52,7 +52,7 @@ export function checkAndReturnTemplateFile() {
     }
   }
   if (fs.existsSync(path.join(currentDir, 's.yaml'))) {
-    process.env['serverless_devs_temp_template'] = process.env['serverless_devs_temp_template'];
+    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.yaml');
     return path.join(currentDir, 's.yaml');
   }
   if (fs.existsSync(path.join(currentDir, 's.yml'))) {

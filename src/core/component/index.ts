@@ -18,6 +18,7 @@ export interface ComponentConfig {
   Component: string;
   Provider: string;
   Access?: string;
+  access?: string;
   Extends: any;
   Properties: { [key: string]: any };
   Params: any;
@@ -61,6 +62,11 @@ export function generateSynchronizeComponentExeList(
           parsedObj.Params = params || '';
           logger.info(`Start executing project ${projectName}`);
           const projectConfig = await equipment(parse, projectName, parsedObj);
+          if (process.env['serverless_devs_temp_access']) {
+            projectConfig.Access = process.env['serverless_devs_temp_access'];
+            projectConfig.access = process.env['serverless_devs_temp_access'];
+          }
+          // console.log(projectConfig);
           const componentExecute = new ComponentExeCute(projectConfig, method, parsedObj.edition);
           const Output = await componentExecute.init();
           if (parsedObj.edition) {
