@@ -66,7 +66,7 @@ export function generateSynchronizeComponentExeList(
             projectConfig.Access = process.env['serverless_devs_temp_access'];
             projectConfig.access = process.env['serverless_devs_temp_access'];
           }
-          console.log(projectConfig);
+          // console.log(projectConfig);
           const componentExecute = new ComponentExeCute(projectConfig, method, parsedObj.edition);
           const Output = await componentExecute.init();
           if (parsedObj.edition) {
