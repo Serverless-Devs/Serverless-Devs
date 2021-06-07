@@ -90,7 +90,8 @@ Quick start:
     .command('init', '💞 ' + 'Initializing a project.')
     .command('cli', '🐚 Command line operation through yaml free mode.')
     .command('set', '🔧 Settings for the tool.')
-    .option('-t, --template', 'Specify the template file')
+    .option('-t, --template [templatePath]', 'Specify the template file')
+    .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')
     .option('--debug', 'Debug model')
     .version('', '-v, --version', 'Output the version number')
@@ -99,8 +100,14 @@ Quick start:
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     process.env['serverless_devs_out_put_help'] = 'true';
   }
+  // 处理额外的密钥信息
+  const index = process.argv.indexOf('-a') || process.argv.indexOf('--access');
+  if (index !== -1 && process.argv[index + 1]) {
+    process.env['serverless_devs_temp_access'] = process.argv[index + 1];
+    process.argv.splice(index, 2);
+  }
   await globalParameterProcessing(); // global parameter processing
-  await setExecCommand(); // regist exec command
+  await setExecCommand(); // register exec command
   await setSpecialCommand(); // universal instruction processing
   recordCommandHistory(process.argv); // add history record
 
