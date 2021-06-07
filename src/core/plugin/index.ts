@@ -1,3 +1,5 @@
+/** @format */
+
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
@@ -26,10 +28,9 @@ export class PluginExeCute {
   pluginExist() {
     return fs.existsSync(this.pluginPath);
   }
-  
 
   async downLoadPlugin(name: string) {
-   // const initManager = new InitManager();
+    // const initManager = new InitManager();
     const pluginPath = path.join(S_PLUGIN_BASE_PATH, name);
     if (!fs.existsSync(pluginPath)) {
       fs.mkdirSync(pluginPath);

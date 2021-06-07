@@ -30,14 +30,14 @@ const getCredentialAliasList = () => {
 
 export class InitManager {
   protected promps: any = {};
-  constructor() { }
+  constructor() {}
 
   async initSconfig(appSath) {
     const sPath = getYamlPath(appSath, 's');
     if (sPath) {
       let sContent = fs.readFileSync(sPath, 'utf-8');
       const templateKeys = getTemplatekey(sContent);
-      templateKeys.forEach((item) => {
+      templateKeys.forEach(item => {
         const { name: keyName, desc } = item;
         const name = _.trim(keyName);
         if (keyName === 'access') {
@@ -86,10 +86,9 @@ export class InitManager {
       const publishYamlPath = path.join(appPath, 'publish.yaml');
       replaceTemplate([packageJsonPath, publishYamlPath], { projectName });
     }
-
   }
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
-    const projectName = dir || (await inquirer.prompt(PROJECT_NAME_INPUT)).projectName || "./"
+    const projectName = dir || (await inquirer.prompt(PROJECT_NAME_INPUT)).projectName || './';
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
     let appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
@@ -100,7 +99,6 @@ export class InitManager {
       console.log(`🧭 If you need help for this example, you can use [s -h] after you enter folder.`);
       console.log('💞 Document ❤ Star：' + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'));
     }
-
   }
   async gitCloneProject(name: string, dir?: string) {
     return new Promise(resolve => {

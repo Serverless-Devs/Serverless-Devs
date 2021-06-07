@@ -33,17 +33,16 @@ export function extractTemplateInfo(url: URL.Url): GitRepoTemplate {
     host: url.host,
     ownerName,
     repoName,
-    branch:'',
+    branch: '',
     hasSubPath: false,
     subPath: '',
-    zipFile:'',
+    zipFile: '',
   };
 }
-
 
 export default {
   extractTemplateInfo,
   getProjectNameFromUrl,
   isUrlFormat,
-  parse
-}
+  parse,
+};

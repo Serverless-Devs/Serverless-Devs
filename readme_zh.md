@@ -52,7 +52,7 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 
 ## 相关资源
 
-[https://github.com/Serverless-Devs/package-awesome/blob/main/README_zh.md][https://github.com/Serverless-Devs/package-awesome/blob/main/README_zh.md]
+[组件/应用Awesome](https://github.com/Serverless-Devs/package-awesome/blob/main/README_zh.md)
 
 ## 快速体验
 

@@ -1,3 +1,5 @@
+/** @format */
+
 import { ServerlessError } from './serverless-error';
 
 export class CommandError extends ServerlessError {

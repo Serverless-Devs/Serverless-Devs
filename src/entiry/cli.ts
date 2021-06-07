@@ -1,33 +1,32 @@
+/** @format */
 
 export enum PackageType {
-    application,
-    component,
-    plugin,
+  application,
+  component,
+  plugin,
 }
 
 export interface CommandType {
-    type: string;
-    message: string;
-    name: string;
-    default?: string;
-    choices?: any;
+  type: string;
+  message: string;
+  name: string;
+  default?: string;
+  choices?: any;
 }
 
 export interface InquirerCommand {
-    [key: string]: CommandType;
+  [key: string]: CommandType;
 }
 
-
-
 export interface RepoTemplate {
-    zipFile: string;
-    subPath?: string;
-    hasSubPath: boolean;
+  zipFile: string;
+  subPath?: string;
+  hasSubPath: boolean;
 }
 
 export interface GitRepoTemplate extends RepoTemplate {
-    host: string | null;
-    ownerName: string;
-    branch: string;
-    repoName: string;
+  host: string | null;
+  ownerName: string;
+  branch: string;
+  repoName: string;
 }
