@@ -4,8 +4,12 @@
 import program from 'commander';
 import { execSync } from 'child_process';
 import { common, logger, registerAction, configSet } from './utils';
-
+import { getCredential } from '@serverless-devs/core';
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
+import path from 'path';
+import os from 'os';
+import yaml from 'js-yaml';
+import fs from 'fs';
 
 const { checkAndReturnTemplateFile } = common;
 const {
@@ -45,7 +49,8 @@ async function setExecCommand() {
 }
 
 async function globalParameterProcessing() {
-  const tempGlobal = ['skip-action', 'debug'];
+  // const tempGlobal = ['skip-action', 'debug'];
+  const tempGlobal = ['skip-action', ];
   for (let i = 0; i < tempGlobal.length; i++) {
     process.env[tempGlobal[i]] = 'false';
     if (process.argv.includes('--' + tempGlobal[i])) {
@@ -103,7 +108,14 @@ Quick start:
   // 处理额外的密钥信息
   let templateTag = process.argv.includes('-a') ? '-a' : process.argv.includes('--access') ? '--access' : null;
   const index = templateTag ? process.argv.indexOf(templateTag) : -1;
-  if (index !== -1 && process.argv[index + 1]) {
+  let accessFileInfo = {};
+  try {
+    const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+    accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
+  } catch (e) {
+    accessFileInfo = {};
+  }
+  if (index !== -1 && process.argv[index + 1] && Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
     process.env['serverless_devs_temp_access'] = process.argv[index + 1];
     process.argv.splice(index, 2);
   }

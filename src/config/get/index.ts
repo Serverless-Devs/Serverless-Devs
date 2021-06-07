@@ -41,12 +41,13 @@ function getSecretValue(n: number, str = ' ') {
   const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
   const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
   const accessInfo = {};
+  // eslint-disable-next-line guard-for-in
   for (const eveAccess in accessFileInfo) {
     const tempAccess = await getCredential(eveAccess);
     const tempAlias = tempAccess['Alias'];
     const tempSecretAccess = {};
     for (const eveValue in tempAccess) {
-      if (eveValue != 'Alias') {
+      if (eveValue !== 'Alias') {
         const valueLength: any = tempAccess[eveValue].length;
         tempSecretAccess[eveValue] =
           valueLength > 6
