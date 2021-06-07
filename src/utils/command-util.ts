@@ -15,182 +15,190 @@ import { loadComponent } from '@serverless-devs/core';
 const { getSubcommand, getServiceConfig } = version;
 
 export function createUniversalCommand(command: string, customerCommandName?: string, description?: string) {
-    const _command = new Command(command);
-    const processArgv: string[] = [];
-    let params: string[] = [];
-    let _customerCommandName = customerCommandName;
-    let start = false;
-    for (let i = 0; i < process.argv.length; i++) {
-        if (!start) {
-            processArgv.push(process.argv[i]);
-        } else {
-            params.push(process.argv[i]);
-        }
-        if (process.argv[i] === command) {
-            start = true;
-        }
+  const _command = new Command(command);
+  const processArgv: string[] = [];
+  let params: string[] = [];
+  let _customerCommandName = customerCommandName;
+  let start = false;
+  for (let i = 0; i < process.argv.length; i++) {
+    if (!start) {
+      processArgv.push(process.argv[i]);
+    } else {
+      params.push(process.argv[i]);
     }
-
-    if (params.length !== 0) {
-        process.env.temp_params = params.join(' ');
+    if (process.argv[i] === command) {
+      start = true;
     }
-    // process.argv = processArgv;  
+  }
 
-    _command.description(description || '').action(() => {
-        const template: string | undefined = process.env[PROCESS_ENV_TEMPLATE_NAME];
-        if (template) {
-            const commandManager = new CommandManager(template, command, _customerCommandName, process.env.temp_params);
-            commandManager.init();
-        }
-    });
-    return _command;
+  if (params.length !== 0) {
+    process.env.temp_params = params.join(' ');
+  }
+  // process.argv = processArgv;
+  let templateTag = process.argv.includes('-h') ? '-h' : process.argv.includes('--help') ? '--help' : null;
+  const index = templateTag ? process.argv.indexOf(templateTag) : -1;
+  if (index !== -1) {
+    process.env['serverless_devs_temp_help'] = process.argv[index];
+    process.argv.splice(index, 1);
+  }
+  _command.description(description || '').action(() => {
+    const template: string | undefined = process.env[PROCESS_ENV_TEMPLATE_NAME];
+    if (template) {
+      process.env.temp_params = process.env['serverless_devs_temp_help']
+        ? process.env.temp_params + ' ' + process.env['serverless_devs_temp_help']
+        : process.env.temp_params;
+      const commandManager = new CommandManager(template, command, _customerCommandName, process.env.temp_params);
+      commandManager.init();
+    }
+  });
+  return _command;
 }
 
 export async function getCommandDetail(name: any, provider: any, version: any): Promise<any[]> {
-    let command_list: any = [];
-    return command_list;
+  let command_list: any = [];
+  return command_list;
 }
 
 export async function getParsedTemplateObj(templateFile: any) {
-    const parse = new Parse(templateFile);
-    const parsedObj = parse.getOriginalParsedObj();
-    const result = await parse.getRealVariables(parsedObj);
-    return result;
+  const parse = new Parse(templateFile);
+  const parsedObj = parse.getOriginalParsedObj();
+  const result = await parse.getRealVariables(parsedObj);
+  return result;
 }
 
 export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
-    return getSubcommand(parsedTemplateObj);
+  return getSubcommand(parsedTemplateObj);
 }
 
 export async function createCustomerCommand(templateFile: string): Promise<any[]> {
-    const customerCommands: any = [];
-    const doc = await getParsedTemplateObj(templateFile);
-    const subCommands = getCustomerCommandInfo(doc);
-    const commandListPromise = subCommands.map(async projectName => {
-        const projectDocDetail: any = getServiceConfig(doc, projectName);
-        return { projectName, projectDocDetail };
-    });
-    const commandListDetail = await Promise.all(commandListPromise);
-    commandListDetail.forEach(({ projectName, projectDocDetail }) => {
-        const customerCommand = new Command(projectName);
-        const customerCommandDescription = `👉 This is a customer command please use [s ${projectName} -h]  obtain the documentation`;
-        customerCommand.description(customerCommandDescription);
-        const [_customerCommandName, methodName] = process.argv.slice(2);
-        if (_customerCommandName === projectName && methodName && methodName.indexOf('-') !== 0) {
-            customerCommand.addCommand(createUniversalCommand(methodName, projectName));
-        }
-        customerCommand.option('-h, --help', 'Print usage document');
-        customerCommand.action(async () => {
-            const { component } = projectDocDetail;
-            const componentInstance: any = await loadComponent(component);
-            if (componentInstance) {
-                if (componentInstance.__doc) {
-                    const docResult = componentInstance.__doc(projectName);
-                    logger.info(`\n${docResult}`);
-                } else {
-                    try {
-                        let componentPathYaml = path.join(componentInstance.__path, 'publish.yml');
-                        if (!(await fs.existsSync(componentPathYaml))) {
-                            componentPathYaml = path.join(componentInstance.__path, 'publish.yaml');
-                        }
-                        const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'));
-                        logger.info(`Help Information: 
+  const customerCommands: any = [];
+  const doc = await getParsedTemplateObj(templateFile);
+  const subCommands = getCustomerCommandInfo(doc);
+  const commandListPromise = subCommands.map(async projectName => {
+    const projectDocDetail: any = getServiceConfig(doc, projectName);
+    return { projectName, projectDocDetail };
+  });
+  const commandListDetail = await Promise.all(commandListPromise);
+  commandListDetail.forEach(({ projectName, projectDocDetail }) => {
+    const customerCommand = new Command(projectName);
+    const customerCommandDescription = `👉 This is a customer command please use [s ${projectName} -h]  obtain the documentation`;
+    customerCommand.description(customerCommandDescription);
+    const [_customerCommandName, methodName] = process.argv.slice(2);
+    if (_customerCommandName === projectName && methodName && methodName.indexOf('-') !== 0) {
+      customerCommand.addCommand(createUniversalCommand(methodName, projectName));
+    }
+    customerCommand.option('-h, --help', 'Print usage document');
+    customerCommand.action(async () => {
+      const { component } = projectDocDetail;
+      const componentInstance: any = await loadComponent(component);
+      if (componentInstance) {
+        if (componentInstance.__doc) {
+          const docResult = componentInstance.__doc(projectName);
+          logger.info(`\n${docResult}`);
+        } else {
+          try {
+            let componentPathYaml = path.join(componentInstance.__path, 'publish.yml');
+            if (!(await fs.existsSync(componentPathYaml))) {
+              componentPathYaml = path.join(componentInstance.__path, 'publish.yaml');
+            }
+            const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'));
+            logger.info(`Help Information: 
                     
 ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}
 
 ${yaml.dump(publishYamlInfor['Commands'])}
 ${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['HomePage'] + '\n' : ''}`);
-                    } catch (e) {
-                        logger.info('No document set');
-                    }
-                }
-            } else {
-                logger.info('No document set');
-            }
-        });
-
-        customerCommands.push(customerCommand);
+          } catch (e) {
+            logger.info('No document set');
+          }
+        }
+      } else {
+        logger.info('No document set');
+      }
     });
-    return customerCommands;
+
+    customerCommands.push(customerCommand);
+  });
+  return customerCommands;
 }
 
 export function registerCommandChecker(program: any) {
-    program.on('command:*', (cmds: any) => {
-        const commands = program.commands.map((command: any) => command.name());
-        if (!commands.includes(cmds[0])) {
-            logger.error(`  error: unknown command ${cmds[0]}`);
-            program.help();
-        }
-    });
+  program.on('command:*', (cmds: any) => {
+    const commands = program.commands.map((command: any) => command.name());
+    if (!commands.includes(cmds[0])) {
+      logger.error(`  error: unknown command ${cmds[0]}`);
+      program.help();
+    }
+  });
 }
 
 export async function registerExecCommand(system_command: any, templateFile: string) {
-    const execCommand = new Command('exec');
-    const customerCommandDescription = '🚀 Subcommand execution analysis.';
-    execCommand.description(customerCommandDescription);
-    execCommand.usage('[subcommand] -- [method] [params]');
-    if (templateFile) {
-        let commandName = '';
-        let projectName = '';
-        if (process.argv[3] === '--') {
-            commandName = process.argv[4];
-            const universialCommandInstance = await createUniversalCommand(commandName, projectName, '');
-            execCommand.addCommand(universialCommandInstance);
-        }
-        if (process.argv[4] === '--' && process.argv[5]) {
-            projectName = process.argv[3];
-            commandName = process.argv[5];
-            const customerCommand = new Command(projectName);
-            const universialCommandInstance = await createUniversalCommand(commandName, projectName, '');
-            customerCommand.addCommand(universialCommandInstance);
-            execCommand.addCommand(customerCommand);
-        }
+  const execCommand = new Command('exec');
+  const customerCommandDescription = '🚀 Subcommand execution analysis.';
+  execCommand.description(customerCommandDescription);
+  execCommand.usage('[subcommand] -- [method] [params]');
+  if (templateFile) {
+    let commandName = '';
+    let projectName = '';
+    if (process.argv[3] === '--') {
+      commandName = process.argv[4];
+      const universialCommandInstance = await createUniversalCommand(commandName, projectName, '');
+      execCommand.addCommand(universialCommandInstance);
     }
-    system_command.addCommand(execCommand);
+    if (process.argv[4] === '--' && process.argv[5]) {
+      projectName = process.argv[3];
+      commandName = process.argv[5];
+      const customerCommand = new Command(projectName);
+      const universialCommandInstance = await createUniversalCommand(commandName, projectName, '');
+      customerCommand.addCommand(universialCommandInstance);
+      execCommand.addCommand(customerCommand);
+    }
+  }
+  system_command.addCommand(execCommand);
 }
 
 export async function registerCustomerCommand(system_command: any, templateFile: string) {
-    if (templateFile) {
-        const customerCommands = await createCustomerCommand(templateFile);
-        customerCommands.forEach(command => {
-            system_command.addCommand(command);
-        });
-    }
+  if (templateFile) {
+    const customerCommands = await createCustomerCommand(templateFile);
+    customerCommands.forEach(command => {
+      system_command.addCommand(command);
+    });
+  }
 }
 
 export async function registerUniversalCommand(system_command: any, templateFile: string) {
-    if (templateFile) {
-        const parsedTemplateObj = await getParsedTemplateObj(templateFile);
-        const customerCommands = getCustomerCommandInfo(parsedTemplateObj);
-        if (process.argv[2] && !customerCommands.includes(process.argv[2]) && !['-h', '--help'].includes(process.argv[2])) {
-            system_command.addCommand(createUniversalCommand(process.argv[2]));
-        }
-        // else if (
-        //     process.argv[2] &&
-        //     customerCommands.includes(process.argv[2]) &&
-        //     process.argv[3] &&
-        //     !customerCommands.includes(process.argv[3])
-        // ) {
-        //     system_command.addCommand(createUniversalCommand(process.argv[3], process.argv[2]));
-        // }
+  if (templateFile) {
+    const parsedTemplateObj = await getParsedTemplateObj(templateFile);
+    const customerCommands = getCustomerCommandInfo(parsedTemplateObj);
+    if (process.argv[2] && !customerCommands.includes(process.argv[2]) && !['-h', '--help'].includes(process.argv[2])) {
+      system_command.addCommand(createUniversalCommand(process.argv[2]));
     }
+    // else if (
+    //     process.argv[2] &&
+    //     customerCommands.includes(process.argv[2]) &&
+    //     process.argv[3] &&
+    //     !customerCommands.includes(process.argv[3])
+    // ) {
+    //     system_command.addCommand(createUniversalCommand(process.argv[3], process.argv[2]));
+    // }
+  }
 }
 
 export function registerVerbose(program: any) {
-    if (process.argv.includes('--verbose')) {
-        process.env.VERBOSE = program.verbose;
-    }
+  if (process.argv.includes('--verbose')) {
+    process.env.VERBOSE = program.verbose;
+  }
 }
 
 export function recordCommandHistory(argv: string[]) {
-    const file = storage.getHistoryFile();
-    fs.appendFileSync(file, argv.join(',') + os.EOL);
+  const file = storage.getHistoryFile();
+  fs.appendFileSync(file, argv.join(',') + os.EOL);
 }
 
 export default {
-    registerCommandChecker,
-    recordCommandHistory,
-    registerExecCommand,
-    registerCustomerCommand,
-    registerUniversalCommand,
+  registerCommandChecker,
+  recordCommandHistory,
+  registerExecCommand,
+  registerCustomerCommand,
+  registerUniversalCommand,
 };
