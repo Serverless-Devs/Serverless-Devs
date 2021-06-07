@@ -101,7 +101,8 @@ Quick start:
     process.env['serverless_devs_out_put_help'] = 'true';
   }
   // 处理额外的密钥信息
-  const index = process.argv.indexOf('-a') || process.argv.indexOf('--access');
+  let templateTag = process.argv.includes('-a') ? '-a' : process.argv.includes('--access') ? '--access' : null;
+  const index = templateTag ? process.argv.indexOf(templateTag) : -1;
   if (index !== -1 && process.argv[index + 1]) {
     process.env['serverless_devs_temp_access'] = process.argv[index + 1];
     process.argv.splice(index, 2);

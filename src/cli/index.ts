@@ -42,8 +42,8 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     for (let i = 0; i < process.argv.length; i++) {
       if (
         !start ||
-        ['-a', '--aliasName', '-p', '--props'].includes(lastArgs) ||
-        ['-a', '--aliasName', '-p', '--props'].includes(process.argv[i])
+        ['-a', '--access', '-p', '--props'].includes(lastArgs) ||
+        ['-a', '--access', '-p', '--props'].includes(process.argv[i])
       ) {
         processArgv.push(process.argv[i]);
       } else {
@@ -65,7 +65,9 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     process.argv = processArgv;
     cliCommand.parse(process.argv);
     const [component, command] = program.args;
-    const { access, props } = program as any;
+
+    let { access, props } = program as any;
+    access = process.env['serverless_devs_temp_access'] ? process.env['serverless_devs_temp_access'] : access;
     const cliManager = new CliManager({ command, component, access, props });
     cliManager.init();
   }
