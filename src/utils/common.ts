@@ -29,7 +29,8 @@ export function checkAndReturnTemplateFile() {
     return process.env['serverless_devs_temp_template'];
   }
   const currentDir = process.cwd();
-  const index = process.argv.indexOf('-t') || process.argv.indexOf('--template');
+  let templateTag = process.argv.includes('-t') ? '-t' : process.argv.includes('--template') ? '--template' : null;
+  const index = templateTag ? process.argv.indexOf(templateTag) : -1;
   if (index !== -1) {
     const tempFileIndex = index + 1;
     const tempFileName = process.argv[tempFileIndex];
