@@ -111,7 +111,6 @@ Quick start:
   await setExecCommand(); // register exec command
   await setSpecialCommand(); // universal instruction processing
   recordCommandHistory(process.argv); // add history record
-
   system_command.exitOverride(async error => {
     if (error.code === 'commander.help') {
       process.exit(program.args.length > 0 ? 1 : 0);
