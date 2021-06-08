@@ -4,7 +4,6 @@
 import program from 'commander';
 import { execSync } from 'child_process';
 import { common, logger, registerAction, configSet } from './utils';
-import { getCredential } from '@serverless-devs/core';
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
