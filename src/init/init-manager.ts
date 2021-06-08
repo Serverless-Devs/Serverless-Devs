@@ -132,6 +132,7 @@ export class InitManager {
         const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE)
         answerValue = answersTemp['template']
       }
+      console.log(`\n😋 Create application command: [s init ${answerValue}]\n`)
       await this.executeInit(answerValue, dir);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);

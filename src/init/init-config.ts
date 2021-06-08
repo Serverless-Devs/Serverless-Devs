@@ -21,20 +21,20 @@ const data = [
   },
   new inquirer.Separator('\n🚀 DK Framework for Serverless JamStack'),
   {
-    key: 'devsapp/start-application',
+    key: 'devsapp/dk-http',
     name: 'DK HTTP API',
-    value: 'devsapp/start-application',
+    value: 'devsapp/dk-http',
   },
   {
-    key: 'devsapp/start-component',
+    key: 'devsapp/dk-tablestore-mail',
     name: 'DK TableStore Mail',
-    value: 'devsapp/start-component',
+    value: 'devsapp/dk-tablestore-mail',
   },
-  {
-    key: 'devsapp/start-component',
-    name: 'FullStack Website',
-    value: 'devsapp/start-component',
-  },
+  // {
+  //   key: 'devsapp/start-component',
+  //   name: 'FullStack Website',
+  //   value: 'devsapp/start-component',
+  // },
   new inquirer.Separator('\n🍼 Dev Template for Serverless Devs'),
   {
     key: 'devsapp/start-application',
@@ -111,37 +111,37 @@ const alibaba_data = [
     name: 'Java8 Example',
     value: 'devsapp/start-fc-http-java8',
   },
-  new inquirer.Separator('\n🚕 Project Example'),
-  {
-    key: 'devsapp/start-fc-http-nodejs12',
-    name: 'Chatroom - Websocket Example',
-    value: 'devsapp/start-fc-http-nodejs12',
-  },
-  {
-    key: 'devsapp/start-fc-http-nodejs10',
-    name: 'TodoList - Node.js Example',
-    value: 'devsapp/start-fc-http-nodejs10',
-  },
-  {
-    key: 'devsapp/django-blog',
-    name: 'Django Blog - Python Example',
-    value: 'devsapp/django-blog',
-  },
-  {
-    key: 'devsapp/start-fc-http-python2',
-    name: 'Puppeteer - Front-end Example',
-    value: 'devsapp/start-fc-http-python2',
-  },
-  {
-    key: 'devsapp/start-fc-http-php7',
-    name: 'Image Prediction - AI Example',
-    value: 'devsapp/start-fc-http-php7',
-  },
-  {
-    key: 'devsapp/start-fc-http-java8',
-    name: 'Video Processing - Ffmpeg Example',
-    value: 'devsapp/start-fc-http-java8',
-  },
+  // new inquirer.Separator('\n🚕 Project Example'),
+  // {
+  //   key: 'devsapp/start-fc-http-nodejs12',
+  //   name: 'Chatroom - Websocket Example',
+  //   value: 'devsapp/start-fc-http-nodejs12',
+  // },
+  // {
+  //   key: 'devsapp/start-fc-http-nodejs10',
+  //   name: 'TodoList - Node.js Example',
+  //   value: 'devsapp/start-fc-http-nodejs10',
+  // },
+  // {
+  //   key: 'devsapp/django-blog',
+  //   name: 'Django Blog - Python Example',
+  //   value: 'devsapp/django-blog',
+  // },
+  // {
+  //   key: 'devsapp/start-fc-http-python2',
+  //   name: 'Puppeteer - Front-end Example',
+  //   value: 'devsapp/start-fc-http-python2',
+  // },
+  // {
+  //   key: 'devsapp/start-fc-http-php7',
+  //   name: 'Image Prediction - AI Example',
+  //   value: 'devsapp/start-fc-http-php7',
+  // },
+  // {
+  //   key: 'devsapp/start-fc-http-java8',
+  //   name: 'Video Processing - Ffmpeg Example',
+  //   value: 'devsapp/start-fc-http-java8',
+  // },
   new inquirer.Separator('\n🚢 Web Framework Example'),
   {
     key: 'devsapp/start-express',
