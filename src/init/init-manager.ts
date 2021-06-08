@@ -11,7 +11,11 @@ import { loadApplication, setCredential } from '@serverless-devs/core';
 import colors from 'chalk';
 import { logger, configSet, getYamlPath, common } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
-import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
+import { APPLICATION_TEMPLATE,
+  PROJECT_NAME_INPUT,
+  ALIBABA_APPLICATION_TEMPLATE,
+  TENCENT_APPLICATION_TEMPLATE,
+  AWS_APPLICATION_TEMPLATE} from './init-config';
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
 const getCredentialAliasList = () => {
@@ -114,9 +118,20 @@ export class InitManager {
   }
 
   async init(name: string, dir?: string) {
+    console.log('\n🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n')
     if (!name) {
-      const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
-      const answerValue = answers['template'];
+      let answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
+      let answerValue = answers['template'];
+      if(answerValue==="alibaba"){
+        const answersTemp = await inquirer.prompt(ALIBABA_APPLICATION_TEMPLATE)
+        answerValue = answersTemp['template']
+      }else if(answerValue==="aws"){
+        const answersTemp = await inquirer.prompt(AWS_APPLICATION_TEMPLATE)
+        answerValue = answersTemp['template']
+      }else if(answerValue==="tencent"){
+        const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE)
+        answerValue = answersTemp['template']
+      }
       await this.executeInit(answerValue, dir);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);

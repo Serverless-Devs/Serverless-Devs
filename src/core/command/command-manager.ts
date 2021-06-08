@@ -44,8 +44,12 @@ export class CommandManager {
         const outPutData: any = {};
         const parse = new Parse(templateFile);
         const parsedObj = parse.getOriginalParsedObj();
-        if (this.customerCommandName) {
-          const projectConfig = await this.assemblyProjectConfig(parse, this.customerCommandName, parsedObj);
+        const realVariables = await parse.getRealVariables(parsedObj); // Get the original conversion data
+        const analysis = new Analysis(realVariables, parse.dependenciesMap);
+        const executeOrderList = analysis.getProjectOrder();
+        if (this.customerCommandName || executeOrderList.length === 1) {
+          const tempCustomerCommandName = executeOrderList[0]
+          const projectConfig = await this.assemblyProjectConfig(parse, this.customerCommandName || tempCustomerCommandName, parsedObj);
           if (process.env['serverless_devs_temp_access']) {
             projectConfig.Access = process.env['serverless_devs_temp_access'];
             projectConfig.access = process.env['serverless_devs_temp_access'];
@@ -68,9 +72,6 @@ export class CommandManager {
           }
         } else {
           const params = this.deployParams || '';
-          const realVariables = await parse.getRealVariables(parsedObj); // Get the original conversion data
-          const analysis = new Analysis(realVariables, parse.dependenciesMap);
-          const executeOrderList = analysis.getProjectOrder();
           logger.info(
             `It is detected that your project has the following projects < ${executeOrderList.join(
               ',',
