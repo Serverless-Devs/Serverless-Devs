@@ -35,6 +35,17 @@ const data = [
   //   name: 'FullStack Website',
   //   value: 'devsapp/start-component',
   // },
+  new inquirer.Separator('\n🧩 Serverless Dev Framework'),
+  {
+    key: 'devsapp/midway-hook-vue',
+    name: 'Midway - Midway FaaS Framework',
+    value: 'devsapp/midway-hook-vue',
+  },
+  {
+    key: 'devsapp/start-malagu',
+    name: 'Malagu - Malagu Framework',
+    value: 'devsapp/start-malagu',
+  },
   new inquirer.Separator('\n🍼 Dev Template for Serverless Devs'),
   {
     key: 'devsapp/start-application',
@@ -111,37 +122,37 @@ const alibaba_data = [
     name: 'Java8 Example',
     value: 'devsapp/start-fc-http-java8',
   },
-  // new inquirer.Separator('\n🚕 Project Example'),
+  new inquirer.Separator('\n🚕 Project Example'),
   // {
   //   key: 'devsapp/start-fc-http-nodejs12',
   //   name: 'Chatroom - Websocket Example',
   //   value: 'devsapp/start-fc-http-nodejs12',
   // },
-  // {
-  //   key: 'devsapp/start-fc-http-nodejs10',
-  //   name: 'TodoList - Node.js Example',
-  //   value: 'devsapp/start-fc-http-nodejs10',
-  // },
-  // {
-  //   key: 'devsapp/django-blog',
-  //   name: 'Django Blog - Python Example',
-  //   value: 'devsapp/django-blog',
-  // },
-  // {
-  //   key: 'devsapp/start-fc-http-python2',
-  //   name: 'Puppeteer - Front-end Example',
-  //   value: 'devsapp/start-fc-http-python2',
-  // },
-  // {
-  //   key: 'devsapp/start-fc-http-php7',
-  //   name: 'Image Prediction - AI Example',
-  //   value: 'devsapp/start-fc-http-php7',
-  // },
-  // {
-  //   key: 'devsapp/start-fc-http-java8',
-  //   name: 'Video Processing - Ffmpeg Example',
-  //   value: 'devsapp/start-fc-http-java8',
-  // },
+  {
+    key: 'devsapp/todolist-app',
+    name: 'TodoList - Node.js Example',
+    value: 'devsapp/todolist-app',
+  },
+  {
+    key: 'devsapp/django-blog',
+    name: 'Django Blog - Python Example',
+    value: 'devsapp/django-blog',
+  },
+  {
+    key: 'devsapp/puppeteer-app',
+    name: 'Puppeteer - Front-end Example',
+    value: 'devsapp/puppeteer-app',
+  },
+  {
+    key: 'devsapp/image-prediction-app',
+    name: 'Image Prediction - AI Example',
+    value: 'devsapp/image-prediction-app',
+  },
+  {
+    key: 'devsapp/ffmpeg-app',
+    name: 'Video Processing - Ffmpeg Example',
+    value: 'devsapp/ffmpeg-app',
+  },
   new inquirer.Separator('\n🚢 Web Framework Example'),
   {
     key: 'devsapp/start-express',
@@ -154,20 +165,16 @@ const alibaba_data = [
     value: 'devsapp/start-flask',
   },
   {
+    key: 'devsapp/start-springboot',
+    name: 'SpringBoot - Java Framework',
+    value: 'devsapp/start-springboot',
+  },
+  {
     key: 'devsapp/start-zblog',
     name: 'Zblog - PHP Framework',
     value: 'devsapp/start-zblog',
   },
-  {
-    key: 'devsapp/midway-hook-vue',
-    name: 'Midway - Serverless Framework',
-    value: 'devsapp/midway-hook-vue',
-  },
-  {
-    key: 'devsapp/start-malagu',
-    name: 'Malagu - Serverless Framework',
-    value: 'devsapp/start-malagu',
-  },
+
   new inquirer.Separator('\n🎡 Static Website'),
   {
     key: 'devsapp/website-vue',
