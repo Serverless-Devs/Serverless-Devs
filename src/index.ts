@@ -114,10 +114,12 @@ Quick start:
   } catch (e) {
     accessFileInfo = {};
   }
+
   if (index !== -1 && process.argv[index + 1] && Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
     process.env['serverless_devs_temp_access'] = process.argv[index + 1];
     process.argv.splice(index, 2);
   }
+
   await globalParameterProcessing(); // global parameter processing
   await setExecCommand(); // register exec command
   await setSpecialCommand(); // universal instruction processing
