@@ -14,8 +14,6 @@ const description = `You can get accounts.
     $ s config get -l
     $ s config get -a demo`;
 
-
-console.log(process.argv)
 program
   .name('s config get')
   .usage('[options] [name]')
