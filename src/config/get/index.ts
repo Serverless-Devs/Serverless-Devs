@@ -14,6 +14,8 @@ const description = `You can get accounts.
     $ s config get -l
     $ s config get -a demo`;
 
+
+console.log(process.argv)
 program
   .name('s config get')
   .usage('[options] [name]')
@@ -33,7 +35,9 @@ function getSecretValue(n: number, str = ' ') {
 }
 
 (async () => {
+
   let { aliasName, list } = program as any;
+  aliasName = aliasName || process.env['serverless_devs_temp_access']
   if (!aliasName && !list) {
     program.help();
   }

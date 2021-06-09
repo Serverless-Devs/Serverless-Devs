@@ -23,7 +23,8 @@ program
   .addHelpCommand(false)
   .parse(process.argv);
 (async () => {
-  const { aliasName } = program;
+  let { aliasName } = program;
+  aliasName = aliasName || process.env['serverless_devs_temp_access']
   if (!aliasName) {
     program.help();
   }

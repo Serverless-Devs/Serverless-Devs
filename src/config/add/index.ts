@@ -41,7 +41,7 @@ program
   .addHelpCommand(false)
   .parse(process.argv);
 (async () => {
-  const {
+  let {
     AccountID,
     AccessKeyID,
     AccessKeySecret,
@@ -54,6 +54,7 @@ program
     infoList,
     aliasName,
   } = program;
+  aliasName = aliasName || process.env['serverless_devs_temp_access']
   const keyInformation = {};
   if (keyList && infoList) {
     const infoKeyList = keyList.split(',');
