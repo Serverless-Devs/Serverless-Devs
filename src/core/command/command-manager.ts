@@ -64,11 +64,12 @@ export class CommandManager {
             const errorMessage = e.message.includes('componentInstance[method] is not a function')
               ? `Project ${projectConfig.ProjectName} does not include [${this.method}] method`
               : e.message;
-            throw new Error(`Project ${projectConfig.ProjectName} failed to execute:
+            logger.error(`Project ${projectConfig.ProjectName} failed to execute:
   
   📝 Message:  ${errorMessage}
   🧭 You can get help for this component by [s ${projectConfig.ProjectName} -h]
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+            process.exit(-1);
           }
         } else {
           const params = this.deployParams || '';
