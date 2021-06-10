@@ -40,7 +40,7 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     let params: string[] = [];
     let lastArgs;
     const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
-    process.argv = process.argv.slice(0, 4).concat(tempArgv.slice(4, tempArgv.length))
+    process.argv = process.argv.slice(0, 4).concat(tempArgv.slice(5, tempArgv.length))
     for (let i = 0; i < process.argv.length; i++) {
       if (
         !start ||
