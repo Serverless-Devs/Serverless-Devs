@@ -16,6 +16,7 @@ import { APPLICATION_TEMPLATE,
   ALIBABA_APPLICATION_TEMPLATE,
   TENCENT_APPLICATION_TEMPLATE,
   AWS_APPLICATION_TEMPLATE} from './init-config';
+import size from  'window-size'
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
 const getCredentialAliasList = () => {
@@ -120,15 +121,27 @@ export class InitManager {
   async init(name: string, dir?: string) {
     console.log('\n🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n')
     if (!name) {
+      let tempHeight
+      try{
+        tempHeight = size.height - 1
+      }catch (e){
+        tempHeight = 20
+      }
+      process.env['serverless_devs_temp_height'] = tempHeight < 15 ? "0" : "1"
+      APPLICATION_TEMPLATE[0].pageSize = tempHeight
       let answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       let answerValue = answers['template'];
       if(answerValue==="alibaba"){
+        process.env['serverless_devs_temp_height'] = tempHeight < 34 ? "0" : "1"
+        ALIBABA_APPLICATION_TEMPLATE[0].pageSize = tempHeight
         const answersTemp = await inquirer.prompt(ALIBABA_APPLICATION_TEMPLATE)
         answerValue = answersTemp['template']
       }else if(answerValue==="aws"){
+        AWS_APPLICATION_TEMPLATE[0].pageSize = tempHeight
         const answersTemp = await inquirer.prompt(AWS_APPLICATION_TEMPLATE)
         answerValue = answersTemp['template']
       }else if(answerValue==="tencent"){
+        TENCENT_APPLICATION_TEMPLATE[0].pageSize = tempHeight
         const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE)
         answerValue = answersTemp['template']
       }

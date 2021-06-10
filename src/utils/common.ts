@@ -42,10 +42,18 @@ export function checkAndReturnTemplateFile() {
           checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)
         ) {
           process.argv.splice(index, 2);
+          // 对临时参数进行存储
+          const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
+          tempArgv.splice(tempArgv.indexOf(templateTag), 2)
+          process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv)
           process.env['serverless_devs_temp_template'] = path.join(currentDir, tempFileName);
           return path.join(currentDir, tempFileName);
         } else if (fs.existsSync(tempFileName) && checkTemplateFormat(tempFileName, jsonType)) {
           process.argv.splice(index, 2);
+          // 对临时参数进行存储
+          const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
+          tempArgv.splice(tempArgv.indexOf(templateTag), 2)
+          process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv)
           process.env['serverless_devs_temp_template'] = tempFileName;
           return tempFileName;
         }

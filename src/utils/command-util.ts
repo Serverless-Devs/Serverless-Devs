@@ -33,20 +33,12 @@ export function createUniversalCommand(command: string, customerCommandName?: st
 
   if (params.length !== 0) {
     process.env.temp_params = params.join(' ');
+    process['temp_params'] = params
   }
   process.argv = processArgv;
-  // let templateTag = process.argv.includes('-h') ? '-h' : process.argv.includes('--help') ? '--help' : null;
-  // const index = templateTag ? process.argv.indexOf(templateTag) : -1;
-  // if (index !== -1) {
-  //   process.env['serverless_devs_temp_help'] = process.argv[index];
-  //   process.argv.splice(index, 1);
-  // }
   _command.description(description || '').action(() => {
     const template: string | undefined = process.env[PROCESS_ENV_TEMPLATE_NAME];
     if (template) {
-      // process.env.temp_params = process.env['serverless_devs_temp_help']
-      //   ? process.env.temp_params + ' ' + process.env['serverless_devs_temp_help']
-      //   : process.env.temp_params;
       const commandManager = new CommandManager(template, command, _customerCommandName, process.env.temp_params);
       commandManager.init();
     }
