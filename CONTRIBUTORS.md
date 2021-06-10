@@ -79,6 +79,18 @@
                 <img src="https://avatars.githubusercontent.com/u/23737468?v=4" width="20%" style="min-width: 100px"><br>
                 <p>黄沐<br><a href="https://github.com/huangfushan"> Github</a> | Blog</p>
             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/84389274?v=4" width="20%" style="min-width: 100px"><br>
+                <p>siyuniuali<br><a href="https://github.com/siyuniuali"> siyuniuali</a> | Blog</p>
+            </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/85347842?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Laura-monkey<br><a href="https://github.com/Laura-monkey"> Github</a> | Blog</p>
+            </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/85340348?v=4" width="20%" style="min-width: 100px"><br>
+                <p>jingyan0705<br><a href="https://github.com/jingyan0705"> Github</a> | Blog</p>
+            </td>
         </tr>
     </table>
 </center>
