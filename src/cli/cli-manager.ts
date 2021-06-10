@@ -1,6 +1,6 @@
 /** @format */
 
-import { getCredential, loadComponent } from '@serverless-devs/core';
+import { getCredential, loadComponent } from '/Users/jiangyu/Desktop/serverless-devs/core/lib';
 import { logger } from '../utils';
 import yaml from 'js-yaml';
 import path from 'path';
@@ -36,7 +36,6 @@ export default class CliManager {
       } catch (e) {
         credentials = {};
       }
-
       const componentInstance = await loadComponent(component, null, { access });
       if (componentInstance) {
         if (!command) {
@@ -101,7 +100,9 @@ ${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['
                 command: command,
                 Command: command,
                 args: process.env.temp_params,
+                argsObj: process['temp_params'],
                 Args: process.env.temp_params,
+                ArgsObj: process['temp_params'],
                 path: {
                   configPath: '',
                 },

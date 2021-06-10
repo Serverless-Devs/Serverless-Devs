@@ -79,6 +79,8 @@ export function getServiceInputs(configData: any, version: string, options: any)
     Command: method,
     args: params || '',
     Args: params || '',
+    argsObj: process['temp_params'] || [],
+    ArgsObj: process['temp_params'] || [],
     path: {
       configPath: process.env.templateFile || '',
     },

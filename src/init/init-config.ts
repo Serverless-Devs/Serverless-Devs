@@ -31,11 +31,11 @@ const data = [
     name: 'DK TableStore Mail',
     value: 'devsapp/dk-tablestore-mail',
   },
-  // {
-  //   key: 'devsapp/start-component',
-  //   name: 'FullStack Website',
-  //   value: 'devsapp/start-component',
-  // },
+  {
+    key: 'devsapp/start-jamstack',
+    name: 'Serverless JamStack Example',
+    value: 'devsapp/start-jamstack',
+  },
   new inquirer.Separator('\n🧩 Serverless Dev Framework'),
   {
     key: 'devsapp/midway-hook-vue',

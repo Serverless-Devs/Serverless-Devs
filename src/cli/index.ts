@@ -39,6 +39,8 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     const processArgv: string[] = [];
     let params: string[] = [];
     let lastArgs;
+    const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
+    process.argv = process.argv.slice(0, 4).concat(tempArgv.slice(4, tempArgv.length))
     for (let i = 0; i < process.argv.length; i++) {
       if (
         !start ||
@@ -60,6 +62,7 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     }
     if (params.length !== 0) {
       process.env.temp_params = params.join(' ');
+      process['temp_params'] = params
     }
 
     process.argv = processArgv;

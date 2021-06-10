@@ -101,9 +101,14 @@ Quick start:
     .version('', '-v, --version', 'Output the version number')
     .addHelpCommand(false);
 
+  // 将参数存储到env
+  process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv)
+
+  // 对帮助信息进行处理
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     process.env['serverless_devs_out_put_help'] = 'true';
   }
+
   // 处理额外的密钥信息
   let templateTag = process.argv.includes('-a') ? '-a' : process.argv.includes('--access') ? '--access' : null;
   const index = templateTag ? process.argv.indexOf(templateTag) : -1;
@@ -114,10 +119,13 @@ Quick start:
   } catch (e) {
     accessFileInfo = {};
   }
-
   if (index !== -1 && process.argv[index + 1] && Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
     process.env['serverless_devs_temp_access'] = process.argv[index + 1];
     process.argv.splice(index, 2);
+    // 对临时参数进行存储
+    const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
+    tempArgv.splice(tempArgv.indexOf(templateTag), 2)
+    process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv)
   }
 
   await globalParameterProcessing(); // global parameter processing
