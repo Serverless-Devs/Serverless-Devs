@@ -39,7 +39,7 @@ export class InitManager {
   protected promps: any = {};
   constructor() {}
 
-  async initSconfig(appPath) {
+  async initSconfig(appPath: string) {
     const sPath = getYamlPath(appPath, 's');
     if (sPath) {
       let sContent = fs.readFileSync(sPath, 'utf-8');
@@ -88,6 +88,26 @@ export class InitManager {
     return sPath;
   }
 
+  async initEnvConfig(appPath: string) {
+    const envExampleFilePath = path.resolve(appPath, '.env.example');
+    if (!fs.existsSync(envExampleFilePath)) return;
+    const envConfig = fs.readFileSync(envExampleFilePath, 'utf-8');
+    const templateKeys = getTemplatekey(envConfig);
+    if (templateKeys.length === 0) return;
+    const promptOption = templateKeys.map(item => {
+      const { name, desc } = item;
+      return {
+        type: 'input',
+        message: `please input ${desc || name}:`,
+        name,
+      };
+    });
+    const result = await inquirer.prompt(promptOption);
+    const newEnvConfig = replaceFun(envConfig, result);
+    fs.unlink(envExampleFilePath);
+    fs.writeFileSync(path.resolve(appPath, '.env'), newEnvConfig, 'utf-8');
+  }
+
   async assemblySpecialApp(appName, { projectName, appPath }) {
     if (appName === 'start-component' || appName === 'devsapp/start-component') {
       const packageJsonPath = path.join(appPath, 'package.json');
@@ -101,6 +121,7 @@ export class InitManager {
     let appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
       await this.initSconfig(appPath);
+      await this.initEnvConfig(appPath);
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
       logger.success('\n🏄‍ Thanks for using Serverless-Devs');
       console.log(`👉 You could [cd ${appPath}] and enjoy your serverless journey!`);
