@@ -1,6 +1,6 @@
 /** @format */
 
-import { getCredential, loadComponent } from '/Users/jiangyu/Desktop/serverless-devs/core/lib';
+import { getCredential, loadComponent } from '@serverless-devs/core';
 import { logger } from '../utils';
 import yaml from 'js-yaml';
 import path from 'path';

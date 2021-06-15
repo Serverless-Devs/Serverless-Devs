@@ -5,7 +5,6 @@ import { CommandError } from '../error';
 import CliManager from './cli-manager';
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
-
     Example:
         $ s cli fc-api listServices
         $ s cli fc-api listFunctions --service-name my-service
