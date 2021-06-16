@@ -11,12 +11,14 @@ import { loadApplication, setCredential } from '@serverless-devs/core';
 import colors from 'chalk';
 import { logger, configSet, getYamlPath, common } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
-import { APPLICATION_TEMPLATE,
+import {
+  APPLICATION_TEMPLATE,
   PROJECT_NAME_INPUT,
   ALIBABA_APPLICATION_TEMPLATE,
   TENCENT_APPLICATION_TEMPLATE,
-  AWS_APPLICATION_TEMPLATE} from './init-config';
-import size from  'window-size'
+  AWS_APPLICATION_TEMPLATE,
+} from './init-config';
+import size from 'window-size';
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
 const getCredentialAliasList = () => {
@@ -37,15 +39,14 @@ export class InitManager {
   protected promps: any = {};
   constructor() {}
 
-  async initSconfig(appSath) {
-    const sPath = getYamlPath(appSath, 's');
+  async initSconfig(appPath: string) {
+    const sPath = getYamlPath(appPath, 's');
     if (sPath) {
       let sContent = fs.readFileSync(sPath, 'utf-8');
       const templateKeys = getTemplatekey(sContent);
       templateKeys.forEach(item => {
-        const { name: keyName, desc } = item;
-        const name = _.trim(keyName);
-        if (keyName === 'access') {
+        const { name, desc } = item;
+        if (name === 'access') {
           const credentialAliasList = getCredentialAliasList();
           if (Array.isArray(credentialAliasList) && credentialAliasList.length > 0) {
             this.promps['access'] = {
@@ -70,9 +71,11 @@ export class InitManager {
           };
         }
       });
-      const result = await inquirer.prompt(
-        _.concat(_.values(_.omit(this.promps, ['access'])), _.values(_.pick(this.promps, ['access']))),
-      );
+
+      const { access: prompsAccess, ...prompsRest } = this.promps;
+      const prompsOption = _.concat(_.values(prompsRest), prompsAccess);
+
+      const result = await inquirer.prompt(_.filter(prompsOption, item => item));
       if (result.access === true) {
         const credential = await setCredential();
         result.access = credential.Alias;
@@ -83,6 +86,26 @@ export class InitManager {
       fs.writeFileSync(sPath, sContent, 'utf-8');
     }
     return sPath;
+  }
+
+  async initEnvConfig(appPath: string) {
+    const envExampleFilePath = path.resolve(appPath, '.env.example');
+    if (!fs.existsSync(envExampleFilePath)) return;
+    const envConfig = fs.readFileSync(envExampleFilePath, 'utf-8');
+    const templateKeys = getTemplatekey(envConfig);
+    if (templateKeys.length === 0) return;
+    const promptOption = templateKeys.map(item => {
+      const { name, desc } = item;
+      return {
+        type: 'input',
+        message: `please input ${desc || name}:`,
+        name,
+      };
+    });
+    const result = await inquirer.prompt(promptOption);
+    const newEnvConfig = replaceFun(envConfig, result);
+    fs.unlink(envExampleFilePath);
+    fs.writeFileSync(path.resolve(appPath, '.env'), newEnvConfig, 'utf-8');
   }
 
   async assemblySpecialApp(appName, { projectName, appPath }) {
@@ -98,6 +121,7 @@ export class InitManager {
     let appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
       await this.initSconfig(appPath);
+      await this.initEnvConfig(appPath);
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
       logger.success('\n🏄‍ Thanks for using Serverless-Devs');
       console.log(`👉 You could [cd ${appPath}] and enjoy your serverless journey!`);
@@ -119,33 +143,33 @@ export class InitManager {
   }
 
   async init(name: string, dir?: string) {
-    console.log('\n🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n')
+    console.log('\n🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n');
     if (!name) {
-      let tempHeight
-      try{
-        tempHeight = size.height - 1
-      }catch (e){
-        tempHeight = 20
+      let tempHeight;
+      try {
+        tempHeight = size.height - 1;
+      } catch (e) {
+        tempHeight = 20;
       }
-      process.env['serverless_devs_temp_height'] = tempHeight < 15 ? "0" : "1"
-      APPLICATION_TEMPLATE[0].pageSize = tempHeight
+      process.env['serverless_devs_temp_height'] = tempHeight < 15 ? '0' : '1';
+      APPLICATION_TEMPLATE[0].pageSize = tempHeight;
       let answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       let answerValue = answers['template'];
-      if(answerValue==="alibaba"){
-        process.env['serverless_devs_temp_height'] = tempHeight < 34 ? "0" : "1"
-        ALIBABA_APPLICATION_TEMPLATE[0].pageSize = tempHeight
-        const answersTemp = await inquirer.prompt(ALIBABA_APPLICATION_TEMPLATE)
-        answerValue = answersTemp['template']
-      }else if(answerValue==="aws"){
-        AWS_APPLICATION_TEMPLATE[0].pageSize = tempHeight
-        const answersTemp = await inquirer.prompt(AWS_APPLICATION_TEMPLATE)
-        answerValue = answersTemp['template']
-      }else if(answerValue==="tencent"){
-        TENCENT_APPLICATION_TEMPLATE[0].pageSize = tempHeight
-        const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE)
-        answerValue = answersTemp['template']
+      if (answerValue === 'alibaba') {
+        process.env['serverless_devs_temp_height'] = tempHeight < 34 ? '0' : '1';
+        ALIBABA_APPLICATION_TEMPLATE[0].pageSize = tempHeight;
+        const answersTemp = await inquirer.prompt(ALIBABA_APPLICATION_TEMPLATE);
+        answerValue = answersTemp['template'];
+      } else if (answerValue === 'aws') {
+        AWS_APPLICATION_TEMPLATE[0].pageSize = tempHeight;
+        const answersTemp = await inquirer.prompt(AWS_APPLICATION_TEMPLATE);
+        answerValue = answersTemp['template'];
+      } else if (answerValue === 'tencent') {
+        TENCENT_APPLICATION_TEMPLATE[0].pageSize = tempHeight;
+        const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE);
+        answerValue = answersTemp['template'];
       }
-      console.log(`\n😋 Create application command: [s init ${answerValue}]\n`)
+      console.log(`\n😋 Create application command: [s init ${answerValue}]\n`);
       await this.executeInit(answerValue, dir);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);

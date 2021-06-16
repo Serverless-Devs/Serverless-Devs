@@ -48,13 +48,17 @@ export class CommandManager {
         const analysis = new Analysis(realVariables, parse.dependenciesMap);
         const executeOrderList = analysis.getProjectOrder();
         if (this.customerCommandName || executeOrderList.length === 1) {
-          const tempCustomerCommandName = executeOrderList[0]
-          const projectConfig = await this.assemblyProjectConfig(parse, this.customerCommandName || tempCustomerCommandName, parsedObj);
+          const tempCustomerCommandName = executeOrderList[0];
+          const projectConfig = await this.assemblyProjectConfig(
+            parse,
+            this.customerCommandName || tempCustomerCommandName,
+            parsedObj,
+          );
           if (process.env['serverless_devs_temp_access']) {
             projectConfig.Access = process.env['serverless_devs_temp_access'];
             projectConfig.access = process.env['serverless_devs_temp_access'];
           }
-          const componentExecute = new ComponentExeCute(projectConfig, this.method, parsedObj.edition);
+          const componentExecute = new ComponentExeCute(projectConfig, this.method, parsedObj.edition, templateFile);
           try {
             const tempResult = await componentExecute.init();
             if (tempResult) {
