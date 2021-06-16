@@ -101,6 +101,7 @@ export class ComponentExeCute {
     protected componentConfig: ComponentConfig,
     protected method: string,
     protected version: string = '0.0.1',
+    protected templateFile?: string,
   ) {
     if (!fs.existsSync(S_COMPONENT_BASE_PATH)) {
       fs.mkdirSync(S_COMPONENT_BASE_PATH);
@@ -118,11 +119,17 @@ export class ComponentExeCute {
       return null;
     }
     try {
-      const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
-      const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
-      if (accessFileInfo[access]) {
-        return await getCredential(access);
+      const accessInfo = await getCredential(access);
+      if (this.componentConfig.access !== accessInfo.Alias) {
+        this.componentConfig.access = accessInfo.Alias;
+        // 暂时只处理一个服务
+        if (this.templateFile) {
+          const templateFileContent = yaml.load(fs.readFileSync(this.templateFile, 'utf8'));
+          templateFileContent.access = accessInfo.Alias;
+          fs.writeFileSync(this.templateFile, yaml.dump(templateFileContent));
+        }
       }
+      return accessInfo;
     } catch (e) {}
     return {};
   }
