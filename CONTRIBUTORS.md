@@ -92,5 +92,12 @@
                 <p>jingyan0705<br><a href="https://github.com/jingyan0705"> Github</a> | Blog</p>
             </td>
         </tr>
+         <tr>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/16363180?v=4" width="20%" style="min-width: 100px"><br>
+                <p>邓超<br><a href="https://github.com/DevDengChao"> Github</a> | Blog</p>
+            </td>
+        
+        </tr>
     </table>
 </center>
