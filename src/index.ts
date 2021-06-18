@@ -119,13 +119,17 @@ Quick start:
   } catch (e) {
     accessFileInfo = {};
   }
-  if (index !== -1 && process.argv[index + 1] && Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
-    process.env['serverless_devs_temp_access'] = process.argv[index + 1];
-    process.argv.splice(index, 2);
-    // 对临时参数进行存储
-    const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
-    tempArgv.splice(tempArgv.indexOf(templateTag), 2)
-    process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv)
+  if(index !== -1 && process.argv[index + 1]){
+    if(process.argv[2] == 'config'){
+      process.env['serverless_devs_temp_access'] = process.argv[index + 1];
+    }else if( Object.keys(accessFileInfo).includes(process.argv[index + 1])){
+      process.env['serverless_devs_temp_access'] = process.argv[index + 1];
+      process.argv.splice(index, 2);
+      // 对临时参数进行存储
+      const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
+      tempArgv.splice(tempArgv.indexOf(templateTag), 2)
+      process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv)
+    }
   }
 
   await globalParameterProcessing(); // global parameter processing
