@@ -131,14 +131,14 @@ export default class CliManager {
                     } catch (e) {
                         logger.error(`Failed to execute:\n
   ❌ Message: ${e.message}
-  🧭 You can get help for this component by [s ${component} -h]
+  🧭 You can get help for this component by [s cli ${component} -h]
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
                         process.exit(-1);
                     }
                 } else {
                     logger.error(`Failed to execute:\n
   ❌ Message: Component ${component} does not include [${command}] method
-  🧭 You can get help for this component by [s ${component} -h]
+  🧭 You can get help for this component by [s cli ${component} -h]
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
                     process.exit(-1);
                 }
