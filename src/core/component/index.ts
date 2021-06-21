@@ -9,7 +9,6 @@ import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
-import yaml from 'js-yaml';
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
@@ -120,15 +119,7 @@ export class ComponentExeCute {
     }
     try {
       const accessInfo = await getCredential(access);
-      if (this.componentConfig.access !== accessInfo.Alias) {
-        this.componentConfig.access = accessInfo.Alias;
-        // 暂时只处理一个服务
-        if (this.templateFile) {
-          const templateFileContent = yaml.load(fs.readFileSync(this.templateFile, 'utf8'));
-          templateFileContent.access = accessInfo.Alias;
-          fs.writeFileSync(this.templateFile, yaml.dump(templateFileContent));
-        }
-      }
+      this.componentConfig.access = accessInfo.Alias;
       return accessInfo;
     } catch (e) {}
     return {};
