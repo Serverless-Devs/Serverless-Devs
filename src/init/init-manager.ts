@@ -123,6 +123,14 @@ export class InitManager {
       await this.initSconfig(appPath);
       await this.initEnvConfig(appPath);
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
+      // postInit
+      try{
+        if(process.env[`${appPath}-post-init`]){
+          const tempObj = JSON.parse(process.env[`${appPath}-post-init`])
+          const baseChildComponent = await require(path.join(tempObj['tempPath'], 'hook'));
+          await baseChildComponent.postInit(tempObj)
+        }
+      }catch (e){}
       logger.success('\n🏄‍ Thanks for using Serverless-Devs');
       console.log(`👉 You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`🧭 If you need help for this example, you can use [s -h] after you enter folder.`);
