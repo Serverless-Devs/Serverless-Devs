@@ -97,6 +97,10 @@
                 <img src="https://avatars.githubusercontent.com/u/16363180?v=4" width="20%" style="min-width: 100px"><br>
                 <p>邓超<br><a href="https://github.com/DevDengChao"> Github</a> | Blog</p>
             </td>
+             <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/24624391?v=4" width="20%" style="min-width: 100px"><br>
+                <p>吴培泽<br><a href="https://github.com/wupz-repo"> Github</a> | <a href="https://wupeize.com">Blog</a></p>
+            </td>
         </tr>
     </table>
 </center>
