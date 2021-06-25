@@ -11,7 +11,7 @@
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/46711?v=4" width="20%" style="min-width: 100px"><br>
-                <p>linux-china<br><a href="http://github.com/anycodes">Github</a> | <a href="http://rsocketbyexample.info">Blog</a></p>
+                <p>linux-china<br><a href="http://github.com/linux-china">Github</a> | <a href="http://rsocketbyexample.info">Blog</a></p>
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/21079031?v=4" width="20%" style="min-width: 100px"><br>
@@ -81,7 +81,7 @@
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/84389274?v=4" width="20%" style="min-width: 100px"><br>
-                <p>siyuniuali<br><a href="https://github.com/siyuniuali"> siyuniuali</a> | Blog</p>
+                <p>siyuniuali<br><a href="https://github.com/siyuniuali"> Github</a> | Blog</p>
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/85347842?v=4" width="20%" style="min-width: 100px"><br>
@@ -96,6 +96,10 @@
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/16363180?v=4" width="20%" style="min-width: 100px"><br>
                 <p>邓超<br><a href="https://github.com/DevDengChao"> Github</a> | Blog</p>
+            </td>
+             <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/24624391?v=4" width="20%" style="min-width: 100px"><br>
+                <p>吴培泽<br><a href="https://github.com/wupz-repo"> Github</a> | <a href="https://wupeize.com">Blog</a></p>
             </td>
         </tr>
     </table>
