@@ -62,6 +62,12 @@ export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
   return getSubcommand(parsedTemplateObj);
 }
 
+function getTempCommandStr(commands: string, length: number) {
+  const commandsLength = commands.length
+  const tempArray = new Array(length - commandsLength).fill(' ')
+  return `${commands}${tempArray.join('')} : `
+}
+
 export async function createCustomerCommand(templateFile: string): Promise<any[]> {
   const customerCommands: any = [];
   const doc = await getParsedTemplateObj(templateFile);
@@ -94,18 +100,25 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
               componentPathYaml = path.join(componentInstance.__path, 'publish.yaml');
             }
             const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'));
-            logger.info(`Help Information: 
-                    
-${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}
-
-${yaml.dump(publishYamlInfor['Commands'])}
-${publishYamlInfor['HomePage'] ? '🧭  More information: ' + publishYamlInfor['HomePage'] + '\n' : ''}`);
+            console.log(`\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
+            let tempLength = 0
+            if (publishYamlInfor['Commands']) {
+              for (const item in publishYamlInfor['Commands']) {
+                if (item.length > tempLength) {
+                  tempLength = item.length
+                }
+              }
+              for (const item in publishYamlInfor['Commands']) {
+                console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`)
+              }
+              console.log(`\n  ${publishYamlInfor['HomePage'] ? '🧭 More information: ' + publishYamlInfor['HomePage'] + '\n' : ''}`)
+            }
           } catch (e) {
-            logger.info('No document set');
+            logger.error('Help information could not be found');
           }
         }
       } else {
-        logger.info('No document set');
+        logger.error('Help information could not be found');
       }
     });
 
