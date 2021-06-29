@@ -3,6 +3,7 @@
 import program from 'commander';
 import { configSet, logger } from '../utils';
 import { InitManager } from './init-manager';
+import os from 'os';
 
 const description = `Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
@@ -12,7 +13,7 @@ const description = `Initialize a new project based on a template. You can initi
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
-🚀 More Case: https://github.com/Serverless-Devs/package-awesome`;
+${os.platform()=='win32'?'':'🚀'} More Case: https://github.com/Serverless-Devs/package-awesome`;
 
 program
   .name('s init')
@@ -32,11 +33,11 @@ program
   const name = program.args[0];
   await initManager.init(name, dir);
 })().catch(err => {
-  logger.error(`\n\n  ❌ Message: ${err.message}.
-  🧭 You can :
-      1️⃣  Start quickly with [s init]
-      2️⃣  See some cases on GitHub: https://github.com/Serverless-Devs/package-awesome
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+  logger.error(`\n\n  ${os.platform()=='win32'?'':'❌'} Message: ${err.message}.
+  ${os.platform()=='win32'?'':'🧭'} You can :
+      ${os.platform()=='win32'?'':'1️⃣'} Start quickly with [s init]
+      ${os.platform()=='win32'?'':'2️⃣'} See some cases on GitHub: https://github.com/Serverless-Devs/package-awesome
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
   process.exit(-1);
 });
