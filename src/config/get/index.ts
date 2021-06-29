@@ -68,18 +68,18 @@ function getSecretValue(n: number, str = ' ') {
       accessData[aliasName] = accessInfo[typeof aliasName === 'boolean' ? 'default' : aliasName];
       logger.info(`\n\n` + yaml.dump(accessData));
     } else {
-      logger.error(`\n\n  ❌ Message: Unable to get key information with alias ${aliasName}.
-  🤔 You have configured these keys: [${String(Object.keys(accessInfo))}].
-  🧭 You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+      logger.error(`\n\n  ${os.platform()=='win32'?'':'❌'} Message: Unable to get key information with alias ${aliasName}.
+  ${os.platform()=='win32'?'':'🤔'} You have configured these keys: [${String(Object.keys(accessInfo))}].
+  ${os.platform()=='win32'?'':'🧭'} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
       process.exit(-1);
     }
   } else if (list) {
     if (Object.keys(accessInfo).length === 0) {
-      logger.info(`\n\n  🤔 You have not yet been found to have configured key information.
-  🧭 You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+      logger.info(`\n\n  ${os.platform()=='win32'?'':'🤔'} You have not yet been found to have configured key information.
+  ${os.platform()=='win32'?'':'🧭'} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
     } else {
       logger.info(`\n\n` + yaml.dump(accessInfo));
@@ -87,16 +87,16 @@ function getSecretValue(n: number, str = ' ') {
   }
 })().catch(err => {
   if (err.message.includes('no such file or directory')) {
-    logger.info(`\n\n  🤔 You have not yet been found to have configured key information.
-  🧭 You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+    logger.info(`\n\n  ${os.platform()=='win32'?'':'🤔'} You have not yet been found to have configured key information.
+  ${os.platform()=='win32'?'':'🧭'} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
   } else {
-    logger.error(`\n\n  ❌ Message: ${err.message}.
-  🧭 You can :
-      1️⃣  Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
-      2️⃣  Use [s config add] for key configuration, or use [s config add -h] to view configuration help
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+    logger.error(`\n\n  ${os.platform()=='win32'?'':'❌'} Message: ${err.message}.
+  ${os.platform()=='win32'?'':'🧭'} You can :
+      ${os.platform()=='win32'?'':'1️⃣'} Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
+      ${os.platform()=='win32'?'':'2️⃣'} Use [s config add] for key configuration, or use [s config add -h] to view configuration help
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
     process.exit(-1);
   }

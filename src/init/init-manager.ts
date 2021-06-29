@@ -118,6 +118,7 @@ export class InitManager {
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
     const projectName = dir || (await inquirer.prompt(PROJECT_NAME_INPUT)).projectName || './';
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+    // @ts-ignore
     let appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
       await this.initSconfig(appPath);
@@ -131,10 +132,10 @@ export class InitManager {
           await baseChildComponent.postInit(tempObj)
         }
       }catch (e){}
-      logger.success('\n🏄‍ Thanks for using Serverless-Devs');
-      console.log(`👉 You could [cd ${appPath}] and enjoy your serverless journey!`);
-      console.log(`🧭 If you need help for this example, you can use [s -h] after you enter folder.`);
-      console.log('💞 Document ❤ Star：' + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'));
+      logger.success(`\n${os.platform()=='win32'?'':'🏄‍'} Thanks for using Serverless-Devs`);
+      console.log(`${os.platform()=='win32'?'':'👉'} You could [cd ${appPath}] and enjoy your serverless journey!`);
+      console.log(`${os.platform()=='win32'?'':'🧭️'} If you need help for this example, you can use [s -h] after you enter folder.`);
+      console.log(`${os.platform()=='win32'?'':'💞'} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'));
     }
   }
   async gitCloneProject(name: string, dir?: string) {
@@ -151,7 +152,7 @@ export class InitManager {
   }
 
   async init(name: string, dir?: string) {
-    console.log('\n🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n');
+    console.log(`\n${os.platform()=='win32'?'':'🚀'} Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n`);
     if (!name) {
       let tempHeight;
       try {
@@ -177,7 +178,7 @@ export class InitManager {
         const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE);
         answerValue = answersTemp['template'];
       }
-      console.log(`\n😋 Create application command: [s init ${answerValue}]\n`);
+      console.log(`\n${os.platform()=='win32'?'':'😋'} Create application command: [s init ${answerValue}]\n`);
       await this.executeInit(answerValue, dir);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);

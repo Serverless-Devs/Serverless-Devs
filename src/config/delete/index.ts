@@ -12,7 +12,7 @@ const description = `You can delete an account.
   Example:
     $ s config delete -a demo
 
-🧭 If you don't know the alias of the key, you can get it through [s config get -l]`;
+${os.platform()=='win32'?'':'🧭️'} If you don't know the alias of the key, you can get it through [s config get -l]`;
 
 program
   .name('s config delete')
@@ -36,21 +36,21 @@ program
     fs.writeFileSync(accessFile, Object.keys(accessFileInfo).length > 0 ? yaml.dump(accessFileInfo) : '');
     logger.success(`Delete key ${aliasName} success.`);
   } else {
-    logger.error(`\n\n  ❌ Message: Unable to get key information with alias ${aliasName}.
-  🤔 You have configured these keys: [${String(Object.keys(accessFileInfo))}].
-  🧭 You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+    logger.error(`\n\n  ${os.platform()=='win32'?'':'❌️'} Message: Unable to get key information with alias ${aliasName}.
+  ${os.platform()=='win32'?'':'🤔'} You have configured these keys: [${String(Object.keys(accessFileInfo))}].
+  ${os.platform()=='win32'?'':'🧭️'} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
+  ${os.platform()=='win32'?'':'😈️'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
     process.exit(-1);
   }
 })().catch(err => {
-  logger.error(`\n\n  ❌ Message: ${
+  logger.error(`\n\n  ${os.platform()=='win32'?'':'❌️'} Message: ${
     err.message.includes('no such file or directory') ? 'Unable to get key information' : err.message
   }.
-  🧭 You can :
-      1️⃣  Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
-      2️⃣  Use [s config add] for key configuration, or use [s config add -h] to view configuration help
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+  ${os.platform()=='win32'?'':'🧭️'} You can :
+      ${os.platform()=='win32'?'':'1️⃣'} Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
+      ${os.platform()=='win32'?'':'2️⃣'} Use [s config add] for key configuration, or use [s config add -h] to view configuration help
+  ${os.platform()=='win32'?'':'😈️'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
   process.exit(-1);
 });

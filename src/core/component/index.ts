@@ -84,8 +84,8 @@ export function generateSynchronizeComponentExeList(
           tempError['Error'].push(tempErrorAttr);
           process.env['s-execute-file'] = JSON.stringify(tempError);
           logger.error(`Project ${projectName} failed to execute: 
-  📝 Message:  ${tempErrorAttr[projectName]}
-  🧭 You can get help for this component by [s ${projectName} -h]`);
+  ${os.platform()=='win32'?'':'📝'} Message:  ${tempErrorAttr[projectName]}
+  ${os.platform()=='win32'?'':'🧭'} You can get help for this component by [s ${projectName} -h]`);
           resolve({});
         }
       });

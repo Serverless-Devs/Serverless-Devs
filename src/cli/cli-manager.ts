@@ -73,7 +73,7 @@ export default class CliManager {
                                 for (const item in publishYamlInfor['Commands']) {
                                     console.log(`    ${this.getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`)
                                 }
-                                console.log(`\n  ${publishYamlInfor['HomePage'] ? '🧭 More information: ' + publishYamlInfor['HomePage'] + '\n' : ''}`)
+                                console.log(`\n  ${publishYamlInfor['HomePage'] ? `${os.platform()=='win32'?'':'🧭'} More information: ` + publishYamlInfor['HomePage'] + '\n' : ''}`)
                             }
                         } catch (e) {
                             logger.error('Help information could not be found');
@@ -130,24 +130,24 @@ export default class CliManager {
                         logger.success(Object.keys(result).length === 0 ? `End of method: ${command}` : outResult);
                     } catch (e) {
                         logger.error(`Failed to execute:\n
-  ❌ Message: ${e.message}
-  🧭 You can get help for this component by [s cli ${component} -h]
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${os.platform()=='win32'?'':'❌'} Message: ${e.message}
+  ${os.platform()=='win32'?'':'🧭'} You can get help for this component by [s cli ${component} -h]
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
                         process.exit(-1);
                     }
                 } else {
                     logger.error(`Failed to execute:\n
-  ❌ Message: Component ${component} does not include [${command}] method
-  🧭 You can get help for this component by [s cli ${component} -h]
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${os.platform()=='win32'?'':'❌'} Message: Component ${component} does not include [${command}] method
+  ${os.platform()=='win32'?'':'🧭'} You can get help for this component by [s cli ${component} -h]
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
                     process.exit(-1);
                 }
             }
         } catch (e) {
             logger.error(`Failed to execute:\n
-  ❌ Message: ${e.message}
-  🧭 You can get more component on: https://github.com/Serverless-Devs/package-awesome
-  😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${os.platform()=='win32'?'':'❌'} Message: ${e.message}
+  ${os.platform()=='win32'?'':'🧭'} You can get more component on: https://github.com/Serverless-Devs/package-awesome
+  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
             process.exit(-1);
         }
         return result;
