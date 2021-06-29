@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import { loadApplication, setCredential } from '@serverless-devs/core';
+import { loadApplication, setCredential } from '@serverless-devs/core/lib';
 import colors from 'chalk';
 import { logger, configSet, getYamlPath, common } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';

@@ -1,6 +1,6 @@
 /** @format */
 
-import { Logger, spinner as LogSpinner } from '@serverless-devs/core';
+import { Logger, spinner as LogSpinner } from '@serverless-devs/core/lib';
 
 const CLI_CONTENT = 'S-CLI';
 

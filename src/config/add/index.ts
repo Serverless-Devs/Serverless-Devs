@@ -1,7 +1,7 @@
 /** @format */
 
 import program from 'commander';
-import { setCredential, setKnownCredential } from '@serverless-devs/core';
+import { setCredential, setKnownCredential } from '@serverless-devs/core/lib';
 import { CommandError } from '../../error';
 
 const description = `You can add an account

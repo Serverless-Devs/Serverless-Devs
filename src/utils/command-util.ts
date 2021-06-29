@@ -10,7 +10,7 @@ import { version, Parse } from '../specification';
 import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
 import storage from './storage';
 import logger from './logger';
-import { loadComponent } from '@serverless-devs/core';
+import { loadComponent } from '@serverless-devs/core/lib';
 
 const { getSubcommand, getServiceConfig } = version;
 

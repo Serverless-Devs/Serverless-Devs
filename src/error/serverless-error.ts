@@ -1,6 +1,6 @@
 /** @format */
 
-import { HLogger, ILogger } from '@serverless-devs/core';
+import { HLogger, ILogger } from '@serverless-devs/core/lib';
 
 export class ServerlessError {
   @HLogger('S-CLI-ERROR') logger: ILogger;

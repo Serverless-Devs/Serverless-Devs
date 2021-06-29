@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { getCredential, loadComponent } from '@serverless-devs/core';
+import { getCredential, loadComponent } from '@serverless-devs/core/lib';
 import { PackageType } from '../../entiry';
 import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';

@@ -5,7 +5,7 @@ import os from 'os';
 import fs from 'fs';
 import program from 'commander';
 import yaml from 'js-yaml';
-import { getCredential } from '@serverless-devs/core';
+import { getCredential } from '@serverless-devs/core/lib';
 import logger from '../../utils/logger';
 
 const description = `You can get accounts.
