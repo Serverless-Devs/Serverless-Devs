@@ -49,7 +49,7 @@ async function setExecCommand() {
 
 async function globalParameterProcessing() {
   // const tempGlobal = ['skip-action', 'debug'];
-  const tempGlobal = ['skip-action', ];
+  const tempGlobal = ['skip-actions', ];
   for (let i = 0; i < tempGlobal.length; i++) {
     process.env[tempGlobal[i]] = 'false';
     if (process.argv.includes('--' + tempGlobal[i])) {

@@ -52,7 +52,7 @@ export default class CliManager {
                     }
                 }
                 if (command === 'cli-help-options') {
-                    if (componentInstance.__doc && componentInstance.__doc().length > 10) {
+                    if (componentInstance.__doc && componentInstance.__doc().length > 1685) {
                         const docResult = componentInstance.__doc();
                         console.log(`${docResult}`);
                     } else {

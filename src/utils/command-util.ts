@@ -90,7 +90,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
       const { component } = projectDocDetail;
       const componentInstance: any = await loadComponent(component);
       if (componentInstance) {
-        if (componentInstance.__doc) {
+        if (componentInstance.__doc && componentInstance.__doc().length > 1685) {
           const docResult = componentInstance.__doc(projectName);
           logger.info(`\n${docResult}`);
         } else {
