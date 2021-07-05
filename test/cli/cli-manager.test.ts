@@ -1,13 +1,13 @@
 /** @format */
 
-import CliManager from '../../src/cli/cli-manager';
+import CliManager, { CliParams } from '../../src/cli/cli-manager';
 
 describe('init cli', () => {
   it('Verify CliManager class initialization', () => {
-    const input = {
+    const input: CliParams = {
       component: 'string',
       command: 'string',
-      aliasName: 'string',
+      access: 'string',
       props: 'string',
     };
     class myClass extends CliManager {
@@ -23,13 +23,15 @@ describe('init cli', () => {
 
   it('test component inner inputs', async () => {
     try {
-      const input = {
+      const input: CliParams = {
         component: 's-demo',
         command: 'test',
-        aliasName: 'default',
+        access: 'default',
         props: undefined,
       };
       const cli = new CliManager(input);
+      let access = process.env['serverless_devs_temp_access'] ? process.env['serverless_devs_temp_access'] : input.access;
+      input.access = access;
       const result = await cli.init();
       expect(result).toHaveProperty('props'); // 判断输入到组件的参数是否包含props
       expect(result).toHaveProperty('credentials'); // 判断输入到组件的参数是否包含credentials
@@ -41,13 +43,16 @@ describe('init cli', () => {
   });
   it('test params as input', async () => {
     try {
-      const input = {
+      const input: CliParams = {
         component: 's-demo',
         command: 'test',
-        aliasName: 'default',
+        access: 'default',
         props: '{"hello":"serverless devs"}',
       };
+      let access = process.env['serverless_devs_temp_access'] ? process.env['serverless_devs_temp_access'] : input.access;
+      input.access = access;
       const cli = new CliManager(input);
+      
       const result = await cli.init();
       expect(result).toHaveProperty('props')
       expect(result.props).toHaveProperty('hello');
