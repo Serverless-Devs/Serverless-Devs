@@ -130,33 +130,33 @@ export class Parse {
       return objValue;
     }
     if (Object.prototype.toString.call(objValue) === '[object String]') {
-      // const filePath = !this.isProjectProperties(topKey, parentKey) ? path.resolve(this.path, '..', objValue) : objValue;
       const regResult = objValue.match(COMMON_VARIABLE_TYPE_REG);
       if (regResult) {
         const matchResult = regResult[1]; // get match result like projectName.key.variable
         const variableObj = { variableName: matchResult, type: 'Literal', funName: null, funVariable: '' };
         const funMatchResult = matchResult.match(SPECIALL_VARIABLE_TYPE_REG);
         if (funMatchResult) {
-          // eg Env(SecretId) or File(./path)
           variableObj.funName = funMatchResult[1];
           variableObj.funVariable = funMatchResult[2];
           variableObj.type = 'Fun';
         } else {
-          let topKeyDependencisMap = this.dependenciesMap[topKey];
-          if (!topKeyDependencisMap) {
-            topKeyDependencisMap = {};
+          let topKeyDependenciesMap = this.dependenciesMap[topKey];
+          if (!topKeyDependenciesMap) {
+            topKeyDependenciesMap = {};
           }
           const dependProjName = matchResult.split('.')[0];
-          topKeyDependencisMap[dependProjName] = 1; // Dependent priority
-          this.dependenciesMap[topKey] = topKeyDependencisMap;
+          topKeyDependenciesMap[dependProjName] = 1; // Dependent priority
+          this.dependenciesMap[topKey] = topKeyDependenciesMap;
         }
         let realValue = this.findVariableValue(variableObj);
         return Object.prototype.toString.call(realValue) === '[object String]'
           ? objValue.replace(COMMON_VARIABLE_TYPE_REG, realValue)
           : realValue;
       }
-      this.dependenciesMap[topKey] = {};
 
+      if((!this.dependenciesMap[topKey]) || Object.keys(this.dependenciesMap[topKey]).length == 0){
+        this.dependenciesMap[topKey] = {}
+      }
       return objValue;
     }
     if (Object.prototype.toString.call(objValue) === '[object Array]') {
@@ -188,7 +188,6 @@ export class Parse {
 
   async getRealVariables(parsedObj: any) {
     this.globalKeyArr = this.generateMagicVariables(parsedObj);
-    const replacedObj = this.replaceVariable(parsedObj);
-    return replacedObj;
+    return this.replaceVariable(parsedObj);
   }
 }
