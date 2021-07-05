@@ -187,10 +187,8 @@ export class Parse {
   }
 
   async getRealVariables(parsedObj: any) {
-    console.log(1)
     this.globalKeyArr = this.generateMagicVariables(parsedObj);
     const temp = this.replaceVariable(parsedObj);
-    console.log(2)
     return temp
   }
 }
