@@ -99,7 +99,7 @@ export class CommandManager {
         if (process.env['s-execute-file']) {
           logger.error(`All projects were not deployed successfully.
   
-  ${yaml.dump(
+${yaml.dump(
     JSON.parse(process.env['s-execute-file'])['Error'],
   )}  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
