@@ -36,7 +36,7 @@
                 <p>git-qfzhang<br><a href="http://github.com/git-qfzhang">Github</a> | Blog</p>
             </td>
             <td align="center" width="20%">
-                <img src="https://avatars.githubusercontent.com/u/21079031?v=4" width="20%" style="min-width: 100px"><br>
+                <img src="https://avatars.githubusercontent.com/u/5129967?v=4" width="20%" style="min-width: 100px"><br>
                 <p>heimanba<br><a href="https://avatars.githubusercontent.com/u/5129967?v=4">Github</a> | Blog</p>
             </td>
             <td align="center" width="20%">
@@ -58,7 +58,7 @@
                 <p>gongjl88<br><a href="http://github.com/gongjl88">Github</a> | <a href="https://www.blog.loveapple.top"> Blog </a></p>
             </td>
             <td align="center" width="20%">
-                <img src="https://avatars.githubusercontent.com/u/5129967?v=4" width="20%" style="min-width: 100px"><br>
+                <img src="https://avatars.githubusercontent.com/u/21334770?v=4" width="20%" style="min-width: 100px"><br>
                 <p>wangbow<br><a href="http://github.com/wangbow">Github</a> | <a href="https://juejin.im/user/58e8a667ac502e4957bcddbe">Blog</a></p>
             </td>
             <td align="center" width="20%">
@@ -104,6 +104,10 @@
              <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/18051618?v=4" width="20%" style="min-width: 100px"><br>
                 <p>xiezht<br><a href="https://github.com/xiezht"> Github</a> | <a href="https://wupeize.com">Blog</a></p>
+            </td>
+             <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/10382462?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Bingqing Wang<br><a href="https://github.com/bingtsingw"> Github</a> | Blog </p>
             </td>
         </tr>
     </table>
