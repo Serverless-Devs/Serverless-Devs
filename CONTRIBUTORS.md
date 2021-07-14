@@ -109,6 +109,10 @@
                 <img src="https://avatars.githubusercontent.com/u/10382462?v=4" width="20%" style="min-width: 100px"><br>
                 <p>Bingqing Wang<br><a href="https://github.com/bingtsingw"> Github</a> | Blog </p>
             </td>
+              <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/7664030?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Wang Gechao<br><a href="https://github.com/GotzeWong"> Github</a> | Blog </p>
+            </td>
         </tr>
     </table>
 </center>
