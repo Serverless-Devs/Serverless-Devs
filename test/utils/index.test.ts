@@ -1,11 +1,8 @@
 import { getYamlPath } from '../../src/utils/index'
+import os from 'os'
 describe('module utils', () => {
   it('test getYamlPath methods that get yaml folder', () => {
-    const v = getYamlPath(`${__dirname}/fixtures`, 'path1')
-    expect(v).toBeTruthy()
-  });
-  it('test getYamlPath methods that get yml folder', () => {
-    const v = getYamlPath(`${__dirname}/fixtures`, 'path2')
+    const v = getYamlPath(`${os.homedir()}/.s`, 'access')
     expect(v).toBeTruthy()
   });
 })
