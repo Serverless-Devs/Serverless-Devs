@@ -67,6 +67,7 @@ function getSecretValue(n: number, str = ' ') {
       const accessData = {};
       accessData[aliasName] = accessInfo[typeof aliasName === 'boolean' ? 'default' : aliasName];
       logger.info(`\n\n` + yaml.dump(accessData));
+      return accessData
     } else {
       logger.error(`\n\n  ${os.platform()=='win32'?'':'❌'} Message: Unable to get key information with alias ${aliasName}.
   ${os.platform()=='win32'?'':'🤔'} You have configured these keys: [${String(Object.keys(accessInfo))}].
@@ -83,6 +84,7 @@ function getSecretValue(n: number, str = ' ') {
 `);
     } else {
       logger.info(`\n\n` + yaml.dump(accessInfo));
+      return accessInfo
     }
   }
 })().catch(err => {
