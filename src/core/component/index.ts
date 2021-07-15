@@ -9,6 +9,7 @@ import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
+import yaml from "js-yaml";
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
@@ -118,8 +119,10 @@ export class ComponentExeCute {
       return null;
     }
     try {
-      const accessInfo = await getCredential(access);
-      this.componentConfig.access = accessInfo.Alias;
+      const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+      const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
+      const accessInfo = accessFileInfo[access] ? await getCredential(access) : {};
+      this.componentConfig.access = access;
       return accessInfo;
     } catch (e) {}
     return {};
