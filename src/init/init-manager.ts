@@ -19,6 +19,7 @@ import {
   AWS_APPLICATION_TEMPLATE,
 } from './init-config';
 import size from 'window-size';
+import { emoji } from '../utils/common';
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
 const getCredentialAliasList = () => {
@@ -132,10 +133,10 @@ export class InitManager {
           await baseChildComponent.postInit(tempObj)
         }
       }catch (e){}
-      logger.success(`\n${os.platform()=='win32'?'':'🏄‍'} Thanks for using Serverless-Devs`);
-      console.log(`${os.platform()=='win32'?'':'👉'} You could [cd ${appPath}] and enjoy your serverless journey!`);
-      console.log(`${os.platform()=='win32'?'':'🧭️'} If you need help for this example, you can use [s -h] after you enter folder.`);
-      console.log(`${os.platform()=='win32'?'':'💞'} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'));
+      logger.success(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
+      console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
+      console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
+      console.log(`${emoji('💞')} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'));
     }
   }
   async gitCloneProject(name: string, dir?: string) {
@@ -152,7 +153,7 @@ export class InitManager {
   }
 
   async init(name: string, dir?: string) {
-    console.log(`\n${os.platform()=='win32'?'':'🚀'} Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n`);
+    console.log(`\n${emoji('🚀')} Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n`);
     if (!name) {
       let tempHeight;
       try {
@@ -178,7 +179,7 @@ export class InitManager {
         const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE);
         answerValue = answersTemp['template'];
       }
-      console.log(`\n${os.platform()=='win32'?'':'😋'} Create application command: [s init ${answerValue}]\n`);
+      console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       await this.executeInit(answerValue, dir);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);

@@ -3,9 +3,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import yaml from 'js-yaml';
-import os from 'os';
 import { getServiceList } from './version';
 import { logger } from '../utils';
+import { emoji } from '../utils/common';
 
 interface MAP_OBJECT {
   [key: string]: any;
@@ -46,10 +46,10 @@ export class Parse {
     } catch (e) {
       if (process.env['serverless_devs_out_put_help'] !== 'true') {
         logger.error(`Failed to execute:\n
-  ${os.platform()=='win32'?'':'❌'} Message: The file converted by parse is abnormal ${e.message}
-  ${os.platform()=='win32'?'':'🧭'} Please make sure your Yaml/JSON file is standard. 
-      ${os.platform()=='win32'?'':'📚'} Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
-  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${emoji('❌')} Message: The file converted by parse is abnormal ${e.message}
+  ${emoji('🧭')} Please make sure your Yaml/JSON file is standard. 
+      ${emoji('📚')} Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
+  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
         process.exit(-1);
       }
     }

@@ -1,9 +1,9 @@
 /** @format */
 
-import os from 'os';
 import program from 'commander';
 import { setCredential, setKnownCredential } from '@serverless-devs/core/lib';
 import { CommandError } from '../../error';
+import { emoji } from '../../utils/common';
 
 const description = `You can add an account
 
@@ -20,7 +20,7 @@ const description = `You can add an account
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-${os.platform()=='win32'?'':'🧭'} How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`;
+${emoji('🧭')} How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`;
 
 program
   .name('s config add')
