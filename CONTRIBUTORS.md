@@ -119,6 +119,10 @@
                 <img src="https://avatars.githubusercontent.com/u/6525544?v=4" width="20%" style="min-width: 100px"><br>
                 <p>金炳<br><a href=https://github.com/stone-jin"> Github</a> | <a href="www.fedfans.com">Blog</a></p>
             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/45506000?v=4" width="20%" style="min-width: 100px"><br>
+                <p>吹风机<br><a href=https://github.com/chuifengji"> Github</a> | <a href="https://ethan.nt-geek.club/">Blog</a></p>
+            </td>
         </tr>
     </table>
 </center>
