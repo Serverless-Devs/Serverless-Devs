@@ -5,6 +5,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import _ from 'lodash';
 import { handlerProfileFile } from './handler-set-config';
+import os from 'os';
 
 function checkTemplateFormat(filePath: string, json = false) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -159,6 +160,10 @@ export function mark(source: string): string {
   }
   const subStr = source.slice(-4);
   return `***********${subStr}`;
+}
+
+export function emoji(emoji: string): string{
+  return os.platform()=='win32'?'':emoji;
 }
 
 export default {

@@ -10,6 +10,7 @@ import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
 import yaml from "js-yaml";
+import { emoji } from '../../utils/common';
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
@@ -85,8 +86,8 @@ export function generateSynchronizeComponentExeList(
           tempError['Error'].push(tempErrorAttr);
           process.env['s-execute-file'] = JSON.stringify(tempError);
           logger.error(`Project ${projectName} failed to execute: 
-  ${os.platform()=='win32'?'':'📝'} Message:  ${tempErrorAttr[projectName]}
-  ${os.platform()=='win32'?'':'🧭'} You can get help for this component by [s ${projectName} -h]`);
+  ${emoji('📝')} Message:  ${tempErrorAttr[projectName]}
+  ${emoji('🧭')} You can get help for this component by [s ${projectName} -h]`);
           resolve({});
         }
       });

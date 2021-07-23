@@ -9,6 +9,7 @@ import path from 'path';
 import os from 'os';
 import yaml from 'js-yaml';
 import fs from 'fs';
+import { emoji } from './utils/common';
 
 const { checkAndReturnTemplateFile } = common;
 const {
@@ -64,8 +65,8 @@ function versionCheck() {
   const result = execSync('npm view @serverless-devs/s versions');
   const versions = result.toString().replace(/\'/g, '').replace(/\[/g, '').replace(/\]/g, '').split(',');
   const lastVersion = versions[versions.length - 1].replace(/\n/g, '').replace(/\s/g, '');
-  logger.log(`${os.platform()=='win32'?'':'💻'}  local  version : ${pkg.version}`);
-  logger.log(`${os.platform()=='win32'?'':'☁️'}  remote version : ${lastVersion}\n`);
+  logger.log(`${emoji('💻')}  local  version : ${pkg.version}`);
+  logger.log(`${emoji('☁️')}  remote version : ${lastVersion}\n`);
 }
 
 const description = `  _________                               .__
@@ -77,23 +78,23 @@ const description = `  _________                               .__
 Welcome to the Serverless Devs.
 
 More: 
-${os.platform()=='win32'?'':'📘'} Documents: https://www.github.com/serverless-devs/docs
-${os.platform()=='win32'?'':'🙌'} Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
-${os.platform()=='win32'?'':'⁉️'} Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues
-${os.platform()=='win32'?'':'👀'} Current Registry: ${getRegistry()}
+${emoji('📘')} Documents: https://www.github.com/serverless-devs/docs
+${emoji('🙌')} Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
+${emoji('⁉️')} Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues
+${emoji('👀')} Current Registry: ${getRegistry()}
 
 Quick start:
-${os.platform()=='win32'?'':'🍻'} Can perform [s init] fast experience`;
+${emoji('🍻')} Can perform [s init] fast experience`;
 
 (async () => {
   registerCommandChecker(program);
   const system_command = program
     .description(description)
     .helpOption('-h, --help', `Display help for command`)
-    .command('config', `${os.platform()=='win32'?'':'👤'} Configure cloud service account.`)
-    .command('init', `${os.platform()=='win32'?'':'💞'} Initializing a project.`)
-    .command('cli', `${os.platform()=='win32'?'':'🐚'} Command line operation through yaml free mode.`)
-    .command('set', `${os.platform()=='win32'?'':'🔧'} Settings for the tool.`)
+    .command('config', `${emoji('👤')} Configure cloud service account.`)
+    .command('init', `${emoji('💞')} Initializing a project.`)
+    .command('cli', `${emoji('🐚')} Command line operation through yaml free mode.`)
+    .command('set', `${emoji('🔧')} Settings for the tool.`)
     .option('-t, --template [templatePath]', 'Specify the template file')
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')
@@ -147,8 +148,8 @@ ${os.platform()=='win32'?'':'🍻'} Can perform [s init] fast experience`;
   });
   system_command.parse(process.argv);
 })().catch(err => {
-  logger.error(`\n\n  ${os.platform()=='win32'?'':'❌'} Message: ${err.message}.
-  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+  logger.error(`\n\n  ${emoji('❌')} Message: ${err.message}.
+  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
   process.exit(-1);
 });

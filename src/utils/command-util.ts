@@ -11,6 +11,7 @@ import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
 import storage from './storage';
 import logger from './logger';
 import { loadComponent } from '@serverless-devs/core/lib';
+import { emoji } from './common';
 
 const { getSubcommand, getServiceConfig } = version;
 
@@ -79,7 +80,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
   const commandListDetail = await Promise.all(commandListPromise);
   commandListDetail.forEach(({ projectName, projectDocDetail }) => {
     const customerCommand = new Command(projectName);
-    const customerCommandDescription = `${os.platform()=='win32'?'':'👉'} This is a customer command please use [s ${projectName} -h]  obtain the documentation`;
+    const customerCommandDescription = `${emoji('👉')} This is a customer command please use [s ${projectName} -h]  obtain the documentation`;
     customerCommand.description(customerCommandDescription);
     const [_customerCommandName, methodName] = process.argv.slice(2);
     if (_customerCommandName === projectName && methodName && methodName.indexOf('-') !== 0) {
@@ -111,7 +112,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
               for (const item in publishYamlInfor['Commands']) {
                 console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`)
               }
-              console.log(`\n  ${publishYamlInfor['HomePage'] ? `${os.platform()=='win32'?'':'🧭'} More information: ` + publishYamlInfor['HomePage'] + '\n' : ''}`)
+              console.log(`\n  ${publishYamlInfor['HomePage'] ? `${emoji('🧭')} More information: ` + publishYamlInfor['HomePage'] + '\n' : ''}`)
             }
           } catch (e) {
             logger.error('Help information could not be found');
@@ -139,7 +140,7 @@ export function registerCommandChecker(program: any) {
 
 export async function registerExecCommand(system_command: any, templateFile: string) {
   const execCommand = new Command('exec');
-  const customerCommandDescription = `${os.platform()=='win32'?'':'🚀'} Subcommand execution analysis.`;
+  const customerCommandDescription = `${emoji('🚀')} Subcommand execution analysis.`;
   execCommand.description(customerCommandDescription);
   execCommand.usage('[subcommand] -- [method] [params]');
   if (templateFile) {

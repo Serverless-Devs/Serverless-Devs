@@ -2,7 +2,6 @@
 
 import yaml from 'js-yaml';
 import { version, Parse, Analysis } from '../../specification';
-import os from 'os';
 import { common, logger } from '../../utils';
 import {
   ComponentExeCute,
@@ -10,6 +9,7 @@ import {
   generateSynchronizeComponentExeList,
   synchronizeExecuteComponentList,
 } from '../component';
+import { emoji } from '../../utils/common';
 
 const { checkTemplateFile } = common;
 const { getServiceConfig } = version;
@@ -71,9 +71,9 @@ export class CommandManager {
               : e.message;
             logger.error(`Project ${projectConfig.ProjectName} failed to execute:
   
-  ${os.platform()=='win32'?'':'📝'} Message:  ${errorMessage}
-  ${os.platform()=='win32'?'':'🧭'} You can get help for this component by [s ${projectConfig.ProjectName} -h]
-  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${emoji('📝')} Message:  ${errorMessage}
+  ${emoji('🧭')} You can get help for this component by [s ${projectConfig.ProjectName} -h]
+  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
             process.exit(-1);
           }
         } else {
@@ -101,7 +101,7 @@ export class CommandManager {
   
 ${yaml.dump(
     JSON.parse(process.env['s-execute-file'])['Error'],
-  )}  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+  )}  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
           process.exit(-1);
         } else {
@@ -109,17 +109,17 @@ ${yaml.dump(
         }
       } else {
         logger.error(`Failed to execute:\n
-  ${os.platform()=='win32'?'':'❌'} Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${this.templateFile}
-  ${os.platform()=='win32'?'':'🧭'} If you want to use Serverless Devs, you should have a s.yaml or use [s cli] command.
-      ${os.platform()=='win32'?'':'1️⃣'} Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
-      ${os.platform()=='win32'?'':'2️⃣'} Cli document: [s cli -h]
-  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${emoji('❌')} Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${this.templateFile}
+  ${emoji('🧭')} If you want to use Serverless Devs, you should have a s.yaml or use [s cli] command.
+      ${emoji('1️⃣')} Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
+      ${emoji('2️⃣')} Cli document: [s cli -h]
+  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
         process.exit(-1);
       }
     } catch (e) {
       logger.error(`Failed to execute:\n
-  ${os.platform()=='win32'?'':'❌'} Message: ${e.message}
-  ${os.platform()=='win32'?'':'😈'} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${emoji('❌')} Message: ${e.message}
+  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
       process.exit(-1);
     }
   }

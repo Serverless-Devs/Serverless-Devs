@@ -2,10 +2,10 @@
 
 import * as inquirer from 'inquirer';
 import chalk from 'chalk';
-import os from 'os';
+import { emoji } from '../utils/common';
 
 const data = [
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'👋'} Hello Serverless for Cloud Vendors`),
+  new inquirer.Separator(`\n${emoji('👋')} Hello Serverless for Cloud Vendors`),
   {
     key: 'alibaba',
     name: 'Alibaba Cloud Serverless',
@@ -21,7 +21,7 @@ const data = [
     name: 'Tencent Cloud Serverless',
     value: 'tencent',
   },
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'🚀'} DK Framework for Serverless JamStack`),
+  new inquirer.Separator(`\n${emoji('🚀')} DK Framework for Serverless JamStack`),
   {
     key: 'devsapp/dk-http',
     name: 'DK HTTP API',
@@ -37,7 +37,7 @@ const data = [
     name: 'Serverless JamStack Example',
     value: 'devsapp/start-jamstack',
   },
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'🧩'} Serverless Dev Framework`),
+  new inquirer.Separator(`\n${emoji('🧩')} Serverless Dev Framework`),
   {
     key: 'devsapp/midway-hook-vue',
     name: 'Midway - Midway FaaS Framework',
@@ -48,7 +48,7 @@ const data = [
     name: 'Malagu - Malagu Framework',
     value: 'devsapp/start-malagu',
   },
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'🍼'} Dev Template for Serverless Devs`),
+  new inquirer.Separator(`\n${emoji('🍼')} Dev Template for Serverless Devs`),
   {
     key: 'devsapp/start-application',
     name: 'Application Scaffolding',
@@ -64,27 +64,27 @@ const data = [
 const data_small = [
   {
     key: 'alibaba',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👋'} Hello Serverless]`)}\tAlibaba Cloud Serverless`,
+    name: `${chalk.gray(`[${emoji('👋')} Hello Serverless]`)}\tAlibaba Cloud Serverless`,
     value: 'alibaba',
   },
   {
     key: 'aws',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👋'} Hello Serverless]`)}\tAWS Cloud Serverless`,
+    name: `${chalk.gray(`[${emoji('👋')} Hello Serverless]`)}\tAWS Cloud Serverless`,
     value: 'aws',
   },
   {
     key: 'tencent',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👋'} Hello Serverless]`)}\tTencent Cloud Serverless`,
+    name: `${chalk.gray(`[${emoji('👋')} Hello Serverless]`)}\tTencent Cloud Serverless`,
     value: 'tencent',
   },
   {
     key: 'devsapp/dk-http',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚀'} DK Framework]`)}\tDK HTTP API`,
+    name: `${chalk.gray(`[${emoji('🚀')} DK Framework]`)}\tDK HTTP API`,
     value: 'devsapp/dk-http',
   },
   {
     key: 'devsapp/dk-tablestore-mail',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚀'} DK Framework]`)}\tDK TableStore Mail`,
+    name: `${chalk.gray(`[${emoji('🚀')} DK Framework]`)}\tDK TableStore Mail`,
     value: 'devsapp/dk-tablestore-mail',
   },
   // {
@@ -94,28 +94,28 @@ const data_small = [
   // },
   {
     key: 'devsapp/midway-hook-vue',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🧩'} Serverless Dev]`)}\tMidway - Midway FaaS Framework`,
+    name: `${chalk.gray(`[${emoji('🧩')} Serverless Dev]`)}\tMidway - Midway FaaS Framework`,
     value: 'devsapp/midway-hook-vue',
   },
   {
     key: 'devsapp/start-malagu',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🧩'} Serverless Dev]`)}\tMalagu - Malagu Framework`,
+    name: `${chalk.gray(`[${emoji('🧩')} Serverless Dev]`)}\tMalagu - Malagu Framework`,
     value: 'devsapp/start-malagu',
   },
   {
     key: 'devsapp/start-application',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🍼'} Dev Template]]`)}\tApplication Scaffolding`,
+    name: `${chalk.gray(`[${emoji('🍼')} Dev Template]]`)}\tApplication Scaffolding`,
     value: 'devsapp/start-application',
   },
   {
     key: 'devsapp/start-component',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🍼'} Dev Template]]`)}\tComponent Scaffolding`,
+    name: `${chalk.gray(`[${emoji('🍼')} Dev Template]]`)}\tComponent Scaffolding`,
     value: 'devsapp/start-component',
   },
 ];
 
 const alibaba_data = [
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'👏'} Event Function`),
+  new inquirer.Separator(`\n${emoji('👏')} Event Function`),
   {
     key: 'devsapp/start-fc-event-nodejs12',
     name: 'Node.js 12 Example',
@@ -146,7 +146,7 @@ const alibaba_data = [
     name: 'Java8 Example',
     value: 'devsapp/start-fc-event-java8',
   },
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'🌏'} HTTP Function`),
+  new inquirer.Separator(`\n${emoji('🌏')} HTTP Function`),
   {
     key: 'devsapp/start-fc-http-nodejs12',
     name: 'Node.js 12 Example',
@@ -177,7 +177,7 @@ const alibaba_data = [
     name: 'Java8 Example',
     value: 'devsapp/start-fc-http-java8',
   },
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'🚕'} Project Example`),
+  new inquirer.Separator(`\n${emoji('🚕')} Project Example`),
   // {
   //   key: 'devsapp/start-fc-http-nodejs12',
   //   name: 'Chatroom - Websocket Example',
@@ -208,7 +208,7 @@ const alibaba_data = [
     name: 'Video Processing - Ffmpeg Example',
     value: 'devsapp/ffmpeg-app',
   },
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'🚢'} Web Framework Example`),
+  new inquirer.Separator(`\n${emoji('🚢')} Web Framework Example`),
   {
     key: 'devsapp/start-express',
     name: 'Express - Node.js Framework',
@@ -230,7 +230,7 @@ const alibaba_data = [
     value: 'devsapp/start-zblog',
   },
 
-  new inquirer.Separator(`\n${os.platform()=='win32'?'':'🎡'} Static Website`),
+  new inquirer.Separator(`\n${emoji('🎡')} Static Website`),
   {
     key: 'devsapp/website-vue',
     name: 'Vue - Front-end Framework',
@@ -261,132 +261,132 @@ const alibaba_data = [
 const alibaba_data_small = [
   {
     key: 'devsapp/start-fc-event-nodejs12',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👏'} Event Function]`)}\tNode.js 12 Example`,
+    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tNode.js 12 Example`,
     value: 'devsapp/start-fc-event-nodejs12',
   },
   {
     key: 'devsapp/start-fc-event-nodejs10',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👏'} Event Function]`)}\tNode.js 10 Example`,
+    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tNode.js 10 Example`,
     value: 'devsapp/start-fc-event-nodejs10',
   },
   {
     key: 'devsapp/start-fc-event-python3',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👏'} Event Function]`)}\tPython3 Example`,
+    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tPython3 Example`,
     value: 'devsapp/start-fc-event-python3',
   },
   {
     key: 'devsapp/start-fc-event-python2',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👏'} Event Function]`)}\tPython2 Example`,
+    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tPython2 Example`,
     value: 'devsapp/start-fc-event-python2',
   },
   {
     key: 'devsapp/start-fc-event-php7',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👏'} Event Function]`)}\tPHP7.2 Example`,
+    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tPHP7.2 Example`,
     value: 'devsapp/start-fc-event-php7',
   },
   {
     key: 'devsapp/start-fc-event-java8',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'👏'} Event Function]`)}\tJava8 Example`,
+    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tJava8 Example`,
     value: 'devsapp/start-fc-event-java8',
   },
   {
     key: 'devsapp/start-fc-http-nodejs12',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🌏'} HTTP Function]`)}\tNode.js 12 Example`,
+    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tNode.js 12 Example`,
     value: 'devsapp/start-fc-http-nodejs12',
   },
   {
     key: 'devsapp/start-fc-http-nodejs10',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🌏'} HTTP Function]`)}\tNode.js 10 Example`,
+    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tNode.js 10 Example`,
     value: 'devsapp/start-fc-http-nodejs10',
   },
   {
     key: 'devsapp/start-fc-http-python3',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🌏'} HTTP Function]`)}\tPython3 Example`,
+    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tPython3 Example`,
     value: 'devsapp/start-fc-http-python3',
   },
   {
     key: 'devsapp/start-fc-http-python2',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🌏'} HTTP Function]`)}\tPython2 Example`,
+    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tPython2 Example`,
     value: 'devsapp/start-fc-http-python2',
   },
   {
     key: 'devsapp/start-fc-http-php7',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🌏'} HTTP Function]`)}\tPHP7.2 Example`,
+    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tPHP7.2 Example`,
     value: 'devsapp/start-fc-http-php7',
   },
   {
     key: 'devsapp/start-fc-http-java8',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🌏'} HTTP Function]`)}\tJava8 Example`,
+    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tJava8 Example`,
     value: 'devsapp/start-fc-http-java8',
   },
   {
     key: 'devsapp/todolist-app',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚕'} Project Example]`)}\tTodoList - Node.js Example`,
+    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tTodoList - Node.js Example`,
     value: 'devsapp/todolist-app',
   },
   {
     key: 'devsapp/django-blog',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚕'} Project Example]`)}\tDjango Blog - Python Example`,
+    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tDjango Blog - Python Example`,
     value: 'devsapp/django-blog',
   },
   {
     key: 'devsapp/puppeteer-app',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚕'} Project Example]`)}\tPuppeteer - Front-end Example`,
+    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tPuppeteer - Front-end Example`,
     value: 'devsapp/puppeteer-app',
   },
   {
     key: 'devsapp/image-prediction-app',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚕'} Project Example]`)}\tImage Prediction - AI Example`,
+    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tImage Prediction - AI Example`,
     value: 'devsapp/image-prediction-app',
   },
   {
     key: 'devsapp/ffmpeg-app',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚕'} Project Example]`)}\tVideo Processing - Ffmpeg Example`,
+    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tVideo Processing - Ffmpeg Example`,
     value: 'devsapp/ffmpeg-app',
   },
   {
     key: 'devsapp/start-express',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚢'} Web Framework]`)}\tExpress - Node.js Framework`,
+    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tExpress - Node.js Framework`,
     value: 'devsapp/start-express',
   },
   {
     key: 'devsapp/start-flask',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚢'} Web Framework]`)}\tFlask - Python Framework`,
+    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tFlask - Python Framework`,
     value: 'devsapp/start-flask',
   },
   {
     key: 'devsapp/start-springboot',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚢'} Web Framework]`)}\tSpringBoot - Java Framework`,
+    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tSpringBoot - Java Framework`,
     value: 'devsapp/start-springboot',
   },
   {
     key: 'devsapp/start-zblog',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🚢'} Web Framework]`)}\tZblog - PHP Framework`,
+    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tZblog - PHP Framework`,
     value: 'devsapp/start-zblog',
   },
   {
     key: 'devsapp/website-vue',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🎡'} Static Website]`)}\tVue - Front-end Framework`,
+    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tVue - Front-end Framework`,
     value: 'devsapp/website-vue',
   },
   {
     key: 'devsapp/website-react',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🎡'} Static Website]`)}\tReact - Front-end Framework`,
+    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tReact - Front-end Framework`,
     value: 'devsapp/website-react',
   },
   {
     key: 'devsapp/website-docusaurus',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🎡'} Static Website]`)}\tDocusaurus - Static Web Framework`,
+    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tDocusaurus - Static Web Framework`,
     value: 'devsapp/website-docusaurus',
   },
   {
     key: 'devsapp/website-hexo',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🎡'} Static Website]`)}\tHexo - Static Web Framework`,
+    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tHexo - Static Web Framework`,
     value: 'devsapp/website-hexo',
   },
   {
     key: 'devsapp/website-vuepress',
-    name: `${chalk.gray(`[${os.platform()=='win32'?'':'🎡'} Static Website]`)}\tVuepress - Static Web Framework`,
+    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tVuepress - Static Web Framework`,
     value: 'devsapp/website-vuepress',
   },
 ];
