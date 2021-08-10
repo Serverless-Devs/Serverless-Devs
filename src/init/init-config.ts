@@ -205,7 +205,7 @@ const alibaba_data = [
   },
   {
     key: 'devsapp/ffmpeg-app',
-    name: 'Video Processing - Ffmpeg Example',
+    name: 'Video Processing - FFmpeg Example',
     value: 'devsapp/ffmpeg-app',
   },
   new inquirer.Separator(`\n${emoji('🚢')} Web Framework Example`),
@@ -341,7 +341,7 @@ const alibaba_data_small = [
   },
   {
     key: 'devsapp/ffmpeg-app',
-    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tVideo Processing - Ffmpeg Example`,
+    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tVideo Processing - FFmpeg Example`,
     value: 'devsapp/ffmpeg-app',
   },
   {
