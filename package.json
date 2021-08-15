@@ -31,7 +31,7 @@
     "watch": "tsc -w",
     "test": "npx jest",
     "build": "tsc",
-    "postbuild": "./pre-publish.sh",
+    "postbuild": "./post-publish.sh",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",
@@ -41,8 +41,10 @@
   "bin": {
     "s": "bin/s"
   },
+  "dependencies": {
+    "@serverless-devs/core": "^0.0.*"
+  },
   "devDependencies": {
-    "@serverless-devs/core": "^0.0.*",
     "@types/fs-extra": "^9.0.1",
     "@types/inquirer": "^7.3.0",
     "@types/jest": "^26.0.23",
