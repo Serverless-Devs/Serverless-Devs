@@ -3,14 +3,15 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { getCredential, loadComponent } from '@serverless-devs/core/lib';
 import { PackageType } from '../../entiry';
 import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
-import yaml from "js-yaml";
+import yaml from 'js-yaml';
 import { emoji } from '../../utils/common';
+import getCore from '../../utils/s-core';
+const { getCredential, loadComponent } = getCore();
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
@@ -169,6 +170,7 @@ export class ComponentExeCute {
     });
     let { name } = getServiceConfigDetail(this.componentConfig);
     const regirstry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+    console.log('私包测试');
     const componentClass = await loadComponent(name, regirstry);
     const data = await this.invokeMethod(componentClass, this.method, inputs);
     return data;
