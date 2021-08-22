@@ -97,6 +97,6 @@
     ]
   },
   "dependencies": {
-    "@serverless-devs/core": "^0.0.28"
+    "@serverless-devs/core": "^0.0.*"
   }
 }
