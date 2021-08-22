@@ -92,7 +92,6 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     customerCommand.option('-h, --help', 'Print usage document');
     customerCommand.action(async () => {
       const { component } = projectDocDetail;
-      console.log('私包测试');
       const componentInstance: any = await loadComponent(component);
       if (componentInstance) {
         if (componentInstance.__doc && componentInstance.__doc().length > 1685) {
