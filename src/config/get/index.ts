@@ -5,9 +5,10 @@ import os from 'os';
 import fs from 'fs';
 import program from 'commander';
 import yaml from 'js-yaml';
-import { getCredential } from '@serverless-devs/core/lib';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
+import getCore from '../../utils/s-core';
+const { getCredential } = getCore();
 
 const description = `You can get accounts.
  
@@ -34,9 +35,8 @@ function getSecretValue(n: number, str = ' ') {
 }
 
 (async () => {
-
   let { aliasName, list } = program as any;
-  aliasName = aliasName || process.env['serverless_devs_temp_access']
+  aliasName = aliasName || process.env['serverless_devs_temp_access'];
   if (!aliasName && !list) {
     program.help();
   }
@@ -68,7 +68,7 @@ function getSecretValue(n: number, str = ' ') {
       const accessData = {};
       accessData[aliasName] = accessInfo[typeof aliasName === 'boolean' ? 'default' : aliasName];
       logger.info(`\n\n` + yaml.dump(accessData));
-      return accessData
+      return accessData;
     } else {
       logger.error(`\n\n  ${emoji('❌')} Message: Unable to get key information with alias ${aliasName}.
   ${emoji('🤔')} You have configured these keys: [${String(Object.keys(accessInfo))}].
@@ -85,7 +85,7 @@ function getSecretValue(n: number, str = ' ') {
 `);
     } else {
       logger.info(`\n\n` + yaml.dump(accessInfo));
-      return accessInfo
+      return accessInfo;
     }
   }
 })().catch(err => {
@@ -97,7 +97,9 @@ function getSecretValue(n: number, str = ' ') {
   } else {
     logger.error(`\n\n  ${emoji('❌')} Message: ${err.message}.
   ${emoji('🧭')} You can :
-      ${emoji('1️⃣')} Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
+      ${emoji(
+        '1️⃣',
+      )} Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
       ${emoji('2️⃣')} Use [s config add] for key configuration, or use [s config add -h] to view configuration help
   ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);

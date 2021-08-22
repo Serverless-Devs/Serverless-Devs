@@ -1,11 +1,12 @@
 /** @format */
 
-import { HLogger, ILogger } from '@serverless-devs/core/lib';
+import getCore from '../utils/s-core';
+const { Logger } = getCore();
+const logger = new Logger('S-CLI-ERROR');
 
 export class ServerlessError {
-  @HLogger('S-CLI-ERROR') logger: ILogger;
   constructor(phase: string, message: string, params?: any) {
-    this.logger.error(phase + ': ' + message, params);
+    logger.error(phase + ': ' + message, params);
     process.exit(-1);
   }
 }

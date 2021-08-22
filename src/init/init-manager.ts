@@ -7,7 +7,6 @@ import _ from 'lodash';
 import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import { loadApplication, setCredential } from '@serverless-devs/core/lib';
 import colors from 'chalk';
 import { logger, configSet, getYamlPath, common } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
@@ -20,6 +19,9 @@ import {
 } from './init-config';
 import size from 'window-size';
 import { emoji } from '../utils/common';
+import getCore from '../utils/s-core';
+const { loadApplication, setCredential } = getCore();
+
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
 const getCredentialAliasList = () => {
@@ -126,17 +128,19 @@ export class InitManager {
       await this.initEnvConfig(appPath);
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
       // postInit
-      try{
-        if(process.env[`${appPath}-post-init`]){
-          const tempObj = JSON.parse(process.env[`${appPath}-post-init`])
+      try {
+        if (process.env[`${appPath}-post-init`]) {
+          const tempObj = JSON.parse(process.env[`${appPath}-post-init`]);
           const baseChildComponent = await require(path.join(tempObj['tempPath'], 'hook'));
-          await baseChildComponent.postInit(tempObj)
+          await baseChildComponent.postInit(tempObj);
         }
-      }catch (e){}
+      } catch (e) {}
       logger.success(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
-      console.log(`${emoji('💞')} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'));
+      console.log(
+        `${emoji('💞')} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
+      );
     }
   }
   async gitCloneProject(name: string, dir?: string) {

@@ -1,31 +1,32 @@
 /** @format */
 
-import { Logger, spinner as LogSpinner } from '@serverless-devs/core/lib';
+import getCore from './s-core';
+const { Logger, spinner: LogSpinner } = getCore();
 
-const CLI_CONTENT = 'S-CLI';
+const logger = new Logger('S-CLI');
 
 export default class ServerlessDevsCliLogger {
   static log(m) {
-    Logger.log(m);
+    logger.log(m);
   }
   static info(m) {
-    Logger.info(CLI_CONTENT, m);
+    logger.info(m);
   }
 
   static debug(m) {
-    Logger.debug(CLI_CONTENT, m);
+    logger.debug(m);
   }
 
   static error(m) {
-    Logger.error(CLI_CONTENT, m);
+    logger.error(m);
   }
 
   static warning(m) {
-    Logger.warn(CLI_CONTENT, m);
+    logger.warn(m);
   }
 
   static success(m) {
-    Logger.log(m, 'green');
+    logger.log(m, 'green');
   }
 
   static spinner(info) {

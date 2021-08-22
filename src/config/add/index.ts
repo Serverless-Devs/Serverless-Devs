@@ -1,9 +1,10 @@
 /** @format */
 
 import program from 'commander';
-import { setCredential, setKnownCredential } from '@serverless-devs/core/lib';
 import { CommandError } from '../../error';
 import { emoji } from '../../utils/common';
+import getCore from '../../utils/s-core';
+const { setCredential, setKnownCredential } = getCore();
 
 const description = `You can add an account
 
@@ -55,7 +56,7 @@ program
     infoList,
     aliasName,
   } = program;
-  aliasName = aliasName || process.env['serverless_devs_temp_access']
+  aliasName = aliasName || process.env['serverless_devs_temp_access'];
   const keyInformation = {};
   if (keyList && infoList) {
     const infoKeyList = keyList.split(',');

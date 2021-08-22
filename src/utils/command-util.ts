@@ -10,8 +10,9 @@ import { version, Parse } from '../specification';
 import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
 import storage from './storage';
 import logger from './logger';
-import { loadComponent } from '@serverless-devs/core/lib';
 import { emoji } from './common';
+import getCore from './s-core';
+const { loadComponent } = getCore();
 
 const { getSubcommand, getServiceConfig } = version;
 
@@ -34,7 +35,7 @@ export function createUniversalCommand(command: string, customerCommandName?: st
 
   if (params.length !== 0) {
     process.env.temp_params = params.join(' ');
-    process['temp_params'] = params
+    process['temp_params'] = params;
   }
   process.argv = processArgv;
   _command.description(description || '').action(() => {
@@ -64,9 +65,9 @@ export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
 }
 
 function getTempCommandStr(commands: string, length: number) {
-  const commandsLength = commands.length
-  const tempArray = new Array(length - commandsLength).fill(' ')
-  return `${commands}${tempArray.join('')} : `
+  const commandsLength = commands.length;
+  const tempArray = new Array(length - commandsLength).fill(' ');
+  return `${commands}${tempArray.join('')} : `;
 }
 
 export async function createCustomerCommand(templateFile: string): Promise<any[]> {
@@ -80,7 +81,9 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
   const commandListDetail = await Promise.all(commandListPromise);
   commandListDetail.forEach(({ projectName, projectDocDetail }) => {
     const customerCommand = new Command(projectName);
-    const customerCommandDescription = `${emoji('👉')} This is a customer command please use [s ${projectName} -h]  obtain the documentation`;
+    const customerCommandDescription = `${emoji(
+      '👉',
+    )} This is a customer command please use [s ${projectName} -h]  obtain the documentation`;
     customerCommand.description(customerCommandDescription);
     const [_customerCommandName, methodName] = process.argv.slice(2);
     if (_customerCommandName === projectName && methodName && methodName.indexOf('-') !== 0) {
@@ -89,6 +92,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     customerCommand.option('-h, --help', 'Print usage document');
     customerCommand.action(async () => {
       const { component } = projectDocDetail;
+      console.log('私包测试');
       const componentInstance: any = await loadComponent(component);
       if (componentInstance) {
         if (componentInstance.__doc && componentInstance.__doc().length > 1685) {
@@ -101,18 +105,26 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
               componentPathYaml = path.join(componentInstance.__path, 'publish.yaml');
             }
             const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'));
-            console.log(`\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
-            let tempLength = 0
+            console.log(
+              `\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`,
+            );
+            let tempLength = 0;
             if (publishYamlInfor['Commands']) {
               for (const item in publishYamlInfor['Commands']) {
                 if (item.length > tempLength) {
-                  tempLength = item.length
+                  tempLength = item.length;
                 }
               }
               for (const item in publishYamlInfor['Commands']) {
-                console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`)
+                console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`);
               }
-              console.log(`\n  ${publishYamlInfor['HomePage'] ? `${emoji('🧭')} More information: ` + publishYamlInfor['HomePage'] + '\n' : ''}`)
+              console.log(
+                `\n  ${
+                  publishYamlInfor['HomePage']
+                    ? `${emoji('🧭')} More information: ` + publishYamlInfor['HomePage'] + '\n'
+                    : ''
+                }`,
+              );
             }
           } catch (e) {
             logger.error('Help information could not be found');

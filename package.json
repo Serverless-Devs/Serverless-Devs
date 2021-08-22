@@ -30,21 +30,20 @@
   "scripts": {
     "watch": "tsc -w",
     "test": "npx jest",
+    "prebuild": "rm -rf lib && rm -rf dist",
     "build": "tsc",
     "postbuild": "./post-publish.sh",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",
-    "typecheck": "npx tsc -p tsconfig.json --noEmit"
+    "typecheck": "npx tsc -p tsconfig.json --noEmit",
+    "update": "rm -rf yarn.lock && rm -rf package-lock.json && rm -rf node_modules && npm install"
   },
   "main": "./lib/index.js",
   "bin": {
     "s": "bin/s"
   },
-  "dependencies": {
-  },
   "devDependencies": {
-    "@serverless-devs/core": "^0.0.*",
     "@types/fs-extra": "^9.0.1",
     "@types/inquirer": "^7.3.0",
     "@types/jest": "^26.0.23",
@@ -96,5 +95,8 @@
     "setupFilesAfterEnv": [
       "./jest.setup.ts"
     ]
+  },
+  "dependencies": {
+    "@serverless-devs/core": "^0.0.*"
   }
 }
