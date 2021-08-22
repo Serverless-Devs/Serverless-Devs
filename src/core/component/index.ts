@@ -170,7 +170,6 @@ export class ComponentExeCute {
     });
     let { name } = getServiceConfigDetail(this.componentConfig);
     const regirstry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
-    console.log('私包测试');
     const componentClass = await loadComponent(name, regirstry);
     const data = await this.invokeMethod(componentClass, this.method, inputs);
     return data;

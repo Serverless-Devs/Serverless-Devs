@@ -43,7 +43,6 @@ export default class CliManager {
       } catch (e) {
         credentials = {};
       }
-      console.log('私包测试');
       const componentInstance = await loadComponent(component, null, { access });
       if (componentInstance) {
         if (!command) {
