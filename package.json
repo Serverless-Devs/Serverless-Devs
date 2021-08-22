@@ -1,6 +1,6 @@
 {
-  "name": "@xsahxl/s",
-  "version": "0.0.41",
+  "name": "@serverless-devs/s",
+  "version": "2.0.78",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -37,8 +37,7 @@
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",
     "typecheck": "npx tsc -p tsconfig.json --noEmit",
-    "update": "rm -rf yarn.lock && rm -rf package-lock.json && rm -rf node_modules && npm install",
-    "core": "npm i @xsahxl/core@latest -S"
+    "update": "rm -rf yarn.lock && rm -rf package-lock.json && rm -rf node_modules && npm install"
   },
   "main": "./lib/index.js",
   "bin": {
@@ -98,6 +97,6 @@
     ]
   },
   "dependencies": {
-    "@xsahxl/core": "^0.0.28"
+    "@serverless-devs/core": "^0.0.28"
   }
 }

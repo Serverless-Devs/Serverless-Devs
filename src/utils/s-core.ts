@@ -11,7 +11,7 @@ function getCore() {
   if (fs.existsSync(corePackagePath)) {
     return require(corePath);
   }
-  return require('@xsahxl/core');
+  return require('@serverless-devs/core');
 }
 
 export default getCore;
