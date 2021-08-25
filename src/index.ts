@@ -50,7 +50,7 @@ async function setExecCommand() {
 
 async function globalParameterProcessing() {
   // const tempGlobal = ['skip-action', 'debug'];
-  const tempGlobal = ['skip-actions', ];
+  const tempGlobal = ['skip-actions'];
   for (let i = 0; i < tempGlobal.length; i++) {
     process.env[tempGlobal[i]] = 'false';
     if (process.argv.includes('--' + tempGlobal[i])) {
@@ -103,7 +103,10 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .addHelpCommand(false);
 
   // 将参数存储到env
-  process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv)
+  process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);
+
+  // ignore warning
+  (process as any).noDeprecation = true;
 
   // 对帮助信息进行处理
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
@@ -120,16 +123,16 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   } catch (e) {
     accessFileInfo = {};
   }
-  if(index !== -1 && process.argv[index + 1]){
-    if(process.argv[2] == 'config'){
+  if (index !== -1 && process.argv[index + 1]) {
+    if (process.argv[2] == 'config') {
       process.env['serverless_devs_temp_access'] = process.argv[index + 1];
-    }else if( Object.keys(accessFileInfo).includes(process.argv[index + 1])){
+    } else if (Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
       process.env['serverless_devs_temp_access'] = process.argv[index + 1];
       process.argv.splice(index, 2);
       // 对临时参数进行存储
-      const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
-      tempArgv.splice(tempArgv.indexOf(templateTag), 2)
-      process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv)
+      const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv']);
+      tempArgv.splice(tempArgv.indexOf(templateTag), 2);
+      process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv);
     }
   }
 
