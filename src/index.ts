@@ -2,14 +2,16 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { execSync } from 'child_process';
 import { common, logger, registerAction, configSet } from './utils';
-import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
+import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
 import yaml from 'js-yaml';
 import fs from 'fs';
 import { emoji } from './utils/common';
+import updateNotifier from 'update-notifier';
+import envinfo from 'envinfo';
+const pkg = require('../package.json');
 
 const { checkAndReturnTemplateFile } = common;
 const {
@@ -60,13 +62,18 @@ async function globalParameterProcessing() {
   }
 }
 
-function versionCheck() {
-  const pkg = require('../package.json');
-  const result = execSync('npm view @serverless-devs/s versions');
-  const versions = result.toString().replace(/\'/g, '').replace(/\[/g, '').replace(/\]/g, '').split(',');
-  const lastVersion = versions[versions.length - 1].replace(/\n/g, '').replace(/\s/g, '');
-  logger.log(`${emoji('💻')}  local  version : ${pkg.version}`);
-  logger.log(`${emoji('☁️')}  remote version : ${lastVersion}\n`);
+async function versionCheck() {
+  if (!['-v', '-V', '--version'].includes(process.argv[2])) return;
+  console.log(`────────────────────┐
+ Environment Info   │
+────────────────────┘`);
+  const data = await envinfo.run({
+    System: ['OS', 'CPU'],
+    Binaries: ['Node', 'Yarn', 'npm'],
+    Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
+    npmGlobalPackages: ['@serverless-devs/s'],
+  });
+  console.log(data);
 }
 
 const description = `  _________                               .__
@@ -108,6 +115,11 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   // ignore warning
   (process as any).noDeprecation = true;
 
+  // updateNotifier
+  updateNotifier({ pkg, updateCheckInterval: UPDATE_CHECK_INTERVAL }).notify({ isGlobal: true });
+
+  await versionCheck();
+
   // 对帮助信息进行处理
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     process.env['serverless_devs_out_put_help'] = 'true';
@@ -147,7 +159,6 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     if (error.code === 'commander.executeSubCommandAsync' || error.code === 'commander.helpDisplayed') {
       process.exit(0);
     }
-    versionCheck();
   });
   system_command.parse(process.argv);
 })().catch(err => {
