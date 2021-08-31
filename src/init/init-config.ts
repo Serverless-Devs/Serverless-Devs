@@ -21,22 +21,6 @@ const data = [
     name: 'Tencent Cloud Serverless',
     value: 'tencent',
   },
-  new inquirer.Separator(`\n${emoji('🚀')} DK Framework for Serverless JamStack`),
-  {
-    key: 'devsapp/dk-http',
-    name: 'DK HTTP API',
-    value: 'devsapp/dk-http',
-  },
-  {
-    key: 'devsapp/dk-tablestore-mail',
-    name: 'DK TableStore Mail',
-    value: 'devsapp/dk-tablestore-mail',
-  },
-  {
-    key: 'devsapp/start-jamstack',
-    name: 'Serverless JamStack Example',
-    value: 'devsapp/start-jamstack',
-  },
   new inquirer.Separator(`\n${emoji('🧩')} Serverless Dev Framework`),
   {
     key: 'devsapp/midway-hook-vue',
@@ -411,8 +395,7 @@ export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message:
-        'Hello, serverlessor. Which template do you like? \nPlease select or input: ',
+    message: 'Hello, serverlessor. Which template do you like? \nPlease select or input: ',
     loop: true,
     pageSize: 20,
     source: function (answersSoFar, input) {
