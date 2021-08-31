@@ -11,7 +11,7 @@ const description = `You can add an account
     Example:
         $ s config add
         $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******
-        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --StsToken ******
+        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
   
     Configuration parameters for cloud vendors:
         alibaba: AccountID, AccessKeyID, AccessKeySecret
@@ -29,7 +29,7 @@ program
   .option('--AccountID [AccountID]', 'AccountID of key information')
   .option('--AccessKeyID [AccessKeyID]', 'AccessKeyID of key information')
   .option('--AccessKeySecret [AccessKeySecret]', 'AccessKeySecret of key information')
-  .option('--StsToken [StsToken]', 'StsToken of key information')
+  .option('--SecurityToken [SecurityToken]', 'SecurityToken of key information')
   .option('--SecretAccessKey [SecretAccessKey]', 'SecretAccessKey of key information')
   .option('--AccessKey [AccessKey]', 'AccessKey of key information')
   .option('--SecretKey [SecretKey]', 'SecretKey of key information')
@@ -56,7 +56,7 @@ program
     keyList,
     infoList,
     aliasName = process.env['serverless_devs_temp_access'],
-    StsToken,
+    SecurityToken,
   } = program;
 
   const keyInformation = {};
@@ -80,8 +80,8 @@ program
   if (AccessKeySecret) {
     keyInformation['AccessKeySecret'] = AccessKeySecret;
   }
-  if (StsToken) {
-    keyInformation['StsToken'] = StsToken;
+  if (SecurityToken) {
+    keyInformation['SecurityToken'] = SecurityToken;
   }
   if (SecretAccessKey) {
     keyInformation['SecretAccessKey'] = SecretAccessKey;
