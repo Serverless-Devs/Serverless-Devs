@@ -28,10 +28,11 @@
     "url": ""
   },
   "scripts": {
+    "prewatch": "rm -rf lib && mkdir lib && cp -r ./src/daemon ./lib",
     "watch": "tsc -w",
     "test": "npx jest",
-    "prebuild": "rm -rf lib && rm -rf dist",
-    "build": "tsc",
+    "prebuild": "rm -rf lib",
+    "build": "tsc && cp -r ./src/daemon ./lib",
     "postbuild": "./post-publish.sh",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
@@ -44,12 +45,14 @@
     "s": "bin/s"
   },
   "devDependencies": {
+    "@types/envinfo": "^7.8.1",
     "@types/fs-extra": "^9.0.1",
     "@types/inquirer": "^7.3.0",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^27.0.1",
     "@types/js-yaml": "^3.12.5",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.0.23",
+    "@types/update-notifier": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
     "@vercel/ncc": "^0.28.6",
@@ -58,6 +61,7 @@
     "chai": "^4.2.0",
     "chalk": "^4.1.1",
     "commander": "^6.0.0",
+    "envinfo": "^7.8.1",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.20.1",
@@ -66,7 +70,7 @@
     "husky": "^4.2.3",
     "inquirer": "^7.3.3",
     "inquirer-autocomplete-prompt": "^1.3.0",
-    "jest": "^27.0.1",
+    "jest": "^27.1.0",
     "js-yaml": "^4.1.0",
     "lint-staged": "^10.0.8",
     "lodash": "^4.17.20",
@@ -97,6 +101,7 @@
     ]
   },
   "dependencies": {
-    "@serverless-devs/core": "^0.0.*"
+    "@serverless-devs/core": "^0.0.*",
+    "update-notifier": "^5.1.0"
   }
 }

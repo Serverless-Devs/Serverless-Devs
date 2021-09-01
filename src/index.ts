@@ -9,8 +9,10 @@ import os from 'os';
 import yaml from 'js-yaml';
 import fs from 'fs';
 import { emoji } from './utils/common';
+import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import envinfo from 'envinfo';
+import { execDaemon } from './execDaemon';
 const pkg = require('../package.json');
 
 const { checkAndReturnTemplateFile } = common;
@@ -116,8 +118,10 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   (process as any).noDeprecation = true;
 
   // updateNotifier
-  updateNotifier({ pkg, updateCheckInterval: UPDATE_CHECK_INTERVAL }).notify({ isGlobal: true });
-
+  const updateInfo = updateNotifier({ pkg, updateCheckInterval: UPDATE_CHECK_INTERVAL }).notify({ isGlobal: true });
+  if (['major', 'minor'].includes(get(updateInfo, 'update.type'))) {
+    execDaemon('update.js');
+  }
   await versionCheck();
 
   // 对帮助信息进行处理
