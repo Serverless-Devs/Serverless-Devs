@@ -65,17 +65,23 @@ async function globalParameterProcessing() {
 }
 
 async function versionCheck() {
-  if (!['-v', '-V', '--version'].includes(process.argv[2])) return;
-  console.log(`────────────────────┐
- Environment Info   │
-────────────────────┘`);
-  const data = await envinfo.run({
-    System: ['OS', 'CPU'],
-    Binaries: ['Node', 'Yarn', 'npm'],
-    Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
-    npmGlobalPackages: ['@serverless-devs/s'],
-  });
-  console.log(data);
+  if (!['-V', '--version'].includes(process.argv[2])) return;
+  const data = await envinfo.run(
+    {
+      npmGlobalPackages: [pkg.name],
+      System: ['OS'],
+      Binaries: ['Node'],
+    },
+    { json: true },
+  );
+
+  const jdata = JSON.parse(data);
+  console.log(
+    `\n${pkg.name}: ${get(jdata, ['npmGlobalPackages', pkg.name])}, ${get(jdata, 'System.OS')}, node-v${get(
+      jdata,
+      'Binaries.Node.version',
+    )}`,
+  );
 }
 
 const description = `  _________                               .__
@@ -108,7 +114,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')
     .option('--debug', 'Debug model')
-    .version('', '-v, --version', 'Output the version number')
+    .version('', '-V, --version', 'Output the version number')
     .addHelpCommand(false);
 
   // 将参数存储到env
