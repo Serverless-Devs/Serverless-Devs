@@ -13,7 +13,7 @@ export function execDaemon(filename: string, config?: IConfig) {
   if (!fs.existsSync(filePath)) return;
   const subprocess = spawn(process.execPath, [filePath], {
     detached: true,
-    stdio: 'inherit',
+    stdio: 'ignore',
     env: { ...process.env, ...config },
   });
   subprocess.unref();

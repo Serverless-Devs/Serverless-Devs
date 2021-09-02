@@ -45,7 +45,6 @@
     "s": "bin/s"
   },
   "devDependencies": {
-    "@types/envinfo": "^7.8.1",
     "@types/fs-extra": "^9.0.1",
     "@types/inquirer": "^7.3.0",
     "@types/jest": "^27.0.1",
@@ -61,7 +60,6 @@
     "chai": "^4.2.0",
     "chalk": "^4.1.1",
     "commander": "^6.0.0",
-    "envinfo": "^7.8.1",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.20.1",

@@ -11,7 +11,6 @@ import fs from 'fs';
 import { emoji } from './utils/common';
 import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
-import envinfo from 'envinfo';
 import { execDaemon } from './execDaemon';
 const pkg = require('../package.json');
 
@@ -64,26 +63,6 @@ async function globalParameterProcessing() {
   }
 }
 
-async function versionCheck() {
-  if (!['-V', '--version'].includes(process.argv[2])) return;
-  const data = await envinfo.run(
-    {
-      npmGlobalPackages: [pkg.name],
-      System: ['OS'],
-      Binaries: ['Node'],
-    },
-    { json: true },
-  );
-
-  const jdata = JSON.parse(data);
-  console.log(
-    `\n${pkg.name}: ${get(jdata, ['npmGlobalPackages', pkg.name])}, ${get(jdata, 'System.OS')}, node-v${get(
-      jdata,
-      'Binaries.Node.version',
-    )}`,
-  );
-}
-
 const description = `  _________                               .__
  /   _____/ ______________  __ ___________|  |   ____   ______ ______
  \\_____  \\_/ __ \\_  __ \\  \\/ // __ \\_  __ \\  | _/ __ \\ /  ___//  ___/
@@ -114,7 +93,11 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')
     .option('--debug', 'Debug model')
-    .version('', '-V, --version', 'Output the version number')
+    .version(
+      `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`,
+      '-V, --version',
+      'Output the version number',
+    )
     .addHelpCommand(false);
 
   // 将参数存储到env
@@ -128,8 +111,6 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   if (['major', 'minor'].includes(get(updateInfo, 'update.type'))) {
     execDaemon('update.js');
   }
-  await versionCheck();
-
   // 对帮助信息进行处理
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     process.env['serverless_devs_out_put_help'] = 'true';
