@@ -2,14 +2,17 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { execSync } from 'child_process';
 import { common, logger, registerAction, configSet } from './utils';
-import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
+import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
 import yaml from 'js-yaml';
 import fs from 'fs';
 import { emoji } from './utils/common';
+import { get } from 'lodash';
+import updateNotifier from 'update-notifier';
+import { execDaemon } from './execDaemon';
+const pkg = require('../package.json');
 
 const { checkAndReturnTemplateFile } = common;
 const {
@@ -50,7 +53,7 @@ async function setExecCommand() {
 
 async function globalParameterProcessing() {
   // const tempGlobal = ['skip-action', 'debug'];
-  const tempGlobal = ['skip-actions', ];
+  const tempGlobal = ['skip-actions'];
   for (let i = 0; i < tempGlobal.length; i++) {
     process.env[tempGlobal[i]] = 'false';
     if (process.argv.includes('--' + tempGlobal[i])) {
@@ -58,15 +61,6 @@ async function globalParameterProcessing() {
       process.argv.splice(process.argv.indexOf('--' + tempGlobal[i]), 1);
     }
   }
-}
-
-function versionCheck() {
-  const pkg = require('../package.json');
-  const result = execSync('npm view @serverless-devs/s versions');
-  const versions = result.toString().replace(/\'/g, '').replace(/\[/g, '').replace(/\]/g, '').split(',');
-  const lastVersion = versions[versions.length - 1].replace(/\n/g, '').replace(/\s/g, '');
-  logger.log(`${emoji('💻')}  local  version : ${pkg.version}`);
-  logger.log(`${emoji('☁️')}  remote version : ${lastVersion}\n`);
 }
 
 const description = `  _________                               .__
@@ -99,12 +93,24 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')
     .option('--debug', 'Debug model')
-    .version('', '-v, --version', 'Output the version number')
+    .version(
+      `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`,
+      '-V, --version',
+      'Output the version number',
+    )
     .addHelpCommand(false);
 
   // 将参数存储到env
-  process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv)
+  process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);
 
+  // ignore warning
+  (process as any).noDeprecation = true;
+
+  // updateNotifier
+  const updateInfo = updateNotifier({ pkg, updateCheckInterval: UPDATE_CHECK_INTERVAL }).notify({ isGlobal: true });
+  if (['major', 'minor'].includes(get(updateInfo, 'update.type'))) {
+    execDaemon('update.js');
+  }
   // 对帮助信息进行处理
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     process.env['serverless_devs_out_put_help'] = 'true';
@@ -120,16 +126,16 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   } catch (e) {
     accessFileInfo = {};
   }
-  if(index !== -1 && process.argv[index + 1]){
-    if(process.argv[2] == 'config'){
+  if (index !== -1 && process.argv[index + 1]) {
+    if (process.argv[2] == 'config') {
       process.env['serverless_devs_temp_access'] = process.argv[index + 1];
-    }else if( Object.keys(accessFileInfo).includes(process.argv[index + 1])){
+    } else if (Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
       process.env['serverless_devs_temp_access'] = process.argv[index + 1];
       process.argv.splice(index, 2);
       // 对临时参数进行存储
-      const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
-      tempArgv.splice(tempArgv.indexOf(templateTag), 2)
-      process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv)
+      const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv']);
+      tempArgv.splice(tempArgv.indexOf(templateTag), 2);
+      process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv);
     }
   }
 
@@ -144,7 +150,6 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     if (error.code === 'commander.executeSubCommandAsync' || error.code === 'commander.helpDisplayed') {
       process.exit(0);
     }
-    versionCheck();
   });
   system_command.parse(process.argv);
 })().catch(err => {

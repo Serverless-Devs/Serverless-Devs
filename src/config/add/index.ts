@@ -11,7 +11,7 @@ const description = `You can add an account
     Example:
         $ s config add
         $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******
-        $ s config add --AccessKey ****** --SecretKey ******
+        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
   
     Configuration parameters for cloud vendors:
         alibaba: AccountID, AccessKeyID, AccessKeySecret
@@ -29,13 +29,14 @@ program
   .option('--AccountID [AccountID]', 'AccountID of key information')
   .option('--AccessKeyID [AccessKeyID]', 'AccessKeyID of key information')
   .option('--AccessKeySecret [AccessKeySecret]', 'AccessKeySecret of key information')
+  .option('--SecurityToken [SecurityToken]', 'SecurityToken of key information')
   .option('--SecretAccessKey [SecretAccessKey]', 'SecretAccessKey of key information')
   .option('--AccessKey [AccessKey]', 'AccessKey of key information')
   .option('--SecretKey [SecretKey]', 'SecretKey of key information')
   .option('--SecretID [SecretID]', 'SecretID of key information')
   .option('--PrivateKeyData [PrivateKeyData]', 'PrivateKeyData of key information')
   .option('-kl , --keyList [keyList]', 'Keys of key information, like: -kl key1,key2,key3')
-  .option('-il , --infoList [infoList]', 'Values of key information, like: -kl info1,info2,info3')
+  .option('-il , --infoList [infoList]', 'Values of key information, like: -il info1,info2,info3')
   .option('-a , --aliasName [name]', 'Key pair alias, if the alias is not set, use default instead')
 
   .helpOption('-h, --help', 'Display help for command')
@@ -43,7 +44,7 @@ program
   .addHelpCommand(false)
   .parse(process.argv);
 (async () => {
-  let {
+  const {
     AccountID,
     AccessKeyID,
     AccessKeySecret,
@@ -54,9 +55,10 @@ program
     SecretID,
     keyList,
     infoList,
-    aliasName,
+    aliasName = process.env['serverless_devs_temp_access'],
+    SecurityToken,
   } = program;
-  aliasName = aliasName || process.env['serverless_devs_temp_access'];
+
   const keyInformation = {};
   if (keyList && infoList) {
     const infoKeyList = keyList.split(',');
@@ -77,6 +79,9 @@ program
   }
   if (AccessKeySecret) {
     keyInformation['AccessKeySecret'] = AccessKeySecret;
+  }
+  if (SecurityToken) {
+    keyInformation['SecurityToken'] = SecurityToken;
   }
   if (SecretAccessKey) {
     keyInformation['SecretAccessKey'] = SecretAccessKey;
