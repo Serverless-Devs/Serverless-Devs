@@ -1,456 +1,252 @@
 /** @format */
 
-import * as inquirer from 'inquirer';
-import chalk from 'chalk';
-import { emoji } from '../utils/common';
+import { lowerCase } from 'lodash';
+const fist_level_template = [
+  {
+    name: 'fc-runtime-starter - 快速部署一个FC函数',
+    value: 'fc-runtime-starter',
+  },
+  {
+    name: 'fc-custom-container-stater - 快速部署一个custom-container应用',
+    value: 'fc-custom-container-stater',
+  },
+  {
+    name: 'Web 框架',
+    value: 'web',
+  },
+  {
+    name: '静态网站',
+    value: 'static-site',
+  },
+  {
+    name: 'Serverless 最佳实践',
+    value: 'best-practice',
+  },
+  {
+    name: 'Serverless Devs开发模板',
+    value: 'devs-template',
+  },
+];
 
-const data = [
-  new inquirer.Separator(`\n${emoji('👋')} Hello Serverless for Cloud Vendors`),
+const fc_runtime_starter_template = [
   {
-    key: 'alibaba',
-    name: 'Alibaba Cloud Serverless',
-    value: 'alibaba',
+    name: 'fc-http-nodejs - 快速部署一个 nodejs12 函数',
+    value: 'devsapp/start-fc-http-nodejs12',
   },
   {
-    key: 'aws',
-    name: 'AWS Cloud Serverless',
-    value: 'aws',
+    name: 'fc-http-python - 快速部署一个 python3 函数',
+    value: 'devsapp/start-fc-http-python3',
   },
   {
-    key: 'tencent',
-    name: 'Tencent Cloud Serverless',
-    value: 'tencent',
+    name: 'fc-http-java - 快速部署一个 java8 函数',
+    value: 'devsapp/start-fc-http-java8',
   },
-  new inquirer.Separator(`\n${emoji('🧩')} Serverless Dev Framework`),
+];
+
+const fc_custom_container_stater_template = [
   {
-    key: 'devsapp/midway-hook-vue',
-    name: 'Midway - Midway FaaS Framework',
-    value: 'devsapp/midway-hook-vue',
+    name: 'fc-custom-container-event-python3  - 快速部署一个事件类型python3应用',
+    value: 'devsapp/start-fc-custom-container-event-python3.9',
   },
   {
-    key: 'devsapp/start-malagu',
-    name: 'Malagu - Malagu Framework',
-    value: 'devsapp/start-malagu',
+    name: 'fc-custom-container-event-cpp - 快速部署一个事件类型cpp应用',
+    value: 'devsapp/start-fc-custom-container-event-cpp',
   },
-  new inquirer.Separator(`\n${emoji('🍼')} Dev Template for Serverless Devs`),
   {
-    key: 'devsapp/start-application',
+    name: 'fc-custom-container-http-springboot - 快速部署一个HTTP类型springboot应用',
+    value: 'devsapp/start-fc-custom-container-http-springboot',
+  },
+  {
+    name: 'fc-custom-container-http-aspdotnetcore - 快速部署一个HTTP类型aspdotnetcore应用',
+    value: 'devsapp/start-fc-custom-container-http-aspdotnetcore',
+  },
+];
+
+const web_template = [
+  {
+    name: 'express-starter 快速部署一个 express 基础应用',
+    value: 'devsapp/start-express',
+  },
+  {
+    name: 'koa-starter 快速部署一个 koa 基础应用',
+    value: 'devsapp/start-koa',
+  },
+  {
+    name: 'nuxtjs-starter 快速部署一个 nuxtjs 基础应用',
+    value: 'devsapp/start-nuxt',
+  },
+  {
+    name: 'eggjs-starter 快速部署一个 eggjs 基础应用',
+    value: 'devsapp/start-egg',
+  },
+  {
+    name: 'flask-starter 快速部署一个 flask 基础应用',
+    value: 'devsapp/start-flask',
+  },
+  {
+    name: 'SpringBoot-starter 快速部署一个 SpringBoot 基础应用',
+    value: 'devsapp/start-springboot',
+  },
+  {
+    name: 'Zblog-starter 快速部署一个 Zblog 基础应用',
+    value: 'devsapp/start-zblog',
+  },
+];
+
+const static_site_template = [
+  {
+    name: 'website-starter - 快速部署一个静态网站',
+    value: 'devsapp/website-base',
+  },
+  {
+    name: 'react-starter  - 快速部署一个 React.js 应用',
+    value: 'devsapp/website-react',
+  },
+  {
+    name: 'vue-starter - 快速部署一个 Vue.js 应用',
+    value: 'devsapp/website-vue',
+  },
+];
+
+const best_practice_template = [
+  {
+    name: 'puppeteer - 基于 puppeteer 截图的 Web 应用',
+    value: 'devsapp/puppeteer-app',
+  },
+  {
+    name: 'ffmpeg  - 基于 ffmpeg 实现音视频处理应用',
+    value: 'devsapp/ffmpeg-app',
+  },
+  {
+    name: 'pdf2Img - pdf转图片应用',
+    value: 'devsapp/start-pdf2img',
+  },
+  {
+    name: 'tensorflow - 玩转tensorflow应用',
+    value: 'devsapp/start-tensorflow',
+  },
+  {
+    name: 'todoList - nodejs的网页TodoList应',
+    value: 'devsapp/todolist-app',
+  },
+];
+
+const devs_template = [
+  {
     name: 'Application Scaffolding',
     value: 'devsapp/start-application',
   },
   {
-    key: 'devsapp/start-component',
     name: 'Component Scaffolding',
     value: 'devsapp/start-component',
   },
 ];
 
-const data_small = [
-  {
-    key: 'alibaba',
-    name: `${chalk.gray(`[${emoji('👋')} Hello Serverless]`)}\tAlibaba Cloud Serverless`,
-    value: 'alibaba',
-  },
-  {
-    key: 'aws',
-    name: `${chalk.gray(`[${emoji('👋')} Hello Serverless]`)}\tAWS Cloud Serverless`,
-    value: 'aws',
-  },
-  {
-    key: 'tencent',
-    name: `${chalk.gray(`[${emoji('👋')} Hello Serverless]`)}\tTencent Cloud Serverless`,
-    value: 'tencent',
-  },
-  {
-    key: 'devsapp/dk-http',
-    name: `${chalk.gray(`[${emoji('🚀')} DK Framework]`)}\tDK HTTP API`,
-    value: 'devsapp/dk-http',
-  },
-  {
-    key: 'devsapp/dk-tablestore-mail',
-    name: `${chalk.gray(`[${emoji('🚀')} DK Framework]`)}\tDK TableStore Mail`,
-    value: 'devsapp/dk-tablestore-mail',
-  },
-  // {
-  //   key: 'devsapp/start-component',
-  //   name: 'FullStack Website',
-  //   value: 'devsapp/start-component',
-  // },
-  {
-    key: 'devsapp/midway-hook-vue',
-    name: `${chalk.gray(`[${emoji('🧩')} Serverless Dev]`)}\tMidway - Midway FaaS Framework`,
-    value: 'devsapp/midway-hook-vue',
-  },
-  {
-    key: 'devsapp/start-malagu',
-    name: `${chalk.gray(`[${emoji('🧩')} Serverless Dev]`)}\tMalagu - Malagu Framework`,
-    value: 'devsapp/start-malagu',
-  },
-  {
-    key: 'devsapp/start-application',
-    name: `${chalk.gray(`[${emoji('🍼')} Dev Template]]`)}\tApplication Scaffolding`,
-    value: 'devsapp/start-application',
-  },
-  {
-    key: 'devsapp/start-component',
-    name: `${chalk.gray(`[${emoji('🍼')} Dev Template]]`)}\tComponent Scaffolding`,
-    value: 'devsapp/start-component',
-  },
-];
-
-const alibaba_data = [
-  new inquirer.Separator(`\n${emoji('👏')} Event Function`),
-  {
-    key: 'devsapp/start-fc-event-nodejs12',
-    name: 'Node.js 12 Example',
-    value: 'devsapp/start-fc-event-nodejs12',
-  },
-  {
-    key: 'devsapp/start-fc-event-nodejs10',
-    name: 'Node.js 10 Example',
-    value: 'devsapp/start-fc-event-nodejs10',
-  },
-  {
-    key: 'devsapp/start-fc-event-python3',
-    name: 'Python3 Example',
-    value: 'devsapp/start-fc-event-python3',
-  },
-  {
-    key: 'devsapp/start-fc-event-python2',
-    name: 'Python2 Example',
-    value: 'devsapp/start-fc-event-python2',
-  },
-  {
-    key: 'devsapp/start-fc-event-php7',
-    name: 'PHP7.2 Example',
-    value: 'devsapp/start-fc-event-php7',
-  },
-  {
-    key: 'devsapp/start-fc-event-java8',
-    name: 'Java8 Example',
-    value: 'devsapp/start-fc-event-java8',
-  },
-  new inquirer.Separator(`\n${emoji('🌏')} HTTP Function`),
-  {
-    key: 'devsapp/start-fc-http-nodejs12',
-    name: 'Node.js 12 Example',
-    value: 'devsapp/start-fc-http-nodejs12',
-  },
-  {
-    key: 'devsapp/start-fc-http-nodejs10',
-    name: 'Node.js 10 Example',
-    value: 'devsapp/start-fc-http-nodejs10',
-  },
-  {
-    key: 'devsapp/start-fc-http-python3',
-    name: 'Python3 Example',
-    value: 'devsapp/start-fc-http-python3',
-  },
-  {
-    key: 'devsapp/start-fc-http-python2',
-    name: 'Python2 Example',
-    value: 'devsapp/start-fc-http-python2',
-  },
-  {
-    key: 'devsapp/start-fc-http-php7',
-    name: 'PHP7.2 Example',
-    value: 'devsapp/start-fc-http-php7',
-  },
-  {
-    key: 'devsapp/start-fc-http-java8',
-    name: 'Java8 Example',
-    value: 'devsapp/start-fc-http-java8',
-  },
-  new inquirer.Separator(`\n${emoji('🚕')} Project Example`),
-  // {
-  //   key: 'devsapp/start-fc-http-nodejs12',
-  //   name: 'Chatroom - Websocket Example',
-  //   value: 'devsapp/start-fc-http-nodejs12',
-  // },
-  {
-    key: 'devsapp/todolist-app',
-    name: 'TodoList - Node.js Example',
-    value: 'devsapp/todolist-app',
-  },
-  {
-    key: 'devsapp/django-blog',
-    name: 'Django Blog - Python Example',
-    value: 'devsapp/django-blog',
-  },
-  {
-    key: 'devsapp/puppeteer-app',
-    name: 'Puppeteer - Front-end Example',
-    value: 'devsapp/puppeteer-app',
-  },
-  {
-    key: 'devsapp/image-prediction-app',
-    name: 'Image Prediction - AI Example',
-    value: 'devsapp/image-prediction-app',
-  },
-  {
-    key: 'devsapp/ffmpeg-app',
-    name: 'Video Processing - FFmpeg Example',
-    value: 'devsapp/ffmpeg-app',
-  },
-  new inquirer.Separator(`\n${emoji('🚢')} Web Framework Example`),
-  {
-    key: 'devsapp/start-express',
-    name: 'Express - Node.js Framework',
-    value: 'devsapp/start-express',
-  },
-  {
-    key: 'devsapp/start-flask',
-    name: 'Flask - Python Framework',
-    value: 'devsapp/start-flask',
-  },
-  {
-    key: 'devsapp/start-springboot',
-    name: 'SpringBoot - Java Framework',
-    value: 'devsapp/start-springboot',
-  },
-  {
-    key: 'devsapp/start-zblog',
-    name: 'Zblog - PHP Framework',
-    value: 'devsapp/start-zblog',
-  },
-
-  new inquirer.Separator(`\n${emoji('🎡')} Static Website`),
-  {
-    key: 'devsapp/website-vue',
-    name: 'Vue - Front-end Framework',
-    value: 'devsapp/website-vue',
-  },
-  {
-    key: 'devsapp/website-react',
-    name: 'React - Front-end Framework',
-    value: 'devsapp/website-react',
-  },
-  {
-    key: 'devsapp/website-docusaurus',
-    name: 'Docusaurus - Static Web Framework',
-    value: 'devsapp/website-docusaurus',
-  },
-  {
-    key: 'devsapp/website-hexo',
-    name: 'Hexo - Static Web Framework',
-    value: 'devsapp/website-hexo',
-  },
-  {
-    key: 'devsapp/website-vuepress',
-    name: 'Vuepress - Static Web Framework',
-    value: 'devsapp/website-vuepress',
-  },
-];
-
-const alibaba_data_small = [
-  {
-    key: 'devsapp/start-fc-event-nodejs12',
-    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tNode.js 12 Example`,
-    value: 'devsapp/start-fc-event-nodejs12',
-  },
-  {
-    key: 'devsapp/start-fc-event-nodejs10',
-    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tNode.js 10 Example`,
-    value: 'devsapp/start-fc-event-nodejs10',
-  },
-  {
-    key: 'devsapp/start-fc-event-python3',
-    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tPython3 Example`,
-    value: 'devsapp/start-fc-event-python3',
-  },
-  {
-    key: 'devsapp/start-fc-event-python2',
-    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tPython2 Example`,
-    value: 'devsapp/start-fc-event-python2',
-  },
-  {
-    key: 'devsapp/start-fc-event-php7',
-    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tPHP7.2 Example`,
-    value: 'devsapp/start-fc-event-php7',
-  },
-  {
-    key: 'devsapp/start-fc-event-java8',
-    name: `${chalk.gray(`[${emoji('👏')} Event Function]`)}\tJava8 Example`,
-    value: 'devsapp/start-fc-event-java8',
-  },
-  {
-    key: 'devsapp/start-fc-http-nodejs12',
-    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tNode.js 12 Example`,
-    value: 'devsapp/start-fc-http-nodejs12',
-  },
-  {
-    key: 'devsapp/start-fc-http-nodejs10',
-    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tNode.js 10 Example`,
-    value: 'devsapp/start-fc-http-nodejs10',
-  },
-  {
-    key: 'devsapp/start-fc-http-python3',
-    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tPython3 Example`,
-    value: 'devsapp/start-fc-http-python3',
-  },
-  {
-    key: 'devsapp/start-fc-http-python2',
-    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tPython2 Example`,
-    value: 'devsapp/start-fc-http-python2',
-  },
-  {
-    key: 'devsapp/start-fc-http-php7',
-    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tPHP7.2 Example`,
-    value: 'devsapp/start-fc-http-php7',
-  },
-  {
-    key: 'devsapp/start-fc-http-java8',
-    name: `${chalk.gray(`[${emoji('🌏')} HTTP Function]`)}\tJava8 Example`,
-    value: 'devsapp/start-fc-http-java8',
-  },
-  {
-    key: 'devsapp/todolist-app',
-    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tTodoList - Node.js Example`,
-    value: 'devsapp/todolist-app',
-  },
-  {
-    key: 'devsapp/django-blog',
-    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tDjango Blog - Python Example`,
-    value: 'devsapp/django-blog',
-  },
-  {
-    key: 'devsapp/puppeteer-app',
-    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tPuppeteer - Front-end Example`,
-    value: 'devsapp/puppeteer-app',
-  },
-  {
-    key: 'devsapp/image-prediction-app',
-    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tImage Prediction - AI Example`,
-    value: 'devsapp/image-prediction-app',
-  },
-  {
-    key: 'devsapp/ffmpeg-app',
-    name: `${chalk.gray(`[${emoji('🚕')} Project Example]`)}\tVideo Processing - FFmpeg Example`,
-    value: 'devsapp/ffmpeg-app',
-  },
-  {
-    key: 'devsapp/start-express',
-    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tExpress - Node.js Framework`,
-    value: 'devsapp/start-express',
-  },
-  {
-    key: 'devsapp/start-flask',
-    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tFlask - Python Framework`,
-    value: 'devsapp/start-flask',
-  },
-  {
-    key: 'devsapp/start-springboot',
-    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tSpringBoot - Java Framework`,
-    value: 'devsapp/start-springboot',
-  },
-  {
-    key: 'devsapp/start-zblog',
-    name: `${chalk.gray(`[${emoji('🚢')} Web Framework]`)}\tZblog - PHP Framework`,
-    value: 'devsapp/start-zblog',
-  },
-  {
-    key: 'devsapp/website-vue',
-    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tVue - Front-end Framework`,
-    value: 'devsapp/website-vue',
-  },
-  {
-    key: 'devsapp/website-react',
-    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tReact - Front-end Framework`,
-    value: 'devsapp/website-react',
-  },
-  {
-    key: 'devsapp/website-docusaurus',
-    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tDocusaurus - Static Web Framework`,
-    value: 'devsapp/website-docusaurus',
-  },
-  {
-    key: 'devsapp/website-hexo',
-    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tHexo - Static Web Framework`,
-    value: 'devsapp/website-hexo',
-  },
-  {
-    key: 'devsapp/website-vuepress',
-    name: `${chalk.gray(`[${emoji('🎡')} Static Website]`)}\tVuepress - Static Web Framework`,
-    value: 'devsapp/website-vuepress',
-  },
-];
-
-const aws_data = [
-  {
-    key: 'devscomp/start-lambda',
-    name: 'nodejs12.x-httpe',
-    value: 'devscomp/start-lambda',
-  },
-];
-
-const tencent_data = [
-  {
-    key: 'devscomp/start-scf',
-    name: 'nodejs12.x-http',
-    value: 'devscomp/start-scf',
-  },
-];
+const all_template = []
+  .concat(fist_level_template)
+  .concat(fc_runtime_starter_template)
+  .concat(fc_custom_container_stater_template)
+  .concat(web_template)
+  .concat(static_site_template)
+  .concat(best_practice_template)
+  .concat(devs_template);
 
 export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
-    name: 'template',
-    message: 'Hello, serverlessor. Which template do you like? \nPlease select or input: ',
+    name: 'firstLevel',
     loop: true,
-    pageSize: 20,
+    message: 'Hello, serverlesser. Which template do you like?',
     source: function (answersSoFar, input) {
-      if (!input) {
-        return process.env['serverless_devs_temp_height'] == '1' ? data : data_small;
-      }
-      return data.filter((item: any) => item.name && item.name.indexOf(input) !== -1);
+      return input
+        ? all_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : fist_level_template;
     },
   },
-];
-
-export const ALIBABA_APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: ' Which Alibaba Cloud Serverless template do you like? \nPlease select or input: ',
+    message: 'Which template do you like?',
     loop: true,
-    pageSize: 20,
+    when(answers) {
+      return answers.firstLevel === 'fc-runtime-starter';
+    },
     source: function (answersSoFar, input) {
-      if (!input) {
-        return process.env['serverless_devs_temp_height'] == '1' ? alibaba_data : alibaba_data_small;
-      }
-      return alibaba_data.filter((item: any) => item.name && item.name.indexOf(input) !== -1);
+      return input
+        ? fc_runtime_starter_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : fc_runtime_starter_template;
     },
   },
-];
-
-export const TENCENT_APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: ' Which Tencent Cloud Serverless template do you like? \nPlease select or input: ',
-    loop: false,
-    pageSize: 20,
+    message: 'Which template do you like?',
+    loop: true,
+    when(answers) {
+      return answers.firstLevel === 'fc-custom-container-stater';
+    },
     source: function (answersSoFar, input) {
-      if (!input) {
-        return tencent_data;
-      }
-      return tencent_data.filter((item: any) => item.name && item.name.indexOf(input) !== -1);
+      return input
+        ? fc_custom_container_stater_template.filter(
+            (item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1,
+          )
+        : fc_custom_container_stater_template;
     },
   },
-];
-
-export const AWS_APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: ' Which AWS Cloud Serverless template do you like? \nPlease select or input: ',
-    loop: false,
-    pageSize: 20,
+    message: 'Which template do you like?',
+    loop: true,
+    when(answers) {
+      return answers.firstLevel === 'web';
+    },
     source: function (answersSoFar, input) {
-      if (!input) {
-        return aws_data;
-      }
-      return aws_data.filter((item: any) => item.name && item.name.indexOf(input) !== -1);
+      return input
+        ? web_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : web_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'template',
+    message: 'Which template do you like?',
+    loop: true,
+    when(answers) {
+      return answers.firstLevel === 'static-site';
+    },
+    source: function (answersSoFar, input) {
+      return input
+        ? static_site_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : static_site_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'template',
+    message: 'Which template do you like?',
+    loop: true,
+    when(answers) {
+      return answers.firstLevel === 'best-practice';
+    },
+    source: function (answersSoFar, input) {
+      return input
+        ? best_practice_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : best_practice_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'template',
+    message: 'Which template do you like?',
+    loop: true,
+    when(answers) {
+      return answers.firstLevel === 'devs-template';
+    },
+    source: function (answersSoFar, input) {
+      return input
+        ? devs_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : devs_template;
     },
   },
 ];
@@ -460,5 +256,8 @@ export const PROJECT_NAME_INPUT = [
     type: 'input',
     name: 'projectName',
     message: 'Please input your project name (init dir)',
+    validate(input) {
+      return input.length > 0 ? true : 'You must provide a project name';
+    },
   },
 ];
