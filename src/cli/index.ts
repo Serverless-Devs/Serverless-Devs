@@ -38,17 +38,20 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     const processArgv: string[] = [];
     let params: string[] = [];
     let lastArgs;
-    const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv'])
-    process.argv = process.argv.slice(0, 4).concat(tempArgv.slice(5, tempArgv.length))
+    const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv']);
+    process.argv = process.argv.slice(0, 4).concat(tempArgv.slice(5, tempArgv.length));
+
     for (let i = 0; i < process.argv.length; i++) {
+      if (!start) {
+        processArgv.push(process.argv[i]);
+      } else {
+        params.push(process.argv[i]);
+      }
       if (
-        !start ||
         ['-a', '--access', '-p', '--props'].includes(lastArgs) ||
         ['-a', '--access', '-p', '--props'].includes(process.argv[i])
       ) {
         processArgv.push(process.argv[i]);
-      } else {
-        params.push(process.argv[i]);
       }
       if (process.argv[i] === tempCommand) {
         start = true;
@@ -61,7 +64,7 @@ if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
     }
     if (params.length !== 0) {
       process.env.temp_params = params.join(' ');
-      process['temp_params'] = params
+      process['temp_params'] = params;
     }
 
     process.argv = processArgv;
