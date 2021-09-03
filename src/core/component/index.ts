@@ -81,7 +81,7 @@ export function generateSynchronizeComponentExeList(
         } catch (e) {
           const tempError = JSON.parse(process.env['s-execute-file'] || '{"Error": []}');
           const tempErrorAttr = {};
-          tempErrorAttr[projectName] = e.message.includes('componentInstance[method] is not a function')
+          tempErrorAttr[projectName] = e.message.includes('e[t] is not a function')
             ? `Project ${projectName} does not include [${method}] method`
             : e.message;
           tempError['Error'].push(tempErrorAttr);
