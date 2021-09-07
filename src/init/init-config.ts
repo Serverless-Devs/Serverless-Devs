@@ -1,132 +1,134 @@
 /** @format */
 
 import { lowerCase } from 'lodash';
+import { i18n } from '../utils';
+
 const fist_level_template = [
   {
-    name: 'fc-runtime-starter - 快速部署一个FC函数',
+    name: i18n('fc-runtime-starter'),
     value: 'fc-runtime-starter',
   },
   {
-    name: 'fc-custom-container-stater - 快速部署一个custom-container应用',
+    name: i18n('fc-custom-container-stater'),
     value: 'fc-custom-container-stater',
   },
   {
-    name: 'Web 框架',
+    name: i18n('web'),
     value: 'web',
   },
   {
-    name: '静态网站',
+    name: i18n('static-site'),
     value: 'static-site',
   },
   {
-    name: 'Serverless 最佳实践',
+    name: i18n('best-practice'),
     value: 'best-practice',
   },
   {
-    name: 'Serverless Devs开发模板',
+    name: i18n('devs-template'),
     value: 'devs-template',
   },
 ];
 
 const fc_runtime_starter_template = [
   {
-    name: 'fc-http-nodejs - 快速部署一个 nodejs12 函数',
+    name: i18n('fc-http-nodejs'),
     value: 'devsapp/start-fc-http-nodejs12',
   },
   {
-    name: 'fc-http-python - 快速部署一个 python3 函数',
+    name: i18n('fc-http-python'),
     value: 'devsapp/start-fc-http-python3',
   },
   {
-    name: 'fc-http-java - 快速部署一个 java8 函数',
+    name: i18n('fc-http-java'),
     value: 'devsapp/start-fc-http-java8',
   },
 ];
 
 const fc_custom_container_stater_template = [
   {
-    name: 'fc-custom-container-event-python3  - 快速部署一个事件类型python3应用',
+    name: i18n('fc-custom-container-event-python3'),
     value: 'devsapp/start-fc-custom-container-event-python3.9',
   },
   {
-    name: 'fc-custom-container-event-cpp - 快速部署一个事件类型cpp应用',
+    name: i18n('fc-custom-container-event-cpp'),
     value: 'devsapp/start-fc-custom-container-event-cpp',
   },
   {
-    name: 'fc-custom-container-http-springboot - 快速部署一个HTTP类型springboot应用',
+    name: i18n('fc-custom-container-http-springboot'),
     value: 'devsapp/start-fc-custom-container-http-springboot',
   },
   {
-    name: 'fc-custom-container-http-aspdotnetcore - 快速部署一个HTTP类型aspdotnetcore应用',
+    name: i18n('fc-custom-container-http-aspdotnetcore'),
     value: 'devsapp/start-fc-custom-container-http-aspdotnetcore',
   },
 ];
 
 const web_template = [
   {
-    name: 'express-starter 快速部署一个 express 基础应用',
+    name: i18n('express-starter'),
     value: 'devsapp/start-express',
   },
   {
-    name: 'koa-starter 快速部署一个 koa 基础应用',
+    name: i18n('koa-starter'),
     value: 'devsapp/start-koa',
   },
   {
-    name: 'nuxtjs-starter 快速部署一个 nuxtjs 基础应用',
+    name: i18n('nuxtjs-starter'),
     value: 'devsapp/start-nuxt',
   },
   {
-    name: 'eggjs-starter 快速部署一个 eggjs 基础应用',
+    name: i18n('eggjs-starter'),
     value: 'devsapp/start-egg',
   },
   {
-    name: 'flask-starter 快速部署一个 flask 基础应用',
+    name: i18n('flask-starter'),
     value: 'devsapp/start-flask',
   },
   {
-    name: 'SpringBoot-starter 快速部署一个 SpringBoot 基础应用',
+    name: i18n('SpringBoot-starter'),
     value: 'devsapp/start-springboot',
   },
   {
-    name: 'Zblog-starter 快速部署一个 Zblog 基础应用',
+    name: i18n('Zblog-starter'),
     value: 'devsapp/start-zblog',
   },
 ];
 
 const static_site_template = [
   {
-    name: 'website-starter - 快速部署一个静态网站',
+    name: i18n('website-starter'),
     value: 'devsapp/website-base',
   },
   {
-    name: 'react-starter  - 快速部署一个 React.js 应用',
+    name: i18n('react-starter'),
     value: 'devsapp/website-react',
   },
   {
-    name: 'vue-starter - 快速部署一个 Vue.js 应用',
+    name: i18n('vue-starter'),
     value: 'devsapp/website-vue',
   },
 ];
 
 const best_practice_template = [
   {
-    name: 'puppeteer - 基于 puppeteer 截图的 Web 应用',
+    name: i18n('puppeteer'),
     value: 'devsapp/puppeteer-app',
   },
   {
-    name: 'ffmpeg  - 基于 ffmpeg 实现音视频处理应用',
+    name: i18n('ffmpeg'),
     value: 'devsapp/ffmpeg-app',
   },
   {
-    name: 'pdf2Img - pdf转图片应用',
+    name: i18n('pdf2Img'),
     value: 'devsapp/start-pdf2img',
   },
   {
-    name: 'tensorflow - 玩转tensorflow应用',
+    name: i18n('tensorflow'),
     value: 'devsapp/start-tensorflow',
   },
   {
-    name: 'todoList - nodejs的网页TodoList应',
+    name: i18n('todoList'),
     value: 'devsapp/todolist-app',
   },
 ];
@@ -156,7 +158,7 @@ export const APPLICATION_TEMPLATE = [
     type: 'autocomplete',
     name: 'firstLevel',
     loop: true,
-    message: 'Hello, serverlesser. Which template do you like?',
+    message: i18n('app-tip'),
     source: function (answersSoFar, input) {
       return input
         ? all_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
@@ -166,7 +168,7 @@ export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: 'Which template do you like?',
+    message: i18n('template-tip'),
     loop: true,
     when(answers) {
       return answers.firstLevel === 'fc-runtime-starter';
@@ -180,7 +182,7 @@ export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: 'Which template do you like?',
+    message: i18n('template-tip'),
     loop: true,
     when(answers) {
       return answers.firstLevel === 'fc-custom-container-stater';
@@ -196,7 +198,7 @@ export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: 'Which template do you like?',
+    message: i18n('template-tip'),
     loop: true,
     when(answers) {
       return answers.firstLevel === 'web';
@@ -210,7 +212,7 @@ export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: 'Which template do you like?',
+    message: i18n('template-tip'),
     loop: true,
     when(answers) {
       return answers.firstLevel === 'static-site';
@@ -224,7 +226,7 @@ export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: 'Which template do you like?',
+    message: i18n('template-tip'),
     loop: true,
     when(answers) {
       return answers.firstLevel === 'best-practice';
@@ -238,7 +240,7 @@ export const APPLICATION_TEMPLATE = [
   {
     type: 'autocomplete',
     name: 'template',
-    message: 'Which template do you like?',
+    message: i18n('template-tip'),
     loop: true,
     when(answers) {
       return answers.firstLevel === 'devs-template';

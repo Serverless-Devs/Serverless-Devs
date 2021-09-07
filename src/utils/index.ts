@@ -8,6 +8,7 @@ export { default as storage } from './storage';
 export { default as urlParser } from './url-parser';
 export { default as registerAction } from './command-util';
 export { default as logger } from './logger';
+export { default as i18n } from './i18n';
 
 export const getYamlPath = (prePath: string, name: string) => {
   const S_PATH1 = path.join(prePath, `${name}.yaml`);

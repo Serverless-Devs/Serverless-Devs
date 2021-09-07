@@ -74,6 +74,7 @@
     "lodash": "^4.17.20",
     "mocha": "^8.1.1",
     "nyc": "^15.1.0",
+    "os-locale": "5.0.0",
     "prettier": "^2.2.1",
     "semantic-release": "^17.0.4",
     "sinon": "^9.0.2",
