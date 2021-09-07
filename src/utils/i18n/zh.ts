@@ -1,6 +1,7 @@
-/** @format */
-
 export default {
+  en: '英文',
+  zh: '中文',
+  select_current_language: '请选择当前语言',
   'app-tip': '请选择你希望创建的 Serverless 应用',
   'template-tip': '请选择你喜欢的模版',
   'fc-runtime-starter': 'fc-runtime-starter - 快速部署一个 FC 函数',

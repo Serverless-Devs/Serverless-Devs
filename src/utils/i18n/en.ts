@@ -1,6 +1,7 @@
-/** @format */
-
 export default {
+  en: 'en',
+  zh: 'zh',
+  select_current_language: 'Please select current language',
   'app-tip': 'Hello, serverlesser. Which template do you like?',
   'template-tip': 'Which template do you like?',
   'fc-runtime-starter': 'fc-runtime-starter - Deploy FC function in 5 minutes',
