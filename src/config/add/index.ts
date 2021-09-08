@@ -1,5 +1,3 @@
-/** @format */
-
 import program from 'commander';
 import { CommandError } from '../../error';
 import { emoji } from '../../utils/common';
@@ -38,6 +36,7 @@ program
   .option('-kl , --keyList [keyList]', 'Keys of key information, like: -kl key1,key2,key3')
   .option('-il , --infoList [infoList]', 'Values of key information, like: -il info1,info2,info3')
   .option('-a , --aliasName [name]', 'Key pair alias, if the alias is not set, use default instead')
+  .option('-f', 'Mandatory overwrite key information')
 
   .helpOption('-h, --help', 'Display help for command')
   .description(description)
@@ -57,7 +56,10 @@ program
     infoList,
     aliasName = process.env['serverless_devs_temp_access'],
     SecurityToken,
+    f,
   } = program;
+
+  process.env.Temp_Params = JSON.stringify({ f });
 
   const keyInformation = {};
   if (keyList && infoList) {
