@@ -58,7 +58,6 @@
     "axios": ">=0.21.1",
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
-    "chalk": "^4.1.1",
     "commander": "^6.0.0",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^7.2.0",

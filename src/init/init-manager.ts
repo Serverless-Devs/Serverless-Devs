@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { spawn } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import colors from 'chalk';
+import { colors } from '@serverless-devs/core';
 import { logger, configSet, getYamlPath, common } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
@@ -149,7 +149,7 @@ export class InitManager {
     });
   }
 
-  async init(name: string, dir?: string) {
+  async init(name?: string, dir?: string) {
     console.log(`\n${emoji('🚀')} Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n`);
     if (!name) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
