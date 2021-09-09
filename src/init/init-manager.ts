@@ -4,11 +4,11 @@ import path from 'path';
 import fs from 'fs-extra';
 import os from 'os';
 import _ from 'lodash';
-import { spawn } from 'child_process';
+import { spawn, spawnSync } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
 import { colors } from '@serverless-devs/core';
-import { logger, configSet, getYamlPath, common } from '../utils';
+import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
 import { emoji } from '../utils/common';
@@ -135,6 +135,7 @@ export class InitManager {
         `${emoji('💞')} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
       );
     }
+    return { appPath };
   }
   async gitCloneProject(name: string, dir?: string) {
     return new Promise(resolve => {
@@ -149,13 +150,29 @@ export class InitManager {
     });
   }
 
+  async deploy(appPath: string) {
+    const answers: any = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'name',
+        default: 'Y',
+        message: `Serverless: ${colors.yellow(i18n('init_pproject_deploy_tip'))}`,
+      },
+    ]);
+
+    if (answers.name) {
+      spawnSync('s deploy', { cwd: appPath, shell: true, stdio: 'inherit' });
+    }
+  }
+
   async init(name?: string, dir?: string) {
     console.log(`\n${emoji('🚀')} Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n`);
     if (!name) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       const answerValue = answers['template'];
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
-      await this.executeInit(answerValue, dir);
+      const { appPath } = await this.executeInit(answerValue, dir);
+      await this.deploy(appPath);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {

@@ -1,4 +1,5 @@
 export default {
+  init_pproject_deploy_tip: '是否希望立即将该项目部署到云端？',
   tip_for_a_serverless_project:
     "检测到当前目录下已有 serverless 项目，请通过 's deploy' 进行部署或通过 's -h' 获取更多信息",
   create_a_new_project: '当前未检测到 Serverless 项目，是否希望新建一个项目？',
