@@ -96,7 +96,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .option('--debug', 'Debug model')
     .version(
       `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`,
-      '-V, --version',
+      '-v, --version',
       'Output the version number',
     )
     .addHelpCommand(false);
