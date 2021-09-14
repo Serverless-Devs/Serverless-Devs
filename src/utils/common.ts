@@ -4,8 +4,9 @@ import path from 'path';
 import fs from 'fs';
 import yaml from 'js-yaml';
 import _ from 'lodash';
-import { handlerProfileFile } from './handler-set-config';
+import { getConfig } from './handler-set-config';
 import os from 'os';
+import osLocale from 'os-locale';
 
 function checkTemplateFormat(filePath: string, json = false) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -103,9 +104,18 @@ export function printn(n: number, str = ' ') {
   return temp_str;
 }
 
-export async function getLang() {
+export function getLang() {
   try {
-    return (await handlerProfileFile({ read: true, filePath: 'set-config.yml' })).locale || 'en';
+    let lang: string = getConfig('locale');
+    if (_.isEmpty(lang)) {
+      const langKey = osLocale.sync();
+      const obj = {
+        'en-US': 'en',
+        'zh-CN': 'zh',
+      };
+      lang = _.get(obj, langKey, 'en');
+    }
+    return lang;
   } catch (e) {
     return 'en';
   }
@@ -162,8 +172,8 @@ export function mark(source: string): string {
   return `***********${subStr}`;
 }
 
-export function emoji(emoji: string): string{
-  return os.platform()=='win32'?'':emoji;
+export function emoji(emoji: string): string {
+  return os.platform() === 'win32' ? '' : emoji;
 }
 
 export default {

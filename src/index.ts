@@ -12,6 +12,7 @@ import { emoji } from './utils/common';
 import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
+import onboarding from './onboarding';
 const pkg = require('../package.json');
 
 const { checkAndReturnTemplateFile } = common;
@@ -74,7 +75,7 @@ Welcome to the Serverless Devs.
 More: 
 ${emoji('📘')} Documents: https://www.github.com/serverless-devs/docs
 ${emoji('🙌')} Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
-${emoji('⁉️')} Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues
+${emoji('⁉️')}  Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues
 ${emoji('👀')} Current Registry: ${getRegistry()}
 
 Quick start:
@@ -151,7 +152,10 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
       process.exit(0);
     }
   });
-  system_command.parse(process.argv);
+  if (process.argv.length > 2) {
+    return system_command.parse(process.argv);
+  }
+  await onboarding();
 })().catch(err => {
   logger.error(`\n\n  ${emoji('❌')} Message: ${err.message}.
   ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues

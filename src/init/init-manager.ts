@@ -4,20 +4,13 @@ import path from 'path';
 import fs from 'fs-extra';
 import os from 'os';
 import _ from 'lodash';
-import { spawn } from 'child_process';
+import { spawn, spawnSync } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import colors from 'chalk';
-import { logger, configSet, getYamlPath, common } from '../utils';
+import { colors } from '@serverless-devs/core';
+import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
-import {
-  APPLICATION_TEMPLATE,
-  PROJECT_NAME_INPUT,
-  ALIBABA_APPLICATION_TEMPLATE,
-  TENCENT_APPLICATION_TEMPLATE,
-  AWS_APPLICATION_TEMPLATE,
-} from './init-config';
-import size from 'window-size';
+import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
 import { emoji } from '../utils/common';
 import getCore from '../utils/s-core';
 const { loadApplication, setCredential } = getCore();
@@ -119,10 +112,10 @@ export class InitManager {
     }
   }
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
-    const projectName = dir || (await inquirer.prompt(PROJECT_NAME_INPUT)).projectName || './';
+    const projectName = dir || (await inquirer.prompt(PROJECT_NAME_INPUT)).projectName;
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
-    // @ts-ignore
-    let appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
+
+    const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
       await this.initSconfig(appPath);
       await this.initEnvConfig(appPath);
@@ -142,6 +135,7 @@ export class InitManager {
         `${emoji('💞')} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
       );
     }
+    return { appPath };
   }
   async gitCloneProject(name: string, dir?: string) {
     return new Promise(resolve => {
@@ -156,35 +150,29 @@ export class InitManager {
     });
   }
 
-  async init(name: string, dir?: string) {
+  async deploy(appPath: string) {
+    const answers: any = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'name',
+        default: 'Y',
+        message: `Serverless: ${colors.yellow(i18n('init_pproject_deploy_tip'))}`,
+      },
+    ]);
+
+    if (answers.name) {
+      spawnSync('s deploy', { cwd: appPath, shell: true, stdio: 'inherit' });
+    }
+  }
+
+  async init(name?: string, dir?: string) {
     console.log(`\n${emoji('🚀')} Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n`);
     if (!name) {
-      let tempHeight;
-      try {
-        tempHeight = size.height - 1;
-      } catch (e) {
-        tempHeight = 20;
-      }
-      process.env['serverless_devs_temp_height'] = tempHeight < 15 ? '0' : '1';
-      APPLICATION_TEMPLATE[0].pageSize = tempHeight;
-      let answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
-      let answerValue = answers['template'];
-      if (answerValue === 'alibaba') {
-        process.env['serverless_devs_temp_height'] = tempHeight < 34 ? '0' : '1';
-        ALIBABA_APPLICATION_TEMPLATE[0].pageSize = tempHeight;
-        const answersTemp = await inquirer.prompt(ALIBABA_APPLICATION_TEMPLATE);
-        answerValue = answersTemp['template'];
-      } else if (answerValue === 'aws') {
-        AWS_APPLICATION_TEMPLATE[0].pageSize = tempHeight;
-        const answersTemp = await inquirer.prompt(AWS_APPLICATION_TEMPLATE);
-        answerValue = answersTemp['template'];
-      } else if (answerValue === 'tencent') {
-        TENCENT_APPLICATION_TEMPLATE[0].pageSize = tempHeight;
-        const answersTemp = await inquirer.prompt(TENCENT_APPLICATION_TEMPLATE);
-        answerValue = answersTemp['template'];
-      }
+      const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
+      const answerValue = answers['template'];
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
-      await this.executeInit(answerValue, dir);
+      const { appPath } = await this.executeInit(answerValue, dir);
+      await this.deploy(appPath);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {

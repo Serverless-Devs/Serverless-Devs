@@ -40,15 +40,16 @@ export const registryInquire = [
 ];
 program
   .name('s set registry')
-  .usage('[options] [name]')
+  .usage('[options] [url]')
   .helpOption('-h, --help', 'Display help for command')
+  .addHelpCommand(false)
   .description(
     `You can set your registry.
 
      Example:
+        $ s set registry
         $ s set registry <url>`,
   )
-  .addHelpCommand(false)
   .parse(process.argv);
 (async () => {
   if (program.args.length === 0) {

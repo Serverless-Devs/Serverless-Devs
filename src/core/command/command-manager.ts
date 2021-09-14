@@ -66,7 +66,7 @@ export class CommandManager {
               outPutData[projectConfig.ProjectName] = tempResult;
             }
           } catch (e) {
-            const errorMessage = e.message.includes('componentInstance[method] is not a function')
+            const errorMessage = e.message.includes('e[t] is not a function')
               ? `Project ${projectConfig.ProjectName} does not include [${this.method}] method`
               : e.message;
             logger.error(`Project ${projectConfig.ProjectName} failed to execute:
@@ -99,9 +99,9 @@ export class CommandManager {
         if (process.env['s-execute-file']) {
           logger.error(`All projects were not deployed successfully.
   
-${yaml.dump(
-    JSON.parse(process.env['s-execute-file'])['Error'],
-  )}  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
+            '😈',
+          )} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
           process.exit(-1);
         } else {
@@ -109,7 +109,9 @@ ${yaml.dump(
         }
       } else {
         logger.error(`Failed to execute:\n
-  ${emoji('❌')} Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${this.templateFile}
+  ${emoji('❌')} Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${
+          this.templateFile
+        }
   ${emoji('🧭')} If you want to use Serverless Devs, you should have a s.yaml or use [s cli] command.
       ${emoji('1️⃣')} Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
       ${emoji('2️⃣')} Cli document: [s cli -h]
