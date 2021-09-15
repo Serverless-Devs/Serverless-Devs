@@ -11,6 +11,8 @@ import {
 } from '../component';
 import { emoji } from '../../utils/common';
 import { handleError } from '../../error';
+import getCore from '../../utils/s-core';
+const { colors } = getCore();
 
 const { checkTemplateFile } = common;
 const { getServiceConfig } = version;
@@ -94,7 +96,9 @@ export class CommandManager {
   
 ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
             '😈',
-          )} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+          )} If you have questions, please tell us: ${colors.underline(
+            'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+          )}
 `);
           process.exit(-1);
         } else {
@@ -106,9 +110,13 @@ ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
           this.templateFile
         }
   ${emoji('🧭')} If you want to use Serverless Devs, you should have a s.yaml or use [s cli] command.
-      ${emoji('1️⃣')} Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
+      ${emoji('1️⃣')} Yaml document: ${colors.underline(
+          'https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md',
+        )}
       ${emoji('2️⃣')} Cli document: [s cli -h]
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+        )}\n`);
         process.exit(-1);
       }
     } catch (e) {

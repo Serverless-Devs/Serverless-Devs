@@ -2,7 +2,7 @@ import program from 'commander';
 import { CommandError } from '../../error';
 import { emoji } from '../../utils/common';
 import getCore from '../../utils/s-core';
-const { setCredential, setKnownCredential } = getCore();
+const { setCredential, setKnownCredential, colors } = getCore();
 
 const description = `You can add an account
 
@@ -19,7 +19,9 @@ const description = `You can add an account
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-${emoji('🧭')} How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config`;
+${emoji('🧭')} How to get the key: ${colors.underline(
+  'https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config',
+)}`;
 
 program
   .name('s config add')

@@ -5,6 +5,8 @@ import { configSet } from '../utils';
 import { InitManager } from './init-manager';
 import { emoji } from '../utils/common';
 import { handleError } from '../error';
+import getCore from '../utils/s-core';
+const { colors } = getCore();
 
 const description = `Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
@@ -14,7 +16,7 @@ const description = `Initialize a new project based on a template. You can initi
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
-${emoji('🚀')} More Case: https://github.com/Serverless-Devs/package-awesome`;
+${emoji('🚀')} More Case: ${colors.underline('https://github.com/Serverless-Devs/package-awesome')}`;
 
 program
   .name('s init')

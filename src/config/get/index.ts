@@ -9,7 +9,7 @@ import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
 import { handleError } from '../../error';
 import getCore from '../../utils/s-core';
-const { getCredential } = getCore();
+const { getCredential, colors } = getCore();
 
 const description = `You can get accounts.
  
@@ -74,7 +74,9 @@ function getSecretValue(n: number, str = ' ') {
       logger.error(`\n\n  ${emoji('❌')} Message: Unable to get key information with alias ${aliasName}.
   ${emoji('🤔')} You have configured these keys: [${String(Object.keys(accessInfo))}].
   ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+  ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
+        'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+      )}
 `);
       process.exit(-1);
     }
@@ -82,7 +84,9 @@ function getSecretValue(n: number, str = ' ') {
     if (Object.keys(accessInfo).length === 0) {
       logger.info(`\n\n  ${emoji('🤔')} You have not yet been found to have configured key information.
   ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+  ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
+        'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+      )}
 `);
     } else {
       logger.info(`\n\n` + yaml.dump(accessInfo));
@@ -90,12 +94,5 @@ function getSecretValue(n: number, str = ' ') {
     }
   }
 })().catch(err => {
-  if (err.message.includes('no such file or directory')) {
-    logger.info(`\n\n  ${emoji('🤔')} You have not yet been found to have configured key information.
-  ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
-`);
-  } else {
-    handleError(err);
-  }
+  handleError(err);
 });
