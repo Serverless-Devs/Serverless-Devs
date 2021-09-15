@@ -13,6 +13,8 @@ import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
 import onboarding from './onboarding';
+import getCore from './utils/s-core';
+const { report } = getCore();
 const pkg = require('../package.json');
 
 const { checkAndReturnTemplateFile } = common;
@@ -82,6 +84,7 @@ Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
 
 (async () => {
+  report({ type: 'pv' });
   registerCommandChecker(program);
   const system_command = program
     .description(description)
