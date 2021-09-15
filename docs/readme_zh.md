@@ -26,13 +26,19 @@ Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于�
 
 Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，在该平台中，每个使用者都可以可插拔式的使用不同 Serverless 的服务和框架，同时每个使用者都可以参与开发组件和插件。在 Serverless Devs 中无论是工业级的 Serverless 服务，还是各类开源的 Serverless 框架，都可以得到非常友好的支持。开发者无需对市面上每一款 Serverless 工具进行研究和学习，只需通过 Serverless Devs ，就可以简单、快捷的“上手”主流 Serverless 服务和框架；
 
-<tr width="100%">
-    <td width="20%"><a href="https://github.com/devscomp/lambda"><img src="https://img1.baidu.com/it/u=4003115812,1306293973&fm=26&fmt=auto&gp=0.jpg"><br>AWS Lambda</a></td>
-    <td width="20%"><a href="https://github.com/devsapp/fc"><img src="https://img2.baidu.com/it/u=3474838261,586527088&fm=26&fmt=auto"><br>阿里云函数计算</a></td>
-    <td width="20%"><a href="https://github.com/xinwuyun/cfc"><img src="https://img0.baidu.com/it/u=944157008,2587868332&fm=26&fmt=auto&gp=0.jpg"><br>百度智能云函数计算</a></td>
-    <td width="20%"><a href="https://github.com/xinwuyun/fg"><img src="https://img2.baidu.com/it/u=3391747508,2062403425&fm=11&fmt=auto&gp=0.jpg"><br>华为云函数工作流</a></td>
-    <td width="20%"><a href="https://github.com/devscomp/scf"><img src="https://img2.baidu.com/it/u=2560827165,3488865543&fm=26&fmt=auto&gp=0.jpg"><br>腾讯云云函数</a></td>
+- 已经支持的厂商
+
+<tr align="center">
+    <td><a href="https://github.com/devscomp/lambda"><img src="https://img1.baidu.com/it/u=4003115812,1306293973&fm=26&fmt=auto&gp=0.jpg" width="100%"><br>AWS Lambda</a></td>
+    <td><a href="https://github.com/devsapp/fc"><img src="https://img2.baidu.com/it/u=3474838261,586527088&fm=26&fmt=auto" width="100%"><br>阿里云函数计算</a></td>
+    <td><a href="https://github.com/xinwuyun/cfc"><img src="https://img0.baidu.com/it/u=944157008,2587868332&fm=26&fmt=auto&gp=0.jpg" width="100%"><br>百度智能云函数计算</a></td>
+    <td><a href="https://github.com/xinwuyun/fg"><img src="https://img2.baidu.com/it/u=3391747508,2062403425&fm=11&fmt=auto&gp=0.jpg" width="100%"><br>华为云函数工作流</a></td>
+    <td><a href="https://github.com/devscomp/scf"><img src="https://img2.baidu.com/it/u=2560827165,3488865543&fm=26&fmt=auto&gp=0.jpg" width="100%"><br>腾讯云云函数</a></td>
 </tr>
+
+- 即将支持的厂商
+
+
 
 ### 灵活与开放的使用方法
 
