@@ -43,6 +43,20 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
     <td width="20%"><a href="https://github.com/xinwuyun/fg">华为云函数工作流</a></td>
     <td width="20%"><a href="https://github.com/devscomp/scf">腾讯云云函数</a></td>
 </tr>
+<tr align="center">
+    <td width="20%"><a href="https://github.com/devsapp/pulumi-alibaba"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687873582_20210915063754270539.png" width="100%"></a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+</tr>
+<tr align="center">
+    <td width="20%"><a href="https://github.com/devsapp/pulumi-alibaba">Pulumi生态</a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+</tr>
 </table>
 
 - 即将支持的厂商
@@ -51,14 +65,14 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 <tr align="center">
     <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687577201_20210915063257271550.png" width="100%"></a></td>
     <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687524699_20210915063208016868.png" width="100%"></a></td>
-    <td width="20%"></td>
+    <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687981462_20210915063941989870.png"></a></td>
     <td width="20%"></td>
     <td width="20%"></td>
 </tr>
 <tr align="center">
     <td width="20%"><a href="#">Google Cloud Functions</a></td>
     <td width="20%"><a href="#">Azure Functions</a></td>
-    <td width="20%"></td>
+    <td width="20%"><a href="#">Terraform生态</a></td>
     <td width="20%"></td>
     <td width="20%"></td>
 </tr>
