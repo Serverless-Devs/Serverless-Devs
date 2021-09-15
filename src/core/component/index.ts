@@ -9,7 +9,7 @@ import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
 import yaml from 'js-yaml';
-import { emoji } from '../../utils/common';
+import { handleError } from '../../error';
 import getCore from '../../utils/s-core';
 const { getCredential, loadComponent } = getCore();
 
@@ -86,9 +86,7 @@ export function generateSynchronizeComponentExeList(
             : e.message;
           tempError['Error'].push(tempErrorAttr);
           process.env['s-execute-file'] = JSON.stringify(tempError);
-          logger.error(`Project ${projectName} failed to execute: 
-  ${emoji('📝')} Message:  ${tempErrorAttr[projectName]}
-  ${emoji('🧭')} You can get help for this component by [s ${projectName} -h]`);
+          handleError(e, `Project ${projectName} failed to execute:`, false);
           resolve({});
         }
       });

@@ -2,7 +2,7 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { common, logger, registerAction, configSet } from './utils';
+import { common, registerAction, configSet } from './utils';
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
@@ -14,6 +14,7 @@ import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
 import onboarding from './onboarding';
 import getCore from './utils/s-core';
+import { handleError } from './error';
 const { report } = getCore();
 const pkg = require('../package.json');
 
@@ -75,7 +76,7 @@ const description = `  _________                               .__
 Welcome to the Serverless Devs.
 
 More: 
-${emoji('📘')} Documents: https://www.github.com/serverless-devs/docs
+${emoji('📘')} Documents: https://www.serverless-devs.com
 ${emoji('🙌')} Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
 ${emoji('⁉️')}  Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues
 ${emoji('👀')} Current Registry: ${getRegistry()}
@@ -160,8 +161,5 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   }
   await onboarding();
 })().catch(err => {
-  logger.error(`\n\n  ${emoji('❌')} Message: ${err.message}.
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
-`);
-  process.exit(-1);
+  handleError(err);
 });

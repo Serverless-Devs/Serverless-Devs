@@ -10,6 +10,7 @@ import {
   synchronizeExecuteComponentList,
 } from '../component';
 import { emoji } from '../../utils/common';
+import { handleError } from '../../error';
 
 const { checkTemplateFile } = common;
 const { getServiceConfig } = version;
@@ -66,15 +67,7 @@ export class CommandManager {
               outPutData[projectConfig.ProjectName] = tempResult;
             }
           } catch (e) {
-            const errorMessage = e.message.includes('e[t] is not a function')
-              ? `Project ${projectConfig.ProjectName} does not include [${this.method}] method`
-              : e.message;
-            logger.error(`Project ${projectConfig.ProjectName} failed to execute:
-  
-  ${emoji('📝')} Message:  ${errorMessage}
-  ${emoji('🧭')} You can get help for this component by [s ${projectConfig.ProjectName} -h]
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-            process.exit(-1);
+            handleError(e, `Project ${projectConfig.ProjectName} failed to execute:`);
           }
         } else {
           const params = this.deployParams || '';
@@ -119,10 +112,7 @@ ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
         process.exit(-1);
       }
     } catch (e) {
-      logger.error(`Failed to execute:\n
-  ${emoji('❌')} Message: ${e.message}
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-      process.exit(-1);
+      handleError(e, 'Failed to execute:');
     }
   }
 }

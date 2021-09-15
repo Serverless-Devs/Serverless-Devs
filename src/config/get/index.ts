@@ -7,6 +7,7 @@ import program from 'commander';
 import yaml from 'js-yaml';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
+import { handleError } from '../../error';
 import getCore from '../../utils/s-core';
 const { getCredential } = getCore();
 
@@ -95,14 +96,6 @@ function getSecretValue(n: number, str = ' ') {
   ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
 `);
   } else {
-    logger.error(`\n\n  ${emoji('❌')} Message: ${err.message}.
-  ${emoji('🧭')} You can :
-      ${emoji(
-        '1️⃣',
-      )} Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
-      ${emoji('2️⃣')} Use [s config add] for key configuration, or use [s config add -h] to view configuration help
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
-`);
-    process.exit(-1);
+    handleError(err);
   }
 });

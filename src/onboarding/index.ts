@@ -16,9 +16,7 @@ async function projectWithDevs() {
   console.log(colors.red(`Serverless › ${i18n('tip_for_a_serverless_project')} `));
 
   console.log(
-    `\n${emoji('📘')} ${colors.red('Documents: ')} ${colors.red.underline(
-      'https://www.github.com/serverless-devs/docs',
-    )}`,
+    `\n${emoji('📘')} ${colors.red('Documents: ')} ${colors.red.underline('https://www.serverless-devs.com')}`,
   );
   console.log(
     `${emoji('🙌')} ${colors.red('Discussions: ')} ${colors.red.underline(
