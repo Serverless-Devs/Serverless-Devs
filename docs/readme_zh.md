@@ -49,12 +49,18 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 
 <table>
 <tr align="center">
-    <td width="30%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687577201_20210915063257271550.png" width="100%"></a></td>
-    <td width="30%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687524699_20210915063208016868.png" width="100%"></a></td>
+    <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687577201_20210915063257271550.png" width="100%"></a></td>
+    <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687524699_20210915063208016868.png" width="100%"></a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
 </tr>
 <tr align="center">
-    <td width="30%"><a href="#">Google Cloud Functions</a></td>
-    <td width="30%"><a href="#">Azure Functions</a></td>
+    <td width="20%"><a href="#">Google Cloud Functions</a></td>
+    <td width="20%"><a href="#">Azure Functions</a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
 </tr>
 </table>
 
