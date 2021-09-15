@@ -28,6 +28,7 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 
 - 已经支持的厂商
 
+<table>
 <tr align="center">
     <td><a href="https://github.com/devscomp/lambda"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631686948335_20210915062229129677.png" width="100%"><br>AWS Lambda</a></td>
     <td><a href="https://github.com/devsapp/fc"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687097054_20210915062457859062.png" width="100%"><br>阿里云函数计算</a></td>
@@ -35,6 +36,7 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
     <td><a href="https://github.com/xinwuyun/fg"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687059406_20210915062419918808.png" width="100%"><br>华为云函数工作流</a></td>
     <td><a href="https://github.com/devscomp/scf"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687011279_20210915062331464492.png" width="100%"><br>腾讯云云函数</a></td>
 </tr>
+</table>
 
 - 即将支持的厂商
 
