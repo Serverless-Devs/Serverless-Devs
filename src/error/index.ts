@@ -1,6 +1,6 @@
 /** @format */
 import getCore from '../utils/s-core';
-const { colors, spinner } = getCore();
+const { colors, spinner, report } = getCore();
 export { CommandError } from './command-error';
 export { ConfigDeleteError } from './config-delete-error';
 export { ConfigError } from './config-error';
@@ -20,5 +20,9 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
   console.log(colors.red('Error:'));
   console.log(error);
   console.log(`${colors.gray("\nRun again with the '--debug' option or 's -h' to get more logs.\n")}`);
+  report({
+    type: 'error',
+    content: error,
+  });
   exit && process.exit(-1);
 }
