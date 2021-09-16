@@ -33,3 +33,15 @@ Serverless Devs Model(SDM) v0.0.1 文档是由 Serverless Devs 社区发起编�
 - **开发包模型**：一个关于 Serverless Package 的规范。Package developer 需要遵循该规范进行组件的开发或者应用的共享，否则将无法被 Serverless Devs CLI 工具所识别和加载，也无法被 Application 所引用，并实现预期的功能。详情可以参考[开发包模型](./serverless_pacakge_model.md)
 - **用户使用模型**：Serverless developer 在进行应用开发时所需要遵守的约定，以确保 Serverless Devs CLI 可以准确识别相对应的内容，并按照预期加载对应的 Component，完成预期的功能。详情可以参考[用户使用模型文档](./serverless_user_model.md)
 
+## 社区
+
+### 贡献
+
+有关详细信息，请参阅[贡献指南](../../CONTRIBUTING.md)。
+
+
+## 协议
+
+Serverless Devs 是一个遵循 [MIT](../../LICENSE) 协议的开源项目。
+
+Serverless Devs 使用的 node_modules 以及其他第三方的依赖库都可能有其遵循的协议，我们推荐你阅读并了解这些协议，因为其中的条款可能和 MIT 协议中的不完全相同。
