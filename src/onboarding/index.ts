@@ -1,8 +1,9 @@
 import * as inquirer from 'inquirer';
-import { colors } from '@serverless-devs/core';
 import { InitManager } from '../init/init-manager';
 import { i18n } from '../utils';
 import { emoji } from '../utils/common';
+import getCore from '../utils/s-core';
+const { colors } = getCore();
 
 async function onboarding() {
   const { templateFile } = process.env;
