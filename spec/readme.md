@@ -8,8 +8,7 @@ Serverless Devs Model(SDM) 是一种与厂商 FaaS 平台无关的 Serverless �
 
 "Serverless应用的开发人员应该更关心业务代码，而不需要更多精力去适应不同Serverless平台（包括不同厂商的开发者工具学习，不同功能的使用等）。"
 
-![](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631762286927_20210916031809999025.png)
-
+![](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631771269638_20210916054752754202.png)
 
 ### 为什么需要工具模型
 
