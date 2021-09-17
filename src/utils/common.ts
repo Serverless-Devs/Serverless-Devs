@@ -74,27 +74,6 @@ export function checkAndReturnTemplateFile() {
     process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.json');
     return path.join(currentDir, 's.json');
   }
-  if (
-    fs.existsSync(path.join(currentDir, 'template.yaml')) &&
-    checkTemplateFormat(path.join(currentDir, 'template.yaml'))
-  ) {
-    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.yaml');
-    return path.join(currentDir, 'template.yaml');
-  }
-  if (
-    fs.existsSync(path.join(currentDir, 'template.yml')) &&
-    checkTemplateFormat(path.join(currentDir, 'template.yml'))
-  ) {
-    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.yml');
-    return path.join(currentDir, 'template.yml');
-  }
-  if (
-    fs.existsSync(path.join(currentDir, 'template.json')) &&
-    checkTemplateFormat(path.join(currentDir, 'template.json'), true)
-  ) {
-    process.env['serverless_devs_temp_template'] = path.join(currentDir, 'template.json');
-    return path.join(currentDir, 'template.json');
-  }
   return null;
 }
 
