@@ -2,19 +2,17 @@
 
 import yaml from 'js-yaml';
 import { version, Parse, Analysis } from '../../specification';
-import { common, logger } from '../../utils';
+import { logger } from '../../utils';
 import {
   ComponentExeCute,
   ComponentConfig,
   generateSynchronizeComponentExeList,
   synchronizeExecuteComponentList,
 } from '../component';
-import { emoji } from '../../utils/common';
+import { emoji, checkTemplateFile } from '../../utils/common';
 import { handleError } from '../../error';
 import getCore from '../../utils/s-core';
 const { colors } = getCore();
-
-const { checkTemplateFile } = common;
 const { getServiceConfig } = version;
 
 export class CommandManager {

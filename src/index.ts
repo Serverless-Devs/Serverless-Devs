@@ -2,13 +2,13 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { common, registerAction, configSet } from './utils';
+import { registerAction, configSet } from './utils';
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
 import yaml from 'js-yaml';
 import fs from 'fs';
-import { emoji } from './utils/common';
+import { emoji, checkAndReturnTemplateFile } from './utils/common';
 import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
@@ -18,7 +18,6 @@ import { handleError } from './error';
 const { report, colors } = getCore();
 const pkg = require('../package.json');
 
-const { checkAndReturnTemplateFile } = common;
 const {
   registerCommandChecker,
   recordCommandHistory,
