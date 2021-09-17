@@ -17,13 +17,7 @@ function checkTemplateFormat(filePath: string, json = false) {
     }
   }
   // 新版本规范
-  const tempServices = fileObj.services || {};
-  for (const eveKey in tempServices) {
-    if (tempServices[eveKey].component && tempServices[eveKey].props) {
-      return true;
-    }
-  }
-  return false;
+  return fileObj.hasOwnProperty('edition');
 }
 
 export function checkAndReturnTemplateFile() {
