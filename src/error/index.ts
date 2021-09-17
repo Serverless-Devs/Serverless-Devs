@@ -21,7 +21,7 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
   console.log(error);
   console.log(`${colors.gray("\nRun again with the '--debug' option or 's -h' to get more logs.\n")}`);
   report({
-    type: 'error',
+    type: 'jsError',
     content: error,
   });
   exit && process.exit(-1);
