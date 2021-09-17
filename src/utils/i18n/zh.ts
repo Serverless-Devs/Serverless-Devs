@@ -1,12 +1,12 @@
 export default {
-  init_pproject_deploy_tip: '是否希望立即将该项目部署到云端？',
+  init_pproject_deploy_tip: '是否立即将该项目？',
   tip_for_a_serverless_project:
-    "检测到当前目录下已有 serverless 项目，请通过 's deploy' 进行部署或通过 's -h' 获取更多信息",
-  create_a_new_project: '当前未检测到 Serverless 项目，是否希望新建一个项目？',
+    "检测到当前目录下已有 Serverless-Devs 项目，请通过 's deploy' 进行部署或通过 's -h' 获取更多信息",
+  create_a_new_project: '未检测到 Serverless-Devs 项目，是否新建一个项目？',
   en: '英文',
   zh: '中文',
   select_current_language: '请选择当前语言',
-  'app-tip': '请选择你希望创建的 Serverless 应用',
+  'app-tip': '请选择你希望创建的 Serverless-Devs 应用',
   'template-tip': '请选择你喜欢的模版',
   'fc-runtime-starter': 'fc-runtime-starter - 快速部署一个 FC 函数',
   'fc-custom-container-stater': 'fc-custom-container-stater - 快速部署一个 custom-container 应用',

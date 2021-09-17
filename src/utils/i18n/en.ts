@@ -1,5 +1,5 @@
 export default {
-  init_pproject_deploy_tip: 'Do you want to deploy the project to the cloud immediately?',
+  init_pproject_deploy_tip: 'Do you want to deploy the project immediately?',
   tip_for_a_serverless_project:
     "A serverless project is detected in the current directory, please deploy via 's deploy' or get more information via 's -h'",
   create_a_new_project: 'No Serverless project is currently detected. Do you want to create a new project?',
