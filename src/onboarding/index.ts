@@ -1,7 +1,7 @@
 import * as inquirer from 'inquirer';
 import { InitManager } from '../init/init-manager';
 import { i18n } from '../utils';
-import { emoji } from '../utils/common';
+import { emoji, red } from '../utils/common';
 import getCore from '../utils/s-core';
 const { colors } = getCore();
 
@@ -14,20 +14,16 @@ async function onboarding() {
 }
 
 async function projectWithDevs() {
-  console.log(colors.red(`Serverless › ${i18n('tip_for_a_serverless_project')} `));
+  console.log(red(`${i18n('tip_for_a_serverless_project')} `));
 
+  console.log(`\n${emoji('📘')} ${red('Documents: ')} ${red.underline('https://www.serverless-devs.com')}`);
   console.log(
-    `\n${emoji('📘')} ${colors.red('Documents: ')} ${colors.red.underline('https://www.serverless-devs.com')}`,
-  );
-  console.log(
-    `${emoji('🙌')} ${colors.red('Discussions: ')} ${colors.red.underline(
+    `${emoji('🙌')} ${red('Discussions: ')} ${red.underline(
       'https://github.com/Serverless-Devs/Serverless-Devs/discussions',
     )}`,
   );
   console.log(
-    `${emoji('⁉️')} ${colors.red(' Issues: ')} ${colors.red.underline(
-      'https://github.com/Serverless-Devs/Serverless-Devs/issues',
-    )}`,
+    `${emoji('⁉️')} ${red(' Issues: ')} ${red.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`,
   );
 }
 

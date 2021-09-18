@@ -7,6 +7,11 @@ import _ from 'lodash';
 import { getConfig } from './handler-set-config';
 import os from 'os';
 import osLocale from 'os-locale';
+import getCore from './s-core';
+const { colors } = getCore();
+
+export const red = colors.hex('#fd5750');
+export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
 function checkTemplateFormat(filePath: string, json = false) {
   const content = fs.readFileSync(filePath, 'utf8');

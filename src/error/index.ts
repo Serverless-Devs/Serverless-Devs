@@ -1,6 +1,7 @@
 /** @format */
+import { red, bgRed } from '../utils/common';
 import getCore from '../utils/s-core';
-const { colors, spinner, report, getMAC } = getCore();
+const { colors, report, getMAC } = getCore();
 const pkg = require('../../package.json');
 export { CommandError } from './command-error';
 export { ConfigDeleteError } from './config-delete-error';
@@ -16,7 +17,7 @@ function underline(prefix: string, link: string) {
 }
 export function handleError(error: Error, prefix = 'Message:', exit = true) {
   const traceId = `${pid}${Date.now()}`;
-  spinner(colors.red(prefix)).fail();
+  console.log(red(`✖ ${prefix}`));
   console.log(colors.gray(`\nTraceId:     ${traceId}`));
   console.log(
     colors.gray(
@@ -26,7 +27,7 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
   console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
   console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
   console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
-  console.log(colors.red('Error:'));
+  console.log(bgRed('ERROR:'));
   console.log(error);
   console.log(colors.gray(`\nPlease copy traceId: ${traceId} and join Dingding group: 33947367 for consultation.`));
   console.log(colors.gray("Run again with the '--debug' option or 's -h' to get more logs."));
