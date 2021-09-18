@@ -12,7 +12,7 @@ import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
 import { emoji } from '../utils/common';
 import getCore from '../utils/s-core';
-const { loadApplication, setCredential, colors } = getCore();
+const { loadApplication, setCredential, colors, report } = getCore();
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
@@ -176,6 +176,7 @@ export class InitManager {
       const answerValue = answers['template'];
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
+      report({ type: 'initTemplate', content: answerValue });
       await this.deploy(appPath);
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
