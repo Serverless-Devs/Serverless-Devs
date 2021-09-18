@@ -35,6 +35,5 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
     type: 'jsError',
     content: error,
     traceId,
-  });
-  exit && process.exit(-1);
+  }).then(() => exit && process.exit(-1));
 }
