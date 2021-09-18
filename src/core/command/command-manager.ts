@@ -88,7 +88,7 @@ export class CommandManager {
             }
           }
         }
-        let outResult = yaml.dump(JSON.parse(JSON.stringify(outPutData)));
+        const outResult = JSON.parse(JSON.stringify(outPutData));
         if (process.env['s-execute-file']) {
           logger.error(`All projects were not deployed successfully.
   
@@ -100,7 +100,9 @@ ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
 `);
           process.exit(-1);
         } else {
-          logger.success(Object.keys(outPutData).length === 0 ? `End of method: ${this.method}` : outResult);
+          Object.keys(outPutData).length === 0
+            ? logger.success(`End of method: ${this.method}`)
+            : logger.output(outResult);
         }
       } else {
         logger.error(`Failed to execute:\n

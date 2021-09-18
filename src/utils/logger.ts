@@ -32,4 +32,7 @@ export default class ServerlessDevsCliLogger {
   static spinner(info) {
     return LogSpinner(info);
   }
+  static output(info) {
+    return logger.output(info);
+  }
 }
