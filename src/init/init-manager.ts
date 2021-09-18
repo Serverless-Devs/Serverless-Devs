@@ -156,7 +156,7 @@ export class InitManager {
         type: 'confirm',
         name: 'name',
         default: 'Y',
-        message: `Serverless: ${colors.yellow(i18n('init_pproject_deploy_tip'))}`,
+        message: colors.yellow(i18n('init_pproject_deploy_tip')),
       },
     ]);
 
@@ -173,11 +173,13 @@ export class InitManager {
     );
     if (!name) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
-      const answerValue = answers['template'];
+      const answerValue = answers.template || answers.firstLevel;
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
       report({ type: 'initTemplate', content: answerValue });
-      await this.deploy(appPath);
+      if (answers.template) {
+        await this.deploy(appPath);
+      }
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {
