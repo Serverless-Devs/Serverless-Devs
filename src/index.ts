@@ -104,6 +104,8 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     )
     .addHelpCommand(false);
 
+  process.env['CLI_VERSION'] = pkg.version;
+
   // 将参数存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);
 

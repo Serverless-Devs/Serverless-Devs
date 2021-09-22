@@ -33,7 +33,7 @@ async function projectWithNoDevs() {
       type: 'confirm',
       default: 'Y',
       name: 'name',
-      message: `Serverless: ${colors.yellow(i18n('create_a_new_project'))}`,
+      message: colors.yellow(i18n('create_a_new_project')),
     },
   ]);
   if (answer.name) {
