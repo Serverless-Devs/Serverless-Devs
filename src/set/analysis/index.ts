@@ -2,13 +2,14 @@ import program from 'commander';
 import * as inquirer from 'inquirer';
 import { setConfig } from '../../utils/handler-set-config';
 import { CommandError } from '../../error';
+import i18n from '../../utils/i18n';
 
 program
   .name('s set analysis')
   .helpOption('-h, --help', 'Display help for command')
   .addHelpCommand(false)
   .description(
-    `You can set your language.
+    `You can set your analysis.
 
      Example:
         $ s set analysis`,
@@ -19,7 +20,7 @@ const promptOption = [
   {
     type: 'list',
     name: 'analysis',
-    message: 'Please select your analysis',
+    message: i18n('record_your_log_information'),
     choices: [
       {
         name: 'enable',

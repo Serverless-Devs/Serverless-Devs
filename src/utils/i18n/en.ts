@@ -1,8 +1,9 @@
 export default {
+  record_your_log_information: 'Do you record your log information?',
   init_pproject_deploy_tip: 'Do you want to deploy the project immediately?',
   tip_for_a_serverless_project:
-    "A serverless project is detected in the current directory, please deploy via 's deploy' or get more information via 's -h'",
-  create_a_new_project: 'No Serverless project is currently detected. Do you want to create a new project?',
+    "A Serverless-Devs project is detected in the current directory, please deploy via 's deploy' or get more information via 's -h'",
+  create_a_new_project: 'No Serverless-Devs project is currently detected. Do you want to create a new project?',
   en: 'en',
   zh: 'zh',
   select_current_language: 'Please select current language',
@@ -17,11 +18,12 @@ export default {
   'fc-http-nodejs': 'fc-http-nodejs - Deploy FC nodejs12 runtime function',
   'fc-http-python': 'fc-http-python - Deploy FC python3 runtime function',
   'fc-http-java': 'fc-http-java - Deploy FC java8 runtime function',
-  'fc-custom-container-event-python3': 'fc-custom-container-event-python3 - Deploy python3 event application',
-  'fc-custom-container-event-cpp': 'fc-custom-container-event-cpp - Deploy cpp event application',
-  'fc-custom-container-http-springboot': 'fc-custom-container-http-springboot - Deploy springboot http application',
+  'fc-custom-container-event-python3': 'fc-custom-container-event-python3 - Deploy python3 event-triggered application',
+  'fc-custom-container-event-cpp': 'fc-custom-container-event-cpp - Deploy cpp event-triggered application',
+  'fc-custom-container-http-springboot':
+    'fc-custom-container-http-springboot - Deploy springboot HTTP Request-triggered application',
   'fc-custom-container-http-aspdotnetcore':
-    'fc-custom-container-http-aspdotnetcore - Deploy dotnetcore http application',
+    'fc-custom-container-http-aspdotnetcore - Deploy dotnetcore HTTP Request-triggered application',
   'express-starter': 'express-starter - Deploy express application',
   'koa-starter': 'koa-starter - Deploy koa application',
   'nuxtjs-starter': 'nuxtjs-starter - Deploy nuxtjs application',

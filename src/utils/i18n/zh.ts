@@ -1,4 +1,5 @@
 export default {
+  record_your_log_information: '是否记录您的日志信息？',
   init_pproject_deploy_tip: '是否立即部署该项目？',
   tip_for_a_serverless_project:
     "检测到当前目录下已有 Serverless-Devs 项目，请通过 's deploy' 进行部署或通过 's -h' 获取更多信息",
@@ -6,8 +7,8 @@ export default {
   en: '英文',
   zh: '中文',
   select_current_language: '请选择当前语言',
-  'app-tip': '请选择你希望创建的 Serverless-Devs 应用',
-  'template-tip': '请选择你喜欢的模版',
+  'app-tip': '请选择您希望创建的 Serverless-Devs 应用',
+  'template-tip': '请选择您喜欢的模版',
   'fc-runtime-starter': 'fc-runtime-starter - 快速部署一个 FC 函数',
   'fc-custom-container-stater': 'fc-custom-container-stater - 快速部署一个 custom-container 应用',
   web: 'Web 框架',
@@ -17,11 +18,12 @@ export default {
   'fc-http-nodejs': 'fc-http-nodejs - 快速部署一个 nodejs12 函数',
   'fc-http-python': 'fc-http-python - 快速部署一个 python3 函数',
   'fc-http-java': 'fc-http-java - 快速部署一个 java8 函数',
-  'fc-custom-container-event-python3': 'fc-custom-container-event-python3 - 快速部署一个事件类型 python3 应用',
-  'fc-custom-container-event-cpp': 'fc-custom-container-event-cpp - 快速部署一个事件类型 cpp 应用',
-  'fc-custom-container-http-springboot': 'fc-custom-container-http-springboot - 快速部署一个HTTP类型 springboot 应用',
+  'fc-custom-container-event-python3': 'fc-custom-container-event-python3 - 快速部署一个通过事件触发的 python3 应用',
+  'fc-custom-container-event-cpp': 'fc-custom-container-event-cpp - 快速部署一个通过事件触发的 cpp 应用',
+  'fc-custom-container-http-springboot':
+    'fc-custom-container-http-springboot - 快速部署一个通过 HTTP 请求触发的 springboot 应用',
   'fc-custom-container-http-aspdotnetcore':
-    'fc-custom-container-http-aspdotnetcore - 快速部署一个 HTTP 类型 aspdotnetcore 应用',
+    'fc-custom-container-http-aspdotnetcore - 快速部署一个通过 HTTP 请求触发的 aspdotnetcore 应用',
   'express-starter': 'express-starter - 快速部署一个 express 基础应用',
   'koa-starter': 'koa-starter - 快速部署一个 koa 基础应用',
   'nuxtjs-starter': 'nuxtjs-starter - 快速部署一个 nuxtjs 基础应用',
@@ -32,9 +34,9 @@ export default {
   'website-starter': 'website-starter - 快速部署一个静态网站',
   'react-starter': 'react-starter - 快速部署一个 React.js 应用',
   'vue-starter': 'vue-starter - 快速部署一个 Vue.js 应用',
-  puppeteer: 'puppeteer - 基于 puppeteer 截图的 Web 应用',
-  ffmpeg: 'ffmpeg - 基于 ffmpeg 实现音视频处理应用',
-  pdf2Img: 'pdf2Img - pdf 转图片应用',
-  tensorflow: 'tensorflow - 玩转 tensorflow 应用',
-  todoList: 'todoList - nodejs的网页 TodoList 应用',
+  puppeteer: 'puppeteer - 快速部署一个基于 puppeteer 截图的 Web 应用',
+  ffmpeg: 'ffmpeg - 快速部署一个基于 ffmpeg 实现音视频处理应用',
+  pdf2Img: 'pdf2Img - 快速部署一个 pdf 转图片应用',
+  tensorflow: 'tensorflow - 快速部署一个 tensorflow 应用',
+  todoList: 'todoList - 快速部署一个基于 nodejs 的网页 TodoList 应用',
 };
