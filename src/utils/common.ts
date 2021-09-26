@@ -7,11 +7,18 @@ import _ from 'lodash';
 import { getConfig } from './handler-set-config';
 import os from 'os';
 import osLocale from 'os-locale';
-import getCore from './s-core';
+import getCore, { getCoreVersion } from './s-core';
 const { colors } = getCore();
+const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
+
+export function getVersion() {
+  return `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
+    process.arch
+  }, node-${process.version}`;
+}
 
 function checkTemplateFormat(filePath: string, json = false) {
   const content = fs.readFileSync(filePath, 'utf8');

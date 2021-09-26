@@ -8,7 +8,7 @@ import path from 'path';
 import os from 'os';
 import yaml from 'js-yaml';
 import fs from 'fs';
-import { emoji, checkAndReturnTemplateFile } from './utils/common';
+import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
@@ -97,11 +97,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')
     .option('--debug', 'Debug model')
-    .version(
-      `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`,
-      '-v, --version',
-      'Output the version number',
-    )
+    .version(getVersion(), '-v, --version', 'Output the version number')
     .addHelpCommand(false);
 
   process.env['CLI_VERSION'] = pkg.version;

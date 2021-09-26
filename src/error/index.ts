@@ -1,9 +1,8 @@
 /** @format */
-import { red, bgRed } from '../utils/common';
+import { red, bgRed, getVersion } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
 import getCore from '../utils/s-core';
 const { colors, report, getMAC } = getCore();
-const pkg = require('../../package.json');
 export { CommandError } from './command-error';
 export { ConfigDeleteError } from './config-delete-error';
 export { ConfigError } from './config-error';
@@ -23,11 +22,7 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
   if (analysis !== 'disable') {
     console.log(colors.gray(`TraceId:     ${traceId}`));
   }
-  console.log(
-    colors.gray(
-      `Environment: ${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`,
-    ),
-  );
+  console.log(colors.gray(`Environment: ${getVersion()}`));
   console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
   console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
   console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
