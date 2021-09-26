@@ -7,13 +7,12 @@ import _ from 'lodash';
 import { spawn, spawnSync } from 'child_process';
 import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
-import { colors } from '@serverless-devs/core';
 import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
 import { emoji } from '../utils/common';
 import getCore from '../utils/s-core';
-const { loadApplication, setCredential } = getCore();
+const { loadApplication, setCredential, colors, report } = getCore();
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
@@ -132,7 +131,8 @@ export class InitManager {
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       console.log(
-        `${emoji('💞')} Document ❤ Star：` + colors.cyan('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
+        `${emoji('💞')} Document ❤ Star：` +
+          colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
       );
     }
     return { appPath };
@@ -156,7 +156,7 @@ export class InitManager {
         type: 'confirm',
         name: 'name',
         default: 'Y',
-        message: `Serverless: ${colors.yellow(i18n('init_pproject_deploy_tip'))}`,
+        message: colors.yellow(i18n('init_pproject_deploy_tip')),
       },
     ]);
 
@@ -166,13 +166,20 @@ export class InitManager {
   }
 
   async init(name?: string, dir?: string) {
-    console.log(`\n${emoji('🚀')} Serverless Awesome: https://github.com/Serverless-Devs/package-awesome\n`);
+    console.log(
+      `\n${emoji('🚀')} Serverless Awesome: ${colors.underline(
+        'https://github.com/Serverless-Devs/package-awesome',
+      )}\n`,
+    );
     if (!name) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
-      const answerValue = answers['template'];
+      const answerValue = answers.template || answers.firstLevel;
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
-      await this.deploy(appPath);
+      report({ type: 'initTemplate', content: answerValue });
+      if (answers.template) {
+        await this.deploy(appPath);
+      }
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {

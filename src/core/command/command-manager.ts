@@ -2,16 +2,17 @@
 
 import yaml from 'js-yaml';
 import { version, Parse, Analysis } from '../../specification';
-import { common, logger } from '../../utils';
+import { logger } from '../../utils';
 import {
   ComponentExeCute,
   ComponentConfig,
   generateSynchronizeComponentExeList,
   synchronizeExecuteComponentList,
 } from '../component';
-import { emoji } from '../../utils/common';
-
-const { checkTemplateFile } = common;
+import { emoji, checkTemplateFile } from '../../utils/common';
+import { handleError } from '../../error';
+import getCore from '../../utils/s-core';
+const { colors } = getCore();
 const { getServiceConfig } = version;
 
 export class CommandManager {
@@ -66,15 +67,7 @@ export class CommandManager {
               outPutData[projectConfig.ProjectName] = tempResult;
             }
           } catch (e) {
-            const errorMessage = e.message.includes('e[t] is not a function')
-              ? `Project ${projectConfig.ProjectName} does not include [${this.method}] method`
-              : e.message;
-            logger.error(`Project ${projectConfig.ProjectName} failed to execute:
-  
-  ${emoji('📝')} Message:  ${errorMessage}
-  ${emoji('🧭')} You can get help for this component by [s ${projectConfig.ProjectName} -h]
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-            process.exit(-1);
+            handleError(e, `Project ${projectConfig.ProjectName} failed to execute:`);
           }
         } else {
           const params = this.deployParams || '';
@@ -95,17 +88,21 @@ export class CommandManager {
             }
           }
         }
-        let outResult = yaml.dump(JSON.parse(JSON.stringify(outPutData)));
+        const outResult = JSON.parse(JSON.stringify(outPutData));
         if (process.env['s-execute-file']) {
           logger.error(`All projects were not deployed successfully.
   
 ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
             '😈',
-          )} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+          )} If you have questions, please tell us: ${colors.underline(
+            'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+          )}
 `);
           process.exit(-1);
         } else {
-          logger.success(Object.keys(outPutData).length === 0 ? `End of method: ${this.method}` : outResult);
+          Object.keys(outPutData).length === 0
+            ? logger.success(`End of method: ${this.method}`)
+            : logger.output(outResult);
         }
       } else {
         logger.error(`Failed to execute:\n
@@ -113,16 +110,17 @@ ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
           this.templateFile
         }
   ${emoji('🧭')} If you want to use Serverless Devs, you should have a s.yaml or use [s cli] command.
-      ${emoji('1️⃣')} Yaml document: https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md
+      ${emoji('1️⃣')} Yaml document: ${colors.underline(
+          'https://github.com/Serverless-Devs/docs/blob/master/zh/yaml.md',
+        )}
       ${emoji('2️⃣')} Cli document: [s cli -h]
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+        )}\n`);
         process.exit(-1);
       }
     } catch (e) {
-      logger.error(`Failed to execute:\n
-  ${emoji('❌')} Message: ${e.message}
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-      process.exit(-1);
+      handleError(e, 'Failed to execute:');
     }
   }
 }

@@ -14,4 +14,8 @@ function getCore() {
   return require('@serverless-devs/core');
 }
 
+export function getCoreVersion() {
+  return fs.existsSync(corePath) ? require(corePackagePath).version : 'unknown';
+}
+
 export default getCore;

@@ -2,20 +2,22 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { common, logger, registerAction, configSet } from './utils';
+import { registerAction, configSet } from './utils';
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
 import yaml from 'js-yaml';
 import fs from 'fs';
-import { emoji } from './utils/common';
+import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
 import onboarding from './onboarding';
+import getCore from './utils/s-core';
+import { handleError } from './error';
+const { report, colors } = getCore();
 const pkg = require('../package.json');
 
-const { checkAndReturnTemplateFile } = common;
 const {
   registerCommandChecker,
   recordCommandHistory,
@@ -73,15 +75,16 @@ const description = `  _________                               .__
 Welcome to the Serverless Devs.
 
 More: 
-${emoji('📘')} Documents: https://www.github.com/serverless-devs/docs
-${emoji('🙌')} Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
-${emoji('⁉️')}  Issues: https://github.com/Serverless-Devs/Serverless-Devs/issues
-${emoji('👀')} Current Registry: ${getRegistry()}
+${emoji('📘')} Documents: ${colors.underline('https://www.serverless-devs.com')}
+${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
+${emoji('⁉️')}  Issues:  ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
+${emoji('👀')} Current Registry:  ${getRegistry()}
 
 Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
 
 (async () => {
+  report({ type: 'pv' });
   registerCommandChecker(program);
   const system_command = program
     .description(description)
@@ -94,12 +97,10 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')
     .option('--debug', 'Debug model')
-    .version(
-      `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`,
-      '-v, --version',
-      'Output the version number',
-    )
+    .version(getVersion(), '-v, --version', 'Output the version number')
     .addHelpCommand(false);
+
+  process.env['CLI_VERSION'] = pkg.version;
 
   // 将参数存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);
@@ -157,8 +158,5 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   }
   await onboarding();
 })().catch(err => {
-  logger.error(`\n\n  ${emoji('❌')} Message: ${err.message}.
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
-`);
-  process.exit(-1);
+  handleError(err);
 });

@@ -6,8 +6,9 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import { emoji } from '../utils/common';
+import { handleError } from '../error';
 import getCore from '../utils/s-core';
-const { getCredential, loadComponent } = getCore();
+const { getCredential, loadComponent, colors } = getCore();
 export interface CliParams {
   component: string;
   command: string;
@@ -138,26 +139,20 @@ export default class CliManager {
 
             logger.success(Object.keys(result).length === 0 ? `End of method: ${command}` : outResult);
           } catch (e) {
-            logger.error(`Failed to execute:\n
-  ${emoji('❌')} Message: ${e.message}
-  ${emoji('🧭')} You can get help for this component by [s cli ${component} -h]
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-            process.exit(-1);
+            handleError(e, 'Failed to execute:');
           }
         } else {
           logger.error(`Failed to execute:\n
   ${emoji('❌')} Message: Component ${component} does not include [${command}] method
   ${emoji('🧭')} You can get help for this component by [s cli ${component} -h]
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
+  ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
+            'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+          )}\n`);
           process.exit(-1);
         }
       }
     } catch (e) {
-      logger.error(`Failed to execute:\n
-  ${emoji('❌')} Message: ${e.message}
-  ${emoji('🧭')} You can get more component on: https://github.com/Serverless-Devs/package-awesome
-  ${emoji('😈')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-      process.exit(-1);
+      handleError(e, 'Failed to execute:');
     }
     return result;
   }

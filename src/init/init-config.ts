@@ -3,7 +3,30 @@
 import { lowerCase } from 'lodash';
 import { i18n } from '../utils';
 
-const fist_level_template = [
+const first_level_template = [
+  {
+    name: 'Alibaba Cloud Serverless',
+    value: 'Alibaba_Cloud_Serverless',
+  },
+  {
+    name: 'AWS Cloud Serverless',
+    value: 'devscomp/start-lambda',
+  },
+  {
+    name: 'Tencent Cloud Serverless',
+    value: 'devscomp/start-scf',
+  },
+  {
+    name: 'Baidu Cloud Serverless',
+    value: 'xinwuyun/start-cfc',
+  },
+  {
+    name: 'Dev Template for Serverless Devs',
+    value: 'Dev_Template_for_Serverless_Devs',
+  },
+];
+
+const ali_template = [
   {
     name: i18n('fc-runtime-starter'),
     value: 'fc-runtime-starter',
@@ -23,10 +46,6 @@ const fist_level_template = [
   {
     name: i18n('best-practice'),
     value: 'best-practice',
-  },
-  {
-    name: i18n('devs-template'),
-    value: 'devs-template',
   },
 ];
 
@@ -145,7 +164,8 @@ const devs_template = [
 ];
 
 const all_template = []
-  .concat(fist_level_template)
+  .concat(first_level_template)
+  .concat(ali_template)
   .concat(fc_runtime_starter_template)
   .concat(fc_custom_container_stater_template)
   .concat(web_template)
@@ -158,11 +178,25 @@ export const APPLICATION_TEMPLATE = [
     type: 'autocomplete',
     name: 'firstLevel',
     loop: true,
+    message: 'Hello Serverless for Cloud Vendors',
+    source: function (answersSoFar, input) {
+      return input
+        ? all_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : first_level_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'ali_template_answer',
+    loop: true,
+    when(answers) {
+      return answers.firstLevel === 'Alibaba_Cloud_Serverless';
+    },
     message: i18n('app-tip'),
     source: function (answersSoFar, input) {
       return input
         ? all_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
-        : fist_level_template;
+        : ali_template;
     },
   },
   {
@@ -171,7 +205,7 @@ export const APPLICATION_TEMPLATE = [
     message: i18n('template-tip'),
     loop: true,
     when(answers) {
-      return answers.firstLevel === 'fc-runtime-starter';
+      return answers.ali_template_answer === 'fc-runtime-starter';
     },
     source: function (answersSoFar, input) {
       return input
@@ -185,7 +219,7 @@ export const APPLICATION_TEMPLATE = [
     message: i18n('template-tip'),
     loop: true,
     when(answers) {
-      return answers.firstLevel === 'fc-custom-container-stater';
+      return answers.ali_template_answer === 'fc-custom-container-stater';
     },
     source: function (answersSoFar, input) {
       return input
@@ -201,7 +235,7 @@ export const APPLICATION_TEMPLATE = [
     message: i18n('template-tip'),
     loop: true,
     when(answers) {
-      return answers.firstLevel === 'web';
+      return answers.ali_template_answer === 'web';
     },
     source: function (answersSoFar, input) {
       return input
@@ -215,7 +249,7 @@ export const APPLICATION_TEMPLATE = [
     message: i18n('template-tip'),
     loop: true,
     when(answers) {
-      return answers.firstLevel === 'static-site';
+      return answers.ali_template_answer === 'static-site';
     },
     source: function (answersSoFar, input) {
       return input
@@ -229,7 +263,7 @@ export const APPLICATION_TEMPLATE = [
     message: i18n('template-tip'),
     loop: true,
     when(answers) {
-      return answers.firstLevel === 'best-practice';
+      return answers.ali_template_answer === 'best-practice';
     },
     source: function (answersSoFar, input) {
       return input
@@ -243,7 +277,7 @@ export const APPLICATION_TEMPLATE = [
     message: i18n('template-tip'),
     loop: true,
     when(answers) {
-      return answers.firstLevel === 'devs-template';
+      return answers.firstLevel === 'Dev_Template_for_Serverless_Devs';
     },
     source: function (answersSoFar, input) {
       return input

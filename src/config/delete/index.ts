@@ -7,6 +7,9 @@ import yaml from 'js-yaml';
 import program from 'commander';
 import { logger } from '../../utils';
 import { emoji } from '../../utils/common';
+import { handleError } from '../../error';
+import getCore from '../../utils/s-core';
+const { colors } = getCore();
 
 const description = `You can delete an account.
   
@@ -25,7 +28,7 @@ program
   .parse(process.argv);
 (async () => {
   let { aliasName } = program;
-  aliasName = aliasName || process.env['serverless_devs_temp_access']
+  aliasName = aliasName || process.env['serverless_devs_temp_access'];
   if (!aliasName) {
     program.help();
   }
@@ -40,18 +43,12 @@ program
     logger.error(`\n\n  ${emoji('❌️')} Message: Unable to get key information with alias ${aliasName}.
   ${emoji('🤔')} You have configured these keys: [${String(Object.keys(accessFileInfo))}].
   ${emoji('🧭️')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈️')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
+  ${emoji('😈️')} If you have questions, please tell us: ${colors.underline(
+      'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+    )}
 `);
     process.exit(-1);
   }
 })().catch(err => {
-  logger.error(`\n\n  ${emoji('❌️')} Message: ${
-    err.message.includes('no such file or directory') ? 'Unable to get key information' : err.message
-  }.
-  ${emoji('🧭️')} You can :
-      ${emoji('1️⃣')} Manually adjust the key file format to the standard yaml format, or delete the key file. File path: ~/.s/access.yaml
-      ${emoji('2️⃣')} Use [s config add] for key configuration, or use [s config add -h] to view configuration help
-  ${emoji('😈️')} If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues
-`);
-  process.exit(-1);
+  handleError(err);
 });
