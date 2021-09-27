@@ -1,15 +1,16 @@
-/** @format */
-
 import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
+const semver = require('semver');
 
 const corePath = path.join(os.homedir(), '.s', 'cache', 'core');
 const corePackagePath = path.join(corePath, 'package.json');
 
 function getCore() {
   if (fs.existsSync(corePackagePath)) {
-    return require(corePath);
+    const localCoreVersion = require('@serverless-devs/core/package.json').version;
+    const cacheCoreVersion = getCoreVersion();
+    return semver.gt(localCoreVersion, cacheCoreVersion) ? require('@serverless-devs/core') : require(corePath);
   }
   return require('@serverless-devs/core');
 }
