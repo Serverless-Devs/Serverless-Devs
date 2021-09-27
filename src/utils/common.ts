@@ -15,9 +15,11 @@ export const red = colors.hex('#fd5750');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
 export function getVersion() {
-  return `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
-    process.arch
-  }, node-${process.version}`;
+  return getCoreVersion()
+    ? `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
+        process.arch
+      }, node-${process.version}`
+    : `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`;
 }
 
 function checkTemplateFormat(filePath: string, json = false) {
