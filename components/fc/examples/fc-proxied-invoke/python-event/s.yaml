@@ -1,0 +1,19 @@
+edition: 1.0.0
+name: transform_fun
+access: default
+vars:
+  region: cn-hangzhou
+services:
+  fc-python-event-python-event:
+    component: ${path(../../..)}
+    props:
+      region: ${vars.region}
+      service:
+        name: python-event
+        description: helloworld
+        internetAccess: true
+      function:
+        name: python-event
+        handler: index.handler
+        runtime: python3
+        codeUri: ./

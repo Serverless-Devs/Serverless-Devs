@@ -1,0 +1,17 @@
+absl-py==0.10.0
+aliyun-python-sdk-core==2.13.30
+astunparse==1.6.3
+certifi==2020.6.20
+cffi==1.14.4
+chardet==3.0.4
+cryptography==3.2.1
+DateTime==4.3
+gast==0.3.3
+google-auth==1.22.1
+google-auth-oauthlib==0.4.1
+google-pasta==0.2.0
+grpcio==1.32.0
+h5py==2.10.0
+idna==2.10
+jmespath==0.10.0
+Keras-Preprocessing==1.1.2

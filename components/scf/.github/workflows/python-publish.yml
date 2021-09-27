@@ -1,0 +1,36 @@
+name: publish package to serverless-hub
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+          pip install requests
+      - name: NPM install
+        run: |
+          npm run publish
+      - name: Add publish file
+        run: |
+          wget https://serverless-registry.oss-cn-hangzhou.aliyuncs.com/publish-file/python3/hub-publish.py
+          ls
+      - name: Publish package
+        env:
+          publish_token: ${{ secrets.publish_token }}
+        run: |
+          ls
+          python hub-publish.py

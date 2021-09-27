@@ -1,0 +1,109 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  sls-log-test:
+    Type: 'Aliyun::Serverless::Log'
+    Properties:
+      Description: 'just python log'
+    log-trigger:
+      Type: 'Aliyun::Serverless::Log::Logstore'
+      Properties:
+        TTL: 10
+        ShardCount: 1
+    sls-log: 
+      Type: 'Aliyun::Serverless::Log::Logstore'
+      Properties:
+        TTL: 10
+        ShardCount: 1
+    log:
+      Type: 'Aliyun::Serverless::Log::Logstore'
+      Properties:
+        TTL: 10
+        ShardCount: 1
+  fun2.cn-shanghai.1221968287646227.cname-test.fc.aliyun-inc.com:
+    Type: 'Aliyun::Serverless::CustomDomain'
+    Properties:
+      DomainName: Auto
+      Protocol: HTTP,HTTPS
+      CertConfig:
+        CertName: 'CertName'
+        PrivateKey: './certificates/privateKey.pem'
+        Certificate: './certificates/certificate.pem'
+      RouteConfig:
+        Routes:
+          '/nodejs':
+            ServiceName: CustomDomainHttps
+            FunctionName: NodejsHttps
+  fun.cn-shanghai.1221968287646227.cname-test.fc.aliyun-inc.com:
+    Type: 'Aliyun::Serverless::CustomDomain'
+    Properties:
+      Protocol: HTTP
+      RouteConfig:
+        Routes:
+          '/a':
+            ServiceName: local-http-demo
+            FunctionName: nodejs8
+          '/b':
+            ServiceName: serviceB
+            FunctionName: nodejs12
+  local-http-demo:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'local invoke demo'
+      Policies:
+        - AliyunVPCReadOnlyAccess
+      VpcConfig:
+        VpcId: 'vpc-bp12hm92gdpcjtai7ua82'
+        VSwitchIds: [ 'vsw-bp1gitru7oicyyb4uiylj' ]
+        SecurityGroupId: 'sg-bp1hxp0cmozjepfiy9iu'
+      NasConfig:
+        UserId: -1
+        GroupId: -1
+        MountPoints:
+          - ServerAddr: '012194b28f-ujc20.cn-hangzhou.nas.aliyuncs.com:/'
+            MountDir: '/mnt/test'
+      LogConfig:
+        Project: sls-log-test
+        Logstore: log-trigger
+    nodejs12:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        CodeUri: nodejs8/
+        Description: 'http trigger demo with nodejs8!'
+        Runtime: nodejs8
+        Initializer: index.initializer
+    nodejs10:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        CodeUri: oss://my-fc-testt/2018/helloworld.zip
+        Description: 'http trigger demo with nodejs8!'
+        Runtime: nodejs8
+        Initializer: index.initializer
+      Events:
+        TmTrigger:
+          Type: Timer
+          Properties:
+            Payload: "awesome-fc"
+            CronExpression: "0 0 8 * * *"  # utc 时间，北京时间减8小时
+            Enable: true
+    nodejs8:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        CodeUri: nodejs8/
+        Description: 'http trigger demo with nodejs8!'
+        Runtime: nodejs8
+        Initializer: index.initializer
+      Events:
+        http-test:
+          Type: HTTP
+          Properties:
+            AuthType: ANONYMOUS
+            Methods: ['GET', 'POST', 'PUT']
+        http-test-2:
+          Type: HTTP
+          Properties:
+            AuthType: ANONYMOUS
+            Methods: ['GET', 'POST', 'PUT']

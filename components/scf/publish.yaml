@@ -1,0 +1,585 @@
+Type: Component
+Name: devscomp/scf
+Provider:
+  - 腾讯云
+Version: 0.0.26
+Description: 腾讯云函数计算组件，可以快速部署腾讯云云函数
+HomePage: https://www.qcloud.com/
+Tags:
+  - 函数计算
+Category: 基础云服务
+Commands:
+  deploy: 部署函数
+  remove: 移除函数
+Service:
+  函数计算:
+    Authorities:
+      - 创建函数
+      - 删除函数
+  API网关:
+    Authorities:
+      - 创建服务
+      - 创建API
+      - 修改服务
+      - 修改API
+      - 删除服务
+      - 删除API
+Properties:
+  Region:
+    Description: 地域
+    Required: true
+    Type:
+      - String
+  Namespace:
+    Description: 命名空间
+    Required: false
+    Type:
+      - Struct:
+          Name:
+            Description: 名称
+            Required: true
+            Type:
+              - String
+  Function:
+    Description: 命名空间
+    Required: false
+    Type:
+      - Struct:
+          Name:
+            Description: 创建的函数名称
+            Required: true
+            Type:
+              - String
+          Role:
+            Description: 云函数绑定的运行角色
+            Required: false
+            Type:
+              - String
+          EnableRoleAuth:
+            Description: 默认会尝试创建 SCF_QcsRole 角色，如果不需要配置成 false 即可
+            Required: false
+            Type:
+              - String
+          CodeUri:
+            Required: true
+            Default: ./
+            Description: 代码位置
+            Type:
+              - String[简单配置]
+              - Struct[直接对象存储]:
+                  Bucket:
+                    Required: false
+                    Description: function code包的bucket name
+                    Type:
+                      - String
+                  Key:
+                    Required: false
+                    Description: code zip包的object name
+                    Type:
+                      - String
+              - Struct[通过对象存储部署]:
+                  Bucket:
+                    Required: false
+                    Description: function code包的bucket name
+                    Type:
+                      - String
+                  Src:
+                    Required: false
+                    Description: 本地路径
+                    Type:
+                      - String
+                  Exclude:
+                    Required: false
+                    Description: 本地路径
+                    Type:
+                      - List<String>
+          Handler:
+            Required: false
+            Default: index.handler
+            Description: function执行的入口，具体格式和语言相关
+            Type:
+              - String
+          MemorySize:
+            Required: false
+            Default: 512
+            Description: function的内存规格
+            Type:
+              - String
+          Runtime:
+            Required: false
+            Default: Nodejs10
+            Description: function的内存规格
+            Type:
+              - String
+          Timeout:
+            Required: false
+            Default: 60
+            Description: function运行的超时时间
+            Type:
+              - String
+          Environment:
+            Required: false
+            Description: 环境变量
+            Type:
+              - List<Struct>:
+                  Key:
+                    Required: false
+                    Description: 环境变量Key
+                    Type:
+                      - String
+                  Value:
+                    Required: false
+                    Description: 环境变量Value
+                    Type:
+                      - String
+          Description:
+            Required: false
+            Description: function的简短描述
+            Type:
+              - String
+          PublicAccess:
+            Required: false
+            Description: 是否开启公网访问
+            Type:
+              - Boolean
+          Vpc:
+            Required: false
+            Description: 私有网络配置
+            Type:
+              - Struct:
+                  VpcId:
+                    Required: false
+                    Description: 私有网络的Id
+                    Type:
+                      - String
+                  SubnetId:
+                    Required: false
+                    Description: 子网ID
+                    Type:
+                      - String
+          Cfs:
+            Required: false
+            Description: 私有网络配置
+            Type:
+              - List<Struct>:
+                  CfsId:
+                    Required: true
+                    Description: 文件系统实例的Id
+                    Type:
+                      - String
+                  MountInsId:
+                    Required: true
+                    Description: 文件系统挂载点的Id
+                    Type:
+                      - String
+                  LocalMountDir:
+                    Required: true
+                    Description: 本地挂载点
+                    Type:
+                      - String
+                  RemoteMountDir:
+                    Required: true
+                    Description: 远程挂载点
+                    Type:
+                      - String
+          DeadLetter:
+            Required: false
+            Description: 死信队列配置
+            Type:
+              - Struct:
+                  Type:
+                    Required: true
+                    Description: 死信队列模式
+                    Type:
+                      - String
+                  Name:
+                    Required: true
+                    Description: 死信队列名称
+                    Type:
+                      - String
+                  FilterType:
+                    Required: false
+                    Description: 死信队列主题模式的标签形式
+                    Type:
+                      - String
+          Layers:
+            Required: false
+            Description: 层概念
+            Type:
+              - List<Struct>:
+                  Name:
+                    Required: true
+                    Description: layer名称
+                    Type:
+                      - String
+                  Version:
+                    Required: true
+                    Description: 版本
+                    Type:
+                      - String
+          Cls:
+            Required: false
+            Description: Cls配置
+            Type:
+              - Struct:
+                  LogsetId:
+                    Required: true
+                    Description: 函数日志投递到的 CLS LogsetID
+                    Type:
+                      - String
+                  TopicId:
+                    Required: true
+                    Description: 函数日志投递到的 CLS TopicID
+                    Type:
+                      - String
+          Eip:
+            Required: false
+            Description: 是否固定出口 IP
+            Type:
+              - Boolean
+          Tag:
+            Required: false
+            Description: 标签
+            Type:
+              - List<Struct>:
+                  Key:
+                    Required: true
+                    Description: 标签名
+                    Type:
+                      - String
+                  Value:
+                    Required: true
+                    Description: 标签值
+                    Type:
+                      - String
+          Triggers:
+            Required: false
+            Description: 触发器
+            Type:
+              - ListStruct>:
+                  Name:
+                    Required: true
+                    Description: 触发器名称
+                    Type:
+                      - String
+                  Type:
+                    Required: true
+                    Description: 触发器类型
+                    Type:
+                      - Enum:
+                          - timer
+                          - apigw
+                          - cos
+                          - cmq
+                          - ckafka
+                  Parameters:
+                    Required: true
+                    Description: 参数类型
+                    Type:
+                      - Struct[Ckafka触发器]:
+                          Name:
+                            Required: true
+                            Description: 配置连接的 CKafka 实例，仅支持选择同地域下的实例。
+                            Type:
+                              - String
+                          Topic:
+                            Required: true
+                            Description: 支持在 CKafka 实例中已经创建的 Topic。
+                            Type:
+                              - String
+                          MaxMsgNum:
+                            Required: true
+                            Description: 5 秒内每汇聚 maxMsgNum 条 Ckafka 消息，则触发一次函数调用
+                            Type:
+                              - Number
+                          Offset:
+                            Required: true
+                            Description: offset 为开始消费 Ckafka 消息的位置，目前只能填写 `latest`
+                            Type:
+                              - String
+                          Enable:
+                            Required: false
+                            Description: 触发器是否启用。默认启用
+                            Type:
+                              - String
+                      - Struct[CMQ触发器]:
+                          Name:
+                            Required: true
+                            Description: CMQ Topic 主题队列名称
+                            Type:
+                              - String
+                          FilterType:
+                            Required: false
+                            Description: 触发器是否启用。默认启用
+                            Type:
+                              - String
+                          FilterKey:
+                            Required: false
+                            Description: 消息过滤类型，1 为标签类型，2 为路由匹配类型
+                            Type:
+                              - List<String>
+                          Enable:
+                            Required: false
+                            Description: 当 filterType 为 1 时表示消息过滤标签，当 filterType 为 2 时表示 Binding Key
+                            Type:
+                              - String
+                      - Struct[COS触发器]:
+                          Bucket:
+                            Required: true
+                            Description: 配置的 COS Bucket，仅支持选择同地域下的 COS 存储桶
+                            Type:
+                              - String
+                          Filter:
+                            Required: true
+                            Description: COS 文件名的过滤规则
+                            Type:
+                              - Struct:
+                                  Prefix:
+                                    Required: false
+                                    Description: 前缀
+                                    Type:
+                                      - String
+                                  Suffix:
+                                    Required: false
+                                    Description: 后缀
+                                    Type:
+                                      - String
+                          Events:
+                            Required: false
+                            Description: COS 的事件类型
+                            Type:
+                              - String
+                          Enable:
+                            Required: true
+                            Description: 触发器是否启用。默认启用
+                            Type:
+                              - String
+                      - Struct[Timer触发器]:
+                          CronExpression:
+                            Required: true
+                            Description: 触发时间，为定时触发器-cron表达式
+                            Type:
+                              - String
+                          Argument:
+                            Required: false
+                            Description: 入参参数
+                            Type:
+                              - String
+                          Enable:
+                            Required: false
+                            Description: 触发器是否启用。默认启用
+                            Type:
+                              - String
+                      - Struct[Apigw触发器]:
+                          Id:
+                            Description: 服务的全局唯一 ID，由系统生成
+                            Required: false
+                            Type:
+                              - String
+                          Name:
+                            Description: 用户自定义的服务名称。 如果该参数未传递，则由系统自动生成一个唯一名称
+                            Required: false
+                            Type:
+                              - String
+                          Protocols:
+                            Description: 服务的前端请求类型，例如 HTTP，HTTPS，HTTP 和 HTTPS。
+                            Required: true
+                            Type:
+                              - Enum:
+                                  - http
+                                  - https
+                          Description:
+                            Description: 用户自定义的服务描述说明
+                            Required: false
+                            Type:
+                              - String
+                          Environment:
+                            Description:  服务要发布的环境的名称，支持三种环境, test（测试）、prepub（预发布）、 release（发布）
+                            Required: false
+                            Type:
+                              - String
+                          NetTypes:
+                            Description: 网络类型列表，用于指定支持的访问类型，INNER 为内网访问，OUTER 为外网访问。
+                            Required: false
+                            Type:
+                              - List<String>
+                          Domains:
+                            Description: 自定义 API 域名，配置参数参考customDomain
+                            Required: false
+                            Type:
+                              - List<Struct>:
+                                  Domain:
+                                    Description: 需要绑定的自定义域名
+                                    Required: true
+                                    Type:
+                                      - String
+                                  CertificateId:
+                                    Description: 自定义域名的证书，如果设置为 https，则为必需。
+                                    Required: false
+                                    Type:
+                                      - String
+                                  IsDefaultMapping:
+                                    Description: 是否使用默认路径映射。 如果要自定义路径映射，请设为`false`
+                                    Required: false
+                                    Type:
+                                      - String
+                                  PathMappingSet:
+                                    Description: 自定义路径映射, 当 `isDefaultMapping` 为 `false` 时必填，配置参数参考pathMappingSet
+                                    Required: false
+                                    Type:
+                                      - List<Struct>:
+                                          Path:
+                                            Description: 自定义映射路径
+                                            Required: false
+                                            Type:
+                                              - String
+                                          Environment:
+                                            Description: 自定义映射环境
+                                            Required: false
+                                            Type:
+                                              - String
+                                  Protocols:
+                                    Description: 绑定自定义域协议类型，例如 HTTP，HTTPS，HTTP 和 HTTPS，默认与前端协议相同
+                                    Required: false
+                                    Type:
+                                      - String
+                          API:
+                            Description: API详细信息
+                            Required: false
+                            Type:
+                              - List<Struct>:
+                                  Path:
+                                    Description: API 路径
+                                    Required: false
+                                    Type:
+                                      - String
+                                  Method:
+                                    Description: 请求方法
+                                    Required: false
+                                    Type:
+                                      - String
+                                  Protocol:
+                                    Description: 指定的前端 API 类型， 默认为`HTTP`，如要创建 websocket 类型的 API，请设为`WEBSOCKET`
+                                    Required: false
+                                    Type:
+                                      - String
+                                  Function:
+                                    Description: 对应的 Serverless 云函数，配置参数参考function
+                                    Required: false
+                                    Type:
+                                      - Struct:
+                                          IsIntegratedResponse:
+                                            Description: 是否开启响应集成，当前端类型为`HTTP`时生效
+                                            Required: false
+                                            Type:
+                                              - String
+                                          FunctionQualifier:
+                                            Description: scf 函数版本
+                                            Required: false
+                                            Type:
+                                              - String
+                                  Name:
+                                    Description: API名称
+                                    Required: false
+                                    Type:
+                                      - String
+                                  Id:
+                                    Description: API 的唯一 ID
+                                    Required: false
+                                    Type:
+                                      - String
+                                  Description:
+                                    Description: API 描述
+                                    Required: false
+                                    Type:
+                                      - String
+                                  EnableCORS:
+                                    Description: 是否启用跨域访问。 true：启用， false：不启用
+                                    Required: false
+                                    Type:
+                                      - String
+                                  ServiceTimeout:
+                                    Description: API 的后端服务超时时间，单位为秒
+                                    Required: false
+                                    Type:
+                                      - String
+                                  Parameters:
+                                    Description: 前端请求参数，配置参数参考param
+                                    Required: false
+                                    Type:
+                                      - List<Struct>:
+                                          Name:
+                                            Description: 请求参数名称
+                                            Required: false
+                                            Type:
+                                              - String
+                                          Position:
+                                            Description: 参数位置，仅支持`PATH`，`QUERY`和`HEADER`类型
+                                            Required: false
+                                            Type:
+                                              - String
+                                          Required:
+                                            Description: 参数是否必填， true， false
+                                            Required: false
+                                            Type:
+                                              - String
+                                          Type:
+                                            Description: 参数类型，如 String 和 int.
+                                            Required: false
+                                            Type:
+                                              - String
+                                          DefaultValue:
+                                            Description: 参数默认值
+                                            Required: false
+                                            Type:
+                                              - String
+                                          Description:
+                                            Description: 参数备注/描述
+                                            Required: false
+                                            Type:
+                                              - String
+                                  UsagePlan:
+                                    Description: 基于 API 维度的使用计划，配置参数参考usagePlan
+                                    Required: false
+                                    Type:
+                                      - Struct:
+                                          UsagePlanId:
+                                            Description: 用户自定义的基于 API 的使用计划 ID
+                                            Required: false
+                                            Type:
+                                              - String
+                                          UsagePlanName:
+                                            Description: 用户自定义的基于 API 的使用计划名称
+                                            Required: false
+                                            Type:
+                                              - String
+                                          UsagePlanDesc:
+                                            Description: 用户自定义的基于 API 的使用计划描述
+                                            Required: false
+                                            Type:
+                                              - String
+                                          MaxRequestNum:
+                                            Description: 允许的请求总数。不传该参数时默认为 1000 次，若其保留为空，则默认情况下将使用-1，表示已禁用
+                                            Required: false
+                                            Type:
+                                              - String
+                                  Auth:
+                                    Description: API 鉴权设置，配置参数参考auth
+                                    Required: false
+                                    Type:
+                                      - Struct:
+                                          SecretName:
+                                            Description: 用户自定义的密钥名称
+                                            Required: false
+                                            Type:
+                                              - String
+                                          SecretIds:
+                                            Description: 用户自定义的 secretID。当类型为手动时需要。 它可以包含 5 到 50 个字母，数字和下划线。
+                                            Required: false
+                                            Type:
+                                              - List<String>
+                                  ServiceMockReturnMessage:
+                                    Description: Mock 接口类型返回结果，如果 `serviceType` 设置为 `MOCK`，此参数必填
+                                    Required: false
+                                    Type:
+                                      - String

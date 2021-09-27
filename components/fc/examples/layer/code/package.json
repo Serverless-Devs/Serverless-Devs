@@ -1,0 +1,8 @@
+{
+  "name": "fc-delpoy",
+  "version": "0.0.1",
+  "dependencies": {
+    "md5-file": "^5.0.0"
+  },
+  "devDependencies": {}
+}

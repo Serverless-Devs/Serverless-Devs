@@ -1,0 +1,30 @@
+edition: 1.0.0
+name: container-build-demo
+access: "default"
+vars:
+  region: cn-shenzhen
+services:
+  customContainer-build-demo:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service:
+        name: customContainer-build-demo
+        role:
+          name: customContainer-build-demo-DefaultRole
+          policies:
+            - AliyunContainerRegistryReadOnlyAccess
+        internetAccess: true
+      function:
+        name: event-function
+        description: event function powered by flask
+        handler: not-used
+        timeout: 60
+        caPort: 9000
+        memorySize: 512
+        runtime: custom-container
+        customContainerConfig:
+          image: registry.cn-shenzhen.aliyuncs.com/fc-demo/fc-flask:v0.1
+        cAPort: 8080
+        codeUri: ./
+# 函数计算FC组件文档参考地址：https://github.com/devsapp/fc

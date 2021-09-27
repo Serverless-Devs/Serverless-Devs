@@ -1,0 +1,33 @@
+edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: fcDeployApp       #  项目名称
+access: default  #  秘钥别名
+
+services:
+  fc-event-test:
+    component: ${path(../..)}  # 组件名称
+    props: #  组件的属性值
+      region: cn-shenzhen
+      service:
+        name: fc-test
+        description: demo for fc component
+        role: acs:ram::xxxx:role/fcdeploydefaultrole-fc-test
+        vpcConfig:
+          vpcId: vpc-xxxxxxxxxx
+          securityGroupId: sg-xxxxxxxxxx
+          vswitchIds:
+            - vsw-xxxxxxxxxx
+        internetAccess: true
+        nasConfig:
+          userId: 10003
+          groupId: 10003
+          mountPoints:
+            - serverAddr: xxx.cn-shenzhen.nas.aliyuncs.com
+              nasDir: /fc-test
+              fcDir: /mnt/auto
+      function:
+        name: event-function
+        description: this is a test
+        runtime: nodejs10
+        codeUri: ./event-code
+        handler: index.handler
+        memorySize: 128

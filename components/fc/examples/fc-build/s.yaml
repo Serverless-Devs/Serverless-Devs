@@ -1,0 +1,45 @@
+edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: buildApp          #  项目名称
+access: default  #  秘钥别名
+
+services:
+  java8:
+    component: ${path(../..)}  # 组件名称
+    props: #  组件的属性值
+      region: cn-shenzhen
+      service:
+        name: build-test-service
+      function:
+        name: build-test-java8
+        runtime: java8
+        codeUri: ./java
+  python3:
+    component: ${path(../..)}  # 组件名称
+    props: #  组件的属性值
+      region: cn-shenzhen
+      service:
+        name: build-test-service
+      function:
+        name: build-test-python3
+        runtime: python3
+        codeUri: ./python3
+  python:
+    component: ${path(../..)}  # 组件名称
+    props: #  组件的属性值
+      region: cn-shenzhen
+      service:
+        name: build-test-service
+      function:
+        name: build-test-python2
+        runtime: python2.7
+        codeUri: ./python3
+  nodejs12:
+    component: ${path(../..)}  # 组件名称
+    props: #  组件的属性值
+      region: cn-shenzhen
+      service:
+        name: build-test-service
+      function:
+        name: build-test-nodejs12
+        runtime: nodejs12
+        codeUri: ./node

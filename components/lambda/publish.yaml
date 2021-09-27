@@ -1,0 +1,223 @@
+Type: Component
+Name: devscomp/lambda
+Provider:
+  - AWS
+Version: 1.0.0
+Description: 快速部署 Lambda 到 AWS
+HomePage: https://github.com/Serverless-Devs-Awesome/lambda-aws-component
+Tags:
+  - AWS Lambda
+  - 函数计算
+  - AWS
+  - Lambda
+Category: 基础云服务
+Commands:
+  deploy: 部署资源
+  remove: 移除资源
+Properties:
+  region:
+    Description: The region of function.
+    Required: true
+    Type:
+      - String
+  function:
+    Description: The config of function.
+    Required: true
+    Type:
+      - Struct:
+          codeUri:
+            Description: The code for the function.
+            Required: true
+            Type:
+              - String
+          name:
+            Description: The name of the Lambda function.
+            Required: true
+            Type:
+              - String
+          description:
+            Description: 描述
+            Required: false
+            Type:
+              - String
+          deadLetterConfig:
+            Description: A dead letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing.
+            Required: false
+            Type:
+              - Struct:
+                  targetArn:
+                    Description: The Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic.
+                    Required: false
+                    Type:
+                      - String
+          environment:
+            Required: false
+            Description: The function's environment variables.
+            Type:
+              - Struct:
+                  error:
+                    Required: false
+                    Description: Error messages for environment variables that couldn't be applied.
+                    Type:
+                      - Struct:
+                          errorCode:
+                            Required: false
+                            Description: The error code.
+                            Type:
+                              - String
+                          message:
+                            Required: false
+                            Description: The error message.
+                            Type:
+                              - String
+                  variables:
+                    Required: false
+                    Description: Environment variable key-value pairs.
+                    Type:
+                      - List<Struct>:
+                          Key:
+                            Required: false
+                            Description: Environment key.
+                            Type:
+                              - String
+                          Value:
+                            Required: false
+                            Description: Environment value.
+                            Type:
+                              - String
+          tags:
+            Required: false
+            Description: A list of tags to apply to the function.
+            Type:
+              - List<Struct>:
+                  key:
+                    Required: true
+                    Description: Tag key.
+                    Type:
+                      - String
+                  value:
+                    Required: true
+                    Description: Tag value.
+                    Type:
+                      - String
+          fileSystemConfig:
+            Description: Connection settings for an Amazon EFS file system.
+            Required: false
+            Type:
+              - Struct:
+                  arn:
+                    Description: The Amazon Resource Name (ARN) of the Amazon EFS access point that provides access to the file system.
+                    Required: false
+                    Type:
+                      - String
+                  localMountPath:
+                    Description: The path where the function can access the file system, starting with /mnt/.
+                    Required: false
+                    Type:
+                      - String
+          handler:
+            Description: 入口
+            Required: true
+            Type:
+              - String
+          KMSKeyArn:
+            Description: The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables. If it's not provided, AWS Lambda uses a default service key.
+            Required: false
+            Type:
+              - String
+          layers:
+            Description: A list of function layers to add to the function's execution environment. Specify each layer by its ARN, including the version.
+            Required: false
+            Type:
+              - List<String>
+          runtime:
+            Description: The identifier of the function's runtime.
+            Required: true
+            Type:
+              - String
+          publish:
+            Description: Set to true to publish the first version of the function during creation.
+            Required: true
+            Type:
+              - Boolean
+          memorySize:
+            Description: The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation. The default value is 128 MB. The value must be a multiple of 64 MB.
+            Required: false
+            Type:
+              - Number
+          timeout:
+            Description: The amount of time that Lambda allows a function to run before stopping it. The default is 3 seconds. The maximum allowed value is 900 seconds.
+            Required: false
+            Type:
+              - Number
+          tracingConfig:
+            Description: Set Mode to Active to sample and trace a subset of incoming requests with AWS X-Ray.
+            Required: false
+            Type:
+              - Struct:
+                  mode:
+                    Description: The tracing mode.
+                    Required: false
+                    Type:
+                      - String
+          vpcConfig:
+            Description: For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC.
+            Required: false
+            Type:
+              - Struct:
+                  securityGroupIds:
+                    Description: A list of VPC security groups IDs.
+                    Required: false
+                    Type:
+                      - List<String>
+                  subnetIds:
+                    Description: A list of VPC subnet IDs.
+                    Required: false
+                    Type:
+                      - List<String>
+  events:
+    Description: The events of function.
+    Required: false
+    Type:
+      - List<Struct>:
+          name:
+            Required: true
+            Description: Trigger Name.
+            Type:
+              - String
+          type:
+            Required: true
+            Description: Trigger type.
+            Type:
+              - Enum:
+                  - Api
+          properties:
+            Required: true
+            Description: The properties of event.
+            Type:
+              - Struct:
+                  path:
+                    Required: true
+                    Description: The path of apigateway event.
+                    Type:
+                      - String
+                  method:
+                    Required: true
+                    Description: The Method of apigateway event.
+                    Type:
+                      - Enum:
+                          - ANY
+                          - GET
+                          - POST
+                          - DELETE
+                          - PUT
+                  timeoutInMillis:
+                    Required: false
+                    Description: The TimeoutInMillis of apigateway event.
+                    Type:
+                      - String
+                  payloadFormatVersion:
+                    Required: false
+                    Description: The PayloadFormatVersion of apigateway event.
+                    Type:
+                      - String

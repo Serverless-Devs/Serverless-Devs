@@ -1,0 +1,20 @@
+{
+  "name": "@serverless-devs/lambda-tencent",
+  "version": "0.0.10",
+  "description": "Serverless Devs Tool Lambda Component For AWS",
+  "main": "./src/index.js",
+  "author": "wss",
+  "dependencies": {
+    "@serverless-devs/core": "^0.0.61",
+    "@serverless-devs/s-zip": "^0.0.8",
+    "aws-sdk": "^2.778.0",
+    "lodash": "^4.17.21",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm install --production"
+  },
+  "license": "MIT"
+}

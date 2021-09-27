@@ -1,0 +1,61 @@
+{
+  "name": "fc-delpoy",
+  "version": "0.0.1",
+  "dependencies": {
+    "@serverless-devs/core": "0.0.29",
+    "@types/lodash": "^4.14.168",
+    "@alicloud/pop-core": "^1.7.10",
+    "os-locale": "^5.0.0",
+    "node-machine-id": "^1.1.12",
+    "@alicloud/fc2": "^2.2.2",
+    "@types/inquirer": "^7.3.1",
+    "@types/fs-extra": "^9.0.0",
+    "git-ignore-parser": "0.0.2",
+    "ignore": "^5.0.4",
+    "uuid": "^8.3.2",
+    "temp-dir": "^2.0.0",
+    "archiver": "^2.0.0",
+    "progress": "^2.0.3",
+    "colors": "^1.4.0",
+    "md5-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^7.2.6",
+    "@types/jest": "^26.0.10",
+    "@types/node": "14",
+    "f2elint": "^0.4.4",
+    "jest": "^26.4.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.2.0",
+    "ts-loader": "^8.0.14",
+    "ts-node": "^9.1.1",
+    "typescript": "^3.9.7",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.4.0"
+  },
+  "scripts": {
+    "dev": "npx tsc -w -p tsconfig.json",
+    "prebuild": "rimraf dist",
+    "build": "npx tsc -p tsconfig.json",
+    "build:component": "npx webpack --mode=production",
+    "publish": "npm run build:component && s platform publish",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "lint": "f2elint scan",
+    "fix": "f2elint fix",
+    "typecheck": "npx tsc -p tsconfig.json --noEmit"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "f2elint exec commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "f2elint exec lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts}": "f2elint exec eslint"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
+}

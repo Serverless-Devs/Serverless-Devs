@@ -1,0 +1,19 @@
+edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: buildApp          #  项目名称
+access: default  #  秘钥别名
+
+services:
+  image-test:
+    component: ${path(../..)}  # 组件名称
+    props: #  组件的属性值
+      region: cn-shenzhen
+      service:
+        name: build-test-service
+      function:
+        name: build-test-function
+        runtime: custom-container
+        customContainer:
+          image: 'registry.cn-hongkong.aliyuncs.com/s-devs-generate/fc-com-test-build-image:v0.1'  # 仓库地址
+          command: '["node"]'
+          args: '["index.js"]'
+

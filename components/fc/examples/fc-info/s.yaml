@@ -1,0 +1,35 @@
+edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: compoent-test   #  项目名称
+
+services:
+  component-test:
+    component: ${path(../..)}  # 这里引入的是相对路径，正式配置替换成你自己的component名称即可
+    props:
+      region: cn-shanghai
+      service:
+        name: qianfeng-demo
+        description: 'demo for fc-deploy component'
+        internetAccess: true
+      function:
+        name: node-demo
+        description: this is a test
+        runtime: nodejs10
+        codeUri: ./code
+        # ossBucket:
+        # ossKey:  # conflict with codeUri
+        handler: index.handler
+        memorySize: 128
+        timeout: 60
+        initializationTimeout: 60
+        initializer: index.initializer
+        instanceConcurrency: 1
+        instanceType: e1
+        environmentVariables:
+          testEnv: true
+      triggers:
+          - name: httpTrigger
+            type: http
+            config:
+              authType: anonymous
+              methods:
+                - GET
