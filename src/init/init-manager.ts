@@ -9,7 +9,7 @@ import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
 import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
-import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT } from './init-config';
+import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT, ALI_TEMPLATE_APPLICATION } from './init-config';
 import { emoji } from '../utils/common';
 import getCore from '../utils/s-core';
 const { loadApplication, setCredential, colors, report } = getCore();
@@ -111,7 +111,13 @@ export class InitManager {
     }
   }
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
-    const projectName = dir || (await inquirer.prompt(PROJECT_NAME_INPUT)).projectName;
+    let projectName = dir;
+    if (!projectName) {
+      console.log({ ...PROJECT_NAME_INPUT, default: _.last(_.split(name, '/')) });
+
+      const answers = await inquirer.prompt([{ ...PROJECT_NAME_INPUT, default: _.last(_.split(name, '/')) }]);
+      projectName = answers.projectName;
+    }
     const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
 
     const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
@@ -183,7 +189,11 @@ export class InitManager {
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {
-      await this.executeInit(name, dir);
+      const { appPath } = await this.executeInit(name, dir);
+      const data = ALI_TEMPLATE_APPLICATION.filter(item => item.value.includes(name));
+      if (data.length > 0) {
+        await this.deploy(appPath);
+      }
     }
   }
 }

@@ -152,6 +152,14 @@ const best_practice_template = [
   },
 ];
 
+export const ALI_TEMPLATE_APPLICATION = fc_runtime_starter_template.concat(
+  fc_runtime_starter_template,
+  fc_custom_container_stater_template,
+  web_template,
+  static_site_template,
+  best_practice_template,
+);
+
 const devs_template = [
   {
     name: 'Application Scaffolding',
@@ -163,15 +171,15 @@ const devs_template = [
   },
 ];
 
-const all_template = []
-  .concat(first_level_template)
-  .concat(ali_template)
-  .concat(fc_runtime_starter_template)
-  .concat(fc_custom_container_stater_template)
-  .concat(web_template)
-  .concat(static_site_template)
-  .concat(best_practice_template)
-  .concat(devs_template);
+const all_template = first_level_template.concat(
+  ali_template,
+  fc_runtime_starter_template,
+  fc_custom_container_stater_template,
+  web_template,
+  static_site_template,
+  best_practice_template,
+  devs_template,
+);
 
 export const APPLICATION_TEMPLATE = [
   {
@@ -287,13 +295,11 @@ export const APPLICATION_TEMPLATE = [
   },
 ];
 
-export const PROJECT_NAME_INPUT = [
-  {
-    type: 'input',
-    name: 'projectName',
-    message: 'Please input your project name (init dir)',
-    validate(input) {
-      return input.length > 0 ? true : 'You must provide a project name';
-    },
+export const PROJECT_NAME_INPUT = {
+  type: 'input',
+  name: 'projectName',
+  message: 'Please input your project name (init dir)',
+  validate(input) {
+    return input.length > 0 ? true : 'You must provide a project name';
   },
-];
+};
