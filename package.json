@@ -100,7 +100,7 @@
     ]
   },
   "dependencies": {
-    "@serverless-devs/core": "^0.1.4",
+    "@serverless-devs/core": "latest",
     "update-notifier": "^5.1.0"
   }
 }
