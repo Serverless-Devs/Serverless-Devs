@@ -1,0 +1,463 @@
+{
+	"id": 0,
+	"name": "s-component-show1",
+	"kind": 0,
+	"kindString": "Project",
+	"flags": {},
+	"originalName": "",
+	"children": [
+		{
+			"id": 1,
+			"name": "default",
+			"kind": 128,
+			"kindString": "Class",
+			"flags": {},
+			"children": [
+				{
+					"id": 2,
+					"name": "constructor",
+					"kind": 512,
+					"kindString": "Constructor",
+					"flags": {},
+					"signatures": [
+						{
+							"id": 3,
+							"name": "new default",
+							"kind": 16384,
+							"kindString": "Constructor signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 4,
+									"name": "props",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "any"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 1,
+								"name": "default"
+							},
+							"overwrites": {
+								"type": "reference",
+								"name": "BaseComponent.constructor"
+							}
+						}
+					],
+					"overwrites": {
+						"type": "reference",
+						"name": "BaseComponent.constructor"
+					}
+				},
+				{
+					"id": 17,
+					"name": "client",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isProtected": true
+					},
+					"sources": [
+						{
+							"fileName": "common/base.ts",
+							"line": 7,
+							"character": 18
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "any"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "BaseComponent.client"
+					}
+				},
+				{
+					"id": 18,
+					"name": "inputs",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isProtected": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "any"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "BaseComponent.inputs"
+					}
+				},
+				{
+					"id": 16,
+					"name": "private",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"shortText": "解析入参"
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 121,
+							"character": 9
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "any"
+					}
+				},
+				{
+					"id": 21,
+					"name": "__doc",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "common/base.ts",
+							"line": 32,
+							"character": 7
+						}
+					],
+					"signatures": [
+						{
+							"id": 22,
+							"name": "__doc",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 23,
+									"name": "projectName",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isOptional": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "BaseComponent.__doc"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "BaseComponent.__doc"
+					}
+				},
+				{
+					"id": 19,
+					"name": "__getBasePath",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "common/base.ts",
+							"line": 19,
+							"character": 15
+						}
+					],
+					"signatures": [
+						{
+							"id": 20,
+							"name": "__getBasePath",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "BaseComponent.__getBasePath"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "BaseComponent.__getBasePath"
+					}
+				},
+				{
+					"id": 5,
+					"name": "deploy",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 25,
+							"character": 21
+						}
+					],
+					"signatures": [
+						{
+							"id": 6,
+							"name": "deploy",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "部署",
+								"returns": "\n"
+							},
+							"parameters": [
+								{
+									"id": 7,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"comment": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "any"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 14,
+					"name": "help",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 113,
+							"character": 19
+						}
+					],
+					"signatures": [
+						{
+							"id": 15,
+							"name": "help",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "帮助",
+								"returns": "\n"
+							},
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "void"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 8,
+					"name": "remove",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 54,
+							"character": 21
+						}
+					],
+					"signatures": [
+						{
+							"id": 9,
+							"name": "remove",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "移除",
+								"returns": "\n"
+							},
+							"parameters": [
+								{
+									"id": 10,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"comment": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "any"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				},
+				{
+					"id": 11,
+					"name": "test",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPublic": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 77,
+							"character": 19
+						}
+					],
+					"signatures": [
+						{
+							"id": 12,
+							"name": "test",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"shortText": "测试"
+							},
+							"parameters": [
+								{
+									"id": 13,
+									"name": "inputs",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "InputProps"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "any"
+									}
+								],
+								"name": "Promise"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Constructors",
+					"kind": 512,
+					"children": [
+						2
+					]
+				},
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						17,
+						18,
+						16
+					]
+				},
+				{
+					"title": "Methods",
+					"kind": 2048,
+					"children": [
+						21,
+						19,
+						5,
+						14,
+						8,
+						11
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 15,
+					"character": 34
+				}
+			],
+			"extendedTypes": [
+				{
+					"type": "reference",
+					"name": "BaseComponent"
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Classes",
+			"kind": 128,
+			"children": [
+				1
+			]
+		}
+	],
+	"sources": [
+		{
+			"fileName": "index.ts",
+			"line": 1,
+			"character": 0
+		}
+	]
+}

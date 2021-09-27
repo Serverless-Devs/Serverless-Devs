@@ -1,0 +1,7 @@
+{
+  "postTrigger": {
+    "triggerId": "dd3295ef-b49f-493b-861a-28bd3b118664",
+    "triggerTypeCode": "MessageCreated",
+    "functionUrn": "urn:fss:cn-north-4:0bcc05efb100f2a92f53c011f262dfa0:function:default:wzr-fg-test:latest"
+  }
+}

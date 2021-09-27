@@ -9,7 +9,7 @@ The current directory stores the default cloud vendor related components, which 
 
 - Alibaba Cloud FC: [Help Document](./fc/README.md) | [Original Repo](https://github.com/devsapp/fc)
 - AWS Lambda: [Help Document](./fc/readme.md) | [Original Repo](https://github.com/devscomp/lambda)
-- Baidu Cloud CFC: [Help Document](./cfc/README.md) ｜ [Original Repo](https://github.com/xinwuyun/cfc)
+- Baidu Cloud CFC: [Help Document](cfc/README.md) ｜ [Original Repo](https://github.com/xinwuyun/cfc)
 - Huawei Cloud FG: [Help Document](./fg/README.md) ｜ [Original Repo](https://github.com/xinwuyun/fg)
 - Tencent Cloud SCF: [Help Document](./scf/readme.md) | [Original Repo](https://github.com/devscomp/scf)
 
@@ -23,7 +23,7 @@ Since serverless Devs is loaded by components, there will be various forms of co
 
 - 阿里云函数计算（FC）: [帮助文档](./fc/README.md) ｜ [原始项目](https://github.com/devsapp/fc)
 - AWS Lambda: [帮助文档](./fc/readme.md) ｜ [原始项目](https://github.com/devscomp/lambda)
-- 百度智能云函数计算（CFC）: [帮助文档](./cfc/README.md) ｜ [原始项目](https://github.com/xinwuyun/cfc)
+- 百度智能云函数计算（CFC）: [帮助文档](cfc/README.md) ｜ [原始项目](https://github.com/xinwuyun/cfc)
 - 华为云函数工作流（FG）: [帮助文档](./fg/README.md) ｜ [原始项目](https://github.com/xinwuyun/fg)
 - 腾讯云云函数（SCF）: [帮助文档](./scf/readme.md) ｜ [原始项目](https://github.com/devscomp/scf)
 

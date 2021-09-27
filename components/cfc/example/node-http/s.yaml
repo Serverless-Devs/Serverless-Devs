@@ -1,0 +1,46 @@
+edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: component-test   #  项目名称
+alias: default
+services:
+  component-test: #  服务名称
+    component: ../../lib  # 这里引入的是相对路径，正式配置替换成你自己的component名称即可 
+    props:
+      code:
+        codeUri: ./
+        publish: false
+        dryRun: true
+      functionName: test
+      description: 测试函数
+      handler: index.handler 
+      endpoint: cfc.bj.baidubce.com
+      protocol: https
+      runtime: nodejs12
+      timeout: 3
+      memorySize: 128
+      trigger:
+        source: cfc-http-trigger/v1/CFCAPI
+        data:
+          Enable: Enabled
+          ResourcePath: /test
+          Method: GET
+          AuthType: anonymous
+        # bucket: wzr-test
+        # data:
+        #   Resource: /
+        #   Name: wwww
+        #   Status: enabled
+        #   EventType: 
+        #     - PutObject
+        # source: cdn
+        # data: 
+        #   EventType: CachedObjectsPushed
+        #   Status: enabled
+
+        # Brn: brn:bce:cfc:bj:eb4fdf97f9b8d875eae5eb1d91a026a1:function:TestCrontab:$LATEST
+        # Name: testtest
+        # Enabled: Disabled
+        # ScheduleExpression: cron(* * * * *)
+      environment:
+        additionalProp1: 环境变量1
+        additionalProp2: 环境变量2
+        additionalProp3: 环境变量3

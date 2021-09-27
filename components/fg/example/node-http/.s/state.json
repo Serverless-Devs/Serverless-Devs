@@ -1,0 +1,7 @@
+{
+  "postTrigger": {
+    "triggerId": "d3af83cc-0e2c-4b4d-a650-7d8cad8d05fd",
+    "triggerTypeCode": "TIMER",
+    "functionUrn": "urn:fss:cn-north-4:0bcc05efb100f2a92f53c011f262dfa0:function:default:wzr-fg-test:latest"
+  }
+}

@@ -1,0 +1,7 @@
+node_modules
+.s
+tsconfig.json
+LICENSE
+package-lok.json
+.prettierrc.js
+.gitignore
