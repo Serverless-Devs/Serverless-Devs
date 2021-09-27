@@ -8,8 +8,7 @@ const corePackagePath = path.join(corePath, 'package.json');
 
 function getCore() {
   if (fs.existsSync(corePackagePath)) {
-    const corePathNodeModules = path.resolve(__dirname, '../node_modules/@serverless-devs/core/package.json');
-    const localCoreVersion = require(corePathNodeModules).version;
+    const localCoreVersion = require('@serverless-devs/core/package.json').version;
     const cacheCoreVersion = getCoreVersion();
     return semver.gt(localCoreVersion, cacheCoreVersion) ? require('@serverless-devs/core') : require(corePath);
   }
