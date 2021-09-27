@@ -1,7 +1,7 @@
 # Vender FaaS Default Component
 
-- [English](#EnglishDocument)
-- [中文](中文文档)
+- [English](#english-document)
+- [中文](#中文文档)
 
 ## English Document
 
