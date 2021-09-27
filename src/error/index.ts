@@ -35,7 +35,7 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
   console.log(colors.gray("Run again with the '--debug' option or 's -h' to get more logs."));
   report({
     type: 'jsError',
-    content: error,
+    content: error.stack,
     traceId,
   }).then(() => exit && process.exit(-1));
 }
