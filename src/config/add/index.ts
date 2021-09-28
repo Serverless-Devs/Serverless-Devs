@@ -1,8 +1,8 @@
 import program from 'commander';
 import { CommandError } from '../../error';
 import { emoji } from '../../utils/common';
-import getCore from '../../utils/s-core';
-const { setCredential, setKnownCredential, colors } = getCore();
+import core from '../../utils/core';
+const { setCredential, setKnownCredential, colors } = core;
 
 const description = `You can add an account
 

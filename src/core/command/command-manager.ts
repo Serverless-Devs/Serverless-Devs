@@ -11,8 +11,8 @@ import {
 } from '../component';
 import { emoji, checkTemplateFile } from '../../utils/common';
 import { handleError } from '../../error';
-import getCore from '../../utils/s-core';
-const { colors } = getCore();
+import core from '../../utils/core';
+const { colors } = core;
 const { getServiceConfig } = version;
 
 export class CommandManager {

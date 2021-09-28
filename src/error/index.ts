@@ -1,8 +1,8 @@
 /** @format */
 import { red, bgRed, getVersion } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
-import getCore from '../utils/s-core';
-const { colors, report, getMAC } = getCore();
+import core from '../utils/core';
+const { colors, report, getMAC } = core;
 export { CommandError } from './command-error';
 export { ConfigDeleteError } from './config-delete-error';
 export { ConfigError } from './config-error';

@@ -5,8 +5,8 @@ import { configSet } from '../utils';
 import { InitManager } from './init-manager';
 import { emoji } from '../utils/common';
 import { handleError } from '../error';
-import getCore from '../utils/s-core';
-const { colors } = getCore();
+import core from '../utils/core';
+const { colors } = core;
 
 const description = `Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 

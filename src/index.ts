@@ -20,9 +20,9 @@ import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
 import onboarding from './onboarding';
-import getCore from './utils/s-core';
+import core from './utils/core';
 import { handleError } from './error';
-const { report, colors } = getCore();
+const { report, colors } = core;
 const pkg = require('../package.json');
 
 const { getConfig, setConfig } = configSet;
@@ -77,8 +77,8 @@ Welcome to the Serverless Devs.
 More: 
 ${emoji('📘')} Documents: ${colors.underline('https://www.serverless-devs.com')}
 ${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
-${emoji('⁉️')}  Issues:  ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
-${emoji('👀')} Current Registry:  ${getRegistry()}
+${emoji('⁉️')} Issues: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
+${emoji('👀')} Current Registry: ${getRegistry()}
 
 Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;

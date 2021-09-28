@@ -7,8 +7,8 @@ import os from 'os';
 import fs from 'fs';
 import { emoji } from '../utils/common';
 import { handleError } from '../error';
-import getCore from '../utils/s-core';
-const { getCredential, loadComponent, colors } = getCore();
+import core from '../utils/core';
+const { getCredential, loadComponent, colors } = core;
 export interface CliParams {
   component: string;
   command: string;

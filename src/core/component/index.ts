@@ -10,8 +10,8 @@ import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
 import yaml from 'js-yaml';
 import { handleError } from '../../error';
-import getCore from '../../utils/s-core';
-const { getCredential, loadComponent } = getCore();
+import core from '../../utils/core';
+const { getCredential, loadComponent } = core;
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');

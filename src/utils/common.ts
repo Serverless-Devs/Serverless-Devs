@@ -7,8 +7,8 @@ import _ from 'lodash';
 import { getConfig } from './handler-set-config';
 import os from 'os';
 import osLocale from 'os-locale';
-import getCore, { getCoreVersion } from './s-core';
-const { colors } = getCore();
+import core, { getCoreVersion } from './core';
+const { colors } = core;
 const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');

@@ -8,8 +8,8 @@ import yaml from 'js-yaml';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
 import { handleError } from '../../error';
-import getCore from '../../utils/s-core';
-const { getCredential, colors } = getCore();
+import core from '../../utils/core';
+const { getCredential, colors } = core;
 
 const description = `You can get accounts.
  

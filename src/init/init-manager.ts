@@ -11,8 +11,8 @@ import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT, ALI_TEMPLATE_APPLICATION } from './init-config';
 import { emoji } from '../utils/common';
-import getCore from '../utils/s-core';
-const { loadApplication, setCredential, colors, report } = getCore();
+import core from '../utils/core';
+const { loadApplication, setCredential, colors, report } = core;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
