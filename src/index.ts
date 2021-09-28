@@ -2,7 +2,14 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { registerAction, configSet } from './utils';
+import { configSet } from './utils';
+import {
+  registerCommandChecker,
+  recordCommandHistory,
+  registerExecCommand,
+  registerCustomerCommand,
+  registerUniversalCommand,
+} from './utils/command-util';
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
@@ -18,13 +25,6 @@ import { handleError } from './error';
 const { report, colors } = getCore();
 const pkg = require('../package.json');
 
-const {
-  registerCommandChecker,
-  recordCommandHistory,
-  registerExecCommand,
-  registerCustomerCommand,
-  registerUniversalCommand,
-} = registerAction;
 const { getConfig, setConfig } = configSet;
 
 function getRegistry() {
@@ -89,10 +89,11 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   const system_command = program
     .description(description)
     .helpOption('-h, --help', `Display help for command`)
-    .command('config', `${emoji('👤')} Configure cloud service account.`)
-    .command('init', `${emoji('💞')} Initializing a project.`)
-    .command('cli', `${emoji('🐚')} Command line operation through yaml free mode.`)
-    .command('set', `${emoji('🔧')} Settings for the tool.`)
+    .command('config', `Configure cloud service account.`)
+    .command('init', `Initializing a project.`)
+    .command('cli', `Command line operation through yaml free mode.`)
+    .command('set', `Settings for the tool.`)
+    .command('clean', `Clean up the environment`)
     .option('-t, --template [templatePath]', 'Specify the template file')
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')

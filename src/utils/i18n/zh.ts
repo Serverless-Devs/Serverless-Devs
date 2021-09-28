@@ -1,4 +1,8 @@
 export default {
+  clean_up_the_environment: '清理环境',
+  display_help_for_command: '显示命令帮助',
+  remove_components: '删除组件',
+  delete_the_file_under_the_cache: '删除缓存里的的<dirname>文件',
   record_your_log_information: '是否记录您的日志信息？',
   init_pproject_deploy_tip: '是否立即部署该项目？',
   tip_for_a_serverless_project:
