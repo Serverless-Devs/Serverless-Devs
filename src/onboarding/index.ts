@@ -16,14 +16,14 @@ async function onboarding() {
 async function projectWithDevs() {
   console.log(red(`${i18n('tip_for_a_serverless_project')} `));
 
-  console.log(`\n${emoji('📘')} ${red('Documents: ')} ${red.underline('https://www.serverless-devs.com')}`);
+  console.log(`\n${emoji('📘')} ${red('Documents: ')}${red.underline('https://www.serverless-devs.com')}`);
   console.log(
-    `${emoji('🙌')} ${red('Discussions: ')} ${red.underline(
+    `${emoji('🙌')} ${red('Discussions: ')}${red.underline(
       'https://github.com/Serverless-Devs/Serverless-Devs/discussions',
     )}`,
   );
   console.log(
-    `${emoji('⁉️')} ${red(' Issues: ')} ${red.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`,
+    `${emoji('❓')} ${red('Issues: ')}${red.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`,
   );
 }
 
