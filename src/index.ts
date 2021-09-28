@@ -24,6 +24,7 @@ import core from './utils/core';
 import { handleError } from './error';
 const { report, colors } = core;
 const pkg = require('../package.json');
+require('dotenv').config();
 
 const { getConfig, setConfig } = configSet;
 

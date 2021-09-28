@@ -60,6 +60,7 @@
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "commander": "^6.0.0",
+    "dotenv": "^10.0.0",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.20.1",
