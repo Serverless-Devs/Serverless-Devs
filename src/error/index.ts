@@ -9,6 +9,7 @@ export { ConfigError } from './config-error';
 export { ConfigGetError } from './config-get-error';
 export { InitError } from './init-error';
 export { ServerlessError } from './serverless-error';
+export { HumanError } from './human-error';
 
 const pid = getMAC().replace(/:/g, '');
 
@@ -26,9 +27,7 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
   console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
   console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
   console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
-  console.log(bgRed('ERROR:'));
-  console.log(error);
-  console.log('');
+  console.log(`${bgRed('ERROR:')}\n${error}\n`);
   if (analysis !== 'disable') {
     console.log(colors.gray(`Please copy traceId: ${traceId} and join Dingding group: 33947367 for consultation.`));
   }

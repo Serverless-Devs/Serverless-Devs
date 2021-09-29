@@ -1,7 +1,8 @@
 /** @format */
 
 import yaml from 'js-yaml';
-import { version, Parse, Analysis } from '../../specification';
+import { Parse, Analysis } from '../../specification';
+import { getServiceConfig } from '../../specification/version';
 import { logger } from '../../utils';
 import {
   ComponentExeCute,
@@ -10,10 +11,10 @@ import {
   synchronizeExecuteComponentList,
 } from '../component';
 import { emoji, checkTemplateFile } from '../../utils/common';
-import { handleError } from '../../error';
+import { handleError, HumanError } from '../../error';
+import { Human_Error_List } from '../../constants';
 import core from '../../utils/core';
 const { colors } = core;
-const { getServiceConfig } = version;
 
 export class CommandManager {
   protected deployParams: any;
@@ -67,7 +68,14 @@ export class CommandManager {
               outPutData[projectConfig.ProjectName] = tempResult;
             }
           } catch (e) {
-            handleError(e, `Project ${projectConfig.ProjectName} failed to execute:`);
+            const isHumanError = Human_Error_List.find(item => item === e.message);
+            isHumanError
+              ? new HumanError(
+                  `componentInstance[${this.method}] is not a function`,
+                  `请检查组件${projectConfig.component}是否存在${this.method}方法`,
+                  e,
+                )
+              : handleError(e, `Project ${projectConfig.ProjectName} failed to execute:`);
           }
         } else {
           const params = this.deployParams || '';
