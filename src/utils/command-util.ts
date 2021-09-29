@@ -11,8 +11,8 @@ import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
 import storage from './storage';
 import logger from './logger';
 import { emoji } from './common';
-import getCore from './s-core';
-const { loadComponent } = getCore();
+import core from './core';
+const { loadComponent } = core;
 
 const { getSubcommand, getServiceConfig } = version;
 

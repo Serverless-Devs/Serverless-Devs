@@ -2,7 +2,14 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { registerAction, configSet } from './utils';
+import { configSet } from './utils';
+import {
+  registerCommandChecker,
+  recordCommandHistory,
+  registerExecCommand,
+  registerCustomerCommand,
+  registerUniversalCommand,
+} from './utils/command-util';
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
@@ -13,18 +20,12 @@ import { get } from 'lodash';
 import updateNotifier from 'update-notifier';
 import { execDaemon } from './execDaemon';
 import onboarding from './onboarding';
-import getCore from './utils/s-core';
+import core from './utils/core';
 import { handleError } from './error';
-const { report, colors } = getCore();
+const { report, colors } = core;
 const pkg = require('../package.json');
+require('dotenv').config();
 
-const {
-  registerCommandChecker,
-  recordCommandHistory,
-  registerExecCommand,
-  registerCustomerCommand,
-  registerUniversalCommand,
-} = registerAction;
 const { getConfig, setConfig } = configSet;
 
 function getRegistry() {
@@ -41,7 +42,7 @@ async function setSpecialCommand() {
   if (templateFile) {
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    if (!['init', 'config', 'set', 'exec', 'cli'].includes(process.argv[2])) {
+    if (!['init', 'config', 'set', 'exec', 'cli', 'clean'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
       await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
@@ -77,8 +78,8 @@ Welcome to the Serverless Devs.
 More: 
 ${emoji('📘')} Documents: ${colors.underline('https://www.serverless-devs.com')}
 ${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
-${emoji('⁉️')}  Issues:  ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
-${emoji('👀')} Current Registry:  ${getRegistry()}
+${emoji('❓')} Issues: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
+${emoji('👀')} Current Registry: ${getRegistry()}
 
 Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
@@ -93,6 +94,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     .command('init', `${emoji('💞')} Initializing a project.`)
     .command('cli', `${emoji('🐚')} Command line operation through yaml free mode.`)
     .command('set', `${emoji('🔧')} Settings for the tool.`)
+    .command('clean', `${emoji('💥')} Clean up the environment.`)
     .option('-t, --template [templatePath]', 'Specify the template file')
     .option('-a, --access [aliasName]', 'Specify the access alias name')
     .option('--skip-actions', 'Skip the extends section')

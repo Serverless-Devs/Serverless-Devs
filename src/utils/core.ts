@@ -16,7 +16,7 @@ function getCore() {
 }
 
 export function getCoreVersion() {
-  return fs.existsSync(corePath) ? require(corePackagePath).version : 'unknown';
+  return fs.existsSync(corePath) ? require(corePackagePath).version : undefined;
 }
 
-export default getCore;
+export default getCore();

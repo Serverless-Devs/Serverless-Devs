@@ -1,7 +1,7 @@
 /** @format */
 
-import getCore from '../utils/s-core';
-const { Logger } = getCore();
+import core from '../utils/core';
+const { Logger } = core;
 const logger = new Logger('S-CLI-ERROR');
 
 export class ServerlessError {

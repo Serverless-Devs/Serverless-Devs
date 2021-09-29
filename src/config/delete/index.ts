@@ -8,8 +8,8 @@ import program from 'commander';
 import { logger } from '../../utils';
 import { emoji } from '../../utils/common';
 import { handleError } from '../../error';
-import getCore from '../../utils/s-core';
-const { colors } = getCore();
+import core from '../../utils/core';
+const { colors } = core;
 
 const description = `You can delete an account.
   

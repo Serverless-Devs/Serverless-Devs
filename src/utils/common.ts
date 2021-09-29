@@ -7,22 +7,36 @@ import _ from 'lodash';
 import { getConfig } from './handler-set-config';
 import os from 'os';
 import osLocale from 'os-locale';
-import getCore, { getCoreVersion } from './s-core';
-const { colors } = getCore();
+import { HumanError } from '../error';
+import core, { getCoreVersion } from './core';
+const { colors } = core;
 const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
 export function getVersion() {
-  return `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
-    process.arch
-  }, node-${process.version}`;
+  return getCoreVersion()
+    ? `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
+        process.arch
+      }, node-${process.version}`
+    : `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`;
+}
+
+export function yamlLoad(filePath: string) {
+  const content = fs.readFileSync(filePath, 'utf8');
+  try {
+    return yaml.load(content);
+  } catch (error) {
+    const filename = path.basename(filePath);
+    new HumanError(`${filename}格式不正确`, `请检查${filename}的配置`, error);
+  }
 }
 
 function checkTemplateFormat(filePath: string, json = false) {
   const content = fs.readFileSync(filePath, 'utf8');
-  let fileObj = json ? JSON.parse(content) : yaml.load(content);
+  let fileObj = json ? JSON.parse(content) : yamlLoad(filePath);
+  if (!fileObj) return false;
   for (const eveKey in fileObj) {
     if (fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties) {
       return true;

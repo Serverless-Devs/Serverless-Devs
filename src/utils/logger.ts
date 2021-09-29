@@ -1,7 +1,7 @@
 /** @format */
 
-import getCore from './s-core';
-const { Logger, spinner: LogSpinner } = getCore();
+import core from './core';
+const { Logger, spinner: LogSpinner } = core;
 
 const logger = new Logger('S-CLI');
 

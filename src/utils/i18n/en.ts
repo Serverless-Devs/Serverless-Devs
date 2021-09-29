@@ -1,4 +1,8 @@
 export default {
+  clean_up_the_environment: 'Clean up the environment',
+  display_help_for_command: 'Display help for command',
+  remove_components: 'Remove components',
+  delete_the_file_under_the_cache: 'Delete the <dirname> file in the cache',
   record_your_log_information: 'Do you record your log information?',
   init_pproject_deploy_tip: 'Do you want to deploy the project immediately?',
   tip_for_a_serverless_project:
@@ -11,9 +15,9 @@ export default {
   'template-tip': 'Which template do you like?',
   'fc-runtime-starter': 'fc-runtime-starter - Deploy FC function in 5 minutes',
   'fc-custom-container-stater': 'fc-custom-container-stater - Deploy FC function with custom-container',
-  web: 'Deploy web framework',
-  'static-site': 'Deploy static website application',
-  'best-practice': 'Serverless Best Practice',
+  web: 'web-framework-stater-Quickly deploy a web framework',
+  'static-site': 'static-website-stater-Quickly deploy a static website',
+  'best-practice': 'serverless-best-practice-Quickly experience serverless best practices',
   'devs-template': 'Serverless Develop scaffold',
   'fc-http-nodejs': 'fc-http-nodejs - Deploy FC nodejs12 runtime function',
   'fc-http-python': 'fc-http-python - Deploy FC python3 runtime function',

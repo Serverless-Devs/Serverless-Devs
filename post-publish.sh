@@ -11,3 +11,4 @@ ncc build lib/set/index.js -m -e @serverless-devs/core -e update-notifier -o lib
 ncc build lib/set/registry/index.js -m -e @serverless-devs/core -e update-notifier -o lib/set/registry
 ncc build lib/set/locale/index.js -m -e @serverless-devs/core -e update-notifier -o lib/set/locale
 ncc build lib/set/analysis/index.js -m -e @serverless-devs/core -e update-notifier -o lib/set/analysis
+ncc build lib/clean/index.js -m -e @serverless-devs/core -e update-notifier -o lib/clean
