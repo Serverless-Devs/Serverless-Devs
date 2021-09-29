@@ -113,8 +113,6 @@ export class InitManager {
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
     let projectName = dir;
     if (!projectName) {
-      console.log({ ...PROJECT_NAME_INPUT, default: _.last(_.split(name, '/')) });
-
       const answers = await inquirer.prompt([{ ...PROJECT_NAME_INPUT, default: _.last(_.split(name, '/')) }]);
       projectName = answers.projectName;
     }

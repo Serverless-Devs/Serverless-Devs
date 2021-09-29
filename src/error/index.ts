@@ -32,7 +32,7 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
     console.log(colors.gray(`Please copy traceId: ${traceId} and join Dingding group: 33947367 for consultation.`));
   }
   console.log(colors.gray("You can run 's clean --cache' to prune Serverless devs."));
-  console.log(colors.gray("And run again with the '--debug' option or 's -h' to get more logs."));
+  console.log(colors.gray("And run again with the '--debug' option or 's -h' to get more logs.\n"));
   report({
     type: 'jsError',
     content: error.stack,

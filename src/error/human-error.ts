@@ -6,7 +6,7 @@ export class HumanError extends Error {
   constructor(errorMessage: string, tips: string, error: Error) {
     super();
     console.log(`\n${bgRed('ERROR:')}`);
-    console.log(`${errorMessage} ${colors.gray(tips)}`);
+    console.log(`${errorMessage} ${colors.gray(tips)}\n`);
     report({
       type: 'jsError',
       content: `${errorMessage}, ${error.stack}`,
