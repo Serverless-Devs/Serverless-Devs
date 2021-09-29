@@ -15,56 +15,60 @@ const command = program
   .addHelpCommand(false)
   .parse(process.argv);
 
-if (process.argv.length === 2) {
-  command.help();
-}
+try {
+  if (process.argv.length === 2) {
+    command.help();
+  }
 
-if (process.argv.length > 2) {
-  const sPath = path.join(os.homedir(), '.s');
-  const cachePath = path.join(sPath, 'cache');
-  const componentsPath = path.join(sPath, 'components');
-  const githubPath = path.join(componentsPath, 'github.com');
-  const devsappPath = path.join(componentsPath, 'devsapp.cn');
-  const args = minimist(process.argv.slice(2), {
-    boolean: ['all'],
-  });
-  if (args.all) {
-    let files = fse.readdirSync(path.join(sPath));
-    files = files.filter((item: string) => item !== 'access.yaml' && item !== 'set-config.yml');
-    files.forEach((file: string) => {
-      rimraf.sync(path.join(sPath, file));
+  if (process.argv.length > 2) {
+    const sPath = path.join(os.homedir(), '.s');
+    const cachePath = path.join(sPath, 'cache');
+    const componentsPath = path.join(sPath, 'components');
+    const githubPath = path.join(componentsPath, 'github.com');
+    const devsappPath = path.join(componentsPath, 'devsapp.cn');
+    const args = minimist(process.argv.slice(2), {
+      boolean: ['all'],
     });
-  }
-  if (args.cache) {
-    // cache 无参数
-    if (typeof args.cache === 'boolean') {
-      rimraf.sync(path.join(cachePath));
+    if (args.all) {
+      let files = fse.readdirSync(path.join(sPath));
+      files = files.filter((item: string) => item !== 'access.yaml' && item !== 'set-config.yml');
+      files.forEach((file: string) => {
+        rimraf.sync(path.join(sPath, file));
+      });
     }
-    // cache 有参数
-    if (typeof args.cache === 'string') {
-      rimraf.sync(path.join(cachePath, args.cache));
-      if (args.cache === 'core') {
-        rimraf.sync(path.join(cachePath, '.s-core.lock'));
+    if (args.cache) {
+      // cache 无参数
+      if (typeof args.cache === 'boolean') {
+        rimraf.sync(path.join(cachePath));
+      }
+      // cache 有参数
+      if (typeof args.cache === 'string') {
+        rimraf.sync(path.join(cachePath, args.cache));
+        if (args.cache === 'core') {
+          rimraf.sync(path.join(cachePath, '.s-core.lock'));
+        }
+      }
+    }
+    if (args.component) {
+      // component 无参数
+      if (typeof args.component === 'boolean') {
+        rimraf.sync(componentsPath);
+      }
+      // component 有参数
+      if (typeof args.component === 'string') {
+        let [source, name] = args.component.split('/');
+        // name 存在说明包含/, 比如devsapp/fc
+        if (name) {
+          rimraf.sync(path.join(devsappPath, name));
+          rimraf.sync(path.join(devsappPath, source, name));
+          rimraf.sync(path.join(githubPath, source, name));
+        } else {
+          rimraf.sync(path.join(devsappPath, source));
+          rimraf.sync(path.join(devsappPath, 'devsapp', source));
+        }
       }
     }
   }
-  if (args.component) {
-    // component 无参数
-    if (typeof args.component === 'boolean') {
-      rimraf.sync(componentsPath);
-    }
-    // component 有参数
-    if (typeof args.component === 'string') {
-      let [source, name] = args.component.split('/');
-      // name 存在说明包含/, 比如devsapp/fc
-      if (name) {
-        rimraf.sync(path.join(devsappPath, name));
-        rimraf.sync(path.join(devsappPath, source, name));
-        rimraf.sync(path.join(githubPath, source, name));
-      } else {
-        rimraf.sync(path.join(devsappPath, source));
-        rimraf.sync(path.join(devsappPath, 'devsapp', source));
-      }
-    }
-  }
+} catch (error) {
+  // ignore error in window
 }
