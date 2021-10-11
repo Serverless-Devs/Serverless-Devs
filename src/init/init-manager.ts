@@ -177,7 +177,7 @@ export class InitManager {
     );
     if (!name) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
-      const answerValue = answers.template || answers.firstLevel;
+      const answerValue = answers.template || answers.devTemplate || answers.firstLevel;
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
       report({ type: 'initTemplate', content: answerValue });

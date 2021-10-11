@@ -281,7 +281,7 @@ export const APPLICATION_TEMPLATE = [
   },
   {
     type: 'autocomplete',
-    name: 'template',
+    name: 'devTemplate',
     message: i18n('template-tip'),
     loop: true,
     when(answers) {
