@@ -1,10 +1,9 @@
-/** @format */
-
 import * as fs from 'fs';
 import * as path from 'path';
 import yaml from 'js-yaml';
 import { getServiceList } from './version';
 import { handleError } from '../error';
+import { startsWith, get } from 'lodash';
 
 interface MAP_OBJECT {
   [key: string]: any;
@@ -142,7 +141,11 @@ export class Parse {
           topKeyDependenciesMap[dependProjName] = 1; // Dependent priority
           this.dependenciesMap[topKey] = topKeyDependenciesMap;
         }
-        let realValue = this.findVariableValue(variableObj);
+
+        let realValue = startsWith(matchResult, 'env.')
+          ? get(process, matchResult)
+          : this.findVariableValue(variableObj);
+
         return Object.prototype.toString.call(realValue) === '[object String]'
           ? objValue.replace(COMMON_VARIABLE_TYPE_REG, realValue)
           : realValue;
