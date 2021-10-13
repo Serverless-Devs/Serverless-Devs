@@ -9,7 +9,7 @@ import * as inquirer from 'inquirer';
 import yaml from 'js-yaml';
 import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
-import { APPLICATION_TEMPLATE, PROJECT_NAME_INPUT, ALI_TEMPLATE_APPLICATION } from './init-config';
+import { PROJECT_NAME_INPUT, GET_APPLICATION_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
 const { loadApplication, setCredential, colors, report } = core;
@@ -175,9 +175,10 @@ export class InitManager {
         'https://github.com/Serverless-Devs/package-awesome',
       )}\n`,
     );
+    const { promptData, allAliList } = GET_APPLICATION_TEMPLATE();
     if (!name) {
-      const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
-      const answerValue = answers.template || answers.devTemplate || answers.firstLevel;
+      const answers: any = await inquirer.prompt(promptData);
+      const answerValue = answers.template || answers.nonDeployTemplate || answers.firstLevel;
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
       report({ type: 'initTemplate', content: answerValue });
@@ -188,7 +189,7 @@ export class InitManager {
       await this.gitCloneProject(name, dir);
     } else {
       const { appPath } = await this.executeInit(name, dir);
-      const data = ALI_TEMPLATE_APPLICATION.filter(item => item.value.includes(name));
+      const data = _.filter(allAliList, item => _.includes(item.value, name));
       if (data.length > 0) {
         await this.deploy(appPath);
       }
