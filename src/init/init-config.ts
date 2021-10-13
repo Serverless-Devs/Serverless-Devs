@@ -71,6 +71,7 @@ export function GET_APPLICATION_TEMPLATE() {
     const source = map(item.templates, obj => ({
       name: obj[lang],
       value: obj.value,
+      isDeploy: obj.is_deploy,
     }));
     allList = concat(allList, source);
     allAliList = concat(allAliList, source);
@@ -119,7 +120,7 @@ export function GET_APPLICATION_TEMPLATE() {
     list,
     {
       type: 'autocomplete',
-      name: 'nonDeployTemplate',
+      name: 'template',
       message: i18n('template-tip'),
       loop: true,
       when(answers) {

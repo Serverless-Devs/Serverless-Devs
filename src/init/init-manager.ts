@@ -178,19 +178,20 @@ export class InitManager {
     const { promptData, allAliList } = GET_APPLICATION_TEMPLATE();
     if (!name) {
       const answers: any = await inquirer.prompt(promptData);
-      const answerValue = answers.template || answers.nonDeployTemplate || answers.firstLevel;
+      const answerValue = answers.template || answers.firstLevel;
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
       report({ type: 'initTemplate', content: answerValue });
-      if (answers.template) {
+      const findObj: any = _.find(allAliList, item => item.value === answerValue);
+      if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
       }
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {
       const { appPath } = await this.executeInit(name, dir);
-      const data = _.filter(allAliList, item => _.includes(item.value, name));
-      if (data.length > 0) {
+      const findObj: any = _.find(allAliList, item => _.includes(item.value, name));
+      if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
       }
     }
