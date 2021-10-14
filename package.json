@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s",
-  "version": "2.0.86",
+  "version": "2.0.87-alpha.6",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -17,7 +17,7 @@
   ],
   "publishConfig": {
     "access": "public",
-    "registry": "http://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org"
   },
   "license": "MIT",
   "repository": {

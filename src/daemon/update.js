@@ -14,5 +14,5 @@ function init() {
 try {
   init();
 } catch (error) {
-  process.exit(-1);
+  process.exit(1);
 }

@@ -1,6 +1,6 @@
 import os from 'os';
 import path from 'path';
-import fs from 'fs-extra';
+import fs from 'fs';
 const semver = require('semver');
 
 const corePath = path.join(os.homedir(), '.s', 'cache', 'core');

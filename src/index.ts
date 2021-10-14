@@ -22,6 +22,7 @@ import { execDaemon } from './execDaemon';
 import onboarding from './onboarding';
 import core from './utils/core';
 import { handleError } from './error';
+import { updateTemplate } from './init/update-template';
 const { report, colors } = core;
 const pkg = require('../package.json');
 require('dotenv').config();
@@ -115,6 +116,10 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   if (['major', 'minor'].includes(get(updateInfo, 'update.type'))) {
     execDaemon('update.js');
   }
+
+  // update alibaba template
+  updateTemplate();
+
   // 对帮助信息进行处理
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     process.env['serverless_devs_out_put_help'] = 'true';
