@@ -3,7 +3,7 @@ import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
 import { getLang } from '../utils/common';
-import { map, each, concat, filter, lowerCase } from 'lodash';
+import { map, each, concat, filter, lowerCase, sortBy } from 'lodash';
 import templateJson from './template';
 
 function getTemplateData() {
@@ -68,7 +68,8 @@ export function GET_APPLICATION_TEMPLATE() {
   let allList = concat(first_level_template, ali_template, devs_template);
   let allAliList = concat(ali_template);
   each(Body, item => {
-    const source = map(item.templates, obj => ({
+    const templates = sortBy(item.templates, obj => obj.rank);
+    const source = map(templates, obj => ({
       name: obj[lang],
       value: obj.value,
       isDeploy: obj.is_deploy,
