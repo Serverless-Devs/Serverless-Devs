@@ -4,7 +4,7 @@ import i18n from '../utils/i18n';
 import os from 'os';
 import path from 'path';
 
-const { rimraf, minimist, fse } = core;
+const { rimraf, minimist, fse: fs } = core;
 const command = program
   .name('s clean')
   .usage('[options]')
@@ -30,8 +30,8 @@ try {
       boolean: ['all'],
     });
     if (args.all) {
-      let files = fse.readdirSync(path.join(sPath));
-      files = files.filter((item: string) => item !== 'access.yaml' && item !== 'set-config.yml');
+      let files = fs.readdirSync(path.join(sPath));
+      files = files.filter((item: string) => !['access.yaml', 'set-config.yml', 'logs'].includes(item));
       files.forEach((file: string) => {
         rimraf.sync(path.join(sPath, file));
       });
