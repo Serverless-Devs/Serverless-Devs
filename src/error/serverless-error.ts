@@ -2,7 +2,7 @@
 
 import core from '../utils/core';
 const { Logger } = core;
-const logger = new Logger('SERVERLESS-DEVS-ERROR');
+const logger = new Logger('S-CLI-ERROR');
 
 export class ServerlessError {
   constructor(phase: string, message: string, params?: any) {

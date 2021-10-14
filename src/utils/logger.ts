@@ -3,7 +3,7 @@
 import core from './core';
 const { Logger, spinner: LogSpinner } = core;
 
-const logger = new Logger('SERVERLESS-DEVS');
+const logger = new Logger('S-CLI');
 
 export default class ServerlessDevsCliLogger {
   static log(m) {
