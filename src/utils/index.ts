@@ -1,7 +1,8 @@
 /** @format */
 
 import path from 'path';
-import fs from 'fs-extra';
+import core from './core';
+const { fse: fs } = core;
 export { default as common } from './common';
 export { default as configSet } from './handler-set-config';
 export { default as storage } from './storage';

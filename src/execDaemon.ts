@@ -2,8 +2,8 @@
 
 import path from 'path';
 import { spawn } from 'child_process';
-import fs from 'fs-extra';
-
+import core from './utils/core';
+const { fse: fs } = core;
 interface IConfig {
   [key: string]: any;
 }

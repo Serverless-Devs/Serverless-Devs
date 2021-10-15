@@ -1,10 +1,11 @@
 /** @format */
 
 import os from 'os';
-import fs from 'fs-extra';
 import path from 'path';
 import yaml from 'js-yaml';
 import storage from './storage';
+import core from './core';
+const { fse: fs } = core;
 interface ProfileParams {
   data?: any;
   configKey?: string;

@@ -1,6 +1,7 @@
-import fs from 'fs-extra';
-import os from 'os'
-import { getHomeDir, getHistoryFile } from '../../src/utils/storage'
+import core from '../../src/utils/core';
+const { fse: fs } = core;
+import os from 'os';
+import { getHomeDir, getHistoryFile } from '../../src/utils/storage';
 
 describe('module storage', () => {
   it('test getHomeDir methods', () => {
