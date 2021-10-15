@@ -1,6 +1,6 @@
 {
   "name": "@xsahxl/s",
-  "version": "0.1.36",
+  "version": "0.1.51",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -56,12 +56,12 @@
     "@types/update-notifier": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
-    "@vercel/ncc": "^0.28.6",
     "axios": ">=0.21.1",
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "commander": "^6.0.0",
     "dotenv": "^10.0.0",
+    "esbuild": "^0.13.6",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.20.1",

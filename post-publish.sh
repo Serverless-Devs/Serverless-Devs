@@ -1,14 +1,14 @@
 #!/bin/bash
-ncc cache clean
-ncc build lib/index.js -m -e @serverless-devs/core -e update-notifier -o lib
-ncc build lib/init/index.js -m -e @serverless-devs/core -e update-notifier -o lib/init
-ncc build lib/cli/index.js -m -e @serverless-devs/core -e update-notifier -o lib/cli
-ncc build lib/config/index.js -m -e @serverless-devs/core -e update-notifier -o lib/config
-ncc build lib/config/add/index.js -m -e @serverless-devs/core -e update-notifier -o lib/config/add
-ncc build lib/config/delete/index.js -m -e @serverless-devs/core -e update-notifier -o lib/config/delete
-ncc build lib/config/get/index.js -m -e @serverless-devs/core -e update-notifier -o lib/config/get
-ncc build lib/set/index.js -m -e @serverless-devs/core -e update-notifier -o lib/set
-ncc build lib/set/registry/index.js -m -e @serverless-devs/core -e update-notifier -o lib/set/registry
-ncc build lib/set/locale/index.js -m -e @serverless-devs/core -e update-notifier -o lib/set/locale
-ncc build lib/set/analysis/index.js -m -e @serverless-devs/core -e update-notifier -o lib/set/analysis
-ncc build lib/clean/index.js -m -e @serverless-devs/core -e update-notifier -o lib/clean
+esbuild lib/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/index.js
+esbuild lib/init/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/init/index.js
+esbuild lib/cli/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/cli/index.js
+esbuild lib/config/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/config/index.js
+esbuild lib/config/add/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/config/add/index.js
+esbuild lib/config/delete/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/config/delete/index.js
+esbuild lib/config/get/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/config/get/index.js
+esbuild lib/set/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/set/index.js
+esbuild lib/set/registry/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/set/registry/index.js
+esbuild lib/set/locale/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/set/locale/index.js
+esbuild lib/set/analysis/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/set/analysis/index.js
+esbuild lib/clean/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --external:update-notifier --platform=node --format=cjs --target=es2015 --allow-overwrite --outfile=lib/clean/index.js
+
