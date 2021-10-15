@@ -1,8 +1,9 @@
 import program from 'commander';
-import * as inquirer from 'inquirer';
 import { setConfig } from '../../utils/handler-set-config';
 import { CommandError } from '../../error';
 import i18n from '../../utils/i18n';
+import core from '../../utils/core';
+const { inquirer } = core;
 
 program
   .name('s set analysis')

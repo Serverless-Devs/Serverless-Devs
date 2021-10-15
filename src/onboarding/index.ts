@@ -1,9 +1,8 @@
-import * as inquirer from 'inquirer';
 import { InitManager } from '../init/init-manager';
 import { i18n } from '../utils';
 import { emoji, red } from '../utils/common';
 import core from '../utils/core';
-const { colors } = core;
+const { colors, inquirer } = core;
 
 async function onboarding() {
   const { templateFile } = process.env;
