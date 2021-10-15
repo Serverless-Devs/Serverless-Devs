@@ -3,13 +3,12 @@
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
-import yaml from 'js-yaml';
 import program from 'commander';
 import { logger } from '../../utils';
 import { emoji } from '../../utils/common';
 import { handleError } from '../../error';
 import core from '../../utils/core';
-const { colors } = core;
+const { colors, jsyaml: yaml } = core;
 
 const description = `You can delete an account.
   

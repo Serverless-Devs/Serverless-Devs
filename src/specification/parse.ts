@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import yaml from 'js-yaml';
 import { getServiceList } from './version';
 import { handleError } from '../error';
 import { startsWith, get } from 'lodash';
+import core from '../utils/core';
+const { jsyaml: yaml } = core;
 
 interface MAP_OBJECT {
   [key: string]: any;

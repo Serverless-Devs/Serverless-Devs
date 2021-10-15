@@ -4,12 +4,11 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import program from 'commander';
-import yaml from 'js-yaml';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
 import { handleError } from '../../error';
 import core from '../../utils/core';
-const { getCredential, colors } = core;
+const { getCredential, colors, jsyaml: yaml } = core;
 
 const description = `You can get accounts.
  

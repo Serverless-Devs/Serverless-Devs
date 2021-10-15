@@ -8,10 +8,9 @@ import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
-import yaml from 'js-yaml';
 import { handleError } from '../../error';
 import core from '../../utils/core';
-const { getCredential, loadComponent } = core;
+const { getCredential, loadComponent, jsyaml: yaml } = core;
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');

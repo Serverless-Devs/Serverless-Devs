@@ -1,6 +1,3 @@
-/** @format */
-
-import yaml from 'js-yaml';
 import { Parse, Analysis } from '../../specification';
 import { getServiceConfig } from '../../specification/version';
 import { logger } from '../../utils';
@@ -14,7 +11,7 @@ import { emoji, checkTemplateFile } from '../../utils/common';
 import { handleError, HumanError } from '../../error';
 import { Human_Error_List } from '../../constants';
 import core from '../../utils/core';
-const { colors } = core;
+const { colors, jsyaml: yaml } = core;
 
 export class CommandManager {
   protected deployParams: any;

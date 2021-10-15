@@ -2,10 +2,9 @@
 
 import os from 'os';
 import path from 'path';
-import yaml from 'js-yaml';
 import storage from './storage';
 import core from './core';
-const { fse: fs } = core;
+const { fse: fs, jsyaml: yaml } = core;
 interface ProfileParams {
   data?: any;
   configKey?: string;

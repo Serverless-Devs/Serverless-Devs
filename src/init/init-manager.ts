@@ -5,13 +5,12 @@ import os from 'os';
 import _ from 'lodash';
 import { spawn, spawnSync } from 'child_process';
 import * as inquirer from 'inquirer';
-import yaml from 'js-yaml';
 import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { PROJECT_NAME_INPUT, GET_APPLICATION_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
-const { loadApplication, setCredential, colors, report, fse: fs } = core;
+const { loadApplication, setCredential, colors, report, fse: fs, jsyaml: yaml } = core;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
