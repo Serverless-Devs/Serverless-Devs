@@ -22,7 +22,7 @@ import onboarding from './onboarding';
 import core from './utils/core';
 import { handleError } from './error';
 import { updateTemplate } from './init/update-template';
-const { report, colors, jsyaml: yaml } = core;
+const { colors, jsyaml: yaml } = core;
 const pkg = require('../package.json');
 require('dotenv').config();
 
@@ -85,7 +85,6 @@ Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
 
 (async () => {
-  report({ type: 'pv' });
   registerCommandChecker(program);
   const system_command = program
     .description(description)
