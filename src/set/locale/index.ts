@@ -1,8 +1,9 @@
 import program from 'commander';
-import * as inquirer from 'inquirer';
 import { configSet, i18n } from '../../utils';
 import { CommandError } from '../../error';
 const { setConfig } = configSet;
+import core from '../../utils/core';
+const { inquirer } = core;
 
 program
   .name('s set locale')

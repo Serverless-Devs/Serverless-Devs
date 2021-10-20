@@ -1,10 +1,11 @@
 import { i18n } from '../utils';
 import os from 'os';
 import path from 'path';
-import fs from 'fs-extra';
 import { getLang } from '../utils/common';
 import { map, each, concat, filter, lowerCase, sortBy } from 'lodash';
 import templateJson from './template';
+import core from '../utils/core';
+const { fse: fs } = core;
 
 function getTemplateData() {
   const S_ROOT_HOME = path.join(os.homedir(), '.s');

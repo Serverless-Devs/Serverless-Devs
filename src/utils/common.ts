@@ -2,14 +2,13 @@
 
 import path from 'path';
 import fs from 'fs';
-import yaml from 'js-yaml';
 import _ from 'lodash';
 import { getConfig } from './handler-set-config';
 import os from 'os';
 import osLocale from 'os-locale';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors } = core;
+const { colors, jsyaml: yaml } = core;
 const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');

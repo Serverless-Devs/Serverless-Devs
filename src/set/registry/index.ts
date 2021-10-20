@@ -1,9 +1,8 @@
-/** @format */
-
 import program from 'commander';
-import * as inquirer from 'inquirer';
 import { configSet, logger } from '../../utils';
 import { CommandError } from '../../error';
+import core from '../../utils/core';
+const { inquirer } = core;
 
 const { setConfig } = configSet;
 const CUSTOMER_KEY = 'custom';

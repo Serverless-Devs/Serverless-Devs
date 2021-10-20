@@ -1,8 +1,4 @@
-/** @format */
-
-import fs from 'fs-extra';
 import os from 'os';
-import yaml from 'js-yaml';
 import path from 'path';
 import { Command } from 'commander';
 import { CommandManager } from '../core';
@@ -12,7 +8,7 @@ import storage from './storage';
 import logger from './logger';
 import { emoji } from './common';
 import core from './core';
-const { loadComponent } = core;
+const { loadComponent, fse: fs, jsyaml: yaml } = core;
 
 const { getSubcommand, getServiceConfig } = version;
 

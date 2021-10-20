@@ -13,7 +13,6 @@ import {
 import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
-import yaml from 'js-yaml';
 import fs from 'fs';
 import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import { get } from 'lodash';
@@ -23,7 +22,7 @@ import onboarding from './onboarding';
 import core from './utils/core';
 import { handleError } from './error';
 import { updateTemplate } from './init/update-template';
-const { report, colors } = core;
+const { colors, jsyaml: yaml } = core;
 const pkg = require('../package.json');
 require('dotenv').config();
 
@@ -86,7 +85,6 @@ Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
 
 (async () => {
-  report({ type: 'pv' });
   registerCommandChecker(program);
   const system_command = program
     .description(description)

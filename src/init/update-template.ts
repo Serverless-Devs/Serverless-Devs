@@ -1,7 +1,8 @@
 import os from 'os';
 import path from 'path';
-import fs from 'fs-extra';
 import { execDaemon } from '../execDaemon';
+import core from '../utils/core';
+const { fse: fs } = core;
 const S_ROOT_HOME = path.join(os.homedir(), '.s');
 const cachePath = path.join(S_ROOT_HOME, 'cache');
 const templatePath = path.join(cachePath, 'alibaba-template');

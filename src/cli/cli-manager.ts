@@ -1,14 +1,13 @@
 /** @format */
 
 import { logger } from '../utils';
-import yaml from 'js-yaml';
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import { emoji } from '../utils/common';
 import { handleError } from '../error';
 import core from '../utils/core';
-const { getCredential, loadComponent, colors } = core;
+const { getCredential, loadComponent, colors, jsyaml: yaml } = core;
 export interface CliParams {
   component: string;
   command: string;

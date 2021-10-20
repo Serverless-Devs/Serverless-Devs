@@ -1,9 +1,9 @@
 /** @format */
 import path from 'path';
 import os from 'os';
-import fs from 'fs-extra';
+import core from './src/utils/core';
+const { fse: fs, jsyaml: yaml } = core;
 import logger from './src/utils/logger';
-import yaml from 'js-yaml';
 
 jestBeforeDetection();
 

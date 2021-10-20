@@ -2,7 +2,8 @@
 
 import os from 'os';
 import path from 'path';
-import fs from 'fs-extra';
+import core from './core';
+const { fse: fs } = core;
 
 export function getHomeDir(): string {
   const home = path.join(os.homedir(), '.s');
