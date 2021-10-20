@@ -1,3 +1,5 @@
+process.noDeprecation = true;
+
 const core = require('./lib/utils/core').default;
 (async () => {
   await core.loadComponent('devsapp/fc');
