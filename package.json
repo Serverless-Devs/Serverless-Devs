@@ -28,13 +28,13 @@
     "url": "https://github.com/Serverless-Devs/Serverless-Devs/issues"
   },
   "scripts": {
-    "postinstall": "node ./postinstall.js",
+    "postinstall": "node ./shell/postinstall.js",
     "prewatch": "rm -rf lib && mkdir lib && cp -r ./src/daemon ./lib",
     "watch": "tsc -w",
     "test": "npx jest",
     "prebuild": "rm -rf lib",
     "build": "tsc && cp -r ./src/daemon ./lib",
-    "postbuild": "./post-publish.sh",
+    "postbuild": "bash ./shell/postbuild.sh",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",

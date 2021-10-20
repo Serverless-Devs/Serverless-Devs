@@ -1,6 +1,7 @@
 process.noDeprecation = true;
 
-const core = require('./lib/utils/core').default;
+const core = require('@serverless-devs/core');
+
 (async () => {
   await core.loadComponent('devsapp/fc');
   await core.loadComponent('devsapp/fc-base-sdk');
