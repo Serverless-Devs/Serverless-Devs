@@ -13,8 +13,6 @@ $ npm install @serverless-devs/s -g
 $ yarn global add @serverless-devs/s
 ```
 
-
-
 > **说明**:   
 > - 如果在 Linux 或 MacOS 下执行该命令报错且报错信息为 `未找到命令`，请执行命令 `ln -s serverless-devs安装位置 /usr/bin`，serverless-devs安装位置可以通过`find / -name s` 查找。   
 > - 如果在 Linxu 下执行该命令报错且报错信息为 `Error: EACCES: permission denied`，请执行命令 `sudo npm install @serverless-devs/s -g`。   

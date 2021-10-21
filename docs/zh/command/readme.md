@@ -1,0 +1,58 @@
+# 命令操作文档
+
+- [前言](#前言)
+- [全局参数](#全局参数)
+
+## 前言
+
+Serverless Devs 可以通过`-h`唤起对应命令的帮助文档，例如查看 `s` 命令的帮助信息可以是：`s -h`
+
+当使用者使用命令行工具时，可以通过`s`指令，查看整体帮助信息:
+
+```shell script
+$ s
+Usage: s [options] [command]
+
+  _________                               .__
+ /   _____/ ______________  __ ___________|  |   ____   ______ ______
+ \_____  \_/ __ \_  __ \  \/ // __ \_  __ \  | _/ __ \ /  ___//  ___/
+ /        \  ___/|  | \/\   /\  ___/|  | \/  |_\  ___/ \___ \ \___ \
+/_________/\_____>__|    \_/  \_____>__|  |____/\_____>______>______>
+
+Welcome to the Serverless Devs.
+
+More: 
+📘 Documents: https://www.serverless-devs.com
+🙌 Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
+
+Quick start:
+🍻 Can perform [s init] fast experience
+
+Options:
+  -t, --template [templatePath]  Specify the template file
+  -a, --access [aliasName]       Specify the access alias name
+  --skip-actions                 Skip the extends section
+  --debug                        Open debug model
+  -v, --version                  Output the version number
+  -h, --help                     Display help for command
+
+Commands:
+  config                         👤 Configure venders account.
+  init                           💞 Initializing a serverless project.
+  cli                            🐚 Command line operation without yaml mode.
+  set                            🔧 Settings for the tool.
+  clean                          💥 Clean up the environment.
+```
+
+## 全局参数
+
+| 参数全称 | 参数缩写 | 默认取值 | 参数含义 | 备注 |
+|-----|-----|-----|-----|-----|
+| template | t | `s.yaml`/`s.yml` | 指定资源描述文件 | 可选`yaml`和`JSON`两种格式 | 
+| access | a | `yaml`中所指定的`access`信息/`default` | 指定本次部署时的密钥信息 |  | 
+| skip-actions | - | - | 跳过`yaml`所设置的`actions`模块 | - | 
+| debug | - | - | 开启`Debug`模式 | 开启`Debug`模式后可以查看到更多的工具执行过程信息 | 
+| version | v | - | 查看版本信息 | - | 
+| help | h | - | 查看帮助信息 | - | 
+
+
