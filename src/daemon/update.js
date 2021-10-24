@@ -1,18 +1,9 @@
-/** @format */
-const { execSync } = require('child_process');
+const UpdateNotifier = require('../update-notifier');
 
-function init() {
-  try {
-    execSync('npm install @serverless-devs/s -g');
-    process.exit();
-  } catch (error) {
-    execSync('yarn global add @serverless-devs/s');
-    process.exit();
-  }
-}
-
-try {
-  init();
-} catch (error) {
+(async () => {
+  const updateNotifier = new UpdateNotifier();
+  await updateNotifier.update();
+  process.exit();
+})().catch(() => {
   process.exit(1);
-}
+});
