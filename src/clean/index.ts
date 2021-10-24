@@ -31,7 +31,8 @@ try {
     });
     if (args.all) {
       let files = fs.readdirSync(path.join(sPath));
-      files = files.filter((item: string) => !['access.yaml', 'set-config.yml', 'logs'].includes(item));
+      const excludeList = ['access.yaml', 'set-config.yml', 'logs', 'config'];
+      files = files.filter((item: string) => !excludeList.includes(item));
       files.forEach((file: string) => {
         rimraf.sync(path.join(sPath, file));
       });
