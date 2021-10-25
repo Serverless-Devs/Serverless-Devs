@@ -40,7 +40,13 @@ Serverless Devs Model(SDM) 是一种与厂商 FaaS 平台无关的 Serverless �
 
 ### 贡献
 
-有关详细信息，请参阅[贡献指南](../CONTRIBUTING.md)。
+> 有关详细信息，请参阅[贡献指南](../CONTRIBUTING.md)。
+
+针对 spec 的贡献也可以参考以下内容：
+- 将 Serverless Devs 仓库 fork 到自己的账号/组织下；
+- 对 spec 内容进行修改，更新，完善；
+- 对对应版本下的`readme.md`进行更新，添加自己到`作者`->`贡献者`中；
+- 提`Pull requests`到仓库`Serverless-Devs/Serverless-Devs`的`docs`分支下；并添加 [Anycodes](https://github.com/anycodes) 、 [hanxie](https://github.com/hanxie-crypto) 等作为Reviewers，同时在Comment中填写好更新理由；
 
 ### 会议时间
 
