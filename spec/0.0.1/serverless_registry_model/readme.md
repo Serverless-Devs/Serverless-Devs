@@ -10,3 +10,10 @@
   - [Registry 规范](./3.registry_model.md#registry-规范)
 - [适用范围](./4.application_scopes.md)
 - [设计原则](./5.design_principles.md)
+
+> 额外需要说明的是，虽然社区目前拥有Github Resitry， Gitee Registry， Serverless Registry等三个源，但是实际上这三个源也有着一定的逻辑关系：
+> - Github Resitry：终极默认源，即无论用户配置了其他任何一个源，如果没有找到对应的内容，都会默认到该源进行查找；
+> - Gitee Registry：针对中国用户，与Gitee合作的国内源；
+> - Serverless Registry：Serverless Devs社区的默认源，也将作为被默认配置的源；
+> 在Serverless Devs的开发者工具中，默认的加载逻辑：   
+> ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635132866484_20211025033426634967.png)
