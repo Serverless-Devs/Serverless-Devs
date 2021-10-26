@@ -46,7 +46,7 @@ program
       'https://github.com/Serverless-Devs/Serverless-Devs/issues',
     )}
 `);
-    process.exit(-1);
+    process.exit(1);
   }
 })().catch(err => {
   handleError(err);

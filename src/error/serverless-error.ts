@@ -7,6 +7,6 @@ const logger = new Logger('S-CLI-ERROR');
 export class ServerlessError {
   constructor(phase: string, message: string, params?: any) {
     logger.error(phase + ': ' + message, params);
-    process.exit(-1);
+    process.exit(1);
   }
 }

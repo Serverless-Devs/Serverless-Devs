@@ -103,7 +103,7 @@ ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
             'https://github.com/Serverless-Devs/Serverless-Devs/issues',
           )}
 `);
-          process.exit(-1);
+          process.exit(1);
         } else {
           Object.keys(outPutData).length === 0
             ? logger.success(`End of method: ${this.method}`)
@@ -122,7 +122,7 @@ ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
   ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
           'https://github.com/Serverless-Devs/Serverless-Devs/issues',
         )}\n`);
-        process.exit(-1);
+        process.exit(1);
       }
     } catch (e) {
       handleError(e, 'Failed to execute:');

@@ -147,7 +147,7 @@ export default class CliManager {
   ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
             'https://github.com/Serverless-Devs/Serverless-Devs/issues',
           )}\n`);
-          process.exit(-1);
+          process.exit(1);
         }
       }
     } catch (e) {

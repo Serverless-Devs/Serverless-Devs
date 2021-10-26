@@ -77,7 +77,7 @@ function getSecretValue(n: number, str = ' ') {
         'https://github.com/Serverless-Devs/Serverless-Devs/issues',
       )}
 `);
-      process.exit(-1);
+      process.exit(1);
     }
   } else if (list) {
     if (Object.keys(accessInfo).length === 0) {
