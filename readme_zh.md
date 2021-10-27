@@ -1,21 +1,27 @@
-# Serverless Devs 帮助文档
-
 <div align=center> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@serverless-devs/s">
     <img src="https://img.shields.io/npm/v/@serverless-devs/s" alt="npm version">
   </a>
+  <a href="https://www.npmjs.com/package/@serverless-devs/s">
+    <img src="https://img.shields.io/npm/dy/@serverless-devs/s" alt="npm download">
+  </a>
+  <a href="https://nodejs.org/en/">
+    <img src="https://img.shields.io/badge/node-%3E%3D%2010.8.0-brightgreen" alt="node.js version">
+  </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+  </a>
+  <a href="https://github.com/Serverless-Devs/Serverless-Devs/issues">
+    <img src="https://img.shields.io/github/issues/serverless-devs/serverless-devs" alt="issues">
   </a>
 </p>
 
 
 
 <p align="center">
-  <span>像使用手机一样使用Serverless</span><br>
-    <span>中文文档 ｜<a href="./readme.md">English</a> </span>
+  <span>Serverless 应用全生命周期管理工具</span><br>
 </p>
 
 ## 项目简介

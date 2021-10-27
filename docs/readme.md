@@ -1,27 +1,63 @@
-# Serverless Devs Cli 帮助文档
-
-
-
 <div align=center> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
+<br>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@serverless-devs/s">
+    <img src="https://img.shields.io/npm/v/@serverless-devs/s" alt="npm version">
+  </a>
+  <a href="https://www.npmjs.com/package/@serverless-devs/s">
+    <img src="https://img.shields.io/npm/dy/@serverless-devs/s" alt="npm download">
+  </a>
+  <a href="https://nodejs.org/en/">
+    <img src="https://img.shields.io/badge/node-%3E%3D%2010.8.0-brightgreen" alt="node.js version">
+  </a>
+  <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+  </a>
+  <a href="https://github.com/Serverless-Devs/Serverless-Devs/issues">
+    <img src="https://img.shields.io/github/issues/serverless-devs/serverless-devs" alt="issues">
+  </a>
+</p>
+
 
 
 <p align="center">
-  <span>像使用手机一样使用Serverless</span><br>
-  <span>中文文档 ｜<a href="./readme.md">English</a> </span>
+  <span>Serverless 应用全生命周期管理工具</span><br>
 </p>
 
-## 项目简介
-
-```text
-  _________                               .__                         ________                     
- /   _____/ ______________  __ ___________|  |   ____   ______ ______ \______ \   _______  ________
- \_____  \_/ __ \_  __ \  \/ // __ \_  __ \  | _/ __ \ /  ___//  ___/  |    |  \_/ __ \  \/ /  ___/
- /        \  ___/|  | \/\   /\  ___/|  | \/  |_\  ___/ \___ \ \___ \   |    `   \  ___/\   /\___ \ 
-/_______  /\___  >__|    \_/  \___  >__|  |____/\___  >____  >____  > /_______  /\___  >\_//____  >
-        \/     \/                 \/                \/     \/     \/          \/     \/         \/ 
-```
+# 项目简介
 
 Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
+
+## 项目特色
+
+- 无厂商锁定：Serverless Devs 开发者工具可以快速将项目
+- 以开源建设：任何开发者都可以定制化开发自己的功能，并发布；
+- 功能可插拔：提供组件化和插件化的能力，让功能模块化，使用灵活；
+- 更简单上手：提供完整的应用中心，可视化编辑、管理，更简单实用；
+- 全周期管理：可提供部分厂商的Serverless产品全生命周期管理；
+- 更高效集成：提供与主流CI/CD平台/工具集成的最佳实践；
+
+# 哲学思想
+
+
+![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635312833389_20211027053354414876.png)
+
+# 版本介绍
+
+![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635312695639_20211027053136960921.png) 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -90,8 +126,6 @@ Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，�
 
 - [安装文档](zh/application_dev_docs/install.md)
 - [命令行指令文档](zh/application_dev_docs/command.md)
-- [Yaml规范文档](zh/application_dev_docs/yaml.md)
-- [Package开发者文档](zh/package_dev_docs/dev.md)
+- [Yaml规范文档](zh/yaml.md)
+- [Package开发者文档](zh/dev.md)
 - [源文档](zh/application_dev_docs/registry.md)
-
-##
