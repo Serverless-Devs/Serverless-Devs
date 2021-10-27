@@ -16,26 +16,15 @@
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/issues">
     <img src="https://img.shields.io/github/issues/serverless-devs/serverless-devs" alt="issues">
   </a>
+  <a href="https://github.com/Serverless-Devs/Serverless-Devs/discussions">
+    <img src="https://img.shields.io/github/discussions/serverless-devs/serverless-devs" alt="discussions">
+  </a>
 </p>
 
 
+**Serverless Devs** 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者不仅可以一键体验多云 Serverless 产品，极速部署 Serverless 项目，还可以在 Serverless 应用全生命周期进行项目的管理，并且非常简单快速的将 Serverless Devs 与其他工具/平台进行结合，进一步提升研发、运维效能。
 
-<p align="center">
-  <span>Serverless 应用全生命周期管理工具</span><br>
-</p>
-
-# 项目简介
-
-Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
-
-## 项目特色
-
-- 无厂商锁定：Serverless Devs 开发者工具可以快速将项目
-- 以开源建设：任何开发者都可以定制化开发自己的功能，并发布；
-- 功能可插拔：提供组件化和插件化的能力，让功能模块化，使用灵活；
-- 更简单上手：提供完整的应用中心，可视化编辑、管理，更简单实用；
-- 全周期管理：可提供部分厂商的Serverless产品全生命周期管理；
-- 更高效集成：提供与主流CI/CD平台/工具集成的最佳实践；
+![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
 
 # 哲学思想
 
