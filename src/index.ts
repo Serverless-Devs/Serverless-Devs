@@ -10,14 +10,12 @@ import {
   registerCustomerCommand,
   registerUniversalCommand,
 } from './utils/command-util';
-import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY, UPDATE_CHECK_INTERVAL } from './constants/static-variable';
+import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
-import { get } from 'lodash';
-import updateNotifier from 'update-notifier';
-import { execDaemon } from './execDaemon';
+import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
 import { handleError } from './error';
@@ -109,11 +107,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   // ignore warning
   (process as any).noDeprecation = true;
 
-  // updateNotifier
-  const updateInfo = updateNotifier({ pkg, updateCheckInterval: UPDATE_CHECK_INTERVAL }).notify({ isGlobal: true });
-  if (['major', 'minor'].includes(get(updateInfo, 'update.type'))) {
-    execDaemon('update.js');
-  }
+  new UpdateNotifier().init().notify();
 
   // update alibaba template
   updateTemplate();

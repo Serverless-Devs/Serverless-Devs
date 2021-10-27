@@ -12,13 +12,13 @@ function jestBeforeDetection() {
     logger.error(`Failed to execute:\n
   ❌ Message: Please install S component
   😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-    process.exit(-1);
+    process.exit(1);
   }
   if (Object.keys(getAccessFile()).length === 0) {
     logger.error(`Failed to execute:\n
     ❌ Message: Please configure your Secret
     😈 If you have questions, please tell us: https://github.com/Serverless-Devs/Serverless-Devs/issues\n`);
-    process.exit(-1);
+    process.exit(1);
   }
 }
 

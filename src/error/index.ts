@@ -37,5 +37,5 @@ export function handleError(error: Error, prefix = 'Message:', exit = true) {
     type: 'jsError',
     content: error.stack,
     traceId,
-  }).then(() => exit && process.exit(-1));
+  }).then(() => exit && process.exit(1));
 }
