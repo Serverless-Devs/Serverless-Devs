@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s",
-  "version": "2.0.90",
+  "version": "2.0.91-alpha.2",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -28,12 +28,12 @@
     "url": "https://github.com/Serverless-Devs/Serverless-Devs/issues"
   },
   "scripts": {
-    "prewatch": "rm -rf lib && mkdir lib && cp -r ./src/daemon ./lib",
+    "prewatch": "rm -rf lib/* && cp -r ./src/daemon ./lib",
     "watch": "tsc -w",
     "test": "npx jest",
     "prebuild": "rm -rf lib",
     "build": "tsc && cp -r ./src/daemon ./lib",
-    "postbuild": "bash ./shell/postbuild.sh",
+    "postbuild": "./shell/postbuild.sh",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",
