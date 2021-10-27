@@ -33,12 +33,12 @@
 
 # 快速上手
 
-- 第一步：安装 Node.js(>=10.8.0) 与 NPM 包管理工具；
-- 第二步：安装 Serverless Devs 开发者工具；
-    ```shell script
-    $ npm install @serverless-devs/s -g
-    ```
-- 第三步：在命令行中执行命令`s`，并按回车，开启你的 Serverless 之旅；
+❶ 安装 Node.js(>=10.8.0) 与 NPM 包管理工具；   
+❷ 安装 Serverless Devs 开发者工具；   
+```shell script
+$ npm install @serverless-devs/s -g
+```
+❸ 在命令行中执行命令`s`，并按回车，开启你的 Serverless 之旅；   
 
 > 更多详细信息可以参考[Serverless Devs 安装文档](./zh/install.md)和[快速入门指南](./zh/quick_start.md)
 
@@ -61,21 +61,28 @@
 - 华为云函数工作流（FG）: [帮助文档](./components/fg/README.md) ｜ [原始项目](https://github.com/xinwuyun/fg)
 - 腾讯云云函数（SCF）: [帮助文档](./components/scf/readme.md) ｜ [原始项目](https://github.com/devscomp/scf)
 
-> 尽管以上 FaaS 平台/产品已经有人贡献或在持续维护中，但是我们仍然非常欢迎大家可以参与贡献/维护，除此之外，其他的FaaS 平台/产品（例如 Google Cloud Platform Functions、Azure Functions等），我们也非常期望社区的小伙伴们可以参与开发和贡献。
+> 尽管以上 FaaS 平台/产品已经有人贡献或在持续维护中，但是我们仍然非常欢迎大家可以参与贡献/维护，除此之外，其他的 FaaS 平台/产品（例如 Google Cloud Platform Functions、Azure Functions等），我们也非常期望社区的小伙伴们可以参与开发和贡献。
 
-> 除此之外 Serverless Devs 项目还拥有很多优秀的组件和应用，可以参考[Awesome](./zh/awesome.md)
+> 🚀 除此之外 Serverless Devs 项目还拥有很多优秀的组件和应用，可以参考[Awesome](./zh/awesome.md)
 
 # 项目贡献
 
-我们非常希望您可以和我们一起贡献这个项目。贡献内容包括不限于代码的维护、应用/组件的贡献、文档的完善等，更多详情可以参考[贡献指南](../CONTRIBUTING.md)。
+我们非常希望您可以和我们一起贡献这个项目。贡献内容包括不限于代码的维护、应用/组件的贡献、文档的完善等，更多详情可以参考[ 🏆 贡献指南](../CONTRIBUTING.md)。
 
-与此同时，我们也非常感谢所有[参与贡献的小伙伴](../CONTRIBUTORS.md)，为 Serverless Devs 项目贡献的努力和汗水。
+与此同时，我们也非常感谢所有[ 👬 参与贡献的小伙伴](../CONTRIBUTORS.md)，为 Serverless Devs 项目贡献的努力和汗水。
 
 # 开源许可
 
 Serverless Devs 遵循 [MIT License](../LICENSE) 开源许可。
 
 位于`node_modules`和外部目录中的所有文件都是本软件使用的外部维护库，具有自己的许可证；我们建议您阅读它们，因为它们的条款可能与[MIT License](../LICENSE)的条款不同。
+
+# 交流社区
+
+您如果有关于错误的反馈或者未来的期待，您可以在 [Issues](https://github.com/serverless-devs/serverless-devs/issues) 和 [Discussions](https://github.com/serverless-devs/serverless-devs/discussions) 中进行反馈和交流。如果您想要加入我们的讨论组或者了解 Serverless Devs 的最新动态，您可以通过以下渠道进行：
+- 关注微信公众号：`serverless`
+- 联系微信小助手：`xiaojiangwh`
+- 加入钉钉交流群：`33947367`
 
 -----------
 
