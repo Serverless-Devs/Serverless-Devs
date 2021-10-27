@@ -2,11 +2,11 @@
 
 一个关于 Serverless 应用的开发规范，也是Serverless开发者规范。Serverless developer 需要遵循该规范进行应用开发，通过法规范，可以快速使用Serverless Devs开发者工具，进行相关业务功能的实现。。
 
-- [目的和目标](./1.purpose_and_goals.md)
-- [概述和术语](./2.overview_and_terminology.md)
-  - [模型概述](./2.overview_and_terminology.md#模型概述)
+- [目的和目标](1.purpose_and_goals.md)
+- [概述和术语](2.overview_and_terminology.md)
+  - [模型概述](2.overview_and_terminology.md#模型概述)
 - [Registry 模型](./3.registry_model.md)
   - [元数据规范](./3.registry_model.md#元数据规范)
   - [Registry 规范](./3.registry_model.md#registry-规范)
-- [适用范围](./4.application_scopes.md)
-- [设计原则](./5.design_principles.md)
+- [适用范围](4.application_scopes.md)
+- [设计原则](5.design_principles.md)

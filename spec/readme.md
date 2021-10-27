@@ -34,7 +34,7 @@ Serverless Devs Model(SDM) 是一种与厂商 FaaS 平台无关的 Serverless �
 
 模型本身由 Serverless Devs 项目驱动，并作为一组版本话 API 文档进行维护，如下所示：
 
-- [v0.0.1 (Serverless Devs v2.x)](./0.0.1/readme.md)
+- [v0.0.1 (Serverless Devs v2.x)](zh/0.0.1/readme.md)
 
 ## 社区
 

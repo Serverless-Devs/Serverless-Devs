@@ -9,9 +9,9 @@
         - [git-qfzhang](https://github.com/git-qfzhang)
 - 时间：2021.9.16
 - 内容：
-    - [Serverless Registry Model](./serverless_registry_model)
+    - [Serverless Registry Model](serverless_registry_model)
     - [Serverless Package Model](./serverless_tool_model)
-    - [Serverless User Model](./serverless_user_model)
+    - [Serverless User Model](serverless_user_model)
 
 ## 简介
 
@@ -29,19 +29,19 @@ Serverless Devs Model(SDM) v0.0.1 文档是由 Serverless Devs 社区发起编�
 
 通过上图，同样也可以看到 Serverless Devs Model 包含了以下三个模块： 
 
-- **Registry模型**：一个开放的 Serverless Registry Model。Package的开发者可以将自己开发的组件，或者待分享的应用发布到该平台。该平台可以使用目前 Serverless Devs 所支持的 Github Resitry， Gitee Registry， Serverless Registry，也可以按照该规范搭建私有的 Registry 以完成部分能力。详情可以参考[Registry模型文档](./serverless_registry_model)
-- **开发包模型**：一个关于 Serverless Package 的规范。Package developer 需要遵循该规范进行组件的开发或者应用的共享，否则将无法被 Serverless Devs 开发者工具 工具所识别和加载，也无法被 Application 所引用，并实现预期的功能。详情可以参考[开发包模型](./serverless_pacakge_model)
-- **用户使用模型**：Serverless developer 在进行应用开发时所需要遵守的约定，以确保 Serverless Devs 开发者工具 可以准确识别相对应的内容，并按照预期加载对应的 Component，完成预期的功能。详情可以参考[用户使用模型文档](./serverless_user_model)
+- **Registry模型**：一个开放的 Serverless Registry Model。Package的开发者可以将自己开发的组件，或者待分享的应用发布到该平台。该平台可以使用目前 Serverless Devs 所支持的 Github Resitry， Gitee Registry， Serverless Registry，也可以按照该规范搭建私有的 Registry 以完成部分能力。详情可以参考[Registry模型文档](serverless_registry_model)
+- **开发包模型**：一个关于 Serverless Package 的规范。Package developer 需要遵循该规范进行组件的开发或者应用的共享，否则将无法被 Serverless Devs 开发者工具 工具所识别和加载，也无法被 Application 所引用，并实现预期的功能。详情可以参考[开发包模型](serverless_pacakge_model)
+- **用户使用模型**：Serverless developer 在进行应用开发时所需要遵守的约定，以确保 Serverless Devs 开发者工具 可以准确识别相对应的内容，并按照预期加载对应的 Component，完成预期的功能。详情可以参考[用户使用模型文档](serverless_user_model)
 
 ## 社区
 
 ### 贡献
 
-有关详细信息，请参阅[贡献指南](../../CONTRIBUTING.md)。
+有关详细信息，请参阅[贡献指南](../../../CONTRIBUTING.md)。
 
 
 ## 协议
 
-Serverless Devs 是一个遵循 [MIT](../../LICENSE) 协议的开源项目。
+Serverless Devs 是一个遵循 [MIT](../../../LICENSE) 协议的开源项目。
 
 Serverless Devs 使用的 node_modules 以及其他第三方的依赖库都可能有其遵循的协议，我们推荐你阅读并了解这些协议，因为其中的条款可能和 MIT 协议中的不完全相同。

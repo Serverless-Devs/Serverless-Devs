@@ -1,60 +1,97 @@
-# Serverless Devs CLI help documentation
+# Serverless Devs Cli 帮助文档
 
-<div align="center"> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
+
+
+<div align=center> <img src="https://images.devsapp.cn/devs-github/logo.jpg" width="100%"/> </div>
+
 
 <p align="center">
-  <span>Use Serverless like a mobile phone</span><br>
-  <span> <a href="./readme_zh.md">中文文档</a> ｜English </span>
+  <span>像使用手机一样使用Serverless</span><br>
+  <span>中文文档 ｜<a href="./readme.md">English</a> </span>
 </p>
 
-## Project introduction
+## 项目简介
 
 ```text
   _________                               .__                         ________                     
  /   _____/ ______________  __ ___________|  |   ____   ______ ______ \______ \   _______  ________
  \_____  \_/ __ \_  __ \  \/ // __ \_  __ \  | _/ __ \ /  ___//  ___/  |    |  \_/ __ \  \/ /  ___/
- /        \  ___/|  | \/\   /\  ___/|  | \/  |_\  ___/ \___ \ \___ \   |    `   \  ___/\   /\___ \
+ /        \  ___/|  | \/\   /\  ___/|  | \/  |_\  ___/ \___ \ \___ \   |    `   \  ___/\   /\___ \ 
 /_______  /\___  >__|    \_/  \___  >__|  |____/\___  >____  >____  > /_______  /\___  >\_//____  >
-        \/     \/                 \/                \/     \/     \/          \/     \/         \/
+        \/     \/                 \/                \/     \/     \/          \/     \/         \/ 
 ```
 
-Serverless Devs is an open source serverless platform that provides a robust set of tools for developers. Developers can use Serverless Devs to experience serverless products on multiple clouds and deploy serverless projects.
+Serverless Devs 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者可以一键体验多云 Serverless 产品，极速部署 Serverless 项目。
 
 
 
-### Support for mainstream serverless services and frameworks
+### 可支持主流 Serverless 服务/框架
 
-Serverless Devs is a developer platform where components and plug-ins are provided. Serverless Devs allows each user to use the services and frameworks of serverless projects in a pluggable manner and participate in the development of components and plug-ins. Serverless Devs provides friendly support for both industry-grade serverless services and open source serverless frameworks. Developers can quickly get started with mainstream serverless services and frameworks without the need to learn all serverless tools.
+Serverless Devs 是一个组件化与插件化的 Serverless 开发者平台，在该平台中，每个使用者都可以可插拔式的使用不同 Serverless 的服务和框架，同时每个使用者都可以参与开发组件和插件。在 Serverless Devs 中无论是工业级的 Serverless 服务，还是各类开源的 Serverless 框架，都可以得到非常友好的支持。开发者无需对市面上每一款 Serverless 工具进行研究和学习，只需通过 Serverless Devs ，就可以简单、快捷的“上手”主流 Serverless 服务和框架；
 
-### Flexible and open
+- 已经支持的厂商
 
-Serverless Devs can describe resources in Alibaba Cloud services such as Function Compute, API Gateway, and Object Storage Service. It can also describe actions such as install, build, and publish by using the plug-ins and hooks provided by Serverless Devs. Serverless Devs does not restrict component commands. Developers are encouraged to develop more capabilities for different components to deal with more complicated scenarios. For example, Alibaba Cloud Function Compute components support conventional capabilities such as function deployment and removal, as well as customized capabilities such as log querying, metric querying, local building, dependency installation, and debugging. Such a flexible and open platform is especially useful for automated deployment and operations and maintenance (O&M). You can improve the O&M efficiency of your serverless projects by 90% if you integrate Serverless Devs into the full lifecycle of your projects.
+<table>
+<tr align="center">
+    <td width="20%"><a href="https://github.com/devscomp/lambda"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631686948335_20210915062229129677.png" width="100%"></a></td>
+    <td width="20%"><a href="https://github.com/devsapp/fc"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687097054_20210915062457859062.png" width="100%"></a></td>
+    <td width="20%"><a href="https://github.com/xinwuyun/cfc"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631686985907_20210915062306326610.png" width="100%"></a></td>
+    <td width="20%"><a href="https://github.com/xinwuyun/fg"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687059406_20210915062419918808.png" width="100%"></a></td>
+    <td width="20%"><a href="https://github.com/devscomp/scf"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687011279_20210915062331464492.png" width="100%"></a></td>
+</tr>
+<tr align="center">
+    <td width="20%"><a href="https://github.com/devscomp/lambda">AWS Lambda</a></td>
+    <td width="20%"><a href="https://github.com/devsapp/fc">阿里云函数计算</a></td>
+    <td width="20%"><a href="https://github.com/xinwuyun/cfc">百度智能云函数计算</a></td>
+    <td width="20%"><a href="https://github.com/xinwuyun/fg">华为云函数工作流</a></td>
+    <td width="20%"><a href="https://github.com/devscomp/scf">腾讯云云函数</a></td>
+</tr>
+<tr align="center">
+    <td width="20%"><a href="https://github.com/devsapp/pulumi-alibaba"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687873582_20210915063754270539.png" width="100%"></a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+</tr>
+<tr align="center">
+    <td width="20%"><a href="https://github.com/devsapp/pulumi-alibaba">Pulumi生态</a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+</tr>
+</table>
+
+- 即将支持的厂商
+
+<table>
+<tr align="center">
+    <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687577201_20210915063257271550.png" width="100%"></a></td>
+    <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687524699_20210915063208016868.png" width="100%"></a></td>
+    <td width="20%"><a href="#"><img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1631687981462_20210915063941989870.png"></a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+</tr>
+<tr align="center">
+    <td width="20%"><a href="#">Google Cloud Functions</a></td>
+    <td width="20%"><a href="#">Azure Functions</a></td>
+    <td width="20%"><a href="#">Terraform生态</a></td>
+    <td width="20%"></td>
+    <td width="20%"></td>
+</tr>
+</table>
+
+### 灵活与开放的使用方法
+
+与绝大部分的开发者工具不同的是，Serverless Devs 在进行项目描述时不仅仅可以对函数计算、API 网关、对象存储等资源进行描述，也可以通过 Serverless Devs 提供的插件以及 Hook 进行Install, Build, Publish等行为描述。与此同时 Serverless Devs 不会对每个组件的命令进行限制，而是鼓励开发者针对不同的组件，开发不同的能力来应对更多、更复杂的场景，例如阿里云函数计算组件，不仅仅支持函数的部署和移除这样的传统能力，还支持日志查询，指标查询，本地构建，依赖安装，调试等更多定制化的能力。Serverless Devs 的这种灵活与开放的使用方法，可以在自动化部署、运维等领域发挥非常大的作用，将Serverless Devs与项目全生命周期进行有机融合，可使得 Serverless 项目的开发运维效能提升 90%。
 
 
-## Help documentation
+## 帮助文档
 
-- [Installation](./en/install.md)
-- [Command Instruction](./en/command.md)
-- [Yaml Specification](./en/yaml.md)
-- [Package Dev](./en/dev.md)
-- [Registry](./en/registry.md)
+- [安装文档](zh/application_dev_docs/install.md)
+- [命令行指令文档](zh/application_dev_docs/command.md)
+- [Yaml规范文档](zh/application_dev_docs/yaml.md)
+- [Package开发者文档](zh/package_dev_docs/dev.md)
+- [源文档](zh/application_dev_docs/registry.md)
 
-## References
-
-[https://github.com/Serverless-Devs/package-awesome/blob/main/README_zh.md](https://github.com/Serverless-Devs/package-awesome/blob/main/README_zh.md)
-
-## Get started
-
-### Steps to deploy a blog system for beginners
-
-- Download the command-line tool: `npm install -g @serverless-devs/s`
-- Initialize a template project: `s init devsapp/start-zblog`
-- Deploy the project: `cd start-zblog && s deploy`
-
-### Steps to build an enterprise website for beginners
-
-- Download the command-line tool: `npm install -g @serverless-devs/s`
-- Initialize a template project: `s init devsapp/start-metinfo`
-- Deploy the project: `cd start-metinfo && s deploy`
-
-For more examples, enter `s init`.
+##
