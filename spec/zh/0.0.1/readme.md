@@ -9,9 +9,9 @@
         - [git-qfzhang](https://github.com/git-qfzhang)
 - 时间：2021.9.16
 - 内容：
-    - [Serverless Registry Model](serverless_registry_model)
+    - [Serverless Registry Model](./serverless_registry_model)
     - [Serverless Package Model](./serverless_tool_model)
-    - [Serverless User Model](serverless_user_model)
+    - [Serverless User Model](./serverless_user_model)
 
 ## 简介
 
