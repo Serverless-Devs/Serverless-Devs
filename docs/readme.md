@@ -29,6 +29,7 @@
 
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
 
+> 更多关于 Serverless Devs 的介绍可以参考[项目介绍文档](./zh/introduction.md)
 
 # 快速上手
 
@@ -62,7 +63,7 @@
 
 > 尽管以上 FaaS 平台/产品已经有人贡献或在持续维护中，但是我们仍然非常欢迎大家可以参与贡献/维护，除此之外，其他的FaaS 平台/产品（例如 Google Cloud Platform Functions、Azure Functions等），我们也非常期望社区的小伙伴们可以参与开发和贡献。
 
-目前 Serverless Devs 项目已有的
+> 除此之外 Serverless Devs 项目还拥有很多优秀的组件和应用，可以参考[Awesome](./zh/awesome.md)
 
 # 项目贡献
 
