@@ -1,6 +1,6 @@
-# set指令
+# set 命令
 
-`set`指令是对工具进行相关配置的指令。
+`set`命令是对工具进行相关配置的命令。
 
 当执行`s set -h`之后，可以进行相关帮助信息的查看：
 
@@ -22,9 +22,9 @@ Commands:
 ```
 
 在该命令中，包括了三个子命令：
-- registry：配置 Serverless Devs 所使用的 registry
-- locale：配置 Serverless Devs 所默认的语言
-- analysis：配置 Serverless Devs 所进行的数据分析行为
+- [registry：配置 Serverless Devs 所使用的 registry](#set-registry-命令)
+- [locale：配置 Serverless Devs 所默认的语言](#set-locale-命令)
+- [analysis：配置 Serverless Devs 所进行的数据分析行为](#set-analysis-命令)
 
 
 ## set registry 命令

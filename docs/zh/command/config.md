@@ -1,8 +1,6 @@
-# Config 指令帮助文档
+# Config 命令帮助文档
 
-## 前言
-
-`config`指令是密钥信息相关的指令，包括密钥的配置、密钥的查看以及密钥的修改、删除等。
+`config`命令是密钥信息相关的命令，包括密钥的配置、密钥的查看以及密钥的修改、删除等。
 
 当执行`s config -h`之后，可以进行相关帮助信息的查看：
 
@@ -20,9 +18,9 @@ Commands:
   delete      ✖️ Delete an account
 ```
 
-## config add 指令
+## config add 命令
 
-通过`config add`指令，可以进行密钥的配置，使用者可以通过不同厂商的默认密钥模板进行密钥配置，也可以通过`Custom`选项进行自定义密钥配置。
+通过`config add`命令，可以进行密钥的配置，使用者可以通过不同厂商的默认密钥模板进行密钥配置，也可以通过`Custom`选项进行自定义密钥配置。
 
 通过`-h/--help`可以查看到配置帮助：
 
@@ -94,7 +92,7 @@ s config add
 ? Please create alias for key pair. If not, please enter to skip default
 ```
 
-也可以通过指令式直接进行密钥的添加：
+也可以通过命令式直接进行密钥的添加：
 ```shell script
 $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******
 ```
@@ -128,9 +126,9 @@ google:     PrivateKeyData
     - [腾讯云](./others/provider-config/tencentcloud.md)
 
 
-### config get 指令
+### config get 命令
 
-通过`config get`指令，您可以获得配置过的账号信息。
+通过`config get`命令，您可以获得配置过的账号信息。
 
 通过`-h/--help`可以查看到配置帮助：
 
@@ -152,9 +150,9 @@ Options:
   -h, --help               Display help for command
 ```
 
-### config delete 指令
+### config delete 命令
 
-通过`config delete`指令，您可以删除配置过的账号信息。
+通过`config delete`命令，您可以删除配置过的账号信息。
 
 通过`-h/--help`可以查看到配置帮助：
 

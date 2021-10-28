@@ -1,6 +1,6 @@
-# clean指令
+# clean命令
 
-`cli`指令是去Yaml化的命令行模式，即可以通过命令行直接使用 Serverless Devs 的组件，而不需要依赖Yaml文件。
+`cli`命令是去Yaml化的命令行模式，即可以通过命令行直接使用 Serverless Devs 的组件，而不需要依赖Yaml文件。
 
 当我们执行`s cli -h`之后，可以进行相关帮助信息的查看：
 
