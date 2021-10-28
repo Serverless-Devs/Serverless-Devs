@@ -44,12 +44,12 @@ $ npm install @serverless-devs/s -g
 
 # 帮助文档
 
-- [安装文档](zh/install.md)
-- [命令行操作](zh/command/readme.md)
-- [Yaml规范](zh/yaml.md)
-- [CI/CD平台集成](zh/cicd.md)
+- [安装文档](./docs/zh/install.md)
+- [命令行操作](./docs/zh/command/readme.md)
+- [Yaml规范](./docs/zh/yaml.md)
+- [CI/CD平台集成](./docs/zh/cicd.md)
 
-> 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](zh/dev.md)   
+> 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](./docs/zh/package_dev.md)   
 
 # 相关资源
 

@@ -2,6 +2,13 @@
 
 - [前言](#前言)
 - [全局参数](#全局参数)
+- [命令详情](#命令详情)
+    - [config: 密钥配置](./config.md)
+    - [init: 项目初始化](./init.md)
+    - [cli: 纯命令行模式](./cli.md)
+    - [clean: 工具清理](./clean.md)
+    - [set: 工具配置](./set.md)
+    - [custom: 自定义命令](./custom.md)
 
 ## 前言
 
@@ -55,4 +62,11 @@ Commands:
 | version | v | - | 查看版本信息 | - | 
 | help | h | - | 查看帮助信息 | - | 
 
+## 命令详情
 
+- [config: 密钥配置](./config.md)
+- [init: 项目初始化](./init.md)
+- [cli: 纯命令行模式](./cli.md)
+- [clean: 工具清理](./clean.md)
+- [set: 工具配置](./set.md)
+- [custom: 自定义命令](./custom.md)
