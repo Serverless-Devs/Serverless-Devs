@@ -170,5 +170,128 @@
 
 ### 人工智能：目标检测
 
+- 初始化一个已有的人工智能目标检测项目：`s init devsapp/image-prediction-app`，初始化过程中可能会出现填写项目名称以及选择密钥的过程：
+    - 项目名称可以是：`image-prediction-app`
+    - 密钥可以选择我们上文中创建过的：`alibaba-access`    
+    
+    例如：
+    ```shell script
+    $ s init devsapp/image-prediction-app
+    
+    🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+    
+    ? Please input your project name (init dir) image-prediction-app
+    ✔ file decompression completed
+    ? please select credential alias alibaba-access
+    
+         ___   __   __  _______  _______  _______ 
+        |   | |  |_|  ||   _   ||       ||       |
+        |   | |       ||  |_|  ||    ___||    ___|
+        |   | |       ||       ||   | __ |   |___ 
+        |   | |       ||       ||   ||  ||    ___|
+        |   | | ||_|| ||   _   ||   |_| ||   |___ 
+        |___| |_|   |_||__| |__||_______||_______|
+                                            
+    
+        Welcome to the image-prediction-app application
+         This application requires to open these services: 
+             FC : https://fc.console.aliyun.com/
+         This application can help you quickly deploy the image-prediction-app project.
+         The application uses FC component：https://github.com/devsapp/fc
+         The application homepage: https://github.com/devsapp/image-prediction-app
+    
+    
+    🏄‍ Thanks for using Serverless-Devs
+    👉 You could [cd /Users/jiangyu/start-application/image-prediction-app] and enjoy your serverless journey!
+    🧭️ If you need help for this example, you can use [s -h] after you enter folder.
+    💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
+    ```
+- 进入项目目录：`cd image-prediction-app`
+- 通过`deploy`命令进行项目的部署：
+    ```shell script
+    Tips for next step
+    ======================
+    * Display information of the deployed resource: s info
+    * Display metrics: s metrics
+    * Display logs: s logs
+    * Invoke remote function: s invoke
+    * Remove Service: s remove service
+    * Remove Function: s remove function
+    * Remove Trigger: s remove trigger
+    * Remove CustomDomain: s remove domain
+    
+    
+    
+    imageAi: 
+      region: cn-hangzhou
+      url: 
+        custom_domain: 
+          - 
+            domain: http://server.ai-cv-image-prediction.1583208943291465.cn-hangzhou.fc.devsapp.net
+    ```
+- 此时可以打开系统分配的测试域名，并上传一张图片进行测试：
+    ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390067198_20211028030108110359.png)
 
 ### 传统框架：基于Django的博客项目
+
+- 初始化一个已有的基于Django的博客项目：`s init django-blog`，初始化过程中可能会出现填写项目名称以及选择密钥的过程：
+    - 项目名称可以是：`django-blog`
+    - 密钥可以选择我们上文中创建过的：`alibaba-access`    
+    
+    例如：
+    ```shell script
+    $ s init django-blog
+
+    🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+    
+    ? Please input your project name (init dir) django-blog
+    ✔ file decompression completed
+    ? please select credential alias alibaba-access
+    
+         ______       ___  _______  __    _  _______  _______  _______  ___      _______  _______ 
+        |      |     |   ||   _   ||  |  | ||       ||       ||  _    ||   |    |       ||       |
+        |  _    |    |   ||  |_|  ||   |_| ||    ___||   _   || |_|   ||   |    |   _   ||    ___|
+        | | |   |    |   ||       ||       ||   | __ |  | |  ||       ||   |    |  | |  ||   | __ 
+        | |_|   | ___|   ||       ||  _    ||   ||  ||  |_|  ||  _   | |   |___ |  |_|  ||   ||  |
+        |       ||       ||   _   || | |   ||   |_| ||       || |_|   ||       ||       ||   |_| |
+        |______| |_______||__| |__||_|  |__||_______||_______||_______||_______||_______||_______|
+                                            
+    
+        Welcome to the django-blog application
+         This application requires to open these services: 
+             FC : https://fc.console.aliyun.com/
+         This application can help you quickly deploy the django-blog project.
+         The application uses Django component：https://github.com/devsapp/django
+         The application homepage: https://github.com/devsapp/django-blog
+         
+         * Python 3.7 is recommended;
+         * If the version is greater than Python 3.7: 
+            * Operation error: ImportError: cannot import name 'metadata' from 'importlib', you can refer to: https://stackoverflow.com/questions/59216175/importerror-cannot-import-name-metadata-from-importlib
+         * Default information:
+            * Admin：/admin
+            * Default Admin Username: blog
+            * Default Admin Password: myblog12345!     
+         
+    
+    
+    🏄‍ Thanks for using Serverless-Devs
+    👉 You could [cd /Users/jiangyu/django-blog] and enjoy your serverless journey!
+    🧭️ If you need help for this example, you can use [s -h] after you enter folder.
+    💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
+    ```
+- 进入项目目录：`cd django-blog`
+- 通过`deploy`命令进行项目的部署：
+    ```shell script
+    Tips for next step
+    ======================
+    * Invoke remote function: s invoke
+    ✔ Try container acceleration
+    djangoBlog: 
+      region:        cn-shenzhen
+      serviceName:   serverless-devs-django
+      functionName:  django
+      customDomains: 
+        - http://django.serverless-devs-django.1583208943291465.cn-shenzhen.fc.devsapp.net
+    ```
+- 此时可以打开系统分配的测试域名，并上传一张图片进行测试：
+    ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390266827_20211028030427642356.png)
