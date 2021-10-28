@@ -5,7 +5,7 @@
 
 <p align="center">
 
-[安装文档](./install.md) |  [命令行操作](./command/readme.md) | [Yaml规范](./yaml.md) | [CI/CD平台集成](./cicd.md) | [Package开发文档](./package_dev.md)
+<a href="./install.md">安装文档</a> |  <a href="./command/readme.md">命令行操作</a> | <a href="./yaml.md">Yaml规范</a> | <a href="./cicd.md">CI/CD平台集成</a> | <a href="./package_dev.md">Package开发文档</a>
 
 </p>
 
