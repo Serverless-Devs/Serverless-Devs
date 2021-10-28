@@ -133,5 +133,3 @@ $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 
 此时，开发者可以在src下完成应用的开发，并对项目进行`publish.yaml`文件的编写。完成之后，即可将项目发不到不同的源，以Github Registry为例，可以在Github创建一个`Public`的仓库，并将编译后的代码放到仓库，并发布一个版本。此时，就可以通过客户端获取到该应用。
-
-> 最佳实践可以参考：https://github.com/Serverless-Devs/Serverless-Devs/discussions/62
