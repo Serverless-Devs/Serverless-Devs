@@ -56,7 +56,7 @@ $ npm install @serverless-devs/s -g
 目前 Serverless Devs 项目已经支持的 FaaS 平台/产品：
 
 - 阿里云函数计算（FC）: [帮助文档](./../components/fc/README.md) ｜ [原始项目](https://github.com/devsapp/fc)
-- AWS Lambda: [帮助文档](.././components/lambda/readme.md) ｜ [原始项目](https://github.com/devscomp/lambda)
+- AWS Lambda: [帮助文档](./../components/lambda/readme.md) ｜ [原始项目](https://github.com/devscomp/lambda)
 - 百度智能云函数计算（CFC）: [帮助文档](./../components/cfc/readme.md) ｜ [原始项目](https://github.com/xinwuyun/cfc)
 - 华为云函数工作流（FG）: [帮助文档](./../components/fg/readme.md) ｜ [原始项目](https://github.com/xinwuyun/fg)
 - 腾讯云云函数（SCF）: [帮助文档](./../components/scf/readme.md) ｜ [原始项目](https://github.com/devscomp/scf)
