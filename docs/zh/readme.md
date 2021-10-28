@@ -3,11 +3,11 @@
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390357469_20211028030558116850.png)
 
 
-<center>
+<p align="center">
 
 [安装文档](./install.md) |  [命令行操作](./command/readme.md) | [Yaml规范](./yaml.md) | [CI/CD平台集成](./cicd.md) | [Package开发文档](./package_dev.md)
 
-</center>
+</p>
 
 
 

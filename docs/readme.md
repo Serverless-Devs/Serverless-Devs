@@ -79,13 +79,13 @@ Serverless Devs 遵循 [MIT License](../LICENSE) 开源许可。
 
 # 交流社区
 
-<center>
+<p align="center">
 
 | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407298906_20211028074819117230.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407044136_20211028074404326599.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407252200_20211028074732517533.png" width="200px" > |
 |--- | --- | --- |
 | <center>关注微信公众号：`serverless`</center> | <center>联系微信小助手：`xiaojiangwh`</center> | <center>加入钉钉交流群：`33947367`</center> | 
 
-</center>
+</p>
 
 -----------
 
