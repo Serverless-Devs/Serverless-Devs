@@ -54,3 +54,5 @@ Component [fc-api] has been cleaned up successfully.
 $ s clean --all       
 The environment of Serverless Devs has been cleaned up successfully.
 ```
+
+# todo: 增加与registry的关系
