@@ -5,7 +5,8 @@
 - [命令解析](#命令解析)
     - [参数解析](#参数解析)
     - [操作案例](#操作案例)
-    
+- [注意事项](#注意事项)
+
 ## 命令解析
 
 当我们执行`s component -h`之后，可以进行相关帮助信息的查看：
@@ -39,7 +40,7 @@ Options:
 ```shell script
 $ s component --component fc-api
 Component: fc
-Component: fc
+Reigstry: serverless registry [http://registry.devsapp.cn/simple] 
 Version: 0.1.27  
 Size: 100 MB
 Description: 阿里云函数计算基础组件
@@ -53,12 +54,22 @@ Hompage: https://github.com/devsapp/fc
 
 ```shell script
 $ s component 
+
+🔎 serverless registry [http://registry.devsapp.cn/simple] 
 Component     Description           Size        Version 
 fc            阿里云函数计算基础组件    100 MB       0.1.27
 devsapp/fc    阿里云函数计算基础组件    100 MB       0.1.27
 devsapp/fc    阿里云函数计算基础组件    100 MB       0.1.27
 fc-api        函数计算api操作组件      100 MB       0.0.44
+
+🔎  github registry [https://api.github.com/repos]
+Component     Description           Size        Version 
+fc            阿里云函数计算基础组件    100 MB       0.1.27
+devsapp/fc    阿里云函数计算基础组件    100 MB       0.1.27
+
 ```
 
 
-# todo: 增加与registry的关系
+## 注意事项
+
+在查询组件时，系统只会显示当前 Registry 与默认的 Github Reigstry 信息。如果需要查看其他 Reigstry 的信息，需要先通过`s set registry`进行 Reigstry 的切换

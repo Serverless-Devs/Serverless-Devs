@@ -55,4 +55,8 @@ $ s clean --all
 The environment of Serverless Devs has been cleaned up successfully.
 ```
 
-# todo: 增加与registry的关系
+## 注意事项
+
+在进行指定组件的清理时，系统会按照指定的逻辑进行组件的清理：
+1. 系统先会确定当前设置的 Registry 缓存中，存在的符合条件的组件，并进行清理；
+2. 系统将会对系统的最终 Registry 缓存中（Github Registry），存在的符合条件的组件，并进行清理；

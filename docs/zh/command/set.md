@@ -64,9 +64,9 @@ Options:
     🔎 Current registry: http://registry.devsapp.cn/simple
     
     ? Choose a registry? (Use arrow keys)
-    ❯ open source registry [Github source] 
-      open source registry [Gitee source]  
-      serverless devs offical registry [http://registry.devsapp.cn/simple] 
+    ❯ serverless registry [http://registry.devsapp.cn/simple] 
+      github registry [https://api.github.com/repos]
+      gitee registry [http://gitee.registry.devsapp.cn/simple]
       custom registry 
     ```
     此时，只需要选择对应的选项，就可以引导式的进行操作。

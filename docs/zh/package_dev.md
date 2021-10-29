@@ -14,7 +14,12 @@
 
 > Serverless Devs 组件开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.1/serverless_registry_model/readme.md) 中的 [组件模型规范](../../spec/zh/0.0.1/serverless_registry_model/3.registry_model.md#组件模型规范)。在[组件模型规范](../../spec/zh/0.0.1/serverless_registry_model/3.registry_model.md#组件模型规范)中有关于[组件模型元数据](../../spec/zh/0.0.1/serverless_registry_model/3.registry_model.md#组件模型元数据)和[组件模型代码规范](../../spec/zh/0.0.1/serverless_registry_model/3.registry_model.md#组件模型代码规范)的说明。
 
-# todo: 增加code包的描述
+> 🐵 温馨提示，在进行 Serverless Devs 的组件开发时，可能会遇到很多相对来说更为通用的能力，包括不限于：
+> - 获取用户的密钥信息
+> - 进行更规范的格式化输出
+> - 对用户的输入参数进行解析   
+> ......   
+> 这些内容都可以通过 Serverless Devs 所提供的 [Core包](https://github.com/Serverless-Devs/core) 进行提供，更多 [Core包](https://github.com/Serverless-Devs/core) 信息，可以参考 [Core包的开发文档](https://github.com/Serverless-Devs/core)
 
 Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行工具中，通过对Serverless Devs的命令行工具，可以进行空白组件项目的初始化，开发者只需要执行`s init`即可看到：
 
