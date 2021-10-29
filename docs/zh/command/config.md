@@ -185,7 +185,7 @@ You can get accounts.
 
 Options:
   -a, --access [aliasName]  Key pair alia, if the alias is not set, use default instead
-  -h, --help               Display help for command
+  -h, --help                Display help for command
 ```
 
 ### 参数解析
@@ -209,7 +209,7 @@ test:
 如果想获得全部的一配置的密钥信息，可以直接通过`config get`不加参数的形式获取：
 
 ```shell script
-$ s config get -l   
+$ s config get
 default:
   AccountID: 158**********465
   AccessKeyID: LTA******************ZCW

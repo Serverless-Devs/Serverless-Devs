@@ -39,6 +39,7 @@ Options:
 ```shell script
 $ s component --component fc-api
 Component: fc
+Component: fc
 Version: 0.1.27  
 Size: 100 MB
 Description: 阿里云函数计算基础组件
@@ -52,7 +53,9 @@ Hompage: https://github.com/devsapp/fc
 
 ```shell script
 $ s component 
-Component     Description           Size        Version       
-fc            阿里云函数计算基础组件    100 MB       0.1.27    
+Component     Description           Size        Version 
+fc            阿里云函数计算基础组件    100 MB       0.1.27
+devsapp/fc    阿里云函数计算基础组件    100 MB       0.1.27
+devsapp/fc    阿里云函数计算基础组件    100 MB       0.1.27
 fc-api        函数计算api操作组件      100 MB       0.0.44
 ```
