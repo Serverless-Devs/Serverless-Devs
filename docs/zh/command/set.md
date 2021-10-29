@@ -1,6 +1,13 @@
-# set 命令
+# Set 命令
 
 `set`命令是对工具进行相关配置的命令。
+
+- [命令解析](#命令解析)
+- [set registry 命令](#set-registry-命令)
+- [set locale 命令](#set-locale-命令)
+- [set analysis 命令](#set-analysis-命令)
+
+## 命令解析
 
 当执行`s set -h`之后，可以进行相关帮助信息的查看：
 

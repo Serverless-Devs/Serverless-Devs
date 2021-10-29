@@ -1,6 +1,19 @@
-# Config 命令帮助文档
+# Config 命令
 
 `config`命令是密钥信息相关的命令，包括密钥的配置、密钥的查看以及密钥的修改、删除等。
+
+- [命令解析](#命令解析)
+- [config add 命令](#config-add-命令)
+    - [参数解析](#参数解析)
+    - [操作案例](#操作案例)
+- [config get 命令](#config-get-命令)
+    - [参数解析](#参数解析-1)
+    - [操作案例](#操作案例-1)
+- [config delete 命令](#config-delete-命令)
+    - [参数解析](#参数解析-2)
+    - [操作案例](#操作案例-2)
+
+## 命令解析
 
 当执行`s config -h`之后，可以进行相关帮助信息的查看：
 
@@ -8,6 +21,8 @@
 Usage: s config [commands] [options]
 
 Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
+
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
 
 Options:
   -h, --help  Display help for command
@@ -17,6 +32,12 @@ Commands:
   get         ✔️ Get accounts
   delete      ✖️ Delete an account
 ```
+
+在该命令中，包括了三个子命令：
+- [add：添加密钥配置](#config-add-命令)
+- [get：查看密钥配置](#config-get-命令)
+- [delete：删除密钥配置](#config-delete-命令)
+
 
 ## config add 命令
 
@@ -57,12 +78,31 @@ Options:
   --PrivateKeyData [PrivateKeyData]    PrivateKeyData of key information
   -kl , --keyList [keyList]            Keys of key information, like: -kl key1,key2,key3
   -il , --infoList [infoList]          Values of key information, like: -il info1,info2,info3
-  -a , --aliasName [name]              Key pair alias, if the alias is not set, use default instead
+  -a, --access [aliasName]             Key pair alias, if the alias is not set, use default instead
   -f                                   Mandatory overwrite key information
   -h, --help                           Display help for command
 ```
 
 
+### 参数解析
+
+| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
+|-----|-----|-----|-----|
+| AccountID | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| AccessKeyID | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| AccessKeySecret | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| SecurityToken | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| SecretAccessKey | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| AccessKey | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| SecretKey | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| SecretID | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| PrivateKeyData | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
+| keyList | kl | 选填 | 在默认字段无法满足配置诉求时，可以通过`keyList`与`infoList`进行批量自定义配置 |
+| infoList | il | 选填 | 在默认字段无法满足配置诉求时，可以通过``keyList`与`infoList`进行批量自定义配置 |
+| access | a | 选填 | 密钥的别名 |
+| f | - | 选填 | 强制修改/覆盖已经配置的密钥信息 |
+
+### 操作案例
 
 可以通过`config add`直接进行密钥的添加：
 
@@ -114,19 +154,18 @@ tencent:    AccountID, SecretID, SecretKey,
 google:     PrivateKeyData
 ```
 
-- 通过环境变量获取密钥方法： 这一部分可能会根据不同的文档有不同的可能性，所以需要参考对应的文档进行环境变量对应的`Key-Value`确定。
+> - 通过环境变量获取密钥方法： 这一部分可能会根据不同的文档有不同的可能性，所以需要参考对应的文档进行环境变量对应的`Key-Value`确定。
+> - 常见云厂商密钥获取地址：
+>     - [阿里云](./../default_provider_config/alibabacloud.md)
+>     - [百度云](./../default_provider_config/baiducloud.md)
+>     - [AWS](./../default_provider_config/aws.md)
+>     - [Azure](./../default_provider_config/azure.md)
+>     - [Google Cloud](./../default_provider_config/gcp.md)
+>     - [华为云](./../default_provider_config/huaweicloud.md)
+>     - [腾讯云](./../default_provider_config/tencentcloud.md)
 
-- 常见云厂商密钥获取地址：
-    - [阿里云](./others/provider-config/alibabacloud.md)
-    - [百度云](./others/provider-config/baiducloud.md)
-    - [AWS](./others/provider-config/aws.md)
-    - [Azure](./others/provider-config/azure.md)
-    - [Google Cloud](./others/provider-config/gcp.md)
-    - [华为云](./others/provider-config/huaweicloud.md)
-    - [腾讯云](./others/provider-config/tencentcloud.md)
 
-
-### config get 命令
+## config get 命令
 
 通过`config get`命令，您可以获得配置过的账号信息。
 
@@ -140,17 +179,52 @@ Usage: s config get [options] [name]
 You can get accounts.
  
      Example:
-        $ s config get -l
+        $ s config get
         $ s config get -a demo
  
 
 Options:
-  -a, --alias-name [name]  Key pair alia, if the alias is not set, use default instead
-  -l, --list               Show user configuration list
+  -a, --access [aliasName]  Key pair alia, if the alias is not set, use default instead
   -h, --help               Display help for command
 ```
 
-### config delete 命令
+### 参数解析
+
+| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
+|-----|-----|-----|-----|
+| access | a | 选填 | 密钥的别名 |
+
+### 操作案例
+
+如果想要获取某个已经配置的密钥详情，可以通过`config get`进行获取，例如，想要获取别名为`test`的密钥信息，就可以执行：
+
+```shell script
+$ s config get -a test
+test:
+  AccountID: 146**********468
+  AccessKeyID: LTA******************f5Q
+  AccessKeySecret: qDN************************Xp7
+```
+
+如果想获得全部的一配置的密钥信息，可以直接通过`config get`不加参数的形式获取：
+
+```shell script
+$ s config get -l   
+default:
+  AccountID: 158**********465
+  AccessKeyID: LTA******************ZCW
+  AccessKeySecret: mDL************************odO
+test:
+  AccountID: 146**********468
+  AccessKeyID: LTA******************f5Q
+  AccessKeySecret: qDN************************Xp7
+release:
+  AccountID: 176**********635
+  AccessKeyID: LTA******************Yy3
+  AccessKeySecret: LhT************************VB5
+```
+
+## config delete 命令
 
 通过`config delete`命令，您可以删除配置过的账号信息。
 
@@ -168,7 +242,21 @@ You can delete an account.
 
 
 Options:
-  -a , --alias-name [name]  Key pair alia, if the alias is not set, use default instead
+  -a, --access [aliasName]  Key pair alias, if the alias is not set, use default instead
   -h,--help                 Display help for command
 ```
 
+### 参数解析
+
+| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
+|-----|-----|-----|-----|
+| access | a | 必填 | 密钥的别名 |
+
+### 操作案例
+
+如果想要删除某个已经配置的密钥，可以通过`config delete`进行删除，例如，想要删除别名为`test`的密钥信息，就可以执行：
+
+```shell script
+$ s config delete -a test
+Key [test] has been successfully removed
+```

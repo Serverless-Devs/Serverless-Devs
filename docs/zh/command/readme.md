@@ -7,6 +7,7 @@
     - [init: 项目初始化](./init.md)
     - [cli: 纯命令行模式](./cli.md)
     - [clean: 工具清理](./clean.md)
+    - [component: 组件信息](./component.md)
     - [set: 工具配置](./set.md)
     - [custom: 自定义命令](./custom.md)
 
@@ -49,6 +50,7 @@ Commands:
   cli                            🐚 Command line operation without yaml mode.
   set                            🔧 Settings for the tool.
   clean                          💥 Clean up the environment.
+  component                      🔌 Installed component information.
 ```
 
 ## 全局参数
