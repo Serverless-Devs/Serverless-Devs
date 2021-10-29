@@ -67,15 +67,15 @@ $ npm install @serverless-devs/s -g
 
 # 项目贡献
 
-我们非常希望您可以和我们一起贡献这个项目。贡献内容包括不限于代码的维护、应用/组件的贡献、文档的完善等，更多详情可以参考[ 🏆 贡献指南](../CONTRIBUTING.md)。
+我们非常希望您可以和我们一起贡献这个项目。贡献内容包括不限于代码的维护、应用/组件的贡献、文档的完善等，更多详情可以参考[ 🏆 贡献指南](./CONTRIBUTING.md)。
 
-与此同时，我们也非常感谢所有[ 👬 参与贡献的小伙伴](../CONTRIBUTORS.md)，为 Serverless Devs 项目贡献的努力和汗水。
+与此同时，我们也非常感谢所有[ 👬 参与贡献的小伙伴](./CONTRIBUTORS.md)，为 Serverless Devs 项目贡献的努力和汗水。
 
 # 开源许可
 
-Serverless Devs 遵循 [MIT License](../LICENSE) 开源许可。
+Serverless Devs 遵循 [MIT License](./LICENSE) 开源许可。
 
-位于`node_modules`和外部目录中的所有文件都是本软件使用的外部维护库，具有自己的许可证；我们建议您阅读它们，因为它们的条款可能与[MIT License](../LICENSE)的条款不同。
+位于`node_modules`和外部目录中的所有文件都是本软件使用的外部维护库，具有自己的许可证；我们建议您阅读它们，因为它们的条款可能与[MIT License](./LICENSE)的条款不同。
 
 # 交流社区
 
@@ -91,4 +91,4 @@ Serverless Devs 遵循 [MIT License](../LICENSE) 开源许可。
 
 -----------
 
-> Serverless Devs 开发者工具遵循 [Serverless Devs Model](../spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](./spec/zh/0.0.1/serverless_registry_model/readme.md)，[Serverless User Model](./spec/zh/0.0.1/serverless_user_model/readme.md) 以及 [Serverless Package Model](./spec/zh/0.0.1/serverless_pacakge_model/readme.md)
+> Serverless Devs 开发者工具遵循 [Serverless Devs Model](./spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](./spec/zh/0.0.1/serverless_registry_model/readme.md)，[Serverless User Model](./spec/zh/0.0.1/serverless_user_model/readme.md) 以及 [Serverless Package Model](./spec/zh/0.0.1/serverless_pacakge_model/readme.md)
