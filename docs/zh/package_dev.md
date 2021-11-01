@@ -38,7 +38,7 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 此时，选择最后的`Dev Template for Serverless Devs`，并按回车：
 
 ```shell script
-jiangyu@ServerlessSecurity ~ % s init
+$ s init
 
 🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
 
@@ -106,7 +106,7 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 此时，选择最后的`Dev Template for Serverless Devs`，并按回车：
 
 ```shell script
-jiangyu@ServerlessSecurity ~ % s init
+$ s init
 
 🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
 
