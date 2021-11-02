@@ -73,4 +73,4 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 
 具体的流程图为：
 
-![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635840220806_20211102080341006119.png)
+![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635841483040_20211102082444588067.png)
