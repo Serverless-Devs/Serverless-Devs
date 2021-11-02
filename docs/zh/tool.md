@@ -2,7 +2,10 @@
 
 - [Exit Code 定义](#exit-code-定义)
 - [命令行设计规范](#命令行设计规范)
-- [项目优先级定义](#项目优先级定义)
+- [优先级定义](#优先级定义)
+    - [Yaml 文件优先级规范](#yaml-文件优先级规范)
+    - [应用内服务部署顺序](#应用内服务部署顺序)
+    - [密钥使用顺序与规范](#密钥使用顺序与规范)
 
 ## Exit Code 定义
 
@@ -74,3 +77,4 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 具体的流程图为：
 
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635841483040_20211102082444588067.png)
+
