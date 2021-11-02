@@ -9,7 +9,7 @@ export class HumanError extends Error {
     console.log(`${errorMessage} ${colors.gray(tips)}\n`);
     report({
       type: 'jsError',
-      content: `${errorMessage}, ${error.stack}`,
+      content: `${errorMessage}||${error.stack}`,
     }).then(() => process.exit(1));
   }
 }
