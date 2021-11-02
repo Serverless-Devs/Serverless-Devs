@@ -12,6 +12,7 @@
 - [config delete 命令](#config-delete-命令)
     - [参数解析](#参数解析-2)
     - [操作案例](#操作案例-2)
+- [注意事项](#注意事项)
 
 ## 命令解析
 
@@ -260,3 +261,15 @@ Options:
 $ s config delete -a test
 Key [test] has been successfully removed
 ```
+
+## 注意事项
+
+### 通过环境变量配置密钥信息
+
+在某些时候，密钥是不方便直接进行配置到 Serverless Devs 工具中，此时可以考虑将密钥信息放在环境变量中。例如在环境变量中，增加：
+
+```text
+s_secrets="{\"Key1\":\"Value1\",\"Key2\":\"Value2\"}"
+```
+
+此时就可以在使用是通过`${env(s_secrets)}`进行指定的环境变量密钥使用。
