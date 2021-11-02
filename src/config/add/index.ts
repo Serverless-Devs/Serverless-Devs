@@ -8,10 +8,11 @@ const description = `You can add an account
 
     Example:
         $ s config add
-        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******
+        $ s config add --AccessKey ****** --SecretKey ******
         $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
-  
-    Configuration parameters for cloud vendors:
+        $ s config add --keyList key1,key2,key3 --valueList value1,value2,value3
+
+    Configuration parameters template for vendors:
         alibaba: AccountID, AccessKeyID, AccessKeySecret
         aws: AccessKeyID, SecretAccessKey
         baidu: AccessKeyID, SecretAccessKey
