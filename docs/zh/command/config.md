@@ -267,7 +267,9 @@ Key [test] has been successfully removed
 
 ### 通过环境变量配置密钥信息
 
-在某些时候，密钥是不方便直接进行配置到 Serverless Devs 工具中，此时可以考虑将密钥信息放在环境变量中。例如在环境变量中，增加：
+在某些时候，密钥是不方便直接进行配置到 Serverless Devs 工具中，此时可以考虑将密钥信息放在环境变量中。
+
+例如，此时需要配置的密钥名为`s_secrets`，就可以在环境变量中，增加：
 
 ```text
 s_secrets="{\"Key1\":\"Value1\",\"Key2\":\"Value2\"}"
