@@ -58,7 +58,7 @@ Commands:
 | 参数全称 | 参数缩写 | 默认取值 | 参数含义 | 备注 |
 |-----|-----|-----|-----|-----|
 | template | t | `s.yaml`/`s.yml` | 指定资源描述文件 | 可选`yaml`和`JSON`两种格式 | 
-| access | a | `yaml`中所指定的`access`信息/`default` | 指定本次部署时的密钥信息 |  | 
+| access | a | `yaml`中所指定的`access`信息/`default` | 指定本次部署时的密钥信息 | 可以使用通过[config命令](./command/config.md#config-add-命令)配置的密钥信息，以及[配置到环境变量的密钥信息](./command/config.md#通过环境变量配置密钥信息) | 
 | skip-actions | - | - | 跳过`yaml`所设置的`actions`模块 | - | 
 | debug | - | - | 开启`Debug`模式 | 开启`Debug`模式后可以查看到更多的工具执行过程信息 | 
 | version | v | - | 查看版本信息 | - | 

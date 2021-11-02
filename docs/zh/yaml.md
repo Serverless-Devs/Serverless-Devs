@@ -105,7 +105,7 @@ services:
 |  ----  | ----  | 
 | edition  | 命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范 | 
 | name  | 应用名称 | 
-| access  | 秘钥别名 |
+| access  | 秘钥别名，可以使用通过[config命令](./command/config.md#config-add-命令)配置的密钥信息，以及[配置到环境变量的密钥信息](./command/config.md#通过环境变量配置密钥信息) |
 | vars  | 全局变量，提供给各个服务使用，是一个Key-Value的形式 |
 | Service  | 应用所包含的服务，是一个Key-Value的形式 |
 
