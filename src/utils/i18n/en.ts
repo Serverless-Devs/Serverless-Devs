@@ -1,7 +1,7 @@
 export default {
   clean_up_the_environment: 'Clean up the environment',
   display_help_for_command: 'Display help for command',
-  remove_components: 'Remove components',
+  remove_components: 'Remove component (like: fc, fc@0.0.1)',
   delete_the_file_under_the_cache: 'Delete the <dirname> file in the cache',
   record_your_log_information: 'Do you record your log information?',
   init_pproject_deploy_tip: 'Do you want to deploy the project immediately?',

@@ -34,7 +34,7 @@ program
   if (accessFileInfo[access]) {
     delete accessFileInfo[access];
     fs.writeFileSync(accessFile, Object.keys(accessFileInfo).length > 0 ? yaml.dump(accessFileInfo) : '');
-    logger.success(`Key [${access}] has been successfully removed`);
+    logger.success(`Key [${access}] has been successfully removed.`);
   } else {
     logger.error(`\n\n  ${emoji('❌️')} Message: Unable to get key information with alias ${access}.
   ${emoji('🤔')} You have configured these keys: [${String(Object.keys(accessFileInfo))}].
