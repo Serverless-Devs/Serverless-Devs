@@ -145,31 +145,6 @@ export function registerCommandChecker(program: any) {
   });
 }
 
-export async function registerExecCommand(system_command: any, templateFile: string) {
-  const execCommand = new Command('exec');
-  const customerCommandDescription = `${emoji('🚀')} Subcommand execution analysis.`;
-  execCommand.description(customerCommandDescription);
-  execCommand.usage('[subcommand] -- [method] [params]');
-  if (templateFile) {
-    let commandName = '';
-    let projectName = '';
-    if (process.argv[3] === '--') {
-      commandName = process.argv[4];
-      const universialCommandInstance = await createUniversalCommand(commandName, projectName, '');
-      execCommand.addCommand(universialCommandInstance);
-    }
-    if (process.argv[4] === '--' && process.argv[5]) {
-      projectName = process.argv[3];
-      commandName = process.argv[5];
-      const customerCommand = new Command(projectName);
-      const universialCommandInstance = await createUniversalCommand(commandName, projectName, '');
-      customerCommand.addCommand(universialCommandInstance);
-      execCommand.addCommand(customerCommand);
-    }
-  }
-  system_command.addCommand(execCommand);
-}
-
 export async function registerCustomerCommand(system_command: any, templateFile: string) {
   if (templateFile) {
     const customerCommands = await createCustomerCommand(templateFile);
@@ -211,7 +186,6 @@ export function recordCommandHistory(argv: string[]) {
 export default {
   registerCommandChecker,
   recordCommandHistory,
-  registerExecCommand,
   registerCustomerCommand,
   registerUniversalCommand,
 };

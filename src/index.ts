@@ -6,7 +6,6 @@ import { configSet } from './utils';
 import {
   registerCommandChecker,
   recordCommandHistory,
-  registerExecCommand,
   registerCustomerCommand,
   registerUniversalCommand,
 } from './utils/command-util';
@@ -40,17 +39,11 @@ async function setSpecialCommand() {
   if (templateFile) {
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    if (!['init', 'config', 'set', 'exec', 'cli', 'clean'].includes(process.argv[2])) {
+    if (!['init', 'config', 'set', 'cli', 'clean'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
       await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
   }
-}
-
-async function setExecCommand() {
-  const templateFile = checkAndReturnTemplateFile();
-  process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
-  await registerExecCommand(program, templateFile);
 }
 
 async function globalParameterProcessing() {
@@ -141,7 +134,6 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   }
 
   await globalParameterProcessing(); // global parameter processing
-  await setExecCommand(); // register exec command
   await setSpecialCommand(); // universal instruction processing
   recordCommandHistory(process.argv); // add history record
   system_command.exitOverride(async error => {
