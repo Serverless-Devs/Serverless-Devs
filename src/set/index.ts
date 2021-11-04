@@ -9,7 +9,7 @@ program
   .name('s set')
   .usage('[commands] [options]')
   .command('registry', `${emoji('👀')} Set up a custom registry`)
-  .command('locale', `${emoji('🔧')} Set up current language`)
+  // .command('locale', `${emoji('🔧')} Set up current language`)
   .command('analysis', `${emoji('👉')} Set to enable or disable analysis`)
   .helpOption('-h, --help', 'Display help for command')
   .addHelpCommand(false)
