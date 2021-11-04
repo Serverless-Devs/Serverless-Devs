@@ -8,8 +8,8 @@ export default {
   tip_for_a_serverless_project:
     "A Serverless-Devs project is detected in the current directory, please deploy via 's deploy' or get more information via 's -h'",
   create_a_new_project: 'No Serverless-Devs project is currently detected. Do you want to create a new project?',
-  en: 'en',
-  zh: 'zh',
+  en: 'English (en)',
+  zh: 'Chinese (zh)',
   select_current_language: 'Please select current language',
   'app-tip': 'Hello, serverlesser. Which template do you like?',
   'template-tip': 'Which template do you like?',

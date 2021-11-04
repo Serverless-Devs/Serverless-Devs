@@ -1,27 +1,28 @@
 import program from 'commander';
-import { setConfig } from '../../utils/handler-set-config';
 import { CommandError } from '../../error';
-import i18n from '../../utils/i18n';
+import logger from '../../utils/logger';
 import core from '../../utils/core';
 const { inquirer } = core;
+import { setConfig, getConfig } from '../../utils/handler-set-config';
+
+const description = `Set analysis action.
+
+    Example:
+        $ s set analysis
+        $ s set analysis disable`;
 
 program
   .name('s set analysis')
   .helpOption('-h, --help', 'Display help for command')
   .addHelpCommand(false)
-  .description(
-    `You can set your analysis.
-
-     Example:
-        $ s set analysis`,
-  )
+  .description(description)
   .parse(process.argv);
 
 const promptOption = [
   {
     type: 'list',
     name: 'analysis',
-    message: i18n('record_your_log_information'),
+    message: 'Choose a action?',
     choices: [
       {
         name: 'enable',
@@ -35,8 +36,18 @@ const promptOption = [
   },
 ];
 (async () => {
-  const answers = await inquirer.prompt(promptOption);
-  setConfig('analysis', answers.analysis);
+  if (program.args.length === 0) {
+    logger.log(`\n📝 Current analysis action: ${getConfig('analysis')}\n`);
+    const answers = await inquirer.prompt(promptOption);
+    setConfig('analysis', answers.analysis);
+  }
+  if (program.args.length > 0) {
+    const val = program.args[0];
+    if (val) {
+      setConfig('analysis', val);
+      logger.success('Setup succeeded');
+    }
+  }
 })().catch(err => {
   throw new CommandError(err.message);
 });

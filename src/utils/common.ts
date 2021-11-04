@@ -137,11 +137,11 @@ export function getLang() {
         'en-US': 'en',
         'zh-CN': 'zh',
       };
-      lang = _.get(obj, langKey, 'en');
+      lang = _.get(obj, langKey, 'zh');
     }
     return lang;
   } catch (e) {
-    return 'en';
+    return 'zh';
   }
 }
 export function replaceFun(str, obj) {

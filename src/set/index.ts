@@ -1,6 +1,10 @@
 import program from 'commander';
 import { emoji } from '../utils/common';
 
+const description = `You can make some default settings for the tool here.
+
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md`;
+
 program
   .name('s set')
   .usage('[commands] [options]')
@@ -9,5 +13,5 @@ program
   .command('analysis', `${emoji('👉')} Set to enable or disable analysis`)
   .helpOption('-h, --help', 'Display help for command')
   .addHelpCommand(false)
-  .description('You can make some default settings for the tool here.')
+  .description(description)
   .parse(process.argv);
