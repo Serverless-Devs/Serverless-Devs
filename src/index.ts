@@ -39,7 +39,7 @@ async function setSpecialCommand() {
   if (templateFile) {
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    if (!['init', 'config', 'set', 'cli', 'clean'].includes(process.argv[2])) {
+    if (!['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
       await registerUniversalCommand(program, templateFile); // Register pan instruction
     }
@@ -79,17 +79,18 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   registerCommandChecker(program);
   const system_command = program
     .description(description)
-    .helpOption('-h, --help', `Display help for command`)
+    .helpOption('-h, --help', `Display help for command.`)
     .command('config', `${emoji('👤')} Configure cloud service account.`)
     .command('init', `${emoji('💞')} Initializing a project.`)
     .command('cli', `${emoji('🐚')} Command line operation through yaml free mode.`)
     .command('set', `${emoji('🔧')} Settings for the tool.`)
     .command('clean', `${emoji('💥')} Clean up the environment.`)
-    .option('-t, --template [templatePath]', 'Specify the template file')
-    .option('-a, --access [aliasName]', 'Specify the access alias name')
-    .option('--skip-actions', 'Skip the extends section')
-    .option('--debug', 'Debug model')
-    .version(getVersion(), '-v, --version', 'Output the version number')
+    .command('component', `${emoji('🙋')} Get details of installed components.`)
+    .option('-t, --template [templatePath]', 'Specify the template file.')
+    .option('-a, --access [aliasName]', 'Specify the access alias name.')
+    .option('--skip-actions', 'Skip the extends section.')
+    .option('--debug', 'Debug model.')
+    .version(getVersion(), '-v, --version', 'Output the version number.')
     .addHelpCommand(false);
 
   process.env['CLI_VERSION'] = pkg.version;

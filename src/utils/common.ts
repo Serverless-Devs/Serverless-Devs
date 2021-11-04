@@ -22,6 +22,23 @@ export function getVersion() {
     : `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`;
 }
 
+export async function getFolderSize(rootItemPath: string) {
+  const fileSizes = new Map();
+  await processItem(rootItemPath);
+  async function processItem(itemPath: string) {
+    const stats = fs.lstatSync(itemPath);
+    if (typeof stats !== 'object') return;
+    fileSizes.set(stats.ino, stats.size);
+    if (stats.isDirectory()) {
+      const directoryItems = fs.readdirSync(itemPath);
+      if (typeof directoryItems !== 'object') return;
+      await Promise.all(directoryItems.map(directoryItem => processItem(path.join(itemPath, directoryItem))));
+    }
+  }
+  const folderSize = Array.from(fileSizes.values()).reduce((total, fileSize) => total + fileSize, 0);
+  return folderSize;
+}
+
 export function yamlLoad(filePath: string) {
   const content = fs.readFileSync(filePath, 'utf8');
   try {
