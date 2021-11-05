@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getServiceList } from './version';
-import { handleError } from '../error';
+import { HandleError } from '../error';
 import { startsWith, get } from 'lodash';
 import core from '../utils/core';
 const { jsyaml: yaml } = core;
@@ -42,10 +42,12 @@ export class Parse {
       if (extname.indexOf('.json') !== -1) {
         fileObj = JSON.parse(fs.readFileSync(filePath).toString());
       }
-    } catch (e) {
-      if (process.env['serverless_devs_out_put_help'] !== 'true') {
-        handleError(e, 'Failed to execute:');
-      }
+    } catch (error) {
+      new HandleError({
+        error,
+      })
+        .report(error)
+        .then(() => process.exit(1));
     }
     return fileObj;
   }

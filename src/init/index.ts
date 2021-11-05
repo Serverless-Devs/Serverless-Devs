@@ -4,7 +4,7 @@ import program from 'commander';
 import { configSet } from '../utils';
 import { InitManager } from './init-manager';
 import { emoji } from '../utils/common';
-import { handleError } from '../error';
+import { HandleError } from '../error';
 import core from '../utils/core';
 const { colors } = core;
 
@@ -35,6 +35,9 @@ program
   }
   const name = program.args[0];
   await initManager.init(name, dir);
-})().catch(err => {
-  handleError(err);
+})().catch(async error => {
+  await new HandleError({
+    error,
+  }).report(error);
+  process.exit(1);
 });

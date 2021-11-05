@@ -5,7 +5,7 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import { emoji } from '../utils/common';
-import { handleError } from '../error';
+import { HandleError } from '../error';
 import core from '../utils/core';
 const { getCredential, loadComponent, colors, jsyaml: yaml } = core;
 export interface CliParams {
@@ -137,8 +137,12 @@ export default class CliManager {
             let outResult = yaml.dump(JSON.parse(JSON.stringify(result)));
 
             logger.success(Object.keys(result).length === 0 ? `End of method: ${command}` : outResult);
-          } catch (e) {
-            handleError(e, 'Failed to execute:');
+          } catch (error) {
+            await new HandleError({
+              error,
+              prefix: 'Failed to execute:',
+            }).report(error);
+            process.exit(1);
           }
         } else {
           logger.error(`Failed to execute:\n
@@ -150,8 +154,12 @@ export default class CliManager {
           process.exit(1);
         }
       }
-    } catch (e) {
-      handleError(e, 'Failed to execute:');
+    } catch (error) {
+      await new HandleError({
+        error,
+        prefix: 'Failed to execute:',
+      }).report(error);
+      process.exit(1);
     }
     return result;
   }

@@ -6,7 +6,7 @@ import fs from 'fs';
 import program from 'commander';
 import { logger } from '../../utils';
 import { emoji } from '../../utils/common';
-import { handleError } from '../../error';
+import { HandleError } from '../../error';
 import core from '../../utils/core';
 const { colors, jsyaml: yaml } = core;
 
@@ -45,6 +45,9 @@ program
 `);
     process.exit(1);
   }
-})().catch(err => {
-  handleError(err);
+})().catch(async error => {
+  await new HandleError({
+    error,
+  }).report(error);
+  process.exit(1);
 });

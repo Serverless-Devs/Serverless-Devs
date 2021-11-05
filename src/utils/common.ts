@@ -45,7 +45,13 @@ export function yamlLoad(filePath: string) {
     return yaml.load(content);
   } catch (error) {
     const filename = path.basename(filePath);
-    new HumanError(`${filename}格式不正确`, `请检查${filename}的配置`, error);
+    const errorMessage = `${filename}格式不正确`;
+    new HumanError({
+      errorMessage,
+      tips: `请检查${filename}的配置`,
+    })
+      .report({ error: new Error(errorMessage) })
+      .then(() => process.exit(1));
   }
 }
 

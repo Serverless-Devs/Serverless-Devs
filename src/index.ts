@@ -17,7 +17,7 @@ import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
-import { handleError } from './error';
+import { HandleError } from './error';
 import { updateTemplate } from './init/update-template';
 const { colors, jsyaml: yaml } = core;
 const pkg = require('../package.json');
@@ -149,6 +149,9 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     return system_command.parse(process.argv);
   }
   await onboarding();
-})().catch(err => {
-  handleError(err);
+})().catch(async error => {
+  await new HandleError({
+    error,
+  }).report(error);
+  process.exit(1);
 });

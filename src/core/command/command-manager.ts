@@ -8,10 +8,9 @@ import {
   synchronizeExecuteComponentList,
 } from '../component';
 import { emoji, checkTemplateFile } from '../../utils/common';
-import { handleError, HumanError } from '../../error';
-import { Human_Error_List } from '../../constants';
 import core from '../../utils/core';
-const { colors, jsyaml: yaml } = core;
+const { colors } = core;
+import { HandleError } from '../../error';
 
 export class CommandManager {
   protected deployParams: any;
@@ -58,21 +57,15 @@ export class CommandManager {
             projectConfig.Access = process.env['serverless_devs_temp_access'];
             projectConfig.access = process.env['serverless_devs_temp_access'];
           }
-          const componentExecute = new ComponentExeCute(projectConfig, this.method, parsedObj.edition, templateFile);
-          try {
-            const tempResult = await componentExecute.init();
-            if (tempResult) {
-              outPutData[projectConfig.ProjectName] = tempResult;
-            }
-          } catch (e) {
-            const isHumanError = Human_Error_List.find(item => item === e.message);
-            isHumanError
-              ? new HumanError(
-                  `componentInstance[${this.method}] is not a function`,
-                  `请检查组件${projectConfig.component}是否存在${this.method}方法`,
-                  e,
-                )
-              : handleError(e, `Project ${projectConfig.ProjectName} failed to execute:`);
+          const componentExecute = new ComponentExeCute({
+            componentConfig: projectConfig,
+            method: this.method,
+            version: parsedObj.edition,
+            customerCommandName: this.customerCommandName,
+          });
+          const tempResult = await componentExecute.init();
+          if (tempResult) {
+            outPutData[projectConfig.ProjectName] = tempResult;
           }
         } else {
           const params = this.deployParams || '';
@@ -94,21 +87,10 @@ export class CommandManager {
           }
         }
         const outResult = JSON.parse(JSON.stringify(outPutData));
-        if (process.env['s-execute-file']) {
-          logger.error(`All projects were not deployed successfully.
-  
-${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
-            '😈',
-          )} If you have questions, please tell us: ${colors.underline(
-            'https://github.com/Serverless-Devs/Serverless-Devs/issues',
-          )}
-`);
-          process.exit(1);
-        } else {
-          Object.keys(outPutData).length === 0
-            ? logger.success(`End of method: ${this.method}`)
-            : logger.output(outResult);
-        }
+        Object.keys(outPutData).length === 0
+          ? logger.success(`End of method: ${this.method}`)
+          : logger.output(outResult);
+        process.exit(0);
       } else {
         logger.error(`Failed to execute:\n
   ${emoji('❌')} Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${
@@ -124,8 +106,12 @@ ${yaml.dump(JSON.parse(process.env['s-execute-file'])['Error'])}  ${emoji(
         )}\n`);
         process.exit(1);
       }
-    } catch (e) {
-      handleError(e, 'Failed to execute:');
+    } catch (error) {
+      await new HandleError({
+        error,
+        prefix: 'Failed to execute:',
+      }).report(error);
+      process.exit(1);
     }
   }
 }

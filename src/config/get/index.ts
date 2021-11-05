@@ -4,7 +4,7 @@ import fs from 'fs';
 import program from 'commander';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
-import { handleError } from '../../error';
+import { HandleError } from '../../error';
 import core from '../../utils/core';
 const { getCredential, colors, jsyaml: yaml } = core;
 
@@ -92,6 +92,9 @@ function getSecretValue(n: number, str = ' ') {
 
   // other case output help message
   program.help();
-})().catch(err => {
-  handleError(err);
+})().catch(async error => {
+  await new HandleError({
+    error,
+  }).report(error);
+  process.exit(1);
 });
