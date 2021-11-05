@@ -2,14 +2,14 @@ import { InitManager } from '../init/init-manager';
 import { i18n } from '../utils';
 import { emoji, red } from '../utils/common';
 import core from '../utils/core';
-const { colors, inquirer } = core;
+const { colors, inquirer, fse: fs } = core;
 
 async function onboarding() {
   const { templateFile } = process.env;
-  if (templateFile === 'null') {
-    return await projectWithNoDevs();
+  if (fs.existsSync(templateFile)) {
+    return await projectWithDevs();
   }
-  await projectWithDevs();
+  await projectWithNoDevs();
 }
 
 async function projectWithDevs() {

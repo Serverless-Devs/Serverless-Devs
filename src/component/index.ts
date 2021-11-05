@@ -50,54 +50,58 @@ const command = program
       { alias: 'Version', width: '15%' },
     ];
     // s源
-    const devsappDirs = fs.readdirSync(devsappPath);
-    const serverlessRows = [];
-    for (const fileName of devsappDirs) {
-      if (fileName === 'devsapp') {
-        const devsappSubPath = path.join(devsappPath, fileName);
-        const devsappSubDirs = fs.readdirSync(devsappSubPath);
-        for (const devsappFileName of devsappSubDirs) {
-          const filePath = path.join(devsappSubPath, devsappFileName);
+    if (fs.existsSync(devsappPath)) {
+      const devsappDirs = fs.readdirSync(devsappPath);
+      const serverlessRows = [];
+      for (const fileName of devsappDirs) {
+        if (fileName === 'devsapp') {
+          const devsappSubPath = path.join(devsappPath, fileName);
+          const devsappSubDirs = fs.readdirSync(devsappSubPath);
+          for (const devsappFileName of devsappSubDirs) {
+            const filePath = path.join(devsappSubPath, devsappFileName);
+            const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
+            const size = await getFolderSize(filePath);
+            serverlessRows.push([
+              `${fileName}/${data.Name}`,
+              data.Description,
+              `${(size / 1000 / 1000).toFixed(2)} MB`,
+              data.Version,
+            ]);
+          }
+        } else {
+          const filePath = path.join(devsappPath, fileName);
           const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
           const size = await getFolderSize(filePath);
-          serverlessRows.push([
+          serverlessRows.push([data.Name, data.Description, `${(size / 1000 / 1000).toFixed(2)} MB`, data.Version]);
+        }
+      }
+      const serverlessOut = Table(header, serverlessRows, options).render();
+      logger.log('\n🔎 serverless registry [http://registry.devsapp.cn/simple] ');
+      logger.log(serverlessOut);
+    }
+    // github源
+    if (fs.existsSync(githubPath)) {
+      const githubDirs = fs.readdirSync(githubPath);
+      const githubRows = [];
+      for (const fileName of githubDirs) {
+        const githubSubPath = path.join(githubPath, fileName);
+        const githubSubDirs = fs.readdirSync(githubSubPath);
+        for (const githubFileName of githubSubDirs) {
+          const filePath = path.join(githubSubPath, githubFileName);
+          const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
+          const size = await getFolderSize(filePath);
+          githubRows.push([
             `${fileName}/${data.Name}`,
             data.Description,
             `${(size / 1000 / 1000).toFixed(2)} MB`,
             data.Version,
           ]);
         }
-      } else {
-        const filePath = path.join(devsappPath, fileName);
-        const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
-        const size = await getFolderSize(filePath);
-        serverlessRows.push([data.Name, data.Description, `${(size / 1000 / 1000).toFixed(2)} MB`, data.Version]);
       }
+      const githubOut = Table(header, githubRows, options).render();
+      logger.log('\n🔎 github registry [https://api.github.com/repos]');
+      logger.log(githubOut);
     }
-    const serverlessOut = Table(header, serverlessRows, options).render();
-    logger.log('\n🔎 serverless registry [http://registry.devsapp.cn/simple] ');
-    logger.log(serverlessOut);
-    // github源
-    const githubDirs = fs.readdirSync(githubPath);
-    const githubRows = [];
-    for (const fileName of githubDirs) {
-      const githubSubPath = path.join(githubPath, fileName);
-      const githubSubDirs = fs.readdirSync(githubSubPath);
-      for (const githubFileName of githubSubDirs) {
-        const filePath = path.join(githubSubPath, githubFileName);
-        const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
-        const size = await getFolderSize(filePath);
-        githubRows.push([
-          `${fileName}/${data.Name}`,
-          data.Description,
-          `${(size / 1000 / 1000).toFixed(2)} MB`,
-          data.Version,
-        ]);
-      }
-    }
-    const githubOut = Table(header, githubRows, options).render();
-    logger.log('\n🔎 github registry [https://api.github.com/repos]');
-    logger.log(githubOut);
     return;
   }
   if (process.argv.length > 2) {

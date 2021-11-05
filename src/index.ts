@@ -69,8 +69,6 @@ Welcome to the Serverless Devs.
 More: 
 ${emoji('📘')} Documents: ${colors.underline('https://www.serverless-devs.com')}
 ${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
-${emoji('❓')} Issues: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
-${emoji('👀')} Current Registry: ${getRegistry()}
 
 Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
@@ -80,16 +78,16 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   const system_command = program
     .description(description)
     .helpOption('-h, --help', `Display help for command.`)
-    .command('config', `${emoji('👤')} Configure cloud service account.`)
-    .command('init', `${emoji('💞')} Initializing a project.`)
-    .command('cli', `${emoji('🐚')} Command line operation through yaml free mode.`)
+    .command('config', `${emoji('👤')} Configure venders account.`)
+    .command('init', `${emoji('💞')} Initializing a serverless project.`)
+    .command('cli', `${emoji('🐚')} Command line operation without yaml mode.`)
     .command('set', `${emoji('🔧')} Settings for the tool.`)
     .command('clean', `${emoji('💥')} Clean up the environment.`)
-    .command('component', `${emoji('🙋')} Get details of installed components.`)
+    .command('component', `${emoji('🔌')} Installed component information.`)
     .option('-t, --template [templatePath]', 'Specify the template file.')
     .option('-a, --access [aliasName]', 'Specify the access alias name.')
     .option('--skip-actions', 'Skip the extends section.')
-    .option('--debug', 'Debug model.')
+    .option('--debug', 'Open debug model.')
     .version(getVersion(), '-v, --version', 'Output the version number.')
     .addHelpCommand(false);
 
