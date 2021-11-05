@@ -2,14 +2,13 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { configSet } from './utils';
 import {
   registerCommandChecker,
   recordCommandHistory,
   registerCustomerCommand,
   registerUniversalCommand,
 } from './utils/command-util';
-import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
+import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
@@ -22,17 +21,6 @@ import { updateTemplate } from './init/update-template';
 const { colors, jsyaml: yaml } = core;
 const pkg = require('../package.json');
 require('dotenv').config();
-
-const { getConfig, setConfig } = configSet;
-
-function getRegistry() {
-  let registry = getConfig('registry');
-  if (!registry || registry.indexOf('serverlessfans.cn') !== -1) {
-    registry = DEFAULT_REGIRSTRY;
-    setConfig('registry', registry);
-  }
-  return registry;
-}
 
 async function setSpecialCommand() {
   const templateFile = checkAndReturnTemplateFile();
