@@ -2,6 +2,7 @@ import program from 'commander';
 import { logger } from '../../utils';
 import { CommandError } from '../../error';
 import core from '../../utils/core';
+import { emoji } from '../../utils/common';
 const { inquirer } = core;
 import { setConfig, getConfig } from '../../utils/handler-set-config';
 
@@ -52,7 +53,7 @@ program
   .parse(process.argv);
 (async () => {
   if (program.args.length === 0) {
-    logger.log(`\n🔎 Current registry: ${getConfig('registry')}\n`);
+    logger.log(`\n${emoji('🔎')} Current registry: ${getConfig('registry', 'http://registry.devsapp.cn/simple')}\n`);
     let answers = await inquirer.prompt(registryInquire);
     if (answers.registry === CUSTOMER_KEY) {
       answers = await inquirer.prompt([

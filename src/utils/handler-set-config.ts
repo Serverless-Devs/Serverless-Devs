@@ -48,9 +48,9 @@ export function setConfig(key: string, value: any) {
   setProfileFile(profile);
 }
 
-export function getConfig(key: string): any {
+export function getConfig(key: string, defaultValue?: any): any {
   const profile = getProfileFile();
-  return profile[key];
+  return profile[key] || defaultValue;
 }
 
 export async function handlerProfileFile(params: ProfileParams) {

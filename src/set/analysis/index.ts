@@ -2,6 +2,7 @@ import program from 'commander';
 import { CommandError } from '../../error';
 import logger from '../../utils/logger';
 import core from '../../utils/core';
+import { emoji } from '../../utils/common';
 const { inquirer } = core;
 import { setConfig, getConfig } from '../../utils/handler-set-config';
 
@@ -37,7 +38,7 @@ const promptOption = [
 ];
 (async () => {
   if (program.args.length === 0) {
-    logger.log(`\n📝 Current analysis action: ${getConfig('analysis')}\n`);
+    logger.log(`\n${emoji('📝')} Current analysis action: ${getConfig('analysis', 'enable')}\n`);
     const answers = await inquirer.prompt(promptOption);
     setConfig('analysis', answers.analysis);
   }
