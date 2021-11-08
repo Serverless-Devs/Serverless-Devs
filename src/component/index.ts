@@ -6,16 +6,20 @@ import path from 'path';
 import logger from '../utils/logger';
 import { getFolderSize } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
+import { emoji } from '../utils/common';
+
 const Table = require('tty-table');
 
-const { minimist, getYamlContent, fse: fs } = core;
+const { minimist, getYamlContent, fse: fs, colors } = core;
 
 const description = `Get details of installed components.
     Example:
         $ s component
         $ s component --component fc-api
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/component.md`;
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/component.md',
+)}`;
 const command = program
   .name('s component')
   .usage('[options]')

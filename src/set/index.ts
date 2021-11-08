@@ -1,9 +1,14 @@
 import program from 'commander';
 import { emoji } from '../utils/common';
+import core from '../utils/core';
+
+const { colors } = core;
 
 const description = `You can make some default settings for the tool here.
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md`;
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
+)}`;
 
 program
   .name('s set')

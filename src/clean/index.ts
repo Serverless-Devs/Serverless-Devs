@@ -5,8 +5,9 @@ import os from 'os';
 import path from 'path';
 import logger from '../utils/logger';
 import { getConfig } from '../utils/handler-set-config';
+import { emoji } from '../utils/common';
 
-const { rimraf, minimist, fse: fs } = core;
+const { rimraf, minimist, fse: fs, colors } = core;
 
 const description = `Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
     Example:
@@ -16,7 +17,9 @@ const description = `Clean up the cache related functions of serverless devs. Yo
     Tips:
         Get all installed component: s component
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/clean.md`;
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/clean.md',
+)}`;
 const command = program
   .name('s clean')
   .usage('[options]')
