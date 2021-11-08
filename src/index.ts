@@ -16,7 +16,7 @@ import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
-import { HandleError } from './error';
+import { HandleError, HumanError } from './error';
 import { updateTemplate } from './init/update-template';
 const { colors, jsyaml: yaml } = core;
 const pkg = require('../package.json');
@@ -30,6 +30,12 @@ async function setSpecialCommand() {
     if (!['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) {
       await registerCustomerCommand(program, templateFile); // Add user-defined commands
       await registerUniversalCommand(program, templateFile); // Register pan instruction
+    }
+  } else {
+    if (!['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) {
+      const errorMessage = '当前项目没有s.yaml/s.yml, 请通过 -t 指定';
+      await new HumanError({ errorMessage }).report({ error: new Error(errorMessage) });
+      process.exit(1);
     }
   }
 }

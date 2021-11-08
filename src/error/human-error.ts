@@ -5,7 +5,7 @@ const { colors } = core;
 
 interface IConfigs {
   errorMessage: string;
-  tips: string;
+  tips?: string;
 }
 
 interface IReport {
@@ -17,7 +17,8 @@ export class HumanError {
     const { errorMessage, tips } = configs;
     this.errorMessage = errorMessage;
     console.log(`\n${bgRed('ERROR:')}`);
-    console.log(`${errorMessage} ${colors.gray(tips)}\n`);
+    const msg = tips ? `${errorMessage} ${colors.gray(tips)}\n` : `${errorMessage} \n`;
+    console.log(msg);
   }
 
   async report(configs: IReport) {
