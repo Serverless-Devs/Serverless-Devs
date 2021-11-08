@@ -49,7 +49,9 @@ $ npm install @serverless-devs/s -g
 - [Yaml规范](zh/yaml.md)
 - [CI/CD平台集成](zh/cicd.md)
 
-> 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](zh/package_dev.md)   
+> 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](zh/package_dev.md)  
+
+> Serverless Devs 天然支持 Yaml 模式与 Cli 模式，关于两者的区别和试用场景，可以参考文档[Yaml 模式 Cli 模式对比](./../yaml_and_cli.md)
 
 # 相关资源
 
