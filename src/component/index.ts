@@ -29,6 +29,17 @@ const command = program
   .addHelpCommand(false)
   .parse(process.argv);
 
+async function getComponent(filePath: string) {
+  const data = await getYamlContent(path.join(filePath, 'publish.yaml'));
+  if (data && data.Type === 'Component') {
+    data.isComponent = true;
+    return data;
+  }
+  return {
+    isComponent: false,
+  };
+}
+
 (async () => {
   const sPath = path.join(os.homedir(), '.s');
   const componentsPath = path.join(sPath, 'components');
@@ -63,24 +74,29 @@ const command = program
           const devsappSubDirs = fs.readdirSync(devsappSubPath);
           for (const devsappFileName of devsappSubDirs) {
             const filePath = path.join(devsappSubPath, devsappFileName);
-            const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
-            const size = await getFolderSize(filePath);
-            serverlessRows.push([
-              `${fileName}/${data.Name}`,
-              data.Description,
-              `${(size / 1000 / 1000).toFixed(2)} MB`,
-              data.Version,
-            ]);
+            const data = await getComponent(filePath);
+            if (data.isComponent) {
+              const size = await getFolderSize(filePath);
+              serverlessRows.push([
+                `${fileName}/${data.Name}`,
+                data.Description,
+                `${(size / 1000 / 1000).toFixed(2)} MB`,
+                data.Version,
+              ]);
+            }
           }
         } else {
           const filePath = path.join(devsappPath, fileName);
-          const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
-          const size = await getFolderSize(filePath);
-          serverlessRows.push([data.Name, data.Description, `${(size / 1000 / 1000).toFixed(2)} MB`, data.Version]);
+          const data = await getComponent(filePath);
+          if (data.isComponent) {
+            const size = await getFolderSize(filePath);
+            serverlessRows.push([data.Name, data.Description, `${(size / 1000 / 1000).toFixed(2)} MB`, data.Version]);
+          }
         }
       }
+
       const serverlessOut = Table(header, serverlessRows, options).render();
-      logger.log('\n🔎 serverless registry [http://registry.devsapp.cn/simple] ');
+      logger.log(`\n${emoji('🔎')} serverless registry [http://registry.devsapp.cn/simple] `);
       logger.log(serverlessOut);
     }
     // github源
@@ -92,18 +108,20 @@ const command = program
         const githubSubDirs = fs.readdirSync(githubSubPath);
         for (const githubFileName of githubSubDirs) {
           const filePath = path.join(githubSubPath, githubFileName);
-          const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
-          const size = await getFolderSize(filePath);
-          githubRows.push([
-            `${fileName}/${data.Name}`,
-            data.Description,
-            `${(size / 1000 / 1000).toFixed(2)} MB`,
-            data.Version,
-          ]);
+          const data = await getComponent(filePath);
+          if (data.isComponent) {
+            const size = await getFolderSize(filePath);
+            githubRows.push([
+              `${fileName}/${data.Name}`,
+              data.Description,
+              `${(size / 1000 / 1000).toFixed(2)} MB`,
+              data.Version,
+            ]);
+          }
         }
       }
       const githubOut = Table(header, githubRows, options).render();
-      logger.log('\n🔎 github registry [https://api.github.com/repos]');
+      logger.log(`\n${emoji('🔎')} github registry [https://api.github.com/repos]`);
       logger.log(githubOut);
     }
     return;
@@ -118,38 +136,46 @@ const command = program
       if (registry === 'http://registry.devsapp.cn/simple') {
         const filePath = path.join(devsappPath, args.component);
         if (fs.existsSync(filePath)) {
-          const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
-          const size = await getFolderSize(filePath);
-          const outputs = {
-            Component: data.Name,
-            Reigstry: `serverless registry [${registry}]`,
-            Version: data.Version,
-            Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
-            Description: data.Description,
-            Path: filePath,
-            Hompage: data.HomePage,
-          };
-          logger.output(outputs);
-          logger.log(`\n🙋 Delete the component, please use the command [s clean --component ${args.component}]`);
+          const data = await getComponent(filePath);
+          if (data.isComponent) {
+            const size = await getFolderSize(filePath);
+            const outputs = {
+              Component: data.Name,
+              Reigstry: `serverless registry [${registry}]`,
+              Version: data.Version,
+              Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
+              Description: data.Description,
+              Path: filePath,
+              Hompage: data.HomePage,
+            };
+            logger.output(outputs);
+            logger.log(`\n🙋 Delete the component, please use the command [s clean --component ${args.component}]`);
+          }
+        } else {
+          logger.log(`不存在[${args.component}]组件，请输入指令 s component 查看所有的组件`);
         }
       }
       // git 源
       if (registry === 'https://api.github.com/repos') {
         const filePath = path.join(githubPath, args.component);
         if (fs.existsSync(filePath)) {
-          const data = (await getYamlContent(path.join(filePath, 'publish.yaml'))) || {};
-          const size = await getFolderSize(filePath);
-          const outputs = {
-            Component: data.Name,
-            Reigstry: `github registry [${registry}]`,
-            Version: data.Version,
-            Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
-            Description: data.Description,
-            Path: filePath,
-            Hompage: data.HomePage,
-          };
-          logger.output(outputs);
-          logger.log(`\n🙋 Delete the component, please use the command [s clean --component ${args.component}]`);
+          const data = await getComponent(filePath);
+          if (data.isComponent) {
+            const size = await getFolderSize(filePath);
+            const outputs = {
+              Component: data.Name,
+              Reigstry: `github registry [${registry}]`,
+              Version: data.Version,
+              Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
+              Description: data.Description,
+              Path: filePath,
+              Hompage: data.HomePage,
+            };
+            logger.output(outputs);
+            logger.log(`\n🙋 Delete the component, please use the command [s clean --component ${args.component}]`);
+          }
+        } else {
+          logger.log(`不存在[${args.component}]组件，请输入指令 s component 查看所有的组件`);
         }
       }
       return;
