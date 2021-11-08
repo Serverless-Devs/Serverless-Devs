@@ -10,6 +10,7 @@ export { ConfigGetError } from './config-get-error';
 export { InitError } from './init-error';
 export { ServerlessError } from './serverless-error';
 export { HumanError } from './human-error';
+export { HumanWarning } from './human-warning';
 
 const pid = getMAC().replace(/:/g, '');
 

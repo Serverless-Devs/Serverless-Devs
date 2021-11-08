@@ -17,8 +17,8 @@ export class HumanError {
     const { errorMessage, tips } = configs;
     this.errorMessage = errorMessage;
     console.log(`\n${bgRed('ERROR:')}`);
-    const msg = tips ? `${errorMessage} ${colors.gray(tips)}\n` : `${errorMessage} \n`;
-    console.log(msg);
+    console.log(`TypeError: ${errorMessage}\n`);
+    console.log(`${colors.gray(tips)}\n`);
   }
 
   async report(configs: IReport) {

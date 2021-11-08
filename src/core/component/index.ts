@@ -8,9 +8,9 @@ import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
-import { HandleError, HumanError } from '../../error';
+import { HandleError, HumanError, HumanWarning } from '../../error';
 import core from '../../utils/core';
-const { getCredential, loadComponent, jsyaml: yaml } = core;
+const { getCredential, loadComponent, jsyaml: yaml, colors } = core;
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
 const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
@@ -167,11 +167,14 @@ export class ComponentExeCute {
         }
       }
       // 方法不存在，此时系统将会认为是未找到组件方法，系统的exit code为100；
-      const errorMessage = `componentInstance[${this.method}] is not a function`;
-      await new HumanError({
-        errorMessage,
-        tips: `请检查组件${this.componentConfig.component}是否存在${this.method}方法`,
-      }).report({ error: new Error(errorMessage) });
+      new HumanError({
+        errorMessage: `The [${this.method}] command was not found.`,
+        tips: `Please check the component ${this.componentConfig.component} has the ${
+          this.method
+        } method. Serverless Devs documents：${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/tree/docs/docs/zh/command',
+        )}`,
+      });
       process.exit(100);
     }
     // 应用级操作
@@ -189,7 +192,14 @@ export class ComponentExeCute {
       }
     } else {
       // 方法不存在，进行警告，但是并不会报错，最终的exit code为0；
-      logger.warning(`${this.componentConfig.ProjectName}服务未找到${this.componentConfig.component}组件${method}方法`);
+      new HumanWarning({
+        warningMessage: `The [${this.method}] command was not found.`,
+        tips: `Please check the component ${this.componentConfig.component} has the ${
+          this.method
+        } method, Serverless Devs documents：${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/tree/docs/docs/zh/command',
+        )}`,
+      });
     }
   }
 

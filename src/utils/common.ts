@@ -45,13 +45,13 @@ export function yamlLoad(filePath: string) {
     return yaml.load(content);
   } catch (error) {
     const filename = path.basename(filePath);
-    const errorMessage = `${filename}格式不正确`;
     new HumanError({
-      errorMessage,
-      tips: `请检查${filename}的配置`,
-    })
-      .report({ error: new Error(errorMessage) })
-      .then(() => process.exit(1));
+      errorMessage: `${filename} format is incorrect`,
+      tips: `Please check the configuration of ${filename}，Serverless Devs' Yaml specification document can refer to：${colors.underline(
+        'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/yaml.md',
+      )}`,
+    });
+    process.exit(1);
   }
 }
 

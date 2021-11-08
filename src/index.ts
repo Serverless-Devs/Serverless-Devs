@@ -33,8 +33,10 @@ async function setSpecialCommand() {
     }
   } else {
     if (!['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) {
-      const errorMessage = '当前项目没有s.yaml/s.yml, 请通过 -t 指定';
-      await new HumanError({ errorMessage }).report({ error: new Error(errorMessage) });
+      new HumanError({
+        errorMessage: 's.yaml/s.yml file not found',
+        tips: 'Please check if the s.yaml/s.yml file exists, you can also specify it with -t',
+      });
       process.exit(1);
     }
   }
