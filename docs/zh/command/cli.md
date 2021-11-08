@@ -6,7 +6,8 @@
 - [常见模式](#常见模式)
     - [通用组件的支持](#通用组件的支持)
     - [特定组件的支持](#特定组件的支持)
-- [特点对比](#特点对比)
+
+> Yaml 模式与 Cli 模式的区别和试用场景，可以参考文档[Yaml 模式 Cli 模式对比](./../yaml_and_cli.md)
 
 ## 命令解析
 
@@ -88,10 +89,3 @@ s cli devsapp/website deploy -p "{\"bucket\":\"testbucket\",\"src\":{\"codeUri\"
 ```shell script
 s cli fc sync --region cn-shanghai --service-name myService --type config
 ```
-
-## 特点对比
-
-| 模式 | 使用方法 | 优势 |  劣势 |  适用场景  |
-| --- | --- | --- | --- | --- |
-| Yaml模式 | 在具有符合Serverless Devs规范，且存在资源/行为描述的Yaml文件的应用目录下，执行组件对应的命令，即可直接使用，例如`s deploy`，`s servicename build`等 | 可以一键部署一个完整的应用（例如，某个应用中规定了多个Service，可以通过该命令一键部署）；同时，通过资源/行为描述文档，可以更佳简单，清晰的对应用进行描述； | 需要学习Yaml的规范，且在某些时候与一些自动化流程进行结合，会比较复杂； | 部署、运维等操作，尤其是批量操作时更为合适； |
-| 纯Cli模式 | 在任何目录下，通过子命令`cli`进行触发，同样适用全部组件，例如`s cli deploy -p "{/"function/": /"function-name/"}"`，`s cli fc-api listFunctions --service-name my-service` | 相对来说可以更加简单，快速上手工具，并且可以非常简单的与自动化流程进行结合，降低了Yaml格式/规范的学习难度 | 对于一些复杂项目而言，需要在命令行中写过多的参数，出错的概率会比较高；mei you ban fa | 更适合项目的管理，源自化操作 |
