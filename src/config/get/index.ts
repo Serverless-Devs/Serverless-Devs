@@ -68,7 +68,7 @@ function getSecretValue(n: number, str = ' ') {
   `);
       process.exit(1);
     } else {
-      logger.log(yaml.dump(accessInfo));
+      logger.output(accessInfo);
       return accessInfo;
     }
   }
@@ -76,7 +76,7 @@ function getSecretValue(n: number, str = ' ') {
     if (Object.keys(accessInfo).includes(access)) {
       const accessData = {};
       accessData[access] = accessInfo[typeof access === 'boolean' ? 'default' : access];
-      logger.log(yaml.dump(accessData));
+      logger.output(accessData);
       return accessData;
     } else {
       logger.error(`\n\n  ${emoji('❌')} Message: Unable to get key information with alias ${access}.
