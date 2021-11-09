@@ -5,6 +5,7 @@ import { HandleError } from '../error';
 import { startsWith, get } from 'lodash';
 import core from '../utils/core';
 const { jsyaml: yaml } = core;
+import { cloneDeep } from 'lodash';
 
 interface MAP_OBJECT {
   [key: string]: any;
@@ -183,7 +184,7 @@ export class Parse {
     } else {
       variable = _variable;
     }
-    return variable;
+    return cloneDeep(variable);
   }
 
   async getRealVariables(parsedObj: any) {
