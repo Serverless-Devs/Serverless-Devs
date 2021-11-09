@@ -7,6 +7,7 @@ import logger from '../utils/logger';
 import { getFolderSize } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
+import { HumanError } from '../error';
 
 const Table = require('tty-table');
 
@@ -38,6 +39,15 @@ async function getComponent(filePath: string) {
   return {
     isComponent: false,
   };
+}
+
+function notFound(args) {
+  new HumanError({
+    errorMessage: `[${args.component}] component not found`,
+    tips: `Please enter the command 's component' to view all components, Serverless Devs' Component document can refer to：${colors.underline(
+      'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/command/component.md',
+    )}`,
+  });
 }
 
 (async () => {
@@ -131,7 +141,7 @@ async function getComponent(filePath: string) {
       string: ['component'],
     });
     if (args.component) {
-      const registry = getConfig('registry');
+      const registry = getConfig('registry', 'http://registry.devsapp.cn/simple');
       // s 源
       if (registry === 'http://registry.devsapp.cn/simple') {
         const filePath = path.join(devsappPath, args.component);
@@ -152,7 +162,7 @@ async function getComponent(filePath: string) {
             logger.log(`\n🙋 Delete the component, please use the command [s clean --component ${args.component}]`);
           }
         } else {
-          logger.log(`不存在[${args.component}]组件，请输入指令 s component 查看所有的组件`);
+          notFound(args);
         }
       }
       // git 源
@@ -175,7 +185,7 @@ async function getComponent(filePath: string) {
             logger.log(`\n🙋 Delete the component, please use the command [s clean --component ${args.component}]`);
           }
         } else {
-          logger.log(`不存在[${args.component}]组件，请输入指令 s component 查看所有的组件`);
+          notFound(args);
         }
       }
       return;

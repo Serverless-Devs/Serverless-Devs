@@ -47,7 +47,7 @@ export function yamlLoad(filePath: string) {
     const filename = path.basename(filePath);
     new HumanError({
       errorMessage: `${filename} format is incorrect`,
-      tips: `Please check the configuration of ${filename}，Serverless Devs' Yaml specification document can refer to：${colors.underline(
+      tips: `Please check the configuration of ${filename}, Serverless Devs' Yaml specification document can refer to：${colors.underline(
         'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/yaml.md',
       )}`,
     });
