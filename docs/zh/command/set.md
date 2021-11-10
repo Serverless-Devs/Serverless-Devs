@@ -159,7 +159,7 @@ Options:
 
 通过该命令，可以对 Serverless Devs 开发者工具的默认路径进行配置。 
 
-执行`s set analysis -h`命令，可以看到帮助文档
+执行`s set workspace -h`命令，可以看到帮助文档
 
 ```shell script
 $ s set workspace -h
@@ -176,7 +176,7 @@ Options:
   -h, --help  Display help for command
 ```
 
-设置 analysis 的方法有两种：
+设置 workspace 的方法有两种：
 1. 直接进行配置，例如：`s set workspace ~/.s`
 2. 通过交互式方法，进行配置：
     ```shell script
