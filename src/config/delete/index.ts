@@ -5,8 +5,7 @@ import os from 'os';
 import fs from 'fs';
 import program from 'commander';
 import { logger } from '../../utils';
-import { emoji } from '../../utils/common';
-import { HandleError } from '../../error';
+import { HandleError, HumanError } from '../../error';
 import core from '../../utils/core';
 const { colors, jsyaml: yaml } = core;
 
@@ -14,6 +13,20 @@ const description = `You can delete an account.
   
   Example:
     $ s config delete -a demo`;
+
+function notFound({ access, accessFileInfo }: { access: string; accessFileInfo?: any }) {
+  const errorMessage = accessFileInfo
+    ? `Unable to get key information with alias ${access}, You have configured these keys: [${String(
+        Object.keys(accessFileInfo),
+      )}].`
+    : `Unable to get key information with alias ${access}`;
+  new HumanError({
+    errorMessage,
+    tips: `You can use [s config add -h] to view configuration help, Serverless Devs' config document can refer to：${colors.underline(
+      'https://github.com/Serverless-Devs/Serverless-Devs/blob/docs/docs/zh/command/config.md',
+    )}`,
+  });
+}
 
 program
   .name('s config delete')
@@ -30,19 +43,16 @@ program
   }
 
   const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+  if (!fs.existsSync(accessFile)) {
+    return notFound({ access });
+  }
   const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
   if (accessFileInfo[access]) {
     delete accessFileInfo[access];
     fs.writeFileSync(accessFile, Object.keys(accessFileInfo).length > 0 ? yaml.dump(accessFileInfo) : '');
     logger.success(`Key [${access}] has been successfully removed.`);
   } else {
-    logger.error(`\n\n  ${emoji('❌️')} Message: Unable to get key information with alias ${access}.
-  ${emoji('🤔')} You have configured these keys: [${String(Object.keys(accessFileInfo))}].
-  ${emoji('🧭️')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈️')} If you have questions, please tell us: ${colors.underline(
-      'https://github.com/Serverless-Devs/Serverless-Devs/issues',
-    )}
-`);
+    notFound({ access, accessFileInfo });
     process.exit(1);
   }
 })().catch(async error => {

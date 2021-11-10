@@ -31,13 +31,25 @@ function getSecretValue(n: number, str = ' ') {
   return temp_str;
 }
 
+function notFound() {
+  const msg = `
+  ${emoji('🤔')} You have not yet been found to have configured key information.
+  ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
+  ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
+    'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+  )}`;
+  logger.log(msg);
+}
+
 (async () => {
   const serverless_devs_temp_argv = JSON.parse(process.env['serverless_devs_temp_argv']);
   const { access = process.env['serverless_devs_temp_access'] } = program as any;
   const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+  if (!fs.existsSync(accessFile)) {
+    return notFound();
+  }
   const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
   const accessInfo = {};
-  // eslint-disable-next-line guard-for-in
   for (const eveAccess in accessFileInfo) {
     const tempAccess = await getCredential(eveAccess);
     const tempAlias = tempAccess['Alias'];
@@ -55,18 +67,11 @@ function getSecretValue(n: number, str = ' ') {
     }
     accessInfo[tempAlias] = tempSecretAccess;
   }
+
   // s config get case
   if (serverless_devs_temp_argv.length === 4) {
     if (Object.keys(accessInfo).length === 0) {
-      logger.log(`${emoji('🤔')} You have not yet been found to have configured key information.
-    ${emoji(
-      '🧭',
-    )} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-    ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
-        'https://github.com/Serverless-Devs/Serverless-Devs/issues',
-      )}
-  `);
-      process.exit(1);
+      notFound();
     } else {
       logger.output(accessInfo);
       return accessInfo;
