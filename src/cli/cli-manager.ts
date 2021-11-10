@@ -2,12 +2,11 @@
 
 import { logger } from '../utils';
 import path from 'path';
-import os from 'os';
 import fs from 'fs';
 import { emoji } from '../utils/common';
 import { HandleError } from '../error';
 import core from '../utils/core';
-const { getCredential, loadComponent, colors, jsyaml: yaml } = core;
+const { getCredential, loadComponent, colors, jsyaml: yaml, getRootHome } = core;
 export interface CliParams {
   component: string;
   command: string;
@@ -35,7 +34,7 @@ export default class CliManager {
       // 获取密钥信息
       let credentials = {};
       try {
-        const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+        const accessFile = path.join(getRootHome(), 'access.yaml');
         const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
         if (accessFileInfo[access]) {
           credentials = await getCredential(access);

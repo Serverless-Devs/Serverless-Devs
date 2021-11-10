@@ -1,16 +1,15 @@
-import os from 'os';
 import path from 'path';
 import { execDaemon } from '../execDaemon';
 import latestVersion from 'latest-version';
 import boxen from 'boxen';
 import { UPDATE_CHECK_INTERVAL } from '../constants/static-variable';
 import core from '../utils/core';
-const { fse: fs, chalk, execa } = core;
+const { fse: fs, chalk, execa, getRootHome } = core;
 const pkg = require('../../package.json');
 const semver = require('semver');
 const semverDiff = require('semver-diff');
 
-const configPath = path.join(os.homedir(), '.s', 'config');
+const configPath = path.join(getRootHome(), 'config');
 const updateNotifierPath = path.join(configPath, 'update-notifier.json');
 
 function format(val) {

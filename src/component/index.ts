@@ -1,7 +1,6 @@
 import program from 'commander';
 import core from '../utils/core';
 import i18n from '../utils/i18n';
-import os from 'os';
 import path from 'path';
 import logger from '../utils/logger';
 import { getFolderSize } from '../utils/common';
@@ -11,7 +10,7 @@ import { HumanWarning } from '../error';
 
 const Table = require('tty-table');
 
-const { minimist, getYamlContent, fse: fs, colors } = core;
+const { minimist, getYamlContent, fse: fs, colors, getRootHome } = core;
 
 const description = `Get details of installed components.
     Example:
@@ -51,7 +50,7 @@ function notFound(args) {
 }
 
 (async () => {
-  const sPath = path.join(os.homedir(), '.s');
+  const sPath = getRootHome();
   const componentsPath = path.join(sPath, 'components');
   const devsappPath = path.join(componentsPath, 'devsapp.cn');
   const githubPath = path.join(componentsPath, 'github.com');

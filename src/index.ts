@@ -10,7 +10,6 @@ import {
 } from './utils/command-util';
 import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
 import path from 'path';
-import os from 'os';
 import fs from 'fs';
 import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
@@ -18,7 +17,7 @@ import onboarding from './onboarding';
 import core from './utils/core';
 import { HandleError, HumanError } from './error';
 import { updateTemplate } from './init/update-template';
-const { colors, jsyaml: yaml } = core;
+const { colors, jsyaml: yaml, getRootHome } = core;
 const pkg = require('../package.json');
 require('dotenv').config();
 
@@ -109,7 +108,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   const index = templateTag ? process.argv.indexOf(templateTag) : -1;
   let accessFileInfo = {};
   try {
-    const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+    const accessFile = path.join(getRootHome(), 'access.yaml');
     accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
   } catch (e) {
     accessFileInfo = {};

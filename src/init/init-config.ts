@@ -1,15 +1,13 @@
 import { i18n } from '../utils';
-import os from 'os';
 import path from 'path';
 import { getLang } from '../utils/common';
 import { map, each, concat, filter, lowerCase, sortBy } from 'lodash';
 import templateJson from './template';
 import core from '../utils/core';
-const { fse: fs } = core;
+const { fse: fs, getRootHome } = core;
 
 function getTemplateData() {
-  const S_ROOT_HOME = path.join(os.homedir(), '.s');
-  const cachePath = path.join(S_ROOT_HOME, 'cache');
+  const cachePath = path.join(getRootHome(), 'cache');
   const templatePath = path.join(cachePath, 'alibaba-template', 'template.json');
   return fs.existsSync(templatePath) ? require(templatePath) : templateJson;
 }

@@ -1,13 +1,12 @@
 import program from 'commander';
 import core from '../utils/core';
 import i18n from '../utils/i18n';
-import os from 'os';
 import path from 'path';
 import logger from '../utils/logger';
 import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
 
-const { rimraf, minimist, fse: fs, colors } = core;
+const { rimraf, minimist, fse: fs, colors, getRootHome } = core;
 
 const description = `Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
     Example:
@@ -37,7 +36,7 @@ try {
   }
 
   if (process.argv.length > 2) {
-    const sPath = path.join(os.homedir(), '.s');
+    const sPath = getRootHome();
     const cachePath = path.join(sPath, 'cache');
     const componentsPath = path.join(sPath, 'components');
     const githubPath = path.join(componentsPath, 'github.com');

@@ -1,12 +1,11 @@
 import path from 'path';
-import os from 'os';
 import fs from 'fs';
 import program from 'commander';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
 import { HandleError } from '../../error';
 import core from '../../utils/core';
-const { getCredential, colors, jsyaml: yaml } = core;
+const { getCredential, colors, jsyaml: yaml, getRootHome } = core;
 
 const description = `You can get accounts.
  
@@ -44,7 +43,7 @@ function notFound() {
 (async () => {
   const serverless_devs_temp_argv = JSON.parse(process.env['serverless_devs_temp_argv']);
   const { access = process.env['serverless_devs_temp_access'] } = program as any;
-  const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+  const accessFile = path.join(getRootHome(), 'access.yaml');
   if (!fs.existsSync(accessFile)) {
     return notFound();
   }

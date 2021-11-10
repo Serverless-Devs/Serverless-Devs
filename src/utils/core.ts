@@ -1,9 +1,9 @@
-import os from 'os';
 import path from 'path';
 import fs from 'fs';
 const semver = require('semver');
+const core = require('@serverless-devs/core');
 
-const corePath = path.join(os.homedir(), '.s', 'cache', 'core');
+const corePath = path.join(core.getRootHome(), 'cache', 'core');
 const corePackagePath = path.join(corePath, 'package.json');
 
 function getCore() {

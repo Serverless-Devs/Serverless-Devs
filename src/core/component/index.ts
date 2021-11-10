@@ -2,7 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import os from 'os';
 import { PackageType } from '../../entiry';
 import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
@@ -10,10 +9,10 @@ import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
 import { HandleError, HumanError, HumanWarning } from '../../error';
 import core from '../../utils/core';
-const { getCredential, loadComponent, jsyaml: yaml, colors } = core;
+const { getCredential, loadComponent, jsyaml: yaml, colors, getRootHome } = core;
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
-const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
+const S_COMPONENT_BASE_PATH = path.join(getRootHome(), 'components');
 
 export interface ComponentConfig {
   component: string;
@@ -120,7 +119,7 @@ export class ComponentExeCute {
       return null;
     }
     try {
-      const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+      const accessFile = path.join(getRootHome(), 'access.yaml');
       const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
       const accessInfo = accessFileInfo[access] ? await getCredential(access) : {};
       this.componentConfig.access = access;

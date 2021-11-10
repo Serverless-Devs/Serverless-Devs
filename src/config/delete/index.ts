@@ -1,13 +1,12 @@
 /** @format */
 
 import path from 'path';
-import os from 'os';
 import fs from 'fs';
 import program from 'commander';
 import { logger } from '../../utils';
 import { HandleError, HumanError } from '../../error';
 import core from '../../utils/core';
-const { colors, jsyaml: yaml } = core;
+const { colors, jsyaml: yaml, getRootHome } = core;
 
 const description = `You can delete an account.
   
@@ -42,7 +41,7 @@ program
     program.help();
   }
 
-  const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+  const accessFile = path.join(getRootHome(), 'access.yaml');
   if (!fs.existsSync(accessFile)) {
     return notFound({ access });
   }
