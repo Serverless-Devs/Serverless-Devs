@@ -182,7 +182,9 @@ function notFound(args) {
               Hompage: data.HomePage,
             };
             logger.output(outputs);
-            logger.log(`\n🙋 Delete the component, please use the command [s clean --component ${args.component}]`);
+            logger.log(
+              `\n${emoji('🙋')} Delete the component, please use the command [s clean --component ${args.component}]`,
+            );
           }
         } else {
           notFound(args);

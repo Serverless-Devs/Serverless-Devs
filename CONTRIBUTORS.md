@@ -2,6 +2,8 @@
 
 > Thank you for your support and recognition of serverless devs. Serverless devs is committed to creating an active and open serverless developer ecosystem, providing more simple and easy-to-use serverless developer tools for more serverless developers.
 
+> If you also contributed to this project, but there is no your name below, please add your information at the end in order and submit [Pull Requests](https://github.com/Serverless-Devs/Serverless-Devs/pulls) to us
+
 <center>
     <table>
         <tr>
