@@ -3,13 +3,19 @@
 import program, { Command } from 'commander';
 import { CommandError } from '../error';
 import CliManager from './cli-manager';
+import core from '../utils/core';
+import { emoji } from '../utils/common';
+const { colors } = core;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
     Example:
         $ s cli fc-api listServices
         $ s cli fc-api listFunctions --service-name my-service
         $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
-    `;
+
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md',
+)}`;
 
 const cliCommand = program
   .name('s cli')

@@ -13,6 +13,7 @@ const description = `Initialize a new project based on a template. You can initi
     Example:
         $ s init
         $ s init project
+        $ s init project -d my_dir
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         

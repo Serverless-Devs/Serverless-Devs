@@ -7,7 +7,7 @@ import logger from '../utils/logger';
 import { getFolderSize } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
-import { HumanError } from '../error';
+import { HumanWarning } from '../error';
 
 const Table = require('tty-table');
 
@@ -42,8 +42,8 @@ async function getComponent(filePath: string) {
 }
 
 function notFound(args) {
-  new HumanError({
-    errorMessage: `[${args.component}] component not found`,
+  new HumanWarning({
+    warningMessage: `the [${args.component}] component was not found.`,
     tips: `Please enter the command 's component' to view all components, Serverless Devs' Component document can refer to：${colors.underline(
       'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/command/component.md',
     )}`,
