@@ -6,6 +6,7 @@
 - [set registry 命令](#set-registry-命令)
 - [set locale 命令](#set-locale-命令)
 - [set analysis 命令](#set-analysis-命令)
+- [set workspace 命令](#set-workspace-命令)
 
 ## 命令解析
 
@@ -36,7 +37,7 @@ Commands:
 
 ## set registry 命令
 
-通过该命令，可以进行 Serverless Devs 所配置的 Registry 内容切换。 
+通过该命令，可以对 Serverless Devs 开发者工具进行 Registry 配置。 
 
 执行`s set registry -h`命令，可以看到帮助文档
 
@@ -82,7 +83,7 @@ Options:
 
 ## set locale 命令
 
-通过该命令，可以进行 Serverless Devs 所配置的语言内容切换。 
+通过该命令，可以对 Serverless Devs 开发者工具的语言进行配置。 
 
 执行`s set locale -h`命令，可以看到帮助文档
 
@@ -119,7 +120,7 @@ Options:
 
 ## set analysis 命令
 
-通过该命令，可以进行 Serverless Devs 所配置的数据分析行为配置。 
+通过该命令，可以对 Serverless Devs 开发者工具的数据分析能力进行配置。  
 
 执行`s set analysis -h`命令，可以看到帮助文档
 
@@ -153,3 +154,42 @@ Options:
     此时，只需要选择对应的选项，就可以引导式的进行操作。
 
 > 🙊 注：系统默认的 analysis 是：`enable`
+
+## set workspace 命令
+
+通过该命令，可以对 Serverless Devs 开发者工具的默认路径进行配置。 
+
+执行`s set analysis -h`命令，可以看到帮助文档
+
+```shell script
+$ s set workspace -h
+
+Usage: s set workspace [options]
+
+Set workspace path. Switching workspaces may make previously cached components and configured key information unavailable.
+
+    Example:
+        $ s set workspace
+        $ s set workspace ~/.s
+
+Options:
+  -h, --help  Display help for command
+```
+
+设置 analysis 的方法有两种：
+1. 直接进行配置，例如：`s set workspace ~/.s`
+2. 通过交互式方法，进行配置：
+    ```shell script
+    $ s set workspace
+    
+    📝 Current workspace path: ~/.s
+    
+    🙊 Switching workspaces may make previously cached components and configured key information unavailable.
+     
+    ? Please input an absolute path: 
+    ```
+    此时，只需要选择对应的选项，就可以引导式的进行操作。
+
+
+
+> 🙊 注：系统默认的 workspace 是：`~/.s`
