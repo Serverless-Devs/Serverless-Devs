@@ -3,9 +3,9 @@
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-import { getConfig } from './handler-set-config';
+// import { getConfig } from './handler-set-config';
 import os from 'os';
-import osLocale from 'os-locale';
+// import osLocale from 'os-locale';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
 const { colors, jsyaml: yaml } = core;
@@ -135,20 +135,21 @@ export function printn(n: number, str = ' ') {
 }
 
 export function getLang() {
-  try {
-    let lang: string = getConfig('locale');
-    if (_.isEmpty(lang)) {
-      const langKey = osLocale.sync();
-      const obj = {
-        'en-US': 'en',
-        'zh-CN': 'zh',
-      };
-      lang = _.get(obj, langKey, 'zh');
-    }
-    return lang;
-  } catch (e) {
-    return 'zh';
-  }
+  return 'en';
+  // try {
+  //   let lang: string = getConfig('locale');
+  //   if (_.isEmpty(lang)) {
+  //     const langKey = osLocale.sync();
+  //     const obj = {
+  //       'en-US': 'en',
+  //       'zh-CN': 'zh',
+  //     };
+  //     lang = _.get(obj, langKey, 'zh');
+  //   }
+  //   return lang;
+  // } catch (e) {
+  //   return 'zh';
+  // }
 }
 export function replaceFun(str, obj) {
   const reg = /\{\{(.*?)\}\}/g;
