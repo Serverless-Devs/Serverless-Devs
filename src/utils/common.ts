@@ -3,9 +3,9 @@
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-import { getConfig } from './handler-set-config';
+// import { getConfig } from './handler-set-config';
 import os from 'os';
-import osLocale from 'os-locale';
+// import osLocale from 'os-locale';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
 const { colors, jsyaml: yaml } = core;
@@ -22,13 +22,36 @@ export function getVersion() {
     : `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`;
 }
 
+export async function getFolderSize(rootItemPath: string) {
+  const fileSizes = new Map();
+  await processItem(rootItemPath);
+  async function processItem(itemPath: string) {
+    const stats = fs.lstatSync(itemPath);
+    if (typeof stats !== 'object') return;
+    fileSizes.set(stats.ino, stats.size);
+    if (stats.isDirectory()) {
+      const directoryItems = fs.readdirSync(itemPath);
+      if (typeof directoryItems !== 'object') return;
+      await Promise.all(directoryItems.map(directoryItem => processItem(path.join(itemPath, directoryItem))));
+    }
+  }
+  const folderSize = Array.from(fileSizes.values()).reduce((total, fileSize) => total + fileSize, 0);
+  return folderSize;
+}
+
 export function yamlLoad(filePath: string) {
   const content = fs.readFileSync(filePath, 'utf8');
   try {
     return yaml.load(content);
   } catch (error) {
     const filename = path.basename(filePath);
-    new HumanError(`${filename}格式不正确`, `请检查${filename}的配置`, error);
+    new HumanError({
+      errorMessage: `${filename} format is incorrect`,
+      tips: `Please check the configuration of ${filename}, Serverless Devs' Yaml specification document can refer to：${colors.underline(
+        'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/yaml.md',
+      )}`,
+    });
+    process.exit(1);
   }
 }
 
@@ -112,20 +135,21 @@ export function printn(n: number, str = ' ') {
 }
 
 export function getLang() {
-  try {
-    let lang: string = getConfig('locale');
-    if (_.isEmpty(lang)) {
-      const langKey = osLocale.sync();
-      const obj = {
-        'en-US': 'en',
-        'zh-CN': 'zh',
-      };
-      lang = _.get(obj, langKey, 'en');
-    }
-    return lang;
-  } catch (e) {
-    return 'en';
-  }
+  return 'en';
+  // try {
+  //   let lang: string = getConfig('locale');
+  //   if (_.isEmpty(lang)) {
+  //     const langKey = osLocale.sync();
+  //     const obj = {
+  //       'en-US': 'en',
+  //       'zh-CN': 'zh',
+  //     };
+  //     lang = _.get(obj, langKey, 'zh');
+  //   }
+  //   return lang;
+  // } catch (e) {
+  //   return 'zh';
+  // }
 }
 export function replaceFun(str, obj) {
   const reg = /\{\{(.*?)\}\}/g;

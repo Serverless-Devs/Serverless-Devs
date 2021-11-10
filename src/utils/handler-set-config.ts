@@ -1,10 +1,9 @@
 /** @format */
 
-import os from 'os';
 import path from 'path';
 import storage from './storage';
 import core from './core';
-const { fse: fs, jsyaml: yaml } = core;
+const { fse: fs, jsyaml: yaml, getRootHome } = core;
 interface ProfileParams {
   data?: any;
   configKey?: string;
@@ -48,19 +47,19 @@ export function setConfig(key: string, value: any) {
   setProfileFile(profile);
 }
 
-export function getConfig(key: string): any {
+export function getConfig(key: string, defaultValue?: any): any {
   const profile = getProfileFile();
-  return profile[key];
+  return profile[key] || defaultValue;
 }
 
 export async function handlerProfileFile(params: ProfileParams) {
   const filePath = params.filePath || 'set-config.yml';
-  const profPath = path.join(os.homedir(), '.s', filePath);
+  const profPath = path.join(getRootHome(), filePath);
   const isExists = fs.existsSync(profPath);
   let profile: Profile = {};
   // 如果文件和目录不存在则创建，存在则读取
   if (!isExists) {
-    const configDir = path.join(os.homedir(), '.s');
+    const configDir = getRootHome();
     try {
       fs.statSync(configDir);
     } catch (e) {

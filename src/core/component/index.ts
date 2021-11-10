@@ -2,18 +2,17 @@
 
 import fs from 'fs';
 import path from 'path';
-import os from 'os';
 import { PackageType } from '../../entiry';
 import { DEFAULT_REGIRSTRY } from '../../constants/static-variable';
 import { version, Parse } from '../../specification';
 import { configSet, logger } from '../../utils';
 import { Hook } from './hook';
-import { handleError } from '../../error';
+import { HandleError, HumanError, HumanWarning } from '../../error';
 import core from '../../utils/core';
-const { getCredential, loadComponent, jsyaml: yaml } = core;
+const { getCredential, loadComponent, jsyaml: yaml, colors, getRootHome } = core;
 
 const { getServiceConfigDetail, getServiceInputs, getServiceActions } = version;
-const S_COMPONENT_BASE_PATH = path.join(os.homedir(), '.s', 'components');
+const S_COMPONENT_BASE_PATH = path.join(getRootHome(), 'components');
 
 export interface ComponentConfig {
   component: string;
@@ -59,49 +58,51 @@ export function generateSynchronizeComponentExeList(
   return list.map(projectName => {
     return () => {
       return new Promise(async (resolve, reject) => {
-        try {
-          parsedObj.Params = params || '';
-          logger.info(`Start executing project ${projectName}`);
-          const projectConfig = await equipment(parse, projectName, parsedObj);
-          if (process.env['serverless_devs_temp_access']) {
-            projectConfig.Access = process.env['serverless_devs_temp_access'];
-            projectConfig.access = process.env['serverless_devs_temp_access'];
-          }
-          const componentExecute = new ComponentExeCute(projectConfig, method, parsedObj.edition);
-          const Output = await componentExecute.init();
-          if (parsedObj.edition) {
-            //  兼容新版规范
-            parsedObj.services[projectName].output = Output;
-          } else {
-            parsedObj[projectName].Output = Output;
-          }
-          logger.info(`Project ${projectName} successfully to execute \n\t`);
-          resolve({ name: projectName, data: Output });
-        } catch (e) {
-          const tempError = JSON.parse(process.env['s-execute-file'] || '{"Error": []}');
-          const tempErrorAttr = {};
-          tempErrorAttr[projectName] = e.message.includes('e[t] is not a function')
-            ? `Project ${projectName} does not include [${method}] method`
-            : e.message;
-          tempError['Error'].push(tempErrorAttr);
-          process.env['s-execute-file'] = JSON.stringify(tempError);
-          handleError(e, `Project ${projectName} failed to execute:`, false);
-          resolve({});
+        parsedObj.Params = params || '';
+        logger.info(`Start executing project ${projectName}`);
+        const projectConfig = await equipment(parse, projectName, parsedObj);
+        if (process.env['serverless_devs_temp_access']) {
+          projectConfig.Access = process.env['serverless_devs_temp_access'];
+          projectConfig.access = process.env['serverless_devs_temp_access'];
         }
+        const componentExecute = new ComponentExeCute({
+          componentConfig: projectConfig,
+          method,
+          version: parsedObj.edition,
+        });
+        const Output = await componentExecute.init();
+        if (parsedObj.edition) {
+          //  兼容新版规范
+          parsedObj.services[projectName].output = Output;
+        } else {
+          parsedObj[projectName].Output = Output;
+        }
+        logger.info(`Project ${projectName} successfully to execute \n\t`);
+        resolve({ name: projectName, data: Output });
       });
     };
   });
 }
 
-export class ComponentExeCute {
-  protected credentials: any;
+interface IComponentExeCute {
+  componentConfig: ComponentConfig;
+  method: string;
+  version: string;
+  customerCommandName?: string; // 存在说明是 服务级操作
+}
 
-  constructor(
-    protected componentConfig: ComponentConfig,
-    protected method: string,
-    protected version: string = '0.0.1',
-    protected templateFile?: string,
-  ) {
+export class ComponentExeCute {
+  private credentials: any;
+  private componentConfig: ComponentConfig;
+  private method: string;
+  private version: string = '0.0.1';
+  private customerCommandName: string;
+
+  constructor(config: IComponentExeCute) {
+    this.componentConfig = config.componentConfig;
+    this.method = config.method;
+    this.version = config.version;
+    this.customerCommandName = config.customerCommandName;
     if (!fs.existsSync(S_COMPONENT_BASE_PATH)) {
       fs.mkdirSync(S_COMPONENT_BASE_PATH);
     }
@@ -118,7 +119,7 @@ export class ComponentExeCute {
       return null;
     }
     try {
-      const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+      const accessFile = path.join(getRootHome(), 'access.yaml');
       const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
       const accessInfo = accessFileInfo[access] ? await getCredential(access) : {};
       this.componentConfig.access = access;
@@ -149,15 +150,56 @@ export class ComponentExeCute {
   }
 
   async invokeMethod(componentInstance: any, method: string, data: any) {
-    const promise = new Promise(async (resolve, reject) => {
+    // 服务级操作
+    if (this.customerCommandName) {
+      if (componentInstance[method]) {
+        // 方法存在，执行报错，退出码101
+        try {
+          const result = await componentInstance[method](data);
+          return result;
+        } catch (error) {
+          await new HandleError({
+            error,
+            prefix: `Project ${this.componentConfig.ProjectName} failed to execute:`,
+          }).report(error);
+          process.exit(101);
+        }
+      }
+      // 方法不存在，此时系统将会认为是未找到组件方法，系统的exit code为100；
+      new HumanError({
+        errorMessage: `The [${this.method}] command was not found.`,
+        tips: `Please check the component ${this.componentConfig.component} has the ${
+          this.method
+        } method. Serverless Devs documents：${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/tree/docs/docs/zh/command',
+        )}`,
+      });
+      process.exit(100);
+    }
+    // 应用级操作
+    if (componentInstance[method]) {
+      // 方法存在，执行报错，退出码101
       try {
         const result = await componentInstance[method](data);
-        resolve(result);
-      } catch (e) {
-        reject(e);
+        return result;
+      } catch (error) {
+        await new HandleError({
+          error,
+          prefix: `Project ${this.componentConfig.ProjectName} failed to execute:`,
+        }).report(error);
+        process.exit(101);
       }
-    });
-    return promise;
+    } else {
+      // 方法不存在，进行警告，但是并不会报错，最终的exit code为0；
+      new HumanWarning({
+        warningMessage: `The [${this.method}] command was not found.`,
+        tips: `Please check the component ${this.componentConfig.component} has the ${
+          this.method
+        } method, Serverless Devs documents：${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/tree/docs/docs/zh/command',
+        )}`,
+      });
+    }
   }
 
   async executeCommand(): Promise<any> {

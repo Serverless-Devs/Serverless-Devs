@@ -1,10 +1,11 @@
 import program from 'commander';
-import { configSet, logger } from '../../utils';
+import { logger } from '../../utils';
 import { CommandError } from '../../error';
 import core from '../../utils/core';
+import { emoji } from '../../utils/common';
 const { inquirer } = core;
+import { setConfig, getConfig } from '../../utils/handler-set-config';
 
-const { setConfig } = configSet;
 const CUSTOMER_KEY = 'custom';
 const registryList = [
   {
@@ -39,19 +40,20 @@ export const registryInquire = [
 ];
 program
   .name('s set registry')
-  .usage('[options] [url]')
+  .usage('[options]')
   .helpOption('-h, --help', 'Display help for command')
   .addHelpCommand(false)
   .description(
-    `You can set your registry.
+    `Set registry information.
 
      Example:
         $ s set registry
-        $ s set registry <url>`,
+        $ s set registry http://registry.devsapp.cn/simple`,
   )
   .parse(process.argv);
 (async () => {
   if (program.args.length === 0) {
+    logger.log(`\n${emoji('🔎')} Current registry: ${getConfig('registry', 'http://registry.devsapp.cn/simple')}\n`);
     let answers = await inquirer.prompt(registryInquire);
     if (answers.registry === CUSTOMER_KEY) {
       answers = await inquirer.prompt([

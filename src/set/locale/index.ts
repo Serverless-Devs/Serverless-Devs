@@ -1,20 +1,21 @@
 import program from 'commander';
-import { configSet, i18n } from '../../utils';
+import { i18n, logger } from '../../utils';
 import { CommandError } from '../../error';
-const { setConfig } = configSet;
 import core from '../../utils/core';
 const { inquirer } = core;
+import { setConfig, getConfig } from '../../utils/handler-set-config';
+
+const description = `Set language information.
+
+    Example:
+        $ s set locale
+        $ s set locale zh`;
 
 program
   .name('s set locale')
   .helpOption('-h, --help', 'Display help for command')
   .addHelpCommand(false)
-  .description(
-    `You can set your language.
-
-     Example:
-        $ s set locale`,
-  )
+  .description(description)
   .parse(process.argv);
 
 const promptOption = [
@@ -35,8 +36,18 @@ const promptOption = [
   },
 ];
 (async () => {
-  const answers = await inquirer.prompt(promptOption);
-  setConfig('locale', answers.locale);
+  if (program.args.length === 0) {
+    logger.log(`\n💬 Current language: ${i18n(getConfig('locale'))}\n`);
+    const answers = await inquirer.prompt(promptOption);
+    setConfig('locale', answers.locale);
+  }
+  if (program.args.length > 0) {
+    const val = program.args[0];
+    if (val) {
+      setConfig('locale', val);
+      logger.success('Setup succeeded');
+    }
+  }
 })().catch(err => {
   throw new CommandError(err.message);
 });

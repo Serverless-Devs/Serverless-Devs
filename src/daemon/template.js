@@ -1,9 +1,7 @@
 const core = require('../utils/core.js').default;
-const { request, fse: fs } = core;
-const os = require('os');
+const { request, fse: fs, getRootHome } = core;
 const path = require('path');
-const S_ROOT_HOME = path.join(os.homedir(), '.s');
-const cachePath = path.join(S_ROOT_HOME, 'cache');
+const cachePath = path.join(getRootHome(), 'cache');
 const alibabaTemplatePath = path.join(cachePath, 'alibaba-template');
 async function init() {
   fs.ensureDirSync(alibabaTemplatePath);

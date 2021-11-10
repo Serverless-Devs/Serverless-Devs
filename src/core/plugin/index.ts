@@ -2,8 +2,10 @@
 
 import fs from 'fs';
 import path from 'path';
-import os from 'os';
-const S_PLUGIN_BASE_PATH = path.join(os.homedir(), '.s', 'plugins');
+import core from '../../utils/core';
+const { getRootHome } = core;
+
+const S_PLUGIN_BASE_PATH = path.join(getRootHome(), 'plugins');
 
 export interface PluginConifg {
   name: string;

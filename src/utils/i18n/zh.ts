@@ -8,8 +8,8 @@ export default {
   tip_for_a_serverless_project:
     "检测到当前目录下已存在一个Serverless-Devs项目，请通过 's deploy' 进行部署或通过 's -h' 获取更多信息",
   create_a_new_project: '未检测到 Serverless-Devs 项目，是否新建一个项目？',
-  en: '英文',
-  zh: '中文',
+  en: 'English (en)',
+  zh: '中文 (zh)',
   select_current_language: '请选择当前语言',
   'app-tip': '请选择您希望创建的 Serverless-Devs 应用',
   'template-tip': '请选择您喜欢的模版',

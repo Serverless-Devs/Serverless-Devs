@@ -16,6 +16,11 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm publish
+        if: ${{ !contains(github.ref, 'alpha')}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - run: npm run beta
+        if: ${{ contains(github.ref, 'alpha')}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - run: curl https://npmmirror.com/sync/@serverless-devs/s

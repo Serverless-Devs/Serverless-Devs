@@ -1,10 +1,8 @@
-import os from 'os';
 import path from 'path';
 import { execDaemon } from '../execDaemon';
 import core from '../utils/core';
-const { fse: fs } = core;
-const S_ROOT_HOME = path.join(os.homedir(), '.s');
-const cachePath = path.join(S_ROOT_HOME, 'cache');
+const { fse: fs, getRootHome } = core;
+const cachePath = path.join(getRootHome(), 'cache');
 const templatePath = path.join(cachePath, 'alibaba-template');
 const TTL = 24 * 60 * 60 * 1000;
 

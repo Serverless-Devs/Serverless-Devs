@@ -1,12 +1,11 @@
 /** @format */
 
-import os from 'os';
 import path from 'path';
 import core from './core';
-const { fse: fs } = core;
+const { fse: fs, getRootHome } = core;
 
 export function getHomeDir(): string {
-  const home = path.join(os.homedir(), '.s');
+  const home = getRootHome();
   if (!fs.existsSync(home)) {
     fs.mkdirSync(home);
   }

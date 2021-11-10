@@ -10,32 +10,45 @@ export { ConfigGetError } from './config-get-error';
 export { InitError } from './init-error';
 export { ServerlessError } from './serverless-error';
 export { HumanError } from './human-error';
+export { HumanWarning } from './human-warning';
 
 const pid = getMAC().replace(/:/g, '');
 
 function underline(prefix: string, link: string) {
   return `${colors.gray(prefix)}${colors.gray.underline(link)}`;
 }
-export function handleError(error: Error, prefix = 'Message:', exit = true) {
-  const traceId = `${pid}${Date.now()}`;
-  console.log(red(`✖ ${prefix}\n`));
-  const analysis = getConfig('analysis');
-  if (analysis !== 'disable') {
-    console.log(colors.gray(`TraceId:     ${traceId}`));
+interface IConfigs {
+  error: Error;
+  prefix?: string;
+}
+export class HandleError {
+  private traceId: string;
+  constructor(configs: IConfigs) {
+    const { error, prefix = 'Message:' } = configs;
+    this.traceId = `${pid}${Date.now()}`;
+    console.log(red(`✖ ${prefix}\n`));
+    const analysis = getConfig('analysis');
+    if (analysis !== 'disable') {
+      console.log(colors.gray(`TraceId:     ${this.traceId}`));
+    }
+    console.log(colors.gray(`Environment: ${getVersion()}`));
+    console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
+    console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
+    console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
+    console.log(`${bgRed('ERROR:')}\n${error}\n`);
+    if (analysis !== 'disable') {
+      console.log(
+        colors.gray(`Please copy traceId: ${this.traceId} and join Dingding group: 33947367 for consultation.`),
+      );
+    }
+    console.log(colors.gray("You can run 's clean --cache' to prune Serverless devs."));
+    console.log(colors.gray("And run again with the '--debug' option or 's -h' to get more logs.\n"));
   }
-  console.log(colors.gray(`Environment: ${getVersion()}`));
-  console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
-  console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
-  console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
-  console.log(`${bgRed('ERROR:')}\n${error}\n`);
-  if (analysis !== 'disable') {
-    console.log(colors.gray(`Please copy traceId: ${traceId} and join Dingding group: 33947367 for consultation.`));
+  async report(error: Error) {
+    report({
+      type: 'jsError',
+      content: `${error.message}||${error.stack}`,
+      traceId: this.traceId,
+    });
   }
-  console.log(colors.gray("You can run 's clean --cache' to prune Serverless devs."));
-  console.log(colors.gray("And run again with the '--debug' option or 's -h' to get more logs.\n"));
-  report({
-    type: 'jsError',
-    content: error.stack,
-    traceId,
-  }).then(() => exit && process.exit(1));
 }

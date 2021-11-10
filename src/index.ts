@@ -2,55 +2,42 @@
 
 // import 'v8-compile-cache';
 import program from 'commander';
-import { configSet } from './utils';
 import {
   registerCommandChecker,
   recordCommandHistory,
-  registerExecCommand,
   registerCustomerCommand,
   registerUniversalCommand,
 } from './utils/command-util';
-import { PROCESS_ENV_TEMPLATE_NAME, DEFAULT_REGIRSTRY } from './constants/static-variable';
+import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
 import path from 'path';
-import os from 'os';
 import fs from 'fs';
 import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
-import { handleError } from './error';
+import { HandleError, HumanError } from './error';
 import { updateTemplate } from './init/update-template';
-const { colors, jsyaml: yaml } = core;
+const { colors, jsyaml: yaml, getRootHome } = core;
 const pkg = require('../package.json');
 require('dotenv').config();
 
-const { getConfig, setConfig } = configSet;
-
-function getRegistry() {
-  let registry = getConfig('registry');
-  if (!registry || registry.indexOf('serverlessfans.cn') !== -1) {
-    registry = DEFAULT_REGIRSTRY;
-    setConfig('registry', registry);
-  }
-  return registry;
-}
-
 async function setSpecialCommand() {
+  if (process.argv.length === 2) return;
+  if (['-h', '--help', '-v', '--version'].includes(process.argv[2])) return;
+  if (['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) return;
   const templateFile = checkAndReturnTemplateFile();
   if (templateFile) {
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    if (!['init', 'config', 'set', 'exec', 'cli', 'clean'].includes(process.argv[2])) {
-      await registerCustomerCommand(program, templateFile); // Add user-defined commands
-      await registerUniversalCommand(program, templateFile); // Register pan instruction
-    }
+    await registerCustomerCommand(program, templateFile); // Add user-defined commands
+    await registerUniversalCommand(program, templateFile); // Register pan instruction
+  } else {
+    new HumanError({
+      errorMessage: 'the s.yaml/s.yml file was not found.',
+      tips: 'Please check if the s.yaml/s.yml file exists, you can also specify it with -t.',
+    });
+    process.exit(1);
   }
-}
-
-async function setExecCommand() {
-  const templateFile = checkAndReturnTemplateFile();
-  process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
-  await registerExecCommand(program, templateFile);
 }
 
 async function globalParameterProcessing() {
@@ -76,8 +63,6 @@ Welcome to the Serverless Devs.
 More: 
 ${emoji('📘')} Documents: ${colors.underline('https://www.serverless-devs.com')}
 ${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
-${emoji('❓')} Issues: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
-${emoji('👀')} Current Registry: ${getRegistry()}
 
 Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
@@ -86,17 +71,18 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   registerCommandChecker(program);
   const system_command = program
     .description(description)
-    .helpOption('-h, --help', `Display help for command`)
-    .command('config', `${emoji('👤')} Configure cloud service account.`)
-    .command('init', `${emoji('💞')} Initializing a project.`)
-    .command('cli', `${emoji('🐚')} Command line operation through yaml free mode.`)
+    .helpOption('-h, --help', `Display help for command.`)
+    .command('config', `${emoji('👤')} Configure venders account.`)
+    .command('init', `${emoji('💞')} Initializing a serverless project.`)
+    .command('cli', `${emoji('🐚')} Command line operation without yaml mode.`)
     .command('set', `${emoji('🔧')} Settings for the tool.`)
     .command('clean', `${emoji('💥')} Clean up the environment.`)
-    .option('-t, --template [templatePath]', 'Specify the template file')
-    .option('-a, --access [aliasName]', 'Specify the access alias name')
-    .option('--skip-actions', 'Skip the extends section')
-    .option('--debug', 'Debug model')
-    .version(getVersion(), '-v, --version', 'Output the version number')
+    .command('component', `${emoji('🔌')} Installed component information.`)
+    .option('-t, --template [templatePath]', 'Specify the template file.')
+    .option('-a, --access [aliasName]', 'Specify the access alias name.')
+    .option('--skip-actions', 'Skip the extends section.')
+    .option('--debug', 'Open debug model.')
+    .version(getVersion(), '-v, --version', 'Output the version number.')
     .addHelpCommand(false);
 
   process.env['CLI_VERSION'] = pkg.version;
@@ -122,7 +108,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   const index = templateTag ? process.argv.indexOf(templateTag) : -1;
   let accessFileInfo = {};
   try {
-    const accessFile = path.join(os.homedir(), '.s', 'access.yaml');
+    const accessFile = path.join(getRootHome(), 'access.yaml');
     accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
   } catch (e) {
     accessFileInfo = {};
@@ -141,7 +127,6 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   }
 
   await globalParameterProcessing(); // global parameter processing
-  await setExecCommand(); // register exec command
   await setSpecialCommand(); // universal instruction processing
   recordCommandHistory(process.argv); // add history record
   system_command.exitOverride(async error => {
@@ -156,6 +141,9 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     return system_command.parse(process.argv);
   }
   await onboarding();
-})().catch(err => {
-  handleError(err);
+})().catch(async error => {
+  await new HandleError({
+    error,
+  }).report(error);
+  process.exit(1);
 });

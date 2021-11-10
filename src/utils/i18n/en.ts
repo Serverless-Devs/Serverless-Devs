@@ -1,15 +1,15 @@
 export default {
   clean_up_the_environment: 'Clean up the environment',
   display_help_for_command: 'Display help for command',
-  remove_components: 'Remove components',
+  remove_components: 'Remove component (like: fc, fc@0.0.1)',
   delete_the_file_under_the_cache: 'Delete the <dirname> file in the cache',
   record_your_log_information: 'Do you record your log information?',
   init_pproject_deploy_tip: 'Do you want to deploy the project immediately?',
   tip_for_a_serverless_project:
     "A Serverless-Devs project is detected in the current directory, please deploy via 's deploy' or get more information via 's -h'",
   create_a_new_project: 'No Serverless-Devs project is currently detected. Do you want to create a new project?',
-  en: 'en',
-  zh: 'zh',
+  en: 'English (en)',
+  zh: 'Chinese (zh)',
   select_current_language: 'Please select current language',
   'app-tip': 'Hello, serverlesser. Which template do you like?',
   'template-tip': 'Which template do you like?',
