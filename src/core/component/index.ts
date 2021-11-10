@@ -171,7 +171,7 @@ export class ComponentExeCute {
         tips: `Please check the component ${this.componentConfig.component} has the ${
           this.method
         } method. Serverless Devs documents：${colors.underline(
-          'https://github.com/Serverless-Devs/Serverless-Devs/tree/docs/docs/zh/command',
+          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/command',
         )}`,
       });
       process.exit(100);
@@ -196,7 +196,7 @@ export class ComponentExeCute {
         tips: `Please check the component ${this.componentConfig.component} has the ${
           this.method
         } method, Serverless Devs documents：${colors.underline(
-          'https://github.com/Serverless-Devs/Serverless-Devs/tree/docs/docs/zh/command',
+          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/command',
         )}`,
       });
     }
