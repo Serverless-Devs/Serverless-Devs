@@ -90,7 +90,6 @@ export class CommandManager {
         Object.keys(outPutData).length === 0
           ? logger.success(`End of method: ${this.method}`)
           : logger.output(outResult);
-        process.exit(0);
       } else {
         logger.error(`Failed to execute:\n
   ${emoji('❌')} Message: Cannot find s.yaml / s.yml / template.yaml / template.yml file, please check the directory ${
