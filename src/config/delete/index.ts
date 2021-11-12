@@ -5,6 +5,7 @@ import fs from 'fs';
 import program from 'commander';
 import { logger } from '../../utils';
 import { HandleError, HumanError } from '../../error';
+import { emoji } from '../../utils/common';
 import core from '../../utils/core';
 const { colors, jsyaml: yaml, getRootHome } = core;
 
