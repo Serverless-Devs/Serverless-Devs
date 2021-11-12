@@ -9,6 +9,7 @@ import { emoji } from '../utils/common';
 const { rimraf, minimist, fse: fs, colors, getRootHome } = core;
 
 const description = `Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
+    
     Example:
         $ s clean --component fc-api
         $ s clean --all

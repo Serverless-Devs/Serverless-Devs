@@ -13,6 +13,7 @@ const Table = require('tty-table');
 const { minimist, getYamlContent, fse: fs, colors, getRootHome } = core;
 
 const description = `Get details of installed components.
+    
     Example:
         $ s component
         $ s component --component fc-api

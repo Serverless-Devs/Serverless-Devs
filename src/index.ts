@@ -61,8 +61,9 @@ const description = `  _________                               .__
 Welcome to the Serverless Devs.
 
 More: 
-${emoji('📘')} Documents: ${colors.underline('https://www.serverless-devs.com')}
+${emoji('📘')} Documents: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs')}
 ${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
+${emoji('📦')} Applications: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md')}
 
 Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;

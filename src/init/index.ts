@@ -17,7 +17,7 @@ const description = `Initialize a new project based on a template. You can initi
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
-${emoji('🚀')} More Case: ${colors.underline('https://github.com/Serverless-Devs/package-awesome')}`;
+${emoji('🚀')} More Case: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md')}`;
 
 program
   .name('s init')

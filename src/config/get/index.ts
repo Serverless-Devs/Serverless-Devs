@@ -11,7 +11,11 @@ const description = `You can get accounts.
  
   Example:
     $ s config get
-    $ s config get -a demo`;
+    $ s config get -a demo
+    
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
+)}`;
 
 program
   .name('s config get')

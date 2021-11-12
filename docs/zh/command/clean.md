@@ -15,6 +15,7 @@ $ s clean -h
 Usage: s cli [options]
 
 Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
+    
     Example:
         $ s clean --component fc-api
         $ s clean --all

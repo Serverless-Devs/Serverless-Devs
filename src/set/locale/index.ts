@@ -2,14 +2,19 @@ import program from 'commander';
 import { i18n, logger } from '../../utils';
 import { CommandError } from '../../error';
 import core from '../../utils/core';
-const { inquirer } = core;
+const { inquirer, colors } = core;
+import { emoji } from '../../utils/common';
 import { setConfig, getConfig } from '../../utils/handler-set-config';
 
 const description = `Set language information.
 
     Example:
         $ s set locale
-        $ s set locale zh`;
+        $ s set locale zh
+        
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
+)}`;
 
 program
   .name('s set locale')
