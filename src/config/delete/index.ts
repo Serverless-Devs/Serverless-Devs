@@ -11,7 +11,11 @@ const { colors, jsyaml: yaml, getRootHome } = core;
 const description = `You can delete an account.
   
   Example:
-    $ s config delete -a demo`;
+    $ s config delete -a demo
+    
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
+)}`;
 
 function notFound({ access, accessFileInfo }: { access: string; accessFileInfo?: any }) {
   const errorMessage = accessFileInfo

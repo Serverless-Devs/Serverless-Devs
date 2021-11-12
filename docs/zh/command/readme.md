@@ -30,8 +30,9 @@ Usage: s [options] [command]
 Welcome to the Serverless Devs.
 
 More: 
-📘 Documents: https://www.serverless-devs.com
+📘 Documents: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs
 🙌 Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
+📦 Applications: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md
 
 Quick start:
 🍻 Can perform [s init] fast experience
