@@ -10,6 +10,9 @@ function getCore() {
   if (fs.existsSync(corePackagePath)) {
     const localCoreVersion = require('@serverless-devs/core/package.json').version;
     const cacheCoreVersion = getCoreVersion();
+    if (semver.lt(cacheCoreVersion, '0.1.13')) {
+      return require('@serverless-devs/core');
+    }
     return semver.gt(localCoreVersion, cacheCoreVersion) ? require('@serverless-devs/core') : require(corePath);
   }
   return require('@serverless-devs/core');
