@@ -16,6 +16,7 @@ $ s component -h
 Usage: s component [options]
 
 Get details of installed components.
+    
     Example:
         $ s component
         $ s component --component fc-api

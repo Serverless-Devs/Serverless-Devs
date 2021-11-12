@@ -8,6 +8,7 @@ import { emoji } from '../utils/common';
 const { colors } = core;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
+    
     Example:
         $ s cli fc-api listServices
         $ s cli fc-api listFunctions --service-name my-service

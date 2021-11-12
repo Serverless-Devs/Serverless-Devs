@@ -18,6 +18,7 @@ $ s cli -h
 Usage: s cli [component] [method] [options]
 
 Directly use serverless devs to use components, develop and manage applications without yaml configuration.
+    
     Example:
         $ s cli fc-api listServices
         $ s cli fc-api listFunctions --service-name my-service

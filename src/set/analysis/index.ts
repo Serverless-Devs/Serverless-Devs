@@ -3,14 +3,18 @@ import { CommandError } from '../../error';
 import logger from '../../utils/logger';
 import core from '../../utils/core';
 import { emoji } from '../../utils/common';
-const { inquirer } = core;
+const { inquirer, colors} = core;
 import { setConfig, getConfig } from '../../utils/handler-set-config';
 
 const description = `Set analysis action.
 
     Example:
         $ s set analysis
-        $ s set analysis disable`;
+        $ s set analysis disable
+        
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
+)}`;
 
 program
   .name('s set analysis')

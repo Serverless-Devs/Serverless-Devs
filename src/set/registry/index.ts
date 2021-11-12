@@ -5,23 +5,24 @@ import core from '../../utils/core';
 import { emoji } from '../../utils/common';
 const { inquirer } = core;
 import { setConfig, getConfig } from '../../utils/handler-set-config';
+const { colors } = core;
 
 const CUSTOMER_KEY = 'custom';
 const registryList = [
   {
+    key: 'http://registry.devsapp.cn/simple',
+    name: 'serverless registry [http://registry.devsapp.cn/simple]',
+    value: 'http://registry.devsapp.cn/simple',
+  },
+  {
     key: 'https://api.github.com/repos',
-    name: 'open source registry [Github source]',
+    name: 'github registry [https://api.github.com/repos]',
     value: 'https://api.github.com/repos',
   },
   {
     key: 'http://gitee.registry.devsapp.cn/simple',
-    name: 'open source registry [Gitee source] ',
+    name: 'gitee registry [http://gitee.registry.devsapp.cn/simple] ',
     value: 'http://gitee.registry.devsapp.cn/simple',
-  },
-  {
-    key: 'http://registry.devsapp.cn/simple',
-    name: 'serverless devs offical registry [http://registry.devsapp.cn/simple]',
-    value: 'http://registry.devsapp.cn/simple',
   },
   {
     key: CUSTOMER_KEY,
@@ -48,7 +49,11 @@ program
 
      Example:
         $ s set registry
-        $ s set registry http://registry.devsapp.cn/simple`,
+        $ s set registry http://registry.devsapp.cn/simple
+        
+${emoji('📖')} Document: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
+)}`,
   )
   .parse(process.argv);
 (async () => {
