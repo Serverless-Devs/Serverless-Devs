@@ -89,7 +89,7 @@ $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 > Serverless Devs 应用开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.1/serverless_registry_model/readme.md) 中的 [应用模型规范](../../spec/zh/0.0.1/serverless_registry_model/3.registry_model.md#应用模型规范)。在[应用模型规范](../../spec/zh/0.0.1/serverless_registry_model/3.registry_model.md#应用模型规范)中有关于[应用模型元数据](../../spec/zh/0.0.1/serverless_registry_model/3.registry_model.md#应用模型元数据)的说明。
 
-Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行工具中，通过对Serverless Devs的命令行工具，可以进行空白组件项目的初始化，开发者只需要执行`s init`即可看到：
+Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行工具中，通过对Serverless Devs的命令行工具，可以进行空白应用项目的初始化，开发者只需要执行`s init`即可看到：
 
 ```shell script
 
@@ -116,7 +116,7 @@ $ s init
   Component Scaffolding 
 ```
 
-此时，选择`Component Scaffolding`，并按回车，即可完成一个完整的Serverless Devs的Component项目的初始化，可以通过命令查看文件树：
+此时，选择`Application Scaffolding`，并按回车，即可完成一个完整的Serverless Devs的Application项目的初始化，可以通过命令查看文件树：
 
 ```shell script
 $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
