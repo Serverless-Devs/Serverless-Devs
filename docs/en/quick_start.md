@@ -1,6 +1,6 @@
 # Quick Start
 
-This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyun.com/product/fc) as an example (Of course, Serverless Devs also supports [AWS Lambda](../../components/lambda/ readme.md), [Baidu Cloud Function Computing](../../components/cfc/readme.md), [Huawei Cloud Function Workflow](../../components/fg/readme.md) , [Tencent Cloud Function](../../components/scf/readme.md) and many other cloud vendors’ FaaS platforms. For details, please refer to [Default FaaS Product Support](../../components/readme_zh. md)), quickly start with Serverless Devs
+This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyun.com/product/fc) as an example (Of course, Serverless Devs also supports [AWS Lambda](../../components/lambda/readme.md), [Baidu Cloud Function Computing](../../components/cfc/readme.md), [Huawei Cloud Function Workflow](../../components/fg/readme.md) , [Tencent Cloud Function](../../components/scf/readme.md) and many other cloud vendors’ FaaS platforms. For details, please refer to [Default FaaS Product Support](../../components/readme_zh.md)), quickly start with Serverless Devs
 - [Tool installation](#Tool installation)
 - [Key Configuration](#Key Configuration)
 - [Get started experience](#Get started experience)
@@ -66,8 +66,8 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
     ```
   
   
-> AccessKey is the key for your cloud account to access the Alibaba Cloud API. It has full permissions for the account. Please keep it safe! Do not share AccessKey to external channels in any way (eg Github) to avoid being used by others to cause [security threat](https://help.aliyun.com/knowledge_detail/54059.html?spm=5176.2020520153.0.0.57f1336a8PQ1KR ).>    
-> Strongly recommended that you follow the [Alibaba Cloud Security Best Practices] (https://help.aliyun.com/document_detail/102600.html?spm=5176.2020520153.0.0.57f1336a8PQ1KR) and use the RAM sub-user AccessKey to make API calls.
+> AccessKey is the key for your cloud account to access the Alibaba Cloud API. It has full permissions for the account. Please keep it safe! Do not share AccessKey to external channels in any way (eg Github) to avoid being used by others to cause [security threat](https://help.aliyun.com/knowledge_detail/54059.html?spm=5176.2020520153.0.0.57f1336a8PQ1KR ).  
+> Strongly recommended that you follow the [Alibaba Cloud Security Best Practices](https://help.aliyun.com/document_detail/102600.html?spm=5176.2020520153.0.0.57f1336a8PQ1KR) and use the RAM sub-user AccessKey to make API calls.
 
 
 ## Get started experience
@@ -92,35 +92,35 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
       Dev Template for Serverless Devs 
     ```
 
-- 此时只需要选择对应的选项，按照引导进行操作，即可。例如选择`Alibaba Cloud Serverless`，就可以看到阿里云Serverless产品下的应用模板分类:
+- At the same time, you only need to select the corresponding option and follow the instructions. For example, if you select `Alibaba Cloud Serverless`, you can see the classification of application templates under Alibaba Cloud Serverless products:
 
     ```shell script
     ? Please select an Serverless-Devs Application (Use arrow keys or type to search)
-    ❯ fc-runtime-starter - 快速部署一个 FC 函数 
-      fc-custom-container-stater - 快速部署一个 custom-container 应用 
-      web-framework-stater - 快速部署一个 Web 框架 
-      static-website-stater - 快速部署一个静态网站 
-      serverless-best-practice - 快速体验 Serverless 最佳实践 
+    ❯ fc-runtime-starter - Quickly deploy an FC function...
+      fc-custom-container-stater - Quickly deploy a custom-container application
+      web-framework-stater - Quickly deploy a web framework
+      static-website-stater - Quickly deploy a static website
+      serverless-best-practice - Quickly experience serverless best practices
     ```
 
-- 此时可以继续选择某分类下的具体应用进行初始化，例如选择`fc-runtime-starter`之后，可以看到该分类下的具体模板应用：
+- At this time, you can continue to select specific applications under a certain category for initialization. For example, after selecting `fc-runtime-starter`, you can see the specific template applications under that category:
 
     ```shell script
     ? Please select an templete (Use arrow keys or type to search)
-    ❯ fc-http-nodejs - 快速部署一个 nodejs12 http函数 
-      fc-http-python - 快速部署一个 python3 http函数 
-      fc-http-php - 快速部署一个 php http函数 
-      fc-http-java - 快速部署一个 java8 http函数 
-      fc-event-nodejs - 快速部署一个 nodejs12 event函数 
-      fc-event-python - 快速部署一个 python3 event函数 
-      fc-event-php - 快速部署一个 php event函数 
+    ❯ fc-http-nodejs - Quickly deploy a nodejs12 http function
+      fc-http-python - Quickly deploy a  python3 http function
+      fc-http-php - Quickly deploy a  php http function
+      fc-http-java - Quickly deploy a  java8 http function 
+      fc-event-nodejs - Quickly deploy a  nodejs12 event function 
+      fc-event-python - Quickly deploy a  python3 event function 
+      fc-event-php - Quickly deploy a  php event function
     ```
 
-    选择`fc-http-nodejs`即可完成创建，在引导的过程中，可能会出现填写项目名称以及选择密钥的过程：
-    - 项目名称可以是：`start-fc-http-nodejs12`
-    - 密钥可以选择我们上文中创建过的：`alibaba-access`    
-    
-    例如：
+   Select `fc-http-nodejs` to complete the creation. During the boot process, the process of filling in the project name and selecting the key may appear:
+    - The project name can be: `start-fc-http-nodejs12`
+    - The key can be the one we created above: `alibaba-access`
+
+   E.g:
     ```shell script 
     🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
     
@@ -141,9 +141,9 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
     🧭️ If you need help for this example, you can use [s -h] after you enter folder.
     💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
     
-    ? 是否立即部署该项目？ (Y/n) 
+    ? Do you want to deploy the project now? (Y/n)
     ```
-- 可以看到，系统在最后有一个提醒，是否要部署该项目，此时可以输入`y`，直接进行项目的部署，稍等片刻，可以看到部署结果：
+- The system has a reminder at the end whether you want to deploy the project. At this time, you can enter `y` to directly deploy the project. After a while, you can see the deployment result:
     ```shell script
     fc-deploy-test: 
       region:   cn-hangzhou
@@ -165,15 +165,15 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
           type: http
           name: httpTrigger
     ```
-    此时可以打开`domain`返回给我们的域名，进行测试。
+    At this point, you can open the domain name returned to us by `domain` for testing.
 
 ### AI：Target Detection
 
-- 初始化一个已有的人工智能目标检测项目：`s init devsapp/image-prediction-app`，初始化过程中可能会出现填写项目名称以及选择密钥的过程：
-    - 项目名称可以是：`image-prediction-app`
-    - 密钥可以选择我们上文中创建过的：`alibaba-access`    
+- Execute the command `s init devsapp/image-prediction-app` to initialize an existing artificial intelligence target detection project. During this process, the process of filling in the project name and selecting the key may appear:
+    - The project name can be: `image-prediction-app`
+    - The key can be the one we created above: `alibaba-access`
     
-    例如：
+    E.g: 
     ```shell script
     $ s init devsapp/image-prediction-app
     
@@ -205,8 +205,8 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
     🧭️ If you need help for this example, you can use [s -h] after you enter folder.
     💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
     ```
-- 进入项目目录：`cd image-prediction-app`
-- 通过`deploy`命令进行项目的部署：
+- Enter the project directory: `cd image-prediction-app`
+- Execute the `deploy` command to deploy the project:
     ```shell script
     Tips for next step
     ======================
@@ -228,16 +228,16 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
           - 
             domain: http://server.ai-cv-image-prediction.1583208943291465.cn-hangzhou.fc.devsapp.net
     ```
-- 此时可以打开系统分配的测试域名，并上传一张图片进行测试：
-    ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390067198_20211028030108110359.png)
+- At this point, you can open the test domain name assigned by the system and upload a picture for testing:
+    ![Pic.alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390067198_20211028030108110359.png)
 
 ### Traditional framework based on django blog project
 
-- 初始化一个已有的基于Django的博客项目：`s init django-blog`，初始化过程中可能会出现填写项目名称以及选择密钥的过程：
-    - 项目名称可以是：`django-blog`
-    - 密钥可以选择我们上文中创建过的：`alibaba-access`    
+- Execute the `s init django-blog` command to initialize an existing Django-based blog project. During the initialization process, the process of filling in the project name and selecting the key may appear:
+    - The project name can be: `django-blog`
+    - The key can be the one we created above: `alibaba-access`
     
-    例如：
+    E.g: 
     ```shell script
     $ s init django-blog
 
@@ -278,8 +278,8 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
     🧭️ If you need help for this example, you can use [s -h] after you enter folder.
     💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
     ```
-- 进入项目目录：`cd django-blog`
-- 通过`deploy`命令进行项目的部署：
+- Enter the project directory: `cd django-blog`
+- Execute the `deploy` command to deploy the project:
     ```shell script
     Tips for next step
     ======================
@@ -292,5 +292,5 @@ This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyu
       customDomains: 
         - http://django.serverless-devs-django.1583208943291465.cn-shenzhen.fc.devsapp.net
     ```
-- 此时可以打开系统分配的测试域名，并上传一张图片进行测试：
-    ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390266827_20211028030427642356.png)
+- At this point, you can open the test domain name assigned by the system and upload a picture for testing:
+    ![Pic.alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390266827_20211028030427642356.png)
