@@ -44,6 +44,7 @@ export function yamlLoad(filePath: string) {
   try {
     return yaml.load(content);
   } catch (error) {
+    if (['-h', '--help'].includes(process.argv[2])) return;
     const filename = path.basename(filePath);
     new HumanError({
       errorMessage: `${filename} format is incorrect`,

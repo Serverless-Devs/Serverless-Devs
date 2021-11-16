@@ -5,6 +5,7 @@ import fs from 'fs';
 import program from 'commander';
 import { logger } from '../../utils';
 import { HandleError, HumanError } from '../../error';
+import { emoji } from '../../utils/common';
 import core from '../../utils/core';
 const { colors, jsyaml: yaml, getRootHome } = core;
 
@@ -26,7 +27,7 @@ function notFound({ access, accessFileInfo }: { access: string; accessFileInfo?:
   new HumanError({
     errorMessage,
     tips: `You can use [s config add -h] to view configuration help, Serverless Devs' config document can refer to：${colors.underline(
-      'https://github.com/Serverless-Devs/Serverless-Devs/blob/docs/docs/zh/command/config.md',
+      'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/command/config.md',
     )}`,
   });
 }

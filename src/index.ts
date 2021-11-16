@@ -23,7 +23,7 @@ require('dotenv').config();
 
 async function setSpecialCommand() {
   if (process.argv.length === 2) return;
-  if (['-h', '--help', '-v', '--version'].includes(process.argv[2])) return;
+  if (['-v', '--version'].includes(process.argv[2])) return;
   if (['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) return;
   const templateFile = checkAndReturnTemplateFile();
   if (templateFile) {
@@ -32,6 +32,7 @@ async function setSpecialCommand() {
     await registerCustomerCommand(program, templateFile); // Add user-defined commands
     await registerUniversalCommand(program, templateFile); // Register pan instruction
   } else {
+    if (['-h', '--help'].includes(process.argv[2])) return;
     new HumanError({
       errorMessage: 'the s.yaml/s.yml file was not found.',
       tips: 'Please check if the s.yaml/s.yml file exists, you can also specify it with -t.',

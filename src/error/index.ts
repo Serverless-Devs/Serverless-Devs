@@ -12,7 +12,13 @@ export { ServerlessError } from './serverless-error';
 export { HumanError } from './human-error';
 export { HumanWarning } from './human-warning';
 
-const pid = getMAC().replace(/:/g, '');
+function getPid() {
+  try {
+    return getMAC().replace(/:/g, '');
+  } catch (error) {
+    return 'unknown';
+  }
+}
 
 function underline(prefix: string, link: string) {
   return `${colors.gray(prefix)}${colors.gray.underline(link)}`;
@@ -25,7 +31,7 @@ export class HandleError {
   private traceId: string;
   constructor(configs: IConfigs) {
     const { error, prefix = 'Message:' } = configs;
-    this.traceId = `${pid}${Date.now()}`;
+    this.traceId = `${getPid()}${Date.now()}`;
     console.log(red(`✖ ${prefix}\n`));
     const analysis = getConfig('analysis');
     if (analysis !== 'disable') {
