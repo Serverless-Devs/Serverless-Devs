@@ -28,7 +28,13 @@ jobs:
           key: ${{ runner.os }}-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
         run: npm install
+      - name: Cache build
+        uses: actions/cache@v1
+        with:
+          path: ./build
+          key: key
       - name: Build
         run: npm run build
+        if: ${{ matrix.os != 'windows-latest' }}
       - name: Test
         run: ./test/ci.sh
