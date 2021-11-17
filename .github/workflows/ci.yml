@@ -6,14 +6,16 @@ name: Test CI
 on:
   push:
     branches: [develop]
+  pull_request:
+    branches: [develop]
 jobs:
-  build:
+  develop:
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 1
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
         node-version: [10.x, 12.x, 14.x, 16.x]
     steps:
       - uses: actions/checkout@v2
@@ -28,13 +30,23 @@ jobs:
           key: ${{ runner.os }}-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install Dependencies
         run: npm install
-      - name: Cache build
-        uses: actions/cache@v1
-        with:
-          path: ./lib
-          key: key
       - name: Build
         run: npm run build
-        if: ${{ matrix.os != 'windows-latest' }}
       - name: Test
         run: ./test/ci.sh
+  beta:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+        node-version: [10.x, 12.x, 14.x, 16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install @serverless-devs/s@beta -g
+      - run: s -v
