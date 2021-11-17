@@ -6,6 +6,7 @@ on:
 
 jobs:
   publish-npm:
+    if: ${{ !contains(github.ref, 'test')}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
