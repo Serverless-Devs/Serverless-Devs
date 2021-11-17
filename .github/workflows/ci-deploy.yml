@@ -28,6 +28,11 @@ jobs:
         with:
           path: ./node_modules
           key: ${{ runner.os }}-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache Component
+        uses: actions/cache@v1
+        with:
+          path: ~/.s
+          key: key
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -49,5 +54,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install @serverless-devs/s@beta -g
-      - run: ./bin/s config add --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} -a default -f
-      - run: ./bin/s deploy -t ./test/start-fc-http-nodejs12/s.yaml
+      - run: s config add --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} -a default -f
+      - run: s deploy -t ./test/start-fc-http-nodejs12/s.yaml

@@ -28,6 +28,11 @@ jobs:
         with:
           path: ./node_modules
           key: ${{ runner.os }}-cache-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache Component
+        uses: actions/cache@v1
+        with:
+          path: ~/.s
+          key: key
       - name: Install Dependencies
         run: npm install
       - name: Build
