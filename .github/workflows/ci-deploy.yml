@@ -41,6 +41,7 @@ jobs:
       - run: ./bin/s deploy -t ./test/start-fc-http-nodejs12/s.yaml
   beta:
     runs-on: ${{ matrix.os }}
+    needs: develop
     strategy:
       max-parallel: 1
       fail-fast: false
