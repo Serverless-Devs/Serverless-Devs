@@ -10,7 +10,7 @@
 - 时间：2021.9.16
 - 内容：
     - [Serverless Registry Model](./serverless_registry_model)
-    - [Serverless Package Model](./serverless_tool_model)
+    - [Serverless Package Model](./serverless_package_model)
     - [Serverless User Model](./serverless_user_model)
 
 ## 简介
