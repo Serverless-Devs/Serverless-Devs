@@ -16,7 +16,6 @@ import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
 import { HandleError, HumanError } from './error';
-import { updateTemplate } from './init/update-template';
 const { colors, jsyaml: yaml, getRootHome } = core;
 const pkg = require('../package.json');
 require('dotenv').config();
@@ -64,7 +63,9 @@ Welcome to the Serverless Devs.
 More: 
 ${emoji('📘')} Documents: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs')}
 ${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
-${emoji('📦')} Applications: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md')}
+${emoji('📦')} Applications: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md',
+)}
 
 Quick start:
 ${emoji('🍻')} Can perform [s init] fast experience`;
@@ -97,9 +98,6 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
 
   new UpdateNotifier().init().notify();
 
-  // update alibaba template
-  updateTemplate();
-
   // 对帮助信息进行处理
   if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
     process.env['serverless_devs_out_put_help'] = 'true';
@@ -116,7 +114,7 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
     accessFileInfo = {};
   }
   if (index !== -1 && process.argv[index + 1]) {
-    if (process.argv[2] == 'config') {
+    if (process.argv[2] === 'config') {
       process.env['serverless_devs_temp_access'] = process.argv[index + 1];
     } else if (Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
       process.env['serverless_devs_temp_access'] = process.argv[index + 1];
