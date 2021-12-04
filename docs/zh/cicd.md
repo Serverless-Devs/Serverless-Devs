@@ -3,6 +3,7 @@
 - [与 Github Action 的集成](#与-github-action-的集成)
 - [与 Gitee Go 的集成](#与-gitee-go-的集成)
 - [与 Jenkins 的集成](#与-jenkins-的集成)
+- [与云效的集成](#与云效的集成)
 - [注意事项](#注意事项)
 
 ## 与 Github Action 的集成
@@ -186,6 +187,36 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
 完成密钥配置之后，可以创建一个 Jenkins 流水线，该流水线的源是目标 github 地址。接下来，就可以开始运行 Jenkins 流水线，运行结束后，就可以得到相关的内容结果。
 
 > 关于密钥配置的部分注意内容，可以参考文末的[注意事项](#注意事项)
+
+
+## 与云效的集成
+
+在云效中，可以直接选择Serverless Devs开发者工具，并在自定义命令中，输入以下内容即可：
+
+```
+# input your command here
+npm install -g @serverless-devs/s
+s config add --AccountID ${ACCOUNTID} --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default
+s deploy
+```
+
+这里主要包括三个部分：
+   
+- `npm install -g @serverless-devs/s`:    
+    通过NPM安装最新版本的 Serverless Devs 开发者工具（虽然云效中已经拥有了相关版本的Serverless Devs，但是实际上，这个版本可能比较老旧，所以可以通过该命令安装最新版本）；
+- `s config add --AccountID ${ACCOUNTID} --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default`    
+    通过`config`命令进行密钥等信息的配置；
+- `s deploy`   
+    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
+
+效果如下：
+
+![image](https://user-images.githubusercontent.com/21079031/144697943-2ce9ea56-7af8-4c3b-945b-6897e6d744b5.png)
+
+由于在命令中，引用了三个重要的环境变量：`ACCOUNTID`, `ACCESSKEYID`, `ACCESSKEYSECRET`，所以还需要在环境变量中，增加类似的内容：
+
+![image](https://user-images.githubusercontent.com/21079031/144699074-3dad63d7-835f-4eb8-bd95-662de683dbbc.png)
+
 
 
 ## 注意事项
