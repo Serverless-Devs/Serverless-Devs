@@ -7,10 +7,30 @@ import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
 import storage from './storage';
 import logger from './logger';
 import { emoji } from './common';
+import { get } from 'lodash';
 import core from './core';
-const { loadComponent, fse: fs, jsyaml: yaml } = core;
+const { loadComponent, fse: fs, jsyaml: yaml, getYamlContent } = core;
 
 const { getSubcommand, getServiceConfig } = version;
+
+export async function setEnvbyDotenv(templateFile: string) {
+  const spath = path.dirname(templateFile);
+  require('dotenv').config({ path: path.join(spath, '.env') });
+  const data = await getYamlContent(templateFile);
+  const { services } = data;
+  let codeUri: string;
+  for (const key in services) {
+    const element = services[key];
+    if (element.component === 'fc') {
+      codeUri = get(element, 'props.function.codeUri');
+      break;
+    }
+  }
+  if (codeUri) {
+    codeUri = path.isAbsolute(codeUri) ? codeUri : path.join(spath, codeUri);
+    require('dotenv').config({ path: path.join(codeUri, '.env') });
+  }
+}
 
 export function createUniversalCommand(command: string, customerCommandName?: string, description?: string) {
   const _command = new Command(command);

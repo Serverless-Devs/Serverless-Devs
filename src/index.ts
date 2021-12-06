@@ -7,6 +7,7 @@ import {
   recordCommandHistory,
   registerCustomerCommand,
   registerUniversalCommand,
+  setEnvbyDotenv,
 } from './utils/command-util';
 import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
 import path from 'path';
@@ -18,7 +19,6 @@ import core from './utils/core';
 import { HandleError, HumanError } from './error';
 const { colors, jsyaml: yaml, getRootHome } = core;
 const pkg = require('../package.json');
-require('dotenv').config();
 
 async function setSpecialCommand() {
   if (process.argv.length === 2) return;
@@ -26,6 +26,7 @@ async function setSpecialCommand() {
   if (['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) return;
   const templateFile = checkAndReturnTemplateFile();
   if (templateFile) {
+    await setEnvbyDotenv(templateFile);
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
     await registerCustomerCommand(program, templateFile); // Add user-defined commands
