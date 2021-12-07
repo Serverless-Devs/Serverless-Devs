@@ -38,7 +38,7 @@ jobs:
       - name: Build
         run: npm run build
       - run: ./bin/s config add --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} -a default -f
-      - run: ./bin/s deploy -t ./test/start-fc-http-nodejs12/s.yaml
+      # - run: ./bin/s deploy -t ./test/start-fc-http-nodejs12/s.yaml
   beta:
     runs-on: ${{ matrix.os }}
     needs: develop
@@ -56,4 +56,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install @serverless-devs/s@beta -g
       - run: s config add --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} -a default -f
-      - run: s deploy -t ./test/start-fc-http-nodejs12/s.yaml
+      # - run: s deploy -t ./test/start-fc-http-nodejs12/s.yaml
