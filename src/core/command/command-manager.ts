@@ -11,6 +11,7 @@ import { emoji, checkTemplateFile } from '../../utils/common';
 import core from '../../utils/core';
 const { colors } = core;
 import { HandleError } from '../../error';
+import { isEmpty, get, isNil } from 'lodash';
 
 export class CommandManager {
   protected deployParams: any;
@@ -35,6 +36,24 @@ export class CommandManager {
     return projectConfig;
   }
 
+  async warnEnvironmentVariables(realVariables) {
+    const services = realVariables?.services;
+    if (isEmpty(services)) return;
+    let envObj = {};
+    for (const key in services) {
+      const environmentVariables = get(services, [key, 'props', 'function', 'environmentVariables'], {});
+      envObj = Object.assign({}, envObj, environmentVariables);
+    }
+
+    const keys = [];
+    for (const key in envObj) {
+      if (isNil(envObj[key])) {
+        keys.push(key);
+      }
+    }
+    logger.warning(`The value of environment variable [${keys.join(', ')}] is undefined.`);
+  }
+
   async init(): Promise<void> {
     try {
       logger.info('Start ...');
@@ -44,6 +63,7 @@ export class CommandManager {
         const parse = new Parse(templateFile);
         const parsedObj = parse.getOriginalParsedObj();
         const realVariables = await parse.getRealVariables(parsedObj); // Get the original conversion data
+        await this.warnEnvironmentVariables(realVariables);
         const analysis = new Analysis(realVariables, parse.dependenciesMap);
         const executeOrderList = analysis.getProjectOrder();
         if (this.customerCommandName || executeOrderList.length === 1) {
