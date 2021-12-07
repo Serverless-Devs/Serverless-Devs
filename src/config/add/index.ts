@@ -59,10 +59,7 @@ program
     infoList,
     aliasName = process.env['serverless_devs_temp_access'],
     SecurityToken,
-    f,
   } = program;
-
-  process.env.Temp_Params = JSON.stringify({ f });
 
   const keyInformation = {};
   if (keyList && infoList) {

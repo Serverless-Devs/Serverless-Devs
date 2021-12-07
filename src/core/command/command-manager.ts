@@ -51,7 +51,7 @@ export class CommandManager {
         keys.push(key);
       }
     }
-    logger.warning(`The value of environment variable [${keys.join(', ')}] is undefined.`);
+    keys.length > 0 && logger.warning(`The value of environment variable [${keys.join(', ')}] is undefined.`);
   }
 
   async init(): Promise<void> {

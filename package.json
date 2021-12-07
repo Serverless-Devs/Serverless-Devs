@@ -31,7 +31,7 @@
     "prewatch": "rm -rf lib/* && cp -r ./src/daemon ./lib",
     "watch": "tsc -w",
     "test": "npx jest",
-    "prebuild": "rm -rf lib",
+    "prebuild": "rm -rf lib/*",
     "build": "tsc && cp -r ./src/daemon ./lib",
     "postbuild": "./shell/postbuild.sh",
     "test:cov": "jest --coverage",
