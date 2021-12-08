@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { spawn, spawnSync } from 'child_process';
 import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
-import { PROJECT_NAME_INPUT, GET_APPLICATION_TEMPLATE } from './init-config';
+import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
 const { loadApplication, setCredential, colors, report, fse: fs, jsyaml: yaml, inquirer, getRootHome } = core;
@@ -168,17 +168,16 @@ export class InitManager {
   async init(name?: string, dir?: string) {
     console.log(
       `\n${emoji('🚀')} Serverless Awesome: ${colors.underline(
-        'https://github.com/Serverless-Devs/package-awesome',
+        'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md',
       )}\n`,
     );
-    const { promptData, allAliList } = GET_APPLICATION_TEMPLATE();
     if (!name) {
-      const answers: any = await inquirer.prompt(promptData);
+      const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       const answerValue = answers.template || answers.firstLevel;
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
       report({ type: 'initTemplate', content: answerValue });
-      const findObj: any = _.find(allAliList, item => item.value === answerValue);
+      const findObj: any = _.find(ALL_TEMPLATE, item => item.value === answerValue);
       if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
       }
@@ -186,7 +185,7 @@ export class InitManager {
       await this.gitCloneProject(name, dir);
     } else {
       const { appPath } = await this.executeInit(name, dir);
-      const findObj: any = _.find(allAliList, item => _.includes(item.value, name));
+      const findObj: any = _.find(ALL_TEMPLATE, item => _.includes(item.value, name));
       if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
       }

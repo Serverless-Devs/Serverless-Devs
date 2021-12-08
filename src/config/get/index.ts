@@ -1,11 +1,10 @@
 import path from 'path';
-import fs from 'fs';
 import program from 'commander';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
 import { HandleError } from '../../error';
 import core from '../../utils/core';
-const { getCredential, colors, jsyaml: yaml, getRootHome } = core;
+const { getCredential, colors, getRootHome, getYamlContent } = core;
 
 const description = `You can get accounts.
  
@@ -34,6 +33,23 @@ function getSecretValue(n: number, str = ' ') {
   return temp_str;
 }
 
+function secret(tempAccess) {
+  const tempAlias = tempAccess['Alias'];
+  const tempSecretAccess = {};
+  for (const eveValue in tempAccess) {
+    if (eveValue !== 'Alias') {
+      const valueLength: any = tempAccess[eveValue].length;
+      tempSecretAccess[eveValue] =
+        valueLength > 6
+          ? tempAccess[eveValue].slice(0, 3) +
+            getSecretValue(valueLength - 6, '*') +
+            tempAccess[eveValue].slice(valueLength - 3, valueLength)
+          : tempAccess[eveValue];
+    }
+  }
+  return { [tempAlias]: tempSecretAccess };
+}
+
 function notFound() {
   const msg = `
   ${emoji('🤔')} You have not yet been found to have configured key information.
@@ -48,29 +64,17 @@ function notFound() {
   const serverless_devs_temp_argv = JSON.parse(process.env['serverless_devs_temp_argv']);
   const { access = process.env['serverless_devs_temp_access'] } = program as any;
   const accessFile = path.join(getRootHome(), 'access.yaml');
-  if (!fs.existsSync(accessFile)) {
-    return notFound();
-  }
-  const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
-  const accessInfo = {};
+  const accessFileInfo = await getYamlContent(accessFile);
+  let accessInfo = {};
   for (const eveAccess in accessFileInfo) {
     const tempAccess = await getCredential(eveAccess);
-    const tempAlias = tempAccess['Alias'];
-    const tempSecretAccess = {};
-    for (const eveValue in tempAccess) {
-      if (eveValue !== 'Alias') {
-        const valueLength: any = tempAccess[eveValue].length;
-        tempSecretAccess[eveValue] =
-          valueLength > 6
-            ? tempAccess[eveValue].slice(0, 3) +
-              getSecretValue(valueLength - 6, '*') +
-              tempAccess[eveValue].slice(valueLength - 3, valueLength)
-            : tempAccess[eveValue];
-      }
-    }
-    accessInfo[tempAlias] = tempSecretAccess;
+    accessInfo = Object.assign({}, accessInfo, secret(tempAccess));
   }
-
+  // 兼容 环境变量里的密钥
+  const envAccess = await getCredential();
+  if (envAccess) {
+    accessInfo = Object.assign({}, accessInfo, secret(envAccess));
+  }
   // s config get case
   if (serverless_devs_temp_argv.length === 4) {
     if (Object.keys(accessInfo).length === 0) {

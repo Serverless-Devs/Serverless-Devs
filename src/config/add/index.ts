@@ -27,17 +27,17 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
 program
   .name('s config add')
   .usage('[commands] [name]')
-  .option('--AccountID [AccountID]', 'AccountID of key information')
-  .option('--AccessKeyID [AccessKeyID]', 'AccessKeyID of key information')
-  .option('--AccessKeySecret [AccessKeySecret]', 'AccessKeySecret of key information')
-  .option('--SecurityToken [SecurityToken]', 'SecurityToken of key information')
-  .option('--SecretAccessKey [SecretAccessKey]', 'SecretAccessKey of key information')
-  .option('--AccessKey [AccessKey]', 'AccessKey of key information')
-  .option('--SecretKey [SecretKey]', 'SecretKey of key information')
-  .option('--SecretID [SecretID]', 'SecretID of key information')
-  .option('--PrivateKeyData [PrivateKeyData]', 'PrivateKeyData of key information')
-  .option('-kl , --keyList [keyList]', 'Keys of key information, like: -kl key1,key2,key3')
-  .option('-il , --infoList [infoList]', 'Values of key information, like: -il info1,info2,info3')
+  .option('--AccountID <AccountID>', 'AccountID of key information')
+  .option('--AccessKeyID <AccessKeyID>', 'AccessKeyID of key information')
+  .option('--AccessKeySecret <AccessKeySecret>', 'AccessKeySecret of key information')
+  .option('--SecurityToken <SecurityToken>', 'SecurityToken of key information')
+  .option('--SecretAccessKey <SecretAccessKey>', 'SecretAccessKey of key information')
+  .option('--AccessKey <AccessKey>', 'AccessKey of key information')
+  .option('--SecretKey <SecretKey>', 'SecretKey of key information')
+  .option('--SecretID <SecretID>', 'SecretID of key information')
+  .option('--PrivateKeyData <PrivateKeyData>', 'PrivateKeyData of key information')
+  .option('-kl , --keyList <keyList>', 'Keys of key information, like: -kl key1,key2,key3')
+  .option('-il , --infoList <infoList>', 'Values of key information, like: -il info1,info2,info3')
   .option('-a , --aliasName [name]', 'Key pair alias, if the alias is not set, use default instead')
   .option('-f', 'Mandatory overwrite key information')
 
@@ -59,10 +59,7 @@ program
     infoList,
     aliasName = process.env['serverless_devs_temp_access'],
     SecurityToken,
-    f,
   } = program;
-
-  process.env.Temp_Params = JSON.stringify({ f });
 
   const keyInformation = {};
   if (keyList && infoList) {
