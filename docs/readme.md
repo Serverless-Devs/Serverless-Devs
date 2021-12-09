@@ -51,7 +51,7 @@ $ npm install @serverless-devs/s -g
 
 > 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](zh/package_dev.md)  
 
-> Serverless Devs 天然支持 Yaml 模式与 Cli 模式，关于两者的区别和试用场景，可以参考文档[ Yaml 模式 Cli 模式对比](./../yaml_and_cli.md)
+> Serverless Devs 天然支持 Yaml 模式与 Cli 模式，关于两者的区别和试用场景，可以参考文档[ **Yaml 模式 Cli 模式对比**](./zh/yaml_and_cli.md)；关于[**Exit Code 定义**](./zh/tool.md#exit-code-定义)、[**Yaml 文件优先级规范**](./zh/tool.md#yaml-文件优先级规范)、[**密钥使用顺序与规范**](./zh/tool.md#密钥使用顺序与规范)、[**通过环境变量设置密钥**](./zh/tool.md#通过环境变量设置密钥)更多关于项目设计的一些细节可以参考[**开发者工具设计文档**](./zh/tool.md) 
 
 # 相关资源
 
@@ -66,6 +66,12 @@ $ npm install @serverless-devs/s -g
 > 尽管以上 FaaS 平台/产品已经有人贡献或在持续维护中，但是我们仍然非常欢迎大家可以参与贡献/维护，除此之外，其他的 FaaS 平台/产品（例如 Google Cloud Platform Functions、Azure Functions等），我们也非常期望社区的小伙伴们可以参与开发和贡献。
 
 > 🚀 除此之外 Serverless Devs 项目还拥有很多优秀的组件和应用，可以参考[Awesome](./zh/awesome.md)
+
+# 项目期望
+
+- Serverless Devs 希望可以为 Serverless 开发者们提供一款可以无厂商锁定的，可以在 Serverless 应用全生命周期发挥作用的 Serverless 开发者工具；
+- Serverless Registry 希望可以为 Serverless 生态提供一套完整的包管理规范，，与 Python 中的 pypi， Nodejs 中的 npm 等类似，将以此来开放和分享 Serverless Package，建设 Serverless 生态；
+- Serverless Developer Meetup 希望可以打造最符合 Serverless 开发者的社区活动，通过这个活动，我们希望更多人可以一起和我们交流、学习 Serverless 相关的产品；
 
 # 项目贡献
 
@@ -91,4 +97,4 @@ Serverless Devs 遵循 [MIT License](../LICENSE) 开源许可。
 
 -----------
 
-> Serverless Devs 开发者工具遵循 [Serverless Devs Model](../spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](../spec/zh/0.0.1/serverless_registry_model/readme.md)，[Serverless User Model](../spec/zh/0.0.1/serverless_user_model/readme.md) 以及 [Serverless Package Model](../spec/zh/0.0.1/serverless_pacakge_model/readme.md)；另外，关于项目设计的一些细节可以参考[开发者工具设计文档](./zh/tool.md)
+> Serverless Devs 开发者工具遵循 [Serverless Devs Model](../spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](../spec/zh/0.0.1/serverless_registry_model/readme.md)，[Serverless User Model](../spec/zh/0.0.1/serverless_user_model/readme.md) 以及 [Serverless Package Model](../spec/zh/0.0.1/serverless_pacakge_model/readme.md)；

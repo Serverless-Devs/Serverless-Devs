@@ -68,7 +68,7 @@ Serverless Devs 的模型设计原则，是希望可以通过更加简单、科�
 - 2021年6月，Serverless Devs 下载次数突破 10000
 - 2021年7月，Serverless Developer Meetup 在杭州召开，阿里云函数计算团队在会上正式发布端云联调、桌面客户端等功能
 - 2021年8月，Serverless Devs 下载次数突破 20000
-- 2021年10月，在***2021 OpenInfra Days China***会议上，Serverless Devs 带来了《Serverless Devs：Serverless全生命周期的工具链建设》的主题演讲
+- 2021年10月，在 2021 OpenInfra Days China 会议上，Serverless Devs 带来了《Serverless Devs：Serverless全生命周期的工具链建设》的主题演讲
 - 2021年12月，Serverless Developer Meetup 在深圳召开，并尝试性的对外展示了Serverless Devs Model
 
 
@@ -79,7 +79,7 @@ Serverless Devs 将会在未来支持：
 - 将会开发和上线 Serverless Devs IDE Plugin；
 - 将会持续推动 Serverless 生态尤其是 Serverless 工具链生态的前进；
 
-关于我们的 Roadmap，可以参考 [Github Projects](#https://github.com/Serverless-Devs/Serverless-Devs/projects) 。
+关于我们的 Roadmap，可以参考 [Github Projects](https://github.com/Serverless-Devs/Serverless-Devs/projects) 。
 
 ## 交流社群
 
