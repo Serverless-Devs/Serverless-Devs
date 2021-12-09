@@ -5,8 +5,8 @@
 - [命令解析](#命令解析)
 - [set registry 命令](#set-registry-命令)
 - [set locale 命令](#set-locale-命令)
-- [[FEATURE] set analysis 命令](#feature-set-analysis-命令)
-- [[FEATURE] set workspace 命令](#feature-set-workspace-命令)
+- [set analysis 命令](#feature-set-analysis-命令)
+- [set workspace 命令](#feature-set-workspace-命令)
 
 ## 命令解析
 
@@ -118,7 +118,7 @@ Options:
 
 > 🙊 注：系统默认的 locale 是：`zh`
 
-## [FEATURE] set analysis 命令
+## set analysis 命令
 
 通过该命令，可以对 Serverless Devs 开发者工具的数据分析能力进行配置。  
 
@@ -155,7 +155,7 @@ Options:
 
 > 🙊 注：系统默认的 analysis 是：`enable`
 
-## [FEATURE] set workspace 命令
+## set workspace 命令
 
 通过该命令，可以对 Serverless Devs 开发者工具的默认路径进行配置。 
 
