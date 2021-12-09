@@ -6,6 +6,8 @@
     - [Yaml 文件优先级规范](#yaml-文件优先级规范)
     - [应用内服务部署顺序](#应用内服务部署顺序)
     - [密钥使用顺序与规范](#密钥使用顺序与规范)
+- [通过环境变量设置密钥](#通过环境变量设置密钥)
+- []
 
 ## Exit Code 定义
 
@@ -71,10 +73,29 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 ### 密钥使用顺序与规范
 
 - 通过`-a/--access`参数指定的密钥信息
-- 默认使用`default`密钥信息
-- 不实用密钥信息 / 进入密钥信息配置引导
+- 使用已经配置的`default`密钥信息
+- 使用通过环境变量配置的``default_serverless_devs_access`密钥信息
+- 不使用密钥信息 / 进入密钥信息配置引导
 
 具体的流程图为：
 
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635841483040_20211102082444588067.png)
 
+## 通过环境变量设置密钥
+
+Serverless Devs可以比较容易的通过环境变量进行密钥信息的设定。通过环境变量配置密钥的方法有两种：
+
+1. 通过命令引入环境变量中的密钥：例如在环境变量中有`ALIBABA_CLOUD_ACCOUNT_ID`、`ALIBABA_CLOUD_ACCESS_KEY_ID`、`ALIBABA_CLOUD_ACCESS_KEY_SECRET`等相关内容，此时可以通过`s config add`命令进行添加：
+```shell script
+s config add -a default-aliyun -kl AccountID,AccessKeyID,AccessKeySecret -il ${ALIBABA_CLOUD_ACCOUNT_ID},${ALIBABA_CLOUD_ACCESS_KEY_ID},${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
+```
+2. 通过指定环境变量的名字进行配置：例如当前有阿里云密钥对：
+    - AccountID: temp_accountid
+    - AccessKeyID: temp_accesskeyid
+    - AccessKeySecret: temp_accesskeysecret      
+    此时可以在环境变量中可以命名key为`*********_serverless_devs_access`，例如`default_serverless_devs_access`，value为JSON字符串，例如：
+    - Key：`default_serverless_devs_access`
+    - Value：`{\"AccountID\":\"temp_accountid\",\"AccessKeyID\":\"temp_accesskeyid\",\"AccessKeySecret\":\"temp_accesskeysecret\"}`        
+    此时，可以在配置密钥的时候指定密钥`default_serverless_devs_access`，例如`${env(default_serverless_devs_access)}`
+    
+## 
