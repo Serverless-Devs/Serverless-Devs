@@ -67,30 +67,31 @@ $ s init
 
 ```shell script
 ? Please select an Serverless-Devs Application (Use arrow keys or type to search)
-❯ fc-runtime-starter - 快速部署一个 FC 函数 
-  fc-custom-container-stater - 快速部署一个 custom-container 应用 
-  web-framework-stater - 快速部署一个 Web 框架 
-  static-website-stater - 快速部署一个静态网站 
-  serverless-best-practice - 快速体验 Serverless 最佳实践 
+❯ Quick start [Deploy a Hello World function to FaaS] 
+  Container example [Deploy function to FaaS with custom-container] 
+  Web Framework [Deploy a web framework to FaaS] 
+  Static website [Deploy a static website] 
+  Best practice [Experience serverless project] 
 ```
 
 此时可以继续选择某分类下的具体应用进行初始化，例如选择`fc-runtime-starter`之后，可以看到该分类下的具体模板应用：
 
 ```shell script
-? Please select an templete (Use arrow keys or type to search)
-❯ fc-http-nodejs - 快速部署一个 nodejs12 http函数 
-  fc-http-python - 快速部署一个 python3 http函数 
-  fc-http-php - 快速部署一个 php http函数 
-  fc-http-java - 快速部署一个 java8 http函数 
-  fc-event-nodejs - 快速部署一个 nodejs12 event函数 
-  fc-event-python - 快速部署一个 python3 event函数 
-  fc-event-php - 快速部署一个 php event函数 
+? Which template do you like? (Use arrow keys or type to search)
+❯ [HTTP] Node.js 12 
+  [HTTP] Python3 
+  [HTTP] Java8 
+  [HTTP] PHP7 
+  [HTTP] C++ (custom) 
+  [Event] Node.js 12 
+  [Event] Python3 
+(Move up and down to reveal more choices)
 ```
 
 选择`fc-http-nodejs`即可完成创建：
 
 ```shell script
-jiangyu@ServerlessSecurity demo % s init                                         
+$ s init                                         
 
 🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
 

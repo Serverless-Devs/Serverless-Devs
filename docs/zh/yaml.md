@@ -16,7 +16,11 @@
 - 拓展名可以是`.yaml`或`.yml`
 - 格式必须符合[Yaml规范](https://yaml.org/spec/1.2.2/)
 
-在默认情况下，Serverless Devs 开发者工具会默认该描述文件的名称为`s.yaml`或`s.yml`，且`s.yaml`的优先级大于`s.yml`，即在一个Serverless应用下，同时出现`s.yaml`与`s.yml`时，系统会优先识别和使用`s.yaml`。当然，开发者也可以通过`-t, --template  [templatePath]`进行指定，例如，在某应用下，资源/行为描述文件名为`test.yml`，则可以在执行相关命令时，增加参数`-t test.yml`或者`--template test.yml`
+> 👉 对于需要通过描述文件进行环境隔离的项目，建议将文件命名为 `s-${ENV}.yaml` 或 `s-${ENV}.yml` 格式。 例如：`s-prod.yaml`。
+
+在默认情况下，Serverless Devs 开发者工具会默认该描述文件的名称为`s.yaml`或`s.yml`，且`s.yaml`的优先级大于`s.yml`， 即在一个 Serverless 应用下，同时出现`s.yaml`与`s.yml`时，系统会优先识别和使用`s.yaml`。
+
+当然，开发者也可以通过`-t, --template  [templatePath]`进行指定，例如，在某应用在生产环境下的描述文件名为`s-prod.yml`，则可以在执行相关命令时，增加参数`-t s-prod.yml`或者`--template s-prod.yml`。
 
 ## 描述文件格式/规范
 
