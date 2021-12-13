@@ -19,3 +19,9 @@ src
 bin-dev
 .github
 pre-public
+spec
+test
+docs
+*.setup.ts
+*.md
+tsconfig.json
