@@ -148,3 +148,9 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   }).report(error);
   process.exit(1);
 });
+
+
+process.on('unhandledRejection', async (error : Error) => {
+  await new HandleError({ error }).report(error);
+  process.exit(1);
+});
