@@ -122,7 +122,7 @@
                 <p>金炳<br><a href="https://github.com/stone-jin"> Github</a> | <a href="https://www.fedfans.com">Blog</a></p>
             </td>
             <td align="center" width="20%">
-                <img src="https://avatars.githubusercontent.com/u/45506000?v=4" width="20%" style="min-width: 100px"><br>
+                <img src="https://avatars.githubusercontent.com/u/21330840?v=4" width="20%" style="min-width: 100px"><br>
                 <p>xsahxl<br><a href="https://github.com/xsahxl"> Github</a> | <a href="https://github.com/xsahxl/">Blog</a></p>
             </td>
             <td align="center" width="20%">
