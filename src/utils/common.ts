@@ -3,16 +3,36 @@
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-// import { getConfig } from './handler-set-config';
 import os from 'os';
-// import osLocale from 'os-locale';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
 const { colors, jsyaml: yaml } = core;
 const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');
+export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
+
+
+const makeUnderLine = (text: string) => {
+  const matchs = text.match(/http[s]?:\/\/[^\s]+/);
+  return text.replace(matchs[0], colors.underline(matchs[0]));
+}
+
+export const getErrorMessage = (error: Error) => {
+  const message = error.message ? error.message : '';
+  try {
+    const jsonMsg = JSON.parse(message);
+    console.log(`${bgRed('ERROR:')}\n${jsonMsg.message}\n`);
+    if(jsonMsg.tips) {
+      console.log(`${yellow(makeUnderLine(jsonMsg.tips))}\n`);
+    }
+  } catch (error) {
+    // F3F99D
+    console.log(`${bgRed('ERROR:')}\n${message}\n`);
+  }
+}
+
 
 export function getVersion() {
   return getCoreVersion()
