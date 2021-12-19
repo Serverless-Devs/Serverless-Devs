@@ -6,7 +6,7 @@ import _ from 'lodash';
 import os from 'os';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml } = core;
+const { colors, jsyaml: yaml, isDebugMode } = core;
 const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');
@@ -20,6 +20,12 @@ const makeUnderLine = (text: string) => {
 }
 
 export const getErrorMessage = (error: Error) => {
+  const isDebug = isDebugMode ? isDebugMode() : undefined;
+  if(isDebug) {
+    console.log(error);
+    return;
+  }
+
   const message = error.message ? error.message : '';
   try {
     const jsonMsg = JSON.parse(message);
@@ -35,11 +41,16 @@ export const getErrorMessage = (error: Error) => {
 
 
 export function getVersion() {
-  return getCoreVersion()
-    ? `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
-        process.arch
-      }, node-${process.version}`
-    : `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`;
+  const coreVersion = getCoreVersion();
+  const platform = `${process.platform}-${process.arch}`;
+  const nodeVersion = `node-${process.version}`;
+  const coreVersionStr = `core: ${coreVersion}`;
+  const homeWork = `s-home: ${core.getRootHome()}`;
+  const pkgVersion  = `${pkg.name}: ${pkg.version}`;
+
+  return coreVersion
+    ? `${pkgVersion}, ${coreVersionStr}, ${homeWork}, ${platform}, ${nodeVersion}`
+    : `${pkgVersion}, ${homeWork}, ${platform}, ${nodeVersion}`;
 }
 
 export async function getFolderSize(rootItemPath: string) {
