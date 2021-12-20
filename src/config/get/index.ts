@@ -1,5 +1,5 @@
 import path from 'path';
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
 import { HandleError } from '../../error';

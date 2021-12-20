@@ -235,9 +235,28 @@ export function mark(source: string): string {
   return `***********${subStr}`;
 }
 
-export function emoji(emoji: string): string {
-  return os.platform() === 'win32' ? '' : emoji;
+export function emoji(text: string, fallback?: string) {
+  if (os.platform() === 'win32') {
+    return fallback || '◆';
+  }
+  return `${text} `;
 }
+
+export function orderdEmoji(types, shape?: number) {
+  const typeList = Object.keys(types);
+  const length = typeList.reduce((a, c) => Math.max(a, c.length), 0) + 2;
+  
+  const list = typeList.map((t) =>{
+    const emoji = types[t].emoji ? `${types[t].emoji}  `: '';
+    return (shape === 0 || _.isUndefined(shape)) ? `${emoji}${(types[t].title + ":").padEnd(length)} ${types[t].description}\n`
+      : `  ${types[t].title.padEnd(length+20)} ${emoji}${types[t].description}\n`
+    }
+  );
+  return _.reduce(list, (sum, item) => {
+    return sum += item;
+  }, '');
+}
+
 
 export default {
   checkAndReturnTemplateFile,

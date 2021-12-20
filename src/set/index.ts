@@ -1,4 +1,4 @@
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
 

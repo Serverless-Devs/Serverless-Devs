@@ -1,6 +1,6 @@
 /** @format */
 
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import { configSet } from '../utils';
 import { InitManager } from './init-manager';
 import { emoji } from '../utils/common';
