@@ -92,6 +92,6 @@
     ]
   },
   "dependencies": {
-    "@serverless-devs/core": "latest"
+    "@serverless-devs/core": "beta"
   }
 }
