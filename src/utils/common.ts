@@ -3,23 +3,54 @@
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-// import { getConfig } from './handler-set-config';
 import os from 'os';
-// import osLocale from 'os-locale';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml } = core;
+const { colors, jsyaml: yaml, isDebugMode } = core;
 const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');
+export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
+
+const makeUnderLine = (text: string) => {
+  const matchs = text.match(/http[s]?:\/\/[^\s]+/);
+  return text.replace(matchs[0], colors.underline(matchs[0]));
+}
+
+export const getErrorMessage = (error: Error) => {
+  const isDebug = isDebugMode ? isDebugMode() : undefined;
+  if(isDebug) {
+    console.log(error);
+    return;
+  }
+
+  const message = error.message ? error.message : '';
+  try {
+    const jsonMsg = JSON.parse(message);
+    console.log(`${bgRed('ERROR:')}\n${jsonMsg.message}\n`);
+    if(jsonMsg.tips) {
+      console.log(`${yellow(makeUnderLine(jsonMsg.tips))}\n`);
+    }
+  } catch (error) {
+    // F3F99D
+    console.log(`${bgRed('ERROR:')}\n${message}\n`);
+  }
+}
+
+
 export function getVersion() {
-  return getCoreVersion()
-    ? `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
-        process.arch
-      }, node-${process.version}`
-    : `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`;
+  const coreVersion = getCoreVersion();
+  const platform = `${process.platform}-${process.arch}`;
+  const nodeVersion = `node-${process.version}`;
+  const coreVersionStr = `core: ${coreVersion}`;
+  const homeWork = `s-home: ${core.getRootHome()}`;
+  const pkgVersion  = `${pkg.name}: ${pkg.version}`;
+
+  return coreVersion
+    ? `${pkgVersion}, ${coreVersionStr}, ${homeWork}, ${platform}, ${nodeVersion}`
+    : `${pkgVersion}, ${homeWork}, ${platform}, ${nodeVersion}`;
 }
 
 export async function getFolderSize(rootItemPath: string) {
@@ -204,9 +235,28 @@ export function mark(source: string): string {
   return `***********${subStr}`;
 }
 
-export function emoji(emoji: string): string {
-  return os.platform() === 'win32' ? '' : emoji;
+export function emoji(text: string, fallback?: string) {
+  if (os.platform() === 'win32') {
+    return fallback || '◆';
+  }
+  return `${text} `;
 }
+
+export function orderdEmoji(types, shape?: number) {
+  const typeList = Object.keys(types);
+  const length = typeList.reduce((a, c) => Math.max(a, c.length), 0) + 2;
+  
+  const list = typeList.map((t) =>{
+    const emoji = types[t].emoji ? `${types[t].emoji}  `: '';
+    return (shape === 0 || _.isUndefined(shape)) ? `${emoji}${(types[t].title + ":").padEnd(length)} ${types[t].description}\n`
+      : `  ${types[t].title.padEnd(length+20)} ${emoji}${types[t].description}\n`
+    }
+  );
+  return _.reduce(list, (sum, item) => {
+    return sum += item;
+  }, '');
+}
+
 
 export default {
   checkAndReturnTemplateFile,

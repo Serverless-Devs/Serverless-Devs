@@ -1,7 +1,9 @@
 /** @format */
-import { red, bgRed, getVersion } from '../utils/common';
+import { red, getVersion } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
 import core from '../utils/core';
+import { getErrorMessage } from '../utils/common';
+
 const { colors, report, getMAC } = core;
 export { CommandError } from './command-error';
 export { ConfigDeleteError } from './config-delete-error';
@@ -41,7 +43,7 @@ export class HandleError {
     console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
     console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
     console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
-    console.log(`${bgRed('ERROR:')}\n${error}\n`);
+    getErrorMessage(error);
     if (analysis !== 'disable') {
       console.log(
         colors.gray(`Please copy traceId: ${this.traceId} and join Dingding group: 33947367 for consultation.`),
@@ -51,7 +53,7 @@ export class HandleError {
     console.log(colors.gray("And run again with the '--debug' option or 's -h' to get more logs.\n"));
   }
   async report(error: Error) {
-    report({
+    await report({
       type: 'jsError',
       content: `${error.message}||${error.stack}`,
       traceId: this.traceId,

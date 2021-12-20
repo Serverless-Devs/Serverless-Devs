@@ -1,4 +1,4 @@
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import { CommandError } from '../../error';
 import logger from '../../utils/logger';
 import core from '../../utils/core';
