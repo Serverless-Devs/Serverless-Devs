@@ -2,7 +2,7 @@
 
 import path from 'path';
 import fs from 'fs';
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import { logger } from '../../utils';
 import { HandleError, HumanError } from '../../error';
 import { emoji } from '../../utils/common';

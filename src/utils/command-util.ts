@@ -1,6 +1,6 @@
 import os from 'os';
 import path from 'path';
-import { Command } from 'commander';
+import { Command } from '@serverless-devs/commander';
 import { CommandManager } from '../core';
 import { version, Parse } from '../specification';
 import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';

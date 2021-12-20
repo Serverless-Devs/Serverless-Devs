@@ -1,6 +1,6 @@
 /** @format */
 
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
 
@@ -16,9 +16,9 @@ program
   .name('s config')
   .usage('[commands] [options]')
   .helpOption('-h, --help', 'Display help for command')
-  .command('add', `${emoji('➕')} ` + 'Add an account')
-  .command('get', `${emoji('✔️')} ` + 'Get accounts')
-  .command('delete', `${emoji('✖️')} ` + 'Delete an account')
+  .command('add', `${emoji(colors.bold('+'))}` + 'Add an account')
+  .command('get', `${emoji(colors.bold('√'))}` + 'Get accounts')
+  .command('delete', `${emoji(colors.bold('×'))}` + 'Delete an account')
   .description(description)
   .addHelpCommand(false)
   .parse(process.argv);
