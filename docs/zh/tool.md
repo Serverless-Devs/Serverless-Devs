@@ -97,4 +97,18 @@ s config add -a default-aliyun -kl AccountID,AccessKeyID,AccessKeySecret -il ${A
     - Value：`{\"AccountID\":\"temp_accountid\",\"AccessKeyID\":\"temp_accesskeyid\",\"AccessKeySecret\":\"temp_accesskeysecret\"}`        
     此时，可以在配置密钥的时候指定密钥`default_serverless_devs_access`，例如`${env(default_serverless_devs_access)}`
     
+    在`s.yaml`配置如下:
+    ```
+    edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+    name: fcDeployApp       #  项目名称
+    access: default_serverless_devs_access  #  秘钥别名
+
+    services:
+      fc-deploy-test:
+        component: fc-deploy  # 组件名称
+        props: #  组件的属性值
+          region: cn-shenzhen
+          service:
+            name: fc-deploy-service
+    ```
 ## 
