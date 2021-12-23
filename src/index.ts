@@ -70,6 +70,9 @@ const descption = {
     {'set': '🔧  Settings for the tool.'},
     {'clean': '💥  Clean up the environment.'},
     {'component': '🔌  Installed component information.'},
+  ],
+  Examples: [
+    {'init': 'perform [s init] fast experience Serverless Devs'},
   ]
 };
 
@@ -98,6 +101,7 @@ const helperLength = publishHelp.maxLen(descption.Options);
           publishHelp.helpInfo(descption.Options, 'Options', helperLength),
           publishHelp.helpInfo(descption.Commands, 'Commands', helperLength),
           publishHelp.helpInfo(customerCommandDescription, 'Custom Commands', helperLength),
+          publishHelp.helpInfo(descption.Examples, 'Examples', helperLength),
           `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')} `  + '\n'
         ].join('\n')
       );
