@@ -6,18 +6,13 @@ import _ from 'lodash';
 import os from 'os';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml, isDebugMode } = core;
+const { colors, jsyaml: yaml, makeUnderLine, isDebugMode } = core;
 const pkg = require('../../package.json');
 
 export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
-
-const makeUnderLine = (text: string) => {
-  const matchs = text.match(/http[s]?:\/\/[^\s]+/);
-  return text.replace(matchs[0], colors.underline(matchs[0]));
-}
 
 export const getErrorMessage = (error: Error) => {
   const isDebug = isDebugMode ? isDebugMode() : undefined;
@@ -34,7 +29,6 @@ export const getErrorMessage = (error: Error) => {
       console.log(`${yellow(makeUnderLine(jsonMsg.tips))}\n`);
     }
   } catch (error) {
-    // F3F99D
     console.log(`${bgRed('ERROR:')}\n${message}\n`);
   }
 }
@@ -240,21 +234,6 @@ export function emoji(text: string, fallback?: string) {
     return fallback || '◆';
   }
   return `${text} `;
-}
-
-export function orderdEmoji(types, shape?: number) {
-  const typeList = Object.keys(types);
-  const length = typeList.reduce((a, c) => Math.max(a, c.length), 0) + 2;
-  
-  const list = typeList.map((t) =>{
-    const emoji = types[t].emoji ? `${types[t].emoji}  `: '';
-    return (shape === 0 || _.isUndefined(shape)) ? `${emoji}${(types[t].title + ":").padEnd(length)} ${types[t].description}\n`
-      : `  ${types[t].title.padEnd(length+20)} ${emoji}${types[t].description}\n`
-    }
-  );
-  return _.reduce(list, (sum, item) => {
-    return sum += item;
-  }, '');
 }
 
 

@@ -12,13 +12,15 @@ import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-import { emoji, orderdEmoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
+import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
 import { HandleError, HumanError } from './error';
-const { colors, jsyaml: yaml, getRootHome } = core;
+const { jsyaml: yaml, makeUnderLine, getRootHome, publishHelp } = core;
 const pkg = require('../package.json');
+
+let customerCommandDescription = [];
 
 async function setSpecialCommand() {
   if (process.argv.length === 2) return;
@@ -29,7 +31,7 @@ async function setSpecialCommand() {
     await setEnvbyDotenv(templateFile);
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    await registerCustomerCommand(program, templateFile); // Add user-defined commands
+    customerCommandDescription = await registerCustomerCommand(program, templateFile); // Add user-defined commands
     await registerUniversalCommand(program, templateFile); // Register pan instruction
   } else {
     if (['-h', '--help'].includes(process.argv[2])) return;
@@ -52,16 +54,30 @@ async function globalParameterProcessing() {
   }
 }
 
-const description = `${emoji('🚀')} Welcome to the Serverless Devs.
+const descption = {
+  Options: [
+    {'--debug': 'Open debug model.'},
+    {'--skip-actions': 'Skip the extends section.'},
+    {'-t, --template <path>': 'Specify the template file.'},
+    {'-a, --access <aliasName>': 'Specify the access alias name.'},
+    {'-v, --version': 'Output the version number.'},
+    {'-h, --help': 'Display help for command.'},
+  ],
+  Commands: [
+    {'config': '👤  Configure venders account.'},
+    {'init': '💞  Initializing a serverless project.'},
+    {'cli': '🐚  Command line operation without yaml mode.'},
+    {'set': '🔧  Settings for the tool.'},
+    {'clean': '💥  Clean up the environment.'},
+    {'component': '🔌  Installed component information.'},
+  ]
+};
 
-${colors.underline(colors.bold('Quick start:'))}
-  init   ${_.repeat(' ', 24) +'Create a new serverless application.'}
-  docs   ${_.repeat(' ', 24) + colors.underline('https://github.com/Serverless-Devs/Serverless-Devs')}`;
+const helperLength = publishHelp.maxLen(descption.Options);
 
 (async () => {
   registerCommandChecker(program);
   const system_command = program
-    .description(description)
     .helpOption('-h, --help', `Display help for command.`)
     .option('--debug', 'Open debug model.')
     .option('--skip-actions', 'Skip the extends section.')
@@ -78,23 +94,13 @@ ${colors.underline(colors.bold('Quick start:'))}
     .addHelpCommand(false)
     .on('--help', function() {
       console.log(
-        `\n${colors.underline(colors.bold('More:'))}\n`+
-        orderdEmoji({
-          Awesome: {
-            title: " Awesome",
-            description: _.repeat(' ', 18) + colors.underline(
-              'https://github.com/devsapp/awesome'),
-          },
-          Issues: {
-            title: " Issues",
-            description: _.repeat(' ', 18) + colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues'),
-          },
-          Discussions: {
-            title: " Discussions",
-            description: _.repeat(' ', 18) + colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions'),
-          },
-        })
-      )
+        [`${emoji('🚀')} Welcome to the Serverless Devs.\n`,
+          publishHelp.helpInfo(descption.Options, 'Options', helperLength),
+          publishHelp.helpInfo(descption.Commands, 'Commands', helperLength),
+          publishHelp.helpInfo(customerCommandDescription, 'Custom Commands', helperLength),
+          `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')} `  + '\n'
+        ].join('\n')
+      );
     });
 
   process.env['CLI_VERSION'] = pkg.version;

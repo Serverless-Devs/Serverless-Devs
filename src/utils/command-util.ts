@@ -7,9 +7,9 @@ import { PROCESS_ENV_TEMPLATE_NAME } from '../constants/static-variable';
 import storage from './storage';
 import logger from './logger';
 import { emoji } from './common';
-import { get } from 'lodash';
+import _, { get, forEach, size } from 'lodash';
 import core from './core';
-const { loadComponent, fse: fs, jsyaml: yaml, getYamlContent } = core;
+const { makeUnderLine, loadComponent, fse: fs, getYamlContent, publishHelp } = core;
 
 const { getSubcommand, getServiceConfig } = version;
 
@@ -80,12 +80,6 @@ export function getCustomerCommandInfo(parsedTemplateObj: any): string[] {
   return getSubcommand(parsedTemplateObj);
 }
 
-function getTempCommandStr(commands: string, length: number) {
-  const commandsLength = commands.length;
-  const tempArray = new Array(length - commandsLength).fill(' ');
-  return `${commands}${tempArray.join('')} : `;
-}
-
 export async function createCustomerCommand(templateFile: string): Promise<any[]> {
   const customerCommands: any = [];
   const doc = await getParsedTemplateObj(templateFile);
@@ -94,13 +88,13 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     const projectDocDetail: any = getServiceConfig(doc, projectName);
     return { projectName, projectDocDetail };
   });
+  
   const commandListDetail = await Promise.all(commandListPromise);
-  commandListDetail.forEach(({ projectName, projectDocDetail }) => {
+  // 只有一个指令的时候
+
+  forEach(commandListDetail, ({ projectName, projectDocDetail }) => {
     const customerCommand = new Command(projectName);
-    const customerCommandDescription = `${emoji(
-      '👉',
-    )} This is a customer command please use [s ${projectName} -h]  obtain the documentation`;
-    customerCommand.description(customerCommandDescription);
+    customerCommand._componentName = get(projectDocDetail, 'component');
     const [_customerCommandName, methodName] = process.argv.slice(2);
     if (_customerCommandName === projectName && methodName && methodName.indexOf('-') !== 0) {
       customerCommand.addCommand(createUniversalCommand(methodName, projectName));
@@ -110,40 +104,24 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
       const { component } = projectDocDetail;
       const componentInstance: any = await loadComponent(component);
       if (componentInstance) {
-        if (componentInstance.__doc && componentInstance.__doc().length > 1685) {
-          const docResult = componentInstance.__doc(projectName);
-          logger.info(`\n${docResult}`);
-        } else {
-          try {
-            let componentPathYaml = path.join(componentInstance.__path, 'publish.yml');
-            if (!(await fs.existsSync(componentPathYaml))) {
-              componentPathYaml = path.join(componentInstance.__path, 'publish.yaml');
-            }
-            const publishYamlInfor = await yaml.load(fs.readFileSync(componentPathYaml, 'utf8'));
+        try {
+          const publishYamlInfor = await getYamlContent(path.join(componentInstance.__path, 'publish.yml'));
+          console.log(
+            `${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`,
+          );
+          if (publishYamlInfor['Commands']) {
+            const helperLength = publishHelp.maxLen(publishYamlInfor['Commands']);
+            console.log(publishHelp.helpInfo(publishYamlInfor['Commands'], 'Commands', helperLength))
             console.log(
-              `\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`,
+              `${
+                publishYamlInfor['HomePage']
+                  ? `${emoji('🧭')} ${makeUnderLine('More information: '+ publishYamlInfor['HomePage'])} `  + '\n'
+                  : ''
+              }`,
             );
-            let tempLength = 0;
-            if (publishYamlInfor['Commands']) {
-              for (const item in publishYamlInfor['Commands']) {
-                if (item.length > tempLength) {
-                  tempLength = item.length;
-                }
-              }
-              for (const item in publishYamlInfor['Commands']) {
-                console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`);
-              }
-              console.log(
-                `\n  ${
-                  publishYamlInfor['HomePage']
-                    ? `${emoji('🧭')} More information: ` + publishYamlInfor['HomePage'] + '\n'
-                    : ''
-                }`,
-              );
-            }
-          } catch (e) {
-            logger.error('Help information could not be found');
           }
+        } catch (e) {
+          logger.error('Help information could not be found');
         }
       } else {
         logger.error('Help information could not be found');
@@ -152,6 +130,13 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
 
     customerCommands.push(customerCommand);
   });
+
+  if(size(commandListDetail) === 1) {
+    const componentInstance: any = await loadComponent(get(_.first(commandListDetail), 'projectDocDetail.component'));
+    const publishYamlInfor = await getYamlContent(path.join(componentInstance.__path, 'publish.yml'));
+    // @ts-ignore
+    _.set(_.first(customerCommands), '_componentPublish', publishYamlInfor);
+  }
   return customerCommands;
 }
 
@@ -168,9 +153,17 @@ export function registerCommandChecker(program: any) {
 export async function registerCustomerCommand(system_command: any, templateFile: string) {
   if (templateFile) {
     const customerCommands = await createCustomerCommand(templateFile);
-    customerCommands.forEach(command => {
+    forEach(customerCommands, command => {
       system_command.addCommand(command);
     });
+    if(size(customerCommands) === 1) {
+      // @ts-ignore
+      return _.get(_.get(_.first(customerCommands), '_componentPublish'), 'Commands', []);
+    } else {
+      return _.map(customerCommands, item => ({
+        [`${item._name} [options]`]: `Please use [s ${item._name} -h]  obtain the documentation`
+      }))
+    }
   }
 }
 
