@@ -79,7 +79,7 @@ program
       keyInformation['AccountID'] = AccountID;
     } else {
       new HumanError({
-        errorMessage: 'Your AccountID id is wrong.',
+        errorMessage: 'Your AccountID id is not correct.',
         tips: `Please check if your AccountID is correct. documents: ${colors.underline(
           'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
         )}`,
@@ -94,7 +94,7 @@ program
       keyInformation['AccessKeyID'] = AccessKeyID;
     } else {
       new HumanError({
-        errorMessage: 'Your AccessKeyID id is wrong.',
+        errorMessage: 'Your AccessKeyID id is not correct.',
         tips: `Please check if your AccessKeyID is correct. documents: ${colors.underline(
           'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
         )}`,
@@ -107,7 +107,7 @@ program
       keyInformation['AccessKeySecret'] = AccessKeySecret;
     } else {
       new HumanError({
-        errorMessage: 'Your AccessKeySecret id is wrong.',
+        errorMessage: 'Your AccessKeySecret id is not correct.',
         tips: `Please check if your AccessKeySecret is correct. documents: ${colors.underline(
           'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
         )}`,
