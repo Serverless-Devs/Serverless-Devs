@@ -18,17 +18,13 @@ export async function setEnvbyDotenv(templateFile: string) {
   require('dotenv').config({ path: path.join(spath, '.env') });
   const data = await getYamlContent(templateFile);
   const { services } = data;
-  let codeUri: string;
   for (const key in services) {
     const element = services[key];
-    if (element.component === 'fc') {
-      codeUri = get(element, 'props.function.codeUri');
-      break;
+    let codeUri = get(element, 'props.function.codeUri');
+    if (codeUri) {
+      codeUri = path.isAbsolute(codeUri) ? codeUri : path.join(spath, codeUri);
+      require('dotenv').config({ path: path.join(codeUri, '.env') });
     }
-  }
-  if (codeUri) {
-    codeUri = path.isAbsolute(codeUri) ? codeUri : path.join(spath, codeUri);
-    require('dotenv').config({ path: path.join(codeUri, '.env') });
   }
 }
 
@@ -88,7 +84,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     const projectDocDetail: any = getServiceConfig(doc, projectName);
     return { projectName, projectDocDetail };
   });
-  
+
   const commandListDetail = await Promise.all(commandListPromise);
   // 只有一个指令的时候
 
@@ -107,15 +103,17 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
         try {
           const publishYamlInfor = await getYamlContent(path.join(componentInstance.__path, 'publish.yml'));
           console.log(
-            `${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`,
+            `${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${
+              publishYamlInfor['Description']
+            }\n`,
           );
           if (publishYamlInfor['Commands']) {
             const helperLength = publishHelp.maxLen(publishYamlInfor['Commands']);
-            console.log(publishHelp.helpInfo(publishYamlInfor['Commands'], 'Commands', helperLength))
+            console.log(publishHelp.helpInfo(publishYamlInfor['Commands'], 'Commands', helperLength));
             console.log(
               `${
                 publishYamlInfor['HomePage']
-                  ? `${emoji('🧭')} ${makeUnderLine('More information: '+ publishYamlInfor['HomePage'])} `  + '\n'
+                  ? `${emoji('🧭')} ${makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
                   : ''
               }`,
             );
@@ -131,7 +129,7 @@ export async function createCustomerCommand(templateFile: string): Promise<any[]
     customerCommands.push(customerCommand);
   });
 
-  if(size(commandListDetail) === 1) {
+  if (size(commandListDetail) === 1) {
     const componentInstance: any = await loadComponent(get(_.first(commandListDetail), 'projectDocDetail.component'));
     const publishYamlInfor = await getYamlContent(path.join(componentInstance.__path, 'publish.yml'));
     // @ts-ignore
@@ -156,13 +154,13 @@ export async function registerCustomerCommand(system_command: any, templateFile:
     forEach(customerCommands, command => {
       system_command.addCommand(command);
     });
-    if(size(customerCommands) === 1) {
+    if (size(customerCommands) === 1) {
       // @ts-ignore
       return _.get(_.get(_.first(customerCommands), '_componentPublish'), 'Commands', []);
     } else {
       return _.map(customerCommands, item => ({
-        [`${item._name} [options]`]: `Please use [s ${item._name} -h]  obtain the documentation`
-      }))
+        [`${item._name} [options]`]: `Please use [s ${item._name} -h]  obtain the documentation`,
+      }));
     }
   }
 }
