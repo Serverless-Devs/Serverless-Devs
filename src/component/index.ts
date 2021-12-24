@@ -7,9 +7,7 @@ import { getFolderSize } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
 import { HumanWarning } from '../error';
-
-const Table = require('tty-table');
-
+import { replace } from 'lodash';
 const { minimist, getYamlContent, fse: fs, colors, getRootHome } = core;
 
 const description = `Get details of installed components.
@@ -53,61 +51,29 @@ function notFound(args) {
 (async () => {
   const sPath = getRootHome();
   const componentsPath = path.join(sPath, 'components');
-  const devsappPath = path.join(componentsPath, 'devsapp.cn');
+  const devsappPath = path.join(componentsPath, 'devsapp.cn', 'devsapp');
   const githubPath = path.join(componentsPath, 'github.com');
+
   if (process.argv.length === 2) {
-    // 获取所有组件
-    const options = {
-      borderStyle: 'solid',
-      borderColor: 'blue',
-      headerAlign: 'center',
-      align: 'center',
-      headerColor: 'cyan',
-      color: 'cyan',
-      width: '100%',
-      marginLeft: 0,
-      marginTop: 0,
-    };
-    const header = [
-      { alias: 'Component', width: '25%' },
-      { alias: 'Description', width: '45%' },
-      { alias: 'Size', width: '15%' },
-      { alias: 'Version', width: '15%' },
-    ];
     // s源
     if (fs.existsSync(devsappPath)) {
       const devsappDirs = fs.readdirSync(devsappPath);
       const serverlessRows = [];
       for (const fileName of devsappDirs) {
-        if (fileName === 'devsapp') {
-          const devsappSubPath = path.join(devsappPath, fileName);
-          const devsappSubDirs = fs.readdirSync(devsappSubPath);
-          for (const devsappFileName of devsappSubDirs) {
-            const filePath = path.join(devsappSubPath, devsappFileName);
-            const data = await getComponent(filePath);
-            if (data.isComponent) {
-              const size = await getFolderSize(filePath);
-              serverlessRows.push([
-                `${fileName}/${data.Name}`,
-                data.Description,
-                `${(size / 1000 / 1000).toFixed(2)} MB`,
-                data.Version,
-              ]);
-            }
-          }
-        } else {
-          const filePath = path.join(devsappPath, fileName);
-          const data = await getComponent(filePath);
-          if (data.isComponent) {
-            const size = await getFolderSize(filePath);
-            serverlessRows.push([data.Name, data.Description, `${(size / 1000 / 1000).toFixed(2)} MB`, data.Version]);
-          }
+        const filePath = path.join(devsappPath, fileName);
+        const data = await getComponent(filePath);
+        if (data.isComponent) {
+          const size = await getFolderSize(filePath);
+          serverlessRows.push({
+            Component: `devsapp/${fileName}`,
+            Description: data.Description,
+            Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
+            Version: data.Version,
+          });
         }
       }
-
-      const serverlessOut = Table(header, serverlessRows, options).render();
-      logger.log(`\n${emoji('🔎')} serverless registry [http://registry.devsapp.cn/simple] `);
-      logger.log(serverlessOut);
+      logger.log(`\n${emoji('🔎')} serverless registry [http://registry.devsapp.cn/simple]\n`);
+      logger.output(serverlessRows);
     }
     // github源
     if (fs.existsSync(githubPath)) {
@@ -121,18 +87,17 @@ function notFound(args) {
           const data = await getComponent(filePath);
           if (data.isComponent) {
             const size = await getFolderSize(filePath);
-            githubRows.push([
-              `${fileName}/${data.Name}`,
-              data.Description,
-              `${(size / 1000 / 1000).toFixed(2)} MB`,
-              data.Version,
-            ]);
+            githubRows.push({
+              Component: `${fileName}/${data.Name}`,
+              Description: data.Description,
+              Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
+              Version: data.Version,
+            });
           }
         }
       }
-      const githubOut = Table(header, githubRows, options).render();
-      logger.log(`\n${emoji('🔎')} github registry [https://api.github.com/repos]`);
-      logger.log(githubOut);
+      logger.log(`\n${emoji('🔎')} github registry [https://api.github.com/repos]\n`);
+      logger.output(githubRows);
     }
     return;
   }
@@ -144,7 +109,7 @@ function notFound(args) {
       const registry = getConfig('registry', 'http://registry.devsapp.cn/simple');
       // s 源
       if (registry === 'http://registry.devsapp.cn/simple') {
-        const filePath = path.join(devsappPath, args.component);
+        const filePath = path.join(devsappPath, replace(args.component, 'devsapp', ''));
         if (fs.existsSync(filePath)) {
           const data = await getComponent(filePath);
           if (data.isComponent) {
