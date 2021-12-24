@@ -3,6 +3,7 @@ import { CommandError } from '../../error';
 import { emoji } from '../../utils/common';
 import core from '../../utils/core';
 const { setCredential, setKnownCredential, colors } = core;
+import { HumanError } from '../../error';
 
 const description = `You can add an account
 
@@ -74,13 +75,45 @@ program
     }
   }
   if (AccountID) {
-    keyInformation['AccountID'] = AccountID;
+    if (/^\d+$/.test(AccountID)) {
+      keyInformation['AccountID'] = AccountID;
+    } else {
+      new HumanError({
+        errorMessage: 'Your AccountID id is wrong.',
+        tips: `Please check if your AccountID is correct. documents: ${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
+        )}`,
+      });
+      process.exit(1);
+    }
   }
+  const akRegx = /^[A-Za-z0-9-]+$/;
+
   if (AccessKeyID) {
-    keyInformation['AccessKeyID'] = AccessKeyID;
+    if (akRegx.test(AccessKeyID)) {
+      keyInformation['AccessKeyID'] = AccessKeyID;
+    } else {
+      new HumanError({
+        errorMessage: 'Your AccessKeyID id is wrong.',
+        tips: `Please check if your AccessKeyID is correct. documents: ${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
+        )}`,
+      });
+      process.exit(1);
+    }
   }
   if (AccessKeySecret) {
-    keyInformation['AccessKeySecret'] = AccessKeySecret;
+    if (akRegx.test(AccessKeySecret)) {
+      keyInformation['AccessKeySecret'] = AccessKeySecret;
+    } else {
+      new HumanError({
+        errorMessage: 'Your AccessKeySecret id is wrong.',
+        tips: `Please check if your AccessKeySecret is correct. documents: ${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
+        )}`,
+      });
+      process.exit(1);
+    }
   }
   if (SecurityToken) {
     keyInformation['SecurityToken'] = SecurityToken;
