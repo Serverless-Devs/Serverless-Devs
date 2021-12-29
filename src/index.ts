@@ -72,7 +72,7 @@ const descption = {
     {'component': '🔌  Installed component information.'},
   ],
   Examples: [
-    {'init': 'perform [s init] fast experience Serverless Devs'},
+    {'init': 'Perform [s init] fast experience Serverless Devs'},
   ]
 };
 
