@@ -8,7 +8,7 @@ import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
 import { HumanWarning } from '../error';
 import { replace } from 'lodash';
-const { minimist, getYamlContent, fse: fs, colors, getRootHome } = core;
+const { minimist, getYamlContent, fse: fs, colors, getRootHome, tableLayout } = core;
 
 const description = `Get details of installed components.
     
@@ -58,7 +58,12 @@ function notFound(args) {
     // s源
     if (fs.existsSync(devsappPath)) {
       const devsappDirs = fs.readdirSync(devsappPath);
-      const serverlessRows = [];
+      const serverlessRows = [{
+        Component: 'Component',
+        Version: 'Version',
+        Size: `Size`,
+        Description: 'Description',
+      }];
       for (const fileName of devsappDirs) {
         const filePath = path.join(devsappPath, fileName);
         const data = await getComponent(filePath);
@@ -66,19 +71,25 @@ function notFound(args) {
           const size = await getFolderSize(filePath);
           serverlessRows.push({
             Component: `devsapp/${fileName}`,
-            Description: data.Description,
-            Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
             Version: data.Version,
+            Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
+            Description: data.Description,
           });
         }
       }
       logger.log(`\n${emoji('🔎')} serverless registry [http://registry.devsapp.cn/simple]\n`);
-      logger.output(serverlessRows);
+      const data = new tableLayout(JSON.parse(JSON.stringify(serverlessRows)));
+      logger.log(data.toString())
     }
     // github源
     if (fs.existsSync(githubPath)) {
       const githubDirs = fs.readdirSync(githubPath);
-      const githubRows = [];
+      const githubRows = [{
+        Component: 'Component',
+        Version: 'Version',
+        Size: `Size`,
+        Description: 'Description',
+      }];
       for (const fileName of githubDirs) {
         const githubSubPath = path.join(githubPath, fileName);
         const githubSubDirs = fs.readdirSync(githubSubPath);
@@ -89,15 +100,16 @@ function notFound(args) {
             const size = await getFolderSize(filePath);
             githubRows.push({
               Component: `${fileName}/${data.Name}`,
-              Description: data.Description,
-              Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
               Version: data.Version,
+              Size: `${(size / 1000 / 1000).toFixed(2)} MB`,
+              Description: data.Description,
             });
           }
         }
       }
-      logger.log(`\n${emoji('🔎')} github registry [https://api.github.com/repos]\n`);
-      logger.output(githubRows);
+      logger.log(`${emoji('🔎')} github registry [https://api.github.com/repos]\n`);
+      const data = new tableLayout(JSON.parse(JSON.stringify(githubRows)));
+      logger.log(data.toString())
     }
     return;
   }
