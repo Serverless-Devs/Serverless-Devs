@@ -161,14 +161,12 @@ const helperLength = publishHelp.maxLen(descption.Options);
   }
   await onboarding();
 })().catch(async error => {
-  await new HandleError({
-    error,
-  }).report(error);
+  await HandleError({ error });
   process.exit(1);
 });
 
 
 process.on('unhandledRejection', async (error : Error) => {
-  await new HandleError({ error }).report(error);
+  await HandleError({ error });
   process.exit(1);
 });

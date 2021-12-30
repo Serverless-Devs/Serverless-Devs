@@ -44,11 +44,7 @@ export class Parse {
         fileObj = JSON.parse(fs.readFileSync(filePath).toString());
       }
     } catch (error) {
-      new HandleError({
-        error,
-      })
-        .report(error)
-        .then(() => process.exit(1));
+      HandleError({ error }).then(() => process.exit(1));
     }
     return fileObj;
   }

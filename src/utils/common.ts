@@ -6,7 +6,7 @@ import _ from 'lodash';
 import os from 'os';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml, makeUnderLine, isDebugMode, getMAC } = core;
+const { colors, jsyaml: yaml, makeUnderLine, got, isDebugMode, getMAC, getYamlContent, isDocker, isCiCdEnv } = core;
 const pkg = require('../../package.json');
 import { getConfig } from './handler-set-config';
 
@@ -15,7 +15,25 @@ export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
 
-export const getErrorMessage = (error: Error): any => {
+const _AiRequest = (category, message) => {
+  if(isDocker() || isCiCdEnv()) {
+    // 在CICD环境中不处理
+    return;
+  }
+  return got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
+    timeout: 2000,
+    json: true,
+  }).then((list) => {
+    const shorturl = _.get(list.body, 'shorturl');
+    if(shorturl) {
+      console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
+    }
+  }).catch(() => {
+    // exception
+  })
+}
+
+export const getErrorMessage = async (error: Error) => {
   const configOption = { traceId: '', catchableError: false };
   const getPid = () => {
     try {
@@ -51,7 +69,18 @@ export const getErrorMessage = (error: Error): any => {
     configOption.catchableError = true;
   } else {
     console.log(`${bgRed('ERROR:')}\n${message}\n`);
+    if (analysis !== 'disable') {
+      try {
+        const templateFile = checkAndReturnTemplateFile();
+        const content = await getYamlContent(templateFile);
+        const category = _.get(_.first(_.values(_.get(content, 'services'))), 'component') || 'serverless-devs';
+        await _AiRequest(category, message);
+      } catch (error) {
+        // throw error
+      }
+    }
   }
+
   return configOption;
 }
 

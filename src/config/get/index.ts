@@ -105,8 +105,6 @@ function notFound() {
   // other case output help message
   program.help();
 })().catch(async error => {
-  await new HandleError({
-    error,
-  }).report(error);
+  await HandleError({ error });
   process.exit(1);
 });

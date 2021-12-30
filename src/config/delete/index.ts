@@ -60,8 +60,6 @@ program
     process.exit(1);
   }
 })().catch(async error => {
-  await new HandleError({
-    error,
-  }).report(error);
+  await HandleError({ error });
   process.exit(1);
 });

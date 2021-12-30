@@ -158,10 +158,9 @@ export class ComponentExeCute {
           const result = await componentInstance[method](data);
           return result;
         } catch (error) {
-          await new HandleError({
+          await HandleError({
             error,
-            prefix: `Project ${this.componentConfig.ProjectName} failed to execute:`,
-          }).report(error);
+            prefix: `Project ${this.componentConfig.ProjectName} failed to execute:`});
           process.exit(101);
         }
       }
@@ -183,10 +182,10 @@ export class ComponentExeCute {
         const result = await componentInstance[method](data);
         return result;
       } catch (error) {
-        await new HandleError({
+        await HandleError({
           error,
           prefix: `Project ${this.componentConfig.ProjectName} failed to execute:`,
-        }).report(error);
+        });
         process.exit(101);
       }
     } else {

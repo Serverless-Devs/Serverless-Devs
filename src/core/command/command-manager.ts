@@ -132,10 +132,7 @@ export class CommandManager {
         process.exit(1);
       }
     } catch (error) {
-      await new HandleError({
-        error,
-        prefix: 'Failed to execute:',
-      }).report(error);
+      await HandleError({ error, prefix: 'Failed to execute:' });
       process.exit(1);
     }
   }
