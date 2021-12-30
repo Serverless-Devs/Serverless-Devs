@@ -6,31 +6,53 @@ import _ from 'lodash';
 import os from 'os';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml, makeUnderLine, isDebugMode } = core;
+const { colors, jsyaml: yaml, makeUnderLine, isDebugMode, getMAC } = core;
 const pkg = require('../../package.json');
+import { getConfig } from './handler-set-config';
 
 export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
 
-export const getErrorMessage = (error: Error) => {
+export const getErrorMessage = (error: Error): any => {
+  const configOption = { traceId: '', catchableError: false };
+  const getPid = () => {
+    try {
+      return getMAC().replace(/:/g, '');
+    } catch (error) {
+      return 'unknown';
+    }
+  }
+
+  const analysis = getConfig('analysis');
+  if (analysis !== 'disable') {
+    configOption.traceId = `${getPid()}${Date.now()}`;
+  }
+  
   const isDebug = isDebugMode ? isDebugMode() : undefined;
   if(isDebug) {
     console.log(error);
-    return;
+    return configOption;
   }
 
   const message = error.message ? error.message : '';
+  let jsonMsg;
   try {
-    const jsonMsg = JSON.parse(message);
-    console.log(`${bgRed('ERROR:')}\n${jsonMsg.message}\n`);
+    jsonMsg = JSON.parse(message);
+  } catch (error) {}
+
+  if(jsonMsg && jsonMsg.tips) {
+    console.log(`${colors.hex('#000').bgYellow('WARNING:')}\n`);
+    console.log(`${jsonMsg.message}\n`);
     if(jsonMsg.tips) {
       console.log(`${yellow(makeUnderLine(jsonMsg.tips))}\n`);
     }
-  } catch (error) {
+    configOption.catchableError = true;
+  } else {
     console.log(`${bgRed('ERROR:')}\n${message}\n`);
   }
+  return configOption;
 }
 
 

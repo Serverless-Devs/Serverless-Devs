@@ -56,7 +56,7 @@ export class CommandManager {
 
   async init(): Promise<void> {
     try {
-      process.stdout.write(`Starting ...`);
+      process.stdout.write('Starting ...\n');
       const templateFile = checkTemplateFile(this.templateFile);
       if (templateFile) {
         const outPutData: any = {};

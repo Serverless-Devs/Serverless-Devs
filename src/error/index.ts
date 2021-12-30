@@ -33,30 +33,34 @@ export class HandleError {
   private traceId: string;
   constructor(configs: IConfigs) {
     const { error, prefix = 'Message:' } = configs;
-    this.traceId = `${getPid()}${Date.now()}`;
     console.log(red(`✖ ${prefix}\n`));
-    const analysis = getConfig('analysis');
-    if (analysis !== 'disable') {
-      console.log(colors.gray(`TraceId:     ${this.traceId}`));
+    const configOption = getErrorMessage(error);
+    this.traceId = configOption.traceId;
+    
+    if(!configOption.catchableError) {
+      if (configOption.traceId) {
+        console.log(colors.gray(`TraceId:     ${configOption.traceId}`));
+      }
+      console.log(colors.gray(`Environment: ${getVersion()}`));
+      console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
+      console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
+      console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
+
+      if (configOption.traceId) {
+        console.log(
+          colors.gray(`Please copy traceId: ${configOption.traceId} and join Dingding group: 33947367 for consultation.`),
+        );
+      }
     }
-    console.log(colors.gray(`Environment: ${getVersion()}`));
-    console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
-    console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
-    console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
-    getErrorMessage(error);
-    if (analysis !== 'disable') {
-      console.log(
-        colors.gray(`Please copy traceId: ${this.traceId} and join Dingding group: 33947367 for consultation.`),
-      );
-    }
-    console.log(colors.gray("You can run 's clean --cache' to prune Serverless devs."));
-    console.log(colors.gray("And run again with the '--debug' option or 's -h' to get more logs.\n"));
+    console.log(colors.gray("You can run 's clean --all' to clean Serverless devs."));
   }
   async report(error: Error) {
-    await report({
-      type: 'jsError',
-      content: `${error.message}||${error.stack}`,
-      traceId: this.traceId,
-    });
+    if(this.traceId) {
+      await report({
+        type: 'jsError',
+        content: `${error.message}||${error.stack}`,
+        traceId: this.traceId,
+      });
+    }
   }
 }
