@@ -97,4 +97,4 @@ Serverless Devs 遵循 [MIT License](../LICENSE) 开源许可。
 
 -----------
 
-> Serverless Devs 开发者工具遵循 [Serverless Devs Model](../spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](../spec/zh/0.0.1/serverless_registry_model/readme.md)，[Serverless User Model](../spec/zh/0.0.1/serverless_user_model/readme.md) 以及 [Serverless Package Model](../spec/zh/0.0.1/serverless_pacakge_model/readme.md)；
+> Serverless Devs 开发者工具遵循 [Serverless Devs Model](../spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](../spec/zh/0.0.2/serverless_registry_model/readme.md)，[Serverless User Model](../spec/zh/0.0.2/serverless_user_model/readme.md) 以及 [Serverless Package Model](../spec/zh/0.0.2/serverless_pacakge_model/readme.md)；

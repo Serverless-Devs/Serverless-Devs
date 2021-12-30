@@ -52,7 +52,7 @@ services:
 
 在当前项目下，可以执行`s [自定义命令]`实现应用纬度的操作。
 
-- 执行`s deploy`或者`s remove`时，由于`backend`、`user—frontend`、`admin-frontend`三个服务对应的组件，均支持`deploy`和`remove`方法，所以此时系统会按照[Serverless User Model所定义的服务顺序](../../../spec/zh/0.0.1/serverless_user_model/3.user_model.md#服务顺序)，进行三个服务分别对应的组件的`deploy`或`remove`操作；**此时，系统的`exit code`为0；**
+- 执行`s deploy`或者`s remove`时，由于`backend`、`user—frontend`、`admin-frontend`三个服务对应的组件，均支持`deploy`和`remove`方法，所以此时系统会按照[Serverless User Model所定义的服务顺序](../../../spec/zh/0.0.2/serverless_user_model/3.user_model.md#服务顺序)，进行三个服务分别对应的组件的`deploy`或`remove`操作；**此时，系统的`exit code`为0；**
 - 执行`s test`时，由于`user—frontend`、`admin-frontend`两个服务对应的组件并不支持`test`方法，所以此时系统会执行`backend`对应组件（`django-component`）的`test`操作；**此时，系统会对`user—frontend`、`admin-frontend`两个服务进行警告，但是并不会报错，最终的`exit code`为0；**
 - 如果在执行相关的命令时，`backend`、`user—frontend`、`admin-frontend`三个服务任何一个服务在执行过程中出现了错误，系统则会报错，并终止下一步的操作，**此时，系统的`exit code`为101；**
 
@@ -69,5 +69,5 @@ services:
 
 在上面[应用级操作](#应用级操作)和[服务级操作](#服务级操作)中，我们不难发现，同样是某些组件不包括对应方法，但是在[应用级操作](#应用级操作)和[服务级操作](#服务级操作)中的表现形式却不同，这里的设计思路主要是为了保证[应用级操作](#应用级操作)的流畅性。所以其规律通常如下：
 
-1. [应用级操作](#应用级操作)更多是一种批量操作，会按照[Serverless User Model所定义的服务顺序](../../../spec/zh/0.0.1/serverless_user_model/3.user_model.md#服务顺序)对应用下的所有服务进行分别操作；所以，此时如果出现某个服务对应的组件不包括当前方法，会以"批量操作"作为理由，跳过该服务，进行警告后继续执行，**此时，系统的`exit code`为0；**
+1. [应用级操作](#应用级操作)更多是一种批量操作，会按照[Serverless User Model所定义的服务顺序](../../../spec/zh/0.0.2/serverless_user_model/3.user_model.md#服务顺序)对应用下的所有服务进行分别操作；所以，此时如果出现某个服务对应的组件不包括当前方法，会以"批量操作"作为理由，跳过该服务，进行警告后继续执行，**此时，系统的`exit code`为0；**
 2. [服务级操作](#服务级操作)更多是一种针对某个应用下的某个服务的特定操作，此时如果找不到对应的方法，则意味着本次操作没有意义，将会惊醒错误报告，**此时，系统的`exit code`为100；**
