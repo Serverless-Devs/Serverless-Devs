@@ -60,7 +60,7 @@ You can add an account
         $ s config add --keyList key1,key2,key3 --valueList value1,value2,value3
 
     Configuration parameters template for vendors:
-        alibaba: AccountID, AccessKeyID, AccessKeySecret
+        alibaba: AccessKeyID, AccessKeySecret
         aws: AccessKeyID, SecretAccessKey
         baidu: AccessKeyID, SecretAccessKey
         huawei: AccessKey, SecretKey
@@ -129,7 +129,6 @@ $ s config add
 s config add 
 
 ? Please select a provider: Alibaba Cloud (alibaba)
-? AccountID **********
 ? AccessKeyID **********
 ? AccessKeySecret **********
 ? Please create alias for key pair. If not, please enter to skip default
@@ -137,7 +136,7 @@ s config add
 
 也可以通过命令式直接进行密钥的添加：
 ```shell script
-$ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ******
+$ s config add --AccessKeyID ****** --AccessKeySecret ******
 ```
 
 或者添加自定义内容：
@@ -148,7 +147,7 @@ $ s config add --AccessKeyID ****** -kl key1,key2,key3 -il info1,info2,info3
 - 常见云厂商密钥配置内容
 
 ```
-alibaba:    AccountID, AccessKeyID, AccessKeySecret,
+alibaba:    AccessKeyID, AccessKeySecret,
 aws:        AccessKeyID, SecretAccessKey,
 baidu:      AccessKeyID, SecretAccessKey,
 huawei:     AccessKeyID, SecretAccessKey,
