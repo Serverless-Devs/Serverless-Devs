@@ -14,11 +14,8 @@ rebase-main: commit
 push:
 	git push --force-with-lease origin $(CURRENT_BRANCH_NAME)
 
-release-dev: push
-	-gh release delete dev -y
-	-git tag -d dev
-	-git push origin :refs/tags/dev
-	gh release create dev --notes "dev release" --target dev --title "Release dev"
+release-dev: 
+	gh release create 2.0.97-beta.9 --notes "release 2.0.97-beta.9" --target develop --title "Release 2.0.97-beta.9" --prerelease
 
 roll-back-dev:
 	git reset --soft HEAD~1
