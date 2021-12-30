@@ -61,6 +61,7 @@ program
     infoList,
     aliasName = process.env['serverless_devs_temp_access'],
     SecurityToken,
+    f,
   } = program;
 
   if (serverless_devs_temp_argv.length === 4) {
@@ -112,7 +113,7 @@ program
   }
 
   // 同时存在ak/sk 认为是阿里云密钥
-  if (AccessKeyID && AccessKeySecret) {
+  if (AccessKeyID && AccessKeySecret && !f) {
     try {
       const data = await getAccountId({ AccessKeyID, AccessKeySecret });
       keyInformation['AccountID'] = data.AccountId;
