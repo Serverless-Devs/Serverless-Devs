@@ -24,7 +24,8 @@ program
   .helpOption('-h, --help', 'Display help for command')
   .usage('[options] [name | url]')
   .option('-d, --dir [dir]', 'Where to output the initialized app into (default: ./<ProjectName> )')
-  .option('-r, --registry [url]', 'Use specify registry ')
+  .option('-r, --registry [url]', 'Use specify registry')
+  .option('--force-creation', 'Assume that the answer to any question which would be asked is yes')
   .description(description)
   .addHelpCommand(false)
   .parse(process.argv);

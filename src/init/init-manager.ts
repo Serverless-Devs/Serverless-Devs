@@ -137,6 +137,33 @@ export class InitManager {
     }
     return { appPath };
   }
+  async executeInitWithForceCreation(name: string, dir?: string) {
+    let projectName = dir;
+    if (!projectName) {
+      projectName = _.last(_.split(name, '/'));
+    }
+    const registry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+
+    const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
+    if (appPath) {
+      // postInit
+      try {
+        if (process.env[`${appPath}-post-init`]) {
+          const tempObj = JSON.parse(process.env[`${appPath}-post-init`]);
+          const baseChildComponent = await require(path.join(tempObj['tempPath'], 'hook'));
+          await baseChildComponent.postInit(tempObj);
+        }
+      } catch (e) {}
+      logger.success(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
+      console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
+      console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
+      console.log(
+        `${emoji('💞')} Document ❤ Star：` +
+          colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
+      );
+    }
+    return { appPath };
+  }
   async gitCloneProject(name: string, dir?: string) {
     return new Promise(resolve => {
       const gitCmd = spawn('git', ['clone', name], {
@@ -184,6 +211,9 @@ export class InitManager {
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {
+      if (_.find(process.argv, v => v === '--force-creation')) {
+        return await this.executeInitWithForceCreation(name, dir);
+      }
       const { appPath } = await this.executeInit(name, dir);
       const findObj: any = _.find(ALL_TEMPLATE, item => _.includes(item.value, name));
       if (findObj && findObj.isDeploy) {
