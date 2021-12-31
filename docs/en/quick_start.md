@@ -1,11 +1,11 @@
 # Quick Start
 
-This quick start case takes [Alibaba Cloud Function Computing](https://www.aliyun.com/product/fc) as an example (Of course, Serverless Devs also supports [AWS Lambda](../../components/lambda/readme.md), [Baidu Cloud Function Computing](../../components/cfc/readme.md), [Huawei Cloud Function Workflow](../../components/fg/readme.md) , [Tencent Cloud Function](../../components/scf/readme.md) and many other cloud vendors’ FaaS platforms. For details, please refer to [Default FaaS Product Support](../../components/readme_zh.md)), quickly start with Serverless Devs
+This quick start case takes [Alibaba Cloud Function Computing](https://github.com/devsapp/fc) as an example (Of course, Serverless Devs also supports [AWS Lambda](https://github.com/devscomp/lambda), [Baidu Cloud Function Computing](https://github.com/xinwuyun/cfc), [Huawei Cloud Function Workflow](https://github.com/xinwuyun/fg) , [Tencent Cloud Function](https://github.com/devscomp/scf) and many other cloud vendors’ FaaS platforms. For details, quickly start with Serverless Devs
 - [Tool installation](#Tool-installation)
 - [Key Configuration](#Key-Configuration)
 - [Get started experience](#Get-started-experience)
-    - [Serverless: Hello World](#Serverless：Hello-World)
-    - [AI: Target Detection](#AI：Target-Detection)
+    - [Serverless: Hello World](#ServerlessHello-World)
+    - [AI: Target Detection](#AITarget-Detection)
     - [Traditional framework: Django-based blog project](#Traditional-framework-based-on-django-blog-project)
 
 ## Tool installation
