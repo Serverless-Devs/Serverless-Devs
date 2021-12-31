@@ -22,8 +22,7 @@ interface IConfigs {
 }
 export const HandleError = async (configs: IConfigs) =>  { 
     const { error, prefix = 'Message:' } = configs;
-    console.log(red(`✖ ${prefix}\n`));
-    const { traceId, catchableError } = await getErrorMessage(error);
+    const { traceId, catchableError } = await getErrorMessage(error, prefix);
     if(!catchableError) {
       if (traceId) {
         console.log(colors.gray(`TraceId:     ${traceId}`));

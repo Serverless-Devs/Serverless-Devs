@@ -6,7 +6,7 @@ import _ from 'lodash';
 import os from 'os';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml, makeUnderLine, got, isDebugMode, getMAC, getYamlContent, isDocker, isCiCdEnv } = core;
+const { colors, jsyaml: yaml, makeUnderLine, got, Logger, isDebugMode, getMAC, getYamlContent, isDocker, isCiCdEnv } = core;
 const pkg = require('../../package.json');
 import { getConfig } from './handler-set-config';
 
@@ -33,7 +33,7 @@ const _AiRequest = (category, message) => {
   })
 }
 
-export const getErrorMessage = async (error: Error) => {
+export const getErrorMessage = async (error: Error, prefix) => {
   const configOption = { traceId: '', catchableError: false };
   const getPid = () => {
     try {
@@ -61,13 +61,13 @@ export const getErrorMessage = async (error: Error) => {
   } catch (error) {}
 
   if(jsonMsg && jsonMsg.tips) {
-    console.log(`${colors.hex('#000').bgYellow('WARNING:')}\n`);
-    console.log(`${jsonMsg.message}\n`);
-    if(jsonMsg.tips) {
-      console.log(`${yellow(makeUnderLine(jsonMsg.tips))}\n`);
-    }
+    const messageStr = `Message: ${jsonMsg.message}\n` || '';
+    const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, "\n* "))}` : '';
+    Logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}\n======================\n${tipsStr}\n`, 'yellow');
+    console.log(colors.grey(messageStr));
     configOption.catchableError = true;
   } else {
+    console.log(red(`✖ ${prefix}\n`));
     console.log(`${bgRed('ERROR:')}\n${message}\n`);
     if (analysis !== 'disable') {
       try {
