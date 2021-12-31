@@ -2,9 +2,9 @@
 
 The `clean` command is to clean up the cache-related functions of Serverless Devs. You can use this command to clean up the environment, unused dependent packages, and related cache content.
 
--[Command resolution](#Command-resolution)
-    -[Parameter analysis](#Parameter-analysis)
-    -[Operation case](#Operation-case)
+- [Command resolution](#Command-resolution)
+    - [Parameter analysis](#Parameter-analysis)
+    - [Operation case](#Operation-case)
     
 ## Command analysis
 
