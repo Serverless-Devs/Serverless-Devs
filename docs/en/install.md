@@ -1,9 +1,9 @@
 # Tool installation and upgrade
 
-- [Tool installation](#Tool installation)
-    - [Install via command line tool](#Install via command line tool)
-    - [Install via script](#Install via script)
-- [Tool upgrade](#Tool upgrade)
+- [Tool installation](#Tool-installation)
+    - [Install via command line tool](#Install-via-command-line-tool)
+    - [Install via script](#Install-via-script)
+- [Tool upgrade](#Tool-upgrade)
 
 
 ## Tool installation
