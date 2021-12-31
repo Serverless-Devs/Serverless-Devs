@@ -38,7 +38,7 @@ $ curl -o- -L http://cli.so/install.sh | bash
 
 Serverless Devs developer tools will be updated and upgraded from time to time. When developers use Serverless Devs developer tools, they can be aware of the latest version according to system reminders.
 
-After the client perceives the system upgrade, the developer can use the command `npm i -g @serverless-devs/s` to update, or use [Release](https://github.com/Serverless-Devs/Serverless -Devs/releases) View the specific content of the upgrade to determine whether to perform this upgrade.
+After the client perceives the system upgrade, the developer can use the command `npm i -g @serverless-devs/s` to update, or use [Release](https://github.com/Serverless-Devs/Serverless-Devs/releases) View the specific content of the upgrade to determine whether to perform this upgrade.
 
 > For example: My current Serverless Devs version is `2.0.89`. After the system is upgraded, I will use the Serverless Devs developer tool, and the tool will give a corresponding reminder:
 > ```shell script
