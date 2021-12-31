@@ -1,6 +1,6 @@
 # 快速上手
 
-本快速上手案例以 [阿里云函数计算](https://www.aliyun.com/product/fc) 为例（当然，Serverless Devs 还支持 [AWS Lambda](../../components/lambda/readme.md)，[百度智能云函数计算](../../components/cfc/readme.md)，[华为云函数工作流](../../components/fg/readme.md)，[腾讯云云函数](../../components/scf/readme.md)等多个云厂商的 FaaS 平台，具体可以参考[默认FaaS产品支持](../../components/readme_zh.md)），快速上手 Serverless Devs
+本快速上手案例以 [阿里云函数计算](https://www.aliyun.com/product/fc) 为例（当然，Serverless Devs 还支持 [AWS Lambda](https://github.com/devscomp/lambda)，[百度智能云函数计算](https://github.com/xinwuyun/cfc)，[华为云函数工作流](https://github.com/xinwuyun/fg)，[腾讯云云函数](https://github.com/devscomp/scf)等多个云厂商的 FaaS 平台，快速上手 Serverless Devs
 
 - [工具安装](#工具安装)
 - [密钥配置](#密钥配置)
