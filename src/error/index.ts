@@ -1,5 +1,5 @@
 /** @format */
-import { red, getVersion } from '../utils/common';
+import { getVersion } from '../utils/common';
 import core from '../utils/core';
 import { getErrorMessage } from '../utils/common';
 

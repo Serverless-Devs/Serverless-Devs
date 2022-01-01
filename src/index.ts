@@ -167,6 +167,10 @@ const helperLength = publishHelp.maxLen(descption.Options);
 
 
 process.on('unhandledRejection', async (error : Error) => {
-  await HandleError({ error });
+  try {
+    await HandleError({ error });
+  } catch (error) {
+    console.log('Internal exception occurred!!!')
+  }
   process.exit(1);
 });
