@@ -170,7 +170,7 @@ process.on('unhandledRejection', async (error : Error) => {
   try {
     await HandleError({ error });
   } catch (error) {
-    console.log('Internal exception occurred!!!')
+    console.log('Internal exception occurred!!!', error)
   }
   process.exit(1);
 });
