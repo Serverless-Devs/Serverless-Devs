@@ -28,3 +28,4 @@ docs
 tsconfig.json
 .eslintrc.json
 .prettierrc.json
+Makefile
