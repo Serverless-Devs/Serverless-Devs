@@ -1,6 +1,6 @@
 /** @format */
 
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import { configSet } from '../utils';
 import { InitManager } from './init-manager';
 import { emoji } from '../utils/common';
@@ -24,7 +24,8 @@ program
   .helpOption('-h, --help', 'Display help for command')
   .usage('[options] [name | url]')
   .option('-d, --dir [dir]', 'Where to output the initialized app into (default: ./<ProjectName> )')
-  .option('-r, --registry [url]', 'Use specify registry ')
+  .option('-r, --registry [url]', 'Use specify registry')
+  .option('--force-creation', 'Assume that the answer to any question which would be asked is yes')
   .description(description)
   .addHelpCommand(false)
   .parse(process.argv);
@@ -37,8 +38,6 @@ program
   const name = program.args[0];
   await initManager.init(name, dir);
 })().catch(async error => {
-  await new HandleError({
-    error,
-  }).report(error);
+  await HandleError({ error });
   process.exit(1);
 });

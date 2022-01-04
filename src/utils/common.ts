@@ -3,23 +3,99 @@
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-// import { getConfig } from './handler-set-config';
 import os from 'os';
-// import osLocale from 'os-locale';
 import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml } = core;
+const { colors, jsyaml: yaml, makeUnderLine, got, Logger, isDebugMode, getMAC, getYamlContent, isDocker, isCiCdEnv } = core;
 const pkg = require('../../package.json');
+import { getConfig } from './handler-set-config';
 
 export const red = colors.hex('#fd5750');
+export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
+
+const _AiRequest = (category, message) => {
+  if(isDocker() || isCiCdEnv()) {
+    // 在CICD环境中不处理
+    return;
+  }
+  return got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
+    timeout: 2000,
+    json: true,
+  }).then((list) => {
+    const shorturl = _.get(list.body, 'shorturl');
+    if(shorturl) {
+      console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
+    }
+  }).catch(() => {
+    // exception
+  })
+}
+
+export const getErrorMessage = async (error: Error, prefix) => {
+  const configOption = { traceId: '', catchableError: false };
+  const getPid = () => {
+    try {
+      return getMAC().replace(/:/g, '');
+    } catch (error) {
+      return 'unknown';
+    }
+  }
+
+  const analysis = getConfig('analysis');
+  if (analysis !== 'disable') {
+    configOption.traceId = `${getPid()}${Date.now()}`;
+  }
+  
+  const isDebug = isDebugMode ? isDebugMode() : undefined;
+  if(isDebug) {
+    console.log(error);
+    return configOption;
+  }
+
+  const message = error.message ? error.message : '';
+  let jsonMsg;
+  try {
+    jsonMsg = JSON.parse(message);
+  } catch (error) {}
+
+  if(jsonMsg && jsonMsg.tips) {
+    const messageStr = `Message: ${jsonMsg.message}\n` || '';
+    const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, "\n* "))}` : '';
+    Logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}\n======================\n${tipsStr}\n`, 'yellow');
+    console.log(colors.grey(messageStr));
+    configOption.catchableError = true;
+  } else {
+    console.log(red(`✖ ${prefix}\n`));
+    console.log(`${bgRed('ERROR:')}\n${message}\n`);
+    if (analysis !== 'disable') {
+      try {
+        const templateFile = checkAndReturnTemplateFile();
+        const content = await getYamlContent(templateFile);
+        const category = _.get(_.first(_.values(_.get(content, 'services'))), 'component') || 'serverless-devs';
+        await _AiRequest(category, message);
+      } catch (error) {
+        // throw error
+      }
+    }
+  }
+
+  return configOption;
+}
+
+
 export function getVersion() {
-  return getCoreVersion()
-    ? `${pkg.name}: ${pkg.version}, @serverless-devs/core: ${getCoreVersion()}, ${process.platform}-${
-        process.arch
-      }, node-${process.version}`
-    : `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch}, node-${process.version}`;
+  const coreVersion = getCoreVersion();
+  const platform = `${process.platform}-${process.arch}`;
+  const nodeVersion = `node-${process.version}`;
+  const coreVersionStr = `core: ${coreVersion}`;
+  const homeWork = `s-home: ${core.getRootHome()}`;
+  const pkgVersion  = `${pkg.name}: ${pkg.version}`;
+
+  return coreVersion
+    ? `${pkgVersion}, ${coreVersionStr}, ${homeWork}, ${platform}, ${nodeVersion}`
+    : `${pkgVersion}, ${homeWork}, ${platform}, ${nodeVersion}`;
 }
 
 export async function getFolderSize(rootItemPath: string) {
@@ -204,9 +280,13 @@ export function mark(source: string): string {
   return `***********${subStr}`;
 }
 
-export function emoji(emoji: string): string {
-  return os.platform() === 'win32' ? '' : emoji;
+export function emoji(text: string, fallback?: string) {
+  if (os.platform() === 'win32') {
+    return fallback || '◆';
+  }
+  return `${text} `;
 }
+
 
 export default {
   checkAndReturnTemplateFile,

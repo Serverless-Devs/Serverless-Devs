@@ -1,4 +1,4 @@
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import i18n from '../utils/i18n';
 import path from 'path';

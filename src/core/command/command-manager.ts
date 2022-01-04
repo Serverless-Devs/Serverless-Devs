@@ -9,7 +9,7 @@ import {
 } from '../component';
 import { emoji, checkTemplateFile } from '../../utils/common';
 import core from '../../utils/core';
-const { colors } = core;
+const { colors, ansiEscapes } = core;
 import { HandleError } from '../../error';
 import { isEmpty, get, isNil } from 'lodash';
 
@@ -56,7 +56,7 @@ export class CommandManager {
 
   async init(): Promise<void> {
     try {
-      logger.info('Start ...');
+      process.stdout.write('Starting ...\n');
       const templateFile = checkTemplateFile(this.templateFile);
       if (templateFile) {
         const outPutData: any = {};
@@ -83,7 +83,13 @@ export class CommandManager {
             version: parsedObj.edition,
             customerCommandName: this.customerCommandName,
           });
+          process.stdout.write(ansiEscapes.eraseLines(2));
           const tempResult = await componentExecute.init();
+          
+
+          
+
+          
           if (tempResult) {
             outPutData[projectConfig.ProjectName] = tempResult;
           }
@@ -126,10 +132,7 @@ export class CommandManager {
         process.exit(1);
       }
     } catch (error) {
-      await new HandleError({
-        error,
-        prefix: 'Failed to execute:',
-      }).report(error);
+      await HandleError({ error, prefix: 'Failed to execute:' });
       process.exit(1);
     }
   }
