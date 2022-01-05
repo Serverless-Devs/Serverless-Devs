@@ -83,39 +83,21 @@ program
   if (AccountID) {
     keyInformation['AccountID'] = AccountID;
   }
-  const akRegx = /^[A-Za-z0-9-]+$/;
 
   if (AccessKeyID) {
-    if (akRegx.test(AccessKeyID)) {
-      keyInformation['AccessKeyID'] = AccessKeyID;
-    } else {
-      new HumanError({
-        errorMessage: 'Your AccessKeyID id is not correct.',
-        tips: `Please check if your AccessKeyID is correct. documents: ${colors.underline(
-          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
-        )}`,
-      });
-      process.exit(1);
-    }
+    keyInformation['AccessKeyID'] = AccessKeyID;
   }
   if (AccessKeySecret) {
-    if (akRegx.test(AccessKeySecret)) {
-      keyInformation['AccessKeySecret'] = AccessKeySecret;
-    } else {
-      new HumanError({
-        errorMessage: 'Your AccessKeySecret id is not correct.',
-        tips: `Please check if your AccessKeySecret is correct. documents: ${colors.underline(
-          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
-        )}`,
-      });
-      process.exit(1);
-    }
+    keyInformation['AccessKeySecret'] = AccessKeySecret;
+  }
+  if (SecurityToken) {
+    keyInformation['SecurityToken'] = SecurityToken;
   }
 
   // 同时存在ak/sk 认为是阿里云密钥
   if (AccessKeyID && AccessKeySecret) {
     try {
-      const data = await getAccountId({ AccessKeyID, AccessKeySecret });
+      const data = await getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken });
       keyInformation['AccountID'] = data.AccountId;
     } catch (error) {
       if (!f) {
@@ -128,9 +110,6 @@ program
         process.exit(1);
       }
     }
-  }
-  if (SecurityToken) {
-    keyInformation['SecurityToken'] = SecurityToken;
   }
   if (SecretAccessKey) {
     keyInformation['SecretAccessKey'] = SecretAccessKey;
