@@ -113,18 +113,20 @@ program
   }
 
   // 同时存在ak/sk 认为是阿里云密钥
-  if (AccessKeyID && AccessKeySecret && !f) {
+  if (AccessKeyID && AccessKeySecret) {
     try {
       const data = await getAccountId({ AccessKeyID, AccessKeySecret });
       keyInformation['AccountID'] = data.AccountId;
     } catch (error) {
-      new HumanWarning({
-        warningMessage: 'You may be configuring an incorrect Alibaba Cloud SecretKey.',
-        tips: `Please check the accuracy of Alibaba Cloud SecretKey. If your configuration is not an Alibaba Cloud SecretKey, you can force writing by adding the -f parameter. Or execute ${chalk.yellow(
-          `${getCommand()} -f`,
-        )}`,
-      });
-      process.exit(1);
+      if (!f) {
+        new HumanWarning({
+          warningMessage: 'You may be configuring an incorrect Alibaba Cloud SecretKey.',
+          tips: `Please check the accuracy of Alibaba Cloud SecretKey. If your configuration is not an Alibaba Cloud SecretKey, you can force writing by adding the -f parameter. Or execute ${chalk.yellow(
+            `${getCommand()} -f`,
+          )}`,
+        });
+        process.exit(1);
+      }
     }
   }
   if (SecurityToken) {
