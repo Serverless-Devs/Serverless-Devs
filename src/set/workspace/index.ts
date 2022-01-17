@@ -43,7 +43,7 @@ const promptOption = [
     const val = program.args[0];
     if (path.isAbsolute(val)) {
       setConfig('workspace', val);
-      logger.success('Setup succeeded');
+      logger.log('Setup succeeded', 'green');
     } else {
       new HumanError({
         errorMessage: 'You must provide an absolute path.',
