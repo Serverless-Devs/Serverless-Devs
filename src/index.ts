@@ -1,22 +1,15 @@
 /** @format */
 
 import program from '@serverless-devs/commander';
-import {
-  registerCommandChecker,
-  recordCommandHistory,
-  registerCustomerCommand,
-  registerUniversalCommand,
-  setEnvbyDotenv,
-} from './utils/command-util';
-import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
+import { registerCommandChecker } from './utils';
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
-import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
+import { emoji, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
-import { HandleError, HumanError } from './error';
+import { HandleError } from './error';
 const { jsyaml: yaml, makeUnderLine, getRootHome, publishHelp } = core;
 const pkg = require('../package.json');
 
@@ -26,54 +19,26 @@ async function setSpecialCommand() {
   if (process.argv.length === 2) return;
   if (['-v', '--version'].includes(process.argv[2])) return;
   if (['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) return;
-  const templateFile = checkAndReturnTemplateFile();
-  if (templateFile) {
-    await setEnvbyDotenv(templateFile);
-    process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
-    // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    customerCommandDescription = await registerCustomerCommand(program, templateFile); // Add user-defined commands
-    await registerUniversalCommand(program, templateFile); // Register pan instruction
-  } else {
-    if (['-h', '--help'].includes(process.argv[2])) return;
-    new HumanError({
-      errorMessage: 'the s.yaml/s.yml file was not found.',
-      tips: 'Please check if the s.yaml/s.yml file exists, you can also specify it with -t.',
-    });
-    process.exit(1);
-  }
-}
-
-async function globalParameterProcessing() {
-  const tempGlobal = ['skip-actions'];
-  for (let i = 0; i < tempGlobal.length; i++) {
-    process.env[tempGlobal[i]] = 'false';
-    if (process.argv.includes('--' + tempGlobal[i])) {
-      process.env[tempGlobal[i]] = 'true';
-      process.argv.splice(process.argv.indexOf('--' + tempGlobal[i]), 1);
-    }
-  }
 }
 
 const descption = {
   Options: [
-    {'--debug': 'Open debug model.'},
-    {'--skip-actions': 'Skip the extends section.'},
-    {'-t, --template <path>': 'Specify the template file.'},
-    {'-a, --access <aliasName>': 'Specify the access alias name.'},
-    {'-v, --version': 'Output the version number.'},
-    {'-h, --help': 'Display help for command.'},
+    { '--debug': 'Open debug model.' },
+    { '--skip-actions': 'Skip the extends section.' },
+    { '-t, --template <path>': 'Specify the template file.' },
+    { '-a, --access <aliasName>': 'Specify the access alias name.' },
+    { '-v, --version': 'Output the version number.' },
+    { '-h, --help': 'Display help for command.' },
   ],
   Commands: [
-    {'config': '👤  Configure venders account.'},
-    {'init': '💞  Initializing a serverless project.'},
-    {'cli': '🐚  Command line operation without yaml mode.'},
-    {'set': '🔧  Settings for the tool.'},
-    {'clean': '💥  Clean up the environment.'},
-    {'component': '🔌  Installed component information.'},
+    { config: '👤  Configure venders account.' },
+    { init: '💞  Initializing a serverless project.' },
+    { cli: '🐚  Command line operation without yaml mode.' },
+    { set: '🔧  Settings for the tool.' },
+    { clean: '💥  Clean up the environment.' },
+    { component: '🔌  Installed component information.' },
   ],
-  Examples: [
-    {'init': 'Perform [s init] fast experience Serverless Devs'},
-  ]
+  Examples: [{ init: 'Perform [s init] fast experience Serverless Devs' }],
 };
 
 const helperLength = publishHelp.maxLen(descption.Options);
@@ -86,7 +51,7 @@ const helperLength = publishHelp.maxLen(descption.Options);
     .option('--skip-actions', 'Skip the extends section.')
     .option('-t, --template <templatePath>', 'Specify the template file.')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
-    
+
     .command('config', `${emoji('👤')} Configure venders account.`)
     .command('init', `${emoji('💞')} Initializing a serverless project.`)
     .command('cli', `${emoji('🐚')} Command line operation without yaml mode.`)
@@ -95,15 +60,17 @@ const helperLength = publishHelp.maxLen(descption.Options);
     .command('component', `${emoji('🔌')} Installed component information.`)
     .version(getVersion(), '-v, --version', 'Output the version number.')
     .addHelpCommand(false)
-    .on('--help', function() {
+    .on('--help', function () {
       console.log(
-        [`${emoji('🚀')} Welcome to the Serverless Devs.\n`,
+        [
+          `${emoji('🚀')} Welcome to the Serverless Devs.\n`,
           publishHelp.helpInfo(descption.Options, 'Options', helperLength),
           publishHelp.helpInfo(descption.Commands, 'Commands', helperLength),
           publishHelp.helpInfo(customerCommandDescription, 'Custom Commands', helperLength),
           publishHelp.helpInfo(descption.Examples, 'Examples', helperLength),
-          `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')} `  + '\n'
-        ].join('\n')
+          `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')} ` +
+            '\n',
+        ].join('\n'),
       );
     });
 
@@ -145,9 +112,7 @@ const helperLength = publishHelp.maxLen(descption.Options);
     }
   }
 
-  await globalParameterProcessing(); // global parameter processing
   await setSpecialCommand(); // universal instruction processing
-  recordCommandHistory(process.argv); // add history record
   system_command.exitOverride(async error => {
     if (error.code === 'commander.help') {
       process.exit(program.args.length > 0 ? 1 : 0);
@@ -165,12 +130,11 @@ const helperLength = publishHelp.maxLen(descption.Options);
   process.exit(1);
 });
 
-
-process.on('unhandledRejection', async (error : Error) => {
+process.on('unhandledRejection', async (error: Error) => {
   try {
     await HandleError({ error });
   } catch (error) {
-    console.log('Internal exception occurred!!!', error)
+    console.log('Internal exception occurred!!!', error);
   }
   process.exit(1);
 });

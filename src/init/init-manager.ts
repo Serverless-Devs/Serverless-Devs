@@ -3,15 +3,14 @@
 import path from 'path';
 import _ from 'lodash';
 import { spawn, spawnSync } from 'child_process';
-import { logger, configSet, getYamlPath, common, i18n } from '../utils';
-import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
+import { logger, getConfig, getYamlPath, replaceTemplate, getTemplatekey, replaceFun, i18n } from '../utils';
+import { DEFAULT_REGIRSTRY } from '../constant';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
 const { loadApplication, setCredential, colors, report, fse: fs, jsyaml: yaml, inquirer, getRootHome } = core;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
-const { replaceTemplate, getTemplatekey, replaceFun } = common;
 const getCredentialAliasList = () => {
   const ACCESS_PATH = getYamlPath(getRootHome(), 'access');
   if (!ACCESS_PATH) {
@@ -112,7 +111,7 @@ export class InitManager {
       const answers = await inquirer.prompt([{ ...PROJECT_NAME_INPUT, default: _.last(_.split(name, '/')) }]);
       projectName = answers.projectName;
     }
-    const registry = downloadurl ? downloadurl : configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+    const registry = downloadurl ? downloadurl : getConfig('registry') || DEFAULT_REGIRSTRY;
 
     const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
@@ -142,7 +141,7 @@ export class InitManager {
     if (!projectName) {
       projectName = _.last(_.split(name, '/'));
     }
-    const registry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+    const registry = getConfig('registry') || DEFAULT_REGIRSTRY;
 
     const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {

@@ -4,9 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
 import os from 'os';
-import { HumanError } from '../error';
 import core, { getCoreVersion } from './core';
-const { colors, jsyaml: yaml, makeUnderLine, got, Logger, isDebugMode, getMAC, getYamlContent, isDocker, isCiCdEnv } = core;
+const { colors, makeUnderLine, got, Logger, isDebugMode, getMAC, isDocker, isCiCdEnv } = core;
 const pkg = require('../../package.json');
 import { getConfig } from './handler-set-config';
 
@@ -14,24 +13,25 @@ export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
-
 const _AiRequest = (category, message) => {
-  if(isDocker() || isCiCdEnv()) {
+  if (isDocker() || isCiCdEnv()) {
     // 在CICD环境中不处理
     return;
   }
   return got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
     timeout: 2000,
     json: true,
-  }).then((list) => {
-    const shorturl = _.get(list.body, 'shorturl');
-    if(shorturl) {
-      console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
-    }
-  }).catch(() => {
-    // exception
   })
-}
+    .then(list => {
+      const shorturl = _.get(list.body, 'shorturl');
+      if (shorturl) {
+        console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
+      }
+    })
+    .catch(() => {
+      // exception
+    });
+};
 
 export const getErrorMessage = async (error: Error, prefix) => {
   const configOption = { traceId: '', catchableError: false };
@@ -41,15 +41,15 @@ export const getErrorMessage = async (error: Error, prefix) => {
     } catch (error) {
       return 'unknown';
     }
-  }
+  };
 
   const analysis = getConfig('analysis');
   if (analysis !== 'disable') {
     configOption.traceId = `${getPid()}${Date.now()}`;
   }
-  
+
   const isDebug = isDebugMode ? isDebugMode() : undefined;
-  if(isDebug) {
+  if (isDebug) {
     console.log(error);
     return configOption;
   }
@@ -60,9 +60,9 @@ export const getErrorMessage = async (error: Error, prefix) => {
     jsonMsg = JSON.parse(message);
   } catch (error) {}
 
-  if(jsonMsg && jsonMsg.tips) {
+  if (jsonMsg && jsonMsg.tips) {
     const messageStr = `Message: ${jsonMsg.message}\n` || '';
-    const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, "\n* "))}` : '';
+    const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, '\n* '))}` : '';
     Logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}\n======================\n${tipsStr}\n`, 'yellow');
     console.log(colors.grey(messageStr));
     configOption.catchableError = true;
@@ -71,9 +71,7 @@ export const getErrorMessage = async (error: Error, prefix) => {
     console.log(`${bgRed('ERROR:')}\n${message}\n`);
     if (analysis !== 'disable') {
       try {
-        const templateFile = checkAndReturnTemplateFile();
-        const content = await getYamlContent(templateFile);
-        const category = _.get(_.first(_.values(_.get(content, 'services'))), 'component') || 'serverless-devs';
+        const category = 'serverless-devs';
         await _AiRequest(category, message);
       } catch (error) {
         // throw error
@@ -82,8 +80,7 @@ export const getErrorMessage = async (error: Error, prefix) => {
   }
 
   return configOption;
-}
-
+};
 
 export function getVersion() {
   const coreVersion = getCoreVersion();
@@ -91,7 +88,7 @@ export function getVersion() {
   const nodeVersion = `node-${process.version}`;
   const coreVersionStr = `core: ${coreVersion}`;
   const homeWork = `s-home: ${core.getRootHome()}`;
-  const pkgVersion  = `${pkg.name}: ${pkg.version}`;
+  const pkgVersion = `${pkg.name}: ${pkg.version}`;
 
   return coreVersion
     ? `${pkgVersion}, ${coreVersionStr}, ${homeWork}, ${platform}, ${nodeVersion}`
@@ -113,94 +110,6 @@ export async function getFolderSize(rootItemPath: string) {
   }
   const folderSize = Array.from(fileSizes.values()).reduce((total, fileSize) => total + fileSize, 0);
   return folderSize;
-}
-
-export function yamlLoad(filePath: string) {
-  const content = fs.readFileSync(filePath, 'utf8');
-  try {
-    return yaml.load(content);
-  } catch (error) {
-    if (['-h', '--help'].includes(process.argv[2])) return;
-    const filename = path.basename(filePath);
-    new HumanError({
-      errorMessage: `${filename} format is incorrect`,
-      tips: `Please check the configuration of ${filename}, Serverless Devs' Yaml specification document can refer to：${colors.underline(
-        'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/yaml.md',
-      )}`,
-    });
-    process.exit(1);
-  }
-}
-
-function checkTemplateFormat(filePath: string, json = false) {
-  const content = fs.readFileSync(filePath, 'utf8');
-  let fileObj = json ? JSON.parse(content) : yamlLoad(filePath);
-  if (!fileObj) return false;
-  for (const eveKey in fileObj) {
-    if (fileObj[eveKey].Component && fileObj[eveKey].Provider && fileObj[eveKey].Properties) {
-      return true;
-    }
-  }
-  // 新版本规范
-  return fileObj.hasOwnProperty('edition');
-}
-
-export function checkAndReturnTemplateFile() {
-  if (process.env['serverless_devs_temp_template']) {
-    return process.env['serverless_devs_temp_template'];
-  }
-  const currentDir = process.cwd();
-  let templateTag = process.argv.includes('-t') ? '-t' : process.argv.includes('--template') ? '--template' : null;
-  const index = templateTag ? process.argv.indexOf(templateTag) : -1;
-  if (index !== -1) {
-    const tempFileIndex = index + 1;
-    const tempFileName = process.argv[tempFileIndex];
-    if (tempFileName) {
-      if (tempFileName.endsWith('.yaml') || tempFileName.endsWith('.yml') || tempFileName.endsWith('.json')) {
-        const jsonType = tempFileName.endsWith('.json') ? true : false;
-        if (
-          fs.existsSync(path.join(currentDir, tempFileName)) &&
-          checkTemplateFormat(path.join(currentDir, tempFileName), jsonType)
-        ) {
-          process.argv.splice(index, 2);
-          // 对临时参数进行存储
-          const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv']);
-          tempArgv.splice(tempArgv.indexOf(templateTag), 2);
-          process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv);
-          process.env['serverless_devs_temp_template'] = path.join(currentDir, tempFileName);
-          return path.join(currentDir, tempFileName);
-        } else if (fs.existsSync(tempFileName) && checkTemplateFormat(tempFileName, jsonType)) {
-          process.argv.splice(index, 2);
-          // 对临时参数进行存储
-          const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv']);
-          tempArgv.splice(tempArgv.indexOf(templateTag), 2);
-          process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv);
-          process.env['serverless_devs_temp_template'] = tempFileName;
-          return tempFileName;
-        }
-      }
-    }
-  }
-  if (fs.existsSync(path.join(currentDir, 's.yaml')) && checkTemplateFormat(path.join(currentDir, 's.yaml'))) {
-    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.yaml');
-    return path.join(currentDir, 's.yaml');
-  }
-  if (fs.existsSync(path.join(currentDir, 's.yml')) && checkTemplateFormat(path.join(currentDir, 's.yml'))) {
-    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.yml');
-    return path.join(currentDir, 's.yml');
-  }
-  if (fs.existsSync(path.join(currentDir, 's.json')) && checkTemplateFormat(path.join(currentDir, 's.json'), true)) {
-    process.env['serverless_devs_temp_template'] = path.join(currentDir, 's.json');
-    return path.join(currentDir, 's.json');
-  }
-  return null;
-}
-
-export function checkTemplateFile(templateFile: string) {
-  if (fs.existsSync(templateFile)) {
-    return templateFile;
-  }
-  return null;
 }
 
 export function printn(n: number, str = ' ') {
@@ -286,15 +195,3 @@ export function emoji(text: string, fallback?: string) {
   }
   return `${text} `;
 }
-
-
-export default {
-  checkAndReturnTemplateFile,
-  checkTemplateFile,
-  printn,
-  mark,
-  getLang,
-  replaceTemplate,
-  replaceFun,
-  getTemplatekey,
-};
