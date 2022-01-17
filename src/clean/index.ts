@@ -52,25 +52,25 @@ try {
       files.forEach((file: string) => {
         rimraf.sync(path.join(sPath, file));
       });
-      logger.success('The environment of Serverless Devs has been cleaned up successfully.');
+      logger.log('The environment of Serverless Devs has been cleaned up successfully.', 'green');
     }
     if (args.cache) {
       // cache 无参数
       if (typeof args.cache === 'boolean') {
         rimraf.sync(path.join(cachePath));
-        logger.success('Cache has been cleaned up successfully.');
+        logger.log('Cache has been cleaned up successfully.', 'green');
       }
       // cache 有参数
       if (typeof args.cache === 'string') {
         rimraf.sync(path.join(cachePath, args.cache));
-        logger.success(`Cache [${args.cache}] has been cleaned up successfully.`);
+        logger.log(`Cache [${args.cache}] has been cleaned up successfully.`, 'green');
       }
     }
     if (args.component) {
       // component 无参数
       if (typeof args.component === 'boolean') {
         rimraf.sync(componentsPath);
-        logger.success('Component has been cleaned up successfully.');
+        logger.log('Component has been cleaned up successfully.', 'green');
       }
       // component 有参数
       if (typeof args.component === 'string') {
@@ -80,7 +80,7 @@ try {
           const filePath = path.join(devsappPath, args.component);
           if (fs.existsSync(filePath)) {
             rimraf.sync(filePath);
-            logger.success(`Component [${args.component}] has been cleaned up successfully.`);
+            logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
           }
         }
         // git 源
@@ -88,7 +88,7 @@ try {
           const filePath = path.join(githubPath, args.component);
           if (fs.existsSync(filePath)) {
             rimraf.sync(filePath);
-            logger.success(`Component [${args.component}] has been cleaned up successfully.`);
+            logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
           }
         }
       }
