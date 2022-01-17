@@ -1,7 +1,7 @@
 /** @format */
 
 import program from '@serverless-devs/commander';
-import { configSet } from '../utils';
+import { setConfig } from '../utils';
 import { InitManager } from './init-manager';
 import { emoji } from '../utils/common';
 import { HandleError } from '../error';
@@ -17,7 +17,9 @@ const description = `Initialize a new project based on a template. You can initi
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
-${emoji('🚀')} More Case: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md')}`;
+${emoji('🚀')} More Case: ${colors.underline(
+  'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md',
+)}`;
 
 program
   .name('s init')
@@ -33,7 +35,7 @@ program
   const initManager = new InitManager();
   const { dir, registry } = program as any;
   if (registry) {
-    configSet.setConfig('registry', registry);
+    setConfig('registry', registry);
   }
   const name = program.args[0];
   await initManager.init(name, dir);

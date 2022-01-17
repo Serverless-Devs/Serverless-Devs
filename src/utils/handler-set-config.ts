@@ -1,7 +1,6 @@
 /** @format */
 
 import path from 'path';
-import storage from './storage';
 import core from './core';
 const { fse: fs, jsyaml: yaml, getRootHome } = core;
 interface ProfileParams {
@@ -34,7 +33,7 @@ function getProfileFile(): Profile {
 }
 
 function getDefaultProfilePath(): string {
-  const file = path.join(storage.getHomeDir(), 'set-config.yml');
+  const file = path.join(getRootHome(), 'set-config.yml');
   if (!fs.existsSync(file)) {
     fs.createFileSync(file);
   }
@@ -84,9 +83,3 @@ export async function handlerProfileFile(params: ProfileParams) {
   await fs.writeFileSync(profPath, yaml.dump(profile));
   return profile;
 }
-
-export default {
-  setConfig,
-  getConfig,
-  handlerProfileFile,
-};
