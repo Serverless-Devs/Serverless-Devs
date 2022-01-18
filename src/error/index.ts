@@ -40,7 +40,7 @@ export const HandleError = async (configs: IConfigs) =>  {
     }
     console.log(colors.gray("You can run 's clean --all' to clean Serverless devs."));
 
-    if(traceId && catchableError) {
+    if(traceId && !catchableError) {
       await report({
         type: 'jsError',
         content: `${error.message}||${error.stack}`,
