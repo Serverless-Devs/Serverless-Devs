@@ -10,16 +10,11 @@ import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
 import { HandleError } from './error';
+import SpecialCommad from './special-commad';
 const { jsyaml: yaml, makeUnderLine, getRootHome, publishHelp } = core;
 const pkg = require('../package.json');
 
 let customerCommandDescription = [];
-
-async function setSpecialCommand() {
-  if (process.argv.length === 2) return;
-  if (['-v', '--version'].includes(process.argv[2])) return;
-  if (['init', 'config', 'set', 'cli', 'clean', 'component'].includes(process.argv[2])) return;
-}
 
 const descption = {
   Options: [
@@ -83,11 +78,6 @@ const helperLength = publishHelp.maxLen(descption.Options);
 
   new UpdateNotifier().init().notify();
 
-  // 对帮助信息进行处理
-  if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
-    process.env['serverless_devs_out_put_help'] = 'true';
-  }
-
   // 处理额外的密钥信息
   let templateTag = process.argv.includes('-a') ? '-a' : process.argv.includes('--access') ? '--access' : null;
   const index = templateTag ? process.argv.indexOf(templateTag) : -1;
@@ -110,8 +100,8 @@ const helperLength = publishHelp.maxLen(descption.Options);
       process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv);
     }
   }
+  await new SpecialCommad(system_command).init();
 
-  await setSpecialCommand(); // universal instruction processing
   system_command.exitOverride(async error => {
     if (error.code === 'commander.help') {
       process.exit(program.args.length > 0 ? 1 : 0);

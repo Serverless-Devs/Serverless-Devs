@@ -1,19 +1,22 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Debug Devs",
-            "type": "node",
-            "request": "launch",
-            // "runtimeExecutable": "/usr/local/lib/node_modules/@serverless-devs/s/bin/s",
-            "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
-            "runtimeArgs": ["deploy"],
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
-            "skipFiles": ["<node_internals>/**"]
-        }
-    ]
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Devs",
+      "type": "node",
+      "request": "launch",
+      // "runtimeExecutable": "/usr/local/lib/node_modules/@serverless-devs/s/bin/s",
+      "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
+      // "runtimeArgs": ["config", "get", "-a", "sub"],
+      // "runtimeArgs": ["deploy", "-a", "sub"],
+      "runtimeArgs": ["invoke", "-e", "{\"env\":\"[\\\"echo $NODE_ENV\\\"]\"}"],
+      // "runtimeArgs": ["cli", "fc-api", "-h"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
 }

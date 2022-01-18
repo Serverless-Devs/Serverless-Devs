@@ -50,7 +50,7 @@ const promptOption = [
     const val = program.args[0];
     if (val) {
       setConfig('analysis', val);
-      logger.log('Setup succeeded', 'green');
+      logger.success('Setup succeeded');
     }
   }
 })().catch(err => {
