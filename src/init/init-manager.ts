@@ -1,28 +1,38 @@
 /** @format */
 
 import path from 'path';
-import _ from 'lodash';
+import _, { keys, includes } from 'lodash';
 import { spawn, spawnSync } from 'child_process';
 import { logger, getConfig, getYamlPath, replaceTemplate, getTemplatekey, replaceFun, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constant';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
-const { loadApplication, setCredential, colors, report, fse: fs, jsyaml: yaml, inquirer, getRootHome } = core;
+const {
+  loadApplication,
+  setCredential,
+  colors,
+  report,
+  fse: fs,
+  inquirer,
+  getRootHome,
+  getCredential,
+  getYamlContent,
+} = core;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
-const getCredentialAliasList = () => {
-  const ACCESS_PATH = getYamlPath(getRootHome(), 'access');
-  if (!ACCESS_PATH) {
-    return [];
+const getCredentialAliasList = async () => {
+  let accessList = [];
+  const accessInfo = await getYamlContent(path.join(getRootHome(), 'access.yaml'));
+  if (accessInfo) {
+    accessList = keys(accessInfo);
   }
-
-  try {
-    const result = yaml.load(fs.readFileSync(ACCESS_PATH, 'utf8'));
-    return Object.keys(result);
-  } catch (error) {
-    return [];
+  // 兼容 环境变量里的密钥
+  const data = await getCredential();
+  if (data && !includes(accessList, data.Alias)) {
+    accessList.push(data.Alias);
   }
+  return accessList;
 };
 
 export class InitManager {
@@ -34,10 +44,10 @@ export class InitManager {
     if (sPath) {
       let sContent = fs.readFileSync(sPath, 'utf-8');
       const templateKeys = getTemplatekey(sContent);
-      templateKeys.forEach(item => {
+      for (const item of templateKeys) {
         const { name, desc } = item;
         if (name === 'access') {
-          const credentialAliasList = getCredentialAliasList();
+          const credentialAliasList = await getCredentialAliasList();
           if (Array.isArray(credentialAliasList) && credentialAliasList.length > 0) {
             this.promps['access'] = {
               type: 'list',
@@ -60,7 +70,7 @@ export class InitManager {
             name,
           };
         }
-      });
+      }
 
       const { access: prompsAccess, ...prompsRest } = this.promps;
       const prompsOption = _.concat(_.values(prompsRest), prompsAccess);
