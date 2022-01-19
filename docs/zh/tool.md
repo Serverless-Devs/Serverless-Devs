@@ -75,7 +75,7 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 
 - 通过`-a/--access`参数指定的密钥信息
 - 使用已经配置的`default`密钥信息
-- 使用通过环境变量配置的``default_serverless_devs_access`密钥信息
+- 使用通过环境变量配置的`default_serverless_devs_access`密钥信息
 - 不使用密钥信息 / 进入密钥信息配置引导
 
 具体的流程图为：
@@ -113,4 +113,3 @@ s config add -a default-aliyun -kl AccountID,AccessKeyID,AccessKeySecret -il ${A
           service:
             name: fc-deploy-service
     ```
-## 
