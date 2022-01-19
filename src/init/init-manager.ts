@@ -130,7 +130,7 @@ export class InitManager {
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       console.log(
-        `${emoji('💞')} Document ❤ Star：` +
+        `${emoji('💞')} Document ❤ Star:` +
           colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
       );
     }
@@ -157,7 +157,7 @@ export class InitManager {
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       console.log(
-        `${emoji('💞')} Document ❤ Star：` +
+        `${emoji('💞')} Document ❤ Star:` +
           colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
       );
     }

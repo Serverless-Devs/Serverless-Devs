@@ -39,6 +39,7 @@ const descption = {
 const helperLength = publishHelp.maxLen(descption.Options);
 
 (async () => {
+  process.env['CLI_VERSION'] = pkg.version;
   registerCommandChecker(program);
   const system_command = program
     .helpOption('-h, --help', `Display help for command.`)
@@ -68,8 +69,6 @@ const helperLength = publishHelp.maxLen(descption.Options);
         ].join('\n'),
       );
     });
-
-  process.env['CLI_VERSION'] = pkg.version;
 
   // 将参数存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);

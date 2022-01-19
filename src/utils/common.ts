@@ -61,7 +61,7 @@ export const getErrorMessage = async (error: Error, prefix) => {
   } catch (error) {}
 
   if (jsonMsg && jsonMsg.tips) {
-    const messageStr = `Message: ${jsonMsg.message}\n` || '';
+    const messageStr = jsonMsg.message ? `Message: ${jsonMsg.message}\n` : '';
     const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, '\n* '))}` : '';
     Logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}\n======================\n${tipsStr}\n`, 'yellow');
     console.log(colors.grey(messageStr));
