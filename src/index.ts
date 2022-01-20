@@ -2,8 +2,6 @@
 
 import program from '@serverless-devs/commander';
 import { registerCommandChecker } from './utils';
-import path from 'path';
-import fs from 'fs';
 import _ from 'lodash';
 import { emoji, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
@@ -11,7 +9,7 @@ import onboarding from './onboarding';
 import core from './utils/core';
 import { HandleError } from './error';
 import SpecialCommad from './special-commad';
-const { jsyaml: yaml, makeUnderLine, getRootHome, publishHelp } = core;
+const { makeUnderLine, publishHelp } = core;
 const pkg = require('../package.json');
 
 let customerCommandDescription = [];
@@ -70,7 +68,7 @@ const helperLength = publishHelp.maxLen(descption.Options);
       );
     });
 
-  // 将参数存储到env
+  // 将参数argv存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);
 
   // ignore warning
@@ -78,28 +76,6 @@ const helperLength = publishHelp.maxLen(descption.Options);
 
   new UpdateNotifier().init().notify();
 
-  // 处理额外的密钥信息
-  let templateTag = process.argv.includes('-a') ? '-a' : process.argv.includes('--access') ? '--access' : null;
-  const index = templateTag ? process.argv.indexOf(templateTag) : -1;
-  let accessFileInfo = {};
-  try {
-    const accessFile = path.join(getRootHome(), 'access.yaml');
-    accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
-  } catch (e) {
-    accessFileInfo = {};
-  }
-  if (index !== -1 && process.argv[index + 1]) {
-    if (process.argv[2] === 'config') {
-      process.env['serverless_devs_temp_access'] = process.argv[index + 1];
-    } else if (Object.keys(accessFileInfo).includes(process.argv[index + 1])) {
-      process.env['serverless_devs_temp_access'] = process.argv[index + 1];
-      process.argv.splice(index, 2);
-      // 对临时参数进行存储
-      const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv']);
-      tempArgv.splice(tempArgv.indexOf(templateTag), 2);
-      process.env['serverless_devs_temp_argv'] = JSON.stringify(tempArgv);
-    }
-  }
   await new SpecialCommad(system_command).init();
 
   system_command.exitOverride(async error => {

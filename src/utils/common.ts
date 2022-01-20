@@ -2,16 +2,66 @@
 
 import path from 'path';
 import fs from 'fs';
-import _ from 'lodash';
+import { get, isEmpty, trim, assign, filter, includes, keys, omit } from 'lodash';
 import os from 'os';
 import core, { getCoreVersion } from './core';
-const { colors, makeUnderLine, got, Logger, isDebugMode, getMAC, isDocker, isCiCdEnv } = core;
-const pkg = require('../../package.json');
 import { getConfig } from './handler-set-config';
+
+const pkg = require('../../package.json');
+const {
+  colors,
+  makeUnderLine,
+  got,
+  Logger,
+  isDebugMode,
+  getMAC,
+  isDocker,
+  isCiCdEnv,
+  getGlobalArgs,
+  getYamlContent,
+  getRootHome,
+  getCredential,
+} = core;
 
 export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
+
+export const getProcessArgv = () => {
+  const { serverless_devs_temp_argv } = process.env;
+  if (isEmpty(serverless_devs_temp_argv)) return {};
+  try {
+    const tempArgv = JSON.parse(serverless_devs_temp_argv);
+    const data = getGlobalArgs(tempArgv.slice(2));
+    return assign({}, data, {
+      noHelpArgv: process.argv.slice(0, 2).concat(filter(data._argsObj, o => !includes(['-h', '--help'], o))),
+    });
+  } catch (error) {
+    return {};
+  }
+};
+
+export const getCredentialAliasList = async () => {
+  let accessList = [];
+  const accessInfo = await getYamlContent(path.join(getRootHome(), 'access.yaml'));
+  if (accessInfo) {
+    accessList = keys(accessInfo);
+  }
+  // 兼容 环境变量里的密钥
+  const data = await getCredential();
+  if (data && !includes(accessList, data.Alias)) {
+    accessList.push(data.Alias);
+  }
+  return accessList;
+};
+
+export const getCredentialWithExisted = async (access: string) => {
+  const data = await getCredentialAliasList();
+  if (includes(data, access)) {
+    const info = await getCredential(access);
+    return omit(info, 'Alias');
+  }
+};
 
 const _AiRequest = (category, message) => {
   if (isDocker() || isCiCdEnv()) {
@@ -23,7 +73,7 @@ const _AiRequest = (category, message) => {
     json: true,
   })
     .then(list => {
-      const shorturl = _.get(list.body, 'shorturl');
+      const shorturl = get(list.body, 'shorturl');
       if (shorturl) {
         console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
       }
@@ -143,7 +193,7 @@ export function replaceFun(str, obj) {
   if (arr) {
     for (let i = 0; i < arr.length; i++) {
       let keyContent = arr[i].replace(/{{|}}/g, '');
-      let realKey = _.trim(keyContent.split('|')[0]);
+      let realKey = trim(keyContent.split('|')[0]);
       if (obj[realKey]) {
         str = str.replace(arr[i], obj[realKey]);
       }
@@ -165,8 +215,8 @@ export function getTemplatekey(str) {
       let keyContent = matchValue.replace(/{{|}}/g, '');
       let realKey = keyContent.split('|');
       return {
-        name: _.trim(realKey[0]),
-        desc: _.trim(realKey[1]),
+        name: trim(realKey[0]),
+        desc: trim(realKey[1]),
       };
     });
 }
