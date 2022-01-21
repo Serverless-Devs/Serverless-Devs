@@ -1,6 +1,7 @@
 import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
+import { CommandError } from '../error';
 import { emoji, getProcessArgv, getCredentialWithExisted, logger } from '../utils';
 import { isEmpty, isString } from 'lodash';
 const { colors, loadComponent, getYamlContent, makeUnderLine } = core;
@@ -99,7 +100,9 @@ ${emoji('📖')} Document: ${colors.underline(
     }
     isString(res) ? logger.success(res) : logger.output(res);
   }
-})();
+})().catch(err => {
+  throw new CommandError(err.message);
+});
 
 function getTempCommandStr(commands: string, length: number) {
   const commandsLength = commands.length;
