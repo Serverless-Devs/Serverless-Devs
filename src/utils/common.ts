@@ -2,7 +2,7 @@
 
 import path from 'path';
 import fs from 'fs';
-import { get, isEmpty, trim, assign, filter, includes, keys, omit } from 'lodash';
+import { get, trim, assign, filter, includes, keys, omit } from 'lodash';
 import os from 'os';
 import core, { getCoreVersion } from './core';
 import { getConfig } from './handler-set-config';
@@ -21,6 +21,7 @@ const {
   getYamlContent,
   getRootHome,
   getCredential,
+  getCredentialFromEnv,
 } = core;
 
 export const red = colors.hex('#fd5750');
@@ -29,10 +30,11 @@ export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
 export const getProcessArgv = () => {
   const { serverless_devs_temp_argv } = process.env;
-  if (isEmpty(serverless_devs_temp_argv)) return {};
   try {
     const tempArgv = JSON.parse(serverless_devs_temp_argv);
     const data = getGlobalArgs(tempArgv.slice(2));
+    // 修复 argv 参数
+    process.argv = process.argv.slice(0, 2).concat(data._argsObj);
     return assign({}, data, {
       noHelpArgv: process.argv.slice(0, 2).concat(filter(data._argsObj, o => !includes(['-h', '--help'], o))),
     });
@@ -47,9 +49,9 @@ export const getCredentialAliasList = async () => {
   if (accessInfo) {
     accessList = keys(accessInfo);
   }
-  // 兼容 环境变量里的密钥
-  const data = await getCredential();
-  if (data && !includes(accessList, data.Alias)) {
+  const data = await getCredentialFromEnv();
+  if (data) {
+    accessList = filter(accessList, o => o !== data.Alias);
     accessList.push(data.Alias);
   }
   return accessList;
@@ -60,6 +62,18 @@ export const getCredentialWithExisted = async (access: string) => {
   if (includes(data, access)) {
     const info = await getCredential(access);
     return omit(info, 'Alias');
+  }
+};
+
+export const getCredentialWithAll = async () => {
+  const data = await getCredentialAliasList();
+  if (data.length > 0) {
+    const res = {};
+    for (const access of data) {
+      const info = await getCredential(access);
+      res[info.Alias] = omit(info, 'Alias');
+    }
+    return res;
   }
 };
 

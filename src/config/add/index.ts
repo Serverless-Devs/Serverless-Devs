@@ -1,6 +1,6 @@
 import program from '@serverless-devs/commander';
 import { CommandError } from '../../error';
-import { emoji } from '../../utils/common';
+import { emoji, getProcessArgv } from '../../utils';
 import core from '../../utils/core';
 const { setCredential, setKnownCredential, colors, getAccountId, getCommand, chalk } = core;
 import { HumanError, HumanWarning } from '../../error';
@@ -25,29 +25,29 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
   'https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config',
 )}`;
 
-program
-  .name('s config add')
-  .usage('[commands] [name]')
-  .option('--AccountID <AccountID>', 'AccountID of key information')
-  .option('--AccessKeyID <AccessKeyID>', 'AccessKeyID of key information')
-  .option('--AccessKeySecret <AccessKeySecret>', 'AccessKeySecret of key information')
-  .option('--SecurityToken <SecurityToken>', 'SecurityToken of key information')
-  .option('--SecretAccessKey <SecretAccessKey>', 'SecretAccessKey of key information')
-  .option('--AccessKey <AccessKey>', 'AccessKey of key information')
-  .option('--SecretKey <SecretKey>', 'SecretKey of key information')
-  .option('--SecretID <SecretID>', 'SecretID of key information')
-  .option('--PrivateKeyData <PrivateKeyData>', 'PrivateKeyData of key information')
-  .option('-kl , --keyList <keyList>', 'Keys of key information, like: -kl key1,key2,key3')
-  .option('-il , --infoList <infoList>', 'Values of key information, like: -il info1,info2,info3')
-  .option('-a , --aliasName [name]', 'Key pair alias, if the alias is not set, use default instead')
-  .option('-f', 'Mandatory overwrite key information')
-
-  .helpOption('-h, --help', 'Display help for command')
-  .description(description)
-  .addHelpCommand(false)
-  .parse(process.argv);
 (async () => {
-  const serverless_devs_temp_argv = JSON.parse(process.env['serverless_devs_temp_argv']);
+  const { access } = getProcessArgv();
+  program
+    .name('s config add')
+    .usage('[options]')
+    .option('--AccountID <AccountID>', 'AccountID of key information')
+    .option('--AccessKeyID <AccessKeyID>', 'AccessKeyID of key information')
+    .option('--AccessKeySecret <AccessKeySecret>', 'AccessKeySecret of key information')
+    .option('--SecurityToken <SecurityToken>', 'SecurityToken of key information')
+    .option('--SecretAccessKey <SecretAccessKey>', 'SecretAccessKey of key information')
+    .option('--AccessKey <AccessKey>', 'AccessKey of key information')
+    .option('--SecretKey <SecretKey>', 'SecretKey of key information')
+    .option('--SecretID <SecretID>', 'SecretID of key information')
+    .option('--PrivateKeyData <PrivateKeyData>', 'PrivateKeyData of key information')
+    .option('-kl, --keyList <keyList>', 'Keys of key information, like: -kl key1,key2,key3')
+    .option('-il, --infoList <infoList>', 'Values of key information, like: -il info1,info2,info3')
+    .option('-a, --access <aliasName>', 'Specify the access alias name.')
+    .option('-f', 'Mandatory overwrite key information')
+    .helpOption('-h, --help', 'Display help for command')
+    .description(description)
+    .addHelpCommand(false)
+    .parse(process.argv);
+
   const {
     AccountID,
     AccessKeyID,
@@ -59,12 +59,11 @@ program
     SecretID,
     keyList,
     infoList,
-    aliasName = process.env['serverless_devs_temp_access'],
     SecurityToken,
     f,
   } = program;
 
-  if (serverless_devs_temp_argv.length === 4) {
+  if (process.argv.length === 2) {
     return await setCredential();
   }
 
@@ -130,7 +129,7 @@ program
     keyInformation['PrivateKeyData'] = PrivateKeyData;
   }
   if (Object.keys(keyInformation).length > 0) {
-    setKnownCredential(keyInformation, aliasName);
+    setKnownCredential(keyInformation, access);
   }
 })().catch(err => {
   if (err.message === 'alibaba') {
