@@ -2,6 +2,7 @@ import program from '@serverless-devs/commander';
 import { emoji, getProcessArgv, logger, getCredentialWithAll } from '../../utils';
 import core from '../../utils/core';
 import { get, keys, toString } from 'lodash';
+import { HandleError } from '../../error';
 const { colors } = core;
 
 const description = `You can get accounts.
@@ -76,4 +77,7 @@ function notFound() {
       process.exit(1);
     }
   }
-})();
+})().catch(async error => {
+  await HandleError({ error });
+  process.exit(1);
+});

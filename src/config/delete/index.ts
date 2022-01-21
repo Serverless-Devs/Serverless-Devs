@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import program from '@serverless-devs/commander';
 import { logger } from '../../utils';
-import { HumanError } from '../../error';
+import { HandleError, HumanError } from '../../error';
 import { emoji, getProcessArgv } from '../../utils';
 import core from '../../utils/core';
 const { colors, jsyaml: yaml, getRootHome, getYamlContent } = core;
@@ -60,4 +60,7 @@ function notFound({ access, accessFileInfo }: { access: string; accessFileInfo?:
   } else {
     notFound({ access, accessFileInfo });
   }
-})();
+})().catch(async error => {
+  await HandleError({ error });
+  process.exit(1);
+});
