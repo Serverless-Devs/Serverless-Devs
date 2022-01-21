@@ -23,6 +23,7 @@ ${emoji('📖')} Document: ${colors.underline(
   program
     .name('s cli')
     .usage('[component] [method] [options]')
+    .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('-p, --props <jsonString>', 'The json string of props')
     .helpOption('-h, --help', 'Display help for command')
     .allowUnknownOption()

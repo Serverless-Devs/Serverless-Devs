@@ -1,40 +1,25 @@
 /** @format */
 
 import path from 'path';
-import _, { keys, includes } from 'lodash';
+import { concat, values, filter, last, split, find, includes } from 'lodash';
 import { spawn, spawnSync } from 'child_process';
-import { logger, getConfig, getYamlPath, replaceTemplate, getTemplatekey, replaceFun, i18n } from '../utils';
+import {
+  logger,
+  getConfig,
+  getYamlPath,
+  replaceTemplate,
+  getTemplatekey,
+  replaceFun,
+  i18n,
+  getCredentialAliasList,
+} from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constant';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
-const {
-  loadApplication,
-  setCredential,
-  colors,
-  report,
-  fse: fs,
-  inquirer,
-  getRootHome,
-  getCredential,
-  getYamlContent,
-} = core;
+const { loadApplication, setCredential, colors, report, fse: fs, inquirer } = core;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
-const getCredentialAliasList = async () => {
-  let accessList = [];
-  const accessInfo = await getYamlContent(path.join(getRootHome(), 'access.yaml'));
-  if (accessInfo) {
-    accessList = keys(accessInfo);
-  }
-  // 兼容 环境变量里的密钥
-  const data = await getCredential();
-  if (data && !includes(accessList, data.Alias)) {
-    accessList.push(data.Alias);
-  }
-  return accessList;
-};
-
 export class InitManager {
   protected promps: any = {};
   constructor() {}
@@ -73,9 +58,9 @@ export class InitManager {
       }
 
       const { access: prompsAccess, ...prompsRest } = this.promps;
-      const prompsOption = _.concat(_.values(prompsRest), prompsAccess);
+      const prompsOption = concat(values(prompsRest), prompsAccess);
 
-      const result = await inquirer.prompt(_.filter(prompsOption, item => item));
+      const result = await inquirer.prompt(filter(prompsOption, item => item));
       if (result.access === true) {
         const credential = await setCredential();
         result.access = credential.Alias;
@@ -118,7 +103,7 @@ export class InitManager {
   async executeInit(name: string, dir?: string, downloadurl?: boolean) {
     let projectName = dir;
     if (!projectName) {
-      const answers = await inquirer.prompt([{ ...PROJECT_NAME_INPUT, default: _.last(_.split(name, '/')) }]);
+      const answers = await inquirer.prompt([{ ...PROJECT_NAME_INPUT, default: last(split(name, '/')) }]);
       projectName = answers.projectName;
     }
     const registry = downloadurl ? downloadurl : getConfig('registry') || DEFAULT_REGIRSTRY;
@@ -149,7 +134,7 @@ export class InitManager {
   async executeInitWithForceCreation(name: string, dir?: string) {
     let projectName = dir;
     if (!projectName) {
-      projectName = _.last(_.split(name, '/'));
+      projectName = last(split(name, '/'));
     }
     const registry = getConfig('registry') || DEFAULT_REGIRSTRY;
 
@@ -213,18 +198,18 @@ export class InitManager {
       console.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
       report({ type: 'initTemplate', content: answerValue });
-      const findObj: any = _.find(ALL_TEMPLATE, item => item.value === answerValue);
+      const findObj: any = find(ALL_TEMPLATE, item => item.value === answerValue);
       if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
       }
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {
-      if (_.find(process.argv, v => v === '--force-creation')) {
+      if (find(process.argv, v => v === '--force-creation')) {
         return await this.executeInitWithForceCreation(name, dir);
       }
       const { appPath } = await this.executeInit(name, dir);
-      const findObj: any = _.find(ALL_TEMPLATE, item => _.includes(item.value, name));
+      const findObj: any = find(ALL_TEMPLATE, item => includes(item.value, name));
       if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
       }
