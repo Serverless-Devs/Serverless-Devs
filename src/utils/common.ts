@@ -32,7 +32,7 @@ export const getProcessArgv = () => {
   const { serverless_devs_temp_argv } = process.env;
   try {
     const tempArgv = JSON.parse(serverless_devs_temp_argv);
-    const data = getGlobalArgs(tempArgv.slice(2));
+    const data = getGlobalArgs(tempArgv);
     // 修复 argv 参数
     process.argv = process.argv.slice(0, 2).concat(data._argsObj);
     return assign({}, data, {

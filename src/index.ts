@@ -45,7 +45,6 @@ const helperLength = publishHelp.maxLen(descption.Options);
     .option('--skip-actions', 'Skip the extends section.')
     .option('-t, --template <templatePath>', 'Specify the template file.')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
-
     .command('config', `${emoji('👤')} Configure venders account.`)
     .command('init', `${emoji('💞')} Initializing a serverless project.`)
     .command('cli', `${emoji('🐚')} Command line operation without yaml mode.`)
@@ -69,7 +68,7 @@ const helperLength = publishHelp.maxLen(descption.Options);
     });
 
   // 将参数argv存储到env
-  process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);
+  process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv.slice(2));
 
   // ignore warning
   (process as any).noDeprecation = true;
