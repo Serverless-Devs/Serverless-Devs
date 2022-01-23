@@ -61,9 +61,17 @@ test('s deploy with actions', async () => {
   expect(res).toBeTruthy();
 });
 
-test.only('s deploy with --skip-actions', async () => {
+test('s deploy with --skip-actions', async () => {
   const args = 'deploy --skip-actions -y --use-local -t test/start-fc-http-nodejs12/d.yaml';
   process.argv = process.argv.slice(0, 2).concat(split(args, ' '));
+  const res = await new SpecialCommad(program).init();
+  expect(res).toBeTruthy();
+});
+
+test('s local invoke', async () => {
+  process.argv = process.argv
+    .slice(0, 2)
+    .concat(['local', 'invoke', '-e', 'hello world', '-t', 'test/start-fc-event-nodejs12/s.yaml']);
   const res = await new SpecialCommad(program).init();
   expect(res).toBeTruthy();
 });
