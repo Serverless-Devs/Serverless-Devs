@@ -1,12 +1,7 @@
-import core from '../../src/utils/core'
-const { colors } = core;
+import core from '../../src/utils/core';
+const { makeUnderLine, colors } = core;
 
-
-const makeUnderLine = (text: string) => {
-    const matchs = text.match(/http[s]?:\/\/[^\s]+/);
-    const def = text.replace(matchs[0], colors.underline(matchs[0]));
-    console.log(text);
-    console.log(def);
-}
-
-makeUnderLine("abc https://baidu.com/sds/ds/index.html ncie to seee you!");
+test('makeUnderLine', () => {
+  const c = makeUnderLine('hi https://github.com/Serverless-Devs/Serverless-Devs, click it!');
+  expect(c).toEqual(`hi ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs')}, click it!`);
+});
