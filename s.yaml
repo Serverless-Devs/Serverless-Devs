@@ -15,7 +15,7 @@ services:
         name: http-trigger-nodejs12
         description: this is a test
         runtime: nodejs12
-        codeUri: ./code
+        codeUri: ./test/start-fc-http-nodejs12/code
         # ossBucket:
         # ossKey:  # conflict with codeUri
         handler: index.handler
@@ -35,3 +35,4 @@ services:
             - path: /*
               methods:
                 - GET
+# 函数计算FC组件文档参考地址：https://github.com/devsapp/fc

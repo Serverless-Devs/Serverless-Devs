@@ -31,7 +31,7 @@
     "start": "npm run watch",
     "prewatch": "rm -rf lib/* && cp -r ./src/daemon ./lib",
     "watch": "tsc -w",
-    "test": "jest",
+    "test": "jest test/special-command.test.ts -t 's deploy'",
     "prebuild": "rm -rf lib/*",
     "build": "tsc && cp -r ./src/daemon ./lib",
     "postbuild": "./shell/postbuild.sh",
@@ -81,6 +81,6 @@
     "**/*.{js,jsx,ts}": "f2elint exec eslint"
   },
   "dependencies": {
-    "@serverless-devs/core": "beta"
+    "@serverless-devs/core": "^0.1.28-beta.4"
   }
 }

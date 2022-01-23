@@ -16,7 +16,7 @@ class SpecialCommad {
     sub.allowUnknownOption();
     this.command.addCommand(sub);
     const { serverName, method } = await this.getParams(argv);
-    await parse({
+    return await parse({
       syaml: template,
       serverName,
       method,

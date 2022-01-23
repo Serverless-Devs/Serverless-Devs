@@ -221,3 +221,4 @@ download/
 lib/
 release
 package-lock.json
+.s
