@@ -61,7 +61,7 @@ test('s deploy with actions', async () => {
   expect(res).toBeTruthy();
 });
 
-test('s deploy with --skip-actions', async () => {
+test.only('s deploy with --skip-actions', async () => {
   const args = 'deploy --skip-actions -y --use-local -t test/start-fc-http-nodejs12/d.yaml';
   process.argv = process.argv.slice(0, 2).concat(split(args, ' '));
   const res = await new SpecialCommad(program).init();
