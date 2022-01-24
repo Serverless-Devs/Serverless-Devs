@@ -77,7 +77,7 @@ export const getCredentialWithAll = async () => {
   }
 };
 
-export const aiRequest = (category, message) => {
+export const aiRequest = (message, category: string = 'unknow') => {
   try {
     const analysis = getConfig('analysis');
     if (analysis !== 'enable') return;

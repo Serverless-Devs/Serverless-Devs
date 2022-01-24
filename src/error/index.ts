@@ -46,12 +46,12 @@ export const HandleError = async (error: Error) => {
     console.log(red(`✖ ${jsonMsg.prefix || defaultPrefix}\n`));
     console.log(`${bgRed('ERROR:')}\n`);
     isDebugMode() ? console.log(`${jsonMsg.stack}\n`) : console.log(`${jsonMsg.message}\n`);
-    await aiRequest('serverless-devs', jsonMsg.message);
+    await aiRequest(jsonMsg.message);
     tmpError = jsonMsg;
   } else {
     console.log(red(`✖ ${defaultPrefix}\n`));
     console.log(`${bgRed('ERROR:')}\n${message}\n`);
-    await aiRequest('serverless-devs', message);
+    await aiRequest(message);
   }
 
   if (!configOption.catchableError) {
