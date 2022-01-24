@@ -31,13 +31,16 @@ class SpecialCommad {
 
   async getParams(argv): Promise<{ method: string; serverName?: string }> {
     const { _: rawData, template } = argv;
+    const spath = await getTemplatePath(template);
+    if (spath) {
+      process.env['templateFile'] = spath;
+    }
     if (rawData.length === 1) {
       return {
         method: rawData[0],
       };
     }
     if (rawData.length === 2) {
-      const spath = await getTemplatePath(template);
       const yamlData = await getYamlContent(spath);
       const servicesName = keys(get(yamlData, 'services'));
       return includes(servicesName, rawData[0])
