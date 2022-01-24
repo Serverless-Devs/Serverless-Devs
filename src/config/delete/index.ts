@@ -61,6 +61,5 @@ function notFound({ access, accessFileInfo }: { access: string; accessFileInfo?:
     notFound({ access, accessFileInfo });
   }
 })().catch(async error => {
-  await HandleError({ error });
-  process.exit(1);
+  await HandleError(error);
 });

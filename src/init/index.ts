@@ -40,6 +40,5 @@ program
   const name = program.args[0];
   await initManager.init(name, dir);
 })().catch(async error => {
-  await HandleError({ error });
-  process.exit(1);
+  await HandleError(error);
 });

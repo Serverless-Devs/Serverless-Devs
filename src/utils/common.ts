@@ -77,73 +77,31 @@ export const getCredentialWithAll = async () => {
   }
 };
 
-const _AiRequest = (category, message) => {
-  if (isDocker() || isCiCdEnv()) {
+export const aiRequest = (category, message) => {
+  try {
+    const analysis = getConfig('analysis');
+    if (analysis !== 'enable') return;
     // 在CICD环境中不处理
-    return;
-  }
-  return got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
-    timeout: 2000,
-    json: true,
-  })
-    .then(list => {
+    if (isDocker() || isCiCdEnv()) return;
+    return got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
+      timeout: 2000,
+      json: true,
+    }).then(list => {
       const shorturl = get(list.body, 'shorturl');
       if (shorturl) {
         console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
       }
-    })
-    .catch(() => {
-      // exception
     });
+  } catch (error) {
+    // exception
+  }
 };
-
-export const getErrorMessage = async (error: Error, prefix) => {
-  const configOption = { traceId: '', catchableError: false };
-  const getPid = () => {
-    try {
-      return getMAC().replace(/:/g, '');
-    } catch (error) {
-      return 'unknown';
-    }
-  };
-
-  const analysis = getConfig('analysis');
-  if (analysis !== 'disable') {
-    configOption.traceId = `${getPid()}${Date.now()}`;
-  }
-
-  const isDebug = isDebugMode ? isDebugMode() : undefined;
-  if (isDebug) {
-    console.log(error);
-    return configOption;
-  }
-
-  const message = error.message ? error.message : '';
-  let jsonMsg;
+export const getPid = () => {
   try {
-    jsonMsg = JSON.parse(message);
-  } catch (error) {}
-
-  if (jsonMsg && jsonMsg.tips) {
-    const messageStr = jsonMsg.message ? `Message: ${jsonMsg.message}\n` : '';
-    const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, '\n* '))}` : '';
-    Logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}\n======================\n${tipsStr}\n`, 'yellow');
-    console.log(colors.grey(messageStr));
-    configOption.catchableError = true;
-  } else {
-    console.log(red(`✖ ${prefix}\n`));
-    console.log(`${bgRed('ERROR:')}\n${message}\n`);
-    if (analysis !== 'disable') {
-      try {
-        const category = 'serverless-devs';
-        await _AiRequest(category, message);
-      } catch (error) {
-        // throw error
-      }
-    }
+    return getMAC().replace(/:/g, '');
+  } catch (error) {
+    return 'unknown';
   }
-
-  return configOption;
 };
 
 export function getVersion() {
