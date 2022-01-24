@@ -11,11 +11,12 @@
       // "runtimeExecutable": "/usr/local/lib/node_modules/@serverless-devs/s/bin/s",
       "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
       // "runtimeArgs": ["config", "get", "-a", "sub"],
-      "runtimeArgs": ["helloworld", "deploy", "-a", "sub", "-y", "--use-local", "-t", "s.yaml"],
+      // "runtimeArgs": ["helloworld", "deploy", "-a", "sub", "-y", "--use-local", "-t", "s.yaml"],
       // "runtimeArgs": ["deploy", "-a", "sub", "-y", "--use-local", "-t", "s.yaml"],
       // "runtimeArgs": ["invoke", "-e", "{\"env\":\"[\\\"echo $NODE_ENV\\\"]\"}"],
       // "runtimeArgs": ["local", "invoke", "-e", "hello world"],
       // "runtimeArgs": ["cli", "fc-api", "-h"],
+      "runtimeArgs": ["-h"],
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
       "skipFiles": ["<node_internals>/**"]
