@@ -10,10 +10,7 @@ import { getConfig } from './handler-set-config';
 const pkg = require('../../package.json');
 const {
   colors,
-  makeUnderLine,
   got,
-  Logger,
-  isDebugMode,
   getMAC,
   isDocker,
   isCiCdEnv,
