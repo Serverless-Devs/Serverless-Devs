@@ -1,7 +1,7 @@
 /** @format */
 
 import program from '@serverless-devs/commander';
-import { registerCommandChecker } from './utils';
+import { registerCommandChecker, logger } from './utils';
 import _ from 'lodash';
 import { emoji, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
@@ -56,15 +56,10 @@ const pkg = require('../package.json');
   }
   await onboarding();
 })().catch(async error => {
-  await HandleError({ error });
-  process.exit(1);
+  await HandleError(error);
 });
 
-process.on('unhandledRejection', async (error: Error) => {
-  try {
-    await HandleError({ error });
-  } catch (error) {
-    console.log('Internal exception occurred!!!', error);
-  }
-  process.exit(1);
+process.on('exit', code => {
+  logger.log('');
+  logger.debug(`process exitCode: ${code}`);
 });

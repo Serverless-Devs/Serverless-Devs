@@ -78,6 +78,5 @@ function notFound() {
     }
   }
 })().catch(async error => {
-  await HandleError({ error });
-  process.exit(1);
+  await HandleError(error);
 });
