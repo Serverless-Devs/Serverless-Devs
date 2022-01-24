@@ -2,7 +2,7 @@
 
 import program from '@serverless-devs/commander';
 import { registerCommandChecker, logger } from './utils';
-import _ from 'lodash';
+import { join } from 'lodash';
 import { emoji, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
@@ -33,8 +33,7 @@ const pkg = require('../package.json');
 
   // 将参数argv存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv.slice(2));
-  // TODO: 目前core和s并不依赖temp_params环境变量，只是提供给组件用，后续组件移除temp_params后，此行代码可以删掉
-  process.env['temp_params'] = JSON.stringify(process.argv.slice(2));
+  process.env['temp_params'] = join(process.argv.slice(2), ' ');
 
   // ignore warning
   (process as any).noDeprecation = true;
