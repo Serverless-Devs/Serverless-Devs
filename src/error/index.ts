@@ -39,7 +39,7 @@ export const HandleError = async (error: Error) => {
     const messageStr = jsonMsg.message ? `Message: ${jsonMsg.message}\n` : '';
     const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, '\n* '))}` : '';
     logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}\n======================\n${tipsStr}\n`, 'yellow');
-    isDebugMode() ? console.log(error) : console.log(colors.grey(messageStr));
+    isDebugMode() ? console.log(error.stack) : console.log(colors.grey(messageStr));
     configOption.catchableError = true;
     tmpError = jsonMsg;
   } else if (jsonMsg && jsonMsg.code) {
@@ -50,7 +50,8 @@ export const HandleError = async (error: Error) => {
     tmpError = jsonMsg;
   } else {
     console.log(red(`✖ ${defaultPrefix}\n`));
-    console.log(`${bgRed('ERROR:')}\n${message}\n`);
+    console.log(`${bgRed('ERROR:')}\n`);
+    console.log(isDebugMode() ? error.stack : `${message}\n`);
     await aiRequest(message);
   }
 
