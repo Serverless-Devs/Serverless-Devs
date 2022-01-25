@@ -31,7 +31,7 @@
     "start": "npm run watch",
     "prewatch": "rm -rf lib/* && cp -r ./src/daemon ./lib",
     "watch": "tsc -w",
-    "test": "jest test/help.test.ts",
+    "test": "jest test/special-command.test",
     "prebuild": "rm -rf lib/*",
     "build": "tsc && cp -r ./src/daemon ./lib",
     "postbuild": "./shell/postbuild.sh",
