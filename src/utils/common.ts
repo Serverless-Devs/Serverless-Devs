@@ -74,21 +74,20 @@ export const getCredentialWithAll = async () => {
   }
 };
 
-export const aiRequest = (message, category: string = 'unknow') => {
+export const aiRequest = async (message, category: string = 'unknow') => {
   try {
     const analysis = getConfig('analysis');
     if (analysis !== 'enable') return;
     // 在CICD环境中不处理
     if (isDocker() || isCiCdEnv()) return;
-    return got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
+    const list = await got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
       timeout: 2000,
       json: true,
-    }).then(list => {
-      const shorturl = get(list.body, 'shorturl');
-      if (shorturl) {
-        console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
-      }
     });
+    const shorturl = get(list.body, 'shorturl');
+    if (shorturl) {
+      console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
+    }
   } catch (error) {
     // exception
   }
