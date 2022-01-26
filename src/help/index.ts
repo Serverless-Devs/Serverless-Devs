@@ -29,28 +29,32 @@ async function help(program) {
   const { _: rawData, template, help } = getGlobalArgs(process.argv.slice(2));
   let customeDescription = [];
   if (rawData.length === 0 && help) {
-    const spath = await getTemplatePath(template);
-    if (spath) {
-      const yamlData = await getYamlContent(spath);
-      const serviceList = keys(get(yamlData, 'services'));
-      if (serviceList.length > 1) {
-        for (const service of serviceList) {
-          customeDescription.push({
-            [`${service} [options]`]: `Please use [s ${service} -h]  obtain the documentation.`,
-          });
-        }
-      } else {
-        const component = get(yamlData, ['services', serviceList[0], 'component']);
-        const instance = await loadComponent(component);
-        const publishPath = path.join(instance.__path, 'publish.yaml');
-        const publishContent = await getYamlContent(publishPath);
-        const commands = publishContent.Commands;
-        if (commands) {
-          for (const key in commands) {
-            customeDescription.push({ [key]: commands[key] });
+    try {
+      const spath = await getTemplatePath(template);
+      if (spath) {
+        const yamlData = await getYamlContent(spath);
+        const serviceList = keys(get(yamlData, 'services'));
+        if (serviceList.length > 1) {
+          for (const service of serviceList) {
+            customeDescription.push({
+              [`${service} [options]`]: `Please use [s ${service} -h]  obtain the documentation.`,
+            });
+          }
+        } else {
+          const component = get(yamlData, ['services', serviceList[0], 'component']);
+          const instance = await loadComponent(component);
+          const publishPath = path.join(instance.__path, 'publish.yaml');
+          const publishContent = await getYamlContent(publishPath);
+          const commands = publishContent.Commands;
+          if (commands) {
+            for (const key in commands) {
+              customeDescription.push({ [key]: commands[key] });
+            }
           }
         }
       }
+    } catch (error) {
+      // ignore yaml不存在的case
     }
   }
 
