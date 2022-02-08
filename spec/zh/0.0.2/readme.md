@@ -1,4 +1,4 @@
-# Serverless Devs Model(SDM) v0.0.1 文档
+# Serverless Devs Model(SDM) v0.0.2 文档
 
 - 版本：v0.0.2
 - 作者：
