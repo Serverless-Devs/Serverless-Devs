@@ -1,6 +1,6 @@
 /** @format */
 
-import program, { Command } from 'commander';
+import program, { Command } from '@serverless-devs/commander';
 import { CommandError } from '../error';
 import CliManager from './cli-manager';
 import core from '../utils/core';

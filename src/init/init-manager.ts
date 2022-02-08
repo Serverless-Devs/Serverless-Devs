@@ -1,29 +1,39 @@
 /** @format */
 
 import path from 'path';
-import _ from 'lodash';
+import _, { keys, includes } from 'lodash';
 import { spawn, spawnSync } from 'child_process';
 import { logger, configSet, getYamlPath, common, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constants/static-variable';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
-const { loadApplication, setCredential, colors, report, fse: fs, jsyaml: yaml, inquirer, getRootHome } = core;
+const {
+  loadApplication,
+  setCredential,
+  colors,
+  report,
+  fse: fs,
+  inquirer,
+  getRootHome,
+  getCredential,
+  getYamlContent,
+} = core;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 const { replaceTemplate, getTemplatekey, replaceFun } = common;
-const getCredentialAliasList = () => {
-  const ACCESS_PATH = getYamlPath(getRootHome(), 'access');
-  if (!ACCESS_PATH) {
-    return [];
+const getCredentialAliasList = async () => {
+  let accessList = [];
+  const accessInfo = await getYamlContent(path.join(getRootHome(), 'access.yaml'));
+  if (accessInfo) {
+    accessList = keys(accessInfo);
   }
-
-  try {
-    const result = yaml.load(fs.readFileSync(ACCESS_PATH, 'utf8'));
-    return Object.keys(result);
-  } catch (error) {
-    return [];
+  // 兼容 环境变量里的密钥
+  const data = await getCredential();
+  if (data && !includes(accessList, data.Alias)) {
+    accessList.push(data.Alias);
   }
+  return accessList;
 };
 
 export class InitManager {
@@ -35,10 +45,10 @@ export class InitManager {
     if (sPath) {
       let sContent = fs.readFileSync(sPath, 'utf-8');
       const templateKeys = getTemplatekey(sContent);
-      templateKeys.forEach(item => {
+      for (const item of templateKeys) {
         const { name, desc } = item;
         if (name === 'access') {
-          const credentialAliasList = getCredentialAliasList();
+          const credentialAliasList = await getCredentialAliasList();
           if (Array.isArray(credentialAliasList) && credentialAliasList.length > 0) {
             this.promps['access'] = {
               type: 'list',
@@ -61,7 +71,7 @@ export class InitManager {
             name,
           };
         }
-      });
+      }
 
       const { access: prompsAccess, ...prompsRest } = this.promps;
       const prompsOption = _.concat(_.values(prompsRest), prompsAccess);
@@ -131,7 +141,34 @@ export class InitManager {
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       console.log(
-        `${emoji('💞')} Document ❤ Star：` +
+        `${emoji('💞')} Document ❤ Star:` +
+          colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
+      );
+    }
+    return { appPath };
+  }
+  async executeInitWithForceCreation(name: string, dir?: string) {
+    let projectName = dir;
+    if (!projectName) {
+      projectName = _.last(_.split(name, '/'));
+    }
+    const registry = configSet.getConfig('registry') || DEFAULT_REGIRSTRY;
+
+    const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
+    if (appPath) {
+      // postInit
+      try {
+        if (process.env[`${appPath}-post-init`]) {
+          const tempObj = JSON.parse(process.env[`${appPath}-post-init`]);
+          const baseChildComponent = await require(path.join(tempObj['tempPath'], 'hook'));
+          await baseChildComponent.postInit(tempObj);
+        }
+      } catch (e) {}
+      logger.success(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
+      console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
+      console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
+      console.log(
+        `${emoji('💞')} Document ❤ Star:` +
           colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
       );
     }
@@ -184,6 +221,9 @@ export class InitManager {
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {
+      if (_.find(process.argv, v => v === '--force-creation')) {
+        return await this.executeInitWithForceCreation(name, dir);
+      }
       const { appPath } = await this.executeInit(name, dir);
       const findObj: any = _.find(ALL_TEMPLATE, item => _.includes(item.value, name));
       if (findObj && findObj.isDeploy) {

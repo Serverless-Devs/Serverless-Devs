@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 build
+*.ts
 *.log
 .idea
 packages
@@ -25,3 +26,6 @@ docs
 *.setup.ts
 *.md
 tsconfig.json
+.eslintrc.json
+.prettierrc.json
+Makefile

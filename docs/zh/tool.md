@@ -66,14 +66,16 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 >       routes:
 >         - url: ${assets.output.url}
 > ```
-> 此时，可先进性依赖关系分析，服务`nextjs-portal`、`assets`没有额外依赖，服务`gateway`通过魔法变量`${assets.output.url}`依赖了`assets`服务；此时部署顺序则为：`gateway`优先部署，然后`nextjs-portal`、`assets`按照上下顺序部署，即：`gateway`->`nextjs-portal`->`assets`
+> 此时，可先进性依赖关系分析，服务`nextjs-portal`、`assets`没有额外依赖，服务`gateway`通过魔法变量`${assets.output.url}`依赖了`assets`服务；此时部署顺序则为：  
+`nextjs-portal`、`assets`按照上下顺序部署, 之后gateway拿到 assets服务的返回结果再进行部署
+即：`nextjs-portal`->`assets`->`gateway`
 
 
 ### 密钥使用顺序与规范
 
 - 通过`-a/--access`参数指定的密钥信息
 - 使用已经配置的`default`密钥信息
-- 使用通过环境变量配置的``default_serverless_devs_access`密钥信息
+- 使用通过环境变量配置的`default_serverless_devs_access`密钥信息
 - 不使用密钥信息 / 进入密钥信息配置引导
 
 具体的流程图为：
@@ -141,3 +143,4 @@ And run again with the '--debug' option or 's -h' to get more logs.
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1640838881038_20211230043441520071.png)
 
 > 隐私说明：使用该功能时，Serverless Devs会采集部分客户端的错误信息进行处理，当然这些错误信息都是被脱敏后的错误信息，如果您仍然存在疑虑或者不想使用这个功能，您可以通过命令`s set analysis disable`关闭该功能。
+

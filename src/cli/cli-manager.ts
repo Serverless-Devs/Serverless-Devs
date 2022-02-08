@@ -6,7 +6,7 @@ import fs from 'fs';
 import { emoji } from '../utils/common';
 import { HandleError } from '../error';
 import core from '../utils/core';
-const { getCredential, loadComponent, colors, jsyaml: yaml, getRootHome } = core;
+const { makeUnderLine, getCredential, loadComponent, colors, jsyaml: yaml, getRootHome } = core;
 export interface CliParams {
   component: string;
   command: string;
@@ -78,7 +78,7 @@ export default class CliManager {
                 console.log(
                   `\n  ${
                     publishYamlInfor['HomePage']
-                      ? `${emoji('🧭')} More information: ` + publishYamlInfor['HomePage'] + '\n'
+                      ? `${emoji('🧭')} ${makeUnderLine('More information: '+ publishYamlInfor['HomePage'])} `  + '\n'
                       : ''
                   }`,
                 );
@@ -137,10 +137,7 @@ export default class CliManager {
 
             logger.success(Object.keys(result).length === 0 ? `End of method: ${command}` : outResult);
           } catch (error) {
-            await new HandleError({
-              error,
-              prefix: 'Failed to execute:',
-            }).report(error);
+            await HandleError({ error,prefix: 'Failed to execute:' });
             process.exit(1);
           }
         } else {
@@ -154,10 +151,7 @@ export default class CliManager {
         }
       }
     } catch (error) {
-      await new HandleError({
-        error,
-        prefix: 'Failed to execute:',
-      }).report(error);
+      await HandleError({ error, prefix: 'Failed to execute:' });
       process.exit(1);
     }
     return result;
