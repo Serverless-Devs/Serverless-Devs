@@ -36,7 +36,7 @@
 
 Serverless Devs is an open source toolchain project in the Serverless field. To a certain extent, Serverless Devs is not only a CLI tool, but also a complete toolchain system. 
 
-![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image003.png)
+![](https://example-static.oss-cn-beijing.aliyuncs.com/github-static/01.png)
 
 In Serverless Devs, developers can be:
 
