@@ -1,5 +1,5 @@
 import path from 'path';
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import logger from '../../utils/logger';
 import { emoji } from '../../utils/common';
 import { HandleError } from '../../error';
@@ -105,8 +105,6 @@ function notFound() {
   // other case output help message
   program.help();
 })().catch(async error => {
-  await new HandleError({
-    error,
-  }).report(error);
+  await HandleError({ error });
   process.exit(1);
 });

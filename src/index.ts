@@ -1,7 +1,6 @@
 /** @format */
 
-// import 'v8-compile-cache';
-import program from 'commander';
+import program from '@serverless-devs/commander';
 import {
   registerCommandChecker,
   recordCommandHistory,
@@ -12,13 +11,16 @@ import {
 import { PROCESS_ENV_TEMPLATE_NAME } from './constants/static-variable';
 import path from 'path';
 import fs from 'fs';
+import _ from 'lodash';
 import { emoji, checkAndReturnTemplateFile, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import core from './utils/core';
 import { HandleError, HumanError } from './error';
-const { colors, jsyaml: yaml, getRootHome } = core;
+const { jsyaml: yaml, makeUnderLine, getRootHome, publishHelp } = core;
 const pkg = require('../package.json');
+
+let customerCommandDescription = [];
 
 async function setSpecialCommand() {
   if (process.argv.length === 2) return;
@@ -29,7 +31,7 @@ async function setSpecialCommand() {
     await setEnvbyDotenv(templateFile);
     process.env[PROCESS_ENV_TEMPLATE_NAME] = templateFile;
     // Determine whether basic instructions are used, if not useful, add general instructions, etc.
-    await registerCustomerCommand(program, templateFile); // Add user-defined commands
+    customerCommandDescription = await registerCustomerCommand(program, templateFile); // Add user-defined commands
     await registerUniversalCommand(program, templateFile); // Register pan instruction
   } else {
     if (['-h', '--help'].includes(process.argv[2])) return;
@@ -42,7 +44,6 @@ async function setSpecialCommand() {
 }
 
 async function globalParameterProcessing() {
-  // const tempGlobal = ['skip-action', 'debug'];
   const tempGlobal = ['skip-actions'];
   for (let i = 0; i < tempGlobal.length; i++) {
     process.env[tempGlobal[i]] = 'false';
@@ -53,43 +54,59 @@ async function globalParameterProcessing() {
   }
 }
 
-const description = `  _________                               .__
- /   _____/ ______________  __ ___________|  |   ____   ______ ______
- \\_____  \\_/ __ \\_  __ \\  \\/ // __ \\_  __ \\  | _/ __ \\ /  ___//  ___/
- /        \\  ___/|  | \\/\\   /\\  ___/|  | \\/  |_\\  ___/ \\___ \\ \\___ \\
-/_________/\\_____>__|    \\_/  \\_____>__|  |____/\\_____>______>______>
+const descption = {
+  Options: [
+    {'--debug': 'Open debug model.'},
+    {'--skip-actions': 'Skip the extends section.'},
+    {'-t, --template <path>': 'Specify the template file.'},
+    {'-a, --access <aliasName>': 'Specify the access alias name.'},
+    {'-v, --version': 'Output the version number.'},
+    {'-h, --help': 'Display help for command.'},
+  ],
+  Commands: [
+    {'config': '👤  Configure venders account.'},
+    {'init': '💞  Initializing a serverless project.'},
+    {'cli': '🐚  Command line operation without yaml mode.'},
+    {'set': '🔧  Settings for the tool.'},
+    {'clean': '💥  Clean up the environment.'},
+    {'component': '🔌  Installed component information.'},
+  ],
+  Examples: [
+    {'init': 'Perform [s init] fast experience Serverless Devs'},
+  ]
+};
 
-Welcome to the Serverless Devs.
-
-More: 
-${emoji('📘')} Documents: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs')}
-${emoji('🙌')} Discussions: ${colors.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}
-${emoji('📦')} Applications: ${colors.underline(
-  'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md',
-)}
-
-Quick start:
-${emoji('🍻')} Can perform [s init] fast experience`;
+const helperLength = publishHelp.maxLen(descption.Options);
 
 (async () => {
+  process.env['CLI_VERSION'] = pkg.version;
   registerCommandChecker(program);
   const system_command = program
-    .description(description)
     .helpOption('-h, --help', `Display help for command.`)
+    .option('--debug', 'Open debug model.')
+    .option('--skip-actions', 'Skip the extends section.')
+    .option('-t, --template <templatePath>', 'Specify the template file.')
+    .option('-a, --access <aliasName>', 'Specify the access alias name.')
+    
     .command('config', `${emoji('👤')} Configure venders account.`)
     .command('init', `${emoji('💞')} Initializing a serverless project.`)
     .command('cli', `${emoji('🐚')} Command line operation without yaml mode.`)
     .command('set', `${emoji('🔧')} Settings for the tool.`)
     .command('clean', `${emoji('💥')} Clean up the environment.`)
     .command('component', `${emoji('🔌')} Installed component information.`)
-    .option('-t, --template [templatePath]', 'Specify the template file.')
-    .option('-a, --access [aliasName]', 'Specify the access alias name.')
-    .option('--skip-actions', 'Skip the extends section.')
-    .option('--debug', 'Open debug model.')
     .version(getVersion(), '-v, --version', 'Output the version number.')
-    .addHelpCommand(false);
-
-  process.env['CLI_VERSION'] = pkg.version;
+    .addHelpCommand(false)
+    .on('--help', function() {
+      console.log(
+        [`${emoji('🚀')} Welcome to the Serverless Devs.\n`,
+          publishHelp.helpInfo(descption.Options, 'Options', helperLength),
+          publishHelp.helpInfo(descption.Commands, 'Commands', helperLength),
+          publishHelp.helpInfo(customerCommandDescription, 'Custom Commands', helperLength),
+          publishHelp.helpInfo(descption.Examples, 'Examples', helperLength),
+          `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')} `  + '\n'
+        ].join('\n')
+      );
+    });
 
   // 将参数存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv);
@@ -143,8 +160,16 @@ ${emoji('🍻')} Can perform [s init] fast experience`;
   }
   await onboarding();
 })().catch(async error => {
-  await new HandleError({
-    error,
-  }).report(error);
+  await HandleError({ error });
+  process.exit(1);
+});
+
+
+process.on('unhandledRejection', async (error : Error) => {
+  try {
+    await HandleError({ error });
+  } catch (error) {
+    console.log('Internal exception occurred!!!', error)
+  }
   process.exit(1);
 });
