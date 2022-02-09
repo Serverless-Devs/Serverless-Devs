@@ -1,32 +1,31 @@
-# Config 命令
+# Config command
 
-`config`命令是密钥信息相关的命令，包括密钥的配置、密钥的查看以及密钥的修改、删除等。
+The `config` commands are used to perform operations on keys. For example, you can configure, modify and delete keys and obtain the information about keys. 
 
-- [Config 命令](#config-命令)
-  - [命令解析](#命令解析)
-  - [config add 命令](#config-add-命令)
-    - [参数解析](#参数解析)
-    - [操作案例](#操作案例)
-  - [config get 命令](#config-get-命令)
-    - [参数解析](#参数解析-1)
-    - [操作案例](#操作案例-1)
-  - [config delete 命令](#config-delete-命令)
-    - [参数解析](#参数解析-2)
-    - [操作案例](#操作案例-2)
-  - [注意事项](#注意事项)
-    - [通过环境变量设置密钥](#通过环境变量设置密钥)
-    - [关于配置密钥的使用顺序](#关于配置密钥的使用顺序)
+- [Command description](#Command-description)
+- [config add command](#config-add-command)
+    - [Parameter description](#Parameter-description)
+    - [Example](#Example)
+- [config get command](#config-get-command)
+    - [Parameter description](#Parameter-description-1)
+    - [Example](#Example-1)
+- [config delete command](#config-delete-command)
+    - [Parameter description](#Parameter-description-2)
+    - [Example](#Example-2)
+- [Precautions](#Precautions)
+    - [Configure keys by using environment variables](#Configure-keys-by-using-environment-variables)
+    - [Configure the order in which keys are used](#Configure-the-order-in-which-keys-are-used)
     
-## 命令解析
+## Command description
 
-当执行`s config -h`之后，可以进行相关帮助信息的查看：
+After you run the `s config -h` command, the following help information is returned:
 
 ```shell script
 Usage: s config [commands] [options]
 
 Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/config.md
 
 Options:
   -h, --help  Display help for command
@@ -37,17 +36,18 @@ Commands:
   delete      ✖️ Delete an account
 ```
 
-在该命令中，包括了三个子命令：
-- [add：添加密钥配置](#config-add-命令)
-- [get：查看密钥配置](#config-get-命令)
-- [delete：删除密钥配置](#config-delete-命令)
+In the preceding command, the following subcommands are included: 
+- [add: specifies to add configurations of keys.](#config-add-command)
+- [get: specifies to view configurations of keys.](#config-get-command)
+- [delete: specifies to delete configurations of keys.](#config-delete-command) 
 
 
-## config add 命令
+## config add command
 
-通过`config add`命令，可以进行密钥的配置，使用者可以通过不同厂商的默认密钥模板进行密钥配置，也可以通过`Custom`选项进行自定义密钥配置。
+You can run the `config add` command or use the default key template of different vendors to configure keys. You can also use the `Custom` option to customize configurations of keys. 
 
-通过`-h/--help`可以查看到配置帮助：
+You can run the `-h/--help` command to obtain the following help information about configurations: 
+
 
 ```shell script
 Usage: s config add [commands] [name]
@@ -68,7 +68,7 @@ You can add an account
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-🧭 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config
+🧭 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/en/others/provider-config
 
 Options:
   --AccountID [AccountID]              AccountID of key information
@@ -88,27 +88,27 @@ Options:
 ```
 
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
-|-----|-----|-----|-----|
-| AccountID | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| AccessKeyID | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| AccessKeySecret | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| SecurityToken | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| SecretAccessKey | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| AccessKey | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| SecretKey | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| SecretID | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| PrivateKeyData | - | 选填 | 部分云厂商配置密钥所需要的默认字段 |
-| keyList | kl | 选填 | 在默认字段无法满足配置诉求时，可以通过`keyList`与`infoList`进行批量自定义配置 |
-| infoList | il | 选填 | 在默认字段无法满足配置诉求时，可以通过``keyList`与`infoList`进行批量自定义配置 |
-| access | a | 选填 | 密钥的别名 |
-| f | - | 选填 | 强制修改/覆盖已经配置的密钥信息 |
+| Parameter       | Abbreviation | Required | Description                                                  |
+| --------------- | ------------ | -------- | ------------------------------------------------------------ |
+| AccountID       | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| AccessKeyID     | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| AccessKeySecret | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| SecurityToken   | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| SecretAccessKey | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| AccessKey       | -            | No       | Specifies the default field that is required  by specific cloud vendors to configure keys. |
+| SecretKey       | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| SecretID        | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| PrivateKeyData  | -            | No       | Specifies the default field that is  required by specific cloud vendors to configure keys. |
+| keyList         | kl           | No       | If the default field cannot meet your  business requirements, run the keyList and infoList  commands to customize configurations in batches. |
+| infoList        | il           | No       | If the default field cannot meet your  business requirements, run the `keyList and infoList  commands to customize configurations in batches. |
+| access          | a            | No       | Specifies the alias of the key.                              |
+| f               | -            | No       | Specifies the force modification/overwrite  of the configured key information. |
 
-### 操作案例
+### Example
 
-可以通过`config add`直接进行密钥的添加：
+You can run the `config add` command to add keys：
 
 ```shell script
 $ s config add 
@@ -124,7 +124,7 @@ $ s config add
   Custom (others) 
 ```
 
-当使用者选择某个选项之后，系统会进行交互式引导：
+When you select a provider, the following interactive commands appear：
 
 ```shell script
 s config add 
@@ -135,17 +135,19 @@ s config add
 ? Please create alias for key pair. If not, please enter to skip default
 ```
 
-也可以通过命令式直接进行密钥的添加：
+You can also directly add keys by running the following command：
+
 ```shell script
 $ s config add --AccessKeyID ****** --AccessKeySecret ****** 
 ```
 
-或者添加自定义内容：
+You can also customize content that you want to add to the config add command by running the following command：
+
 ```shell script
 $ s config add --AccessKeyID ****** -kl key1,key2,key3 -il info1,info2,info3
 ```
 
-- 常见云厂商密钥配置内容
+- Configuration information of keys for common cloud vendors：
 
 ```
 alibaba:    AccountID, AccessKeyID, AccessKeySecret,
@@ -157,8 +159,8 @@ tencent:    AccountID, SecretID, SecretKey,
 google:     PrivateKeyData
 ```
 
-> - 通过环境变量获取密钥方法： 这一部分可能会根据不同的文档有不同的可能性，所以需要参考对应的文档进行环境变量对应的`Key-Value`确定。
-> - 常见云厂商密钥获取地址：
+- If you want to obtain keys by using environment variables, you need to refer to related documents to obtain the keys in the `Key-Value` format. However, the configurations of different environment variables may vary based on actual scenarios. 
+- URLs for key pairs provided by common cloud vendors:
 >     - [阿里云](./../default_provider_config/alibabacloud.md)
 >     - [百度云](./../default_provider_config/baiducloud.md)
 >     - [AWS](./../default_provider_config/aws.md)
@@ -167,11 +169,12 @@ google:     PrivateKeyData
 >     - [华为云](./../default_provider_config/huaweicloud.md)
 >     - [腾讯云](./../default_provider_config/tencentcloud.md)
 
-## config get 命令
+## config get command
 
-通过`config get`命令，您可以获得配置过的账号信息。
+You can run the `config get` command to obtain the configured account information. 
 
-通过`-h/--help`可以查看到配置帮助：
+You can run the `-h/--help` command to obtain the following help information about configurations
+
 
 ```shell script
 $ s config get -h
@@ -190,15 +193,16 @@ Options:
   -h, --help                Display help for command
 ```
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
+| Parameter | Abbreviation | Required | Description |
 |-----|-----|-----|-----|
-| access | a | 选填 | 密钥的别名 |
+| access | a | No | The alias of the key. |
 
-### 操作案例
 
-如果想要获取某个已经配置的密钥详情，可以通过`config get`进行获取，例如，想要获取别名为`test`的密钥信息，就可以执行：
+### Example
+
+If you want to obtain the details of a configured key, run the `config get` command. For example, if you want to obtain the key whose alias is `test`, you can run the following command: 
 
 ```shell script
 $ s config get -a test
@@ -208,7 +212,7 @@ test:
   AccessKeySecret: qDN************************Xp7
 ```
 
-如果想获得全部的一配置的密钥信息，可以直接通过`config get`不加参数的形式获取：
+If you want to obtain all the configurations of configured keys, directly run the config get command without adding other parameters.
 
 ```shell script
 $ s config get
@@ -226,11 +230,11 @@ release:
   AccessKeySecret: LhT************************VB5
 ```
 
-## config delete 命令
+## config delete command
 
-通过`config delete`命令，您可以删除配置过的账号信息。
+You can run the s `config delete` command to delete the information about a configured account. 
 
-通过`-h/--help`可以查看到配置帮助：
+You can run the `-h/--help` command to obtain the following help information about configurations
 
 ```shell script
 $ s config delete -h
@@ -248,27 +252,28 @@ Options:
   -h,--help                 Display help for command
 ```
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
+| Parameter | Abbreviation | Required | Description |
 |-----|-----|-----|-----|
-| access | a | 必填 | 密钥的别名 |
+| access | a | Yes | The alias of the key. |
 
-### 操作案例
 
-如果想要删除某个已经配置的密钥，可以通过`config delete`进行删除，例如，想要删除别名为`test`的密钥信息，就可以执行：
+### Example
+
+If you want to delete a configured key, run the `config delete` command. For example, if you want to delete a configured key whose alias is `test`, run the following command: 
 
 ```shell script
 $ s config delete -a test
 Key [test] has been successfully removed
 ```
 
-## 注意事项
+## Precautions
 
-### 通过环境变量设置密钥
+### Configure keys by using environment variables
 
-详情可以参考：[开发者工具设计文档](../tool.md) 中的 [通过环境变量设置密钥](../tool.md#通过环境变量设置密钥)
+For more information, see [Configure keys by using environment variables](../tool.md#Configure-keys-by-using-environment-variables) in the [Developer tool design documentation](../tool.md)
 
-### 关于配置密钥的使用顺序
+### Configure the order in which keys are used
 
-详情可以参考：[开发者工具设计文档](../tool.md) 中的 [密钥使用顺序与规范](../tool.md#密钥使用顺序与规范)
+For more information, see [Configure the order in which keys are used](../tool.md#Usage-order-and-specification-of-keys) in the [Developer tool design documentation](../tool.md)

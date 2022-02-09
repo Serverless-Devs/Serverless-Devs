@@ -1,16 +1,16 @@
-# Set 命令
+# Set command
 
-`set`命令是对工具进行相关配置的命令。
+The `set` commands are used to configure tools.
 
-- [命令解析](#命令解析)
-- [set registry 命令](#set-registry-命令)
-- [set locale 命令](#set-locale-命令)
-- [set analysis 命令](#feature-set-analysis-命令)
-- [set workspace 命令](#feature-set-workspace-命令)
+- [Command description](#Command-description)
+- [set registry command](#set-registry-command)
+- [set locale command](#set-locale-command)
+- [set analysis command](#feature-set-analysis-command)
+- [set workspace command](#feature-set-workspace-command)
 
-## 命令解析
+## Command description
 
-当执行`s set -h`之后，可以进行相关帮助信息的查看：
+After you run the `s set -h` command, the following help information is returned:
 
 ```shell script
 $ s set -h
@@ -18,7 +18,7 @@ Usage: s set [commands] [options]
 
 You can make some default settings for the tool here.
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/set.md
 
 Options:
   -h, --help  Display help for command
@@ -29,17 +29,17 @@ Commands:
   analysis    👉 Set to enable or disable analysis
 ```
 
-在该命令中，包括了三个子命令：
-- [registry：配置 Serverless Devs 所使用的 registry](#set-registry-命令)
-- [locale：配置 Serverless Devs 所默认的语言](#set-locale-命令)
-- [analysis：配置 Serverless Devs 所进行的数据分析行为](#set-analysis-命令)
+The sample code contains the following subcommands:
+- [registry: Configure repositories for Serverless Devs.](#set-registry-command)
+- [locale: Configure the languages of Serverless Devs.](#set-locale-command)
+- [analysis: Configure data analysis for Serverless Devs.](#set-analysis-command)
 
+## set registry command
 
-## set registry 命令
+The set registry command is used to configure repositories for Serverless Devs. 
 
-通过该命令，可以对 Serverless Devs 开发者工具进行 Registry 配置。 
+After you run the `s set registry -h` command, the following help information is returned:
 
-执行`s set registry -h`命令，可以看到帮助文档
 
 ```shell script
 $ s set registry -h
@@ -56,9 +56,9 @@ Options:
   -h, --help  Display help for command
 ```
 
-切换 Registry 的方法有两种：
-1. 直接提供 Registry 信息，例如：`s set registry http://registry.devsapp.cn/simple`
-2. 通过交互式方法，进行 Registry 信息的切换：
+You can use the following methods to run the set registry command: 
+1. Provide Registry information directly, for example:`s set registry http://registry.devsapp.cn/simple`
+2. Run the command in interactive mode. Example: 
     ```shell script
     $ s set registry
     
@@ -70,22 +70,22 @@ Options:
       gitee registry [http://gitee.registry.devsapp.cn/simple]
       custom registry 
     ```
-    此时，只需要选择对应的选项，就可以引导式的进行操作。
+    Then, follow instructions to select options based on your business requirements.
 
-> 额外需要说明的是，虽然社区目前拥有Github Resitry， Gitee Registry， Serverless Registry等三个源，但是实际上这三个源也有着一定的逻辑关系：
-> - Github Resitry：终极默认源，即无论用户配置了其他任何一个源，如果没有找到对应的内容，都会默认到该源进行查找；
-> - Gitee Registry：针对中国用户，与Gitee合作的国内源；
-> - Serverless Registry：Serverless Devs社区的默认源，也将作为被默认配置的源；
-> 在Serverless Devs的开发者工具中，默认的加载逻辑：   
+> You can use the following repositories: Github Registry, Gitee Registry, and Serverless Devs Registry. The following information describes the relationships among the three repositories: 
+> - Github Registry: the ultimate default repository. Even if you do not configure Github Registry for your project, this repository is used when the required information cannot be found in the repository that you configure. 
+> - Gitee Registry: the repository that Gitee and Alibaba Cloud jointly develop for Chinese users. 
+> - Serverless Devs Registry: the default repository for the Serverless Devs community and the default repository for your project.    
+> The following flowchart shows how data is loaded in Serverless Devs. 
 > ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635132866484_20211025033426634967.png)
 
-> 🙊 注：系统默认的 Registry 是：`serverless devs offical registry [http://registry.devsapp.cn/simple] `
+> 🙊 Note: By default, the serverless registry is `serverless devs offical registry [http://registry.devsapp.cn/simple] `.
 
-## set locale 命令
+## set locale command
 
-通过该命令，可以对 Serverless Devs 开发者工具的语言进行配置。 
+The set locale command is used to configure the languages of Serverless Devs. 
 
-执行`s set locale -h`命令，可以看到帮助文档
+After you run the `s set locale -h` command, the following help information is returned:
 
 ```shell script
 $ s set locale -h
@@ -102,27 +102,27 @@ Options:
   -h, --help  Display help for command
 ```
 
-设置 locale 的方法有两种：
-1. 直接提供语言缩写，例如：`s set locale zh`
-2. 通过交互式方法，进行语言信息的切换：
-    ```shell script
-    $ s set locale
+There are two ways to set the locale:
+1. Provide the language abbreviation directly, for example: `s set locale zh`
+2. Switch language information through interactive methods:
+     ```shell script
+     $ s set locale
     
-    💬 Current language: 中文（zh）
+     💬 Current language: Chinese (zh)
     
-    ? Choose a language? (Use arrow keys)
-    ❯ 中文（zh）
-      English（en）
-    ```
-    此时，只需要选择对应的选项，就可以引导式的进行操作。
+     ? Choose a language? (Use arrow keys)
+     ❯ Chinese (zh)
+       English (en)
+     ````
+     At this point, you only need to select the corresponding option, and you can operate in a guided manner.
 
-> 🙊 注：系统默认的 locale 是：`zh`
+> 🙊 Note: The system default locale is: `zh`
 
-## set analysis 命令
+## set analysis command
 
-通过该命令，可以对 Serverless Devs 开发者工具的数据分析能力进行配置。  
+With this command, you can configure the data analysis capabilities of the Serverless Devs developer tools.
 
-执行`s set analysis -h`命令，可以看到帮助文档
+Execute the `s set analysis -h` command, you can see the help document
 
 ```shell script
 $ s set analysis -h
@@ -139,27 +139,27 @@ Options:
   -h, --help  Display help for command
 ```
 
-设置 analysis 的方法有两种：
-1. 直接进行配置，例如：`s set analysis disable`
-2. 通过交互式方法，进行配置：
-    ```shell script
-    $ s set analysis
+There are two ways to set up analysis:
+1. Configure directly, for example: `s set analysis disable`
+2. Through the interactive method, configure:
+     ```shell script
+     $ s set analysis
     
-    📝 Current analysis action: enable
+     📝 Current analysis action: enable
     
-    ? Choose a action? (Use arrow keys)
-    ❯ enable
-      disable
-    ```
-    此时，只需要选择对应的选项，就可以引导式的进行操作。
+     ? Choose an action? (Use arrow keys)
+     ❯ enable
+       disable
+     ````
+     At this point, you only need to select the corresponding option, and you can operate in a guided manner.
 
-> 🙊 注：系统默认的 analysis 是：`enable`
+> 🙊 Note: The system default analysis is: `enable`
 
-## set workspace 命令
+## set workspace command
 
-通过该命令，可以对 Serverless Devs 开发者工具的默认路径进行配置。 
+With this command, you can configure the default path of the Serverless Devs developer tools.
 
-执行`s set workspace -h`命令，可以看到帮助文档
+Execute the `s set workspace -h` command to see the help documentation
 
 ```shell script
 $ s set workspace -h
@@ -176,20 +176,20 @@ Options:
   -h, --help  Display help for command
 ```
 
-设置 workspace 的方法有两种：
-1. 直接进行配置，例如：`s set workspace ~/.s`
-2. 通过交互式方法，进行配置：
-    ```shell script
-    $ s set workspace
+There are two ways to set the workspace:
+1. Configure directly, for example: `s set workspace ~/.s`
+2. Through the interactive method, configure:
+     ```shell script
+     $ s set workspace
     
-    📝 Current workspace path: ~/.s
+     📝 Current workspace path: ~/.s
     
-    🙊 Switching workspaces may make previously cached components and configured key information unavailable.
+     🙊 Switching workspaces may make previously cached components and configured key information unavailable.
      
-    ? Please input an absolute path: 
-    ```
-    此时，只需要选择对应的选项，就可以引导式的进行操作。
+     ? Please input an absolute path:
+     ````
+     At this point, you only need to select the corresponding option, and you can operate in a guided manner.
 
 
 
-> 🙊 注：系统默认的 workspace 是：`~/.s`
+> 🙊 Note: The default workspace of the system is: `~/.s`

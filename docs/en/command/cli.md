@@ -24,7 +24,7 @@ Directly use serverless devs to use components, develop and manage applications 
         $ s cli fc-api listFunctions --service-name my-service
         $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
     
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/cli.md
 
 Options:
   -a, --access [aliasName]  Specify the access alias name

@@ -1,73 +1,73 @@
-# 自定义命令使用指南
+# Custom command
 
-- [应用级操作](#应用级操作)
-- [服务级操作](#服务级操作)
-- [注意事项](#注意事项)
+- [application-level operations](#application-level-operations)
+- [service-level operations](#service-level operations)
+- [Notes](#Notes)
 
-所谓的自定义命令指的是由组件决定的命令。由于 Serverless Devs 开发者工具，本身并不具备任何业务相关的能力（值得包括不限于函数的部署、应用的构建、项目的测试等），所以，这些能力都将会由组件提供，通过 Serverless Devs 开发者工具进行透出。
+You can run custom commands based on the component types. Function Compute provides components that support capabilities such as function deployment, application development, and project testing. You can use Serverless Devs together with the components to meet your business requirements. 
 
-例如，某应用的资源/行为描述文件如下：
+The following sample code shows the content of a YAML description file of a resource of or an operation on an application.
 
-```yaml
-edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
-name: FullStack       #  项目名称
+````yaml
+edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+name: FullStack # Project name
 access: xxx-account1
 
 services:
-  backend: #  服务名称
-    component: django-component  # 组件名称
-    props: #  组件的属性值
+  backend: # service name
+    component: django-component # component name
+    props: # property value of the component
       src: ./backend_src
       url: url
-  user—frontend: #  服务名称
-    component: vue-component  # 组件名称
-    props: #  组件的属性值
+  user—frontend: # service name
+    component: vue-component # component name
+    props: # property value of the component
       src: ./frontend_src_user
       url: url
-  admin-frontend: #  服务名称
-    component: vue-component  # 组件名称
-    props: #  组件的属性值
+  admin-frontend: # service name
+    component: vue-component # component name
+    props: # property value of the component
       src: ./frontend_src_admin
       url: url
-```
+````
 
-通过该 Yaml 文件可以看出以下信息：
-1. 该应用的名字是`FullStack`，将会使用密钥`xxx-account1`;
-2. 该应用拥有三个服务：
-    - `backend`服务：使用了`django-component`组件
-    - `user—frontend`服务：使用了`vue-component`组件
-    - `admin-frontend`服务：使用了`vue-component`组件
+The following information can be seen from the Yaml file:
+1. The name of the application is `FullStack` and will use the key `xxx-account1`;
+2. The app has three services:
+    - `backend` service: uses the `django-component` component
+    - `user-frontend` service: uses the `vue-component` component
+    - `admin-frontend` service: uses `vue-component` component
     
-如果此时`django-component`组件和`vue-component`组件支持的自定义命令为：
+If the custom commands supported by the `django-component` component and the `vue-component` component at this time are:
 
 | | `django-component` | `vue-component` |
 | --- | --- | --- |
-| `deploy` | 支持 | 支持 |
-| `remove` | 支持 | 支持  |
-| `test` | 支持 | 不支持 |
+| `deploy` | support | support |
+| `remove` | support | support |
+| `test` | supported | not supported |
 
-则可以通过自定义命令实现[应用级操作](#应用级操作)和[服务级操作](#服务级操作)。
+Then you can implement [application-level operations](#application-level operations) and [service-level operations](#service-level operations) through custom commands.
 
-## 应用级操作
+## Application level operations
 
-在当前项目下，可以执行`s [自定义命令]`实现应用纬度的操作。
+Under the current project, you can execute `s [custom command]` to implement the operation of applying latitude.
 
-- 执行`s deploy`或者`s remove`时，由于`backend`、`user—frontend`、`admin-frontend`三个服务对应的组件，均支持`deploy`和`remove`方法，所以此时系统会按照[Serverless User Model所定义的服务顺序](../../../spec/zh/0.0.2/serverless_user_model/3.user_model.md#服务顺序)，进行三个服务分别对应的组件的`deploy`或`remove`操作；**此时，系统的`exit code`为0；**
-- 执行`s test`时，由于`user—frontend`、`admin-frontend`两个服务对应的组件并不支持`test`方法，所以此时系统会执行`backend`对应组件（`django-component`）的`test`操作；**此时，系统会对`user—frontend`、`admin-frontend`两个服务进行警告，但是并不会报错，最终的`exit code`为0；**
-- 如果在执行相关的命令时，`backend`、`user—frontend`、`admin-frontend`三个服务任何一个服务在执行过程中出现了错误，系统则会报错，并终止下一步的操作，**此时，系统的`exit code`为101；**
+- When executing `s deploy` or `s remove`, the components corresponding to the three services `backend`, `user-frontend`, and `admin-frontend` support the `deploy` and `remove` methods, so at this time The system will follow the [service order defined by the Serverless User Model] (../../../spec/en/0.0.2/serverless_user_model/3.user_model.md#service order), and carry out the corresponding three services respectively `deploy` or `remove` operation of the component; **At this time, the `exit code` of the system is 0;**
+- When executing `s test`, since the components corresponding to the two services `user-frontend` and `admin-frontend` do not support the `test` method, the system will execute the component corresponding to `backend` at this time (`django-component` `) `test` operation; **At this time, the system will warn the two services `user-frontend` and `admin-frontend`, but no error will be reported, and the final `exit code` is 0;**
+- If any of the three services `backend`, `user-frontend` and `admin-frontend` have an error during the execution of the relevant command, the system will report an error and terminate the next operation. **At this time, the `exit code` of the system is 101;**
 
-> 关于Serverless Devs开发者工具，涉及到的 Exit Code，可以参考[开发者工具设计文档](../tool.md)
+> About Serverless Devs developer tools, related Exit Code, you can refer to [Developer Tools Design Document](../tool.md)
 
-## 服务级操作
+## Service level operations
 
-在当前项目下，可以执行`s [服务名] [自定义命令]`实现服务级操作。
+Under the current project, you can execute `s [service name] [custom command]` to implement service-level operations.
 
-- 执行`s backend deploy`等，可以针对服务`backend`进行`deploy`相关的操作，**如果顺利完成与其操作，系统的`exit code`为0；否则，出现错误，系统的`exit code`为101**；
-- 执行`s admin-frontend test`是，由于服务`admin-frontend`对应的`test`方法是不存在的，**此时系统将会认为是未找到组件方法，系统的`exit code`为100**；
+- Execute `s backend deploy`, etc., you can perform `deploy` related operations for the service `backend`. **If the operation is successfully completed, the `exit code` of the system is 0; otherwise, an error occurs, and the `exit code` of the system ` is 101**;
+- Execute `s admin-frontend test`, because the `test` method corresponding to the service `admin-frontend` does not exist, ** At this time, the system will consider that the component method is not found, and the `exit code` of the system is 100**;
 
-## 注意事项
+## Precautions
 
-在上面[应用级操作](#应用级操作)和[服务级操作](#服务级操作)中，我们不难发现，同样是某些组件不包括对应方法，但是在[应用级操作](#应用级操作)和[服务级操作](#服务级操作)中的表现形式却不同，这里的设计思路主要是为了保证[应用级操作](#应用级操作)的流畅性。所以其规律通常如下：
+In the above [application level operations](#application-level-operations) and [service level operations](#service-level-operations), it is not difficult to find that some components do not include corresponding methods, but in [application level operations](#application-level-operation) and [service level operation](#service-level-operation) are different. The design idea here is mainly to ensure the fluency of [application-level operation](#application-level-operation). So the rules are usually as follows:
 
-1. [应用级操作](#应用级操作)更多是一种批量操作，会按照[Serverless User Model所定义的服务顺序](../../../spec/zh/0.0.2/serverless_user_model/3.user_model.md#服务顺序)对应用下的所有服务进行分别操作；所以，此时如果出现某个服务对应的组件不包括当前方法，会以"批量操作"作为理由，跳过该服务，进行警告后继续执行，**此时，系统的`exit code`为0；**
-2. [服务级操作](#服务级操作)更多是一种针对某个应用下的某个服务的特定操作，此时如果找不到对应的方法，则意味着本次操作没有意义，将会惊醒错误报告，**此时，系统的`exit code`为100；**
+1. [Application level operation](#application-level-operation) is more of a batch operation, which will follow the service order defined by [Serverless User Model](../../../spec/en/0.0.2/serverless_user_model/3.user_model.md#service-sequence) to operate all services under the application separately; therefore, if there is a component corresponding to a service that does not include the current method, the "batch operation" will be used as the reason to skip. This service, continue to execute after warning, **At this time, the `exit code` of the system is 0;**
+2. [Service level operation](#service-level-operation) is more of a specific operation for a service under a certain application. If the corresponding method cannot be found at this time, it means that this operation is meaningless. It will wake up the error report, **At this time, the `exit code` of the system is 100;**

@@ -1,15 +1,14 @@
-# Verify 命令
+# Verify command
 
-`verify`命令可以对Serverless应用格式进行校验。
+The verify commands are used to `verify` the formats of serverless applications.
 
-- [前言](#前言)
-- [命令解析](#命令解析)
-    - [参数解析](#参数解析)
-    - [操作案例](#操作案例)
+- [Command description](#Command-description)
+    - [Parameter description](#Parameter-description)
+    - [Example](#Example)
 
-## 命令解析
+## Command description
 
-当执行`s verify -h`之后，可以进行相关帮助信息的查看：
+After you run the `s verify -h` command, the following help information is returned：
 
 ```shell script
 $ s verify -h
@@ -20,37 +19,37 @@ Application verification.
     Example:
         $ s verify
         
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/verify.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/verify.md
 
 Options:
   -t, --template [templatePath]  Specify the template file
   -h, --help                     Display help for command
 ```
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 默认取值 | 参数含义 |
+| Parameter | Abbreviation | Default value | Description |
 |-----|-----|-----|-----|
-| template | t | `s.yaml`/`s.yml` | 指定资源描述文件 |  | 
+| template | t | `s.yaml`/`s.yml` | Specifies the description file of a resource. |  |  
 
-### 操作案例
+### Example
 
-可以通过`s verify`直接应用格式的校验：
+You can run the `s verify` command to verify the format of an application：
 
 ```shell script
-# 正确结果： 
+# Sample success responses： 
 
  ✅  Format verification passed.
 
-# 错误结果： 
+# Sample error responses： 
  ❌ Format verification failed.
       key               Your Value Type                 Target Type             Description
-     CodeUri               String                        Struct                    参数描述
+     CodeUri               String                        Struct                    The description of the parameter.
 
-# 输出魔法变量存在
+# Magic variables exist in the command output:
  ✴️ Format validation unknown: 
      key               Your Value Type               Target Type           Description
-     CodeUri             Unknown                       Struct                 参数描述
+     CodeUri             Unknown                       Struct                 The description of the parameter.
 
  ❓There may be dependencies between components, and you need to deploy them before you can determine the format.
 ```

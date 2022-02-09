@@ -21,7 +21,7 @@ Get details of installed components.
         $ s component
         $ s component --component fc-api
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/component.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/component.md
 
 Options:
   --component [componentName]     Gets the specified component information (like: fc, fc@0.0.1)

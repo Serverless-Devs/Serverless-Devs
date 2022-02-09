@@ -1,27 +1,27 @@
-# Package开发文档
+# Package development documentation
 
 
-- [组件开发说明](#组件开发说明)
-- [应用开发说明](#应用开发说明)
-
-> 注意：
-> - Serverless Devs的组件开发和应用开发模版都已经被默认的集成到了Serverless Devs的开发者工具中，Package开发者可以直接使用；
-> - Package的开发，需要遵循[Serverless Package Model](../../spec/zh/0.0.2/serverless_registry_model/readme.md)以及相关规范，只有这样Serverless Registry和Serverless Devs开发者工具才能正确识别和使用；
-> - 关于应用和组件开发的最佳实践可以参考[社区讨论 #62](https://github.com/Serverless-Devs/Serverless-Devs/discussions/62);
+- [Component development instructions](#Component-development-instructions)
+- [Application development instructions](#Application-development-instructions)
 
 
-## 组件开发说明
+> Note: 
+> - By default, templates for developing Serverless Devs components and applications are integrated into Serverless Devs developer tools. Package developers can directly use the templates. 
+> - The development of Package must follow [Serverless Package Model](../../spec/en/0.0.2/serverless_registry_model/readme.md) and conform to relevant specifications. This way, the developers can use Serverless Registry and Serverless Devs to work for future development. 
+> - For the best practices in developing Serverless Devs applications and components, refer to [community forum#62](https://github.com/Serverless-Devs/Serverless-Devs/discussions/62).
 
-> Serverless Devs 组件开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.2/serverless_registry_model/readme.md) 中的 [组件模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范)。在[组件模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范)中有关于[组件模型元数据](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型元数据)和[组件模型代码规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型代码规范)的说明。
+## Component development instructions
 
-> 🐵 温馨提示，在进行 Serverless Devs 的组件开发时，可能会遇到很多相对来说更为通用的能力，包括不限于：
-> - 获取用户的密钥信息
-> - 进行更规范的格式化输出
-> - 对用户的输入参数进行解析   
+> The development of Serverless Devs components is strictly in line with the [component model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范) in [Serverless Package Model](../../spec/en/0.0.2/serverless_registry_model/readme.md). In the [component model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范), the instructions on [component model metadata](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型元数据) and [component model code specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型代码规范) are described. 
+
+> 🐵 Note: When you develop Serverless Devs components, you need the following capabilities when you develop Serverless Devs components. The capabilities include but not limited to: 
+> - Obtain user key pair information. 
+> - Generate more standardized outputs. 
+> - Capability to parse parameters input by users. 
 > ......   
-> 这些内容都可以通过 Serverless Devs 所提供的 [Core包](https://github.com/Serverless-Devs/core) 进行提供，更多 [Core包](https://github.com/Serverless-Devs/core) 信息，可以参考 [Core包的开发文档](https://github.com/Serverless-Devs/core)
+> You can obtain these capabilities from the [Core package](https://github.com/Serverless-Devs/core) that is provided by Serverless Devs. For more information about the [Core package](https://github.com/Serverless-Devs/core), see [Development documentation of the Core package](https://github.com/Serverless-Devs/core).
 
-Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行工具中，通过对Serverless Devs的命令行工具，可以进行空白组件项目的初始化，开发者只需要执行`s init`即可看到：
+The component development cases of Serverless Devs are integrated into the Serverless Devs CLI tool. You can use the CLI tool to initialize a component project that is not developed. Developers only need to run the `s init` command, and the following command output is returned:
 
 ```shell script
 
@@ -35,7 +35,7 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
   Dev Template for Serverless Devs 
 ```
 
-此时，选择最后的`Dev Template for Serverless Devs`，并按回车：
+Select the last line `Dev Template for Serverless Devs` and press the Enter key. The following command output is returned: 
 
 ```shell script
 $ s init
@@ -48,7 +48,7 @@ $ s init
   Component Scaffolding 
 ```
 
-此时，选择`Component Scaffolding`，并按回车，即可完成一个完整的Serverless Devs的Component项目的初始化，可以通过命令查看文件树：
+Select `Component Scaffolding` and press the Enter key. The project of a Serverless Devs component is initialized. You can run the following command to view the file tree:
 
 ```shell script
 $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
@@ -69,27 +69,28 @@ $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 | |____index.ts
 ```
 
-这其中：
+The following table describes the directories in the file tree.
 
-| 目录 | 含义 |
-| --- | --- | 
-| LICENSE | 项目默认的LICENSE，默认的LICENSE是遵循MIT开源协议的（推荐） | 
-| .signore | 项目发布时，可以选择的忽略文件，类似于npm发布是的`.npmignore`文件 | 
-| example | 该组件对应的测试应用 | 
-| publish.yaml | 项目所必须的文件，Serverless Devs Package的开发识别文档 |
-| .gitignore| 推送到Github的忽略文件 | 
-| package.json| Node.js的package.json，需要描述清楚组件的入口文件位置 |
-| tsconfig.json| Typescript的tsconfig.json，用来对TS项目进行描述等 |
-| src| 用户的代码目录 |
-| readme.md| 版本的描述，例如当前版本的更新内容等 |
+| Directory     | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| LICENSE       | The default license for the project. The  default license follows the Massachusetts Institute of Technology (MIT) open  source protocol. We recommend that you use the default license. |
+| .signore      | The file that can be ignored in your  package when you publish a project. The .signore file is similar to the .npmignore file that you can use to keep the ignored file out of your  package when you publish npm packages. |
+| example       | The test application of the component.                       |
+| publish.yaml  | The file that is required for the project.  The file is identifiable for developers of the Serverless Devs Package. |
+| .gitignore    | The file that can be ignored when the  project is committed to GitHub. |
+| package.json  | The package.json file of the Node.js  runtime environment. The detailed position of the component handler is  described in the file. |
+| tsconfig.json | The tsconfig.json file of a TypeScript  project, which describes the information that is required to compile the  TypeScript project. |
+| src           | The directory that is used to store the  source code files of users. |
+| readme.md     | The description of the project version,  such as the updates of the current version. |
 
-此时，开发者可以在src下完成业务代码的开发，由于默认的初始化项目是Typescript，所以开发完成业务代码还需要编译成Javascript（可以通过`npm run build`进行编译），在完成项目编译之后，还需要对项目进行`publish.yaml`文件的编写。完成之后，即可将项目发不到不同的源，以Github Registry为例，可以在Github创建一个`Public`的仓库，并将编译后的代码放到仓库，并发布一个版本。此时，就可以通过客户端获取到该应用。
 
-## 应用开发说明
+Developers can use the code in the src directory for development. By default, the initialization project is a TypeScript project. This way, developers need to run the `npm run build` command to compile the code into JavaScript. After the code of the project is compiled into JavaScript, developers also need to write the `publish.yaml` file. After the preceding operations are complete, you can commit the project to different sources. For example, if you want to commit the project to GitHub Registry, you can create a repository named `Public` in GitHub, store the compiled code into the repository, and then publish a version. In this case, the application is available on Serverless Devs clients. 
 
-> Serverless Devs 应用开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.2/serverless_registry_model/readme.md) 中的 [应用模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范)。在[应用模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范)中有关于[应用模型元数据](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#应用模型元数据)的说明。
+## Application development instructions
 
-Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行工具中，通过对Serverless Devs的命令行工具，可以进行空白应用项目的初始化，开发者只需要执行`s init`即可看到：
+> The development of Serverless Devs applications must strictly conform to the [application model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范) in [Serverless Package Model](../../spec/en/0.0.2/serverless_registry_model/readme.md). In the [application model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范), the instructions on [application model metadata](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#应用模型元数据) are described. 
+
+The component development cases of Serverless Devs are integrated into the Serverless Devs CLI tool. You can use the CLI tool to initialize an application project that is not developed. Developers only need to run the s init command, and the following command output is returned:
 
 ```shell script
 
@@ -103,7 +104,8 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
   Dev Template for Serverless Devs 
 ```
 
-此时，选择最后的`Dev Template for Serverless Devs`，并按回车：
+Select the last line `Dev Template for Serverless Devs` and press the Enter key. The following command output is returned: 
+
 
 ```shell script
 $ s init
@@ -116,7 +118,7 @@ $ s init
   Component Scaffolding 
 ```
 
-此时，选择`Application Scaffolding`，并按回车，即可完成一个完整的Serverless Devs的Application项目的初始化，可以通过命令查看文件树：
+Select the `Application Scaffolding` and press the Enter key. The project of a Serverless Devs application is initialized. You can view the file tree by using the following command:
 
 ```shell script
 $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
@@ -129,14 +131,14 @@ $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 | |____index.js
 ```
 
-这其中：
+The following table describes the directories in the file tree: 
 
-| 目录 | 含义 |
-| --- | --- | 
-| readme.md | 对该组件的描述，或帮助文档信息 | 
-| version.md | 版本的描述，例如当前版本的更新内容等 |  
-| publish.yaml | 项目所必须的文件，Serverless Devs Package的开发识别文档 |
-| src | 应用所在目录，需要包括`s.yaml`和相关的应用代码等 | 
+| Directory    | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| readme.md    | Description of the component, or help  documentations.       |
+| version.md   | The description of the project version,  such as the updates of the current version. |
+| publish.yaml | The file that is a required for the  project. The file is identifiable for developers of Serverless Devs Package. |
+| src          | The directory where the application is  located, which needs to include s.yaml and related application code. |
 
 
-此时，开发者可以在src下完成应用的开发，并对项目进行`publish.yaml`文件的编写。完成之后，即可将项目发不到不同的源，以Github Registry为例，可以在Github创建一个`Public`的仓库，并将编译后的代码放到仓库，并发布一个版本。此时，就可以通过客户端获取到该应用。
+Developers can develop applications by using the code stored in the src directory and write the `publish.yaml` file for the project. After the preceding operations are complete, you can commit the project to different sources. For example, if you want to commit the project to GitHub Registry, you can create a repository named `Public` in GitHub, store the compiled code into the repository, and then publish a version. In this case, the application is available on Serverless Devs clients.

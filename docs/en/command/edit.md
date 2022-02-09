@@ -1,15 +1,14 @@
-# Edit 命令
+# Edit command
 
-`edit`命令可以对Serverless应用编辑。
+The `edit` commands are used to edit serverless applications.
 
-- [前言](#前言)
-- [命令解析](#命令解析)
-    - [参数解析](#参数解析)
-    - [注意事项](#注意事项)
+- [Command description](#Command-description)
+    - [Parameter description](#Parameter-description)
+    - [Considerations](#Considerations)
 
-## 命令解析
+## Command description
 
-当执行`s edit -h`之后，可以进行相关帮助信息的查看：
+After you run the `s edit -h` command, the following help information is returned:
 
 ```shell script
 $ s edit -h
@@ -20,21 +19,22 @@ Application editing.
     Example:
         $ s edit
         
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/edit.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/edit.md
 
 Options:
   -t, --template [templatePath]  Specify the template file
   -h, --help                     Display help for command
 ```
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 默认取值 | 参数含义 |
-|-----|-----|-----|-----|
-| template | t | `s.yaml`/`s.yml` | 指定资源描述文件 |  | 
+| Parameter | Abbreviation | Default value | Description                                    |
+| --------- | ------------ | ------------- | ---------------------------------------------- |
+| template  | t            | s.yaml/s.yml  | Specifies  the description file of a resource. |
 
-### 注意事项
 
-在使用`s edit`命令之前，当前环境需要具备以下条件：
-1. 当前项目下存在符合Serverless Devs规范的Yaml文件，可以通过`-t, --template [templatePath]`进行指定，默认是`s.yaml/s.yml`;
-2. 由于该功能需要确保电脑安装了相关的浏览器，因为该功能是可视化的资源编辑能力，需要浏览器的支持；
+
+### Considerations
+Before you run the `s edit` command, make sure that the following conditions are met: 
+1. A YAML file that meets the Serverless Devs requirements exists in this project. You can specify this file by running the `-t, --template [templatePath]` command. The default value of the template parameter is `s.yaml/s.yml`. 
+2. A browser that supports visual resource editing is installed on your computer.

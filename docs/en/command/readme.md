@@ -1,24 +1,23 @@
-# 命令操作文档
+# User guide of commands
 
-- [前言](#前言)
-- [全局参数](#全局参数)
-- [命令详情](#命令详情)
-    - [config: 密钥配置](./config.md)
-    - [init: 项目初始化](./init.md)
-    - [cli: 纯命令行模式](./cli.md)
-    - [verify: 应用校验](./verify.md)
-    - [edit: 应用编辑](./edit.md)
-    - [clean: 工具清理](./clean.md)
-    - [component: 组件信息](./component.md)
-    - [set: 工具配置](./set.md)
-    - [custom: 自定义命令](./custom.md)
+- [前Background information言](#Background-information)
+- [Supported parameters](#Supported-parameters)
+- [Supported commands](#Supported-commands)
+    - [**Config**: Run the config command to configure a key](config.md)
+    - [**Init**: Run the init command to initialize a project](init.md)
+    - [**Cli**: Run the cli command to use the CLI mode](cli.md)
+    - [**Verify**: Run the verify command to verify the format of an application](verify.md)
+    - [**Edit**: Run the edit command to edit an application](edit.md)
+    - [**Clean**: Run the clean command to clean a tool](clean.md)
+    - [**Set**: Run the set command to configure a tool](set.md)
+    - [**Component**: Run the component command to query the information about a component](component.md)
+    - [**Custom**: Run the custom command to use a custom command](custom.md)
 
+## Background information
 
-## 前言
+Serverless Devs allows you to run a command that contains the `-h` parameter to query the help information about a command. For example, you can run the` s -h` command to query the help information about the `s` command.
+After you run the `s` command, the following help information is returned:
 
-Serverless Devs 可以通过`-h`唤起对应命令的帮助文档，例如查看 `s` 命令的帮助信息可以是：`s -h`
-
-当使用者使用命令行工具时，可以通过`s`命令，查看整体帮助信息:
 
 ```shell script
 $ s
@@ -35,7 +34,7 @@ Welcome to the Serverless Devs.
 More: 
 📘 Documents: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs
 🙌 Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
-📦 Applications: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md
+📦 Applications: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/en/awesome.md
 
 Quick start:
 🍻 Can perform [s init] fast experience
@@ -59,25 +58,25 @@ Commands:
   component                      🔌 Installed component information.
 ```
 
-## 全局参数
+## Supported parameters
 
-| 参数全称 | 参数缩写 | 默认取值 | 参数含义 | 备注 |
-|-----|-----|-----|-----|-----|
-| template | t | `s.yaml`/`s.yml` | 指定资源描述文件 |  | 
-| access | a | `yaml`中所指定的`access`信息/`default` | 指定本次部署时的密钥信息 | 可以使用通过[config命令](./command/config.md#config-add-命令)配置的密钥信息，以及[配置到环境变量的密钥信息](./command/config.md#通过环境变量配置密钥信息) | 
-| skip-actions | - | - | 跳过`yaml`所设置的`actions`模块 | - | 
-| debug | - | - | 开启`Debug`模式 | 开启`Debug`模式后可以查看到更多的工具执行过程信息 | 
-| version | v | - | 查看版本信息 | - | 
-| help | h | - | 查看帮助信息 | - | 
+| Parameter    | Abbreviation | Default value                                                | Description                                                  | Remarks                                                      |
+| ------------ | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| template     | t            | s.yaml/s.yml                                                 | Specifies the description file of a  resource.               |                                                              |
+| access       | a            | the value of the access parameter specified in a YAML file/default | Specifies the information about the key.                     | You can use the key information that is  configured by using [the config command](command/config.md#config-add-command) or [environment variables](command/config.md#Configure keys by using environment variables). |
+| skip-actions | -            | -                                                            | Skips the actions section that is specified in the YAML file. | -                                                            |
+| debug        | -            | -                                                            | Enables the debug mode.                                      | After you enable the debug mode, you can obtain a larger amount of information about the  execution process of a tool. |
+| version      | v            | -                                                            | Queries the version information.                             | -                                                            |
+| help         | h            | -                                                            | Queries the help information.                                | -                                                            |
 
-## 命令详情
+## Supported commands
 
-- [config: 密钥配置](./config.md)
-- [init: 项目初始化](./init.md)
-- [cli: 纯命令行模式](./cli.md)
-- [verify: 应用校验](./verify.md)
-- [edit: 应用编辑](./edit.md)
-- [clean: 工具清理](./clean.md)
-- [set: 工具配置](./set.md)
-- [component: 组件信息](./component.md)
-- [custom: 自定义命令](./custom.md)
+- [**Config**: Run the config command to configure a key](config.md)
+- [**Init**: Run the init command to initialize a project](init.md)
+- [**Cli**: Run the cli command to use the CLI mode](cli.md)
+- [**Verify**: Run the verify command to verify the format of an application](verify.md)
+- [**Edit**: Run the edit command to edit an application](edit.md)
+- [**Clean**: Run the clean command to clean a tool](clean.md)
+- [**Set**: Run the set command to configure a tool](set.md)
+- [**Component**: Run the component command to query the information about a component](component.md)
+- [**Custom**: Run the custom command to use a custom command](custom.md)

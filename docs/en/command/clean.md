@@ -24,7 +24,7 @@ Clean up the cache related functions of serverless devs. You can clean up the en
     Tips:
         Get all installed component: s component
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/clean.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/clean.md
 
 Options:
   --all                         Clean up the environment

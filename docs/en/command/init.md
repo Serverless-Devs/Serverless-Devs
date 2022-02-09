@@ -1,19 +1,18 @@
-# Init 命令
+# Init command
 
-`init`命令是初始化Serverless项目的脚手架。
+The `init` commands are used to initialize serverless projects. 
 
-- [前言](#前言)
-- [命令解析](#命令解析)
-    - [参数解析](#参数解析)
-    - [初始化项目](#初始化项目)
-        - [引导式初始化](#引导式初始化)
-        - [直接初始化](#直接初始化)
-            - [初始化Registry应用](#初始化Registry应用)
-            - [初始化仓库应用](#初始化仓库应用)
+- [Command description](#Command-description)
+    - [Parameter description](#Parameter-description)
+    - [Initializes a project](#Initializes-a-project)
+        - [Follow instructions to initialize a project](#Follow-instructions-to-initialize-a-project)
+        - [Directly initialize a project](#Directly-initialize-a-project)
+            - [Initialize a repository application from Registry](#Initialize-a-repository-application-from-Regsitry)
+            - [Initialize a repository application from Git](#Initialize-a-repository-application-from-Git)
 
-## 命令解析
+## Command description
 
-当执行`s init -h`之后，可以进行相关帮助信息的查看：
+After you run the `s init -h` command, the following help information is returned:
 
 ```shell script
 $ s init -h
@@ -28,7 +27,7 @@ Initialize a new project based on a template. You can initialize the application
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
-🚀 More Application: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md
+🚀 More Application: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/en/awesome.md
 
 Options:
   -d, --dir [dir]       Where to output the initialized app into (default: ./<ProjectName> )
@@ -36,18 +35,19 @@ Options:
   -h, --help            Display help for command
 ```
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 默认取值 | 参数含义 |
-|-----|-----|-----|-----|
-| dir | d | `./<ProjectName>` | 项目初始化的路径/目录 | 
-| registry | -r | http://registry.devsapp.cn/simple | 源配置地址，类似于Python中指定pip源，或者Node.js中指定NPM源 | 
+| Parameter | Abbreviation | Default value | Description |
+|-----|-----|-----|-----|-----|
+| dir | d | `./<ProjectName>` | The path or directory in which the project that you want to initialize is stored. | 
+| registry | -r | http://registry.devsapp.cn/simple | The URL that points to a repository. The repository is similar to the pip repository in Python and the npm repository in Node.js. |
 
-### 初始化项目
 
-#### 引导式初始化
+### Initializes a project
 
-通过`s init`可以直接进入项目初始化的引导模块：
+#### Follow instructions to initialize a project
+
+You can initialize a project by running the `s init` command.
 
 ```shell script
 $ s init
@@ -63,7 +63,7 @@ $ s init
   Dev Template for Serverless Devs 
 ```
 
-此时只需要选择对应的选项，按照引导进行操作，即可。例如选择`Alibaba Cloud Serverless`，就可以看到阿里云Serverless产品下的应用模板分类:
+Then, follow instructions to select options based on your business requirements. For example, if you select`Alibaba Cloud Serverless`, the following information about the application template categories of Alibaba Cloud serverless services is returned:
 
 ```shell script
 ? Please select an Serverless-Devs Application (Use arrow keys or type to search)
@@ -74,7 +74,7 @@ $ s init
   Best practice [Experience serverless project] 
 ```
 
-此时可以继续选择某分类下的具体应用进行初始化，例如选择`fc-runtime-starter`之后，可以看到该分类下的具体模板应用：
+Select an application to initialize the application. For example, if you select the `fc-runtime-starter` application, the following information about the application templates is returned：
 
 ```shell script
 ? Which template do you like? (Use arrow keys or type to search)
@@ -88,7 +88,7 @@ $ s init
 (Move up and down to reveal more choices)
 ```
 
-选择`fc-http-nodejs`即可完成创建：
+Select the `fc-http-nodejs` application to deploy the application：
 
 ```shell script
 $ s init                                         
@@ -104,15 +104,15 @@ $ s init
 💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
 ```
 
-更多关于默认源对应的应用信息，可以参考[Package Awesome](https://github.com/Serverless-Devs/package-awesome)
+For more information about the application that corresponds to the default repository, see [Package Awesome](https://github.com/Serverless-Devs/package-awesome).
 
-#### 直接初始化
+#### Directly initialize a project
 
-通过`s init [name | url]`，可以从配置的`Registry`或者指定的仓库`Url`获取模板项目。
+You can obtain the project template from the `repository` that you configure or from the `repository URL` that you specify by running the `s init [name | url]` command. 
 
-##### 初始化Registry应用
+##### Initialize a repository application from Registry
 
-以默认的`Registry`为例，可以初始化相对应的案例项目：`start-fc-http-nodejs12`，可以通过`s init start-fc-http-nodejs12`命令来进行：
+The following sample code provide an example on how to initialize a project by running the `s init start-fc-http-nodejs12` command. In this example, the `default repository` that corresponds to the `start-fc-http-nodejs12` project is used.
 
 ```shell script
 $ s init start-fc-http-nodejs12
@@ -127,9 +127,9 @@ $ s init start-fc-http-nodejs12
 💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
 ```
 
-##### 初始化仓库应用
+##### Initialize a repository application from Git
 
-以Github仓库 `https://github.com/devsapp/puppeteer-app` 为例，可以通过`s init git@github.com:devsapp/puppeteer-app.git`命令初始化该案例项目：
+The following information describes how to initialize a repository application by running the `s init git@github.com:devsapp/puppeteer-app.git` command. In this example, a Github repository is used. For more information, see `https://github.com/devsapp/puppeteer-app`.
 
 ```shell script
 $ s init git@github.com:devsapp/puppeteer-app.git
