@@ -1,92 +1,78 @@
-# Get secret key
+# 阿里云密钥获取
 
-Alicloud's official website：https://www.aliyun.com   
-The page to get your AliCloud AccountId：https://account.console.aliyun.com/#/secure   
-The page to get the secret key：https://usercenter.console.aliyun.com/#/manage/ak
+阿里云官网：https://www.aliyun.com   
+获取密钥页面：https://usercenter.console.aliyun.com/#/manage/ak
 
-- Open [The page to get your AliCloud AccountId](https://account.console.aliyun.com/#/secure) to get your AccountId ：
-  ![AccountId获取页面](https://images.devsapp.cn/access/aliyun-accountid.jpg)
-
-- Open [The page to get the secret key](https://usercenter.console.aliyun.com/#/manage/ak) to get the secret key ：
+- 打开 [获取密钥页面](https://usercenter.console.aliyun.com/#/manage/ak) 获取密钥信息 ：
   ![获取密钥页面](https://images.devsapp.cn/access/aliyun-access.jpg)
+ 
+  
+> 云账号 AccessKey 是您访问阿里云 API 的密钥，具有该账户完全的权限，请您务必妥善保管！不要通过任何方式（e.g. Github）将 AccessKey 公开到外部渠道，以避免被他人利用而造成 [安全威胁](https://help.aliyun.com/knowledge_detail/54059.html?spm=5176.2020520153.0.0.57f1336a8PQ1KR) 。    
+> 强烈建议您遵循 [阿里云安全最佳实践](https://help.aliyun.com/document_detail/102600.html?spm=5176.2020520153.0.0.57f1336a8PQ1KR) ，使用 RAM 子用户 AccessKey 来进行 API 调用。
 
+----
 
-> AccessKey of your cloud account is the secret key to access Alibaba Cloud APIs. Since the AccessKey has full permissions of your cloud account, please make sure you keep it well. To avoid the AccessKey being used by others to cause [Sensitive information leakage](https://www.alibabacloud.com/help/doc-detail/54059.htm) , do not release your AccessKey to any external channels (for example, Github)    
-> We strongly recommend you use the AccessKeys of RAM users in API calls, according to [Alibaba Cloud account security best practices](https://www.alibabacloud.com/help/doc-detail/102600.html) .
+## 安全建议
 
-------
+- 创建独立的RAM用户   
+企业只需使用一个云账号。通过RAM为名下的不同操作员创建独立的RAM用户，进行分权管理，不使用云账号进行日常运维管理。
 
-## Security Recommendations
+  详情请参见[创建RAM用户](https://help.aliyun.com/document_detail/93720.html?spm=a2c4g.11186623.2.15.c79a1723Vwyvig#task-187540) 。
 
-- Create separate RAM users.
+- 将控制台用户与API用户分离    
+  不建议给一个RAM用户同时创建用于控制台操作的登录密码和用于API操作的访问密钥。
 
-  You require only one Alibaba Cloud account. You can create separate RAM users for your employees. Then, you can attach different policies to the RAM users. This ensures fine-grained access control. You do not need to use your Alibaba Cloud account for daily permission management.
+  应用程序账号：只需要通过OpenAPI访问云资源，创建访问密钥即可。   
+  员工账号：只需要通过控制台操作云资源，设置登录密码即可。      
+  详情请参见[创建RAM用户](https://help.aliyun.com/document_detail/93720.html?spm=a2c4g.11186623.2.16.c79a1723Vwyvig#task-187540) 。
 
-  For more information, see [Create a RAM user](https://www.alibabacloud.com/help/doc-detail/93720.htm).
+- 创建用户并进行分组   
+  当云账号下有多个RAM用户时，可以通过创建用户组对职责相同的RAM用户进行分类并授权。   
 
-- Separate console users from API users.
+  详情请参见[创建用户组](https://help.aliyun.com/document_detail/93724.html?spm=a2c4g.11186623.2.17.c79a1723Vwyvig#task-187540) 。
 
-  We recommend that you do not create a logon password for console operations and an AccessKey pair for API operations for a RAM user at the same time.
+- 给不同用户组分配最小权限   
+  您可以使用系统策略为用户或用户组绑定合理的权限策略，如果您需要更精细粒度的权限策略，也可以选择使用自定义策略。通过为用户或用户组授予最小权限，可以更好的限制用户对资源的操作权限。   
 
-  - To allow an application to access cloud resources by calling API operations, you only need to create an AccessKey pair for the application.
-  - To allow an employee to manage cloud resources by using the console, you only need to set a logon password for the employee.
+  详情请参见[创建自定义策略](https://help.aliyun.com/document_detail/93733.html?spm=a2c4g.11186623.2.18.c79a1723Vwyvig#task-glf-vwf-xdb) 。
 
-  For more information, see [Create a RAM user](https://www.alibabacloud.com/help/doc-detail/93720.htm).
+- 为用户登录配置强密码策略   
+  您可以通过RAM控制台设置密码策略，如密码长度、密码中必须包含元素、密码有效期等。如果允许RAM用户更改登录密码，那么应该要求RAM用户创建强密码并且定期轮换登录密码或访问密钥。   
 
-- Create and group RAM users.
+  详情请参见[设置RAM用户安全策略](https://help.aliyun.com/document_detail/116414.html?spm=a2c4g.11186623.2.19.c79a1723Vwyvig#task-188786) 。
 
-  If your Alibaba Cloud account has multiple RAM users, you can group the RAM users based on their responsibilities and grant permissions to the groups.
+- 为云账号开启多因素认证    
+  开启多因素认证（Multi-factor authentication，MFA）可以提高账号的安全性，在用户名和密码之外再增加一层安全保护。启用MFA后，用户登录阿里云时，系统将要求输入两层安全要素：   
 
-  For more information, see [Create a RAM user group](https://www.alibabacloud.com/help/en/doc-detail/93724.htm?spm=a2c63.p38356.0.0.7e7e2d2flQBnKu#task-187540).
+  第一安全要素：用户名和密码   
+  第二安全要素：多因素认证设备生成的验证码   
+  详情请参见[为云账号设置多因素认证](https://help.aliyun.com/document_detail/28635.html?spm=a2c4g.11186623.2.20.c79a1723Vwyvig#task-u2b-ww2-xdb) 。
 
-- Grant the minimum permissions to different RAM user groups.
+- 为用户开启SSO单点登录功能    
+  开启SSO单点登录后，企业内部账号进行统一的身份认证，实现使用企业本地账号登录阿里云才能访问相应资源。   
 
-  You can attach system policies to RAM users or RAM user groups. You can also create custom policies and attach them to RAM users or RAM user groups for fine-grained access control. By granting the minimum permissions to different RAM users or RAM user groups, you can better manage access permissions on cloud resources.
+  详情请参见[SSO概览](https://help.aliyun.com/document_detail/93684.html?spm=a2c4g.11186623.2.21.c79a1723Vwyvig#concept-etn-fjc-mfb) 。
 
-  For more information, see [Create a custom policy](https://www.alibabacloud.com/help/en/doc-detail/93733.htm).
+- 不要为云账号创建访问密钥     
+  由于云账号对名下资源有完全控制权限，AccessKey与登录密码具有同样的权力，AccessKey用于程序访问，登录密码用于控制台登录。为了避免因访问密钥泄露带来的信息泄露，不建议您创建云账号访问密钥并使用该密钥进行日常工作。   
 
-- Configure strong logon password policies.
+  您可以通过为RAM用户创建访问密钥，使用RAM用户进行日常工作。   
 
-  You can configure logon password policies that specify the minimum length, mandatory characters, and validation period for RAM users in the RAM console. If you authorize a RAM user to change the logon password, the RAM user must create a strong logon password and rotate the password or AccessKey pair on a regular basis.
+  详情请参见[为RAM用户创建访问密钥](https://help.aliyun.com/document_detail/116401.html?spm=a2c4g.11186623.2.22.c79a1723Vwyvig#task-188766) 。
 
-  For more information, see [Set RAM user security policies](https://www.alibabacloud.com/help/doc-detail/116414.htm#task-188786).
+- 使用策略限制条件来增强安全性    
+  要求用户必须使用安全信道（例如：SSL）、在指定时间范围或在指定源IP条件下才能操作指定的云资源。   
 
-- Enable an MFA device for your Alibaba Cloud account.
+  详情请参见[权限策略基本元素](https://help.aliyun.com/document_detail/93738.html?spm=a2c4g.11186623.2.23.c79a1723Vwyvig#concept-xg5-51g-xdb) 。
+  
+- 集中控制云资源    
+  阿里云默认云账号是资源的拥有者，掌握完全控制权。RAM用户对资源只有使用权，没有所有权。这一特性可以方便您对用户创建的实例或数据进行集中控制。   
 
-  You can enable a multi-factor authentication (MFA) device for your Alibaba Cloud account to enhance the account security. After you enable an MFA device, the following two security factors are required when a RAM user logs on to Alibaba Cloud:
+  当用户离开组织：只需要将对应的账号移除，即可撤销所有权限。   
+  当用户加入组织：只需创建新的账号，设置登录密码或访问密钥并为RAM用户授权。   
+  详情请参见为[RAM用户授权](https://help.aliyun.com/document_detail/116146.html?spm=a2c4g.11186623.2.24.c79a1723Vwyvig#task-187800) 。
 
-  1. Username and password
-  2. Verification code provided by the MFA device
+- 使用STS给用户授权临时权限   
+  STS （Security Token Service）是RAM的一个扩展授权服务，使用STS访问令牌可以给用户授予临时权限，您可以根据需要来定义访问令牌的权限和自动过期时间，可以让授权更加可控。   
 
-  For more information, see [Enable an MFA device for an Alibaba Cloud account](https://www.alibabacloud.com/help/doc-detail/28635.htm#task-u2b-ww2-xdb).
-
-- Enable SSO for RAM users. 
-
-  After single sign-on (SSO) is enabled,all the internal accounts of your enterprise will be authenticated. Then, RAM users can log on to Alibaba Cloud to access resources only by using an internal account.
-
-  For more information, see [SSO overview](https://www.alibabacloud.com/help/doc-detail/93684.htm#concept-etn-fjc-mfb).
-
-- Do not create an AccessKey pair for your Alibaba Cloud account.
-
-  Your Alibaba Cloud account has full permissions on your resources. The AccessKey pair of your Alibaba Cloud account has the same permissions as the logon password. The AccessKey pair is used for programmatic access whereas the logon password is used to log on to the console. To prevent information leaks due to the disclosure of the AccessKey pair, we recommend that you do not create an AccessKey for your Alibaba Cloud account.You can create an AccessKey pair for your RAM users and grant the RAM user the relevant permissions.
-
-  For more information, see [Create an AccessKey pair for a RAM user](https://www.alibabacloud.com/help/doc-detail/116401.htm#task-188766).
-
-- Specify the condition element in policies to enhance security.
-
-  You can specify the condition element in a policy to allow RAM users to use your resources only when the condition is met. For example, you can specify that the RAM user must use a secure channel (for example, SSL), use a specified source IP address, or use your resources within a specified period of time.
-
-  For more information, see [Policy elements](https://www.alibabacloud.com/help/doc-detail/93738.htm#concept-xg5-51g-xdb).
-
-- Manage permissions on your cloud resources.
-
-  All your resources are in your Alibaba Cloud account. The RAM users of your Alibaba Cloud account can use the resources, but do not own the resources. This allows you to manage instances or other resources created by the RAM users.
-
-  - If you no longer require an existing RAM user, you can delete the RAM user to revoke all permissions granted to the RAM user.
-  - If you require a new RAM user, you can create a RAM user, set a logon password or AccessKey pair for the RAM user, and then grant the RAM user the relevant permissions.
-
-  For more information, see [Grant permissions to a RAM user](https://www.alibabacloud.com/help/doc-detail/116146.htm#task-187800).
-
-- Use STS to grant temporary permissions to RAM users. Security Token Service (STS) is an extended authorization service of RAM. You can use STS tokens to grant temporary permissions to RAM users and specify the permission and automatic expiration time of the tokens.
-
-  For more information, see [What is STS?](https://www.alibabacloud.com/help/doc-detail/28756.htm#reference-ong-5nv-xdb).
+  详情请参见[什么是STS](https://help.aliyun.com/document_detail/28756.html?spm=a2c4g.11186623.2.25.c79a1723Vwyvig#concept-ong-5nv-xdb) 。

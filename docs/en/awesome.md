@@ -1,20 +1,20 @@
 # Awesome
 
-## Component collection
+## 组件集合
 
--[Alibaba Cloud Function Computing (FC)](https://github.com/devsapp/fc)
--[Alibaba Cloud Serverless Application Engine (FC)](https://github.com/devsapp/sae)
--[AWS Lambda](https://github.com/devscomp/lambda)
--[Baidu Intelligent Cloud Function Computing (CFC)](https://github.com/xinwuyun/cfc)
--[Huawei Cloud Function Workflow (FG)](https://github.com/xinwuyun/fg)
--[Tencent Cloud Cloud Function (SCF)](https://github.com/devscomp/scf)
+- [阿里云函数计算（FC）](https://github.com/devsapp/fc)
+- [阿里云Serverless应用引擎（FC）](https://github.com/devsapp/sae)
+- [AWS Lambda](https://github.com/devscomp/lambda)
+- [百度智能云函数计算（CFC）](https://github.com/xinwuyun/cfc)
+- [华为云函数工作流（FG）](https://github.com/xinwuyun/fg)
+- [腾讯云云函数（SCF）](https://github.com/devscomp/scf)
 
-## Application Collection
+## 应用集合
 
--[Alibaba Cloud related application collection](https://github.com/devsapp/awesome)
--[AWS Lambda](https://github.com/devscomp/start-lambda)
--[Baidu Intelligent Cloud Function Computing (CFC)](https://github.com/xinwuyun/start-cfc)
--[Huawei Cloud Function Workflow (FG)](https://github.com/xinwuyun/start-fg)
--[Tencent Cloud Cloud Function (SCF)](https://github.com/devscomp/start-scf)
+- [阿里云相关应用合集](https://github.com/devsapp/awesome)
+- [AWS Lambda](https://github.com/devscomp/start-lambda)
+- [百度智能云函数计算（CFC）](https://github.com/xinwuyun/start-cfc)
+- [华为云函数工作流（FG）](https://github.com/xinwuyun/start-fg)
+- [腾讯云云函数（SCF）](https://github.com/devscomp/start-scf)
 
-> If you have a relevant case, you are welcome to submit a PR to this document.
+> 如果您有相关的案例，欢迎您提PR到本文件。

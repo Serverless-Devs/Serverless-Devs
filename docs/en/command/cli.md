@@ -1,17 +1,17 @@
-# Cli command
+# Cli 命令
 
-The `cli` command is a Yamlized command line mode, that is, the components of Serverless Devs can be used directly through the command line without relying on the Yaml file.
+`cli`命令是去Yaml化的命令行模式，即可以通过命令行直接使用 Serverless Devs 的组件，而不需要依赖Yaml文件。
 
-- [Command resolution](#Command-resolution)
-- [Common Mode](#Common-Mode)
-    - [Common component support](#Common-component-support)
-    - [Support for specific components] (#Support-for-specific-components)
+- [命令解析](#命令解析)
+- [常见模式](#常见模式)
+    - [通用组件的支持](#通用组件的支持)
+    - [特定组件的支持](#特定组件的支持)
 
-> The difference between Yaml mode and Cli mode and trial scenarios, please refer to the document [Yaml mode Cli mode comparison](./../yaml_and_cli.md)
+> Yaml 模式与 Cli 模式的区别和试用场景，可以参考文档[Yaml 模式 Cli 模式对比](./../yaml_and_cli.md)
 
-## Command analysis
+## 命令解析
 
-After we execute `s cli -h`, we can view related help information:
+当我们执行`s cli -h`之后，可以进行相关帮助信息的查看：
 
 ```shell script
 $ s cli -h
@@ -27,25 +27,25 @@ Directly use serverless devs to use components, develop and manage applications 
 📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md
 
 Options:
-  -a, --access [aliasName] Specify the access alias name
-  -p, --props [jsonString] The json string of props
-  -h, --help Display help for command
+  -a, --access [aliasName]  Specify the access alias name
+  -p, --props [jsonString]  The json string of props
+  -h, --help                Display help for command
 ```
 
-The main methods of use are:
+使用方法主要是：
 
 ```shell script
-s cli [component name, such as fc, fc-api, etc.] [component method] -p/--props [Yaml property corresponding to this method (JSON string)] -a/--access [specify key information] [Other settings]
+s cli [组件名称，例如fc，fc-api等] [组件的方法] -p/--props [该方法对应的Yaml属性（JSON字符串）] -a/--access [指定密钥信息] [其他设定]
 ```
 
 
-## Common patterns
+## 常见模式
 
-### Common component support
+### 通用组件的支持
 
-In the `cli` mode, you can pass the `-p, --props [jsonString]` parameter to support the components in general.
+在`cli`模式下，可以通过`-p, --props [jsonString]`参数对组件进行通用的支持。
 
-For example, a Serverless Devs application can be described by the following `s.yaml`:
+例如，某Serverless Devs应用可以通过以下`s.yaml`描述：
 
 ```yaml
 edition: 1.0.0
@@ -62,31 +62,31 @@ services:
         index: index.html
       region: cn-hangzhou
       hosts:
-        -host: auto
+        - host: auto
 ```
 
-In addition, you can use `s website-starter deploy` to deploy the `website-starter` part.
+并且，可以通过`s website-starter deploy`，将`website-starter`部分进行部署。
 
-At this point, if you deploy through the `cli` mode, you don't need to rely on the above Yaml, but you need to write the complete parameter information in the command line:
+此时，如果通过`cli`模式进行部署，可以不需要依赖上述Yaml，但是需要在命令行中，写上完整的参数信息：
 
 ```shell script
-s cli devsapp/website deploy -p "{\"bucket\":\"testbucket\",\"src\":{\"codeUri\":\"./\",\"publishDir\":\" ./build\",\"index\":\"index.html\"},\"region\":\"cn-hangzhou\",\"hosts\":[{\"host\":\ "auto\"}]}" -a myaccess
+s cli devsapp/website deploy -p "{\"bucket\":\"testbucket\",\"src\":{\"codeUri\":\"./\",\"publishDir\":\"./build\",\"index\":\"index.html\"},\"region\":\"cn-hangzhou\",\"hosts\":[{\"host\":\"auto\"}]}" -a myaccess
 ```
 
-### Specific component support
+### 特定组件的支持
 
-Among the existing components of Serverless Devs, there are already some excellent components designed for the Cli mode. For example, the `fc-api` component is a command-line mode priority component. Through this component, you can quickly use Ali Some interfaces of cloud function computing to perform operations, such as:
+在 Serverless Devs 目前已经存在的组件中，已经有一些比较优秀且针对 Cli 模式设计的组件，例如`fc-api`组件，就是一款命令行模式优先的组件，通过该组件，可以快速的使用阿里云函数计算的一些接口，进行操作，例如：
 
--View the list of functions under a certain service in a certain area of ​​Alibaba Cloud Function Computing:
+- 查看阿里云函数计算的某个地区下某个服务下的函数列表：
     ```shell script
     s cli fc-api listFunctions --service-name my-service --region cn-beijing -a myaccess
     ```
--Update the function code through pure command line form:
+- 通过纯命令行形式，对函数进行代码更新：
     ```shell script
-    s cli fc-api updateFunction --region cn-hangzhou --serviceName fc-deploy-service --functionName http-trigger-function --code'{"zipFile":"./"}'
+    s cli fc-api updateFunction --region cn-hangzhou --serviceName fc-deploy-service --functionName http-trigger-function --code '{"zipFile":"./"}'
     ```
 
-In addition, many components can have better support for the Yaml mode, and in some cases, the pure command line mode will be optimized for additional design, such as the online and offline resource synchronization operation of the `fc` component:
+除此之外，很多组件可以即对 Yaml 模式有比较好的支持，也会在某些情况下对 纯命令行模式，进行额外优化设计，例如 `fc` 组件的线上线下资源同步操作：
 ```shell script
 s cli fc sync --region cn-shanghai --service-name myService --type config
 ```

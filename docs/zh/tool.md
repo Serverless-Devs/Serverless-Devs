@@ -67,7 +67,7 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 >         - url: ${assets.output.url}
 > ```
 > 此时，可先进性依赖关系分析，服务`nextjs-portal`、`assets`没有额外依赖，服务`gateway`通过魔法变量`${assets.output.url}`依赖了`assets`服务；此时部署顺序则为：  
-`nextjs-portal`、`assets`按照上下顺序部署, 之后gateway拿到 assets服务的返回结果再进行部署
+`nextjs-portal`、`assets`按照上下顺序部署, 之后 `gateway` 拿到 `assets` 服务的返回结果再进行部署
 即：`nextjs-portal`->`assets`->`gateway`
 
 
