@@ -1,15 +1,15 @@
-# Component 命令
+# Component command
 
-`component`命令是获取已经安装的组件详情信息。
+The `component` command is used to obtain the details of components that are installed.
 
-- [命令解析](#命令解析)
-    - [参数解析](#参数解析)
-    - [操作案例](#操作案例)
-- [注意事项](#注意事项)
+- [Command description](#Command-description)
+    - [Parameter description](#Parameter-description)
+    - [Example](#Example)
+- [Precautions](#Precautions)
 
-## 命令解析
+## Command description
 
-当我们执行`s component -h`之后，可以进行相关帮助信息的查看：
+After you run the `s component -h` command, the following help information is returned：
 
 ```shell script
 $ s component -h
@@ -28,15 +28,15 @@ Options:
   -h, --help                      Display help for command
 ```
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
-|-----|-----|-----|-----|
-| name |  | 选填 | 获取指定的组件信息，可以是组件名，也可以是[组件名@版本号] |
+| Parameter | Abbreviation | Required | Description | 
+|-----|-----|-----|-----| 
+| name | | No | You can obtain the specified component information, such as the component name or [Component name @Version number] |
 
-### 操作案例
+### Example
 
-如果想要获取某个组件，可以通过`--component`参数与具体的组件名进行查询，例如：
+If you want to obtain the information about a component, you can use the `--component` parameter. Example: 
 
 ```shell script
 $ s component --component fc-api
@@ -51,8 +51,7 @@ Hompage: https://github.com/devsapp/fc
 🙋 Delete the component, please use the command [s clean --component fc@0.1.27]
 ```
 
-如果想要获取所有已经安装的组件信息，可以直接执行`s component`获取，例如：
-
+If you want to obtain the information about all installed components, run the `s component` command. Example:
 ```shell script
 $ s component 
 
@@ -70,6 +69,5 @@ devsapp/fc    阿里云函数计算基础组件    100 MB       0.1.27
 ```
 
 
-## 注意事项
-
-在查询组件时，系统只会显示当前 Registry 与默认的 Github Reigstry 信息。如果需要查看其他 Reigstry 的信息，需要先通过`s set registry`进行 Reigstry 的切换
+## Precautions
+When you query a component, the system displays the information about the current registry and the default GitHub registry. If you need to view other registries, run the `s set registry` command to switch registries.

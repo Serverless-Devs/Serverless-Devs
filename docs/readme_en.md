@@ -55,7 +55,7 @@ $ npm install @serverless-devs/s -g
 
 > If you want to contribute Packages (including components and applications) to Serverless Devs, you can refer to [Package Development Documentation](en/package_dev.md)
 
-> Serverless Devs naturally supports Yaml mode and Cli mode. For the differences and trial scenarios, please refer to the document [ **Yaml mode Cli mode comparison**](./en/yaml_and_cli.md); about [**Exit Code define**](./en/tool.md#exit-code-definition) , [**Yaml file priority specification**](./en/tool.md#yaml-file priority specification) , [* *Key usage order and specification**](./en/tool.md#Key usage order and specification) , [**Setting keys through environment variables**](./en/tool.md#Through environment Variable setting key) For more details about project design, please refer to [**Developer tool design document**](./en/tool.md)
+> Serverless Devs naturally supports Yaml mode and Cli mode. For the differences and trial scenarios, please refer to the document [ **Yaml mode Cli mode comparison**](./en/yaml_and_cli.md); about [**Exit Code define**](./en/tool.md#exit-code-definition) , [**Yaml file priority specification**](./en/tool.md#yaml-file-priority-specification) , [* *Key usage order and specification**](./en/tool.md#Key-usage-order-and-specification) , [**Setting keys through environment variables**](./en/tool.md#Through-environment-Variable-setting-key) For more details about project design, please refer to [**Developer tool design document**](./en/tool.md)
 
 # Related resources
 

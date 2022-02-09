@@ -1,227 +1,216 @@
-# 与 CI/CD 平台/工具集成
+# Integration with CI and CD platforms and tools
 
-- [与 Github Action 的集成](#与-github-action-的集成)
-- [与 Gitee Go 的集成](#与-gitee-go-的集成)
-- [与 Jenkins 的集成](#与-jenkins-的集成)
-- [与云效的集成](#与云效的集成)
-- [注意事项](#注意事项)
+•     [Integration with GitHub Actions](#与-github-action-的集成)
 
-## 与 Github Action 的集成
+•     [Integration with Gitee Go](#与-gitee-go-的集成)
 
-在 Github Action 的 Yaml 文件中，可以增加 Serverless Devs 的相关下载、配置以及命令执行相关能力。
+•     [Integration with Jenkins](#与-jenkins-的集成)
 
-例如，在仓库中可以创建该文件`.github/workflows/publish.yml`，文件内容：
+•     [Integration with Apsara Devops](#与云效的集成)
 
-```yaml
+•     [Precautions](#注意事项)
+
+## Integration with GitHub Actions
+
+In YAML files of GitHub Actions, you can configure the capabilities of download, configuration, and command execution for Serverless Devs. 
+
+For example, you can create a .github/workflows/publish.yml file in the repository. The following information describes the content of the file:
+
 name: Serverless Devs Project CI/CD
-
-on:
+ 
+ on:
   push:
-    branches: [ master ]
-
-jobs:
+   branches: [ master ]
+ 
+ jobs:
   serverless-devs-cd:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm install
-      - run: npm install -g @serverless-devs/s
-      - run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default
-      - run: s deploy
-```
+   runs-on: ubuntu-latest
+   steps:
+    \- uses: actions/checkout@v2
+    \- uses: actions/setup-node@v2
+     with:
+      node-version: 12
+      registry-url: https://registry.npmjs.org/
+    \- run: npm install
+    \- run: npm install -g @serverless-devs/s
+    \- run: s config add --AccountID ${{secrets.AccountID}} --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default
+    \- run: s deploy
 
-主要包括几个部分的内容：   
-- `run: npm install -g @serverless-devs/s`:    
-    通过NPM安装最新版本的 Serverless Devs 开发者工具；
-- `run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default`    
-    通过`config`命令进行密钥等信息的配置；
-- `run: s deploy`   
-    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
+Description: 
+ \- run: npm install -g @serverless-devs/s:
+ Installs Serverless Devs of the latest version by using npm. - run: s config add --AccountID ${{secrets.AccountID}} --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default
+ Configures key information by using the config command. - run: s deploy
+ Deploys a project by using the deploy command. You can use the build command to build a project.
 
-关于密钥的配置：密钥信息的获取是通过`${{secrets.*}}`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Github Secrets 中，例如在上面的案例中，需要`AccessKeyID`,`AccessKeySecret`等两个密钥的 Key ，我们就可以配置相关的内容：
+Notes: The key information can be obtained by using ${{secrets.*}}. You must configure the keys that are required and Key in GitHub Secrets. In the preceding example, Key for AccountID, AccessKeyID, and AccessKeySecret are required. Follow the following steps to configure the keys:
 
-1. 将密钥信息配置到Github Secrets中
-    ![](https://user-images.githubusercontent.com/21079031/120761131-71f28080-c547-11eb-9bb8-e08dafabb4ee.png)
+\1.    Configure key information in GitHub Secrets.![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image001.png)
 
-2. 我们创建多对密钥信息：
-    ![](https://user-images.githubusercontent.com/21079031/120761249-93ec0300-c547-11eb-9c0d-904fb85b4201.png)
-   例如，我此处配置了三对密钥：
-    ![](https://user-images.githubusercontent.com/21079031/120761347-ae25e100-c547-11eb-9bcd-4fc742671bc5.png)
+\2.    Add key pairs. ![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image002.png)In the example that is shown in the following figure, three key pairs are configured.![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image003.png)
 
-> 关于密钥配置的部分注意内容，可以参考文末的[注意事项](#注意事项)
+For more information about key configurations, see [Precautions](#注意事项).
 
-## 与 Gitee Go 的集成
 
-在开启 Gitee Go 的服务之后，在流水线的 Yaml 文件中，可以增加 Serverless Devs 的相关下载、配置以及命令执行相关能力。
 
-例如，在仓库中可以创建水流线文件，文件内容：
+## Integration with Gitee Go
 
-```yaml
+After Gitee Go is enabled, you can configure the capabilities of download, configuration, and command execution for Serverless Devs in the YAML file of the pipeline. 
+
+For example, you can create the .github/workflows/publish.yml file in a repository. The following information describes the content of the file:
+
 name: serverless-devs
-displayName: 'Serverless Devs Project CI/CD'
-triggers:                                  # 流水线触发器配置
-  push:                                    # 设置 master 分支 在产生代码 push 时精确触发（PRECISE）构建
-    - matchType: PRECISE
-      branch: master
-commitMessage: ''                          # 通过匹配当前提交的 CommitMessage 决定是否执行流水线
-stages:                                    # 构建阶段配置
-  - stage:                                 # 定义一个 ID 标识为 deploy-stage ,名为「 Deploy Stage 」的阶段
-      name: deploy-stage
-      displayName: 'Deploy Stage'
-      failFast: false                      # 允许快速失败，即当 Stage 中有任务失败时，直接结束整个 Stage
+ displayName: 'Serverless Devs Project CI/CD'
+ triggers:                 # Configure the pipeline trigger.
+  push:                  # Configure a master branch to trigger precise build when code is pushed.
+   \- matchType: PRECISE
+    branch: master
+ commitMessage: ''             # Match the commit message and determine whether to execute the pipeline.
+ stages:                  # Configure the build stage.
+  \- stage:                 # Define a stage for which the ID is deploy-stage and the name is Deploy Stage.
+    name: deploy-stage
+    displayName: 'Deploy Stage'
+    failFast: false           # Allow fail-fast errors. When a task fails in the stage, the whole stage is terminated.
+ 
+    steps:                # Configure the build steps.
+     \- step: npmbuild@1         # Use npm to compile the environment.
+      name: deploy-step        # Define a stage for which the ID is deploy-step and the name is Deploy Step.
+      displayName: 'Deploy Step'
+      inputs:             # Configure the input parameters.
+       nodeVersion: 14.15       # Specify the version of Node.js as 14.15.
+       goals: |            # Install dependencies. Configure topics, deploy parameters, and publish the deployment.
+        node -v
+        npm -v
+        npm install -g @serverless-devs/s
+        s config add --AccountID $ACCOUNTID --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default
+        s deploy
 
-      steps:                               # 构建步骤配置
-        - step: npmbuild@1                 # 采用 npm 编译环境
-          name: deploy-step                # 定义一个 ID 标识为 deploy-step ,名为「 Deploy Step 」的阶段
-          displayName: 'Deploy Step'
-          inputs:                          # 构建输入参数设定
-            nodeVersion: 14.15             # 指定 node 环境版本为 14.15
-            goals: |                       # 安装依赖，配置相关主题、部署参数并发布部署
-              node -v
-              npm -v
-              npm install -g @serverless-devs/s
-              s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default
-              s deploy
-```
+Description: 
+ \- npm install -g @serverless-devs/s:
+ Installs Serverless Devs of the latest version by using npm. - s config add --AccountID $ACCOUNTID --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default
+ Configures key information by using the config command. - s deploy
+ Deploys a project by using the deploy command. You can use the build command to build a project.
 
-主要包括几个部分的内容：   
-- `npm install -g @serverless-devs/s`:    
-    通过NPM安装最新版本的 Serverless Devs 开发者工具；
-- `s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default`    
-    通过`config`命令进行密钥等信息的配置；
-- `s deploy`   
-    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
+Notes: You can obtain the key information by using the $* command. You must configure the keys that are required and Key in GitHub. For example, in the preceding example, Key for AccountID, ACCESSKEYID, and ACCESSKEYSECRET are required. Follow the following steps:
 
-关于密钥的配置：密钥信息的获取是通过`$*`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Gitee 的环境变量管理即可，例如在上面的案例中，需要`ACCESSKEYID`,`ACCESSKEYSECRET`等两个密钥的 Key ，我们就可以配置相关的内容：
+\1.    Open the page for environment variable management in Gitee.![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image004.png)
 
-1. 找到 Gitee 的环境变量管理
-    ![](https://user-images.githubusercontent.com/21079031/124716639-e5b4ee00-df36-11eb-9dc8-cf2d8eb30e51.png)
+\2.    Configure key pairs. ![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image005.png)In the example that is shown in the following figure, three key pairs are configured. ![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image006.png)
 
-2. 我们创建多对密钥信息：
-    ![](https://user-images.githubusercontent.com/21079031/124719394-aa67ee80-df39-11eb-84ad-944ccf0486ba.png)
-   例如，我此处配置了三对密钥：
-    ![](https://user-images.githubusercontent.com/21079031/124719496-c9ff1700-df39-11eb-8ef6-4ccae28caefc.png)
-
-> 关于密钥配置的部分注意内容，可以参考文末的[注意事项](#注意事项)
-
-
-## 与 Jenkins 的集成
-
-在准备将 Serverless Devs 集成到 Jenkins 之前，需要先基于 [Jenkins 官网](https://www.jenkins.io/zh/doc/pipeline/tour/getting-started/) 安装并运行 Jenkins。
-
-本地启动 Jenkins 后，通过浏览器进入链接 `http://localhost:8080` 配置完成基础设置后，需要新增 Credentials 设置，如下图所示：
-
-![](https://img.alicdn.com/imgextra/i2/O1CN01tSgoo71Ne62AMGxqh_!!6000000001594-2-tps-3582-1048.png)
-
-此时可以根据需要，增加密钥信息，以阿里云为例，新增三个全局凭据：
-
-```
-jenkins-alicloud-access-key-id : 阿里云 accessKeyId
-jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
-```
-
-> 新增 Credentials 的教程可以参考[这里](https://www.jenkins.io/zh/doc/book/using/using-credentials/)。
-
-此时，可以对自身的 Serverless Devs 项目进行完善：
-
-- 创建文件`Jenkinsfile`
-    ```
-    pipeline {
-        agent {
-            docker {
-                image 'maven:3.3-jdk-8'
-            }
-        }
-    
-        environment {
-            ALICLOUD_ACCESS = 'default'
-            ALICLOUD_ACCESS_KEY_ID     = credentials('jenkins-alicloud-access-key-id')
-            ALICLOUD_ACCESS_KEY_SECRET     = credentials('jenkins-alicloud-access-key-secret')
-        }
-    
-        stages {
-            stage('Setup') {
-                steps {
-                    sh 'scripts/setup.sh'
-                }
-            }
-        }
-    }
-    ```
-    主要的内容包括两个部分：
-    - environment 部分，主要是根据上面步骤配置的密钥信息，进行密钥的处理；
-    - stages 部分，这里面会有一个部分是`sh 'scripts/setup.sh'`，即运行`scripts/setup.sh`文件，进行相关内容的准备和配置；
-- 准备`scripts/setup.sh`文件，只需要在项目下，创建该文件即可：
-    ```shell script
-    #!/usr/bin/env bash
-    
-    echo $(pwd)
-    curl -o- -L http://cli.so/install.sh | bash
-    
-    source ~/.bashrc
-    
-    echo $ALICLOUD_ACCOUNT_ID
-    s config add --AccessKeyID $ALICLOUD_ACCESS_KEY_ID --AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS
-    
-    (cd code && mvn package && echo $(pwd))
-    
-    s deploy -y --use-local --access $ALICLOUD_ACCESS
-    ```
-    在该文件中，主要包括了几个部分：
-    - `curl -o- -L http://cli.so/install.sh | bash`    
-        下载并安装 Serverless Devs 开发者工具
-    - `s config add --AccessKeyID $ALICLOUD_ACCESS_KEY_ID --AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS`    
-        配置密钥信息等内容
-    - `s deploy -y --use-local --access $ALICLOUD_ACCESS`   
-        执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
-    
-    
-完成密钥配置之后，可以创建一个 Jenkins 流水线，该流水线的源是目标 github 地址。接下来，就可以开始运行 Jenkins 流水线，运行结束后，就可以得到相关的内容结果。
-
-> 关于密钥配置的部分注意内容，可以参考文末的[注意事项](#注意事项)
-
-
-## 与云效的集成
-
-在云效中，可以直接选择Serverless Devs开发者工具，并在自定义命令中，输入以下内容即可：
-
-```
-# input your command here
-npm install -g @serverless-devs/s
-s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default
-s deploy
-```
-
-这里主要包括三个部分：
-   
-- `npm install -g @serverless-devs/s`:    
-    通过NPM安装最新版本的 Serverless Devs 开发者工具（虽然云效中已经拥有了相关版本的Serverless Devs，但是实际上，这个版本可能比较老旧，所以可以通过该命令安装最新版本）；
-- `s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default`    
-    通过`config`命令进行密钥等信息的配置；
-- `s deploy`   
-    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
-
-效果如下：
-
-![image](https://user-images.githubusercontent.com/21079031/144697943-2ce9ea56-7af8-4c3b-945b-6897e6d744b5.png)
-
-由于在命令中，引用了两个重要的环境变量：`ACCESSKEYID`, `ACCESSKEYSECRET`，所以还需要在环境变量中，增加类似的内容：
-
-![image](https://user-images.githubusercontent.com/21079031/144699074-3dad63d7-835f-4eb8-bd95-662de683dbbc.png)
+For more information about key configurations, see [Precautions](#注意事项).
 
 
 
-## 注意事项
+## Integration with Jenkins
 
-- 在配置密钥的时候，使用了`s config add`命令，此时在最后有一个参数是`-a default`，代表的是给该密钥一个叫`default`的别名，这个别名要和项目所设定的使用密钥保持一致，例如在`s.yaml`中的`access`字段；
-- 如果在当前应用在，涉及到了配置部署到不同的平台或者账号下，可能会涉及到配置多个密钥信息，此时需要给不同的密钥不同的别名，并且在`s.yaml`中进行使用；
-- 如果想要配置更为灵活的密钥信息，可以考虑通过`-il`和`-kl`参数获取，例如同时配置两对密钥，并且使用自定义 Key ：
-  ```yaml
-  s config add -kl tempToken1,tempToken2 -il tempValue1,tempValue2 -a website_access
-  s config add -kl tempToken3,tempToken4 -il tempValue3,tempValue4 -a fc_access
-  ```
-  
+Before you integrate Serverless Devs with Jenkins, you must install and run Jenkins. For more information, see [Jenkins](https://www.jenkins.io/zh/doc/pipeline/tour/getting-started/). 
+
+After you start Jenkins, go to http://localhost:8080 in a browser. Configure the basic configurations and credential information. The following figure shows the configurations.
+
+![img](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image007.png)
+
+Add the key information based on your requirements. For example, you can add the following global credentials in Alibaba Cloud:
+
+jenkins-alicloud-account-id : Alibaba Cloud accountId
+ 
+ jenkins-alicloud-access-key-id : Alibaba Cloud accessKeyId
+ 
+ jenkins-alicloud-access-key-secret : Alibaba Cloud accessKeySecret
+
+Click [here](https://www.jenkins.io/zh/doc/book/using/using-credentials/) to learn how to add credentials. 
+
+You can add more configurations for Serverless Devs projects:
+
+•     Create the file Jenkinsfile ``` pipeline { agent { docker { image ‘maven:3.3-jdk-8’ } }.
+
+​    environment {
+​    ALICLOUD_ACCESS = 'default'
+​    ALICLOUD_ACCOUNT_ID   = credentials('jenkins-alicloud-account-id')
+​    ALICLOUD_ACCESS_KEY_ID   = credentials('jenkins-alicloud-access-key-id')
+​    ALICLOUD_ACCESS_KEY_SECRET   = credentials('jenkins-alicloud-access-key-secret')
+  }
+ 
+  stages {
+​    stage('Setup') {
+​      steps {
+​        sh 'scripts/setup.sh'
+​      }
+​    }
+  }
+
+​      } ``` Description:
+
+–     In the environment part, the keys are processed based on the configurations
+
+–     In the stages part, the sh 'scripts/setup.sh' command is run to execute the scripts/setup.sh file.
+
+•     To prepare the scripts/setup.sh file, create the file under the project: ```shell script #!/usr/bin/env bash
+
+​      echo $(pwd) curl -o- -L http://cli.so/install.sh | bash
+
+​      source ~/.bashrc
+
+​      echo $ALICLOUD_ACCOUNT_ID s config add –AccountID $ALICLOUD_ACCOUNT_ID –AccessKeyID $ALICLOUD_ACCESS_KEY_ID –AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS
+
+​      (cd code && mvn package && echo $(pwd))
+
+​      s deploy -y –use-local –access $ALICLOUD_ACCESS ``` The following information describes the content of the file:
+
+–     curl -o- -L http://cli.so/install.sh | bash
+ Downloads and installs Serverless Devs.
+
+–     s config add --AccountID $ALICLOUD_ACCOUNT_ID --AccessKeyID $ALICLOUD_ACCESS_KEY_ID --AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS
+ Configures key information.
+
+–     s deploy -y --use-local --access $ALICLOUD_ACCESS
+ Run the deploy command to deploy the project or run the build command to build a project.
+
+After the key configuration is complete, you can create a Jenkins pipeline for which the source is the destination GitHub address. Run the Jenkins pipeline. Then, you can get relevant results when the pipeline running ends. 
+
+For more information about key configurations, see [Precautions](#注意事项).
+
+
+
+## Integration with Apsara Devops
+
+In Apsara DevOps, select Serverless Devs and enter the following content in a custom command:
+
+\# input your command here
+ npm install -g @serverless-devs/s
+ s config add --AccountID ${ACCOUNTID} --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default
+ s deploy
+
+Description:
+
+•     npm install -g @serverless-devs/s:
+ Install Serverless Devs of the latest version by using npm. The Serverless Devs in Apsara DevOps may be of an earlier version. You can run the command to install Serverless Devs of the latest version.
+
+•     s config add --AccountID ${ACCOUNTID} --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default
+ Configure key information by using the config command.
+
+•     s deploy
+ Run the deploy command to deploy projects or run the build command to build projects.
+
+Example:
+
+![image](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image008.png)
+
+image
+
+In the command, the following environment variables are referenced: ACCOUNTID, ACCESSKEYID, and ACCESSKEYSECRET. You need to add the following content in the environment variables.
+
+![image](file:////Users/jiangyu/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image009.png)
+
+image
+
+
+
+## Precautions
+
+•     When you configure keys, the s config add command is used. The last parameter -a default is used to configure the alias of the key as default. Aliases must be consistent with the keys that are configured in the project. For example, aliases must be the same as the values of the access field in the s.yaml file.
+
+•     You can configure multiple keys and set aliases to the keys if the application is deployed in different platforms and accounts. After you configure aliases, you can use them in the s.yaml file.
+
+•     If you want to configure custom key information, you can use the -il and -kl parameters. For example, if you want to configure two pairs of keys and use custom keys, run the following commands:
+
+   s config add -kl tempToken1,tempToken2 -il tempValue1,tempValue2 -a website_access
+ s config add -kl tempToken3,tempToken4 -il tempValue3,tempValue4 -a fc_access

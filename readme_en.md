@@ -31,6 +31,7 @@
 
 
 **Serverless Devs** is an open source and open serverless developer platform dedicated to providing developers with a powerful tool chain system. Through this platform, developers can not only experience multi cloud serverless products with one click and rapidly deploy serverless projects, but also manage projects in the whole life cycle of serverless applications, and combine serverless devs with other tools / platforms very simply and quickly to further improve the efficiency of R & D, operation and maintenance.
+
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
 
 > For more information about Serverless Devs, please refer to [project introduction document](./docs/en/readme.md)
@@ -55,7 +56,7 @@ $ npm install @serverless-devs/s -g
 
 > If you want to contribute package (including components and Applications) to serverless devs, you can refer to [Package development document](./docs/en/package_dev.md)   
 
-> Serverless devs naturally supports yaml mode and cli mode. For their differences and trial scenarios, please refer to the document [**Yaml mode and CLI mode comparison**](./docs/en/yaml_and_cli.md)；About [**Exit Code Definition**](./docs/en/tool.md#exit-code-definition) , [**Yaml File Priority Specification**](./docs/en/tool.md# yaml-file priority specification) , [**Key usage order and specification**](./docs/en/tool.md#Key usage order and specification) , [**Setting keys through environment variables** ](./docs/en/tool.md#Set key through environment variable) For more details about project design, please refer to [**Developer tool design document**](./docs/en/tool.md )
+> Serverless devs naturally supports yaml mode and cli mode. For their differences and trial scenarios, please refer to the document [**Yaml mode and CLI mode comparison**](./docs/en/yaml_and_cli.md)；About [**Exit Code Definition**](./docs/en/tool.md#exit-code-definition) , [**Yaml File Priority Specification**](./docs/en/tool.md#yaml-file-priority-specification) , [**Key usage order and specification**](./docs/en/tool.md#Key-usage-order-and-specification) , [**Setting keys through environment variables** ](./docs/en/tool.md#Set-key-through-environment-variable) For more details about project design, please refer to [**Developer tool design document**](./docs/en/tool.md )
 
 # Related resources
 

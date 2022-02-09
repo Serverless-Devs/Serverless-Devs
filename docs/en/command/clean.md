@@ -1,15 +1,15 @@
-# Clean 命令
+# Clean command
 
-`clean`命令是清理 Serverless Devs 的缓存相关功能，可以通过该命令清理环境、不用的依赖包以及相关的缓存内容。
+The `clean` command can be used to clean up the cache of Serverless Devs. You can use this command to clean up the environment, dependency packages that are not used, and the cache. 
 
-- [命令解析](#命令解析)
-    - [参数解析](#参数解析)
-    - [操作案例](#操作案例)
-- [注意事项](#注意事项)
+- [Command-description](#Command-description)
+    - [Parameter description](#Parameter-description)
+    - [Example](#Example)
+- [Precautions](#Precautions)
 
-## 命令解析
+## Command description
 
-当我们执行`s clean -h`之后，可以进行相关帮助信息的查看：
+After you execute the `s clean -h` command, we can view the help information:
 
 ```shell script
 $ s clean -h
@@ -33,32 +33,32 @@ Options:
   -h, --help                    Display help for command
 ```
 
-### 参数解析
+### Parameter description
 
-| 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
+| Parameter | Abbreviation | Required | Description |
 |-----|-----|-----|-----|
-| all |  | 选填 | 清理环境 |
-| cache |  | 选填 | 删除缓存里的的<dirName>文件 |
-| component |  | 选填 | 删除指定的组件，可以是组件名，也可以是[组件名@版本号] |
+| all |  | No | Cleans the environment. |
+| cache |  | No | Deletes the <dirName> files in the cache. |
+| component |  | No | Deletes a component. You can use a component name or [Component name@Version]. |
 
-### 操作案例
 
-如果想要清理掉某个组件，可以通过`--component`参数与具体的组件名进行清理，例如：
+### Example
+
+If you want to clean a component, you can specify the component name in the `--component` command. For example:
 
 ```shell script
 $ s clean --component fc-api
 Component [fc-api] has been cleaned up successfully.
 ```
 
-如果想要清理整体环境，可以直接通过`--all`参数进行，例如：
+If you want to clean up the environment, you can use the `--all` parameter. For example:
 
 ```shell script
 $ s clean --all       
 The environment of Serverless Devs has been cleaned up successfully.
 ```
 
-## 注意事项
-
-在进行指定组件的清理时，系统会按照指定的逻辑进行组件的清理：
-1. 系统先会确定当前设置的 Registry 缓存中，存在的符合条件的组件，并进行清理；
-2. 系统将会对系统的最终 Registry 缓存中（Github Registry），存在的符合条件的组件，并进行清理；
+## Precautions
+When you clean up a component, the system follows the following logic: 
+1. First, the system checks and cleans the components that meet the condition in the Registry cache. 
+2. Then, the system checks and cleans the component that meets the condition in the GitHub Registry cache.

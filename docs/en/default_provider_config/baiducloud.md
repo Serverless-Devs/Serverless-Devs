@@ -1,8 +1,8 @@
-# 百度云密钥获取
+# Baidu cloud key acquisition
 
-百度云官网：https://cloud.baidu.com/        
+Baidu Cloud official website: https://cloud.baidu.com/
 
-- 打开 [百度云官网](https://cloud.baidu.com/) 进行登录，登录后选择右上角安全认证 ：
-  ![获取密钥页面](https://images.devsapp.cn/access/baidu-login.jpg)
-- 点击Access Key ID右侧的“显示”，可查看其对应的Secret Access Key，点击“隐藏”可隐藏对应的Secret Access Key: 
-  ![获取密钥](https://images.devsapp.cn/access/baidu-access.jpg)
+- Open [Baidu Cloud Official Website](https://cloud.baidu.com/) to log in, after logging in, select the security authentication in the upper right corner:
+   ![Get key page](https://images.devsapp.cn/access/baidu-login.jpg)
+- Click "Show" on the right side of the Access Key ID to view the corresponding Secret Access Key, and click "Hide" to hide the corresponding Secret Access Key:
+   ![Get key](https://images.devsapp.cn/access/baidu-access.jpg)

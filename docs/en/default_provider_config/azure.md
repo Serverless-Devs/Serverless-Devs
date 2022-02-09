@@ -1,9 +1,9 @@
-# Azure密钥获取
+# Azure key acquisition
 
-Azure官网：https://www.azure.com       
+Azure official website: https://www.azure.com
 
-- 通过 [Azure网](https://portal.azure.com/) 进入所创建的Azure Web App的管理界面之后进入Identity管理界面
-- 在Azure网站最上方的搜索栏里搜索Key Vault关键字并进入Key Vault管理总界面
-   ![](https://images.devsapp.cn/access/azure-page.jpg)
-- 点击进入创建好的Azure Key Vault实例之后进入Access Policies管理界面
-- 击添加访问策略按钮，为需要授权的principal添加权限后点击保存按钮即可
+- Enter the management interface of the created Azure Web App through [Azure Network](https://portal.azure.com/) and then enter the Identity management interface
+- Search the Key Vault keyword in the search bar at the top of the Azure website and enter the Key Vault management interface
+    ![](https://images.devsapp.cn/access/azure-page.jpg)
+- Click to enter the created Azure Key Vault instance and enter the Access Policies management interface
+- Click the Add Access Policy button, add permissions for the principal that needs to be authorized, and then click the Save button.

@@ -1,52 +1,50 @@
-# 华为云密钥获取
+# Huawei cloud key acquisition
 
-华为云官网：https://www.huaweicloud.com/       
+Huawei Cloud official website: https://www.huaweicloud.com/
 
-- 打开 [华为云官网](https://www.huaweicloud.com/) 进行登录，登录后选择右上角【我的凭证】再选择左侧的 【访问密钥】：
-  ![获取密钥页面](https://images.devsapp.cn/access/huawei-page.jpg)
-- 点击新增访问密钥，会弹出提示框进行相关安全验证，通过之后可以看到：
+- Open the [HUAWEI CLOUD official website](https://www.huaweicloud.com/) to log in. After logging in, select [My Credentials] in the upper right corner and then [Access Key] on the left:
+  ![Get key page](https://images.devsapp.cn/access/huawei-page.jpg)
+- Click Add Access Key, a prompt box will pop up for relevant security verification. After passing, you can see:
   ![](https://images.devsapp.cn/access/huawei-download.jpg)
-- 下载之后可以看到自己的密钥信息：
+- After downloading, you can see your own key information:
   ![](https://images.devsapp.cn/access/huawei-access.jpg)
 
-> 如果访问密钥泄露，会带来数据泄露风险，且每个访问密钥仅能下载一次，为了账号安全性，建议您定期更换并妥善保存访问密钥。
+> If the access key is leaked, there will be a risk of data leakage, and each access key can only be downloaded once. For account security, it is recommended that you periodically replace and properly store the access key.
 
 ------
 
-## 安全建议
+## Security advice
 
-- 不给华为云账号创建访问密钥   
-华为云账号是您华为云资源归属、资源使用计费的主体，对其所拥有的资源及云服务具有完全的访问权限。密码与访问密钥（AK/SK）都是账号的身份凭证，具有同等效力，密码用于登录界面控制台，是您必须具备的身份凭证，访问密钥用于使用开发工具进行编程调用，是第二个身份凭证，为辅助性质，非必须具备。为了提高账号安全性，建议您仅使用密码登录控制台即可，不要给账号创建第二个身份凭证（访问密钥），避免因访问密钥泄露带来的信息安全风险。
+- Do not create access keys for HUAWEI CLOUD accounts
+Your HUAWEI CLOUD account is the subject of your HUAWEI CLOUD resource ownership and resource usage billing, and has full access rights to the resources and cloud services it owns. Both the password and the access key (AK/SK) are the identity credentials of the account and have the same effect. The password is used to log in to the interface console and is the identity certificate you must have. The access key is used for programming calls using development tools. The second identity credential is of an auxiliary nature and is not required. To improve account security, it is recommended that you only log in to the console with a password, and do not create a second identity credential (access key) for your account to avoid information security risks caused by access key disclosure.
 
-- 不将访问密钥嵌入到代码中   
-当您使用API、CLI、SDK等开发工具来访问云服务时，请勿直接将访问密钥嵌入到代码中，减少访问密钥被泄露的风险。
+- Do not embed access keys into the code
+When you use API, CLI, SDK and other development tools to access cloud services, do not directly embed the access key into the code to reduce the risk of the access key being leaked.
 
-- 创建单独的IAM用户   
-如果有任何人需要访问您华为云账号中的资源，请不要将账号的密码共享给他们，而是在您的账号中给他们创建单独的IAM用户并分配相应的权限，同时，作为华为云账号主体，建议您不使用账号访问华为云，而是为自己创建一个IAM用户，并授予该用户管理权限，以使用该IAM用户代替账号进行日常管理工作，保护账号的安全。
+- Create separate IAM users
+If anyone needs to access the resources in your HUAWEI CLOUD account, please do not share the account password with them. Instead, create a separate IAM user in your account and assign corresponding permissions to them. At the same time, use it as a HUAWEI CLOUD account. It is recommended that you do not use an account to access HUAWEI CLOUD, but create an IAM user for yourself and grant the user management permissions, so that you can use the IAM user instead of the account to perform daily management work and protect the security of the account.
 
-- 授予最小权限   
-最小权限原则是标准的安全建议，您可以使用IAM提供的系统权限，或者自己创建自定义策略，给账号中的用户仅授予刚好能完成工作所需的权限，通过最小权限原则，可以帮助您安全地控制用户对华为云资源的访问。
+- Grant least privilege
+The principle of least privilege is a standard security recommendation. You can use the system permissions provided by IAM, or create a custom policy yourself, to grant only the permissions that are just enough for the users in the account to complete the work. The principle of least privilege can help you secure Control user access to HUAWEI CLOUD resources.
 
-   同时，建议为使用API、CLI、SDK等开发工具访问云服务的IAM用户，授予自定义策略，通过精细的权限控制，减小因访问密钥泄露对您的账号造成的影响。
+   At the same time, it is recommended to grant custom policies to IAM users who use development tools such as APIs, CLIs, and SDKs to access cloud services, and use fine-grained permission control to reduce the impact of access key leakage on your account.
 
-- 开启虚拟MFA功能   
-Multi-Factor Authentication (简称MFA) 是一种非常简单的安全实践方法，建议您给华为云账号以及您账号中具备较高权限的用户开启MFA功能，它能够在用户名和密码之外再额外增加一层保护。启用MFA后，用户登录控制台时，系统将要求用户输入用户名和密码（第一安全要素），以及来自其MFA设备的验证码（第二安全要素）。这些多重要素结合起来将为您的账户和资源提供更高的安全保护。    
+- Enable virtual MFA function
+Multi-Factor Authentication (MFA for short) is a very simple security practice method. It is recommended that you enable the MFA function for HUAWEI CLOUD accounts and users with higher privileges in your account. It can add an additional feature to the username and password. layer protection. When MFA is enabled, when users log in to the console, they will be asked to enter a username and password (first security factor), and a verification code from their MFA device (second security factor). The combination of these multiple elements will provide a higher level of security for your account and resources.
 
-   MFA设备可以基于硬件也可以基于软件，系统目前仅支持基于软件的虚拟MFA，虚拟MFA是能产生6位数字认证码的应用程序，此类应用程序可在移动硬件设备（包括智能手机）上运行，非常方便。
+   MFA devices can be hardware-based or software-based. Currently, the system only supports software-based virtual MFA. Virtual MFA is an application that can generate a 6-digit authentication code. Such applications can run on mobile hardware devices (including smartphones). ,Very convenient.
 
-- 设置强密码策略   
-在IAM控制台设置强密码策略，例如密码最小长度、密码中同一字符连续出现的最大次数、密码不能与历史密码相同，保证用户使用复杂程度高的强密码。
+- Set a strong password policy
+Set a strong password policy on the IAM console, such as the minimum password length, the maximum number of consecutive occurrences of the same character in the password, and the password cannot be the same as the historical password to ensure that users use strong passwords with high complexity.
 
-- 设置敏感操作    
-设置敏感操作后，如果您或者您账号中的用户进行敏感操作时，例如删除资源、生成访问密钥等，需要输入密码和验证码进行验证，避免误操作带来的风险和损失。    
+- Set sensitive actions
+After setting sensitive operations, if you or the users in your account perform sensitive operations, such as deleting resources, generating access keys, etc., you need to enter a password and verification code for verification to avoid risks and losses caused by misoperation.
 
-- 定期修改身份凭证   
-如果您不知道自己的密码或访问密钥已泄露，定期进行修改可以将不小心泄露的风险降至最低。
+- Regularly modify identity credentials
+If you don't know your password or access key has been compromised, modifying it regularly can minimize the risk of inadvertent disclosure.
 
-   定期轮换密码可以通过设置密码有效期策略进行，您以及您账号中的用户在设置的时间内必须修改密码，否则密码将会失效，IAM会在密码到期前15天开始提示用户修改密码。    
-   轮换访问密钥可以通过创建两个访问密钥进行，将两个访问密钥作为一主一备，一开始先使用主访问密钥一，一段时间后，使用备访问密钥二，然后在控制台删除主访问密钥一，并重新生成一个访问密钥，在您的应用程序中定期轮换使用。    
+   You can periodically rotate passwords by setting a password expiration policy. You and the users in your account must change the password within the set time. Otherwise, the password will become invalid. IAM will prompt the user to change the password 15 days before the password expires.
+   Rotating the access key can be done by creating two access keys, using the two access keys as one master and one backup, first use the master access key 1, after a period of time, use the backup access key 2, and then use the control key. The desk deletes the master access key one and regenerates an access key that rotates periodically in your application.
 
-- 删除不需要的身份凭证   
-   对于仅需要登录控制台的IAM用户，不需要使用访问密钥，请不要给他们创建，或者及时删除访问密钥。您还可以通过账号中IAM用户的“最近一次登录时间”，来判断该用户的凭证是否已经属于不需要的范畴，对于长期未登录的用户，请及时修改他们的身份凭证，包括修改密码和删除访问密钥，您还可以设置“账号停用策略”来控制长期未使用的账号到期自动停用。
-
-
+- Remove unwanted credentials
+   For IAM users who only need to log in to the console, access keys are not required, please do not create them, or delete access keys in time. You can also use the "last login time" of the IAM user in the account to determine whether the user's credentials are no longer required. For users who have not logged in for a long time, please modify their credentials in time, including changing passwords and deleting them. Access keys, you can also set an "Account Deactivation Policy" to control the automatic deactivation of accounts that have not been used for a long time.

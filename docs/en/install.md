@@ -1,46 +1,46 @@
-# 工具安装与升级
+# Tool installation and upgrade
 
-- [工具安装](#工具安装)
-    - [通过命令行工具安装](#通过命令行工具安装)
-    - [通过脚本安装](#通过脚本安装)
-- [工具升级](#工具升级)
+- [Tool installation](#Tool-installation)
+    - [Install via command line tool](#Install-via-command-line-tool)
+    - [Install via script](#Install-via-script)
+- [Tool upgrade](#Tool-upgrade)
 
 
-## 工具安装
-### 通过命令行工具安装
+## Tool installation
+### Install via command line tool
 
-通过 [npm](https://www.npmjs.com/) 包管理安装：适用于已经预装了 npm 的 Windows、Mac、Linux 平台。在 Windows、Mac、Linux 平台执行以下命令安装 Serverless Devs Tool工具。
+Install via [npm](https://www.npmjs.com/) package management: applicable to Windows, Mac, and Linux platforms that have been pre-installed with npm. Execute the following commands on Windows, Mac, and Linux platforms to install Serverless Devs Tool.
 
 ```shell script
 $ npm install @serverless-devs/s -g
 ```
-或者 通过 [yarn](https://yarnpkg.com/) 进行安装
+Or install via [yarn](https://yarnpkg.com/)
 
 ```shell script
 $ yarn global add @serverless-devs/s
 ```
 
-> **说明**:   
-> - 如果在 Linux 或 MacOS 下执行该命令报错且报错信息为 `未找到命令`，请执行命令 `ln -s serverless-devs安装位置 /usr/bin`，serverless-devs安装位置可以通过`find / -name s` 查找。   
-> - 如果在 Linxu 下执行该命令报错且报错信息为 `Error: EACCES: permission denied`，请执行命令 `sudo npm install @serverless-devs/s -g`。   
-> - 如果安装过程较慢，可以考虑使用淘宝 npm 源，安装命令为 `npm --registry=https://registry.npm.taobao.org install @serverless-devs/s -g`。
+> **illustrate**:
+> - If you execute the command under Linux or macOS and report an error and the error message is `Command not found`, please execute the command `ln -s serverless-devs installation location /usr/bin`, serverless-devs installation location can be found by `find / -name s`.
+> - If an error is reported when executing this command under Linux and the error message is `Error: EACCES: permission denied`, please execute the command `sudo npm install @serverless-devs/s -g`.
+> - If you have a slow installation process in mainland, you can consider using Taobao npm source. The installation command is `npm --registry=https://registry.npm.taobao.org install @serverless-devs/s -g`.
 
 
-### 通过脚本安装
+### Install via script
 
-针对 Mac/Linux 用户
+For Mac/Linux users
 
 ```shell script
 $ curl -o- -L http://cli.so/install.sh | bash
 ```
 
-## 工具升级
+## Tool upgrade
 
-Serverless Devs 开发者工具会不定期的进行更新升级。开发者在使用 Serverless Devs 开发者工具时，可以根据系统提醒进行进行最新版本的感知。
+Serverless Devs developer tools will be updated and upgraded from time to time. When developers use Serverless Devs developer tools, they can be aware of the latest version according to system reminders.
 
-当客户端感知到系统升级之后，开发者可以通过命令`npm i -g @serverless-devs/s`进行更新操作，也可以通过 [Release](https://github.com/Serverless-Devs/Serverless-Devs/releases) 信息查看升级的具体内容，以决定是否进行本次升级。
+After the client perceives the system upgrade, the developer can use the command `npm i -g @serverless-devs/s` to update, or use [Release](https://github.com/Serverless-Devs/Serverless-Devs/releases) View the specific content of the upgrade to determine whether to perform this upgrade.
 
-> 例如：我当前的 Serverless Devs 的版本是`2.0.89`，当系统升级之后，我再使用Serverless Devs开发者工具，工具将会给出相对应的提醒：
+> For example: My current Serverless Devs version is `2.0.89`. After the system is upgraded, I will use the Serverless Devs developer tool, and the tool will give a corresponding reminder:
 > ```shell script
 >    ╭───────────────────────────────────────────────╮
 >    │                                               │
@@ -49,4 +49,4 @@ Serverless Devs 开发者工具会不定期的进行更新升级。开发者在�
 >    │                                               │
 >    ╰───────────────────────────────────────────────╯
 > ```
-> 此时，只需要按照提醒进行工具更新升级即可。
+> At this point, just follow the reminder to update the tool.

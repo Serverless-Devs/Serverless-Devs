@@ -1,9 +1,9 @@
-# 云厂商密钥配置
+# Cloud vendor key configuration
 
-- [阿里云](alibabacloud.md)
-- [百度云](baiducloud.md)
+- [Alibaba Cloud](alibabacloud.md)
+- [Baidu Cloud](baiducloud.md)
 - [AWS](aws.md)
 - [Azure](azure.md)
 - [Google Cloud](gcp.md)
-- [华为云](huaweicloud.md)
-- [腾讯云](tencentcloud.md)
+- [HUAWEI CLOUD](huaweicloud.md)
+- [Tencent Cloud](tencentcloud.md)
