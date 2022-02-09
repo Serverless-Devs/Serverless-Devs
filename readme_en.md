@@ -55,7 +55,7 @@ $ npm install @serverless-devs/s -g
 
 > If you want to contribute package (including components and Applications) to serverless devs, you can refer to [Package development document](./docs/en/package_dev.md)   
 
-> Serverless devs naturally supports yaml mode and cli mode. For their differences and trial scenarios, please refer to the document [**Yaml mode and CLI mode comparison**](./docs/en/yaml_and_cli.md)；About [**Exit Code Definition**](./docs/en/tool.md#exit-code-definition), [**Yaml File Priority Specification**](./docs/en/tool.md# yaml-file priority specification), [**Key usage order and specification**](./docs/en/tool.md#Key usage order and specification), [**Setting keys through environment variables** ](./docs/en/tool.md#Set key through environment variable) For more details about project design, please refer to [**Developer tool design document**](./docs/en/tool.md )
+> Serverless devs naturally supports yaml mode and cli mode. For their differences and trial scenarios, please refer to the document [**Yaml mode and CLI mode comparison**](./docs/en/yaml_and_cli.md)；About [**Exit Code Definition**](./docs/en/tool.md#exit-code-definition) , [**Yaml File Priority Specification**](./docs/en/tool.md# yaml-file priority specification) , [**Key usage order and specification**](./docs/en/tool.md#Key usage order and specification) , [**Setting keys through environment variables** ](./docs/en/tool.md#Set key through environment variable) For more details about project design, please refer to [**Developer tool design document**](./docs/en/tool.md )
 
 # Related resources
 
@@ -103,6 +103,6 @@ If you have feedback about bugs or future expectations, you can post them in [Is
 
 -----------
 
-> Serverless Devs developer tools follow [Serverless Devs Model](./spec/readme.md), more model/specification information can refer to [Serverless Registry Model](./spec/en/0.0.2/serverless_registry_model/readme. md), [Serverless User Model](./spec/en/0.0.2/serverless_user_model/readme.md) and [Serverless Package Model](./spec/en/0.0.2/serverless_package_model/readme.md).
+> Serverless Devs developer tools follow [Serverless Devs Model](./spec/readme.md) , more model/specification information can refer to [Serverless Registry Model](./spec/en/0.0.2/serverless_registry_model/readme. md) , [Serverless User Model](./spec/en/0.0.2/serverless_user_model/readme.md) and [Serverless Package Model](./spec/en/0.0.2/serverless_package_model/readme.md).
 
 > Privacy statement: In order to provide developers with an optimized user experience, Serverless Devs will collect some client-side error messages to help the community optimize tools. Of course, these error messages are all desensitized error messages. If you still have doubts or If you don't want to use this feature, you can disable it with the command `s set analysis disable`.
