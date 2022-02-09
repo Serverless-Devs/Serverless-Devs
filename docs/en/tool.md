@@ -103,8 +103,9 @@ s config add -a default-aliyun -kl AccountID,AccessKeyID,AccessKeySecret -il ${A
 
     You can name the key as a `*********_serverless_devs_access` in the environment variable, and set the value to a string in JSON format. In the following example, `default_serverless_devs_access` is used.
     - Key: `default_serverless_devs_access`
-    - Value: `{\"AccountID\":\"temp_accountid\",\"AccessKeyID\":\"temp_accesskeyid\",\"AccessKeySecret\":\"temp_accesskeysecret\"}
- In this case, you can specify thedefault_serverless_devs_access key when you configure keys. Example: ${env(default_serverless_devs_access)}`.
+    - Value: `{\"AccountID\":\"temp_accountid\",\"AccessKeyID\":\"temp_accesskeyid\",\"AccessKeySecret\":\"temp_accesskeysecret\"}`
+ 
+    In this case, you can specify the `default_serverless_devs_access` key when you configure keys. Example: `${env(default_serverless_devs_access)}`.
 ​    
     When you configure `s.yaml` file, conform to the following format: 
     ```
