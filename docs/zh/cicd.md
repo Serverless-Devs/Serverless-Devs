@@ -30,19 +30,19 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm install
       - run: npm install -g @serverless-devs/s
-      - run: s config add --AccountID ${{secrets.AccountID}} --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default
+      - run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default
       - run: s deploy
 ```
 
 主要包括几个部分的内容：   
 - `run: npm install -g @serverless-devs/s`:    
     通过NPM安装最新版本的 Serverless Devs 开发者工具；
-- `run: s config add --AccountID ${{secrets.AccountID}} --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default`    
+- `run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default`    
     通过`config`命令进行密钥等信息的配置；
 - `run: s deploy`   
     执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
 
-关于密钥的配置：密钥信息的获取是通过`${{secrets.*}}`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Github Secrets 中，例如在上面的案例中，需要`AccountID`,`AccessKeyID`,`AccessKeySecret`等三个密钥的 Key ，我们就可以配置相关的内容：
+关于密钥的配置：密钥信息的获取是通过`${{secrets.*}}`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Github Secrets 中，例如在上面的案例中，需要`AccessKeyID`,`AccessKeySecret`等两个密钥的 Key ，我们就可以配置相关的内容：
 
 1. 将密钥信息配置到Github Secrets中
     ![](https://user-images.githubusercontent.com/21079031/120761131-71f28080-c547-11eb-9bb8-e08dafabb4ee.png)
@@ -58,7 +58,7 @@ jobs:
 
 在开启 Gitee Go 的服务之后，在流水线的 Yaml 文件中，可以增加 Serverless Devs 的相关下载、配置以及命令执行相关能力。
 
-例如，在仓库中可以创建该文件`.github/workflows/publish.yml`，文件内容：
+例如，在仓库中可以创建水流线文件，文件内容：
 
 ```yaml
 name: serverless-devs
@@ -84,19 +84,19 @@ stages:                                    # 构建阶段配置
               node -v
               npm -v
               npm install -g @serverless-devs/s
-              s config add --AccountID $ACCOUNTID --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default
+              s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default
               s deploy
 ```
 
 主要包括几个部分的内容：   
 - `npm install -g @serverless-devs/s`:    
     通过NPM安装最新版本的 Serverless Devs 开发者工具；
-- `s config add --AccountID $ACCOUNTID --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default`    
+- `s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default`    
     通过`config`命令进行密钥等信息的配置；
 - `s deploy`   
     执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
 
-关于密钥的配置：密钥信息的获取是通过`$*`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Gitee 的环境变量管理即可，例如在上面的案例中，需要`ACCOUNTID`,`ACCESSKEYID`,`ACCESSKEYSECRET`等三个密钥的 Key ，我们就可以配置相关的内容：
+关于密钥的配置：密钥信息的获取是通过`$*`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Gitee 的环境变量管理即可，例如在上面的案例中，需要`ACCESSKEYID`,`ACCESSKEYSECRET`等两个密钥的 Key ，我们就可以配置相关的内容：
 
 1. 找到 Gitee 的环境变量管理
     ![](https://user-images.githubusercontent.com/21079031/124716639-e5b4ee00-df36-11eb-9dc8-cf2d8eb30e51.png)
@@ -120,10 +120,7 @@ stages:                                    # 构建阶段配置
 此时可以根据需要，增加密钥信息，以阿里云为例，新增三个全局凭据：
 
 ```
-jenkins-alicloud-account-id : 阿里云 accountId
-
 jenkins-alicloud-access-key-id : 阿里云 accessKeyId
-
 jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
 ```
 
@@ -142,7 +139,6 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
     
         environment {
             ALICLOUD_ACCESS = 'default'
-            ALICLOUD_ACCOUNT_ID     = credentials('jenkins-alicloud-account-id')
             ALICLOUD_ACCESS_KEY_ID     = credentials('jenkins-alicloud-access-key-id')
             ALICLOUD_ACCESS_KEY_SECRET     = credentials('jenkins-alicloud-access-key-secret')
         }
@@ -169,7 +165,7 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
     source ~/.bashrc
     
     echo $ALICLOUD_ACCOUNT_ID
-    s config add --AccountID $ALICLOUD_ACCOUNT_ID --AccessKeyID $ALICLOUD_ACCESS_KEY_ID --AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS
+    s config add --AccessKeyID $ALICLOUD_ACCESS_KEY_ID --AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS
     
     (cd code && mvn package && echo $(pwd))
     
@@ -178,7 +174,7 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
     在该文件中，主要包括了几个部分：
     - `curl -o- -L http://cli.so/install.sh | bash`    
         下载并安装 Serverless Devs 开发者工具
-    - `s config add --AccountID $ALICLOUD_ACCOUNT_ID --AccessKeyID $ALICLOUD_ACCESS_KEY_ID --AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS`    
+    - `s config add --AccessKeyID $ALICLOUD_ACCESS_KEY_ID --AccessKeySecret $ALICLOUD_ACCESS_KEY_SECRET -a $ALICLOUD_ACCESS`    
         配置密钥信息等内容
     - `s deploy -y --use-local --access $ALICLOUD_ACCESS`   
         执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
@@ -196,7 +192,7 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
 ```
 # input your command here
 npm install -g @serverless-devs/s
-s config add --AccountID ${ACCOUNTID} --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default
+s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default
 s deploy
 ```
 
@@ -204,7 +200,7 @@ s deploy
    
 - `npm install -g @serverless-devs/s`:    
     通过NPM安装最新版本的 Serverless Devs 开发者工具（虽然云效中已经拥有了相关版本的Serverless Devs，但是实际上，这个版本可能比较老旧，所以可以通过该命令安装最新版本）；
-- `s config add --AccountID ${ACCOUNTID} --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default`    
+- `s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default`    
     通过`config`命令进行密钥等信息的配置；
 - `s deploy`   
     执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
@@ -213,7 +209,7 @@ s deploy
 
 ![image](https://user-images.githubusercontent.com/21079031/144697943-2ce9ea56-7af8-4c3b-945b-6897e6d744b5.png)
 
-由于在命令中，引用了三个重要的环境变量：`ACCOUNTID`, `ACCESSKEYID`, `ACCESSKEYSECRET`，所以还需要在环境变量中，增加类似的内容：
+由于在命令中，引用了两个重要的环境变量：`ACCESSKEYID`, `ACCESSKEYSECRET`，所以还需要在环境变量中，增加类似的内容：
 
 ![image](https://user-images.githubusercontent.com/21079031/144699074-3dad63d7-835f-4eb8-bd95-662de683dbbc.png)
 

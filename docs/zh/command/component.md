@@ -36,7 +36,7 @@ Options:
 
 ### 操作案例
 
-如果想要获取某个组件，可以通过`--component`参数与具体的组件名进行清理，例如：
+如果想要获取某个组件，可以通过`--component`参数与具体的组件名进行查询，例如：
 
 ```shell script
 $ s component --component fc-api

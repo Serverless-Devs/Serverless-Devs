@@ -143,3 +143,4 @@ And run again with the '--debug' option or 's -h' to get more logs.
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1640838881038_20211230043441520071.png)
 
 > 隐私说明：使用该功能时，Serverless Devs会采集部分客户端的错误信息进行处理，当然这些错误信息都是被脱敏后的错误信息，如果您仍然存在疑虑或者不想使用这个功能，您可以通过命令`s set analysis disable`关闭该功能。
+
