@@ -91,7 +91,7 @@ All files located in `node_modules` and external directories are externally main
 
 # Exchange community
 
-If you have feedback about bugs or future expectations, you can post them in [Issues](https://github.com/serverless-devs/serverless-devs/issues) and [Discussions](https://github.com/ serverless-devs/serverless-devs/discussions) for feedback and exchanges. If you want to join our discussion group or keep up to date with Serverless Devs, you can do so through the following channels:
+If you have feedback about bugs or future expectations, you can post them in [Issues](https://github.com/serverless-devs/serverless-devs/issues) and [Discussions](https://github.com/serverless-devs/serverless-devs/discussions) for feedback and exchanges. If you want to join our discussion group or keep up to date with Serverless Devs, you can do so through the following channels:
 
 <p align="center">
 
@@ -103,6 +103,6 @@ If you have feedback about bugs or future expectations, you can post them in [Is
 
 -----------
 
-> Serverless Devs developer tools follow [Serverless Devs Model](./spec/readme.md) , more model/specification information can refer to [Serverless Registry Model](./spec/en/0.0.2/serverless_registry_model/readme. md) , [Serverless User Model](./spec/en/0.0.2/serverless_user_model/readme.md) and [Serverless Package Model](./spec/en/0.0.2/serverless_package_model/readme.md).
+> Serverless Devs developer tools follow [Serverless Devs Model](./spec/readme.md) , more model/specification information can refer to [Serverless Registry Model](./spec/en/0.0.2/serverless_registry_model/readme.md) , [Serverless User Model](./spec/en/0.0.2/serverless_user_model/readme.md) and [Serverless Package Model](./spec/en/0.0.2/serverless_package_model/readme.md).
 
 > Privacy statement: In order to provide developers with an optimized user experience, Serverless Devs will collect some client-side error messages to help the community optimize tools. Of course, these error messages are all desensitized error messages. If you still have doubts or If you don't want to use this feature, you can disable it with the command `s set analysis disable`.
