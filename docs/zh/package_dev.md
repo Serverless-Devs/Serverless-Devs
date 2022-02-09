@@ -12,7 +12,7 @@
 
 ## 组件开发说明
 
-> Serverless Devs 组件开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.2/serverless_registry_model/readme.md) 中的 [组件模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范)。在[组件模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范)中有关于[组件模型元数据](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型元数据)和[组件模型代码规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#组件模型代码规范)的说明。
+> Serverless Devs 组件开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.2/serverless_package_model/readme.md) 中的 [组件模型规范](../../spec/zh/0.0.2/serverless_package_model/3.package_model.md#组件模型规范)。在[组件模型规范](../../spec/zh/0.0.2/serverless_package_model/3.package_model.md#组件模型规范)中有关于[组件模型元数据](../../spec/zh/0.0.2/serverless_package_model/3.package_model.md#组件模型元数据)和[组件模型代码规范](../../spec/zh/0.0.2/serverless_package_model/3.package_model.md#组件模型代码规范)的说明。
 
 > 🐵 温馨提示，在进行 Serverless Devs 的组件开发时，可能会遇到很多相对来说更为通用的能力，包括不限于：
 > - 获取用户的密钥信息
@@ -87,7 +87,7 @@ $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ## 应用开发说明
 
-> Serverless Devs 应用开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.2/serverless_registry_model/readme.md) 中的 [应用模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范)。在[应用模型规范](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范)中有关于[应用模型元数据](../../spec/zh/0.0.2/serverless_registry_model/3.registry_model.md#应用模型元数据)的说明。
+> Serverless Devs 应用开发需要严格遵守 [Serverless Package Model](../../spec/zh/0.0.2/serverless_package_model/readme.md) 中的 [应用模型规范](../../spec/zh/0.0.2/serverless_package_model/3.package_model.md#应用模型规范)。在[应用模型规范](../../spec/zh/0.0.2/serverless_package_model/3.package_model.md#应用模型规范)中有关于[应用模型元数据](../../spec/zh/0.0.2/serverless_package_model/3.package_model.md#应用模型元数据)的说明。
 
 Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行工具中，通过对Serverless Devs的命令行工具，可以进行空白应用项目的初始化，开发者只需要执行`s init`即可看到：
 

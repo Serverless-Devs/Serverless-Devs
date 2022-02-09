@@ -12,7 +12,7 @@
 
 ## Component development instructions
 
-> The development of Serverless Devs components is strictly in line with the [component model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范) in [Serverless Package Model](../../spec/en/0.0.2/serverless_registry_model/readme.md). In the [component model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型规范), the instructions on [component model metadata](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型元数据) and [component model code specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#组件模型代码规范) are described. 
+> The development of Serverless Devs components is strictly in line with the [component model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [component model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-specification), the instructions on [component model metadata](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-specification) and [component model code specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-metadata) are described. 
 
 > 🐵 Note: When you develop Serverless Devs components, you need the following capabilities when you develop Serverless Devs components. The capabilities include but not limited to: 
 > - Obtain user key pair information. 
@@ -88,7 +88,7 @@ Developers can use the code in the src directory for development. By default, th
 
 ## Application development instructions
 
-> The development of Serverless Devs applications must strictly conform to the [application model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范) in [Serverless Package Model](../../spec/en/0.0.2/serverless_registry_model/readme.md). In the [application model specification](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#应用模型规范), the instructions on [application model metadata](../../spec/en/0.0.2/serverless_registry_model/3.registry_model.md#应用模型元数据) are described. 
+> The development of Serverless Devs applications must strictly conform to the [application model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Application-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [application model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Application-model-specification), the instructions on [application model metadata](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Application-model-metadata) are described. 
 
 The component development cases of Serverless Devs are integrated into the Serverless Devs CLI tool. You can use the CLI tool to initialize an application project that is not developed. Developers only need to run the s init command, and the following command output is returned:
 
