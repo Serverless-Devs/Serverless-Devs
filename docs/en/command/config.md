@@ -144,7 +144,7 @@ $ s config add --AccessKeyID ****** --AccessKeySecret ******
 You can also customize content that you want to add to the config add command by running the following command：
 
 ```shell script
-$ s config add --AccessKeyID ****** -kl key1,key2,key3 -il info1,info2,info3
+$ s config add -kl key1,key2,key3 -il info1,info2,info3
 ```
 
 - Configuration information of keys for common cloud vendors：

@@ -141,7 +141,7 @@ $ s config add --AccessKeyID ****** --AccessKeySecret ******
 
 或者添加自定义内容：
 ```shell script
-$ s config add --AccessKeyID ****** -kl key1,key2,key3 -il info1,info2,info3
+$ s config add -kl key1,key2,key3 -il info1,info2,info3
 ```
 
 - 常见云厂商密钥配置内容
