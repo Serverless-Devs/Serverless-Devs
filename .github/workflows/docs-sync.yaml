@@ -1,0 +1,28 @@
+name: docs sync
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 
+      - name: file_changes
+        uses: tj-actions/changed-files@v14.5
+        id: docs-changed
+        with:
+          files: |
+            docs/*
+      - name: Run step only when files change.
+        if: steps.docs-changed.outputs.any_changed == 'true'
+        run: |
+          curl http://index.serverless-devs-docs.1767215449378635.cn-hongkong.fc.devsapp.net
+          
+        
