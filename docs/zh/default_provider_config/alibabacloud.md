@@ -1,11 +1,7 @@
 # 阿里云密钥获取
 
 阿里云官网：https://www.aliyun.com   
-AccountId获取页面：https://account.console.aliyun.com/#/secure   
 获取密钥页面：https://usercenter.console.aliyun.com/#/manage/ak
-
-- 打开 [AccountId获取页面](https://account.console.aliyun.com/#/secure) 获取AccountId ：
-  ![AccountId获取页面](https://images.devsapp.cn/access/aliyun-accountid.jpg)
 
 - 打开 [获取密钥页面](https://usercenter.console.aliyun.com/#/manage/ak) 获取密钥信息 ：
   ![获取密钥页面](https://images.devsapp.cn/access/aliyun-access.jpg)

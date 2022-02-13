@@ -7,7 +7,7 @@
     - [应用内服务部署顺序](#应用内服务部署顺序)
     - [密钥使用顺序与规范](#密钥使用顺序与规范)
 - [通过环境变量设置密钥](#通过环境变量设置密钥)
-
+- [基于人工智能的错误排查能力](#基于人工智能的错误排查能力)
 ## Exit Code 定义
 
 | code | 含义 |
@@ -67,7 +67,7 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 >         - url: ${assets.output.url}
 > ```
 > 此时，可先进性依赖关系分析，服务`nextjs-portal`、`assets`没有额外依赖，服务`gateway`通过魔法变量`${assets.output.url}`依赖了`assets`服务；此时部署顺序则为：  
-`nextjs-portal`、`assets`按照上下顺序部署, 之后gateway拿到 assets服务的返回结果再进行部署
+`nextjs-portal`、`assets`按照上下顺序部署, 之后 `gateway` 拿到 `assets` 服务的返回结果再进行部署
 即：`nextjs-portal`->`assets`->`gateway`
 
 
@@ -113,3 +113,34 @@ s config add -a default-aliyun -kl AccountID,AccessKeyID,AccessKeySecret -il ${A
           service:
             name: fc-deploy-service
     ```
+   
+## 基于人工智能的错误排查能力
+
+Serverless Devs 提供了基于人工智能的错误排查能力，当您使用 Serverless Devs 的时候遇到了错误，系统将会对错误信息进行脱敏处理，并通过接口进行相关解决方案的获取。例如：
+
+当前Yaml的格式存在问题，在项目下执行`s deploy`：
+```shell script
+$ s deploy
+
+ERROR:
+TypeError: Cannot convert undefined or null to object
+
+AI Tips:
+You can try to solve the problem through: http://qa.devsapp.cn/7867adf78017601dffd8c3611c90cadf.html
+
+TraceId:     a483e74739551640838688289
+Environment: @serverless-devs/s: 2.0.96, @serverless-devs/core: 0.1.23, darwin-x64, node-v12.15.0
+Documents:   https://www.serverless-devs.com
+Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
+Issues:      https://github.com/Serverless-Devs/Serverless-Devs/issues
+
+Please copy traceId: a483e74739551640838688289 and join Dingding group: 33947367 for consultation.
+You can run 's clean --cache' to prune Serverless devs.
+And run again with the '--debug' option or 's -h' to get more logs.
+```
+此时，打开系统提醒的网页，可以看到；
+
+![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1640838881038_20211230043441520071.png)
+
+> 隐私说明：使用该功能时，Serverless Devs会采集部分客户端的错误信息进行处理，当然这些错误信息都是被脱敏后的错误信息，如果您仍然存在疑虑或者不想使用这个功能，您可以通过命令`s set analysis disable`关闭该功能。
+

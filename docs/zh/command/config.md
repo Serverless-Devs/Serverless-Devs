@@ -2,18 +2,17 @@
 
 `config`命令是密钥信息相关的命令，包括密钥的配置、密钥的查看以及密钥的修改、删除等。
 
-- [Config 命令](#config-命令)
-  - [命令解析](#命令解析)
-  - [config add 命令](#config-add-命令)
+- [命令解析](#命令解析)
+- [config add 命令](#config-add-命令)
     - [参数解析](#参数解析)
     - [操作案例](#操作案例)
-  - [config get 命令](#config-get-命令)
+- [config get 命令](#config-get-命令)
     - [参数解析](#参数解析-1)
     - [操作案例](#操作案例-1)
-  - [config delete 命令](#config-delete-命令)
+- [config delete 命令](#config-delete-命令)
     - [参数解析](#参数解析-2)
     - [操作案例](#操作案例-2)
-  - [注意事项](#注意事项)
+- [注意事项](#注意事项)
     - [通过环境变量设置密钥](#通过环境变量设置密钥)
     - [关于配置密钥的使用顺序](#关于配置密钥的使用顺序)
     
@@ -142,7 +141,7 @@ $ s config add --AccessKeyID ****** --AccessKeySecret ******
 
 或者添加自定义内容：
 ```shell script
-$ s config add --AccessKeyID ****** -kl key1,key2,key3 -il info1,info2,info3
+$ s config add -kl key1,key2,key3 -il info1,info2,info3
 ```
 
 - 常见云厂商密钥配置内容

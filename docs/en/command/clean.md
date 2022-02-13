@@ -1,14 +1,15 @@
 # Clean command
 
-The `clean` command is to clean up the cache-related functions of Serverless Devs. You can use this command to clean up the environment, unused dependent packages, and related cache content.
+The `clean` command can be used to clean up the cache of Serverless Devs. You can use this command to clean up the environment, dependency packages that are not used, and the cache. 
 
-- [Command resolution](#Command-resolution)
-    - [Parameter analysis](#Parameter-analysis)
-    - [Operation case](#Operation-case)
-    
-## Command analysis
+- [Command-description](#Command-description)
+    - [Parameter description](#Parameter-description)
+    - [Example](#Example)
+- [Precautions](#Precautions)
 
-After we execute `s clean -h`, we can view related help information:
+## Command description
+
+After you execute the `s clean -h` command, we can view the help information:
 
 ```shell script
 $ s clean -h
@@ -23,41 +24,41 @@ Clean up the cache related functions of serverless devs. You can clean up the en
     Tips:
         Get all installed component: s component
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/clean.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/clean.md
 
 Options:
-  --all Clean up the environment
-  --cache [dirName] Delete the <dirName> file in the cache
-  --component [componentName] Remove component (like: fc, fc@0.0.1)
-  -h, --help Display help for command
+  --all                         Clean up the environment
+  --cache [dirName]             Delete the <dirName> file in the cache
+  --component [componentName]   Remove component (like: fc, fc@0.0.1)
+  -h, --help                    Display help for command
 ```
 
-### Parameter analysis
+### Parameter description
 
-| Full name of the parameter | Abbreviation of the parameter | Required or not | Parameter meaning |
+| Parameter | Abbreviation | Required | Description |
 |-----|-----|-----|-----|
-| all | | Optional | Clean up the environment |
-| cache | | Optional | Delete the <dirName> file in the cache |
-| component | | Optional | Delete the specified component, which can be the component name or [component name@version number] |
+| all |  | No | Cleans the environment. |
+| cache |  | No | Deletes the <dirName> files in the cache. |
+| component |  | No | Deletes a component. You can use a component name or [Component name@Version]. |
 
-### Operation case
 
-If you want to clean up a component, you can use the `--component` parameter and the specific component name to clean up, for example:
+### Example
+
+If you want to clean a component, you can specify the component name in the `--component` command. For example:
 
 ```shell script
 $ s clean --component fc-api
 Component [fc-api] has been cleaned up successfully.
 ```
 
-If you want to clean up the overall environment, you can directly pass the `--all` parameter, for example:
+If you want to clean up the environment, you can use the `--all` parameter. For example:
 
 ```shell script
-$ s clean --all
+$ s clean --all       
 The environment of Serverless Devs has been cleaned up successfully.
 ```
 
 ## Precautions
-
-When cleaning up the specified components, the system will clean up the components according to the specified logic:
-1. The system will first determine the eligible components in the currently set Registry cache, and clean it up;
-2. The system will clean up the existing eligible components in the system's final Registry cache (Github Registry);
+When you clean up a component, the system follows the following logic: 
+1. First, the system checks and cleans the components that meet the condition in the Registry cache. 
+2. Then, the system checks and cleans the component that meets the condition in the GitHub Registry cache.

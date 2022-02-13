@@ -23,7 +23,7 @@
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
 
 - **无厂商锁定**：得益于功能的可插拔特性，可以非常简单的支持不同云厂商的项目部署，或者一键部署到不同云平台。目前 Serverless Devs 已经支持了[阿里云函数计算](https://github.com/devsapp/fc) 、[AWS Lambda](https://github.com/devscomp/lambda) 、[百度智能云函数计算](https://github.com/xinwuyun/cfc) 、[华为云函数工作流](https://github.com/xinwuyun/fg) 、[腾讯云云函数](https://github.com/devscomp/scf) 等多云的 FaaS 产品；
-- **开源形式建设**：项目通过开源代码，开放生态进行建设的，开发者可以随时查看和参与 Serverless Devs 开发者工具的贡献，也可以随时随地进行相关组件和应用的贡献。当然，除了这种开源开放的形态，我们也鼓励一些企业级团队，通过 [Serverless Registry Model](./../../spec/zh/0.0.1/serverless_registry_model/readme.md) 建设自己的私有 Registry 以定制化某些不便公开的自定义组件；
+- **开源形式建设**：项目通过开源代码，开放生态进行建设的，开发者可以随时查看和参与 Serverless Devs 开发者工具的贡献，也可以随时随地进行相关组件和应用的贡献。当然，除了这种开源开放的形态，我们也鼓励一些企业级团队，通过 [Serverless Registry Model](./../../spec/zh/0.0.2/serverless_registry_model/readme.md) 建设自己的私有 Registry 以定制化某些不便公开的自定义组件；
 - **功能灵活可插拔**：Serverless Devs 开发者工具本身，不具备任何业务能力，所有的业务能力均是通过组件化的形式，进行可插拔式使用，并且每个组件可以根据需要，自定义相对应的命令和功能；开发者可以在一个应用中，选择不同的组件完成对应的业务能力，以满足对不同模块的诉求；
 - **简单快速上手**：通过开放 Serverless Registry 的模型/规范，该项目可以通过应用的模式，为开发者提供多种形式，多种领域以及[多种场景的上手案例](./awesome.md)，帮助开发者快速了解、学习、深入、上手 Serverless 架构，例如[新手引导](./quick_start.md)中的[**Serverless：Hello World**](./quick_start.md#serverlesshello-world)、[**人工智能：目标检测**](./quick_start.md#人工智能目标检测)、[**传统框架：基于Django的博客项目**](./quick_start.md#传统框架基于django的博客项目)等项目；
 - **应用全生命周期管理**：通过组件化的支持，Serverless Devs 可以在应用的全生命周期发挥重要的作用，以 [阿里云函数计算的FC组件](https://github.com/devsapp/fc) 为例，开发者可以在项目创建、项目的开发、调试、可观测性等多个层面进行项目的建设和管理；
@@ -37,7 +37,7 @@ Serverless Devs 是一个开源开发的 Serverless 领域的工具链项目，�
 
 在 Serverless Devs 中，拥有两个角色：
 
-- **开源贡献者**：开源贡献者将按照 [Serverless Package Model](./../../spec/zh/0.0.1/serverless_pacakge_model/readme.md) 进行[组件/应用的开发](./package_dev.md) ，并将内容发布到Serverless Hub中，既可以被更多人所使用；
+- **开源贡献者**：开源贡献者将按照 [Serverless Package Model](./../../spec/zh/0.0.2/serverless_pacakge_model/readme.md) 进行[组件/应用的开发](./package_dev.md) ，并将内容发布到Serverless Hub中，既可以被更多人所使用；
 - **Serverless开发者**：通过开发者工具（包括[命令行工具](./install.md)以及桌面端等工具），进行[应用的初始化](./quick_start.md)，以及组件的使用；通过开发者工具，将业务按照预期部署到线上；
 
 在这样一个 Serverless Devs 的应用框架上，我们不难发现可以和其他任何一种模式/生态，具有相似的命名以及模块：
@@ -90,3 +90,4 @@ Serverless Devs 将会在未来支持：
 | <center>关注微信公众号：`serverless`</center> | <center>联系微信小助手：`xiaojiangwh`</center> | <center>加入钉钉交流群：`33947367`</center> | 
 
 </p>
+

@@ -1,13 +1,10 @@
 # Get secret key
 
 Alicloud's official website：https://www.aliyun.com   
-The page to get your AliCloud AccountId：https://account.console.aliyun.com/#/secure   
+
 The page to get the secret key：https://usercenter.console.aliyun.com/#/manage/ak
 
-- Open [The page to get your AliCloud AccountId](https://account.console.aliyun.com/#/secure) to get your AccountId ：
-  ![AccountId获取页面](https://images.devsapp.cn/access/aliyun-accountid.jpg)
-
-- Open [The page to get the secret key](https://usercenter.console.aliyun.com/#/manage/ak) to get the secret key ：
+Open [The page to get the secret key](https://usercenter.console.aliyun.com/#/manage/ak) to get the secret key ：
   ![获取密钥页面](https://images.devsapp.cn/access/aliyun-access.jpg)
 
 

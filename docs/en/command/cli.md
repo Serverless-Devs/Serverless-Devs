@@ -1,17 +1,17 @@
-# Cli command
+# Cli 命令
 
-The `cli` command is a Yamlized command line mode, that is, the components of Serverless Devs can be used directly through the command line without relying on the Yaml file.
+The `cli` command allows you to directly use Serverless Devs components in CLI mode, instead of the YAML mode.
 
-- [Command resolution](#Command-resolution)
-- [Common Mode](#Common-Mode)
-    - [Common component support](#Common-component-support)
-    - [Support for specific components] (#Support-for-specific-components)
+- [Command description](#Command-description)
+- [Common modes](#Common-modes)
+    - [Support for common components](#Support-for-common-components)
+    - [Support for specific components](#Support-for-specific-components)
 
-> The difference between Yaml mode and Cli mode and trial scenarios, please refer to the document [Yaml mode Cli mode comparison](./../yaml_and_cli.md)
+> For more information about the differences between the YAML mode and the CLI mode, see [Compare the YAML mode with the CLI mode](./../yaml_and_cli.md)
 
-## Command analysis
+## Command description
 
-After we execute `s cli -h`, we can view related help information:
+After you run the `s cli -h` command, the following help information is returned:
 
 ```shell script
 $ s cli -h
@@ -24,28 +24,29 @@ Directly use serverless devs to use components, develop and manage applications 
         $ s cli fc-api listFunctions --service-name my-service
         $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
     
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md
+📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/cli.md
 
 Options:
-  -a, --access [aliasName] Specify the access alias name
-  -p, --props [jsonString] The json string of props
-  -h, --help Display help for command
+  -a, --access [aliasName]  Specify the access alias name
+  -p, --props [jsonString]  The json string of props
+  -h, --help                Display help for command
 ```
 
-The main methods of use are:
+Method:
 
 ```shell script
-s cli [component name, such as fc, fc-api, etc.] [component method] -p/--props [Yaml property corresponding to this method (JSON string)] -a/--access [specify key information] [Other settings]
+s cli [The component name, such as fc or fc-api.] [The method of the component.] -p/--props [The YAML attribute (JSON string) of the method] -a/--access [The information about the specified key.] [Other settings]
 ```
 
 
-## Common patterns
+## Common modes
 
-### Common component support
+### Support for common components
 
-In the `cli` mode, you can pass the `-p, --props [jsonString]` parameter to support the components in general.
+In `cli` mode, you can use the `-p, --props [jsonString]` parameter to configure general support for the component. 
 
-For example, a Serverless Devs application can be described by the following `s.yaml`:
+For example, you specify the following description in the `s.yaml` of a Serverless Devs application:
+
 
 ```yaml
 edition: 1.0.0
@@ -62,31 +63,31 @@ services:
         index: index.html
       region: cn-hangzhou
       hosts:
-        -host: auto
+        - host: auto
 ```
 
-In addition, you can use `s website-starter deploy` to deploy the `website-starter` part.
+You can also use `s website-starter deploy` to deploy `website-starter`. 
 
-At this point, if you deploy through the `cli` mode, you don't need to rely on the above Yaml, but you need to write the complete parameter information in the command line:
+In this case, if you deploy website-starter in `cli` mode, the preceding YAML file is not required. However, you need to write the complete information about parameters in CLI mode. Example:
 
 ```shell script
-s cli devsapp/website deploy -p "{\"bucket\":\"testbucket\",\"src\":{\"codeUri\":\"./\",\"publishDir\":\" ./build\",\"index\":\"index.html\"},\"region\":\"cn-hangzhou\",\"hosts\":[{\"host\":\ "auto\"}]}" -a myaccess
+s cli devsapp/website deploy -p "{\"bucket\":\"testbucket\",\"src\":{\"codeUri\":\"./\",\"publishDir\":\"./build\",\"index\":\"index.html\"},\"region\":\"cn-hangzhou\",\"hosts\":[{\"host\":\"auto\"}]}" -a myaccess
 ```
 
-### Specific component support
+### Support for specific components
 
-Among the existing components of Serverless Devs, there are already some excellent components designed for the Cli mode. For example, the `fc-api` component is a command-line mode priority component. Through this component, you can quickly use Ali Some interfaces of cloud function computing to perform operations, such as:
-
--View the list of functions under a certain service in a certain area of ​​Alibaba Cloud Function Computing:
+Among the existing components of Serverless Devs, some excellent components, such as the fc-api component, for CLI mode already exist. You can use this component together with Alibaba Cloud Function Compute API operations to perform specified actions:
+- If you want to view functions of a service in Alibaba Cloud Function Compute in a region, run the following command:
     ```shell script
     s cli fc-api listFunctions --service-name my-service --region cn-beijing -a myaccess
     ```
--Update the function code through pure command line form:
+- You can run the following command in CLI mode to update code for functions：
     ```shell script
-    s cli fc-api updateFunction --region cn-hangzhou --serviceName fc-deploy-service --functionName http-trigger-function --code'{"zipFile":"./"}'
+    s cli fc-api updateFunction --region cn-hangzhou --serviceName fc-deploy-service --functionName http-trigger-function --code '{"zipFile":"./"}'
     ```
 
-In addition, many components can have better support for the Yaml mode, and in some cases, the pure command line mode will be optimized for additional design, such as the online and offline resource synchronization operation of the `fc` component:
+In addition, many components that use the YAML mode can deliver better performance. Under certain conditions, you can also perform additional optimization for CLI mode. For example, if you want to synchronize the on- and off-premises resources of the `fc` component, you can run the following command:
+
 ```shell script
 s cli fc sync --region cn-shanghai --service-name myService --type config
 ```

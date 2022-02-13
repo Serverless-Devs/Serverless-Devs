@@ -25,6 +25,10 @@
   <span><b>Serverless 应用全生命周期管理工具</b></span><br>
 </p>
 
+<p align="center">
+  <span><b><a href="./readme.md">中文</a> ｜ <a href="./readme_en.md">English</a></b></span><br>
+</p>
+
 **Serverless Devs** 是一个开源开放的 Serverless 开发者平台，致力于为开发者提供强大的工具链体系。通过该平台，开发者不仅可以一键体验多云 Serverless 产品，极速部署 Serverless 项目，还可以在 Serverless 应用全生命周期进行项目的管理，并且非常简单快速的将 Serverless Devs 与其他工具/平台进行结合，进一步提升研发、运维效能。
 
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
@@ -99,4 +103,6 @@ Serverless Devs 遵循 [MIT License](./LICENSE) 开源许可。
 
 -----------
 
-> Serverless Devs 开发者工具遵循 [Serverless Devs Model](./spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](./spec/zh/0.0.1/serverless_registry_model/readme.md)，[Serverless User Model](./spec/zh/0.0.1/serverless_user_model/readme.md) 以及 [Serverless Package Model](./spec/zh/0.0.1/serverless_pacakge_model/readme.md)。
+> Serverless Devs 开发者工具遵循 [Serverless Devs Model](./spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](./spec/zh/0.0.2/serverless_registry_model/readme.md)，[Serverless User Model](./spec/zh/0.0.2/serverless_user_model/readme.md) 以及 [Serverless Package Model](./spec/zh/0.0.2/serverless_package_model/readme.md)。
+
+> 隐私说明：为了给开发者提供可优化的使用体验，Serverless Devs会采集部分客户端的错误信息以帮助社区优化工具，当然这些错误信息都是被脱敏后的错误信息，如果您仍然存在疑虑或者不想使用这个功能，您可以通过命令`s set analysis disable`关闭该功能。
