@@ -1,3 +1,11 @@
+---
+title: Package development documentation
+description: 'Serverless Devs Package development documentation'
+position: 6
+category: 'Overview'
+---
+
+
 # Package development documentation
 
 

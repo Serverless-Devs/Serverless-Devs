@@ -1,3 +1,9 @@
+---
+title: Set command
+description: 'Set command'
+position: 9
+category: 'Commands'
+---
 # Set command
 
 The `set` commands are used to configure tools.

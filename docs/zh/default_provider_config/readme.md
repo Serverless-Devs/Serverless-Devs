@@ -1,3 +1,10 @@
+---
+title: 云厂商密钥配置
+description: 'Serverless Devs 云厂商密钥配置'
+position: 1
+category: '密钥配置'
+---
+
 # 云厂商密钥配置
 
 - [阿里云](alibabacloud.md)

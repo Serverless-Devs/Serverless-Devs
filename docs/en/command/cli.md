@@ -1,4 +1,11 @@
-# Cli 命令
+---
+title: Cli command
+description: 'Cli command'
+position: 4
+category: 'Commands'
+---
+
+# Cli command
 
 The `cli` command allows you to directly use Serverless Devs components in CLI mode, instead of the YAML mode.
 

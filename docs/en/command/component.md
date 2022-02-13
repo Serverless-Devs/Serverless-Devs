@@ -1,3 +1,10 @@
+---
+title: Component command
+description: 'Component command'
+position: 8
+category: 'Commands'
+---
+
 # Component command
 
 The `component` command is used to obtain the details of components that are installed.

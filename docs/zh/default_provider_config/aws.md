@@ -1,3 +1,9 @@
+---
+title: AWS密钥获取
+description: 'AWS密钥获取'
+position: 4
+category: '密钥配置'
+---
 # AWS密钥获取
 
 AWS官网：https://www.AWS.com       

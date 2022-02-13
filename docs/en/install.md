@@ -1,3 +1,10 @@
+---
+title: Tool installation and upgrade
+description: 'Serverless Devs Tool installation and upgrade'
+position: 2
+category: 'Overview'
+---
+
 # Tool installation and upgrade
 
 - [Tool installation](#Tool-installation)

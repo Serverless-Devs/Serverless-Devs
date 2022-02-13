@@ -1,3 +1,9 @@
+---
+title: Set 命令
+description: 'Set 命令'
+position: 9
+category: '命令'
+---
 # Set 命令
 
 `set`命令是对工具进行相关配置的命令。

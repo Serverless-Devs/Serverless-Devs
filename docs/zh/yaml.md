@@ -1,3 +1,10 @@
+---
+title: 描述文件（Yaml）规范
+description: 'Serverless Devs描述文件（Yaml）规范'
+position: 3
+category: '概述'
+---
+
 # 描述文件（Yaml）规范
 
 > 当前文档遵循 [Serverless User Model](../../spec/zh/0.0.2/serverless_user_model/readme.md) 和相关规范。

@@ -1,3 +1,9 @@
+---
+title: Edit 命令
+description: 'Edit 命令'
+position: 6
+category: '命令'
+---
 # Edit 命令
 
 `edit`命令可以对Serverless应用编辑。

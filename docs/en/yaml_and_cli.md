@@ -1,3 +1,10 @@
+---
+title: Yaml mode Cli mode comparison
+description: 'Serverless Devs Yaml mode Cli mode comparison'
+position: 4
+category: 'Overview'
+---
+
 # Yaml mode Cli mode comparison
 
 Serverless Devs developer tools fundamentally provide two ways to use them.

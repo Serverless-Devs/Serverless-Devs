@@ -1,3 +1,9 @@
+---
+title: Google Cloud密钥获取
+description: 'Google Cloud密钥获取'
+position: 6
+category: '密钥配置'
+---
 # Google Cloud密钥获取
 
 Google Cloud官网：https://cloud.google.com       

@@ -1,3 +1,10 @@
+---
+title: Description file (YAML) specification
+description: 'Serverless Devs Description file (YAML) specification'
+position: 3
+category: 'Overview'
+---
+
 # Description file (YAML) specification
 
 > This document follows the [Serverless User Model](../../spec/en/0.0.2/serverless_user_model/readme.md) and related specifications. 

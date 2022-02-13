@@ -1,3 +1,9 @@
+---
+title: Cli 命令
+description: 'Cli 命令'
+position: 4
+category: '命令'
+---
 # Cli 命令
 
 `cli`命令是去Yaml化的命令行模式，即可以通过命令行直接使用 Serverless Devs 的组件，而不需要依赖Yaml文件。

@@ -1,3 +1,10 @@
+---
+title: Config 命令
+description: 'Config 命令'
+position: 2
+category: '命令'
+---
+
 # Config 命令
 
 `config`命令是密钥信息相关的命令，包括密钥的配置、密钥的查看以及密钥的修改、删除等。

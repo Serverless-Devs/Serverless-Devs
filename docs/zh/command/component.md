@@ -1,3 +1,10 @@
+---
+title: Component 命令
+description: 'Component 命令'
+position: 8
+category: '命令'
+---
+
 # Component 命令
 
 `component`命令是获取已经安装的组件详情信息。

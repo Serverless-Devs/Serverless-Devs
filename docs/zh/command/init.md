@@ -1,3 +1,9 @@
+---
+title: Init 命令
+description: 'Init 命令'
+position: 3
+category: '命令'
+---
 # Init 命令
 
 `init`命令是初始化Serverless项目的脚手架。

@@ -1,3 +1,10 @@
+---
+title: Clean command
+description: 'Clean command'
+position: 7
+category: 'Commands'
+---
+
 # Clean command
 
 The `clean` command can be used to clean up the cache of Serverless Devs. You can use this command to clean up the environment, dependency packages that are not used, and the cache. 

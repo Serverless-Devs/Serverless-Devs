@@ -1,3 +1,10 @@
+---
+title: Tencent Cloud key acquisition
+description: 'Tencent Cloud key acquisition'
+position: 8
+category: 'Access Configuration'
+---
+
 # Tencent cloud key acquisition
 
 Tencent Cloud official website: https://cloud.tencent.com/

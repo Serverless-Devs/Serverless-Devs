@@ -1,3 +1,9 @@
+---
+title: Azure密钥获取
+description: 'Azure密钥获取'
+position: 5
+category: '密钥配置'
+---
 # Azure密钥获取
 
 Azure官网：https://www.azure.com       

@@ -1,3 +1,9 @@
+---
+title: Verify command
+description: 'Verify command'
+position: 5
+category: 'Commands'
+---
 # Verify command
 
 The verify commands are used to `verify` the formats of serverless applications.
