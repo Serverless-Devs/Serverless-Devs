@@ -1,6 +1,13 @@
+---
+title: User guide of commands
+description: 'Serverless Devs User guide of commands'
+position: 1
+category: 'Commands'
+---
+
 # User guide of commands
 
-- [前Background information言](#Background-information)
+- [Background information](#Background-information)
 - [Supported parameters](#Supported-parameters)
 - [Supported commands](#Supported-commands)
     - [**Config**: Run the config command to configure a key](config.md)
@@ -9,8 +16,8 @@
     - [**Verify**: Run the verify command to verify the format of an application](verify.md)
     - [**Edit**: Run the edit command to edit an application](edit.md)
     - [**Clean**: Run the clean command to clean a tool](clean.md)
-    - [**Set**: Run the set command to configure a tool](set.md)
     - [**Component**: Run the component command to query the information about a component](component.md)
+    - [**Set**: Run the set command to configure a tool](set.md)
     - [**Custom**: Run the custom command to use a custom command](custom.md)
 
 ## Background information

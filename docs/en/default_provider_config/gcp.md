@@ -1,3 +1,9 @@
+---
+title: Google Cloud key acquisition
+description: 'Google Cloud key acq4isition'
+position: 6
+category: 'Access Configuration'
+---
 # Google Cloud key acquisition
 
 Google Cloud official website: https://cloud.google.com

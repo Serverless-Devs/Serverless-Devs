@@ -1,3 +1,9 @@
+---
+title: 阿里云密钥获取
+description: '阿里云密钥获取'
+position: 2
+category: '密钥配置'
+---
 # 阿里云密钥获取
 
 阿里云官网：https://www.aliyun.com   

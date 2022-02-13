@@ -1,3 +1,10 @@
+---
+title: Yaml 模式 Cli 模式对比
+description: 'Serverless Devs Yaml 模式 Cli 模式对比'
+position: 4
+category: '概述'
+---
+
 # Yaml 模式 Cli 模式对比
 
 Serverless Devs 开发者工具从根本上提供了两种使用方法。

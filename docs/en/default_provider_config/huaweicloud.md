@@ -1,3 +1,9 @@
+---
+title: Huawei Cloud key acquisition
+description: 'Huawei Cloud key acq4isition'
+position: 7
+category: 'Access Configuration'
+---
 # Huawei cloud key acquisition
 
 Huawei Cloud official website: https://www.huaweicloud.com/

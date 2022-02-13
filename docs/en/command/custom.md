@@ -1,3 +1,9 @@
+---
+title: Custom command
+description: 'Custom command'
+position: 10
+category: 'Commands'
+---
 # Custom command
 
 - [application-level operations](#application-level-operations)

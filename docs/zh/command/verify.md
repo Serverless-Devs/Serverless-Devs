@@ -1,3 +1,9 @@
+---
+title: Verify 命令
+description: 'Verify 命令'
+position: 4
+category: '命令'
+---
 # Verify 命令
 
 `verify`命令可以对Serverless应用格式进行校验。

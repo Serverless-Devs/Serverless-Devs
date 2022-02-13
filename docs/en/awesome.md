@@ -1,3 +1,10 @@
+---
+title: Awesome
+description: 'Sevrerless Devs Awesome'
+position: 7
+category: 'Overview'
+---
+
 # Awesome
 
 ## Components

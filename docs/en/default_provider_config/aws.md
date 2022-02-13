@@ -1,3 +1,9 @@
+---
+title: AWS key acquisition
+description: 'AWS key acq4isition'
+position: 4
+category: 'Access Configuration'
+---
 # AWS key acquisition
 
 AWS official website: https://www.AWS.com

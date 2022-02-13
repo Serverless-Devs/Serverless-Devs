@@ -1,3 +1,10 @@
+---
+title: Init command
+description: 'Init command'
+position: 3
+category: 'Commands'
+---
+
 # Init command
 
 The `init` commands are used to initialize serverless projects. 

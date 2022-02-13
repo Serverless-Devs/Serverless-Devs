@@ -1,3 +1,10 @@
+---
+title: Integration with CI and CD platforms and tools
+description: 'Sevrerless Devs Integration with CI and CD platforms and tools'
+position: 5
+category: 'Overview'
+---
+
 # Integration with CI and CD platforms and tools
 
 - [Integration with GitHub Actions](#Integration-with-GitHub-Actions)

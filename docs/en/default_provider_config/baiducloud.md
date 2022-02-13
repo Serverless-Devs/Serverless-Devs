@@ -1,3 +1,9 @@
+---
+title: Baidu cloud key acquisition
+description: 'Baidu cloud key acquisition'
+position: 3
+category: 'Access Configuration'
+---
 # Baidu cloud key acquisition
 
 Baidu Cloud official website: https://cloud.baidu.com/

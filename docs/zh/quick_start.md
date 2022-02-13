@@ -1,3 +1,10 @@
+---
+title: 快速上手
+description: 'Serverless Devs快速上手教程'
+position: 2
+category: '概述'
+---
+
 # 快速上手
 
 本快速上手案例以 [阿里云函数计算](https://github.com/devsapp/fc) 为例（当然，Serverless Devs 还支持 [AWS Lambda](https://github.com/devscomp/lambda)，[百度智能云函数计算](https://github.com/xinwuyun/cfc)，[华为云函数工作流](https://github.com/xinwuyun/fg)，[腾讯云云函数](https://github.com/devscomp/scf)等多个云厂商的 FaaS 平台）的快速上手 Serverless Devs

@@ -1,3 +1,10 @@
+---
+title: Alicloud key acquisition
+description: 'Alicloud key acquisition'
+position: 2
+category: 'Access Configuration'
+---
+
 # Get secret key
 
 Alicloud's official website：https://www.aliyun.com   

@@ -1,3 +1,9 @@
+---
+title: Azure key acquisition
+description: 'Azure key acq4isition'
+position: 5
+category: 'Access Configuration'
+---
 # Azure key acquisition
 
 Azure official website: https://www.azure.com

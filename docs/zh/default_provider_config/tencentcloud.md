@@ -1,3 +1,9 @@
+---
+title: 腾讯云密钥获取
+description: '腾讯云密钥获取'
+position: 8
+category: '密钥配置'
+---
 # 腾讯云密钥获取
 
 腾讯云官网：https://cloud.tencent.com/    

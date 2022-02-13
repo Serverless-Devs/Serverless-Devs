@@ -1,3 +1,10 @@
+---
+title: Edit command
+description: 'Edit command'
+position: 6
+category: 'Commands'
+---
+
 # Edit command
 
 The `edit` commands are used to edit serverless applications.

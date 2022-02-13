@@ -1,3 +1,9 @@
+---
+title: 百度云密钥获取
+description: '百度云密钥获取'
+position: 3
+category: '密钥配置'
+---
 # 百度云密钥获取
 
 百度云官网：https://cloud.baidu.com/        

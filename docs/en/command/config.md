@@ -1,3 +1,10 @@
+---
+title: Config command
+description: 'Config command'
+position: 2
+category: 'Commands'
+---
+
 # Config command
 
 The `config` commands are used to perform operations on keys. For example, you can configure, modify and delete keys and obtain the information about keys. 

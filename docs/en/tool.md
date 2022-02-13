@@ -1,3 +1,10 @@
+---
+title: Tool design guide
+description: 'Serverless Devs Tool design guide'
+position: 8
+category: 'Overview'
+---
+
 # Tool design guide
 
 - [Exit codes](#Exit-Code-definition)
