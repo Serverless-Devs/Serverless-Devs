@@ -2,7 +2,7 @@
 title: 命令行设计规范
 description: 'Serverless Devs 命令行设计规范'
 position: 9
-category: 'Overview'
+category: '概述'
 ---
 
 # 命令行设计规范

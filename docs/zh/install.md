@@ -1,5 +1,5 @@
 ---
-title: 工具安装与升级
+title: 安装
 description: 'Serverless Devs 工具安装与升级'
 position: 2
 category: '概述'
