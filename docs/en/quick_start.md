@@ -1,5 +1,5 @@
 ---
-title: quick start
+title: Quick start
 description: 'Serverless Devs quick start'
 position: 2
 category: 'Overview'

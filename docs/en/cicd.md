@@ -1,5 +1,5 @@
 ---
-title: Integration with CI and CD platforms and tools
+title: CICD
 description: 'Sevrerless Devs Integration with CI and CD platforms and tools'
 position: 5
 category: 'Overview'

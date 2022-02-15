@@ -1,5 +1,5 @@
 ---
-title: installation
+title: Installation
 description: 'Serverless Devs Tool installation and upgrade'
 position: 2
 category: 'Overview'

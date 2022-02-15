@@ -1,5 +1,5 @@
 ---
-title: Yaml mode Cli mode comparison
+title: Yaml VS Cli
 description: 'Serverless Devs Yaml mode Cli mode comparison'
 position: 4
 category: 'Overview'

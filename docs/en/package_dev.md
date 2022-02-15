@@ -1,5 +1,5 @@
 ---
-title: Package development documentation
+title: Package development
 description: 'Serverless Devs Package development documentation'
 position: 6
 category: 'Overview'

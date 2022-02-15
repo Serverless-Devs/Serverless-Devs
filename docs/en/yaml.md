@@ -1,5 +1,5 @@
 ---
-title: Description file (YAML) specification
+title: Specification
 description: 'Serverless Devs Description file (YAML) specification'
 position: 3
 category: 'Overview'
