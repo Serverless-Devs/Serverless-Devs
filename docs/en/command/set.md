@@ -11,8 +11,8 @@ The `set` commands are used to configure tools.
 - [Command description](#Command-description)
 - [set registry command](#set-registry-command)
 - [set locale command](#set-locale-command)
-- [set analysis command](#feature-set-analysis-command)
-- [set workspace command](#feature-set-workspace-command)
+- [set analysis command](#set-analysis-command)
+- [set workspace command](#set-workspace-command)
 
 ## Command description
 

@@ -11,8 +11,8 @@ category: '命令'
 - [命令解析](#命令解析)
 - [set registry 命令](#set-registry-命令)
 - [set locale 命令](#set-locale-命令)
-- [set analysis 命令](#feature-set-analysis-命令)
-- [set workspace 命令](#feature-set-workspace-命令)
+- [set analysis 命令](#set-analysis-命令)
+- [set workspace 命令](#set-workspace-命令)
 
 ## 命令解析
 
