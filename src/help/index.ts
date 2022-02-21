@@ -17,6 +17,7 @@ const descption = {
     { config: '👤  Configure venders account.' },
     { init: '💞  Initializing a serverless project.' },
     { cli: '🐚  Command line operation without yaml mode.' },
+    { verify: '🔎  Verify the application.' },
     { set: '🔧  Settings for the tool.' },
     { clean: '💥  Clean up the environment.' },
     { component: '🔌  Installed component information.' },

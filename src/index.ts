@@ -23,6 +23,7 @@ const pkg = require('../package.json');
     .command('config', `${emoji('👤')} Configure venders account.`)
     .command('init', `${emoji('💞')} Initializing a serverless project.`)
     .command('cli', `${emoji('🐚')} Command line operation without yaml mode.`)
+    .command('verify', `${emoji('🔎')} Verify the application.`)
     .command('set', `${emoji('🔧')} Settings for the tool.`)
     .command('clean', `${emoji('💥')} Clean up the environment.`)
     .command('component', `${emoji('🔌')} Installed component information.`)
