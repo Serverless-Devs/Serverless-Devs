@@ -66,7 +66,10 @@ function deleteXkey(obj: any) {
     const publishData = await getYamlContent(path.join(componentInstance.__path, 'publish.yaml'));
     const schemaData = get(publishData, 'Properties.schema');
     if (isEmpty(schemaData)) {
-      logger.log(`The ${item.component} component does not support the verification.`);
+      logger.log(
+        `The publish.yaml file in the ${item.component} component is not configured with schema data, so verification is not supported.`,
+        'yellow',
+      );
       continue;
     }
     const ajv = new Ajv({

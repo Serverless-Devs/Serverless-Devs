@@ -3,7 +3,7 @@ import core from '../utils/core';
 import { isEmpty, includes, keys, get } from 'lodash';
 import { COMMAND_LIST } from '../constant';
 
-const { getGlobalArgs, parse, getTemplatePath, getYamlContent } = core;
+const { getGlobalArgs, execCommand, getTemplatePath, getYamlContent } = core;
 
 class SpecialCommad {
   constructor(private command: CommanderStatic) {}
@@ -16,7 +16,7 @@ class SpecialCommad {
     sub.allowUnknownOption();
     this.command.addCommand(sub);
     const { serverName, method } = await this.getParams(argv);
-    return await parse({
+    return await execCommand({
       syaml: template,
       serverName,
       method,
