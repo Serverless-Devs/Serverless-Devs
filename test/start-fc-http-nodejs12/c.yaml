@@ -31,18 +31,19 @@ services:
     #        - run: s versions   # 要运行的命令行
     #          path: ./ # 命令行运行的路径
     props: #  组件的属性值
+      # mykey: '123'
       region: ${vars.region}
       service: ${vars.service}
       function:
         name: http-trigger-nodejs12
-        description: ${next-function.output.service}
+        description: ${next-function.output.description}
         runtime: nodejs12
         codeUri: ./code
         # ossBucket:
         # ossKey:  # conflict with codeUri
         handler: index.handler
         memorySize: 128
-        timeout: ${next-function.props.function.timeout}
+        # timeout: ${next-function.props.function.timeout}
       triggers:
         - name: httpTrigger
           type: http

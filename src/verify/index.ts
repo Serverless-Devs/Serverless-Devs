@@ -1,12 +1,12 @@
 import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import i18n from '../utils/i18n';
-import { emoji, getProcessArgv } from '../utils';
+import { emoji, getProcessArgv, logger, red } from '../utils';
 import path from 'path';
 import Ajv from 'ajv';
 
-const { colors, getTemplatePath, getYamlContent, lodash, loadComponent, fse: fs, parseYaml } = core;
-const { get, isPlainObject, keys, omit, isEmpty } = lodash;
+const { colors, getTemplatePath, getYamlContent, lodash, loadComponent, fse: fs, parseYaml, spinner } = core;
+const { get, isPlainObject, keys, omit, isEmpty, replace } = lodash;
 
 const description = `Application verification.
     
@@ -49,27 +49,45 @@ function deleteXkey(obj: any) {
   }
   const templatePath = await getTemplatePath(template);
   const data = fs.readFileSync(templatePath, 'utf8');
-
   const doc = parseYaml(data);
   const { services } = doc;
   const componentList = [];
   for (const key in services) {
     const ele = services[key];
     componentList.push({
-      key: ele.component,
-      value: ele.props,
+      component: ele.component,
+      props: ele.props,
+      service: key,
     });
   }
-
+  const errorList = [];
   for (const item of componentList) {
-    const componentInstance = await loadComponent(item.key);
+    const componentInstance = await loadComponent(item.component);
     const publishData = await getYamlContent(path.join(componentInstance.__path, 'publish.yaml'));
     const schemaData = get(publishData, 'Properties.schema');
+    if (isEmpty(schemaData)) {
+      logger.log(`The ${item.component} component does not support the verification.`);
+      continue;
+    }
     const ajv = new Ajv({
       strictTuples: false,
     });
     const validate = ajv.compile(deleteXkey(schemaData));
-    const valid = validate(item.value);
-    if (!valid) console.log(JSON.stringify(validate.errors, null, 2));
+    const valid = validate(item.props);
+    if (!valid) {
+      const [error] = validate.errors;
+      errorList.push(error);
+      logger.log(`${red('✖')} Format verification failed.`);
+      if (error.instancePath) {
+        const errKey = replace(error.instancePath.slice(1), '/', '.');
+        logger.log(`The ${colors.yellow(errKey)} field under ${colors.yellow(item.service)} service is incorrect.\n`);
+      }
+      logger.output({
+        message: error.message,
+        params: error.params,
+      });
+      break;
+    }
   }
+  errorList.length === 0 && spinner('Format verification passed.').succeed();
 })();
