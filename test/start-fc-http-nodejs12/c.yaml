@@ -33,10 +33,9 @@ services:
     props: #  组件的属性值
       region: ${vars.region}
       service: ${vars.service}
-      outtest: ${next-function.output.service}
       function:
         name: http-trigger-nodejs12
-        description: 'hello world by serverless devs'
+        description: ${next-function.output.service}
         runtime: nodejs12
         codeUri: ./code
         # ossBucket:

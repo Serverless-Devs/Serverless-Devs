@@ -16,7 +16,7 @@
       // "runtimeArgs": ["invoke", "-e", "{\"env\":\"[\\\"echo $NODE_ENV\\\"]\"}"],
       // "runtimeArgs": ["local", "invoke", "-e", "hello world"],
       // "runtimeArgs": ["cli", "fc-api", "-h"],
-      "runtimeArgs": ["-h"],
+      "runtimeArgs": ["verify", "-t", "c.yaml"],
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
       "skipFiles": ["<node_internals>/**"]
