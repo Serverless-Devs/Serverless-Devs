@@ -192,10 +192,6 @@
                 <p>lowkeyrd<br><a href="https://github.com/lowkeyrd"> Github</a> | Blog</p>
              </td>
              <td align="center" width="20%">
-                <img src="https://avatars.githubusercontent.com/u/6525544?v=4" width="20%" style="min-width: 100px"><br>
-                <p>金炳<br><a href="https://github.com/stone-jin"> Github</a> | Blog</p>
-             </td>
-             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/45677661?v=4" width="20%" style="min-width: 100px"><br>
                 <p>jessie<br><a href="https://github.com/jessie123jiang"> Github</a> | Blog</p>
              </td>
