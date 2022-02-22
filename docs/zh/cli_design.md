@@ -1,7 +1,7 @@
 ---
 title: 命令行设计规范
 description: 'Serverless Devs 命令行设计规范'
-position: 9
+position: 10
 category: '概述'
 ---
 
