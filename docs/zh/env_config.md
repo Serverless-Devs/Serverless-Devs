@@ -54,7 +54,7 @@ services.fc-deploy-test.service:
 当指定`运行环境`时候会加载默认配置以及对于的配置(具名配置)文件。具名配置和默认配置将合并(使用[extend2](https://www.npmjs.com/package/extend2)深拷贝)成最终的配置，具名配置项会覆盖默认配置文件的同名配置。比如`prod`环境会加载`s.prod.yaml`和`s.yaml` 文件,同时`s.prod.yaml`会覆盖`s.yaml`的同名配置。
 
 #### 最终生效的配置
-也就是说在预发环境(`pre`)中最终生效的配置如下：
+也就是说在预发环境(`pro`)中最终生效的配置如下：
 ```
 edition: 1.0.0
 access: "default"
@@ -64,8 +64,8 @@ services:
     props:
       region: cn-hangzhou
       service:
-        name: fc-service-pre
-        tracingConfig: Enable
+        name: fc-service-pro
+        tracingConfig: Disable
         nasConfig: Auto
         description: "Serverless Devs Serivce"
       function:
@@ -87,10 +87,10 @@ services:
         name: fc-service-pre
         tracingConfig: Enable
 ```
-#### 便捷写法
+#### 便捷写法(TODO)
 Serverless Devs 提供了简便捷的写法，可以将`key`值通过`.`的进行合并
 ```
-services.fc-deploy-test.service:
+services.fc-deploy-test.props.service:
   name: fc-service
   tracingConfig: Disable
 ```
