@@ -65,6 +65,19 @@ services:
         tracingConfig: Enable
 ```
 
+#### 数组合并
+数据在做合并的时候，直接覆盖，而不是合并操作
+```
+const a = {
+  arr: [1, 2],
+};
+const b = {
+  arr: [3],
+};
+extend(true, a, b);
+// => { arr: [ 3 ] }
+```
+
 #### 便捷写法
 Serverless Devs 提供了简便捷的写法，可以将`key`值通过`.`的进行合并
 ```
