@@ -75,7 +75,12 @@ services.fc-deploy-test.service:
 
 
 ## 运行环境
-通过环境变量`SERVERLESS_DEVS_ENV`环境变量来设置当前的环境。
+通过以下两种方式来设置当前的运行环境
+1. 通过`s set` 指令配置当前的环境变量。如: `s set env prod`
+2. 通过配置`SERVERLESS_DEVS_ENV`环境变量来设置当前的环境。
+
+> 注意： 环境变量`SERVERLESS_DEVS_ENV`的优先级高于`s set`指令的
+
 
 #### 常见的环境变量
 一般来说，每个公司都有一些自己的环境变量值，下面是一些常见的环境变量值以及他们对应的说明。
