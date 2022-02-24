@@ -16,9 +16,11 @@
       // "runtimeArgs": ["invoke", "-e", "{\"env\":\"[\\\"echo $NODE_ENV\\\"]\"}"],
       // "runtimeArgs": ["local", "invoke", "-e", "hello world"],
       // "runtimeArgs": ["cli", "fc-api", "-h"],
-      "runtimeArgs": ["verify", "-t", "c.yaml"],
+      // "runtimeArgs": ["verify", "-t", "c.yaml"],
+      "runtimeArgs": ["init", "start-django"],
       "console": "integratedTerminal",
-      "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      // "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      "cwd": "${workspaceFolder}/test",
       "skipFiles": ["<node_internals>/**"]
     }
   ]

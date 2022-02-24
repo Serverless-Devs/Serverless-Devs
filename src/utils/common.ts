@@ -2,24 +2,13 @@
 
 import path from 'path';
 import fs from 'fs';
-import { get, trim, assign, filter, includes, keys, omit } from 'lodash';
+import { get, trim, assign, filter, includes, omit } from 'lodash';
 import os from 'os';
 import core, { getCoreVersion } from './core';
 import { getConfig } from './handler-set-config';
 
 const pkg = require('../../package.json');
-const {
-  colors,
-  got,
-  getMAC,
-  isDocker,
-  isCiCdEnv,
-  getGlobalArgs,
-  getYamlContent,
-  getRootHome,
-  getCredential,
-  getCredentialFromEnv,
-} = core;
+const { colors, got, getMAC, isDocker, isCiCdEnv, getGlobalArgs, getCredential, getCredentialAliasList } = core;
 
 export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
@@ -38,20 +27,6 @@ export const getProcessArgv = () => {
   } catch (error) {
     return {};
   }
-};
-
-export const getCredentialAliasList = async () => {
-  let accessList = [];
-  const accessInfo = await getYamlContent(path.join(getRootHome(), 'access.yaml'));
-  if (accessInfo) {
-    accessList = keys(accessInfo);
-  }
-  const data = await getCredentialFromEnv();
-  if (data) {
-    accessList = filter(accessList, o => o !== data.Alias);
-    accessList.push(data.Alias);
-  }
-  return accessList;
 };
 
 export const getCredentialWithExisted = async (access: string) => {
@@ -167,26 +142,7 @@ export function replaceFun(str, obj) {
       }
     }
   }
-
   return str;
-}
-
-export function getTemplatekey(str) {
-  const reg = /\{\{(.*?)\}\}/g;
-  const arr = str.match(reg);
-  if (!arr) {
-    return [];
-  }
-  return arr
-    .filter(result => result)
-    .map(matchValue => {
-      let keyContent = matchValue.replace(/{{|}}/g, '');
-      let realKey = keyContent.split('|');
-      return {
-        name: trim(realKey[0]),
-        desc: trim(realKey[1]),
-      };
-    });
 }
 
 export function replaceTemplate(files: Array<string>, content: { [key: string]: string }) {
