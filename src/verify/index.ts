@@ -4,6 +4,7 @@ import i18n from '../utils/i18n';
 import { emoji, getProcessArgv, logger, red } from '../utils';
 import path from 'path';
 import Ajv from 'ajv';
+import { HandleError } from '../error';
 
 const { colors, getTemplatePath, getYamlContent, lodash, loadComponent, fse: fs, parseYaml, spinner } = core;
 const { get, isPlainObject, keys, omit, isEmpty, replace } = lodash;
@@ -60,12 +61,12 @@ function deleteXkey(obj: any) {
       service: key,
     });
   }
-  const errorList = [];
+  const validList = [];
   for (const item of componentList) {
     const componentInstance = await loadComponent(item.component);
     const publishData = await getYamlContent(path.join(componentInstance.__path, 'publish.yaml'));
-    const schemaData = get(publishData, 'Properties');
-    if (isEmpty(schemaData)) {
+    const schemaData = get(publishData, 'Properties', {});
+    if (isEmpty(schemaData.properties)) {
       logger.log(
         `The publish.yaml file in the ${item.component} component is not configured with schema data, so verification is not supported.`,
         'yellow',
@@ -77,9 +78,10 @@ function deleteXkey(obj: any) {
     });
     const validate = ajv.compile(deleteXkey(schemaData));
     const valid = validate(item.props);
-    if (!valid) {
+    if (valid) {
+      validList.push(true);
+    } else {
       const [error] = validate.errors;
-      errorList.push(error);
       logger.log(`${red('✖')} Format verification failed.`);
       if (error.instancePath) {
         const errKey = replace(error.instancePath.slice(1), '/', '.');
@@ -92,5 +94,7 @@ function deleteXkey(obj: any) {
       break;
     }
   }
-  errorList.length === 0 && spinner('Format verification passed.').succeed();
-})();
+  validList.length > 0 && spinner('Format verification passed.').succeed();
+})().catch(async error => {
+  await HandleError(error);
+});

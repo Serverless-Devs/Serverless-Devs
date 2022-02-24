@@ -19,8 +19,8 @@
       // "runtimeArgs": ["verify", "-t", "c.yaml"],
       "runtimeArgs": ["init", "start-django"],
       "console": "integratedTerminal",
-      // "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
-      "cwd": "${workspaceFolder}/test",
+      "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      // "cwd": "${workspaceFolder}/test",
       "skipFiles": ["<node_internals>/**"]
     }
   ]
