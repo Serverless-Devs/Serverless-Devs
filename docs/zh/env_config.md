@@ -13,8 +13,8 @@ category: '概述'
 ```
 ├── code
 ├── s.yaml
-├── s-prod.yaml
-└── s-pre.yaml
+├── s.prod.yaml
+└── s.pre.yaml
 ```
 #### `s.yaml`为默认配置
 ```
@@ -38,15 +38,15 @@ services:
 ```
 #### `s-pre.yaml`[预发]配置如下
 ```
-services.fc-deploy-test.service:
+services.fc-deploy-test.props.service:
   name: fc-service-pre
-  tracingConfig: Enable
+  tracingConfig: Disable
 ```
 #### `s-pro.yaml`[线上]配置如下
 ```
-services.fc-deploy-test.service:
-  name: fc-service
-  tracingConfig: Disable
+services.fc-deploy-test.props.service:
+  name: fc-service-pro
+  tracingConfig: Enable
 ```
 
 `s.yaml`为默认的配置文件，所有的环境都会加载这个配置文件，一般也会作为开发环境的默认配置文件。
@@ -65,7 +65,7 @@ services:
       region: cn-hangzhou
       service:
         name: fc-service-pro
-        tracingConfig: Disable
+        tracingConfig: Enable
         nasConfig: Auto
         description: "Serverless Devs Serivce"
       function:
@@ -84,15 +84,15 @@ services:
   fc-deploy-test:
     props:
       service:
-        name: fc-service-pre
+        name: fc-service-pro
         tracingConfig: Enable
 ```
 #### 便捷写法(TODO)
 Serverless Devs 提供了简便捷的写法，可以将`key`值通过`.`的进行合并
 ```
 services.fc-deploy-test.props.service:
-  name: fc-service
-  tracingConfig: Disable
+  name: fc-service-pro
+  tracingConfig: Enable
 ```
 
 #### 数组合并
@@ -116,11 +116,11 @@ extend(true, a, b);
 #### 通过`SERVERLESS_DEVS_ENV`环境变量配置
 配置环境变量来设置当前的环境。这里提供几种配置环境的变量的典型使用方式
 
-- 执行`export SERVERLESS_DEVS_ENV=prod`命令
-- 在当前根目录中添加`.env`文件,内容为`SERVERLESS_DEVS_ENV=prod`
+1. 执行`export SERVERLESS_DEVS_ENV=prod`命令
+2. 在当前根目录中添加`.env`文件,内容为`SERVERLESS_DEVS_ENV=prod`
+3. 通过指定参数`--env prod`,比如`s deploy --env prod`
 
-
-> 注意： 环境变量`SERVERLESS_DEVS_ENV`的优先级高于`s set`指令的
+> 注意：指定参数的优先级最高， 其次是环境变量`SERVERLESS_DEVS_ENV`的优先级高于`s set`指令。也就是说上面的优先级为 `3` > `2` > `1`
 
 
 #### 常见的环境变量
