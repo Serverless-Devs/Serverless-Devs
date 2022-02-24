@@ -64,7 +64,7 @@ function deleteXkey(obj: any) {
   for (const item of componentList) {
     const componentInstance = await loadComponent(item.component);
     const publishData = await getYamlContent(path.join(componentInstance.__path, 'publish.yaml'));
-    const schemaData = get(publishData, 'Properties.schema');
+    const schemaData = get(publishData, 'Properties');
     if (isEmpty(schemaData)) {
       logger.log(
         `The publish.yaml file in the ${item.component} component is not configured with schema data, so verification is not supported.`,
