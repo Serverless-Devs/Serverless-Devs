@@ -15,7 +15,7 @@ push:
 	git push --force-with-lease origin $(CURRENT_BRANCH_NAME)
 
 release-dev: 
-	gh release create 2.0.97-beta.9 --notes "release 2.0.97-beta.9" --target develop --title "Release 2.0.97-beta.9" --prerelease
+	gh release create 2.0.100-beta.6 --notes "release dev" --target shl/parse --title "Release dev" --prerelease
 
 roll-back-dev:
 	git reset --soft HEAD~1
