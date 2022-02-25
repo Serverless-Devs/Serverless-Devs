@@ -26,9 +26,7 @@ const pkg = require('../package.json');
     .command('clean', `${emoji('💥')} Clean up the environment.`)
     .command('component', `${emoji('🔌')} Installed component information.`)
     .version(getVersion(), '-v, --version', 'Output the version number.')
-    .addHelpCommand(false)
-    .parse(process.argv);
-
+    .addHelpCommand(false);
   // 将参数argv存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv.slice(2));
   // TODO: 目前core和s并不依赖temp_params环境变量，只是提供给组件用，后续组件移除temp_params后，此行代码可以删掉
@@ -53,6 +51,7 @@ const pkg = require('../package.json');
       process.exit(0);
     }
   });
+  system_command.parse(process.argv);
 })().catch(async error => {
   await HandleError(error);
 });
