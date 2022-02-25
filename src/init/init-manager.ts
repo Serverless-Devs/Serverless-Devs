@@ -52,14 +52,6 @@ export class InitManager {
 
     const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
     if (appPath) {
-      // postInit
-      try {
-        if (process.env[`${appPath}-post-init`]) {
-          const tempObj = JSON.parse(process.env[`${appPath}-post-init`]);
-          const baseChildComponent = await require(path.join(tempObj['tempPath'], 'hook'));
-          await baseChildComponent.postInit(tempObj);
-        }
-      } catch (e) {}
       logger.success(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
