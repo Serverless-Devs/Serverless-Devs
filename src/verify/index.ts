@@ -7,7 +7,7 @@ import Ajv from 'ajv';
 import { HandleError } from '../error';
 
 const { colors, getTemplatePath, getYamlContent, lodash, loadComponent, fse: fs, parseYaml, spinner } = core;
-const { get, isPlainObject, keys, omit, isEmpty, replace } = lodash;
+const { get, keys, omit, isEmpty, replace } = lodash;
 
 const description = `Application verification.
     
@@ -26,21 +26,18 @@ const command = program
   .addHelpCommand(false)
   .parse(process.argv);
 
-function deleteXkey(obj: any) {
-  if (isEmpty(obj)) return obj;
-  if (typeof obj !== 'object') return obj;
-  let newObj = new obj.constructor();
-  const keyList = keys(obj).filter((v: string) => v.startsWith('x-'));
-  const xobj = omit(obj, keyList);
-  for (let key in xobj) {
-    let val = obj[key];
-    if (isPlainObject(val)) {
-      const keyList = keys(val).filter((v: string) => v.startsWith('x-'));
-      val = omit(val, keyList);
+function deepCopy(obj: any) {
+  let result: any = obj.constructor === Array ? [] : {};
+  if (typeof obj === 'object') {
+    const keyList = keys(obj).filter((v: string) => v.startsWith('x-'));
+    const xobj = omit(obj, keyList);
+    for (const i in xobj) {
+      result[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i];
     }
-    newObj[key] = deleteXkey(val);
+  } else {
+    result = obj;
   }
-  return newObj;
+  return result;
 }
 
 (async () => {
@@ -76,7 +73,7 @@ function deleteXkey(obj: any) {
     const ajv = new Ajv({
       strictTuples: false,
     });
-    const validate = ajv.compile(deleteXkey(schemaData));
+    const validate = ajv.compile(deepCopy(schemaData));
     const valid = validate(item.props);
     if (valid) {
       validList.push(true);
