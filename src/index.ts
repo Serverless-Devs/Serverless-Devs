@@ -1,5 +1,3 @@
-/** @format */
-
 import program from '@serverless-devs/commander';
 import { registerCommandChecker, logger } from './utils';
 import { join } from 'lodash';
@@ -28,9 +26,8 @@ const pkg = require('../package.json');
     .command('clean', `${emoji('💥')} Clean up the environment.`)
     .command('component', `${emoji('🔌')} Installed component information.`)
     .version(getVersion(), '-v, --version', 'Output the version number.')
-    .addHelpCommand(false);
-
-  await help(system_command);
+    .addHelpCommand(false)
+    .parse(process.argv);
 
   // 将参数argv存储到env
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv.slice(2));
@@ -42,6 +39,10 @@ const pkg = require('../package.json');
 
   new UpdateNotifier().init().notify();
 
+  if (process.argv.length === 2) {
+    return await onboarding();
+  }
+  await help(system_command);
   await new SpecialCommad(system_command).init();
 
   system_command.exitOverride(async error => {
@@ -52,10 +53,6 @@ const pkg = require('../package.json');
       process.exit(0);
     }
   });
-  if (process.argv.length > 2) {
-    return system_command.parse(process.argv);
-  }
-  await onboarding();
 })().catch(async error => {
   await HandleError(error);
 });
