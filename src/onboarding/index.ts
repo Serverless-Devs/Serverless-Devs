@@ -5,7 +5,10 @@ import core from '../utils/core';
 const { colors, inquirer, fse: fs, getTemplatePath } = core;
 
 async function onboarding() {
-  const templateFile = await getTemplatePath();
+  let templateFile: string;
+  try {
+    templateFile = await getTemplatePath();
+  } catch (error) {}
   if (fs.existsSync(templateFile)) {
     return await projectWithDevs();
   }
