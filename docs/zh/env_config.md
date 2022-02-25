@@ -1,11 +1,11 @@
 ---
-title: 多环境配置
-description: 'Serverless Devs 多环境配置'
+title: 环境划分
+description: 'Serverless Devs 环境划分'
 position: 9
 category: '概述'
 ---
 
-# 多环境配置
+# 环境划分
 多环境配置功能，帮助用户根据不同的环境，来使用不同的配置信息。
 
 ## 典型场景
@@ -54,7 +54,7 @@ services.fc-deploy-test.props.service:
 当指定`运行环境`时候会加载默认配置以及对于的配置(具名配置)文件。具名配置和默认配置将合并(使用[extend2](https://www.npmjs.com/package/extend2)深拷贝)成最终的配置，具名配置项会覆盖默认配置文件的同名配置。比如`prod`环境会加载`s.prod.yaml`和`s.yaml` 文件,同时`s.prod.yaml`会覆盖`s.yaml`的同名配置。
 
 #### 最终生效的配置
-也就是说在预发环境(`pro`)中最终生效的配置如下：
+也就是说在正式环境(`pro`)中最终生效的配置如下：
 ```
 edition: 1.0.0
 access: "default"
@@ -87,7 +87,7 @@ services:
         name: fc-service-pro
         tracingConfig: Enable
 ```
-#### 便捷写法(TODO)
+#### 便捷写法
 Serverless Devs 提供了简便捷的写法，可以将`key`值通过`.`的进行合并
 ```
 services.fc-deploy-test.props.service:
@@ -111,14 +111,16 @@ extend(true, a, b);
 ## 运行环境
 通过以下两种方式来设置当前的运行环境
 
-#### 通过`s set`指令配置
+#### 1. 通过`s set`指令配置
 `s set`配置的是全局环境变量。如: `s set env prod`
-#### 通过`SERVERLESS_DEVS_ENV`环境变量配置
+#### 2. 通过`SERVERLESS_DEVS_ENV`环境变量配置
 配置环境变量来设置当前的环境。这里提供几种配置环境的变量的典型使用方式
+- 执行`export SERVERLESS_DEVS_ENV=prod`命令
+- 在当前根目录中添加`.env`文件,内容为`SERVERLESS_DEVS_ENV=prod`
 
-1. 执行`export SERVERLESS_DEVS_ENV=prod`命令
-2. 在当前根目录中添加`.env`文件,内容为`SERVERLESS_DEVS_ENV=prod`
-3. 通过指定参数`--env prod`,比如`s deploy --env prod`
+#### 3. 指定参数`--env prod`
+通过指定参数`--env prod`，比如`s deploy --env prod`，设置当前运行的环境
+
 
 > 注意：指定参数的优先级最高， 其次是环境变量`SERVERLESS_DEVS_ENV`的优先级高于`s set`指令。也就是说上面的优先级为 `3` > `2` > `1`
 
