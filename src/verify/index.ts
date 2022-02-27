@@ -53,6 +53,8 @@ function transforData(obj: any) {
           key: newStr,
           name: last(newArr),
         });
+      }
+      if (typeof value.required === 'boolean') {
         delete value.required;
       }
       if (parentStr !== '') {
