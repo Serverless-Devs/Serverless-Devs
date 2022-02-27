@@ -7,7 +7,8 @@ import Ajv from 'ajv';
 import { HandleError } from '../error';
 
 const { colors, getTemplatePath, getYamlContent, lodash, loadComponent, fse: fs, parseYaml, spinner } = core;
-const { get, keys, omit, isEmpty, replace } = lodash;
+const { get, keys, omit, isEmpty, replace, isPlainObject, isArray, each, last, split, uniq, map, concat, filter } =
+  lodash;
 
 const description = `Application verification.
     
@@ -26,18 +27,71 @@ const command = program
   .addHelpCommand(false)
   .parse(process.argv);
 
-function deepCopy(obj: any) {
+function deleteXkey(obj: any) {
   let result: any = obj.constructor === Array ? [] : {};
   if (typeof obj === 'object') {
     const keyList = keys(obj).filter((v: string) => v.startsWith('x-'));
     const xobj = omit(obj, keyList);
     for (const i in xobj) {
-      result[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i];
+      result[i] = typeof obj[i] === 'object' ? deleteXkey(obj[i]) : obj[i];
     }
   } else {
     result = obj;
   }
   return result;
+}
+
+function transforData(obj: any) {
+  const data = deleteXkey(obj);
+  const tempArr = [];
+  function getRequiredKey(value: any, parentStr = '') {
+    if (isPlainObject(value)) {
+      if (value.required === true) {
+        const newArr = split(parentStr, '.');
+        const newStr = newArr.slice(0, newArr.length - 2).join('.');
+        tempArr.push({
+          key: newStr,
+          name: last(newArr),
+        });
+        delete value.required;
+      }
+      if (parentStr !== '') {
+        parentStr = `${parentStr}.`;
+      }
+      for (const key in value) {
+        getRequiredKey(value[key], `${parentStr}${key}`);
+      }
+    }
+    if (isArray(value)) {
+      each(value, (item, index) => {
+        getRequiredKey(item, `${parentStr}[${index}]`);
+      });
+    }
+  }
+  function setRequiredKey(value: any, parentStr = '') {
+    if (isPlainObject(value)) {
+      const filterArr = filter(tempArr, o => o.key === parentStr);
+      if (filterArr.length > 0) {
+        const names = map(filterArr, o => o.name);
+        value.required = value.required ? uniq(concat(value.required, names)) : names;
+      }
+
+      if (parentStr !== '') {
+        parentStr = `${parentStr}.`;
+      }
+      for (const key in value) {
+        setRequiredKey(value[key], `${parentStr}${key}`);
+      }
+    }
+    if (isArray(value)) {
+      each(value, (item, index) => {
+        setRequiredKey(item, `${parentStr}[${index}]`);
+      });
+    }
+  }
+  getRequiredKey(data);
+  setRequiredKey(data);
+  return data;
 }
 
 (async () => {
@@ -73,7 +127,7 @@ function deepCopy(obj: any) {
     const ajv = new Ajv({
       strictTuples: false,
     });
-    const validate = ajv.compile(deepCopy(schemaData));
+    const validate = ajv.compile(transforData(schemaData));
     const valid = validate(item.props);
     if (valid) {
       validList.push(true);
