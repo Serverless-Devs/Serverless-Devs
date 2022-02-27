@@ -16,6 +16,7 @@ program
   .command('registry', `${emoji('👀')} Set up a custom registry`)
   // .command('locale', `${emoji('🔧')} Set up current language`)
   .command('analysis', `${emoji('👉')} Set to enable or disable analysis`)
+  .command('env', `${emoji('🐚')} Set the current operating environment`)
   .command('workspace', `${emoji('🙊')} Set workspace path`)
   .helpOption('-h, --help', 'Display help for command')
   .addHelpCommand(false)

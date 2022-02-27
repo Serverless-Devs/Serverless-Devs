@@ -77,15 +77,16 @@ export const getPid = () => {
 
 export function getVersion() {
   const coreVersion = getCoreVersion();
-  const platform = `${process.platform}-${process.arch}`;
-  const nodeVersion = `node-${process.version}`;
-  const coreVersionStr = `core: ${coreVersion}`;
-  const homeWork = `s-home: ${core.getRootHome()}`;
-  const pkgVersion = `${pkg.name}: ${pkg.version}`;
-
-  return coreVersion
-    ? `${pkgVersion}, ${coreVersionStr}, ${homeWork}, ${platform}, ${nodeVersion}`
-    : `${pkgVersion}, ${homeWork}, ${platform}, ${nodeVersion}`;
+  const env = core.getConfig('env');
+  const data = [
+    `${pkg.name}: ${pkg.version}`,
+    coreVersion ? `core: ${coreVersion}` : undefined,
+    `s-home: ${core.getRootHome()}`,
+    env ? `environment: ${env}` : undefined,
+    `${process.platform}-${process.arch}`,
+    `node-${process.version}`,
+  ];
+  return data.filter(o => o).join(', ');
 }
 
 export async function getFolderSize(rootItemPath: string) {
