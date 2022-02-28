@@ -22,6 +22,16 @@
       "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
       // "cwd": "${workspaceFolder}/test",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "s config",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
+      "runtimeArgs": ["config", "get", "-h"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
