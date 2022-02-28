@@ -1,14 +1,12 @@
 import { CommanderStatic, Command } from '@serverless-devs/commander';
 import core from '../utils/core';
 import { isEmpty, includes, keys, get } from 'lodash';
-import { COMMAND_LIST } from '../constant';
 
 const { getGlobalArgs, execCommand, getTemplatePath, getYamlContent } = core;
 
 class SpecialCommad {
   constructor(private command: CommanderStatic) {}
   async init() {
-    if (includes(COMMAND_LIST, process.argv[2])) return;
     const argv = getGlobalArgs(process.argv.slice(2));
     const { _: rawData, template, access, 'skip-actions': skipActions, debug } = argv;
     if (isEmpty(rawData)) return;
