@@ -1,12 +1,13 @@
 import program from '@serverless-devs/commander';
 import { registerCommandChecker, logger } from './utils';
-import { join } from 'lodash';
+import { join, includes } from 'lodash';
 import { emoji, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
 import { HandleError } from './error';
 import SpecialCommad from './special-commad';
 import help from './help';
+import { COMMAND_LIST } from './constant';
 const pkg = require('../package.json');
 
 (async () => {
@@ -41,7 +42,14 @@ const pkg = require('../package.json');
     return await onboarding();
   }
   await help(system_command);
-  await new SpecialCommad(system_command).init();
+
+  if (includes(COMMAND_LIST, process.argv[2])) {
+    system_command.parse(process.argv);
+  } else {
+    // 自定义指令: s deploy
+    await new SpecialCommad(system_command).init();
+    system_command.parse(process.argv.filter(o => o !== '-h'));
+  }
 
   system_command.exitOverride(async error => {
     if (error.code === 'commander.help') {
@@ -51,7 +59,6 @@ const pkg = require('../package.json');
       process.exit(0);
     }
   });
-  system_command.parse(process.argv.filter(o => o !== '-h'));
 })().catch(async error => {
   await HandleError(error);
 });
