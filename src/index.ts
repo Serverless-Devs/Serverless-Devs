@@ -51,7 +51,7 @@ const pkg = require('../package.json');
       process.exit(0);
     }
   });
-  system_command.parse(process.argv);
+  system_command.parse(process.argv.filter(o => o !== '-h'));
 })().catch(async error => {
   await HandleError(error);
 });
