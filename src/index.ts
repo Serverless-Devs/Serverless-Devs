@@ -17,6 +17,7 @@ const pkg = require('../package.json');
     .helpOption('-h, --help', `Display help for command.`)
     .option('--debug', 'Open debug model.')
     .option('--skip-actions', 'Skip the extends section.')
+    .option('--env <environment>', `Specify the running environment`)
     .option('-t, --template <templatePath>', 'Specify the template file.')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .command('config', `${emoji('👤')} Configure venders account.`)

@@ -8,6 +8,7 @@ const descption = {
   Options: [
     { '--debug': 'Open debug model.' },
     { '--skip-actions': 'Skip the extends section.' },
+    { '--env <environment>': 'Specify the running environment' },
     { '-t, --template <path>': 'Specify the template file.' },
     { '-a, --access <aliasName>': 'Specify the access alias name.' },
     { '-v, --version': 'Output the version number.' },

@@ -25,9 +25,7 @@ program
 
 (async () => {
   if (program.args.length === 0) {
-    getConfig('env')
-      ? logger.log(`\n${emoji('📝')} current operating environment: ${getConfig('env')}\n`)
-      : program.help();
+    getConfig('env') ? logger.log(`\n${emoji('📝')} the running environment: ${getConfig('env')}\n`) : program.help();
   }
 
   if (program.args.length > 0) {
