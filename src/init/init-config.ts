@@ -220,16 +220,6 @@ const web_framework_template = [
 
 const static_website_template = [
   {
-    name: 'Vue.js',
-    value: 'devsapp/website-vue',
-    isDeploy: true,
-  },
-  {
-    name: 'React.js',
-    value: 'devsapp/website-react',
-    isDeploy: true,
-  },
-  {
     name: 'Docusaurus',
     value: 'devsapp/website-docusaurus',
     isDeploy: true,
