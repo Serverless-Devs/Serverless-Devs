@@ -2,13 +2,13 @@ import { CommanderStatic, Command } from '@serverless-devs/commander';
 import core from '../utils/core';
 import { isEmpty, includes, keys, get } from 'lodash';
 
-const { getGlobalArgs, execCommand, getTemplatePath, getYamlContent } = core;
+const { getGlobalArgs, execCommand, getYamlContent } = core;
 
 class SpecialCommad {
   constructor(private command: CommanderStatic) {}
   async init() {
     const argv = getGlobalArgs(process.argv.slice(2));
-    const { _: rawData, template, access, 'skip-actions': skipActions, debug } = argv;
+    const { _: rawData, template, access, 'skip-actions': skipActions, debug, env } = argv;
     if (isEmpty(rawData)) return;
     const sub = new Command(rawData[0]);
     sub.allowUnknownOption();
@@ -23,15 +23,17 @@ class SpecialCommad {
         access,
         skipActions,
         debug,
+        env,
       },
     });
   }
 
   async getParams(argv): Promise<{ method: string; serverName?: string }> {
-    const { _: rawData, template } = argv;
-    const spath = await getTemplatePath(template);
+    const { _: rawData, template, env } = argv;
+    const originSpath = await core.getTemplatePath(template);
+    const spath = await core.getTemplatePathWithEnv({ spath: originSpath, env });
     if (spath) {
-      process.env['templateFile'] = spath;
+      process.env['templateFile'] = originSpath;
     }
     if (rawData.length === 1) {
       return {

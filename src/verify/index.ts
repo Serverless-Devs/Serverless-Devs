@@ -6,7 +6,7 @@ import path from 'path';
 import Ajv from 'ajv';
 import { HandleError } from '../error';
 
-const { colors, getTemplatePath, getYamlContent, lodash, loadComponent, fse: fs, parseYaml, spinner } = core;
+const { colors, getYamlContent, lodash, loadComponent, fse: fs, parseYaml, spinner } = core;
 const { get, keys, omit, isEmpty, replace, isPlainObject, isArray, each, last, split, uniq, map, concat, filter } =
   lodash;
 
@@ -97,11 +97,12 @@ function transforData(obj: any) {
 }
 
 (async () => {
-  const { help, template } = getProcessArgv();
+  const { help, template, env } = getProcessArgv();
   if (help) {
     command.help();
   }
-  const templatePath = await getTemplatePath(template);
+  const originSpath = await core.getTemplatePath(template);
+  const templatePath = await core.getTemplatePathWithEnv({ spath: originSpath, env });
   const data = fs.readFileSync(templatePath, 'utf8');
   const doc = parseYaml(data);
   const { services } = doc;

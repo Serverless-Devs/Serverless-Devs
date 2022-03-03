@@ -2,7 +2,7 @@ import { emoji } from '../utils';
 import { get, keys } from 'lodash';
 import core from '../utils/core';
 import path from 'path';
-const { makeUnderLine, publishHelp, getGlobalArgs, getTemplatePath, getYamlContent, loadComponent } = core;
+const { makeUnderLine, publishHelp, getGlobalArgs, getYamlContent, loadComponent } = core;
 
 const descption = {
   Options: [
@@ -28,11 +28,12 @@ const descption = {
 
 async function help(program) {
   const helperLength = publishHelp.maxLen(descption.Options);
-  const { _: rawData, template, help } = getGlobalArgs(process.argv.slice(2));
+  const { _: rawData, template, help, env } = getGlobalArgs(process.argv.slice(2));
   let customeDescription = [];
   if (rawData.length === 0 && help) {
     try {
-      const spath = await getTemplatePath(template);
+      const originSpath = await core.getTemplatePath(template);
+      const spath = await core.getTemplatePathWithEnv({ spath: originSpath, env });
       if (spath) {
         const yamlData = await getYamlContent(spath);
         const serviceList = keys(get(yamlData, 'services'));
