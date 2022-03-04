@@ -64,8 +64,8 @@ const ali_template = [
 
 const quick_start_template = [
   {
-    name: '[HTTP] Node.js 12',
-    value: 'devsapp/start-fc-http-nodejs12',
+    name: '[HTTP] Node.js 14',
+    value: 'devsapp/start-fc-http-nodejs14',
     isDeploy: true,
   },
   {
@@ -88,8 +88,8 @@ const quick_start_template = [
     isDeploy: true,
   },
   {
-    name: '[Event] Node.js 12',
-    value: 'devsapp/start-fc-event-nodejs12',
+    name: '[Event] Node.js 14',
+    value: 'devsapp/start-fc-event-nodejs14',
     isDeploy: true,
   },
   {
@@ -219,16 +219,6 @@ const web_framework_template = [
 ];
 
 const static_website_template = [
-  {
-    name: 'Vue.js',
-    value: 'devsapp/website-vue',
-    isDeploy: true,
-  },
-  {
-    name: 'React.js',
-    value: 'devsapp/website-react',
-    isDeploy: true,
-  },
   {
     name: 'Docusaurus',
     value: 'devsapp/website-docusaurus',

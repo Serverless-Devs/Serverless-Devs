@@ -3,7 +3,7 @@ import { CommandError } from '../../error';
 import logger from '../../utils/logger';
 import core from '../../utils/core';
 import { emoji } from '../../utils/common';
-const { inquirer, colors} = core;
+const { inquirer, colors } = core;
 import { setConfig, getConfig } from '../../utils/handler-set-config';
 
 const description = `Set analysis action.
@@ -50,7 +50,7 @@ const promptOption = [
     const val = program.args[0];
     if (val) {
       setConfig('analysis', val);
-      logger.success('Setup succeeded');
+      logger.log('Setup succeeded', 'green');
     }
   }
 })().catch(err => {

@@ -1,11 +1,10 @@
-/** @format */
-
-import program, { Command } from '@serverless-devs/commander';
-import { CommandError } from '../error';
-import CliManager from './cli-manager';
+import program from '@serverless-devs/commander';
 import core from '../utils/core';
-import { emoji } from '../utils/common';
-const { colors } = core;
+import path from 'path';
+import { CommandError } from '../error';
+import { emoji, getProcessArgv, getCredentialWithExisted, logger } from '../utils';
+import { isEmpty, isString } from 'lodash';
+const { colors, loadComponent, getYamlContent, makeUnderLine } = core;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
     
@@ -18,71 +17,95 @@ ${emoji('📖')} Document: ${colors.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md',
 )}`;
 
-const cliCommand = program
-  .name('s cli')
-  .usage('s cli [component] [method] [options]')
-  .option('-a, --access [aliasName]', 'Specify the access alias name')
-  .option('-p, --props [jsonString]', 'The json string of props')
-  .helpOption('-h, --help', 'Display help for command')
-  .description(description)
-  .addHelpCommand(false);
-
-const subCommandName = process.argv[2];
-if (subCommandName && !['-h', '--help'].includes(subCommandName)) {
-  const execCommand = new Command(subCommandName);
-  const customerCommandDescription = 'Subcommand execution analysis.';
-  execCommand.usage('[subcommand] -- [method] [params]');
-  execCommand.description(customerCommandDescription).addHelpCommand(true);
-  program.addCommand(execCommand);
-}
-
 (async () => {
-  if (process.argv.length === 2 || (process.argv.length === 3 && ['-h', '--help'].includes(process.argv[2]))) {
-    program.help();
-  } else {
-    const tempCommand = process.argv[3];
-    let start = false;
-    const processArgv: string[] = [];
-    let params: string[] = [];
-    let lastArgs;
-    const tempArgv = JSON.parse(process.env['serverless_devs_temp_argv']);
-    process.argv = process.argv.slice(0, 4).concat(tempArgv.slice(5, tempArgv.length));
+  const argvData = getProcessArgv();
+  const { _: rawData, noHelpArgv, access = 'default' } = argvData;
 
-    for (let i = 0; i < process.argv.length; i++) {
-      if (!start) {
-        processArgv.push(process.argv[i]);
-      } else {
-        params.push(process.argv[i]);
-      }
-      if (
-        ['-a', '--access', '-p', '--props'].includes(lastArgs) ||
-        ['-a', '--access', '-p', '--props'].includes(process.argv[i])
-      ) {
-        processArgv.push(process.argv[i]);
-      }
-      if (process.argv[i] === tempCommand) {
-        start = true;
-        if (['-h', '--help'].includes(tempCommand)) {
-          processArgv.pop();
-          processArgv.push('cli-help-options');
+  program
+    .name('s cli')
+    .usage('[component] [method] [options]')
+    .option('-a, --access <aliasName>', 'Specify the access alias name.')
+    .option('-p, --props <jsonString>', 'The json string of props')
+    .helpOption('-h, --help', 'Display help for command')
+    .allowUnknownOption()
+    .description(description)
+    .addHelpCommand(false)
+    .parse(noHelpArgv);
+
+  //  s cli
+  if (rawData.length === 1) {
+    return program.help();
+  }
+  const [componentName, method] = rawData.slice(1);
+  const instance = await loadComponent(componentName);
+  // s cli fc-api
+  if (rawData.length === 2) {
+    if (instance.__doc && instance.__doc().length > 1685) {
+      const docResult = instance.__doc();
+      return console.log(docResult);
+    }
+    const publishPath = path.join(instance.__path, 'publish.yml');
+    const publishYamlInfor = await getYamlContent(publishPath);
+    console.log(`\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
+    let tempLength = 0;
+    if (publishYamlInfor['Commands']) {
+      for (const item in publishYamlInfor['Commands']) {
+        if (item.length > tempLength) {
+          tempLength = item.length;
         }
       }
-      lastArgs = process.argv[i];
+      for (const item in publishYamlInfor['Commands']) {
+        console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`);
+      }
+      console.log(
+        `\n  ${
+          publishYamlInfor['HomePage']
+            ? `${emoji('🧭')} ${makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
+            : ''
+        }`,
+      );
     }
-    if (params.length !== 0) {
-      process.env.temp_params = params.join(' ');
-      process['temp_params'] = params;
+  }
+
+  // s cli fc-api listServices
+  if (rawData.length === 3) {
+    const credentials = await getCredentialWithExisted(access);
+    let tempProp = {};
+    try {
+      const p = argvData.props || argvData.p;
+      tempProp = p ? JSON.parse(p) : {};
+    } catch (e) {
+      throw new Error('-p/--prop parameter format error');
     }
-
-    process.argv = processArgv;
-    cliCommand.parse(process.argv);
-    const [component, command] = program.args;
-
-    let { access, props } = program as any;
-    access = process.env['serverless_devs_temp_access'] ? process.env['serverless_devs_temp_access'] : access;
-    const cliManager = new CliManager({ command, component, access, props });
-    cliManager.init();
+    const inputs = {
+      props: tempProp,
+      credentials: credentials || {},
+      appName: 'default',
+      project: {
+        component: componentName,
+        access,
+        projectName: 'default',
+        provider: undefined,
+      },
+      command: method,
+      args: argvData._args,
+      argsObj: argvData._argsObj,
+      path: {
+        configPath: undefined,
+      },
+    };
+    const res = await instance[method](inputs);
+    if (isEmpty(res)) {
+      return logger.success(`End of method: ${method}`);
+    }
+    isString(res) ? logger.success(res) : logger.output(res);
   }
 })().catch(err => {
   throw new CommandError(err.message);
 });
+
+function getTempCommandStr(commands: string, length: number) {
+  const commandsLength = commands.length;
+  const tempArray = new Array(length - commandsLength).fill(' ');
+  return `${commands}${tempArray.join('')} : `;
+}

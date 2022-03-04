@@ -2,10 +2,13 @@ import { InitManager } from '../init/init-manager';
 import { i18n } from '../utils';
 import { emoji, red } from '../utils/common';
 import core from '../utils/core';
-const { colors, inquirer, fse: fs } = core;
+const { colors, inquirer, fse: fs, getTemplatePath } = core;
 
 async function onboarding() {
-  const { templateFile } = process.env;
+  let templateFile: string;
+  try {
+    templateFile = await getTemplatePath();
+  } catch (error) {}
   if (fs.existsSync(templateFile)) {
     return await projectWithDevs();
   }

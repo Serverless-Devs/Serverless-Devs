@@ -5,9 +5,9 @@ import fs from 'fs';
 import program from '@serverless-devs/commander';
 import { logger } from '../../utils';
 import { HandleError, HumanError } from '../../error';
-import { emoji } from '../../utils/common';
+import { emoji, getProcessArgv } from '../../utils';
 import core from '../../utils/core';
-const { colors, jsyaml: yaml, getRootHome } = core;
+const { colors, jsyaml: yaml, getRootHome, getYamlContent } = core;
 
 const description = `You can delete an account.
   
@@ -32,34 +32,34 @@ function notFound({ access, accessFileInfo }: { access: string; accessFileInfo?:
   });
 }
 
-program
-  .name('s config delete')
-  .usage('[options] [name]')
-  .helpOption('-h, --help', 'Display help for command')
-  .option('-a, --access [aliasName]', 'Key pair alia, if the alias is not set, use default instead')
-  .description(description)
-  .addHelpCommand(false)
-  .parse(process.argv);
 (async () => {
-  const { access = process.env['serverless_devs_temp_access'] } = program;
+  const { access } = getProcessArgv();
+  program
+    .name('s config delete')
+    .usage('[options]')
+    .option('-a, --access <aliasName>', 'Specify the access alias name.')
+    .helpOption('-h, --help', 'Display help for command')
+    .description(description)
+    .addHelpCommand(false)
+    .parse(process.argv);
+
   if (!access) {
     program.help();
   }
 
-  const accessFile = path.join(getRootHome(), 'access.yaml');
-  if (!fs.existsSync(accessFile)) {
-    return notFound({ access });
-  }
-  const accessFileInfo = yaml.load(fs.readFileSync(accessFile, 'utf8') || '{}');
-  if (accessFileInfo[access]) {
-    delete accessFileInfo[access];
-    fs.writeFileSync(accessFile, Object.keys(accessFileInfo).length > 0 ? yaml.dump(accessFileInfo) : '');
-    logger.success(`Key [${access}] has been successfully removed.`);
+  const filePath = path.join(getRootHome(), 'access.yaml');
+  const accessFileInfo = await getYamlContent(filePath);
+  if (accessFileInfo) {
+    if (accessFileInfo[access]) {
+      delete accessFileInfo[access];
+      fs.writeFileSync(filePath, yaml.dump(accessFileInfo));
+      logger.success(`Key [${access}] has been successfully removed.`);
+    } else {
+      notFound({ access, accessFileInfo });
+    }
   } else {
     notFound({ access, accessFileInfo });
-    process.exit(1);
   }
 })().catch(async error => {
-  await HandleError({ error });
-  process.exit(1);
+  await HandleError(error);
 });

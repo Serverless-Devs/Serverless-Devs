@@ -2,7 +2,7 @@ import path from 'path';
 import { execDaemon } from '../execDaemon';
 import latestVersion from 'latest-version';
 import boxen from 'boxen';
-import { UPDATE_CHECK_INTERVAL } from '../constants/static-variable';
+import { UPDATE_CHECK_INTERVAL } from '../constant';
 import core from '../utils/core';
 const { fse: fs, chalk, execa, getRootHome } = core;
 const pkg = require('../../package.json');

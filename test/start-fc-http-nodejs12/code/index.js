@@ -29,6 +29,7 @@ exports.handler = (req, resp, context) => {
           var value = req.queries[key];
           resp.setHeader(key, value);
         }
+        resp.setHeader('Content-Type', 'application/json');
         params.body = body.toString();
         resp.send(JSON.stringify(params, null, '    '));
     });
