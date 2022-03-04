@@ -13,7 +13,6 @@ ${emoji('📖')} Document: ${colors.underline(
 program
   .name('s set')
   .usage('[commands] [options]')
-  .command('env', `${emoji('🐚')} Set up the running environment`)
   .command('registry', `${emoji('👀')} Set up a custom registry`)
   // .command('locale', `${emoji('🔧')} Set up current language`)
   .command('analysis', `${emoji('👉')} Set to enable or disable analysis`)

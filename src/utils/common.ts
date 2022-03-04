@@ -77,12 +77,10 @@ export const getPid = () => {
 
 export function getVersion() {
   const coreVersion = getCoreVersion();
-  const env = core.getConfig('env');
   const data = [
     `${pkg.name}: ${pkg.version}`,
     coreVersion ? `core: ${coreVersion}` : undefined,
     `s-home: ${core.getRootHome()}`,
-    env ? `environment: ${env}` : undefined,
     `${process.platform}-${process.arch}`,
     `node-${process.version}`,
   ];
