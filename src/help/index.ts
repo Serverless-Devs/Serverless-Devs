@@ -27,12 +27,12 @@ const descption = {
 
 async function help(program) {
   const helperLength = publishHelp.maxLen(descption.Options);
-  const { _: rawData, template, help, env } = getGlobalArgs(process.argv.slice(2));
+  const { _: rawData, template, help } = getGlobalArgs(process.argv.slice(2));
   let customeDescription = [];
   if (rawData.length === 0 && help) {
     try {
       const originSpath = await core.getTemplatePath(template);
-      const spath = await core.getTemplatePathWithEnv({ spath: originSpath, env });
+      const spath = await core.transforYamlPath(originSpath);
       if (spath) {
         const yamlData = await getYamlContent(spath);
         const serviceList = keys(get(yamlData, 'services'));

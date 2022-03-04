@@ -97,12 +97,12 @@ function transforData(obj: any) {
 }
 
 (async () => {
-  const { help, template, env } = getProcessArgv();
+  const { help, template } = getProcessArgv();
   if (help) {
     command.help();
   }
   const originSpath = await core.getTemplatePath(template);
-  const templatePath = await core.getTemplatePathWithEnv({ spath: originSpath, env });
+  const templatePath = await core.transforYamlPath(originSpath);
   const data = fs.readFileSync(templatePath, 'utf8');
   const doc = parseYaml(data);
   const { services } = doc;
