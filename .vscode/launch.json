@@ -24,6 +24,17 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
+      "name": "s deploy",
+      "type": "node",
+      "request": "launch",
+      // "runtimeExecutable": "/usr/local/lib/node_modules/@serverless-devs/s/bin/s",
+      "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
+      "runtimeArgs": ["fc-deploy-test", "-h"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
       "name": "s config",
       "type": "node",
       "request": "launch",
