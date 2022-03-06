@@ -1,12 +1,12 @@
 ---
-title: 环境划分
-description: 'Serverless Devs 环境划分'
+title: Yaml 继承
+description: 'Yaml 继承'
 position: 9
 category: '概述'
 ---
 
-# 环境划分
-多环境配置功能，帮助用户根据不同的环境，来使用不同的配置信息。
+# Yaml 继承
+通过关键字`extends`， 解决多个Yaml配置冗余的问题。
 
 ## 典型场景
 比如使用Serverless Devs部署一个[函数计算FC](https://serverless-devs.com/fc/readme)应用的时候，预发环境的和正式环境除了[service名称](https://serverless-devs.com/fc/yaml#service%E5%AD%97%E6%AE%B5)不一致。其他配置完全一致。Yaml配置如下
@@ -16,7 +16,7 @@ category: '概述'
 ├── s.prod.yaml
 └── s.pre.yaml
 ```
-#### `s.yaml`为默认配置
+### `s.yaml`为默认配置
 ```
 edition: 1.0.0
 access: "default"
@@ -36,25 +36,27 @@ services:
         runtime: nodejs12
         timeout: 60
 ```
-#### `s-pre.yaml`[预发]配置如下
+### `s.pre.yaml`配置如下
 ```
+extends:
+  - s.yaml
 services.fc-deploy-test.props.service:
   name: fc-service-pre
   tracingConfig: Disable
 ```
-#### `s-pro.yaml`[线上]配置如下
+### `s.pro.yaml`配置如下
 ```
+extends:
+  - s.yaml
 services.fc-deploy-test.props.service:
   name: fc-service-pro
   tracingConfig: Enable
 ```
 
-`s.yaml`为默认的配置文件，所有的环境都会加载这个配置文件，一般也会作为开发环境的默认配置文件。
+显示的声明 `extends`关键字，获得继承能力
 
-当指定`运行环境`时候会加载默认配置以及对于的配置(具名配置)文件。具名配置和默认配置将合并(使用[extend2](https://www.npmjs.com/package/extend2)深拷贝)成最终的配置，具名配置项会覆盖默认配置文件的同名配置。比如`prod`环境会加载`s.prod.yaml`和`s.yaml` 文件,同时`s.prod.yaml`会覆盖`s.yaml`的同名配置。
-
-#### 最终生效的配置
-也就是说在正式环境(`pro`)中最终生效的配置如下：
+### 最终生效的配置
+通过指定yaml配置`s deploy -t s.pro.yaml`生效
 ```
 edition: 1.0.0
 access: "default"
@@ -87,7 +89,7 @@ services:
         name: fc-service-pro
         tracingConfig: Enable
 ```
-#### 便捷写法
+### 便捷写法
 Serverless Devs 提供了简便捷的写法，可以将`key`值通过`.`的进行合并
 ```
 services.fc-deploy-test.props.service:
@@ -95,7 +97,7 @@ services.fc-deploy-test.props.service:
   tracingConfig: Enable
 ```
 
-#### 数组合并
+### 数组合并
 数据在做合并的时候，直接覆盖，而不是合并操作
 ```
 const a = {
@@ -108,26 +110,11 @@ extend(true, a, b);
 // => { arr: [ 3 ] }
 ```
 
-## 运行环境
-通过以下两种方式来设置当前的运行环境
+## 最佳实践
+Yaml继承一般用作环境划分，比如预发环境为`s.pre.yaml`，线上环境为`s.pro.yaml`，部署时候通过指定对应部署模版`s deploy -t s.pro.yaml`配置。
 
-#### 1. 通过`s set`指令配置
-`s set`配置的是全局环境变量。如: `s set env prod`
-#### 2. 通过`SERVERLESS_DEVS_ENV`环境变量配置
-配置环境变量来设置当前的环境。这里提供几种配置环境的变量的典型使用方式
-- 执行`export SERVERLESS_DEVS_ENV=prod`命令
-- 在当前根目录中添加`.env`文件,内容为`SERVERLESS_DEVS_ENV=prod`
-
-#### 3. 指定参数`--env prod`
-通过指定参数`--env prod`，比如`s deploy --env prod`，设置当前运行的环境
-
-
-> 注意：指定参数的优先级最高， 其次是环境变量`SERVERLESS_DEVS_ENV`的优先级高于`s set`指令。也就是说上面的优先级为 `3` > `2` > `1`
-
-
-#### 常见的环境变量
-一般来说，每个公司都有一些自己的环境变量值，下面是一些常见的环境变量值以及他们对应的说明。
-
+### 常见的环境变量
+下面是一些常见的环境变量值以及他们对应的说明。
 
 | 值 | 说明 |
 | --- | --- |
