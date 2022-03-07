@@ -7,7 +7,6 @@ import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
 
 const { rimraf, minimist, fse: fs, colors, getRootHome } = core;
-
 const description = `Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
     
     Example:
@@ -30,7 +29,6 @@ const command = program
   .description(description)
   .addHelpCommand(false)
   .parse(process.argv);
-
 try {
   if (process.argv.length === 2) {
     command.help();
@@ -60,7 +58,7 @@ try {
         rimraf.sync(path.join(cachePath));
         logger.log('Cache has been cleaned up successfully.', 'green');
       }
-      // cache 有参数
+      // cache 有参数的
       if (typeof args.cache === 'string') {
         rimraf.sync(path.join(cachePath, args.cache));
         logger.log(`Cache [${args.cache}] has been cleaned up successfully.`, 'green');
