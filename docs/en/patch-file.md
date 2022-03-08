@@ -41,17 +41,23 @@ services:
 ```
 extends:
   - s.yaml
-services.fc-deploy-test.props.service:
-  name: fc-service-pre
-  tracingConfig: Disable
+services:
+  fc-deploy-test:
+    props:
+      service:
+        name: fc-service-pre
+        tracingConfig: Disable
 ```
 ### `s.pro.yaml` is configured as follows
 ```
 extends:
   - s.yaml
-services.fc-deploy-test.props.service:
-  name: fc-service-pro
-  tracingConfig: Enable
+services:
+  fc-deploy-test:
+    props:
+      service:
+        name: fc-service-pro
+        tracingConfig: Enable
 ```
 
 Displays the declaration `extends` keyword, to gain the ability to inherit
@@ -90,13 +96,7 @@ services:
         name: fc-service-pro
         tracingConfig: Enable
 ```
-### Convenience
-Serverless Devs provides a simple and convenient way to combine `key` values ​​through `.`
-```
-services.fc-deploy-test.props.service:
-  name: fc-service-pro
-  tracingConfig: Enable
-```
+
 ### Array merge
 When data is merged, it is directly overwritten, not merged
 

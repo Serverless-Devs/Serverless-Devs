@@ -40,17 +40,23 @@ services:
 ```
 extends:
   - s.yaml
-services.fc-deploy-test.props.service:
-  name: fc-service-pre
-  tracingConfig: Disable
+services:
+  fc-deploy-test:
+    props:
+      service:
+        name: fc-service-pre
+        tracingConfig: Disable
 ```
 ### `s.pro.yaml`配置如下
 ```
 extends:
   - s.yaml
-services.fc-deploy-test.props.service:
-  name: fc-service-pro
-  tracingConfig: Enable
+services:
+  fc-deploy-test:
+    props:
+      service:
+        name: fc-service-pro
+        tracingConfig: Enable
 ```
 
 显示的声明 `extends`关键字，获得继承能力
@@ -89,14 +95,6 @@ services:
         name: fc-service-pro
         tracingConfig: Enable
 ```
-### 便捷写法
-Serverless Devs 提供了简便捷的写法，可以将`key`值通过`.`的进行合并
-```
-services.fc-deploy-test.props.service:
-  name: fc-service-pro
-  tracingConfig: Enable
-```
-
 ### 数组合并
 数据在做合并的时候，直接覆盖，而不是合并操作
 ```
