@@ -121,20 +121,16 @@ function transforData(obj: any) {
     const publishData = await getYamlContent(path.join(componentInstance.__path, 'publish.yaml'));
     const schemaData = get(publishData, 'Properties', {});
     if (isEmpty(schemaData.properties)) {
-      logger.log(
-        `The publish.yaml file in the ${item.component} component is not configured with schema data, so verification is not supported.`,
-        'yellow',
-      );
       continue;
     }
     const ajv = new Ajv({
       strictTuples: false,
+      strictTypes: false,
     });
     const validate = ajv.compile(transforData(schemaData));
     const valid = validate(item.props);
-    if (valid) {
+    if (!valid) {
       validList.push(true);
-    } else {
       const [error] = validate.errors;
       logger.log(`${red('✖')} Format verification failed.`);
       if (error.instancePath) {
@@ -148,7 +144,7 @@ function transforData(obj: any) {
       break;
     }
   }
-  validList.length > 0 && spinner('Format verification passed.').succeed();
+  validList.length === 0 && spinner('Format verification passed.').succeed();
 })().catch(async error => {
   await HandleError(error);
 });
