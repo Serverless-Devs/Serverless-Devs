@@ -88,7 +88,7 @@ ${emoji('📖')} Document: ${colors.underline(
         provider: undefined,
       },
       command: method,
-      args: argvData._args,
+      args: argvData._argsObj.join(' '),
       argsObj: argvData._argsObj,
       path: {
         configPath: undefined,
