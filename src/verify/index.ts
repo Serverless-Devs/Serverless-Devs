@@ -28,7 +28,7 @@ const command = program
   .parse(process.argv);
 
 function deleteXkey(obj: any) {
-  let result: any = obj.constructor === Array ? [] : {};
+  let result: any = isArray(obj) ? [] : {};
   if (typeof obj === 'object') {
     const keyList = keys(obj).filter((v: string) => v.startsWith('x-'));
     const xobj = omit(obj, keyList);
@@ -124,23 +124,25 @@ function transforData(obj: any) {
       continue;
     }
     const ajv = new Ajv({
-      strictTuples: false,
-      strictTypes: false,
+      strict: false,
     });
     const validate = ajv.compile(transforData(schemaData));
     const valid = validate(item.props);
     if (!valid) {
       validList.push(true);
-      const [error] = validate.errors;
+      const { errors } = validate;
+      const ferrors = filter(errors, o => o.keyword !== 'oneOf');
       logger.log(`${red('✖')} Format verification failed.`);
-      if (error.instancePath) {
-        const errKey = replace(error.instancePath.slice(1), '/', '.');
+      const instancePath = get(ferrors, '[0].instancePath');
+      if (instancePath) {
+        const errKey = replace(instancePath.slice(1), /\//g, '.');
         logger.log(`The ${colors.yellow(errKey)} field under ${colors.yellow(item.service)} service is incorrect.\n`);
       }
-      logger.output({
-        message: error.message,
-        params: error.params,
-      });
+      const rows = map(ferrors, o => ({
+        message: o.message,
+        params: o.params,
+      }));
+      logger.output(rows.length > 1 ? rows : rows[0]);
       break;
     }
   }
