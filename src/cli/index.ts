@@ -68,7 +68,8 @@ ${emoji('📖')} Document: ${colors.underline(
   }
 
   // s cli fc-api listServices
-  if (rawData.length === 3) {
+  // s cli fc-api set access default
+  if (rawData.length >= 3) {
     const credentials = await getCredentialWithExisted(access);
     let tempProp = {};
     try {
@@ -77,6 +78,7 @@ ${emoji('📖')} Document: ${colors.underline(
     } catch (e) {
       throw new Error('-p/--prop parameter format error');
     }
+    const argsObj = rawData.slice(3).concat(argvData._argsObj);
     const inputs = {
       props: tempProp,
       credentials: credentials || {},
@@ -88,8 +90,8 @@ ${emoji('📖')} Document: ${colors.underline(
         provider: undefined,
       },
       command: method,
-      args: argvData._argsObj.join(' '),
-      argsObj: argvData._argsObj,
+      args: argsObj.join(' '),
+      argsObj,
       path: {
         configPath: undefined,
       },
