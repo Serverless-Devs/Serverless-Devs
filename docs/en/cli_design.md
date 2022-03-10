@@ -1,7 +1,7 @@
 ---
 title: Cli specification
 description: 'Serverless Devs Command line design specification'
-position: 9
+position: 10
 category: 'Overview'
 ---
 
