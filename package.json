@@ -82,6 +82,6 @@
     "**/*.{js,jsx,ts}": "f2elint exec eslint"
   },
   "dependencies": {
-    "@serverless-devs/core": "beta"
+    "@serverless-devs/core": "latest"
   }
 }
