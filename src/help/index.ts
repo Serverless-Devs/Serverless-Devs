@@ -1,9 +1,9 @@
 import { emoji } from '../utils';
-import { get, keys, isPlainObject, values, first } from 'lodash';
 import core from '../utils/core';
 import path from 'path';
-const { makeUnderLine, publishHelp, getGlobalArgs, getYamlContent, loadComponent, chalk } = core;
+const { makeUnderLine, publishHelp, getGlobalArgs, getYamlContent, loadComponent, chalk, lodash } = core;
 const { underline, bold } = chalk;
+const { get, keys, isPlainObject, values, first } = lodash;
 
 const descption = {
   Options: [

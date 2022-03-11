@@ -3,9 +3,9 @@ import core from '../utils/core';
 import path from 'path';
 import { CommandError } from '../error';
 import { emoji, getProcessArgv, getCredentialWithExisted, logger } from '../utils';
-import { isEmpty, isString, isPlainObject } from 'lodash';
-const { chalk, loadComponent, getYamlContent, makeUnderLine, publishHelp } = core;
+const { chalk, loadComponent, getYamlContent, makeUnderLine, publishHelp, lodash } = core;
 const { underline, bold } = chalk;
+const { isEmpty, isString, isPlainObject } = lodash;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
     

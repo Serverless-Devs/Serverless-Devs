@@ -43,6 +43,16 @@
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "s cli",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
+      "runtimeArgs": ["cli", "fc", "-h"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }

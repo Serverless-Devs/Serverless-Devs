@@ -2,10 +2,8 @@ import { CommanderStatic, Command } from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
 import { emoji } from '../utils';
-import { isEmpty, includes, keys, get } from 'lodash';
-
-const { getGlobalArgs, execCommand, getYamlContent, publishHelp } = core;
-
+const { getGlobalArgs, execCommand, getYamlContent, publishHelp, lodash } = core;
+const { isEmpty, includes, keys, get } = lodash;
 class SpecialCommad {
   constructor(private command: CommanderStatic) {}
   async init() {

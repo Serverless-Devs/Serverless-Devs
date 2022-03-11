@@ -1,14 +1,14 @@
 /** @format */
 
 import path from 'path';
-import { last, split, find, includes } from 'lodash';
 import { spawn, spawnSync } from 'child_process';
 import { logger, getConfig, replaceTemplate, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constant';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
-const { loadApplication, colors, report, inquirer } = core;
+const { loadApplication, colors, report, inquirer, lodash } = core;
+const { last, split, find, includes } = lodash;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
 export class InitManager {

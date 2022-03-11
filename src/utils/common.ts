@@ -2,13 +2,13 @@
 
 import path from 'path';
 import fs from 'fs';
-import { get, trim, assign, filter, includes, omit } from 'lodash';
 import os from 'os';
 import core, { getCoreVersion } from './core';
 import { getConfig } from './handler-set-config';
 
 const pkg = require('../../package.json');
-const { colors, got, getMAC, isDocker, isCiCdEnv, getGlobalArgs, getCredential, getCredentialAliasList } = core;
+const { colors, got, getMAC, isDocker, isCiCdEnv, getGlobalArgs, getCredential, getCredentialAliasList, lodash } = core;
+const { get, trim, assign, filter, includes, omit } = lodash;
 
 export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');

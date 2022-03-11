@@ -1,9 +1,9 @@
 import program from '@serverless-devs/commander';
 import { emoji, getProcessArgv, logger, getCredentialWithAll } from '../../utils';
 import core from '../../utils/core';
-import { get, keys, toString } from 'lodash';
 import { HandleError } from '../../error';
-const { colors } = core;
+const { colors, lodash } = core;
+const { get, keys, toString } = lodash;
 
 const description = `You can get accounts.
  
