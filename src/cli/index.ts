@@ -3,8 +3,9 @@ import core from '../utils/core';
 import path from 'path';
 import { CommandError } from '../error';
 import { emoji, getProcessArgv, getCredentialWithExisted, logger } from '../utils';
-import { isEmpty, isString } from 'lodash';
-const { colors, loadComponent, getYamlContent, makeUnderLine } = core;
+import { isEmpty, isString, isPlainObject } from 'lodash';
+const { chalk, loadComponent, getYamlContent, makeUnderLine, publishHelp } = core;
+const { underline, bold } = chalk;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
     
@@ -13,7 +14,7 @@ const description = `Directly use serverless devs to use components, develop and
         $ s cli fc-api listFunctions --service-name my-service
         $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
 
-${emoji('📖')} Document: ${colors.underline(
+${emoji('📖')} Document: ${underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md',
 )}`;
 
@@ -47,22 +48,28 @@ ${emoji('📖')} Document: ${colors.underline(
     const publishPath = path.join(instance.__path, 'publish.yml');
     const publishYamlInfor = await getYamlContent(publishPath);
     console.log(`\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
-    let tempLength = 0;
-    if (publishYamlInfor['Commands']) {
-      for (const item in publishYamlInfor['Commands']) {
-        if (item.length > tempLength) {
-          tempLength = item.length;
-        }
+    const commands = publishYamlInfor['Commands'];
+    if (commands) {
+      const maxLength = publishHelp.maxLen(commands);
+      let tmp = [];
+      const newObj = {};
+      for (const key in commands) {
+        const ele = commands[key];
+        isPlainObject(ele)
+          ? tmp.push(publishHelp.helpInfo(ele, underline(bold(key)), maxLength, 4))
+          : (newObj[key] = ele);
       }
-      for (const item in publishYamlInfor['Commands']) {
-        console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`);
+      tmp.length > 0 && console.log(tmp.join('\n'));
+      if (!isEmpty(newObj)) {
+        for (const key in newObj) {
+          console.log(`    ${getTempCommandStr(key, maxLength)} ${newObj[key]}`);
+        }
+        console.log('');
       }
       console.log(
-        `\n  ${
-          publishYamlInfor['HomePage']
-            ? `${emoji('🧭')} ${makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
-            : ''
-        }`,
+        publishYamlInfor['HomePage']
+          ? `  ${emoji('🧭')} ${makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
+          : '',
       );
     }
   }
