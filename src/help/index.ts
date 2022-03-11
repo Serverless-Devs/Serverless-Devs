@@ -1,8 +1,9 @@
 import { emoji } from '../utils';
-import { get, keys } from 'lodash';
+import { get, keys, isPlainObject, values, first } from 'lodash';
 import core from '../utils/core';
 import path from 'path';
-const { makeUnderLine, publishHelp, getGlobalArgs, getYamlContent, loadComponent } = core;
+const { makeUnderLine, publishHelp, getGlobalArgs, getYamlContent, loadComponent, chalk } = core;
+const { underline, bold } = chalk;
 
 const descption = {
   Options: [
@@ -60,14 +61,33 @@ async function help(program) {
     }
   }
 
+  const useObject = isPlainObject(first(values(get(customeDescription, '[0]'))));
+  let tmp = [];
+  if (useObject) {
+    tmp.push(underline(bold('Custom Commands\n\n')));
+    for (const item of customeDescription) {
+      if (isPlainObject(item)) {
+        for (const key in item) {
+          const ele = item[key];
+          tmp.push(publishHelp.helpInfo(ele, underline(bold(key)), helperLength, 4));
+        }
+      }
+    }
+  } else {
+    tmp = [publishHelp.helpInfo(customeDescription, 'Custom Commands', helperLength)];
+  }
+  tmp.push('\n');
   const output = [
-    `${emoji('🚀')} Welcome to the Serverless Devs.\n`,
-    publishHelp.helpInfo(descption.Options, 'Options', helperLength),
-    publishHelp.helpInfo(descption.Commands, 'Commands', helperLength),
-    publishHelp.helpInfo(customeDescription, 'Custom Commands', helperLength),
-    publishHelp.helpInfo(descption.Examples, 'Examples', helperLength),
-    `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')} ` + '\n',
-  ].join('\n');
+    `${emoji('🚀')} Welcome to the Serverless Devs.\n\n`,
+    publishHelp.helpInfo(descption.Options, 'Options', helperLength) + '\n',
+    publishHelp.helpInfo(descption.Commands, 'Commands', helperLength) + '\n',
+  ]
+    .concat(
+      tmp,
+      publishHelp.helpInfo(descption.Examples, 'Examples', helperLength) + '\n',
+      `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')}\n`,
+    )
+    .join('');
 
   program.on('--help', () => {
     console.log(output);
