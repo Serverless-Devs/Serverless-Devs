@@ -26,7 +26,7 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
 )}`;
 
 (async () => {
-  const { access } = getProcessArgv();
+  const { access, aliasName } = getProcessArgv();
   program
     .name('s config add')
     .usage('[options]')
@@ -44,6 +44,7 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('-f', 'Mandatory overwrite key information')
     .helpOption('-h, --help', 'Display help for command')
+    .allowUnknownOption()
     .description(description)
     .addHelpCommand(false)
     .parse(process.argv);
@@ -129,7 +130,7 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
     keyInformation['PrivateKeyData'] = PrivateKeyData;
   }
   if (Object.keys(keyInformation).length > 0) {
-    setKnownCredential(keyInformation, access);
+    setKnownCredential(keyInformation, access || aliasName);
   }
 })().catch(err => {
   if (err.message === 'alibaba') {
