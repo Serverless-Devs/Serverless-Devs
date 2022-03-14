@@ -1,6 +1,5 @@
 import program from '@serverless-devs/commander';
 import { registerCommandChecker, logger } from './utils';
-import { join, includes } from 'lodash';
 import { emoji, getVersion } from './utils/common';
 import UpdateNotifier from './update-notifier';
 import onboarding from './onboarding';
@@ -8,7 +7,10 @@ import { HandleError } from './error';
 import SpecialCommad from './special-commad';
 import help from './help';
 import { COMMAND_LIST } from './constant';
+import core from './utils/core';
 const pkg = require('../package.json');
+const { lodash } = core;
+const { join, includes } = lodash;
 
 (async () => {
   process.env['CLI_VERSION'] = pkg.version;

@@ -2,9 +2,10 @@ import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
 import { CommandError } from '../error';
-import { emoji, getProcessArgv, getCredentialWithExisted, logger } from '../utils';
-import { isEmpty, isString } from 'lodash';
-const { colors, loadComponent, getYamlContent, makeUnderLine } = core;
+import { emoji, getProcessArgv, getCredentialWithExisted, logger, specifyServiceHelp } from '../utils';
+const { chalk, loadComponent, lodash } = core;
+const { underline } = chalk;
+const { isEmpty, isString } = lodash;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
     
@@ -13,7 +14,7 @@ const description = `Directly use serverless devs to use components, develop and
         $ s cli fc-api listFunctions --service-name my-service
         $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
 
-${emoji('📖')} Document: ${colors.underline(
+${emoji('📖')} Document: ${underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md',
 )}`;
 
@@ -45,26 +46,7 @@ ${emoji('📖')} Document: ${colors.underline(
       return console.log(docResult);
     }
     const publishPath = path.join(instance.__path, 'publish.yml');
-    const publishYamlInfor = await getYamlContent(publishPath);
-    console.log(`\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
-    let tempLength = 0;
-    if (publishYamlInfor['Commands']) {
-      for (const item in publishYamlInfor['Commands']) {
-        if (item.length > tempLength) {
-          tempLength = item.length;
-        }
-      }
-      for (const item in publishYamlInfor['Commands']) {
-        console.log(`    ${getTempCommandStr(item, tempLength)} ${publishYamlInfor['Commands'][item]}`);
-      }
-      console.log(
-        `\n  ${
-          publishYamlInfor['HomePage']
-            ? `${emoji('🧭')} ${makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
-            : ''
-        }`,
-      );
-    }
+    await specifyServiceHelp(publishPath);
   }
 
   // s cli fc-api listServices
@@ -105,9 +87,3 @@ ${emoji('📖')} Document: ${colors.underline(
 })().catch(err => {
   throw new CommandError(err.message);
 });
-
-function getTempCommandStr(commands: string, length: number) {
-  const commandsLength = commands.length;
-  const tempArray = new Array(length - commandsLength).fill(' ');
-  return `${commands}${tempArray.join('')} : `;
-}

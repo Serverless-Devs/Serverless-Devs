@@ -1,7 +1,9 @@
 import SpecialCommad from '../src/special-commad';
 import program from '@serverless-devs/commander';
-import { split } from 'lodash';
 import { logger } from '../src/utils';
+import core from '../src/utils/core';
+const { lodash } = core;
+const { split } = lodash;
 
 beforeAll(() => {
   logger.warn(`Note that the 'sub' and 'test' of ali access must have been configured`);

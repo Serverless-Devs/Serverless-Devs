@@ -1,5 +1,7 @@
 import { i18n } from '../utils';
-import { lowerCase, first, concat } from 'lodash';
+import core from '../utils/core';
+const { lodash } = core;
+const { lowerCase, first, concat } = lodash;
 
 const first_level_template = [
   {
