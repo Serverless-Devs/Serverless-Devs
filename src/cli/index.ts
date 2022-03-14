@@ -2,10 +2,10 @@ import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
 import { CommandError } from '../error';
-import { emoji, getProcessArgv, getCredentialWithExisted, logger } from '../utils';
-const { chalk, loadComponent, getYamlContent, makeUnderLine, publishHelp, lodash } = core;
-const { underline, bold } = chalk;
-const { isEmpty, isString, isPlainObject } = lodash;
+import { emoji, getProcessArgv, getCredentialWithExisted, logger, specifyServiceHelp } from '../utils';
+const { chalk, loadComponent, lodash } = core;
+const { underline } = chalk;
+const { isEmpty, isString } = lodash;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
     
@@ -46,32 +46,7 @@ ${emoji('📖')} Document: ${underline(
       return console.log(docResult);
     }
     const publishPath = path.join(instance.__path, 'publish.yml');
-    const publishYamlInfor = await getYamlContent(publishPath);
-    console.log(`\n  ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
-    const commands = publishYamlInfor['Commands'];
-    if (commands) {
-      const maxLength = publishHelp.maxLen(commands);
-      let tmp = [];
-      const newObj = {};
-      for (const key in commands) {
-        const ele = commands[key];
-        isPlainObject(ele)
-          ? tmp.push(publishHelp.helpInfo(ele, underline(bold(key)), maxLength, 4))
-          : (newObj[key] = ele);
-      }
-      tmp.length > 0 && console.log(tmp.join('\n'));
-      if (!isEmpty(newObj)) {
-        for (const key in newObj) {
-          console.log(`    ${getTempCommandStr(key, maxLength)} ${newObj[key]}`);
-        }
-        console.log('');
-      }
-      console.log(
-        publishYamlInfor['HomePage']
-          ? `  ${emoji('🧭')} ${makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
-          : '',
-      );
-    }
+    await specifyServiceHelp(publishPath);
   }
 
   // s cli fc-api listServices
@@ -112,9 +87,3 @@ ${emoji('📖')} Document: ${underline(
 })().catch(err => {
   throw new CommandError(err.message);
 });
-
-function getTempCommandStr(commands: string, length: number) {
-  const commandsLength = commands.length;
-  const tempArray = new Array(length - commandsLength).fill(' ');
-  return `${commands}${tempArray.join('')} : `;
-}

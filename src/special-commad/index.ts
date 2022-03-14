@@ -1,8 +1,8 @@
 import { CommanderStatic, Command } from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
-import { emoji } from '../utils';
-const { getGlobalArgs, execCommand, getYamlContent, publishHelp, lodash } = core;
+import { specifyServiceHelp } from '../utils';
+const { getGlobalArgs, execCommand, getYamlContent, lodash } = core;
 const { isEmpty, includes, keys, get } = lodash;
 class SpecialCommad {
   constructor(private command: CommanderStatic) {}
@@ -34,25 +34,10 @@ class SpecialCommad {
 
   async help({ spath, serverName }) {
     const yamlData = await getYamlContent(spath);
-
     const component = get(yamlData, ['services', serverName, 'component']);
     const instance = await core.loadComponent(component);
     const publishPath = path.join(instance.__path, 'publish.yaml');
-    const publishContent = await getYamlContent(publishPath);
-    const commands = publishContent.Commands;
-    const customCmds = [];
-    if (commands) {
-      for (const key in commands) {
-        customCmds.push({ [key]: commands[key] });
-      }
-    }
-    const helperLength = publishHelp.maxLen(customCmds);
-    const output = [
-      `${emoji('🚀')} ${publishContent.Name}@${publishContent.Version}: ${publishContent.Description}\n`,
-      publishHelp.helpInfo(customCmds, 'Commands', helperLength),
-      `${emoji('🧭')} ${core.makeUnderLine(`More information: ${publishContent.HomePage}`)}\n`,
-    ].join('\n');
-    console.log(output);
+    await specifyServiceHelp(publishPath);
   }
 
   async getParams(argv): Promise<{ method: string; serverName?: string; spath?: string }> {

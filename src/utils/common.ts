@@ -7,8 +7,9 @@ import core, { getCoreVersion } from './core';
 import { getConfig } from './handler-set-config';
 
 const pkg = require('../../package.json');
-const { colors, got, getMAC, isDocker, isCiCdEnv, getGlobalArgs, getCredential, getCredentialAliasList, lodash } = core;
-const { get, trim, assign, filter, includes, omit } = lodash;
+const { colors, got, getMAC, isDocker, isCiCdEnv, lodash, publishHelp } = core;
+const { get, trim, assign, filter, includes, omit, isPlainObject, isEmpty } = lodash;
+const { underline, bold } = colors;
 
 export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
@@ -18,7 +19,7 @@ export const getProcessArgv = () => {
   const { serverless_devs_temp_argv } = process.env;
   try {
     const tempArgv = JSON.parse(serverless_devs_temp_argv);
-    const data = getGlobalArgs(tempArgv);
+    const data = core.getGlobalArgs(tempArgv);
     // 修复 argv 参数
     process.argv = process.argv.slice(0, 2).concat(data._argsObj);
     return assign({}, data, {
@@ -30,19 +31,19 @@ export const getProcessArgv = () => {
 };
 
 export const getCredentialWithExisted = async (access: string) => {
-  const data = await getCredentialAliasList();
+  const data = await core.getCredentialAliasList();
   if (includes(data, access)) {
-    const info = await getCredential(access);
+    const info = await core.getCredential(access);
     return omit(info, 'Alias');
   }
 };
 
 export const getCredentialWithAll = async () => {
-  const data = await getCredentialAliasList();
+  const data = await core.getCredentialAliasList();
   if (data.length > 0) {
     const res = {};
     for (const access of data) {
-      const info = await getCredential(access);
+      const info = await core.getCredential(access);
       res[info.Alias] = omit(info, 'Alias');
     }
     return res;
@@ -167,4 +168,43 @@ export function emoji(text: string, fallback?: string) {
     return fallback || '◆';
   }
   return `${text} `;
+}
+
+export function getTempCommandStr(commands: string, length: number) {
+  const commandsLength = commands.length;
+  const tempArray = new Array(length - commandsLength).fill(' ');
+  return `${commands}${tempArray.join('')} : `;
+}
+
+export async function specifyServiceHelp(filePath: string) {
+  const publishYamlInfor = await core.getYamlContent(filePath);
+  console.log(
+    `\n  ${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${
+      publishYamlInfor['Description']
+    }\n`,
+  );
+  const commands = publishYamlInfor['Commands'];
+  if (commands) {
+    const maxLength = publishHelp.maxLen(commands);
+    let tmp = [];
+    const newObj = {};
+    for (const key in commands) {
+      const ele = commands[key];
+      isPlainObject(ele)
+        ? tmp.push(publishHelp.helpInfo(ele, underline(bold(key)), maxLength, 4))
+        : (newObj[key] = ele);
+    }
+    tmp.length > 0 && console.log(tmp.join('\n'));
+    if (!isEmpty(newObj)) {
+      for (const key in newObj) {
+        console.log(`    ${getTempCommandStr(key, maxLength)} ${newObj[key]}`);
+      }
+      console.log('');
+    }
+    console.log(
+      publishYamlInfor['HomePage']
+        ? `  ${emoji('🧭')} ${core.makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
+        : '',
+    );
+  }
 }
