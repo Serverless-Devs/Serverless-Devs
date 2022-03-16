@@ -30,15 +30,19 @@ Initialize a new project based on a template. You can initialize the application
         $ s init
         $ s init project
         $ s init project -d my_dir
+        $ s init project --appName my-express
+        $ s init project --parameters '{"serviceName":"websiteService"}'
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
 🚀 More Application: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md
 
 Options:
-  -d, --dir [dir]       Where to output the initialized app into (default: ./<ProjectName> )
-  -r, --registry [url]  Use specify registry
-  -h, --help            Display help for command
+  -d, --dir [dir]           Where to output the initialized app into (default: ./<ProjectName> )
+  -r, --registry [url]      Use specify registry
+  -h, --help                Display help for command
+  --parameters [parameters] Initialize with custom parameters
+  --appName [appName]       Modify default Application name
 ```
 
 ### 参数解析
@@ -47,6 +51,8 @@ Options:
 |-----|-----|-----|-----|
 | dir | d | `./<ProjectName>` | 项目初始化的路径/目录 | 
 | registry | -r | http://registry.devsapp.cn/simple | 源配置地址，类似于Python中指定pip源，或者Node.js中指定NPM源 | 
+| parameters |  | {"serviceName":"websiteService"} | 初始化参数 | 
+| appName |  | my-express | 应用/项目名称 | 
 
 ### 初始化项目
 

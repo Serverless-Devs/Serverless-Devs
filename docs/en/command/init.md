@@ -31,15 +31,19 @@ Initialize a new project based on a template. You can initialize the application
         $ s init
         $ s init project
         $ s init project -d my_dir
+        $ s init project --appName my-express
+        $ s init project --parameters '{"serviceName":"websiteService"}'
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
 🚀 More Application: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/en/awesome.md
 
 Options:
-  -d, --dir [dir]       Where to output the initialized app into (default: ./<ProjectName> )
-  -r, --registry [url]  Use specify registry
-  -h, --help            Display help for command
+  -d, --dir [dir]           Where to output the initialized app into (default: ./<ProjectName> )
+  -r, --registry [url]      Use specify registry
+  -h, --help                Display help for command
+  --parameters [parameters] Initialize with custom parameters
+  --appName [appName]       Modify default Application name
 ```
 
 ### Parameter description
@@ -48,6 +52,8 @@ Options:
 |-----|-----|-----|-----|-----|
 | dir | d | `./<ProjectName>` | The path or directory in which the project that you want to initialize is stored. | 
 | registry | -r | http://registry.devsapp.cn/simple | The URL that points to a repository. The repository is similar to the pip repository in Python and the npm repository in Node.js. |
+| parameters |  | {"serviceName":"websiteService"} | Custom parameters | 
+| appName |  | my-express | Application name | 
 
 
 ### Initializes a project
