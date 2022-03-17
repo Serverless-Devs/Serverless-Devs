@@ -14,6 +14,8 @@ const description = `Initialize a new project based on a template. You can initi
         $ s init
         $ s init project
         $ s init project -d my_dir
+        $ s init project --appName my-express
+        $ s init project --parameters '{"serviceName":"websiteService"}'
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
@@ -25,9 +27,10 @@ program
   .name('s init')
   .helpOption('-h, --help', 'Display help for command')
   .usage('[options] [name | url]')
-  .option('-d, --dir [dir]', 'Where to output the initialized app into (default: ./<ProjectName> )')
-  .option('-r, --registry [url]', 'Use specify registry')
-  .option('--force-creation', 'Assume that the answer to any question which would be asked is yes')
+  .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
+  .option('-r, --registry <url>', 'Use specify registry')
+  .option('--parameters <parameters>', 'Initialize with custom parameters')
+  .option('--appName <appName>', 'Modify default Application name')
   .description(description)
   .addHelpCommand(false)
   .parse(process.argv);

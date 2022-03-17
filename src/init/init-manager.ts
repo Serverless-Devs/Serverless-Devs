@@ -43,25 +43,6 @@ export class InitManager {
 
     return { appPath };
   }
-  async executeInitWithForceCreation(name: string, dir?: string) {
-    let projectName = dir;
-    if (!projectName) {
-      projectName = last(split(name, '/'));
-    }
-    const registry = getConfig('registry') || DEFAULT_REGIRSTRY;
-
-    const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
-    if (appPath) {
-      logger.success(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
-      console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
-      console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
-      console.log(
-        `${emoji('💞')} Document ❤ Star:` +
-          colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
-      );
-    }
-    return { appPath };
-  }
   async gitCloneProject(name: string, dir?: string) {
     return new Promise(resolve => {
       const gitCmd = spawn('git', ['clone', name], {
@@ -109,9 +90,6 @@ export class InitManager {
     } else if (name.lastIndexOf('.git') !== -1) {
       await this.gitCloneProject(name, dir);
     } else {
-      if (find(process.argv, v => v === '--force-creation')) {
-        return await this.executeInitWithForceCreation(name, dir);
-      }
       const { appPath } = await this.executeInit(name, dir);
       const findObj: any = find(ALL_TEMPLATE, item => includes(item.value, name));
       if (findObj && findObj.isDeploy) {
