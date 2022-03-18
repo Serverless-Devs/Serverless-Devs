@@ -92,6 +92,7 @@ export class InitManager {
     } else {
       const { appPath } = await this.executeInit(name, dir);
       const findObj: any = find(ALL_TEMPLATE, item => includes(item.value, name));
+      if (includes(process.argv, '--parameters')) return;
       if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
       }
