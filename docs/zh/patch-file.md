@@ -6,7 +6,7 @@ category: '概述'
 ---
 
 # Yaml 继承
-通过关键字`extends`， 解决多个Yaml配置冗余的问题。
+通过关键字`extend`， 解决多个Yaml配置冗余的问题。
 
 ## 典型场景
 比如使用Serverless Devs部署一个[函数计算FC](https://serverless-devs.com/fc/readme)应用的时候，预发环境的和正式环境除了[service名称](https://serverless-devs.com/fc/yaml#service%E5%AD%97%E6%AE%B5)不一致。其他配置完全一致。Yaml配置如下
@@ -38,8 +38,7 @@ services:
 ```
 ### `s.pre.yaml`配置如下
 ```
-extends:
-  - s.yaml
+extend: s.yaml
 services:
   fc-deploy-test:
     props:
@@ -49,8 +48,7 @@ services:
 ```
 ### `s.pro.yaml`配置如下
 ```
-extends:
-  - s.yaml
+extend: s.yaml
 services:
   fc-deploy-test:
     props:
@@ -59,7 +57,7 @@ services:
         tracingConfig: Enable
 ```
 
-显示的声明 `extends`关键字，获得继承能力
+显示的声明 `extend`关键字，获得继承能力
 
 ### 最终生效的配置
 通过指定yaml配置`s deploy -t s.pro.yaml`生效

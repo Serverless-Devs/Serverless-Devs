@@ -6,7 +6,7 @@ category: 'Overview'
 ---
 
 # Yaml inheritance
-Through the keyword `extends`, the problem of multiple Yaml configuration redundancy is solved.
+Through the keyword `extend`, the problem of multiple Yaml configuration redundancy is solved.
 
 ## Typical scene
 For example, when using Serverless Devs to deploy a [Function Compute FC](https://serverless-devs.com/en/fc/readme) application, the pre-release environment and the official environment will be except for [service name](https://serverless-devs.com/en/fc/yaml#service-field) is inconsistent. Other configurations are exactly the same. Yaml configuration is as follows
@@ -39,8 +39,7 @@ services:
 ```
 ### `s.pre.yaml` is configured as follows
 ```
-extends:
-  - s.yaml
+extend: s.yaml
 services:
   fc-deploy-test:
     props:
@@ -50,8 +49,7 @@ services:
 ```
 ### `s.pro.yaml` is configured as follows
 ```
-extends:
-  - s.yaml
+extend: s.yaml
 services:
   fc-deploy-test:
     props:
@@ -60,7 +58,7 @@ services:
         tracingConfig: Enable
 ```
 
-Displays the declaration `extends` keyword, to gain the ability to inherit
+Displays the declaration `extend` keyword, to gain the ability to inherit
 
 ### Final configuration
 By specifying the yaml configuration `s deploy -t s.pro.yaml` takes effect
