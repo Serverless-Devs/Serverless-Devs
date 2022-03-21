@@ -39,22 +39,11 @@ ${emoji('📖')} Document: ${underline(
   }
   const [componentName, method] = rawData.slice(1);
   const instance = await loadComponent(componentName);
-  // s cli fc-api
-  if (rawData.length === 2) {
-    if (instance.__doc && instance.__doc().length > 1685) {
-      const docResult = instance.__doc();
-      return console.log(docResult);
-    }
-    const publishPath = path.join(instance.__path, 'publish.yml');
-    await specifyServiceHelp(publishPath);
-  }
 
-  // s cli fc-api listServices
-  // s cli fc-api set access default
-  if (rawData.length >= 3) {
+  async function execComponent(_method) {
     const credentials = await getCredentialWithExisted(access);
     if (credentials) {
-      credentials.Alias = access
+      credentials.Alias = access;
     }
     let tempProp = {};
     try {
@@ -74,18 +63,36 @@ ${emoji('📖')} Document: ${underline(
         projectName: 'default',
         provider: undefined,
       },
-      command: method,
+      command: _method,
       args: argsObj.join(' '),
       argsObj,
       path: {
         configPath: undefined,
       },
     };
-    const res = await instance[method](inputs);
+    const res = await instance[_method](inputs);
     if (isEmpty(res)) {
-      return logger.success(`End of method: ${method}`);
+      return logger.success(`End of method: ${_method}`);
     }
     isString(res) ? logger.success(res) : logger.output(res);
+  }
+  // s cli fc-api
+  if (rawData.length === 2) {
+    if (instance['index']) {
+      return await execComponent('index');
+    }
+    if (instance.__doc && instance.__doc().length > 1685) {
+      const docResult = instance.__doc();
+      return console.log(docResult);
+    }
+    const publishPath = path.join(instance.__path, 'publish.yml');
+    await specifyServiceHelp(publishPath);
+  }
+
+  // s cli fc-api listServices
+  // s cli fc-api set access default
+  if (rawData.length >= 3) {
+    return await execComponent(method);
   }
 })().catch(err => {
   throw new CommandError(err.message);
