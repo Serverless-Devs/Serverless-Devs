@@ -1,7 +1,7 @@
 import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
-import { CommandError } from '../error';
+import { HandleError } from '../error';
 import { emoji, getProcessArgv, getCredentialWithExisted, logger, specifyServiceHelp } from '../utils';
 const { chalk, loadComponent, lodash } = core;
 const { underline } = chalk;
@@ -92,8 +92,16 @@ ${emoji('📖')} Document: ${underline(
   // s cli fc-api listServices
   // s cli fc-api set access default
   if (rawData.length >= 3) {
-    return await execComponent(method);
+    if (instance[method]) {
+      return await execComponent(method);
+    }
+    throw new Error(
+      JSON.stringify({
+        message: 'The specified command cannot be found.',
+        tips: 'Please refer to the help document of [-h/--help] command.',
+      }),
+    );
   }
-})().catch(err => {
-  throw new CommandError(err.message);
+})().catch(async error => {
+  await HandleError(error);
 });
