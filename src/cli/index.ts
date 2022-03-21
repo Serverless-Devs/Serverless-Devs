@@ -53,12 +53,15 @@ ${emoji('📖')} Document: ${underline(
   // s cli fc-api set access default
   if (rawData.length >= 3) {
     const credentials = await getCredentialWithExisted(access);
+    if (credentials) {
+      credentials.Alias = access
+    }
     let tempProp = {};
     try {
       const p = argvData.props || argvData.p;
       tempProp = p ? JSON.parse(p) : {};
     } catch (e) {
-      throw new Error('-p/--prop parameter format error');
+      throw new Error('-p/--props parameter format error');
     }
     const argsObj = rawData.slice(3).concat(argvData._argsObj);
     const inputs = {
