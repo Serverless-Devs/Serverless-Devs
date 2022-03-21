@@ -33,6 +33,7 @@
 
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
 
+
 > 更多关于 Serverless Devs 的介绍可以参考[项目介绍文档](./docs/zh/readme.md)
 
 # 快速上手
