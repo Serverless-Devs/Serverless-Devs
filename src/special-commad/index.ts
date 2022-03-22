@@ -43,7 +43,7 @@ class SpecialCommad {
   async getParams(argv): Promise<{ method: string; serverName?: string; spath?: string }> {
     const { _: rawData, template } = argv;
     const originSpath = await core.getTemplatePath(template);
-    const spath = await core.transforYamlPath(originSpath, { warn: false });
+    const spath = await core.transforYamlPath(originSpath);
     if (spath) {
       process.env['templateFile'] = originSpath;
     }

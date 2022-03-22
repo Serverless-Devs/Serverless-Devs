@@ -3,7 +3,7 @@ import { CommandError } from '../../error';
 import { emoji, getProcessArgv } from '../../utils';
 import core from '../../utils/core';
 const { setCredential, setKnownCredential, colors, getAccountId, getCommand, chalk } = core;
-import { HumanError, HumanWarning } from '../../error';
+import { HandleError, HumanWarning } from '../../error';
 
 const description = `You can add an account
 
@@ -132,16 +132,6 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
   if (Object.keys(keyInformation).length > 0) {
     setKnownCredential(keyInformation, access || aliasName);
   }
-})().catch(err => {
-  if (err.message === 'alibaba') {
-    new HumanError({
-      errorMessage: 'You are configuring an incorrect Alibaba Cloud SecretKey.',
-      tips: `Please check the accuracy of Alibaba Cloud SecretKey. documents: ${colors.underline(
-        'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/default_provider_config/alibabacloud.md',
-      )}`,
-    });
-    process.exit(1);
-  } else {
-    throw new CommandError(err.message);
-  }
+})().catch(async error => {
+  await HandleError(error);
 });

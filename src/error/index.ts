@@ -1,7 +1,7 @@
 /** @format */
 import { getVersion, getConfig, getPid, logger, aiRequest, red, bgRed } from '../utils';
 import core from '../utils/core';
-const { colors, report, isDebugMode, makeUnderLine } = core;
+const { colors, report, isDebugMode, makeUnderLine, isDocker } = core;
 export { CommandError } from './command-error';
 export { ConfigDeleteError } from './config-delete-error';
 export { ConfigError } from './config-error';
@@ -51,7 +51,7 @@ export const HandleError = async (error: Error) => {
   } else {
     console.log(red(`✖ ${defaultPrefix}\n`));
     console.log(`${bgRed('ERROR:')}\n`);
-    console.log(isDebugMode() ? error.stack : `${message}\n`);
+    console.log(isDebugMode() || isDocker() ? error.stack : `${message}\n`);
     await aiRequest(message);
   }
 
@@ -59,18 +59,22 @@ export const HandleError = async (error: Error) => {
     if (configOption.traceId) {
       console.log(colors.gray(`TraceId:     ${configOption.traceId}`));
     }
-    console.log(colors.gray(`Environment: ${getVersion()}`));
-    console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
-    console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
-    console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
+    if (!isDocker()) {
+      console.log(colors.gray(`Environment: ${getVersion()}`));
+      console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
+      console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
+      console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
 
-    if (configOption.traceId) {
-      console.log(
-        colors.gray(`Please copy traceId: ${configOption.traceId} and join Dingding group: 33947367 for consultation.`),
-      );
+      if (configOption.traceId) {
+        console.log(
+          colors.gray(
+            `Please copy traceId: ${configOption.traceId} and join Dingding group: 33947367 for consultation.`,
+          ),
+        );
+      }
     }
   }
-  console.log(colors.gray("You can run 's clean --all' to clean Serverless devs."));
+  !isDocker() && console.log(colors.gray("You can run 's clean --all' to clean Serverless devs."));
 
   if (configOption.traceId && !configOption.catchableError) {
     await report({

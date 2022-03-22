@@ -1,7 +1,7 @@
 import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
-import { CommandError } from '../error';
+import { HandleError } from '../error';
 import { emoji, getProcessArgv, getCredentialWithExisted, logger, specifyServiceHelp } from '../utils';
 const { chalk, loadComponent, lodash } = core;
 const { underline } = chalk;
@@ -39,26 +39,15 @@ ${emoji('📖')} Document: ${underline(
   }
   const [componentName, method] = rawData.slice(1);
   const instance = await loadComponent(componentName);
-  // s cli fc-api
-  if (rawData.length === 2) {
-    if (instance.__doc && instance.__doc().length > 1685) {
-      const docResult = instance.__doc();
-      return console.log(docResult);
-    }
-    const publishPath = path.join(instance.__path, 'publish.yml');
-    await specifyServiceHelp(publishPath);
-  }
 
-  // s cli fc-api listServices
-  // s cli fc-api set access default
-  if (rawData.length >= 3) {
+  async function execComponent(_method) {
     const credentials = await getCredentialWithExisted(access);
     let tempProp = {};
     try {
       const p = argvData.props || argvData.p;
       tempProp = p ? JSON.parse(p) : {};
     } catch (e) {
-      throw new Error('-p/--prop parameter format error');
+      throw new Error('-p/--props parameter format error');
     }
     const argsObj = rawData.slice(3).concat(argvData._argsObj);
     const inputs = {
@@ -71,19 +60,45 @@ ${emoji('📖')} Document: ${underline(
         projectName: 'default',
         provider: undefined,
       },
-      command: method,
+      command: _method,
       args: argsObj.join(' '),
       argsObj,
       path: {
         configPath: undefined,
       },
     };
-    const res = await instance[method](inputs);
+    const res = await instance[_method](inputs);
     if (isEmpty(res)) {
-      return logger.success(`End of method: ${method}`);
+      return logger.success(`End of method: ${_method}`);
     }
     isString(res) ? logger.success(res) : logger.output(res);
   }
-})().catch(err => {
-  throw new CommandError(err.message);
+  // s cli fc-api
+  if (rawData.length === 2) {
+    if (instance['index']) {
+      return await execComponent('index');
+    }
+    if (instance.__doc && instance.__doc().length > 1685) {
+      const docResult = instance.__doc();
+      return console.log(docResult);
+    }
+    const publishPath = path.join(instance.__path, 'publish.yml');
+    await specifyServiceHelp(publishPath);
+  }
+
+  // s cli fc-api listServices
+  // s cli fc-api set access default
+  if (rawData.length >= 3) {
+    if (instance[method]) {
+      return await execComponent(method);
+    }
+    throw new Error(
+      JSON.stringify({
+        message: 'The specified command cannot be found.',
+        tips: 'Please refer to the help document of [-h/--help] command.',
+      }),
+    );
+  }
+})().catch(async error => {
+  await HandleError(error);
 });

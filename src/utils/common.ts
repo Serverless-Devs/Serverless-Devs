@@ -34,7 +34,7 @@ export const getCredentialWithExisted = async (access: string) => {
   const data = await core.getCredentialAliasList();
   if (includes(data, access)) {
     const info = await core.getCredential(access);
-    return omit(info, 'Alias');
+    return info;
   }
 };
 
