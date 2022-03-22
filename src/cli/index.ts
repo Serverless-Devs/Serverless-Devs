@@ -42,9 +42,6 @@ ${emoji('📖')} Document: ${underline(
 
   async function execComponent(_method) {
     const credentials = await getCredentialWithExisted(access);
-    if (credentials) {
-      credentials.Alias = access;
-    }
     let tempProp = {};
     try {
       const p = argvData.props || argvData.p;
