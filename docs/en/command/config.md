@@ -168,13 +168,13 @@ google:     PrivateKeyData
 
 - If you want to obtain keys by using environment variables, you need to refer to related documents to obtain the keys in the `Key-Value` format. However, the configurations of different environment variables may vary based on actual scenarios. 
 - URLs for key pairs provided by common cloud vendors:
->     - [阿里云](./../default_provider_config/alibabacloud.md)
->     - [百度云](./../default_provider_config/baiducloud.md)
->     - [AWS](./../default_provider_config/aws.md)
->     - [Azure](./../default_provider_config/azure.md)
->     - [Google Cloud](./../default_provider_config/gcp.md)
->     - [华为云](./../default_provider_config/huaweicloud.md)
->     - [腾讯云](./../default_provider_config/tencentcloud.md)
+>  - [阿里云](./../default_provider_config/alibabacloud.md)
+>  - [百度云](./../default_provider_config/baiducloud.md)
+>  - [AWS](./../default_provider_config/aws.md)
+>  - [Azure](./../default_provider_config/azure.md)
+>  - [Google Cloud](./../default_provider_config/gcp.md)
+>  - [华为云](./../default_provider_config/huaweicloud.md)
+>  - [腾讯云](./../default_provider_config/tencentcloud.md)
 
 ## config get command
 
