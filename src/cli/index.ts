@@ -5,7 +5,7 @@ import { HandleError } from '../error';
 import { emoji, getProcessArgv, getCredentialWithExisted, logger, specifyServiceHelp } from '../utils';
 const { chalk, loadComponent, lodash } = core;
 const { underline } = chalk;
-const { isEmpty, isString } = lodash;
+const { isEmpty, isString, includes } = lodash;
 
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
     
@@ -49,7 +49,10 @@ ${emoji('📖')} Document: ${underline(
     } catch (e) {
       throw new Error('-p/--props parameter format error');
     }
-    const argsObj = rawData.slice(3).concat(argvData._argsObj);
+    const argsObj = rawData
+      .slice(3)
+      .filter(o => !includes(argvData._argsObj, o))
+      .concat(argvData._argsObj);
     const inputs = {
       props: tempProp,
       credentials: credentials || {},
