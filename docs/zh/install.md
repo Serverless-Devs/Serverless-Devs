@@ -47,13 +47,13 @@ Serverless Devs 开发者工具会不定期的进行更新升级。开发者在�
 
 当客户端感知到系统升级之后，开发者可以通过命令`npm i -g @serverless-devs/s`进行更新操作，也可以通过 [Release](https://github.com/Serverless-Devs/Serverless-Devs/releases) 信息查看升级的具体内容，以决定是否进行本次升级。
 
-> 例如：我当前的 Serverless Devs 的版本是`2.0.89`，当系统升级之后，我再使用Serverless Devs开发者工具，工具将会给出相对应的提醒：
-> ```shell script
->    ╭───────────────────────────────────────────────╮
->    │                                               │
->    │       Update available 2.0.89 → 2.0.90        │
->    │   Run npm i -g @serverless-devs/s to update   │
->    │                                               │
->    ╰───────────────────────────────────────────────╯
-> ```
-> 此时，只需要按照提醒进行工具更新升级即可。
+> 例如：我当前的 Serverless Devs 的版本是`2.0.89`，当系统升级之后，我再使用Serverless Devs开发者工具，工具将会给出相对应的提醒：    
+> ```shell script 
+>    ╭───────────────────────────────────────────────╮     
+>    │                                               │     
+>    │       Update available 2.0.89 → 2.0.90        │      
+>    │   Run npm i -g @serverless-devs/s to update   │     
+>    │                                               │    
+>    ╰───────────────────────────────────────────────╯    
+> ```   
+> 此时，只需要按照提醒进行工具更新升级即可。    
