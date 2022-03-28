@@ -5,7 +5,7 @@ import { spawn, spawnSync } from 'child_process';
 import { logger, getConfig, replaceTemplate, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constant';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
-import { emoji } from '../utils/common';
+import { emoji, getProcessArgv } from '../utils/common';
 import core from '../utils/core';
 const { loadApplication, colors, report, inquirer, lodash } = core;
 const { last, split, find, includes } = lodash;
@@ -28,8 +28,24 @@ export class InitManager {
       projectName = answers.projectName;
     }
     const registry = downloadurl ? downloadurl : getConfig('registry') || DEFAULT_REGIRSTRY;
-
-    const appPath = await loadApplication({ registry, target: './', source: name, name: projectName });
+    const argvData = getProcessArgv();
+    let parameters;
+    if (argvData.parameters) {
+      try {
+        parameters = JSON.parse(argvData.parameters);
+      } catch (error) {
+        throw new Error('--parameters format error');
+      }
+    }
+    const appPath = await loadApplication({
+      registry,
+      target: './',
+      source: name,
+      name: projectName,
+      parameters,
+      appName: argvData.appName,
+      access: argvData.access,
+    });
     if (appPath) {
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
       logger.success(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);

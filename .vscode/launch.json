@@ -53,6 +53,32 @@
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "s cli for wss",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
+      "runtimeArgs": [
+        "cli",
+        "fc",
+        "instance",
+        "exec",
+        "-it",
+        "c-623d2c20-90bc30531d074ada8966",
+        "/bin/bash",
+        "-a",
+        "default-1",
+        "--region",
+        "cn-shenzhen",
+        "--service-name",
+        "hello-world-service-test-ws",
+        "--function-name",
+        "event-nodejs14"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
