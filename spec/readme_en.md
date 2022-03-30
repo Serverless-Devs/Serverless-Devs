@@ -52,7 +52,7 @@ Contributions to spec can also refer to the following:
 - Fork the Serverless Devs repository to your own account/organization;
 - Modify, update and improve the spec content;
 - Update `readme.md` under the corresponding version and add yourself to `author`->`contributor`;
-- Add `Pull requests` to the `docs` branch of the repository `Serverless-Devs/Serverless-Devs`; and add [Anycodes](https://github.com/anycodes), [hanxie](https://github.com/hanxie-crypto) as Reviewers, and fill in the update reason in Comment
+- Add `Pull requests` to the `docs` branch of the repository `Serverless-Devs/Serverless-Devs`; and add [Anycodes](https://github.com/anycodes), [hanxie](https://github.com/hanxie-crypto) as Reviewers, and fill in the update reason in Comment;
 
 ### meeting time
 
