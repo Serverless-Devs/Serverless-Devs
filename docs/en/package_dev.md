@@ -151,7 +151,7 @@ The following table describes the directories in the file tree:
 
 Developers can develop applications by using the code stored in the src directory and write the `publish.yaml` file for the project. After the preceding operations are complete, you can commit the project to different sources. For example, if you want to commit the project to GitHub Registry, you can create a repository named `Public` in GitHub, store the compiled code into the repository, and then publish a version. In this case, the application is available on Serverless Devs clients.
 
-## Component development instructions
+## Plugin development instructions
 
 > The development of Serverless Devs plugin is strictly in line with the [plugin model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [plugin model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-specification), the instructions on [plugin model metadata](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-specification) and [plugin model code specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-metadata) are described. 
 
