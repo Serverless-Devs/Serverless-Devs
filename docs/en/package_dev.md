@@ -16,7 +16,10 @@ category: 'Overview'
 > Note: 
 > - By default, templates for developing Serverless Devs components and applications are integrated into Serverless Devs developer tools. Package developers can directly use the templates. 
 > - The development of Package must follow [Serverless Package Model](../../spec/en/0.0.2/serverless_registry_model/readme.md) and conform to relevant specifications. This way, the developers can use Serverless Registry and Serverless Devs to work for future development. 
-> - For the best practices in developing Serverless Devs applications and components, refer to [community forum#62](https://github.com/Serverless-Devs/Serverless-Devs/discussions/62).
+> - For the best practices in developing Serverless Devs applications and components, refer to : 
+>   - [community forum #62](https://github.com/Serverless-Devs/Serverless-Devs/discussions/62);
+>   - [community forum #407](https://github.com/Serverless-Devs/Serverless-Devs/discussions/407);
+>   - [community forum #439](https://github.com/Serverless-Devs/Serverless-Devs/discussions/439); 
 
 ## Component development instructions
 
