@@ -14,5 +14,8 @@ This topic describes a specification about serverless packages. Package develope
 - [Package model](3.package_model.md)
     - [Model composition](3.registry_model.md#Model-structure)
     - [Model specification](3.registry_model.md#Model-specification)
+        - [Component model specification](./3.registry_model.md#Component-model-specification)
+        - [Application model specification](./3.registry_model.md#Application-model-specification)
+        - [Plugin model specification](./3.registry_model.md#Plugin-model-specification)
 - [Scenarios](4.application_scopes.md)
 - [General principles](5.design_principles.md)

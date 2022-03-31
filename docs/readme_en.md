@@ -51,6 +51,7 @@ $ npm install @serverless-devs/s -g
 - [Installation Documentation](en/install.md)
 - [Command Line Operation](en/command/readme.md)
 - [Yaml Specification](en/yaml.md)
+- [Configuration inheritance/multi-environment](en/extend.md)
 - [CI/CD Platform Integration](en/cicd.md)
 
 > If you want to contribute Packages (including components and applications) to Serverless Devs, you can refer to [Package Development Documentation](en/package_dev.md)

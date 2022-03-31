@@ -15,5 +15,8 @@ category: '开发包模型'
 - [Package 模型](./3.package_model.md)
   - [模型的组成](./3.registry_model.md#模型的组成)
   - [模型的规范](./3.registry_model.md#模型的规范)
+    - [组件模型规范](./3.registry_model.md#组件模型规范)
+    - [应用模型规范](./3.registry_model.md#应用模型规范)
+    - [插件模型规范](./3.registry_model.md#插件模型规范)
 - [适用范围](4.application_scopes.md)
 - [设计原则](5.design_principles.md)
