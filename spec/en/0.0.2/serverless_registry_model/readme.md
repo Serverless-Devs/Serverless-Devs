@@ -1,3 +1,9 @@
+---
+title: Intro
+description: 'Intro'
+position: 1
+category: 'Registry model'
+---
 # Registry model
 
 This section describes an open Serverless Registry Model. Package developers can publish their own components and share intended applications to a platform. The platform can use GitHub Registry, Gitee Registry, and Serverless Registry, which are supported by Serverless Devs. You can also build a private registry based on the specification. 
