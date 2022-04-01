@@ -147,67 +147,157 @@ If there are too many services in the YAML file of a serverless application mode
 
 ### Behavior description
 
-In the YAML file of a serverless application model, you can provide behavior operations for services. You need to comply with the following basic format:
+In the Yaml file corresponding to the Serverless Application model, corresponding behavior operations can be provided for the service. The basic format is:
+
+````yaml
+actions: # custom execution logic
+  pre-command: # run before the command
+    - run: command # The operation to run
+      path: ./path # The path to run the operation on
+    - component: pgo # The component to be executed, the format is: component name command parameter
+    - plugin: website-fc # plugin to use
+      args: # Arguments for the plugin
+        key: value
+  post-command: # run after the command
+    - run: command # The operation to run
+      path: ./path # The path to run the operation on
+    - component: pgo # The component to be executed, the format is: component name command parameter
+    - plugin: website-fc # plugin to use
+      args: # Arguments for the plugin
+        key: value
+````
+
+E.g:
+
+````yaml
+actions: # custom execution logic
+  pre-deploy: # run before deploy
+    - run: npm install # command line to run
+      path: ./backend_src # The path where the command line runs
+    - component: fc build --use-docker # command line to run
+  post-deploy: # run after deploy
+    - plugin: fc-warm
+      args:
+        corn: '********'
+````
+
+When the Serverless Devs developer tool executes the service, it will execute the `pre-command` operation in sequence before the related command line, and then execute the `post-command` operation after all the content is executed.
+
+Take the following Yaml as an example:
 
 ```yaml
-actions: # Custom run logic
-  pre-command: # Run before the execution of the command.
-    - run: command  # The operation to run
-      path: ./path # Operation run path
-  post-command: # Run after the command.
-    - run: command  # The operation to run.
-      path: ./path # The path of the operation
-
-```
-
-Example：
-
-```yaml
-actions: # Custom run logic
-  pre-deploy: # Run before the deploy operation.
-    - run: s exec -- publish  # Command line to run.
-      path: ./backend_src # Run path of the command line
-    - run: s build  # Command line to run
-      path: ./backend_src # Path to run the command
-  post-deploy: # Run after the deploy operation.
-    - run: s clean
-      path: ./frontend_src
-```
-
-When this service is executed by Serverless Devs, the pre-command operation is preferentially executed. After all the commands are executed, the post-command operation is executed. 
-
-Example：
-
-```yaml
-edition: 1.0.0        #  The version of the YAML syntax. The version complies with the semantic versioning specification.
-name: FullStack       #  Project name
+edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+name: FullStack # Project name
 
 services:
-  nextjs-portal: #  Service name
-    access: xxx-account1  #  The alias of the key, which can be omitted if the alias is the same as the access key the project
-    component: vue-component  # Component name
-    props: #  Property value of the component
+  nextjs-portal: # service name
+    access: xxx-account1 # Secret key alias, if it is the same as the project's access, it can be omitted
+    component: vue-component # component name
+    props: # property value of the component
       src: ./frontend_src
       url: url
-    actions: # Custom run logic
-      pre-deploy: # Run before the deploy operation.
-        - run: s exec -- publish  # The command line to run
-          path: ./backend_src # Path to run the command line
-        - run: s build  # Command line to run
-          path: ./backend_src # Path to run the command line
-      post-deploy: # Run after the deploy operation
-        - run: s clean
-          path: ./frontend_src
+    actions: # custom execution logic
+      pre-deploy: # run before deploy
+        - run: npm install # command line to run
+          path: ./backend_src # The path where the command line runs
+        - component: fc build --use-docker # command line to run
+      post-deploy: # run after deploy
+        - plugin: fc-warm
+          args:
+           
 ```
 
-After you run the `deploy` command in the application, the system performs the following operations in order: 
-1. Run `s exec -- publish` in the `./backend_src` directory. 
-2. Run `s build` in the `./backend_src` directory. 
-3. Call the `deploy` method of the `vue-component` component and deliver `props` and the basic information of the project to the `deploy` method of the `vue-component` component. 
-4. Run `s clean` in the `./frontend_src` directory.
+When the developer executes the `deploy` command under the current application, the system will operate in the following order:
+1. Execute `npm install` in the `./backend_src` directory
+2. For the project `nextjs-portal`, use the `build` method of the `fc` component, and the input parameter is `--use-docker` (that is, in the `docker` environment, build the project `nextjs-portal` )
+3. Call the `deploy` method of the component `vue-component`, and pass the `props` and the basic information of the project into the `deploy` method of the component `vue-component`
+4. Pass the deployment output and other information to the plugin `fc-warm`, and pass in `{"corn": "********"}` as a parameter
 
-If an error occurs in the process, the system reports an error and terminates the execution of the process. 
+The above sequence is only applicable to the premise that there is no error in the whole process. If there is an error in the process, the system will report an error and terminate the execution of the subsequent process.
 
------------
+Regarding the positioning and difference of `run`, `component` and `plugin` in `actions`:
+- `run`, you need to specify the execution directory, which is just a `hook` capability, which can be considered as a simple execution command (that is, a command to invoke the system);
+- `component`, the format is `component name command parameter`, which will pass the key information, attribute information, etc. used by the current project to the specified component method;
+- `plugin` is a lightweight plugin, each plugin usually only supports one capability, and the biggest difference from `component` is that it can modify properties. For example, the user configures a `k-v` in `props` as: `codeUri: ./code`:
+    - After using `component`, the current information (`codeUri: ./code`) will continue to be the parameters of project execution and will not change;
+    - After using `plugin`, the current information (`codeUri: ./code`) may be changed, and the changed content is used as the parameter of project execution;
+
+Concrete examples of the three:
+- If Yaml is:
+    ```yaml
+    edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+    name: FullStack # Project name
+    
+    services:
+      nextjs-portal: # service name
+        component: test-component # component name
+        props: # property value of the component
+          src: ./frontend_src
+          url: url
+    ```
+    After the user executes `s deploy -a mytest`, the system will send the key `mytest` and the parameters of `props` (`{"src": "./frontend_src", "url": "url"}`) passed to the `deploy` method of the component `test-component`;
+
+- If Yaml is:
+    ```yaml
+    edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+    name: FullStack # Project name
+    
+    services:
+      nextjs-portal: # service name
+        component: test-component # component name
+        actions: # custom execution logic
+          pre-deploy: # run before deploy
+            - run: s build
+              path: ./
+        props: # property value of the component
+          src: ./frontend_src
+          url: url
+    ```
+    After the user executes `s deploy -a mytest`, the system will:
+    - Execute `s build` in the `./` directory. At this time, the `-a mytest` parameter will not be directly passed to the `s build` method. It can be considered that a certain command is executed purely, and there is no inheritance and association of related states. ;
+    - Pass the key `mytest`, and the parameters of `props` (`{"src": "./frontend_src", "url": "url"}`) to the `deploy` method of the component `test-component` ;
+
+- If Yaml is:
+    ```yaml
+    edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+    name: FullStack # Project name
+    
+    services:
+      nextjs-portal: # service name
+        component: test-component # component name
+        actions: # custom execution logic
+          pre-deploy: # run before deploy
+            - component: fc build
+        props: # property value of the component
+          src: ./frontend_src
+          url: url
+    ```
+    After the user executes `s deploy -a mytest`, the system will:
+    - Pass the key `mytest`, and the parameters of `props` (`{"src": "./frontend_src", "url": "url"}`) to the `build` method of the component `fc`;
+    - Pass the key `mytest`, and the parameters of `props` (`{"src": "./frontend_src", "url": "url"}`) to the `deploy` method of the component `test-component`
+
+- If Yaml is:
+   ```yaml
+    edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+    name: FullStack # Project name
+    
+    services:
+      nextjs-portal: # service name
+        component: test-component # component name
+        actions: # custom execution logic
+          pre-deploy: # run before deploy
+            - plugin: qbuild
+              args:
+                key: value
+        props: # property value of the component
+          src: ./frontend_src
+          url: url
+    ```
+    After the user executes `s deploy -a mytest`, the system will:
+    - put the key `mytest`, and the parameters of `props` (`{"src": "./frontend_src", "url": "url"}`), the parameters of `plugin` (`{"key": "value"}`) is passed to the plugin `qbuild`, at this time the plugin `qbuild` performs related business processing, and the processing is completed:
+        - If the returned information modifies `props`, the key `mytest` and the modified `props` will be passed to the `deploy` method of the component `test-component`;
+        - If the returned information has not modified `props`, then the key `mytest` and the original `props` will be passed to the `deploy` method of the component `test-component`;
+
+-------------
 
 > For more information about how to deploy an application with a few clicks or how to deploy a specific service in an application, see the [custom command user guide](command/custom.md).

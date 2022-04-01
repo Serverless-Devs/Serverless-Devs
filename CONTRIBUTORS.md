@@ -195,6 +195,24 @@
                 <img src="https://avatars.githubusercontent.com/u/45677661?v=4" width="20%" style="min-width: 100px"><br>
                 <p>jessie<br><a href="https://github.com/jessie123jiang"> Github</a> | Blog</p>
              </td>
+             <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/91404839?v=4" width="20%" style="min-width: 100px"><br>
+                <p>SkyWingOzora<br><a href="https://github.com/SkyWingOzora"> Github</a> | Blog</p>
+             </td>
+             <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/19836250?v=4" width="20%" style="min-width: 100px"><br>
+                <p>kasey<br><a href="https://github.com/huanhunx"> Github</a> | Blog</p>
+             </td>
+        </tr>
+        <tr>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/14832743?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Gao Yang<br><a href="https://github.com/echosoar"> Github</a> | Blog</p>
+             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/32314363?v=4" width="20%" style="min-width: 100px"><br>
+                <p>week<br><a href="https://github.com/brewHouses"> Github</a> | Blog</p>
+             </td>
         </tr>
     </table>
 </center>

@@ -52,6 +52,7 @@ $ npm install @serverless-devs/s -g
 - [安装文档](./docs/zh/install.md)
 - [命令行操作](./docs/zh/command/readme.md)
 - [Yaml规范](./docs/zh/yaml.md)
+- [配置继承/多环境](./docs/zh/extend.md)
 - [CI/CD平台集成](./docs/zh/cicd.md)
 
 > 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](./docs/zh/package_dev.md)   
