@@ -143,7 +143,7 @@ function notFound(args) {
       const registry = getConfig('registry', 'http://registry.devsapp.cn/simple');
       // s 源
       if (registry === 'http://registry.devsapp.cn/simple') {
-        const filePath = path.join(devsappPath, replace(args.component, 'devsapp', ''));
+        const filePath = path.join(devsappPath, args.component);
         if (fs.existsSync(filePath)) {
           const data = await getComponent(filePath);
           if (data.isComponent) {
