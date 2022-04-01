@@ -7,8 +7,7 @@ import { getFolderSize } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
 import { HumanWarning } from '../error';
-const { minimist, getYamlContent, fse: fs, colors, getRootHome, tableLayout, lodash } = core;
-const { replace } = lodash;
+const { minimist, getYamlContent, fse: fs, colors, getRootHome, tableLayout } = core;
 
 const description = `Get details of installed components.
     
