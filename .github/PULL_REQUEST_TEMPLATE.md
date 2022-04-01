@@ -42,3 +42,9 @@ else:
     please describe your contribution in detail
 ```
 
+---------------------
+
+## Others
+
+**Reason for update**
+> Why do you need to update your documentation?
