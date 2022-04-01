@@ -39,6 +39,10 @@ const devs_template = [
     name: 'Component Scaffolding',
     value: 'devsapp/start-component',
   },
+  {
+    name: 'Plugin Scaffolding',
+    value: 'devsapp/start-plugin',
+  },
 ];
 
 const ali_template = [
