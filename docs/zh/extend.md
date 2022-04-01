@@ -8,6 +8,9 @@ category: '概述'
 # Yaml 继承
 通过关键字`extend`， 解决多个Yaml配置冗余的问题。
 
+- [最佳实践案例](https://github.com/devsapp/start-realwrold/tree/master/src)
+
+
 ## 典型场景
 比如使用Serverless Devs部署一个[函数计算FC](https://serverless-devs.com/fc/readme)应用的时候，预发环境的和正式环境除了[service名称](https://serverless-devs.com/fc/yaml#service%E5%AD%97%E6%AE%B5)不一致。其他配置完全一致。Yaml配置如下
 ```
