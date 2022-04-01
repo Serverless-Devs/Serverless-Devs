@@ -1,8 +1,7 @@
-<!--
-Thank you for creating a pull request to contribute to Serverless Devs code! Before you open the request please answer the following questions to help it be more easily integrated. Please check the boxes "[ ]" with "[x]" when done too.
--->
+> Thank you for creating a pull request to contribute to Serverless Devs code! Before you open the request please answer the following questions to help it be more easily integrated. Please check the boxes "[ ]" with "[x]" when done too.
+> Please select one of the PR types below to complete 
 
-> Please select one of the PR types below to complete
+---------------------
 
 ## Fix bugs
 
@@ -13,6 +12,8 @@ Thank you for creating a pull request to contribute to Serverless Devs code! Bef
 - [ ] Add test cases for the changes
 - [ ] Passed the CI test
 
+---------------------
+
 ## Update docs
 
 **Reason for update**
@@ -21,6 +22,8 @@ Thank you for creating a pull request to contribute to Serverless Devs code! Bef
 **Pull request tasks**
 - [ ] Update Chinese documentation
 - [ ] Update English documentation
+
+---------------------
 
 ## Add contributor
 
