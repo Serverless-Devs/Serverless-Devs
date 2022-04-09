@@ -165,9 +165,9 @@ PR is the only way to make change to Serverless Devs project files. To help revi
 
 Any test case would be welcomed. Currently, Serverless Devs function test cases are high priority.
 
-* For unit test, you need to create a test file named `xxxTest.java` in the test directory of the same module. Recommend you to use the junit5 UT framework
+* For unit test, you need to create a test file named `xxx-xxx.test.ts` in the test directory of the same module. Recommend you to use the [Jest](https://jestjs.io/) UT framework
 
-* For integration test, you can put the integration test in the test directory or the Serverless Devs-test module. It is recommended to use the mockito test framework.
+* For integration test, you can put the integration test in the test directory or the Serverless Devs-test module. It is recommended to use mock-related test frameworks.
 
 ## Package contribution
 
