@@ -13,6 +13,7 @@ category: '概述'
 - [描述文件格式/规范](#描述文件格式规范)
     - [元数据](#元数据)
     - [变量赋值](#变量赋值)
+    - [特殊变量](#特殊变量)
     - [服务顺序](#服务顺序)
     - [行为描述](#行为描述)
 
@@ -138,6 +139,39 @@ Serverless Application模型对应的Yaml文件支持多种变量格式：
 - 获取全局变量：${vars.*}
 - 获取其他项目的变量：${projectName.props.*}
 - 获取Yaml中其他项目的结果变量：${projectName.output.*}
+- 获取当前配置的config变量：${config(AccountID)}
+  本质是获取 `s config get`中变量值
+- 获取当前模块的信息：${this.xx}
+  以下面的Yaml为例：
+  ```
+  edition: 1.0.0
+  name: NextProject
+  access: default-access
+
+  services:
+    nextjs-portal:
+      component: fc
+      actions:
+        pre-deploy:
+          - run: s invoke ${this.props.url}
+            path: ./backend_src
+      props:
+        codeUri: ./frontend_src
+        url: url
+  ```
+  在`nextjs-portal`中:
+    - 使用`${this.name}`表示`nextjs-portal`
+    - 使用`${this.props.codeUri}`表示 `./frontend_src`
+    - 使用`${this.access}`表示`default-access`
+
+
+
+### 特殊变量
+在Serverless-Devs中有些特殊变量有特定的用途，开发者没有特殊的需求，避免使用特殊变量
+- `${aliyun-cli}`
+ 作用在`access`的值中，从获取[aliyun cli](https://github.com/aliyun/aliyun-cli)的默认的`profile`，并且生效。
+
+ > 执行`aliyun configure list`可以查看当前生效的`profile`
 
 ### 服务顺序
 
