@@ -7,8 +7,7 @@ import { getFolderSize } from '../utils/common';
 import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
 import { HumanWarning } from '../error';
-const { minimist, getYamlContent, fse: fs, colors, getRootHome, tableLayout, lodash } = core;
-const { replace } = lodash;
+const { minimist, getYamlContent, fse: fs, colors, getRootHome, tableLayout } = core;
 
 const description = `Get details of installed components.
     
@@ -143,7 +142,7 @@ function notFound(args) {
       const registry = getConfig('registry', 'http://registry.devsapp.cn/simple');
       // s 源
       if (registry === 'http://registry.devsapp.cn/simple') {
-        const filePath = path.join(devsappPath, replace(args.component, 'devsapp', ''));
+        const filePath = path.join(devsappPath, args.component);
         if (fs.existsSync(filePath)) {
           const data = await getComponent(filePath);
           if (data.isComponent) {

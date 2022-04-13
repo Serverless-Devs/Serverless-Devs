@@ -55,6 +55,16 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
+      "name": "s component",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/Users/shihuali/workspace/s/bin/s",
+      "runtimeArgs": ["component", "--component", "devsapp/fc"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/test/start-fc-http-nodejs12",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
       "name": "s cli for wss",
       "type": "node",
       "request": "launch",
