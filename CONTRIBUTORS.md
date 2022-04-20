@@ -217,6 +217,10 @@
                 <img src="https://avatars.githubusercontent.com/u/21168270?v=4" width="20%" style="min-width: 100px"><br>
                 <p>Logan Zhang<br><a href="https://github.com/loganhz"> Github</a> | Blog</p>
             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/59047063?v=4" width="20%" style="min-width: 100px"><br>
+                <p>陈穗龙<br><a href="https://github.com/duolabmeng6"> Github</a> | Blog</p>
+            </td>
         </tr>
     </table>
 </center>
