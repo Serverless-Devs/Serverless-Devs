@@ -24,6 +24,6 @@ jobs:
       - name: Run step only when files change.
         if: steps.docs-changed.outputs.any_changed == 'true'
         run: |
-          curl http://index.serverless-devs-docs.1767215449378635.cn-hongkong.fc.devsapp.net
+          curl -H "X-Fc-Invocation-Type: Async" http://index.serverless-devs-docs.1767215449378635.cn-hongkong.fc.devsapp.net
           
         
