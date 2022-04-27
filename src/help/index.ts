@@ -86,6 +86,7 @@ async function help(program) {
       tmp,
       publishHelp.helpInfo(descption.Examples, 'Examples', helperLength) + '\n',
       `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')}\n`,
+      `${emoji('🚀')} ${makeUnderLine('More applications: https://registry.serverless-devs.com')}\n`,
     )
     .join('');
 

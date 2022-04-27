@@ -52,8 +52,11 @@ export class InitManager {
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       console.log(
-        `${emoji('💞')} Document ❤ Star:` +
-          colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs' + '\n'),
+        `${emoji('💞')} Document ❤ Star: ` +
+          colors.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
+      );
+      console.log(
+        `${emoji('🚀')} More applications: ` + colors.cyan.underline('https://registry.serverless-devs.com\n'),
       );
     }
 
@@ -88,11 +91,7 @@ export class InitManager {
   }
 
   async init(name?: string, dir?: string) {
-    console.log(
-      `\n${emoji('🚀')} Serverless Awesome: ${colors.underline(
-        'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md',
-      )}\n`,
-    );
+    console.log(`\n${emoji('🚀')} More applications: ${colors.underline('https://registry.serverless-devs.com')}\n`);
     if (!name) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       const answerValue = answers.template || answers.firstLevel;

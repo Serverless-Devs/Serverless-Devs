@@ -35,7 +35,7 @@ Initialize a new project based on a template. You can initialize the application
         $ s init git@github.com:foo/bar.git
         $ s init https://github.com/foo/bar.git
         
-🚀 More Application: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md
+🚀  More applications: https://registry.serverless-devs.com
 
 Options:
   -d, --dir <dir>           Where to output the initialized app into (default: ./<ProjectName> )

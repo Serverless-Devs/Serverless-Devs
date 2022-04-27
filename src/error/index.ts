@@ -63,7 +63,8 @@ export const HandleError = async (error: Error) => {
       console.log(colors.gray(`Environment: ${getVersion()}`));
       console.log(underline('Documents:   ', 'https://www.serverless-devs.com'));
       console.log(underline('Discussions: ', 'https://github.com/Serverless-Devs/Serverless-Devs/discussions'));
-      console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues\n'));
+      console.log(underline('Issues:      ', 'https://github.com/Serverless-Devs/Serverless-Devs/issues'));
+      console.log(underline('Regsitry:    ', 'https://registry.serverless-devs.com\n'));
 
       if (configOption.traceId) {
         console.log(
