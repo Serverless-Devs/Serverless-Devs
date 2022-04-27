@@ -46,9 +46,7 @@ try {
       boolean: ['all'],
     });
     if (args.all) {
-      let files = fs.readdirSync(path.join(sPath));
-      const excludeList = ['access.yaml', 'set-config.yml', 'logs', 'config'];
-      files = files.filter((item: string) => !excludeList.includes(item));
+      const files = ['cache', 'components'];
       files.forEach((file: string) => {
         rimraf.sync(path.join(sPath, file));
       });
