@@ -15,5 +15,6 @@ esbuild lib/clean/index.js --bundle --log-level=error --minify --external:@serve
 esbuild lib/component/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --platform=node --format=cjs --target=node10.4 --allow-overwrite --outfile=lib/component/index.js
 esbuild lib/update-notifier/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --platform=node --format=cjs --target=node10.4 --allow-overwrite --outfile=lib/update-notifier/index.js
 esbuild lib/verify/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --platform=node --format=cjs --target=node10.4 --allow-overwrite --outfile=lib/verify/index.js
+esbuild lib/edit/index.js --bundle --log-level=error --minify --external:@serverless-devs/core  --platform=node --format=cjs --target=node10.4 --allow-overwrite --outfile=lib/edit/index.js
 
 

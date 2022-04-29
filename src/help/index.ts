@@ -22,6 +22,7 @@ const descption = {
     { set: '🔧  Settings for the tool.' },
     { clean: '💥  Clean up the environment.' },
     { component: '🔌  Installed component information.' },
+    { edit: '🔌  Installed component information.' },
   ],
   Examples: [{ init: 'Perform [s init] fast experience Serverless Devs.' }],
 };
