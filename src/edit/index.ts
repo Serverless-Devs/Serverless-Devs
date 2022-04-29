@@ -3,7 +3,6 @@ import core from '../utils/core';
 import { emoji, getProcessArgv, i18n } from '../utils';
 import { HandleError } from '../error';
 import execa from 'execa';
-import open from 'open';
 
 const { colors } = core;
 
@@ -26,24 +25,16 @@ const command = program
   .parse(process.argv);
 
 (async () => {
-  console.log(process.argv);
   const { help, template } = getProcessArgv();
   if (help) {
     command.help();
   }
   const spath = await core.getTemplatePath(template);
   const port = await core.getAvailablePort(7000);
-  console.log(spath);
-  execa(
-    process.execPath,
-    ['/Users/shihuali/workspace/serverless-devs-ui/server/app.js', '--template', spath, '--port', port],
-    {
-      stdio: 'inherit',
-      shell: true,
-    },
-  );
-  await core.sleep(1000);
-  await open(`http://localhost:${port}`);
+  execa(process.execPath, [`${require('@xsahxl/devs-ui')}`, '--template', spath, '--port', port], {
+    stdio: 'inherit',
+    shell: true,
+  });
 })().catch(async error => {
   await HandleError(error);
 });
