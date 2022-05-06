@@ -47,6 +47,7 @@ const { join, includes } = lodash;
   await help(system_command);
 
   if (includes(COMMAND_LIST, process.argv[2])) {
+    core.makeLogFile();
     system_command.parse(process.argv);
   } else {
     // 自定义指令: s deploy
