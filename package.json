@@ -80,6 +80,6 @@
   },
   "dependencies": {
     "@serverless-devs/core": "beta",
-    "@xsahxl/devs-ui": "^0.0.4"
+    "@serverless-devs/ui": "beta"
   }
 }

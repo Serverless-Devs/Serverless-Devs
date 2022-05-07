@@ -31,7 +31,7 @@ const command = program
   }
   const spath = await core.getTemplatePath(template);
   const port = await core.getAvailablePort(7000);
-  execa(process.execPath, [`${require('@xsahxl/devs-ui')}`, '--template', spath, '--port', port], {
+  execa(process.execPath, [`${require('@serverless-devs/ui')}`, '--template', spath, '--port', port], {
     stdio: 'inherit',
     shell: true,
   });
