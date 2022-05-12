@@ -6,19 +6,18 @@ import execa from 'execa';
 
 const { colors } = core;
 
-const description = `Get details of installed components.
+const description = `Application editing.
     
     Example:
-        $ s component
-        $ s component --component fc-api
+        $ s edit
 
 ${emoji('📖')} Document: ${colors.underline(
-  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/component.md',
+  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/edit.md',
 )}`;
 const command = program
-  .name('s component')
+  .name('s edit')
   .usage('[options]')
-  .option('--component [componentName]', 'Gets the specified component information (like: fc, fc@0.0.1)')
+  .option('-t, --template <templatePath>', 'Specify the template file.')
   .helpOption('-h, --help', i18n('display_help_for_command'))
   .description(description)
   .addHelpCommand(false)
