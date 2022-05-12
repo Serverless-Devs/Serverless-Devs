@@ -589,7 +589,7 @@ Parameters: # 标准的JSON Scheme
 | 目录 | 必须 | 结构 | 含义 |
 | --- | --- | --- | --- |
 | Edition | 是 | String | 当前Yaml的版本，推荐0.0.2 |
-| Type | 是 | String | 类型，包括Component和Application，Plugin三个取值，此处取值Application |
+| Type | 是 | String | 类型，包括Component和Application，Plugin三个取值，此处取值Plugin |
 | Name | 是 | String | 组件名称 |
 | Provider | 是 | List<String> | 组件所支持的云厂商信息 |
 | Version | 是 | String | 组件版本号，例如0.0.1 |
