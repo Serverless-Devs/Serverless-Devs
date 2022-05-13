@@ -136,7 +136,7 @@ function transforData(obj: any) {
       const instancePath = get(ferrors, '[0].instancePath');
       if (instancePath) {
         const errKey = replace(instancePath.slice(1), /\//g, '.');
-        logger.log(`The ${colors.yellow(errKey)} field under ${colors.yellow(item.service)} service is incorrect.\n`);
+        logger.log(`The ${colors.yellow(errKey)} field in ${colors.yellow(item.service)} service is incorrect.\n`);
       }
       const rows = map(ferrors, o => ({
         message: o.message,
