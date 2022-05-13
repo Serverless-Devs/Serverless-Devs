@@ -514,7 +514,7 @@ services:
       name: {{ inputsrgs }}
 ````
     
-For compatibility with [spec 0.0.1](https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/en/0.0.1/serverless_package_model/3.package_model.md#%E5%BA% 94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83), about the special format definition of `s.yaml`, in the current version:
+For compatibility with [spec 0.0.1](https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/en/0.0.1/serverless_package_model/package_model.md#%E5%BA% 94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83), about the special format definition of `s.yaml`, in the current version:
 1. If there is content similar to `'{{ bucket | alibaba oss bucket }}'` in `s.yaml`, the user is directly reminded to enter a parameter such as bucket as a required parameter in Yaml, and the ` The content "alibaba oss bucket" after |` is used to explain the meaning of this parameter;
 2. If content similar to `"{{ access }}"` exists in `s.yaml`, then judge whether the `Parameters` parameter and related Key exist in `publish.yaml`:
     - If it exists, it will be corresponding by default;

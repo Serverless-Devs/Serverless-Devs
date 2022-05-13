@@ -23,7 +23,7 @@ category: 'Overview'
 
 ## Component development instructions
 
-> The development of Serverless Devs components is strictly in line with the [component model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [component model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-specification), the instructions on [component model metadata](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-specification) and [component model code specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Component-model-metadata) are described. 
+> The development of Serverless Devs components is strictly in line with the [component model specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Component-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [component model specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Component-model-specification), the instructions on [component model metadata](../../spec/en/0.0.2/serverless_package_model/package_model.md#Component-model-specification) and [component model code specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Component-model-metadata) are described. 
 
 > 🐵 Note: When you develop Serverless Devs components, you need the following capabilities when you develop Serverless Devs components. The capabilities include but not limited to: 
 > - Obtain user key pair information. 
@@ -99,7 +99,7 @@ Developers can use the code in the src directory for development. By default, th
 
 ## Application development instructions
 
-> The development of Serverless Devs applications must strictly conform to the [application model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Application-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [application model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Application-model-specification), the instructions on [application model metadata](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Application-model-metadata) are described. 
+> The development of Serverless Devs applications must strictly conform to the [application model specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Application-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [application model specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Application-model-specification), the instructions on [application model metadata](../../spec/en/0.0.2/serverless_package_model/package_model.md#Application-model-metadata) are described. 
 
 The component development cases of Serverless Devs are integrated into the Serverless Devs CLI tool. You can use the CLI tool to initialize an application project that is not developed. Developers only need to run the s init command, and the following command output is returned:
 
@@ -156,7 +156,7 @@ Developers can develop applications by using the code stored in the src director
 
 ## Plugin development instructions
 
-> The development of Serverless Devs plugin is strictly in line with the [plugin model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [plugin model specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-specification), the instructions on [plugin model metadata](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-specification) and [plugin model code specification](../../spec/en/0.0.2/serverless_package_model/3.package_model.md#Plugin-model-metadata) are described. 
+> The development of Serverless Devs plugin is strictly in line with the [plugin model specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Plugin-model-specification) in [Serverless Package Model](../../spec/en/0.0.2/serverless_package_model/readme.md). In the [plugin model specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Plugin-model-specification), the instructions on [plugin model metadata](../../spec/en/0.0.2/serverless_package_model/package_model.md#Plugin-model-specification) and [plugin model code specification](../../spec/en/0.0.2/serverless_package_model/package_model.md#Plugin-model-metadata) are described. 
 
 The component development cases of Serverless Devs are integrated into the Serverless Devs CLI tool. You can use the CLI tool to initialize a plugin project that is not developed. Developers only need to run the `s init` command, and the following command output is returned:
 

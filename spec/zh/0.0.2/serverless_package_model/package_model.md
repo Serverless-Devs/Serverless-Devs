@@ -515,7 +515,7 @@ services:
       name: {{ inputsrgs }}
 ```
     
-为了兼容[spec 0.0.1](https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/zh/0.0.1/serverless_package_model/3.package_model.md#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83) 中，关于`s.yaml`的特殊格式定义，在当前版本中：
+为了兼容[spec 0.0.1](https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/zh/0.0.1/serverless_package_model/package_model.md#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83) 中，关于`s.yaml`的特殊格式定义，在当前版本中：
 1. 如果`s.yaml`中存在类似`'{{ bucket | alibaba oss bucket }}'`的内容 ，则直接提醒用户需要输入bucket这样的一个参数，作为Yaml中所必须的参数，并以`|`之后的内容"alibaba oss bucket"作为解释这个参数的含义；
 2. 如果`s.yaml`中存在类似`"{{ access }}"`内容，则判断`publish.yaml`中是否存在`Parameters`参数以及相关的Key：
     - 如果存在，则默认进行对应；
