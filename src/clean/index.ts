@@ -31,69 +31,74 @@ const command = program
   .addHelpCommand(false)
   .parse(process.argv);
 
-try {
-  if (process.argv.length === 2) {
-    command.help();
-  }
+(async () => {
+  try {
+    if (process.argv.length === 2) {
+      command.help();
+    }
 
-  if (process.argv.length > 2) {
-    const sPath = getRootHome();
-    const cachePath = path.join(sPath, 'cache');
-    const componentsPath = path.join(sPath, 'components');
-    const githubPath = path.join(componentsPath, 'github.com');
-    const devsappPath = path.join(componentsPath, 'devsapp.cn');
-    const args = minimist(process.argv.slice(2), {
-      boolean: ['all'],
-    });
-    if (args.all) {
-      let files = fs.readdirSync(path.join(sPath));
-      const excludeList = ['access.yaml', 'set-config.yml', 'logs', 'config'];
-      files = files.filter((item: string) => !excludeList.includes(item));
-      files.forEach((file: string) => {
-        rimraf.sync(path.join(sPath, file));
+    if (process.argv.length > 2) {
+      const sPath = getRootHome();
+      const cachePath = path.join(sPath, 'cache');
+      const componentsPath = path.join(sPath, 'components');
+      const githubPath = path.join(componentsPath, 'github.com');
+      const devsappPath = path.join(componentsPath, 'devsapp.cn');
+      const args = minimist(process.argv.slice(2), {
+        boolean: ['all'],
       });
-      logger.log('The environment of Serverless Devs has been cleaned up successfully.', 'green');
-    }
-    if (args.cache) {
-      // cache 无参数
-      if (typeof args.cache === 'boolean') {
-        rimraf.sync(path.join(cachePath));
-        logger.log('Cache has been cleaned up successfully.', 'green');
+      if (args.all) {
+        const files = ['cache', 'components'];
+        files.forEach((file: string) => {
+          rimraf.sync(path.join(sPath, file));
+        });
+        try {
+          const spath = await core.getTemplatePath();
+          const sdir = path.join(path.dirname(spath), '.s');
+          rimraf.sync(sdir);
+        } catch (error) {}
+        logger.log('The environment of Serverless Devs has been cleaned up successfully.', 'green');
       }
-      // cache 有参数
-      if (typeof args.cache === 'string') {
-        rimraf.sync(path.join(cachePath, args.cache));
-        logger.log(`Cache [${args.cache}] has been cleaned up successfully.`, 'green');
-      }
-    }
-    if (args.component) {
-      // component 无参数
-      if (typeof args.component === 'boolean') {
-        rimraf.sync(componentsPath);
-        logger.log('Component has been cleaned up successfully.', 'green');
-      }
-      // component 有参数
-      if (typeof args.component === 'string') {
-        const registry = getConfig('registry');
-        // s 源
-        if (registry === 'http://registry.devsapp.cn/simple') {
-          const filePath = path.join(devsappPath, args.component);
-          if (fs.existsSync(filePath)) {
-            rimraf.sync(filePath);
-            logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
-          }
+      if (args.cache) {
+        // cache 无参数
+        if (typeof args.cache === 'boolean') {
+          rimraf.sync(path.join(cachePath));
+          logger.log('Cache has been cleaned up successfully.', 'green');
         }
-        // git 源
-        if (registry === 'https://api.github.com/repos') {
-          const filePath = path.join(githubPath, args.component);
-          if (fs.existsSync(filePath)) {
-            rimraf.sync(filePath);
-            logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
-          }
+        // cache 有参数
+        if (typeof args.cache === 'string') {
+          rimraf.sync(path.join(cachePath, args.cache));
+          logger.log(`Cache [${args.cache}] has been cleaned up successfully.`, 'green');
         }
       }
+      if (args.component) {
+        // component 无参数
+        if (typeof args.component === 'boolean') {
+          rimraf.sync(componentsPath);
+          logger.log('Component has been cleaned up successfully.', 'green');
+        }
+        // component 有参数
+        if (typeof args.component === 'string') {
+          const registry = getConfig('registry');
+          // s 源
+          if (registry === 'http://registry.devsapp.cn/simple') {
+            const filePath = path.join(devsappPath, args.component);
+            if (fs.existsSync(filePath)) {
+              rimraf.sync(filePath);
+              logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
+            }
+          }
+          // git 源
+          if (registry === 'https://api.github.com/repos') {
+            const filePath = path.join(githubPath, args.component);
+            if (fs.existsSync(filePath)) {
+              rimraf.sync(filePath);
+              logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
+            }
+          }
+        }
+      }
     }
+  } catch (error) {
+    // ignore error in window
   }
-} catch (error) {
-  // ignore error in window
-}
+})();

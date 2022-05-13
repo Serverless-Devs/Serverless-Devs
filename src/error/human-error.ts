@@ -1,5 +1,5 @@
 import core from '../utils/core';
-import { bgRed } from '../utils/common';
+import { bgRed, logger } from '../utils';
 
 const { colors } = core;
 
@@ -16,9 +16,9 @@ export class HumanError {
   constructor(configs: IConfigs) {
     const { errorMessage, tips } = configs;
     this.errorMessage = errorMessage;
-    console.log(`\n${bgRed('ERROR:')}`);
-    console.log(`TypeError: ${errorMessage}\n`);
-    tips && console.log(`${colors.gray(tips)}\n`);
+    logger.log(`\n${bgRed('ERROR:')}`);
+    logger.log(`TypeError: ${errorMessage}\n`);
+    tips && logger.log(`${colors.gray(tips)}\n`);
   }
 
   async report(configs: IReport) {

@@ -80,9 +80,6 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
       throw new CommandError('Please make sure -kl/--keyList is as long as -il/--infoList');
     }
   }
-  if (AccountID) {
-    keyInformation['AccountID'] = AccountID;
-  }
 
   if (AccessKeyID) {
     keyInformation['AccessKeyID'] = AccessKeyID;
@@ -93,9 +90,8 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
   if (SecurityToken) {
     keyInformation['SecurityToken'] = SecurityToken;
   }
-
   // 同时存在ak/sk 认为是阿里云密钥
-  if (AccessKeyID && AccessKeySecret) {
+  if (AccessKeyID && AccessKeySecret && !AccountID) {
     try {
       const data = await getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken });
       keyInformation['AccountID'] = data.AccountId;
@@ -110,6 +106,9 @@ ${emoji('🧭')} How to get the key: ${colors.underline(
         process.exit(1);
       }
     }
+  }
+  if (AccountID) {
+    keyInformation['AccountID'] = AccountID;
   }
   if (SecretAccessKey) {
     keyInformation['SecretAccessKey'] = SecretAccessKey;

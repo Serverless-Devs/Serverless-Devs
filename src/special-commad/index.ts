@@ -8,7 +8,7 @@ class SpecialCommad {
   constructor(private command: CommanderStatic) {}
   async init() {
     const argv = getGlobalArgs(process.argv.slice(2));
-    const { _: rawData, template, access, 'skip-actions': skipActions, debug, env, help } = argv;
+    const { _: rawData, template, access, 'skip-actions': skipActions, debug, help } = argv;
     if (isEmpty(rawData)) return;
     const sub = new Command(rawData[0]);
     sub.allowUnknownOption();
@@ -27,7 +27,7 @@ class SpecialCommad {
         access,
         skipActions,
         debug,
-        env,
+        help,
       },
     });
   }

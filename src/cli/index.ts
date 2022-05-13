@@ -83,7 +83,7 @@ ${emoji('📖')} Document: ${underline(
     }
     if (instance.__doc && instance.__doc().length > 1685) {
       const docResult = instance.__doc();
-      return console.log(docResult);
+      return logger.log(docResult);
     }
     const publishPath = path.join(instance.__path, 'publish.yml');
     await specifyServiceHelp(publishPath);

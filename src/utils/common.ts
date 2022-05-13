@@ -5,9 +5,10 @@ import fs from 'fs';
 import os from 'os';
 import core, { getCoreVersion } from './core';
 import { getConfig } from './handler-set-config';
+import logger from './logger';
 
 const pkg = require('../../package.json');
-const { colors, got, getMAC, isDocker, isCiCdEnv, lodash, publishHelp } = core;
+const { colors, got, isDocker, isCiCdEnv, lodash, publishHelp } = core;
 const { get, trim, assign, filter, includes, omit, isPlainObject, isEmpty } = lodash;
 const { underline, bold } = colors;
 
@@ -62,17 +63,10 @@ export const aiRequest = async (message, category: string = 'unknow') => {
     });
     const shorturl = get(list.body, 'shorturl');
     if (shorturl) {
-      console.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
+      logger.log(`AI Tips:\nYou can try to solve the problem through: ${colors.underline(shorturl)}\n`);
     }
   } catch (error) {
     // exception
-  }
-};
-export const getPid = () => {
-  try {
-    return getMAC().replace(/:/g, '');
-  } catch (error) {
-    return 'unknown';
   }
 };
 
@@ -178,7 +172,7 @@ export function getTempCommandStr(commands: string, length: number) {
 
 export async function specifyServiceHelp(filePath: string) {
   const publishYamlInfor = await core.getYamlContent(filePath);
-  console.log(
+  logger.log(
     `\n  ${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${
       publishYamlInfor['Description']
     }\n`,
@@ -194,14 +188,14 @@ export async function specifyServiceHelp(filePath: string) {
         ? tmp.push(publishHelp.helpInfo(ele, underline(bold(key)), maxLength, 4))
         : (newObj[key] = ele);
     }
-    tmp.length > 0 && console.log(tmp.join('\n'));
+    tmp.length > 0 && logger.log(tmp.join('\n'));
     if (!isEmpty(newObj)) {
       for (const key in newObj) {
-        console.log(`    ${getTempCommandStr(key, maxLength)} ${newObj[key]}`);
+        logger.log(`    ${getTempCommandStr(key, maxLength)} ${newObj[key]}`);
       }
-      console.log('');
+      logger.log('');
     }
-    console.log(
+    logger.log(
       publishYamlInfor['HomePage']
         ? `  ${emoji('🧭')} ${core.makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
         : '',

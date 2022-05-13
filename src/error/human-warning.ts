@@ -1,4 +1,5 @@
 import core from '../utils/core';
+import { logger } from '../utils';
 
 const { colors } = core;
 
@@ -10,8 +11,8 @@ interface IConfigs {
 export class HumanWarning {
   constructor(configs: IConfigs) {
     const { warningMessage, tips } = configs;
-    console.log(`\n${colors.hex('#000').bgYellow('WARNING:')}`);
-    console.log(`${warningMessage}\n`);
-    tips && console.log(`${colors.gray(tips)}\n`);
+    logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}`);
+    logger.log(`${warningMessage}\n`);
+    tips && logger.log(`${colors.gray(tips)}\n`);
   }
 }

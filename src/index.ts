@@ -28,6 +28,7 @@ const { join, includes } = lodash;
     .command('set', `${emoji('🔧')} Settings for the tool.`)
     .command('clean', `${emoji('💥')} Clean up the environment.`)
     .command('component', `${emoji('🔌')} Installed component information.`)
+    .command('edit', `${emoji('🙌')} Application editing.`)
     .version(getVersion(), '-v, --version', 'Output the version number.')
     .addHelpCommand(false);
   // 将参数argv存储到env
@@ -46,6 +47,7 @@ const { join, includes } = lodash;
   await help(system_command);
 
   if (includes(COMMAND_LIST, process.argv[2])) {
+    core.makeLogFile();
     system_command.parse(process.argv);
   } else {
     // 自定义指令: s deploy

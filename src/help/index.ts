@@ -22,6 +22,7 @@ const descption = {
     { set: '🔧  Settings for the tool.' },
     { clean: '💥  Clean up the environment.' },
     { component: '🔌  Installed component information.' },
+    { edit: '🙌  Application editing.' },
   ],
   Examples: [{ init: 'Perform [s init] fast experience Serverless Devs.' }],
 };
@@ -86,6 +87,7 @@ async function help(program) {
       tmp,
       publishHelp.helpInfo(descption.Examples, 'Examples', helperLength) + '\n',
       `${emoji('🧭')} ${makeUnderLine('More information: https://github.com/Serverless-Devs/Serverless-Devs')}\n`,
+      `${emoji('🚀')} ${makeUnderLine('More applications: https://registry.serverless-devs.com')}\n`,
     )
     .join('');
 

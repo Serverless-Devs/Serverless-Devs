@@ -25,45 +25,33 @@ category: '命令'
 
 Serverless Devs 可以通过`-h`唤起对应命令的帮助文档，例如查看 `s` 命令的帮助信息可以是：`s -h`
 
-当使用者使用命令行工具时，可以通过`s`命令，查看整体帮助信息:
-
 ```shell script
-$ s
-Usage: s [options] [command]
+$ s -h
+🚀  Welcome to the Serverless Devs.
 
-  _________                               .__
- /   _____/ ______________  __ ___________|  |   ____   ______ ______
- \_____  \_/ __ \_  __ \  \/ // __ \_  __ \  | _/ __ \ /  ___//  ___/
- /        \  ___/|  | \/\   /\  ___/|  | \/  |_\  ___/ \___ \ \___ \
-/_________/\_____>__|    \_/  \_____>__|  |____/\_____>______>______>
+Options
+  --debug                     Open debug model.              
+  --skip-actions              Skip the extends section.      
+  -t, --template <path>       Specify the template file.     
+  -a, --access <aliasName>    Specify the access alias name. 
+  -v, --version               Output the version number.     
+  -h, --help                  Display help for command.      
 
-Welcome to the Serverless Devs.
+Commands
+  config                      👤  Configure venders account.                
+  init                        💞  Initializing a serverless project.        
+  cli                         🐚  Command line operation without yaml mode. 
+  verify                      🔎  Verify the application.                   
+  set                         🔧  Settings for the tool.                    
+  clean                       💥  Clean up the environment.                 
+  component                   🔌  Installed component information.          
 
-More: 
-📘 Documents: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs
-🙌 Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
-📦 Applications: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/awesome.md
 
-Quick start:
-🍻 Can perform [s init] fast experience
+Examples
+  init                        Perform [s init] fast experience Serverless Devs. 
 
-Options:
-  -t, --template [templatePath]  Specify the template file
-  -a, --access [aliasName]       Specify the access alias name
-  --skip-actions                 Skip the extends section
-  --debug                        Open debug model
-  -v, --version                  Output the version number
-  -h, --help                     Display help for command
-
-Commands:
-  config                         👤 Configure venders account.
-  init                           💞 Initializing a serverless project.
-  cli                            🐚 Command line operation without yaml mode.
-  verify                         🔍 Verify the application.
-  edit                           ✏️ Edit the application.
-  set                            🔧 Settings for the tool.
-  clean                          💥 Clean up the environment.
-  component                      🔌 Installed component information.
+🧭  More information: https://github.com/Serverless-Devs/Serverless-Devs
+🚀  More applications: https://registry.serverless-devs.com
 ```
 
 ## 全局参数
