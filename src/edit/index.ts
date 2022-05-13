@@ -2,7 +2,7 @@ import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import { emoji, getProcessArgv, i18n } from '../utils';
 import { HandleError } from '../error';
-import execa from 'execa';
+import open from 'open';
 
 const { colors } = core;
 
@@ -29,10 +29,13 @@ const command = program
     command.help();
   }
   const spath = await core.getTemplatePath(template);
+  process.env['template'] = spath;
   const port = await core.getAvailablePort(7000);
-  execa(process.execPath, [`${require('@serverless-devs/ui')}`, '--template', spath, '--port', port], {
-    stdio: 'inherit',
-    shell: true,
+  // template 通过环境变量传递，务必环境变量template赋值后在require
+  const app = require('@serverless-devs/ui');
+  app.listen(port, () => {
+    console.log(`server start at http://localhost:${port}`);
+    open(`http://localhost:${port}`);
   });
 })().catch(async error => {
   await HandleError(error);
