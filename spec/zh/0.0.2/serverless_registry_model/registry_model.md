@@ -38,7 +38,7 @@ Package 开发者和 Serverless 开发者在发布 Package 以及使用 Package 
 - 对于发布在 Serverless Registry 上的应用和组件，Serverless Registry 需要按照以下规范提供对应 Package 版本查询功能以及相对应的下载功能：
     - 全部版本查询：
         - Method：GET
-        - URI：{package-name}/releases/latest
+        - URI：{package-name}/releases
         - Response：
             ```
             {
