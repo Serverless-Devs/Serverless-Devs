@@ -39,7 +39,7 @@ As shown in the preceding figure, package developers must provide packages to Se
 - You must follow the following specification to query the package versions and download the packages, including applications and components. that are published on Serverless Registry:
     - Query all versions:
         - Method：GET
-        - URI：{package-name}/releases/latest
+        - URI：{package-name}/releases
         - Response：
             ```
             {
