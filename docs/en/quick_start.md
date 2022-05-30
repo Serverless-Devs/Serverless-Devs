@@ -60,7 +60,7 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
     
     Configuration successful
     ```
-- In order to verify whether the password is correctly configured, you can view the specified password through `s config get -aalibaba-access`:
+- In order to verify whether the password is correctly configured, you can view the specified password through `s config get -a alibaba-access`:
     ```shell script
     $ s config get -a alibaba-access
     [2021-10-27T17:39:39.881] [INFO ] [S-CLI] - 
