@@ -18,11 +18,11 @@ const first_level_template = [
   },
   {
     name: 'Huawei Cloud Serverless',
-    value: 'xinwuyun/start-fg',
+    value: 'Huawei_Cloud_Serverless',
   },
   {
     name: 'Baidu Cloud Serverless',
-    value: 'xinwuyun/start-cfc',
+    value: 'Baidu_Cloud_Serverless',
   },
   {
     name: 'Dev Template for Serverless Devs',
@@ -292,7 +292,54 @@ const all_ali_template = concat(
   best_practice_template,
 );
 
-export const ALL_TEMPLATE = concat(first_level_template, all_ali_template, devs_template);
+const huawei_template = [
+  {
+    name: 'Quick start [Deploy a Hello World function to FaaS]',
+    value: 'quick_start',
+  }
+];
+
+const huawei_quick_start_template = [
+  {
+    name: '[HTTP] Node.js 8',
+    value: 'start-fg-http-nodejs',
+  },
+  {
+    name: '[HTTP] Python3.6',
+    value: 'start-fg-http-python3.6',
+  },
+]
+
+const all_huawei_template = concat(
+  huawei_template,
+  huawei_quick_start_template,
+);
+
+
+const baidu_template = [
+  {
+    name: 'Quick start [Deploy a Hello World function to FaaS]',
+    value: 'quick_start',
+  }
+];
+
+const baidu_quick_start_template = [
+  {
+    name: '[HTTP] Node.js 12',
+    value: 'start-cfc-http-nodejs12',
+  },
+  {
+    name: '[HTTP] Python 3',
+    value: 'start-cfc-http-python3',
+  },
+]
+
+const all_baidu_template = concat(
+  baidu_template,
+  baidu_quick_start_template,
+);
+
+export const ALL_TEMPLATE = concat(first_level_template, all_ali_template, all_huawei_template, all_baidu_template, devs_template);
 
 export const APPLICATION_TEMPLATE = [
   {
@@ -334,6 +381,64 @@ export const APPLICATION_TEMPLATE = [
       return input
         ? all_ali_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
         : ali_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'huawei_template',
+    when(answers) {
+      return answers.firstLevel === 'Huawei_Cloud_Serverless';
+    },
+    default: first(huawei_template).value,
+    message: i18n('app-tip'),
+    source: async function (answersSoFar, input) {
+      return input
+        ? all_huawei_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : huawei_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'template',
+    loop: true,
+    when(answers) {
+      return answers.huawei_template === 'quick_start';
+    },
+    message: i18n('template-tip'),
+    default: first(huawei_quick_start_template).value,
+    source: async function (answersSoFar, input) {
+      return input
+        ? huawei_quick_start_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : huawei_quick_start_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'baidu_template',
+    when(answers) {
+      return answers.firstLevel === 'Baidu_Cloud_Serverless';
+    },
+    default: first(baidu_template).value,
+    message: i18n('app-tip'),
+    source: async function (answersSoFar, input) {
+      return input
+        ? all_baidu_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : baidu_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'template',
+    loop: true,
+    when(answers) {
+      return answers.baidu_template === 'quick_start';
+    },
+    message: i18n('template-tip'),
+    default: first(baidu_quick_start_template).value,
+    source: async function (answersSoFar, input) {
+      return input
+        ? baidu_quick_start_template.filter((item: any) => lowerCase(item.name).indexOf(lowerCase(input)) !== -1)
+        : baidu_quick_start_template;
     },
   },
   {
