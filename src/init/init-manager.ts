@@ -5,7 +5,7 @@ import { spawn, spawnSync } from 'child_process';
 import { logger, getConfig, replaceTemplate, i18n } from '../utils';
 import { DEFAULT_REGIRSTRY } from '../constant';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
-import { emoji, getProcessArgv } from '../utils/common';
+import { emoji } from '../utils/common';
 import core from '../utils/core';
 const { loadApplication, colors, report, inquirer, lodash } = core;
 const { last, split, find, includes } = lodash;
@@ -28,7 +28,7 @@ export class InitManager {
       projectName = answers.projectName;
     }
     const registry = downloadurl ? downloadurl : getConfig('registry') || DEFAULT_REGIRSTRY;
-    const argvData = getProcessArgv();
+    const argvData = core.minimist(process.argv.slice(2));
     let parameters;
     if (argvData.parameters) {
       try {
