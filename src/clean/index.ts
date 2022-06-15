@@ -5,6 +5,7 @@ import path from 'path';
 import logger from '../utils/logger';
 import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
+import { HandleError } from '../error';
 
 const { rimraf, minimist, fse: fs, colors, getRootHome } = core;
 
@@ -32,73 +33,71 @@ const command = program
   .parse(process.argv);
 
 (async () => {
-  try {
-    if (process.argv.length === 2) {
-      command.help();
-    }
-
-    if (process.argv.length > 2) {
-      const sPath = getRootHome();
-      const cachePath = path.join(sPath, 'cache');
-      const componentsPath = path.join(sPath, 'components');
-      const githubPath = path.join(componentsPath, 'github.com');
-      const devsappPath = path.join(componentsPath, 'devsapp.cn');
-      const args = minimist(process.argv.slice(2), {
-        boolean: ['all'],
-      });
-      if (args.all) {
-        const files = ['cache', 'components'];
-        files.forEach((file: string) => {
-          rimraf.sync(path.join(sPath, file));
-        });
-        try {
-          const spath = await core.getTemplatePath();
-          const sdir = path.join(path.dirname(spath), '.s');
-          rimraf.sync(sdir);
-        } catch (error) {}
-        logger.log('The environment of Serverless Devs has been cleaned up successfully.', 'green');
-      }
-      if (args.cache) {
-        // cache 无参数
-        if (typeof args.cache === 'boolean') {
-          rimraf.sync(path.join(cachePath));
-          logger.log('Cache has been cleaned up successfully.', 'green');
-        }
-        // cache 有参数
-        if (typeof args.cache === 'string') {
-          rimraf.sync(path.join(cachePath, args.cache));
-          logger.log(`Cache [${args.cache}] has been cleaned up successfully.`, 'green');
-        }
-      }
-      if (args.component) {
-        // component 无参数
-        if (typeof args.component === 'boolean') {
-          rimraf.sync(componentsPath);
-          logger.log('Component has been cleaned up successfully.', 'green');
-        }
-        // component 有参数
-        if (typeof args.component === 'string') {
-          const registry = getConfig('registry');
-          // s 源
-          if (registry === 'http://registry.devsapp.cn/simple') {
-            const filePath = path.join(devsappPath, args.component);
-            if (fs.existsSync(filePath)) {
-              rimraf.sync(filePath);
-              logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
-            }
-          }
-          // git 源
-          if (registry === 'https://api.github.com/repos') {
-            const filePath = path.join(githubPath, args.component);
-            if (fs.existsSync(filePath)) {
-              rimraf.sync(filePath);
-              logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
-            }
-          }
-        }
-      }
-    }
-  } catch (error) {
-    // ignore error in window
+  if (process.argv.length === 2) {
+    command.help();
   }
-})();
+
+  if (process.argv.length > 2) {
+    const sPath = getRootHome();
+    const cachePath = path.join(sPath, 'cache');
+    const componentsPath = path.join(sPath, 'components');
+    const githubPath = path.join(componentsPath, 'github.com');
+    const devsappPath = path.join(componentsPath, 'devsapp.cn');
+    const args = minimist(process.argv.slice(2), {
+      boolean: ['all'],
+    });
+    if (args.all) {
+      const files = ['cache', 'components'];
+      files.forEach((file: string) => {
+        rimraf.sync(path.join(sPath, file));
+      });
+      try {
+        const spath = await core.getTemplatePath();
+        const sdir = path.join(path.dirname(spath), '.s');
+        rimraf.sync(sdir);
+      } catch (error) {}
+      logger.log('The environment of Serverless Devs has been cleaned up successfully.', 'green');
+    }
+    if (args.cache) {
+      // cache 无参数
+      if (typeof args.cache === 'boolean') {
+        rimraf.sync(path.join(cachePath));
+        logger.log('Cache has been cleaned up successfully.', 'green');
+      }
+      // cache 有参数
+      if (typeof args.cache === 'string') {
+        rimraf.sync(path.join(cachePath, args.cache));
+        logger.log(`Cache [${args.cache}] has been cleaned up successfully.`, 'green');
+      }
+    }
+    if (args.component) {
+      // component 无参数
+      if (typeof args.component === 'boolean') {
+        rimraf.sync(componentsPath);
+        logger.log('Component has been cleaned up successfully.', 'green');
+      }
+      // component 有参数
+      if (typeof args.component === 'string') {
+        const registry = getConfig('registry');
+        // s 源
+        if (registry === 'http://registry.devsapp.cn/simple') {
+          const filePath = path.join(devsappPath, args.component);
+          if (fs.existsSync(filePath)) {
+            rimraf.sync(filePath);
+            logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
+          }
+        }
+        // git 源
+        if (registry === 'https://api.github.com/repos') {
+          const filePath = path.join(githubPath, args.component);
+          if (fs.existsSync(filePath)) {
+            rimraf.sync(filePath);
+            logger.log(`Component [${args.component}] has been cleaned up successfully.`, 'green');
+          }
+        }
+      }
+    }
+  }
+})().catch(async error => {
+  await HandleError(error);
+});
