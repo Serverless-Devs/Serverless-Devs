@@ -67,7 +67,7 @@ ${emoji('📖')} Document: ${underline(
       args: argsObj.join(' '),
       argsObj,
       path: {
-        configPath: undefined,
+        configPath: process.cwd(),
       },
     };
     const res = await instance[_method](inputs);
