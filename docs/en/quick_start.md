@@ -22,7 +22,7 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
     ```
 - Step 3: You can use `s -v` to judge whether the tool is installed successfully. If the installation is successful, you can see the corresponding version information, for example:
     ```shell script
-    @serverless-devs/s: 2.0.89, @serverless-devs/core: 0.1.7, darwin-x64, node-v12.15.0
+    @serverless-devs/s: 2.1.2, core: 0.1.41, s-home: /Users/xxx/.s, darwin-x64, node-v17.7.1
     ```
 
 ## Key Configuration
@@ -83,11 +83,11 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
 - Execute the `s` command:
     ```shell script
     $ s
-    ? Serverless Devs project is not detected. Do you want to create a new project? (Y/n) 
+    ? No Serverless-Devs project is currently detected. Do you want to create a new project? (Y/n)  
     ```  
 - Fill in `y` and press Enter to enter the creation guide section:
     ```shell script
-    🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+    🚀 More applications: https://registry.serverless-devs.com
     
     ? Hello Serverless for Cloud Vendors (Use arrow keys or type to search)
     ❯ Alibaba Cloud Serverless 
@@ -101,71 +101,93 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
 - At the same time, you only need to select the corresponding option and follow the instructions. For example, if you select `Alibaba Cloud Serverless`, you can see the classification of application templates under Alibaba Cloud Serverless products:
 
     ```shell script
-    ? Please select an Serverless-Devs Application (Use arrow keys or type to search)
-    ❯ fc-runtime-starter - Quickly deploy an FC function...
-      fc-custom-container-stater - Quickly deploy a custom-container application
-      web-framework-stater - Quickly deploy a web framework
-      static-website-stater - Quickly deploy a static website
-      serverless-best-practice - Quickly experience serverless best practices
+     ? Hello, serverlesser. Which template do you like? (Use arrow keys or type to search)
+     ❯ Quick start [Deploy a Hello World function to FaaS]
+       Container example [Deploy function to FaaS with custom-container]
+       Web Framework [Deploy a web framework to FaaS]
+       Static website [Deploy a static website]
+       Best practice [Experience serverless project]
     ```
 
 - At this time, you can continue to select specific applications under a certain category for initialization. For example, after selecting `fc-runtime-starter`, you can see the specific template applications under that category:
 
     ```shell script
-    ? Please select an templete (Use arrow keys or type to search)
-    ❯ fc-http-nodejs - Quickly deploy a nodejs12 http function
-      fc-http-python - Quickly deploy a  python3 http function
-      fc-http-php - Quickly deploy a  php http function
-      fc-http-java - Quickly deploy a  java8 http function 
-      fc-event-nodejs - Quickly deploy a  nodejs12 event function 
-      fc-event-python - Quickly deploy a  python3 event function 
-      fc-event-php - Quickly deploy a  php event function
+    ? Which template do you like? (Use arrow keys or type to search)
+    ❯ [HTTP] Node.js 14  - Quickly deploy a nodejs14 http function
+      [HTTP] Python3     - Quickly deploy a  python3 http function 
+      [HTTP] Java8       - Quickly deploy a  java8 http function 
+      [HTTP] PHP7        - Quickly deploy a  php7 http function 
+      [HTTP] C++ (custom)- Quickly deploy a  C++ http function 
+      [Event] Node.js 14 - Quickly deploy a  nodejs14 event function
+      [Event] Python3    - Quickly deploy a  python3 event function
+      ... ...
     ```
 
-   Select `fc-http-nodejs` to complete the creation. During the boot process, the process of filling in the project name and selecting the key may appear:
-    - The project name can be: `start-fc-http-nodejs12`
+   Select `[HTTP] Node.js 14` to complete the creation. During the boot process, the process of filling in the project name and selecting the key may appear:
+    - The project name can be: `start-fc-http-nodejs14`
+    - The region name can be: `cn-hangzhou`
+    - The service name can be： `hello-world-service`
+    - The function name can be： `start-fc-http-nodejs14`
     - The key can be the one we created above: `alibaba-access`
 
    E.g:
-    ```shell script 
-    🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-    
-    ? Hello Serverless for Cloud Vendors Alibaba Cloud Serverless
-    ? Please select an Serverless-Devs Application fc-runtime-starter - 快速部署一个 FC 函数
-    ? Please select an templete fc-http-nodejs - 快速部署一个 nodejs12 http函数
-    
-    😋 Create application command: [s init devsapp/start-fc-http-nodejs12]
+   ```shell script 
+    🚀  More applications: https://registry.serverless-devs.com
 
-    ? Please input your project name (init dir) start-fc-http-nodejs12
+    ? Hello Serverless for Cloud Vendors Alibaba Cloud Serverless
+    ? Hello, serverlesser. Which template do you like? Quick start [Deploy a Hello World function to FaaS]
+    ? Which template do you like? [HTTP] Node.js 14
+
+    😋  Create application command: [s init devsapp/start-fc-http-nodejs14]
+
+    ? Please input your project name (init dir) start-fc-http-nodejs14
     ✔ file decompression completed
+
+    Serverless Devs Application Case
+
+        Cloud services required：
+        - FC : https://fc.console.aliyun.com/
+    
+        Tips：
+        - FC Component: https://www.serverless-devs.com/fc/readme
+    创建应用所在的地区
+    ? 地域 cn-hangzhou
+    服务名称，只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-128 之间
+    ? 服务名 hello-world-service
+    函数名称，只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-64 之间
+    ? 函数名 start-fc-http-nodejs14
     ? please select credential alias alibaba-access
-    
-    ... ...
-    
-    🏄‍ Thanks for using Serverless-Devs
-    👉 You could [cd /Users/jiangyu/start-application/start-fc-http-nodejs12] and enjoy your serverless journey!
-    🧭️ If you need help for this example, you can use [s -h] after you enter folder.
-    💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
-    
-    ? Do you want to deploy the project now? (Y/n)
+
+        * Before using, please check whether the actions command in Yaml file is available
+        * Carefully reading the notes in s.yaml is helpful for the use of the tool
+        * If need help in the use process, please apply to join the Dingtalk Group: 33947367
+
+
+    🏄‍  Thanks for using Serverless-Devs
+    👉  You could [cd /Users/nanxuanli/work/demo/devs/start-fc-http-nodejs14] and enjoy your serverless journey!
+    🧭️  If you need help for this example, you can use [s -h] after you enter folder.
+    💞  Document ❤ Star: https://github.com/Serverless-Devs/Serverless-Devs
+    🚀  More applications: https://registry.serverless-devs.com
+
+    ? Do you want to deploy the project immediately? (Y/n)
     ```
 - The system has a reminder at the end whether you want to deploy the project. At this time, you can enter `y` to directly deploy the project. After a while, you can see the deployment result:
     ```shell script
-    fc-deploy-test: 
+    helloworld: 
       region:   cn-hangzhou
       service: 
-        name: fc-deploy-service
+        name: hello-world-service
       function: 
-        name:       http-trigger-nodejs12
-        runtime:    nodejs12
+        name:       start-fc-http-nodejs14
+        runtime:    nodejs14
         handler:    index.handler
         memorySize: 128
         timeout:    60
       url: 
-        system_url:    https://1583208943291465.cn-hangzhou.fc.aliyuncs.com/2016-08-15/proxy/fc-deploy-service/http-trigger-nodejs12/
+        system_url:    https://start-fp-nodejs-hello-w-service-uxcvfbhdii.cn-hangzhou.fcapp.run
         custom_domain: 
           - 
-            domain: http://http-trigger-nodejs12.fc-deploy-service.1583208943291465.cn-hangzhou.fc.devsapp.net
+            domain: http://start-fc-http-nodejs14.hello-world-service.1816647648916833.cn-hangzhou.fc.devsapp.net
       triggers: 
         - 
           type: http

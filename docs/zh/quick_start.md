@@ -24,7 +24,7 @@ category: '概述'
     ```
 - 第三步：可以通过`s -v`判断工具是否安装成功，如果安装成功可以看到相对应的版本信息，例如：
     ```shell script
-    @serverless-devs/s: 2.0.89, @serverless-devs/core: 0.1.7, darwin-x64, node-v12.15.0
+    @serverless-devs/s: 2.1.2, core: 0.1.41, s-home: /Users/xxx/.s, darwin-x64, node-v17.7.1
     ```
 
 ## 密钥配置
@@ -85,11 +85,11 @@ category: '概述'
 - 执行`s`命令：
     ```shell script
     $ s
-    ? Serverless Devs project is not detected. Do you want to create a new project? (Y/n) 
+    ? No Serverless-Devs project is currently detected. Do you want to create a new project? (Y/n) 
     ```  
 - 填写`y`，并按回车，可以进入到创建引导部分：
     ```shell script
-    🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+    🚀 More applications: https://registry.serverless-devs.com
     
     ? Hello Serverless for Cloud Vendors (Use arrow keys or type to search)
     ❯ Alibaba Cloud Serverless 
@@ -103,71 +103,92 @@ category: '概述'
 - 此时只需要选择对应的选项，按照引导进行操作，即可。例如选择`Alibaba Cloud Serverless`，就可以看到阿里云Serverless产品下的应用模板分类:
 
     ```shell script
-    ? Please select an Serverless-Devs Application (Use arrow keys or type to search)
-    ❯ fc-runtime-starter - 快速部署一个 FC 函数 
-      fc-custom-container-stater - 快速部署一个 custom-container 应用 
-      web-framework-stater - 快速部署一个 Web 框架 
-      static-website-stater - 快速部署一个静态网站 
-      serverless-best-practice - 快速体验 Serverless 最佳实践 
+     ? Hello, serverlesser. Which template do you like? (Use arrow keys or type to search)
+     ❯ Quick start [Deploy a Hello World function to FaaS]
+       Container example [Deploy function to FaaS with custom-container]
+       Web Framework [Deploy a web framework to FaaS]
+       Static website [Deploy a static website]
+       Best practice [Experience serverless project]
     ```
 
-- 此时可以继续选择某分类下的具体应用进行初始化，例如选择`fc-runtime-starter`之后，可以看到该分类下的具体模板应用：
+- 此时可以继续选择某分类下的具体应用进行初始化，例如选择`Quick start`之后，可以看到该分类下的具体模板应用：
 
     ```shell script
-    ? Please select an templete (Use arrow keys or type to search)
-    ❯ fc-http-nodejs - 快速部署一个 nodejs12 http函数 
-      fc-http-python - 快速部署一个 python3 http函数 
-      fc-http-php - 快速部署一个 php http函数 
-      fc-http-java - 快速部署一个 java8 http函数 
-      fc-event-nodejs - 快速部署一个 nodejs12 event函数 
-      fc-event-python - 快速部署一个 python3 event函数 
-      fc-event-php - 快速部署一个 php event函数 
+    ? Which template do you like? (Use arrow keys or type to search)
+    ❯ [HTTP] Node.js 14  - 快速部署一个 nodejs14 http函数 
+      [HTTP] Python3     - 快速部署一个 python3 http函数 
+      [HTTP] Java8       - 快速部署一个 java8 http函数 
+      [HTTP] PHP7        - 快速部署一个 php http函数 
+      [HTTP] C++ (custom)- 快速部署一个 C++ http函数 
+      [Event] Node.js 14 - 快速部署一个 nodejs14 event函数
+      [Event] Python3    - 快速部署一个 python3 event函数
+      ... ...
     ```
-
-    选择`fc-http-nodejs`即可完成创建，在引导的过程中，可能会出现填写项目名称以及选择密钥的过程：
-    - 项目名称可以是：`start-fc-http-nodejs12`
+    选择`[HTTP] Node.js 14`即可完成创建，在引导的过程中，可能会出现填写项目名称以及选择密钥的过程：
+    - 项目名称可以是：`start-fc-http-nodejs14`
+    - 地域可以是：`cn-hangzhou`
+    - 服务名可以是： `hello-world-service`
+    - 函数名可以是： `start-fc-http-nodejs14`
     - 密钥可以选择我们上文中创建过的：`alibaba-access`    
     
     例如：
     ```shell script 
-    🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-    
-    ? Hello Serverless for Cloud Vendors Alibaba Cloud Serverless
-    ? Please select an Serverless-Devs Application fc-runtime-starter - 快速部署一个 FC 函数
-    ? Please select an templete fc-http-nodejs - 快速部署一个 nodejs12 http函数
-    
-    😋 Create application command: [s init devsapp/start-fc-http-nodejs12]
+    🚀  More applications: https://registry.serverless-devs.com
 
-    ? Please input your project name (init dir) start-fc-http-nodejs12
-    ✔ file decompression completed
-    ? please select credential alias alibaba-access
+    ? Hello Serverless for Cloud Vendors Alibaba Cloud Serverless
+    ? Hello, serverlesser. Which template do you like? Quick start [Deploy a Hello World function to FaaS]
+    ? Which template do you like? [HTTP] Node.js 14
+
+   😋  Create application command: [s init devsapp/start-fc-http-nodejs14]
+
+   ? Please input your project name (init dir) start-fc-http-nodejs14
+   ✔ file decompression completed
+
+   Serverless Devs Application Case
+
+       Cloud services required：
+       - FC : https://fc.console.aliyun.com/
     
-    ... ...
-    
-    🏄‍ Thanks for using Serverless-Devs
-    👉 You could [cd /Users/jiangyu/start-application/start-fc-http-nodejs12] and enjoy your serverless journey!
-    🧭️ If you need help for this example, you can use [s -h] after you enter folder.
-    💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
-    
-    ? 是否立即部署该项目？ (Y/n) 
+       Tips：
+       - FC Component: https://www.serverless-devs.com/fc/readme
+   创建应用所在的地区
+   ? 地域 cn-hangzhou
+   服务名称，只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-128 之间
+   ? 服务名 hello-world-service
+   函数名称，只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-64 之间
+   ? 函数名 start-fc-http-nodejs14
+   ? please select credential alias alibaba-access
+
+       * Before using, please check whether the actions command in Yaml file is available
+       * Carefully reading the notes in s.yaml is helpful for the use of the tool
+       * If need help in the use process, please apply to join the Dingtalk Group: 33947367
+
+
+   🏄‍  Thanks for using Serverless-Devs
+   👉  You could [cd /Users/nanxuanli/work/demo/devs/start-fc-http-nodejs14] and enjoy your serverless journey!
+   🧭️  If you need help for this example, you can use [s -h] after you enter folder.
+   💞  Document ❤ Star: https://github.com/Serverless-Devs/Serverless-Devs
+   🚀  More applications: https://registry.serverless-devs.com
+
+   ? Do you want to deploy the project immediately? (Y/n)
     ```
 - 可以看到，系统在最后有一个提醒，是否要部署该项目，此时可以输入`y`，直接进行项目的部署，稍等片刻，可以看到部署结果：
     ```shell script
-    fc-deploy-test: 
+    helloworld: 
       region:   cn-hangzhou
       service: 
-        name: fc-deploy-service
+        name: hello-world-service
       function: 
-        name:       http-trigger-nodejs12
-        runtime:    nodejs12
+        name:       start-fc-http-nodejs14
+        runtime:    nodejs14
         handler:    index.handler
         memorySize: 128
         timeout:    60
       url: 
-        system_url:    https://1583208943291465.cn-hangzhou.fc.aliyuncs.com/2016-08-15/proxy/fc-deploy-service/http-trigger-nodejs12/
+        system_url:    https://start-fp-nodejs-hello-w-service-uxcvfbhdii.cn-hangzhou.fcapp.run
         custom_domain: 
           - 
-            domain: http://http-trigger-nodejs12.fc-deploy-service.1583208943291465.cn-hangzhou.fc.devsapp.net
+            domain: http://start-fc-http-nodejs14.hello-world-service.1816647648916833.cn-hangzhou.fc.devsapp.net
       triggers: 
         - 
           type: http
