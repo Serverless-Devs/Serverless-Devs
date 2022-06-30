@@ -4,7 +4,7 @@ import latestVersion from 'latest-version';
 import boxen from 'boxen';
 import { UPDATE_CHECK_INTERVAL } from '../constant';
 import core from '../utils/core';
-const { fse: fs, chalk, execa, getRootHome, isCiCdEnv } = core;
+const { fse: fs, chalk, execa, getRootHome } = core;
 const pkg = require('../../package.json');
 const semver = require('semver');
 const semverDiff = require('semver-diff');
@@ -27,7 +27,8 @@ class UpdateNotifier {
     return key ? require(updateNotifierPath)[key] : require(updateNotifierPath);
   }
   check() {
-    if (isCiCdEnv()) return;
+    if (core.isCiCdEnv()) return;
+    if (core.useLocal()) return;
     if (!this.config('lastUpdateCheck')) return true;
     return Date.now() - this.config('lastUpdateCheck') > UPDATE_CHECK_INTERVAL;
   }
