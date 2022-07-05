@@ -38,7 +38,7 @@ jobs:
       - run: npm install
       - run: npm install -g @serverless-devs/s
       - run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default -f
-      - run: s deploy
+      - run: s deploy -y --use-local
 ```
 
 主要包括几个部分的内容：
@@ -47,7 +47,7 @@ jobs:
    通过 NPM 安装最新版本的 Serverless Devs 开发者工具；
 - `run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default -f`  
    通过`config`命令进行密钥等信息的配置；
-- `run: s deploy`  
+- `run: s deploy -y --use-local`  
    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
 
 关于密钥的配置：密钥信息的获取是通过`${{secrets.*}}`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Github Secrets 中，例如在上面的案例中，需要`AccessKeyID`,`AccessKeySecret`等两个密钥的 Key ，我们就可以配置相关的内容：
@@ -93,7 +93,7 @@ stages: # 构建阶段配置
               npm -v
               npm install -g @serverless-devs/s
               s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default -f
-              s deploy
+              s deploy -y --use-local
 ```
 
 主要包括几个部分的内容：
@@ -102,7 +102,7 @@ stages: # 构建阶段配置
    通过 NPM 安装最新版本的 Serverless Devs 开发者工具；
 - `s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default -f`  
    通过`config`命令进行密钥等信息的配置；
-- `s deploy`  
+- `s deploy -y --use-local`  
    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
 
 关于密钥的配置：密钥信息的获取是通过`$*`进行获取的，所以此时，需要将所需要的密钥和对应的`Key`配置到 Gitee 的环境变量管理即可，例如在上面的案例中，需要`ACCESSKEYID`,`ACCESSKEYSECRET`等两个密钥的 Key ，我们就可以配置相关的内容：
@@ -213,7 +213,7 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
 # input your command here
 npm install -g @serverless-devs/s
 s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f
-s deploy
+s deploy -y --use-local
 ```
 
 这里主要包括三个部分：
@@ -222,7 +222,7 @@ s deploy
    通过 NPM 安装最新版本的 Serverless Devs 开发者工具（虽然云效中已经拥有了相关版本的 Serverless Devs，但是实际上，这个版本可能比较老旧，所以可以通过该命令安装最新版本）；
 - `s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f`  
    通过`config`命令进行密钥等信息的配置；
-- `s deploy`  
+- `s deploy -y --use-local`  
    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
 
 效果如下：
