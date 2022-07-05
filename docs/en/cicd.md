@@ -38,13 +38,13 @@ jobs:
       - run: npm install
       - run: npm install -g @serverless-devs/s
       - run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default
-      - run: s deploy
+      - run: s deploy -y --use-local
 ```
 
 Description: 
 - `run: npm install -g @serverless-devs/s`: Installs Serverless Devs of the latest version by using npm. 
 - `run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default`: Configures key information by using the config command. 
-- `run: s deploy`: Deploys a project by using the deploy command. You can use the build command to build a project.
+- `run: s deploy -y --use-local`: Deploys a project by using the deploy command. You can use the build command to build a project.
 
 Notes: The key information can be obtained by using ${{secrets.*}}. You must configure the keys that are required and Key in GitHub Secrets. In the preceding example, Key for AccountID, AccessKeyID, and AccessKeySecret are required. Follow the following steps to configure the keys:
 
@@ -90,13 +90,13 @@ stages:                                    # Configure the build stage.
               npm -v
               npm install -g @serverless-devs/s
               s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default
-              s deploy
+              s deploy -y --use-local
 ```
 
 Description: 
 - `npm install -g @serverless-devs/s`: Installs Serverless Devs of the latest version by using npm. 
 - `s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default`: Configures key information by using the config command. 
-- `s deploy`: Deploys a project by using the deploy command. You can use the build command to build a project.
+- `s deploy -y --use-local`: Deploys a project by using the deploy command. You can use the build command to build a project.
 
 Notes: You can obtain the key information by using the `$*` command. You must configure the keys that are required and `Key` in GitHub. For example, in the preceding example, Key for `ACCESSKEYID` and `ACCESSKEYSECRET` are required. Follow the following steps:
 
@@ -189,7 +189,7 @@ In Apsara DevOps, select Serverless Devs and enter the following content in a cu
 # input your command here
 npm install -g @serverless-devs/s
 s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default
-s deploy
+s deploy -y --use-local
 ```
 
 Description:
