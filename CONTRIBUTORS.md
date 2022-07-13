@@ -223,7 +223,7 @@
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/34342879?&v=4" width="20%" style="min-width: 100px"><br>
-                <p>Logan Zhang<br><a href="https://github.com/liufangchen"> Github</a> | Blog</p>
+                <p>liufangchen<br><a href="https://github.com/liufangchen"> Github</a> | Blog</p>
             </td>
         </tr>
     </table>
