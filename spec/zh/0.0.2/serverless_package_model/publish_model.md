@@ -4,6 +4,14 @@ description: 'Pacakge 发布'
 position: 6
 category: '开发包模型'
 ---
+- [发布应用](#发布应用)
+- [publish.yaml规范](#publish.yaml规范)
+  - [默认数据类型](#默认数据类型)
+    - [string](#string)
+    - [bool](#bool)
+  - [自定义UI](#自定义UI)
+    - [oss bukect](#x-bucket)
+    - [role角色授权](#x-role)
 
 # 发布应用
 发布应用请查看[教程](https://github.com/orgs/Serverless-Devs/discussions/439)
@@ -89,7 +97,6 @@ triggerRoleArn:
       - AliyunFCInvocationAccess
 ```
 ![](https://img.alicdn.com/imgextra/i1/O1CN01LQCH9a1XiLw3aa09O_!!6000000002957-2-tps-2032-770.png)
-
 
 ##### 字段描述
 | 字段名 | 类型 | 描述 |
