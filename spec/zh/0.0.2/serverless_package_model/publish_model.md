@@ -10,8 +10,8 @@ category: '开发包模型'
     - [string](#string)
     - [bool](#bool)
   - [自定义UI](#自定义UI)
-    - [oss bukect](#x-bucket)
-    - [role角色授权](#x-role)
+    - [oss x-bucket](#x-bucket)
+    - [角色授权 x-role](#x-role)
 
 # 发布应用
 发布应用请查看[教程](https://github.com/orgs/Serverless-Devs/discussions/439)
