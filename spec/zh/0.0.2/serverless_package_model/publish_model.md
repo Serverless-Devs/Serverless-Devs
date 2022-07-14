@@ -8,11 +8,11 @@ category: '开发包模型'
 - [publish.yaml规范](#publish.yaml规范)
   - [默认数据类型](#默认数据类型)
     - [string](#string)
-    - [bool](#bool)
+    - [boolean](#boolean)
   - [自定义UI](#自定义UI)
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
-    - [nas x-nas](#x-nas)
+    - [nas网盘 x-nas](#x-nas)
 
 
 # 发布应用
@@ -57,7 +57,7 @@ region:
 - 在网页端表现形式为
 ![](https://img.alicdn.com/imgextra/i4/O1CN01A49qaI23UfoB84sU2_!!6000000007259-2-tps-1968-644.png)
 
-### bool
+### boolean
 TODO
 
 
