@@ -6,7 +6,7 @@ category: '开发包模型'
 ---
 
 # 发布应用
-https://github.com/Serverless-Devs/Serverless-Devs/discussions/439
+发布应用请查看[教程](https://github.com/orgs/Serverless-Devs/discussions/439)
 
 # publish.yaml规范
 ## 默认数据类型
@@ -95,5 +95,5 @@ triggerRoleArn:
 | 字段名 | 类型 | 描述 |
 | --- | --- | --- |
 | name | `string` |  系统角色名  |
-| service | `string` |  服务账号(OSS,FC)  |
+| service | `string` |  服务账号,现在支持的系统账号: OSS,FC,LOG  |
 | authorities | list<`string`> |  系统策略  |
