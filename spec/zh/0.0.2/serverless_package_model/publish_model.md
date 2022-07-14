@@ -12,6 +12,8 @@ category: '开发包模型'
   - [自定义UI](#自定义UI)
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
+    - [nas x-nas](#x-nas)
+
 
 # 发布应用
 发布应用请查看[教程](https://github.com/orgs/Serverless-Devs/discussions/439)
@@ -104,3 +106,46 @@ triggerRoleArn:
 | name | `string` |  系统角色名  |
 | service | `string` |  服务账号,现在支持的系统账号: OSS,FC,LOG  |
 | authorities | list<`string`> |  系统策略  |
+
+#### x-nas
+
+用于 NAS挂载点, VPC, 交换机, 安全组 的选择
+
+```
+mountPointsServerAddr:
+  title: NAS挂载点地址
+  type: string
+  default: ""
+  description: NAS 挂载点地址，可以登录 <a href="https://nasnext.console.aliyun.com" target="_blank">NAS控制台</a> 查看
+  x-nas:
+    denpendency:
+      - region
+```
+##### 字段描述
+
+| 字段名     | 类型           | 描述     |
+| ---------- | -------------- | -------- |
+| dependency | list<`string`> | 依赖字段 |
+
+
+> 注意，x-nas 配合 'vpcId', 'vswitchId', 'securityGroupId' 字段使用
+
+```
+vpcId:
+  title: VPC Id
+  type: string
+  default: ""
+  description: NAS 挂载点所在 VPC ID, 例如 vpc-bp1lynmabizqdgt4308dt
+vswitchId:
+  title: 交换机 Id
+  type: string
+  default: ""
+  description: NAS 挂载点所在虚拟交换机VSW ID, 交换机最好在 FC 支持的可用区
+securityGroupId:
+  title: 安全组 Id
+  type: string
+  default: ""
+  description: 登录 <a href="https://ecs.console.aliyun.com/#/securityGroup/region/cn-hangzhou" target="_blank">安全组</a> 查看, 通常默认创建的空安全组即可(注意和上面地域相同), 例如 sg-bp1cd2w08t3dy7nhrvtx
+```
+
+![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
