@@ -226,5 +226,11 @@
                 <p>liufangchen<br><a href="https://github.com/liufangchen"> Github</a> | Blog</p>
             </td>
         </tr>
+        <tr>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/38881498?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Chunying Pi<br><a href="https://github.com/Joycepy"> Github</a> | <a href="https://joycepy.github.io/">Blog</a></p>
+            </td>
+        </tr>
     </table>
 </center>
