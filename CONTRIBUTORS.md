@@ -235,6 +235,10 @@
                 <img src="https://avatars.githubusercontent.com/u/94942133?v=4" width="20%" style="min-width: 100px"><br>
                 <p>Fitz_dev<br><a href="https://github.com/fitz-developer"> Github</a> | Blog</p>
             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/61337085?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Dejiang Wang<br><a href="https://github.com/wizardAEI"> Github</a> | <a href="https://juejin.cn/user/3457299575741608">Blog</a></p>
+            </td>
         </tr>
     </table>
 </center>
