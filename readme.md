@@ -70,7 +70,7 @@ $ npm install @serverless-devs/s -g
   - 华为云函数工作流（FG）: [项目仓库](https://github.com/xinwuyun/fg)
   - 腾讯云云函数（SCF）: [项目仓库](https://github.com/devscomp/scf)
 - Installable
-  - OpenFunction(of): 开发中...
+  - OpenFunction（ofn）: [项目仓库](https://github.com/OpenFunction/serverless-devs)
   - Laf: 开发中...
  
 > 尽管以上 FaaS 平台/产品已经有人贡献或在持续维护中，但是我们仍然非常欢迎大家可以参与贡献/维护，除此之外，其他的 FaaS 平台/产品（例如 Google Cloud Platform Functions、Azure Functions等），我们也非常期望社区的小伙伴们可以参与开发和贡献。
