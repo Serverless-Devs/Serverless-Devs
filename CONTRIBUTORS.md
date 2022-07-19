@@ -245,7 +245,7 @@
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/3351337?v=4" width="20%" style="min-width: 100px"><br>
-                <p>iMaeGoo<br><a href="https://github.com/zmofei"> Github</a> | <a href="https://www.zhuwenlong.com/">Blog</a></p>
+                <p>Mofei<br><a href="https://github.com/zmofei"> Github</a> | <a href="https://www.zhuwenlong.com/">Blog</a></p>
             </td>
         </tr>
         <tr>
