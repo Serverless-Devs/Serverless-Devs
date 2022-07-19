@@ -19,4 +19,8 @@ The following items are on our roadmap:
   - [Serverless Devs Logs](https://github.com/Serverless-Devs/Serverless-Devs/issues/442)
   - [Serverless Devs Cloud](https://github.com/Serverless-Devs/Serverless-Devs/issues/486)
   - [Global Action](https://github.com/Serverless-Devs/Serverless-Devs/issues/485)
-
+- More support:
+  - More forms of serverless service support，like Serverless Application Hosting model;
+  - Support for more BaaS products;
+  - Exploration of IAC direction;
+  - Combination with Terraform;
