@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="[logo.svg](https://camo.githubusercontent.com/6a8a34a2749bc61034413ff7cafc6a09c34f471e22e5a27233b1bc354c9b3a8c/68747470733a2f2f696d616765732e646576736170702e636e2f646576732d6769746875622f6c6f676f2e6a7067)" alt="Bumblebee" width="60%" height="60%">
+    <img src="https://camo.githubusercontent.com/6a8a34a2749bc61034413ff7cafc6a09c34f471e22e5a27233b1bc354c9b3a8c/68747470733a2f2f696d616765732e646576736170702e636e2f646576732d6769746875622f6c6f676f2e6a7067">
 </h1>
 
 The following items are on our roadmap:
