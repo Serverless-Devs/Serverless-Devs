@@ -15,7 +15,7 @@ The following items are on our roadmap:
     - [Laf](https://github.com/labring/laf/issues/105)
 - Function support:
   - [Serverless Devs K8s Controller](https://github.com/Serverless-Devs/Serverless-Devs/issues/511)
-  - [VScode Plugin]([https://github.com/Serverless-Devs/Serverless-Devs/issues/513](https://github.com/Serverless-Devs/Serverless-Devs/issues/445)
+  - [VScode Plugin](https://github.com/Serverless-Devs/Serverless-Devs/issues/445)
   - [Serverless Devs Logs](https://github.com/Serverless-Devs/Serverless-Devs/issues/442)
   - [Serverless Devs Cloud](https://github.com/Serverless-Devs/Serverless-Devs/issues/486)
   - [Global Action](https://github.com/Serverless-Devs/Serverless-Devs/issues/485)
