@@ -253,6 +253,10 @@
                 <img src="https://avatars.githubusercontent.com/u/42271882?v=4" width="20%" style="min-width: 100px"><br>
                 <p>0xff01<br><a href="https://github.com/XZYW"> Github</a> | Blog</p>
             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/20847533?v=4" width="20%" style="min-width: 100px"><br>
+                <p>niuhuan<br><a href="https://github.com/niuhuan"> Github</a> | <a href="https://github.com/niuhuan/notebook">Blog</a></p>
+            </td>
         </tr>
     </table>
 </center>
