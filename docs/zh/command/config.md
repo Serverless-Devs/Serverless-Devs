@@ -19,6 +19,9 @@ category: '命令'
 - [config delete 命令](#config-delete-命令)
     - [参数解析](#参数解析-2)
     - [操作案例](#操作案例-2)
+- [config rename 命令](#config-rename-命令)
+    - [参数解析](#参数解析-3)
+    - [操作案例](#操作案例-3)
 - [注意事项](#注意事项)
     - [通过环境变量设置密钥](#通过环境变量设置密钥)
     - [关于配置密钥的使用顺序](#关于配置密钥的使用顺序)
@@ -41,12 +44,14 @@ Commands:
   add         ➕ Add an account
   get         ✔️ Get accounts
   delete      ✖️ Delete an account
+  rename      >️ Rename an account
 ```
 
-在该命令中，包括了三个子命令：
+在该命令中，包括了四个子命令：
 - [add：添加密钥配置](#config-add-命令)
 - [get：查看密钥配置](#config-get-命令)
 - [delete：删除密钥配置](#config-delete-命令)
+- [rename：重命名密钥配置](#config-rename-命令)
 
 
 ## config add 命令
@@ -267,6 +272,43 @@ Options:
 ```shell script
 $ s config delete -a test
 Key [test] has been successfully removed
+```
+
+## config rename 命令
+
+通过`config rename`命令，您可以更改配置过的密钥信息名称。
+
+通过`-h/--help`可以查看到配置帮助：
+
+```shell script
+$ s config rename -h
+
+Usage: s config rename <sourceAliasName> <targetAliasName>
+
+You can rename an account.
+
+     Example:
+        $ s config rename sourceAliasName targetAliasName
+
+
+Options:
+  -h,--help                 Display help for command
+```
+
+### 参数解析
+
+| 参数全称 | 参数缩写 | 是否必填 | 参数含义     |
+|-----|------|-----|----------|
+| sourceAliasName |      | 必填 | 原始密钥的别名  |
+| targetAliasName |      | 必填 | 变更后密钥的别名 |
+
+### 操作案例
+
+如果想要变更某个已经配置的密钥的别名，可以通过`config rename`进行删除，例如，想要删除别名为`test`的密钥信息别名为`test2`，就可以执行：
+
+```shell script
+$ s config rename test test2  
+Key [test] has been successfully rename to [test2].
 ```
 
 ## 注意事项
