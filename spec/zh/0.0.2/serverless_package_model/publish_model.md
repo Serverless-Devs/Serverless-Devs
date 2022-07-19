@@ -58,7 +58,22 @@ region:
 ![](https://img.alicdn.com/imgextra/i4/O1CN01A49qaI23UfoB84sU2_!!6000000007259-2-tps-1968-644.png)
 
 ### boolean
-TODO
+
+完整的描述为
+
+```
+internetAccess:
+  type: boolean
+  title: 允许公网访问
+  description: 配置服务中的函数是否可以访问互联网
+  default: true
+```
+
+- 在 cli 的表现形式为:
+  ![](https://img.alicdn.com/imgextra/i1/O1CN01UyPuY51wjbPTe8Jg7_!!6000000006344-2-tps-1062-212.png)
+
+- 在网页端表现形式为
+  TODO:
 
 
 ## 自定义UI
