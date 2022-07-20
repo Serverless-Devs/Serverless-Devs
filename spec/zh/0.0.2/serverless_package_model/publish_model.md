@@ -10,6 +10,7 @@ category: '开发包模型'
   - [默认数据类型](#默认数据类型)
     - [string](#string)
     - [boolean](#boolean)
+    - [password](#password)
   - [自定义UI](#自定义UI)
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
@@ -71,6 +72,24 @@ internetAccess:
 
 - 在网页端表现形式为
   ![](https://img.alicdn.com/imgextra/i4/O1CN01pMntUJ1MHpDpOLFTa_!!6000000001410-2-tps-1670-472.png)
+
+### password
+
+完整的描述为
+
+```
+password:
+  type: password
+  title: 应用管理员密码
+  description: 应用管理员密码
+  default: 123456
+```
+
+- 在 cli 的表现形式为:
+  ![](https://img.alicdn.com/imgextra/i3/O1CN01TZvXPN1Ne664nVWoS_!!6000000001594-2-tps-1058-256.png)
+
+- 在网页端表现形式为
+  TODO:
 
 ## 自定义UI
 自定义UI主要用户在web端，用户能够方便的进行操作。一般以`x-`开头
