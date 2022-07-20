@@ -73,8 +73,7 @@ internetAccess:
   ![](https://img.alicdn.com/imgextra/i1/O1CN01UyPuY51wjbPTe8Jg7_!!6000000006344-2-tps-1062-212.png)
 
 - 在网页端表现形式为
-  TODO:
-
+  ![](https://img.alicdn.com/imgextra/i4/O1CN01pMntUJ1MHpDpOLFTa_!!6000000001410-2-tps-1670-472.png)
 
 ## 自定义UI
 自定义UI主要用户在web端，用户能够方便的进行操作。一般以`x-`开头
