@@ -4,8 +4,9 @@ description: 'Pacakge 发布'
 position: 6
 category: '开发包模型'
 ---
-- [发布应用](#发布应用)
-- [publish.yaml规范](#publish.yaml规范)
+- [发布应用](https://github.com/orgs/Serverless-Devs/discussions/439)
+- [应用模型规范](https://github.com/Serverless-Devs/Serverless-Devs/blob/publish_docs/spec/zh/0.0.2/serverless_package_model/package_model.md#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83)
+- [Parameters规范](#Parameters规范)
   - [默认数据类型](#默认数据类型)
     - [string](#string)
     - [boolean](#boolean)
@@ -14,11 +15,7 @@ category: '开发包模型'
     - [角色授权 x-role](#x-role)
     - [nas网盘 x-nas](#x-nas)
 
-
-# 发布应用
-发布应用请查看[教程](https://github.com/orgs/Serverless-Devs/discussions/439)
-
-# publish.yaml规范
+# Parameters规范
 ## 默认数据类型
 ### string
 完整的描述为
