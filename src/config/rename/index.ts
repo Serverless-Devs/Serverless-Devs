@@ -33,7 +33,9 @@ function notFound({ source, accessFileInfo }: { source: string; accessFileInfo?:
 }
 
 function exists({ target, accessFileInfo }: { target: string; accessFileInfo?: any }) {
-  const errorMessage = `${target} had exists in ${accessFileInfo}`;
+  const errorMessage = `${target} had exists, please do not configured these keys: [${String(
+    Object.keys(accessFileInfo),
+  )}].`;
   new HumanError({
     errorMessage,
     tips: `You can use [s config get] list accounts`,
