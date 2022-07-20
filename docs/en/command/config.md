@@ -19,6 +19,9 @@ The `config` commands are used to perform operations on keys. For example, you c
 - [config delete command](#config-delete-command)
     - [Parameter description](#Parameter-description-2)
     - [Example](#Example-2)
+- [config rename command](#config-rename-command)
+  - [Parameter description](#Parameter-description-3)
+  - [Example](#Example-3)
 - [Precautions](#Precautions)
     - [Configure keys by using environment variables](#Configure-keys-by-using-environment-variables)
     - [Configure the order in which keys are used](#Configure-the-order-in-which-keys-are-used)
@@ -46,7 +49,8 @@ Commands:
 In the preceding command, the following subcommands are included: 
 - [add: specifies to add configurations of keys.](#config-add-command)
 - [get: specifies to view configurations of keys.](#config-get-command)
-- [delete: specifies to delete configurations of keys.](#config-delete-command) 
+- [delete: specifies to delete configurations of keys.](#config-delete-command)
+- [delete: specifies to rename configurations of keys.](#config-rename-command)
 
 
 ## config add command
@@ -273,6 +277,44 @@ If you want to delete a configured key, run the `config delete` command. For exa
 ```shell script
 $ s config delete -a test
 Key [test] has been successfully removed
+```
+
+## config rename command
+
+You can run the s `config rename` command to rename the information about a configured account.
+
+You can run the `-h/--help` command to obtain the following help information about configurations
+
+```shell script
+$ s config rename -h
+
+Usage: s config rename <sourceAliasName> <targetAliasName>
+
+You can rename an account.
+
+     Example:
+        $ s config rename sourceAliasName targetAliasName
+
+
+Options:
+  -h,--help                 Display help for command
+```
+
+### Parameter description
+
+| Parameter | Abbreviation | Required | Description              |
+|-----|--------------|-----|--------------------------|
+| sourceAliasName |              | Yes | Source alias of the key. |
+| targetAliasName |              | Yes | Target alias of the key. |
+
+
+### Example
+
+If you want to rename a configured key, run the `config rename` command. For example, if you want to rename a configured key whose alias is `test` to `test2`, run the following command:
+
+```shell script
+$ s config rename test test2  
+Key [test] has been successfully rename to [test2].
 ```
 
 ## Precautions

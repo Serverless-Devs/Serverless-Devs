@@ -226,5 +226,37 @@
                 <p>liufangchen<br><a href="https://github.com/liufangchen"> Github</a> | Blog</p>
             </td>
         </tr>
+        <tr>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/38881498?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Chunying Pi<br><a href="https://github.com/Joycepy"> Github</a> | <a href="https://joycepy.github.io/">Blog</a></p>
+            </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/94942133?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Fitz_dev<br><a href="https://github.com/fitz-developer"> Github</a> | Blog</p>
+            </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/61337085?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Dejiang Wang<br><a href="https://github.com/wizardAEI"> Github</a> | <a href="https://juejin.cn/user/3457299575741608">Blog</a></p>
+            </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/20182252?v=4" width="20%" style="min-width: 100px"><br>
+                <p>iMaeGoo<br><a href="https://github.com/imaegoo"> Github</a> | <a href="https://www.imaegoo.com/">Blog</a></p>
+            </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/3351337?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Mofei<br><a href="https://github.com/zmofei"> Github</a> | <a href="https://www.zhuwenlong.com/">Blog</a></p>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/42271882?v=4" width="20%" style="min-width: 100px"><br>
+                <p>0xff01<br><a href="https://github.com/XZYW"> Github</a> | Blog</p>
+            </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/20847533?v=4" width="20%" style="min-width: 100px"><br>
+                <p>niuhuan<br><a href="https://github.com/niuhuan"> Github</a> | <a href="https://github.com/niuhuan/notebook">Blog</a></p>
+            </td>
+        </tr>
     </table>
 </center>

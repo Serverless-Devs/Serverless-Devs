@@ -70,7 +70,7 @@ FaaS platforms/products currently supported by the Serverless Devs project:
   - HUAWEI CLOUD Function Workflow (FG): [Project Repository](https://github.com/xinwuyun/fg)
   - Tencent Cloud Function (SCF): [Project repository](https://github.com/devscomp/scf)
 - Installable
-  - OpenFunction(of): Coming soon...
+  - OpenFunction(of): [Project repository](https://github.com/OpenFunction/serverless-devs)
   - Laf: Coming soon...
 
 

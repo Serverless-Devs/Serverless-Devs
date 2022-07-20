@@ -48,11 +48,16 @@ $ npm install @serverless-devs/s -g
 
 # Documentation
 
-- [Installation Documentation](en/install.md)
-- [Command Line Operation](en/command/readme.md)
-- [Yaml Specification](en/yaml.md)
-- [Configuration inheritance/multi-environment](en/extend.md)
-- [CI/CD Platform Integration](en/cicd.md)
+
+- Hosted
+  - Alibaba Cloud Function Compute (FC): [Project repository](https://github.com/devsapp/fc)
+  - AWS Lambda: [Project repository](https://github.com/devscomp/lambda)
+  - Baidu Intelligent Cloud Function Computing (CFC): [Project Repository](https://github.com/xinwuyun/cfc)
+  - HUAWEI CLOUD Function Workflow (FG): [Project Repository](https://github.com/xinwuyun/fg)
+  - Tencent Cloud Function (SCF): [Project repository](https://github.com/devscomp/scf)
+- Installable
+  - OpenFunction(of): [Project repository](https://github.com/OpenFunction/serverless-devs)
+  - Laf: Coming soon...
 
 > If you want to contribute Packages (including components and applications) to Serverless Devs, you can refer to [Package Development Documentation](en/package_dev.md)
 
