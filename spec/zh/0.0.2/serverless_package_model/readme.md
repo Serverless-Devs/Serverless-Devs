@@ -18,5 +18,6 @@ category: '开发包模型'
     - [组件模型规范](package_model.md#组件模型规范)
     - [应用模型规范](package_model.md#应用模型规范)
     - [插件模型规范](package_model.md#插件模型规范)
+- [应用发布规范](publish_model.md)
 - [适用范围](application_scopes.md)
 - [设计原则](design_principles.md)

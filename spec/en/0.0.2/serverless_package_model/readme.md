@@ -17,5 +17,6 @@ This topic describes a specification about serverless packages. Package develope
         - [Component model specification](package_model.md#Component-model-specification)
         - [Application model specification](package_model.md#Application-model-specification)
         - [Plugin model specification](package_model.md#Plugin-model-specification)
+- [App Release Specifications](publish_model.md)
 - [Scenarios](application_scopes.md)
 - [General principles](design_principles.md)
