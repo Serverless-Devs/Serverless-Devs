@@ -19,6 +19,7 @@ program
   .command('add', `${emoji(colors.bold('+'))}` + 'Add an account')
   .command('get', `${emoji(colors.bold('√'))}` + 'Get accounts')
   .command('delete', `${emoji(colors.bold('×'))}` + 'Delete an account')
+  .command('rename', `${emoji(colors.bold('>'))}` + 'Rename an account')
   .description(description)
   .addHelpCommand(false)
   .parse(process.argv);
