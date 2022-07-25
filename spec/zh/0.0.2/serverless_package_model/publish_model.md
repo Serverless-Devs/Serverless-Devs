@@ -68,7 +68,7 @@ internetAccess:
 ```
 
 - 在 cli 的表现形式为:
-  ![](https://img.alicdn.com/imgextra/i1/O1CN01UyPuY51wjbPTe8Jg7_!!6000000006344-2-tps-1062-212.png)
+  ![](https://img.alicdn.com/imgextra/i3/O1CN01sOYVzv1tDast8IvYQ_!!6000000005868-2-tps-1128-152.png)
 
 - 在网页端表现形式为
   ![](https://img.alicdn.com/imgextra/i4/O1CN01pMntUJ1MHpDpOLFTa_!!6000000001410-2-tps-1670-472.png)
@@ -86,7 +86,7 @@ password:
 ```
 
 - 在 cli 的表现形式为:
-  ![](https://img.alicdn.com/imgextra/i3/O1CN01TZvXPN1Ne664nVWoS_!!6000000001594-2-tps-1058-256.png)
+  ![](https://img.alicdn.com/imgextra/i3/O1CN019EYuxL1gsjSDv9JN0_!!6000000004198-2-tps-1162-248.png)
 
 - 在网页端表现形式为
   ![](https://img.alicdn.com/imgextra/i4/O1CN01a5k5QP1JnTkSr1Zo0_!!6000000001073-2-tps-1814-468.png)
