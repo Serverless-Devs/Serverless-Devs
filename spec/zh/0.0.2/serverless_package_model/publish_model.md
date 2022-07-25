@@ -89,8 +89,7 @@ password:
   ![](https://img.alicdn.com/imgextra/i3/O1CN01TZvXPN1Ne664nVWoS_!!6000000001594-2-tps-1058-256.png)
 
 - 在网页端表现形式为
-  TODO:
-
+  ![](https://img.alicdn.com/imgextra/i4/O1CN01a5k5QP1JnTkSr1Zo0_!!6000000001073-2-tps-1814-468.png)
 ## 自定义UI
 自定义UI主要用户在web端，用户能够方便的进行操作。一般以`x-`开头
 #### x-bucket
