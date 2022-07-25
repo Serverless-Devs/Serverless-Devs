@@ -81,8 +81,8 @@ internetAccess:
 password:
   type: password
   title: 应用管理员密码
-  description: 应用管理员密码
-  default: 123456
+  description: 字母、数字、下划线，长度8-30位
+  default: 12345678
 ```
 
 - 在 cli 的表现形式为:
