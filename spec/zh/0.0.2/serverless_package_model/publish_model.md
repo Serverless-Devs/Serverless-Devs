@@ -10,7 +10,7 @@ category: '开发包模型'
   - [默认数据类型](#默认数据类型)
     - [string](#string)
     - [boolean](#boolean)
-    - [password](#password)
+    - [secret](#secret)
   - [自定义UI](#自定义UI)
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
@@ -73,13 +73,13 @@ internetAccess:
 - 在网页端表现形式为
   ![](https://img.alicdn.com/imgextra/i4/O1CN01pMntUJ1MHpDpOLFTa_!!6000000001410-2-tps-1670-472.png)
 
-### password
+### secret
 
 完整的描述为
 
 ```
-password:
-  type: password
+secret:
+  type: secret
   title: 应用管理员密码
   description: 字母、数字、下划线，长度8-30位
   default: 12345678
