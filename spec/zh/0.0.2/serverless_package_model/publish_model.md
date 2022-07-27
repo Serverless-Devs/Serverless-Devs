@@ -6,7 +6,7 @@ category: '开发包模型'
 ---
 - [发布应用](https://github.com/orgs/Serverless-Devs/discussions/439)
 - [应用模型规范](https://github.com/Serverless-Devs/Serverless-Devs/blob/publish_docs/spec/zh/0.0.2/serverless_package_model/package_model.md#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83)
-- [Parameters规范](#Parameters规范)
+- [Parameters UI规范](#ParametersUI规范)
   - [默认数据类型](#默认数据类型)
     - [string](#string)
     - [boolean](#boolean)
@@ -15,8 +15,10 @@ category: '开发包模型'
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
     - [nas网盘 x-nas](#x-nas)
+- [tips小贴士](#tips小贴士)
+  - [随机后缀名${default-suffix}](#随机后缀名${default-suffix})
 
-# Parameters规范
+# ParametersUI规范
 ## 默认数据类型
 ### string
 完整的描述为
