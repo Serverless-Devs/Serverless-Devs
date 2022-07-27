@@ -6,17 +6,19 @@ category: '开发包模型'
 ---
 - [发布应用](https://github.com/orgs/Serverless-Devs/discussions/439)
 - [应用模型规范](https://github.com/Serverless-Devs/Serverless-Devs/blob/publish_docs/spec/zh/0.0.2/serverless_package_model/package_model.md#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83)
-- [Parameters规范](#Parameters规范)
+- [Parameters UI规范](#ParametersUI规范)
   - [默认数据类型](#默认数据类型)
     - [string](#string)
     - [boolean](#boolean)
-    - [password](#password)
+    - [secret](#secret)
   - [自定义UI](#自定义UI)
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
     - [nas网盘 x-nas](#x-nas)
+- [tips小贴士](#tips小贴士)
+  - [随机后缀名](#随机后缀名${default-suffix})
 
-# Parameters规范
+# ParametersUI规范
 ## 默认数据类型
 ### string
 完整的描述为
@@ -68,29 +70,28 @@ internetAccess:
 ```
 
 - 在 cli 的表现形式为:
-  ![](https://img.alicdn.com/imgextra/i1/O1CN01UyPuY51wjbPTe8Jg7_!!6000000006344-2-tps-1062-212.png)
+  ![](https://img.alicdn.com/imgextra/i3/O1CN01sOYVzv1tDast8IvYQ_!!6000000005868-2-tps-1128-152.png)
 
 - 在网页端表现形式为
   ![](https://img.alicdn.com/imgextra/i4/O1CN01pMntUJ1MHpDpOLFTa_!!6000000001410-2-tps-1670-472.png)
 
-### password
+### secret
 
 完整的描述为
 
 ```
-password:
-  type: password
+secret:
+  type: secret
   title: 应用管理员密码
-  description: 应用管理员密码
-  default: 123456
+  description: 字母、数字、下划线，长度8-30位
+  default: 12345678
 ```
 
 - 在 cli 的表现形式为:
-  ![](https://img.alicdn.com/imgextra/i3/O1CN01TZvXPN1Ne664nVWoS_!!6000000001594-2-tps-1058-256.png)
+  ![](https://img.alicdn.com/imgextra/i3/O1CN019EYuxL1gsjSDv9JN0_!!6000000004198-2-tps-1162-248.png)
 
 - 在网页端表现形式为
-  TODO:
-
+  ![](https://img.alicdn.com/imgextra/i4/O1CN01a5k5QP1JnTkSr1Zo0_!!6000000001073-2-tps-1814-468.png)
 ## 自定义UI
 自定义UI主要用户在web端，用户能够方便的进行操作。一般以`x-`开头
 #### x-bucket
@@ -129,6 +130,9 @@ triggerRoleArn:
       - AliyunFCInvocationAccess
 ```
 ![](https://img.alicdn.com/imgextra/i1/O1CN01LQCH9a1XiLw3aa09O_!!6000000002957-2-tps-2032-770.png)
+
+> pattern代表正则，表示当前字段的值需要匹配该正则
+
 
 ##### 字段描述
 | 字段名 | 类型 | 描述 |
@@ -179,3 +183,22 @@ securityGroupId:
 ```
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
+
+# tips小贴士
+
+### 随机后缀名${default-suffix}
+用于字段生成一个随机后缀名，以保证每次初始化时候都可以得到不同的值。比如服务名称等。
+
+```
+serviceName:
+  title: 服务名
+  type: string
+  default: web-framework-${default-suffix}
+  description: 服务名称，只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-128 之间
+```
+
+- 在cli 的表现形式为:
+![](https://img.alicdn.com/imgextra/i1/O1CN01GfWUYG1tP2mjNMScE_!!6000000005893-2-tps-1178-140.png)
+
+- 在网页端表现形式为
+![](https://img.alicdn.com/imgextra/i3/O1CN01DwxGgH205XDzjlOjo_!!6000000006798-2-tps-1616-380.png)
