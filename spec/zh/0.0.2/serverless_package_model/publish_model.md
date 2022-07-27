@@ -16,7 +16,7 @@ category: '开发包模型'
     - [角色授权 x-role](#x-role)
     - [nas网盘 x-nas](#x-nas)
 - [tips小贴士](#tips小贴士)
-  - [随机后缀名${default-suffix}](#随机后缀名${default-suffix})
+  - [随机后缀名](#随机后缀名${default-suffix})
 
 # ParametersUI规范
 ## 默认数据类型
@@ -131,6 +131,9 @@ triggerRoleArn:
 ```
 ![](https://img.alicdn.com/imgextra/i1/O1CN01LQCH9a1XiLw3aa09O_!!6000000002957-2-tps-2032-770.png)
 
+> pattern代表正则，表示当前字段的值需要匹配该正则
+
+
 ##### 字段描述
 | 字段名 | 类型 | 描述 |
 | --- | --- | --- |
@@ -180,3 +183,22 @@ securityGroupId:
 ```
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
+
+# tips小贴士
+
+### 随机后缀名${default-suffix}
+用于字段生成一个随机后缀名，以保证每次初始化时候都可以得到不同的值。比如服务名称等。
+
+```
+serviceName:
+  title: 服务名
+  type: string
+  default: web-framework-${default-suffix}
+  description: 服务名称，只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-128 之间
+```
+
+- 在cli 的表现形式为:
+![](https://img.alicdn.com/imgextra/i1/O1CN01GfWUYG1tP2mjNMScE_!!6000000005893-2-tps-1178-140.png)
+
+- 在网页端表现形式为
+![](https://img.alicdn.com/imgextra/i3/O1CN01DwxGgH205XDzjlOjo_!!6000000006798-2-tps-1616-380.png)
