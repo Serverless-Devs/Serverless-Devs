@@ -40,8 +40,15 @@ ${emoji('📖')} Document: ${underline(
   const [componentName, method] = rawData.slice(1);
   const instance = await loadComponent(componentName);
 
+  async function  getCurentCredential(access:string){
+    if (access === core.ALIYUN_CLI) {
+      return await core.getCredential(access);
+    } 
+    return  await getCredentialWithExisted(access);
+  }
+
   async function execComponent(_method) {
-    const credentials = await getCredentialWithExisted(access);
+    const credentials = await getCurentCredential(access);
     let tempProp = {};
     try {
       const p = argvData.props || argvData.p;
