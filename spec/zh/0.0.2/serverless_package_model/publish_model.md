@@ -17,6 +17,7 @@ category: '开发包模型'
     - [nas网盘 x-nas](#x-nas)
 - [tips小贴士](#tips小贴士)
   - [随机后缀名](#随机后缀名${default-suffix})
+  - [自定义过滤器](#自定义过滤器filter)
 
 # ParametersUI规范
 ## 默认数据类型
@@ -194,6 +195,7 @@ serviceName:
   title: 服务名
   type: string
   default: web-framework-${default-suffix}
+  pattern: "^[a-zA-Z_][a-zA-Z0-9-_]{0,127}$"
   description: 服务名称，只能包含字母、数字、下划线和中划线。不能以数字、中划线开头。长度在 1-128 之间
 ```
 
@@ -202,3 +204,26 @@ serviceName:
 
 - 在网页端表现形式为
 ![](https://img.alicdn.com/imgextra/i3/O1CN01DwxGgH205XDzjlOjo_!!6000000006798-2-tps-1616-380.png)
+
+### 自定义过滤器filter
+应用初始化时，对模版解析的时候可以自定义过滤器。
+
+- 首先我们需要在`hook/filter.js`文件里定义过滤器
+
+  `hook/filter.js` 内容示例
+  ```js
+  function timestamp(value) {
+    return `your code: ${value}`
+  }
+  module.exports = {
+    timestamp,
+  };
+  ```
+- 然后在模版里就可以使用我们定义过的过滤器
+
+  `s.yaml`使用过滤器示例
+
+  ```yaml
+  # ...others
+  time: "{{time | timestamp}}"
+  ```
