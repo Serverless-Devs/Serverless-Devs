@@ -223,5 +223,8 @@ When the application is initialized, you can customize the filter when parsing t
 
   `s.yaml` example using filters
 
-  ````yaml
-  #
+ 
+  ```yaml
+  # ...others
+  time: "{{time | timestamp}}"
+  ```
