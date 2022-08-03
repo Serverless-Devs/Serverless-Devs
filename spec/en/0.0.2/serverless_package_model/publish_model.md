@@ -6,17 +6,20 @@ category: 'Development Kit Models'
 ---
 - [Release app](https://github.com/orgs/Serverless-Devs/discussions/439)
 - [Application Model Specification](https://github.com/Serverless-Devs/Serverless-Devs/blob/publish_docs/spec/en/0.0.2/serverless_package_model/package_model.md#application-model-specification)
-- [Parameters specification] (#Parameters specification)
+- [Parameters UI Specification] (#ParametersUI Specification)
   - [default data type](#default data type)
     - [string](#string)
     - [boolean](#boolean)
-    - [password](#password)
+    - [secret](#secret)
   - [custom UI](#custom UI)
     - [oss x-bucket](#x-bucket)
     - [role authorization x-role](#x-role)
     - [nas network disk x-nas](#x-nas)
+- [tips] (#tipstips)
+  - [random suffix name](#random suffix name${default-suffix})
+  - [custom filter](#custom filter filter)
 
-# Parameters specification
+# ParametersUI specification
 ## default data type
 ### string
 The full description is
@@ -68,29 +71,28 @@ internetAccess:
 ````
 
 - The expression in cli is:
-  ![](https://img.alicdn.com/imgextra/i1/O1CN01UyPuY51wjbPTe8Jg7_!!6000000006344-2-tps-1062-212.png)
+  ![](https://img.alicdn.com/imgextra/i3/O1CN01sOYVzv1tDast8IvYQ_!!6000000005868-2-tps-1128-152.png)
 
 - The expression on the webpage is as
   ![](https://img.alicdn.com/imgextra/i4/O1CN01pMntUJ1MHpDpOLFTa_!!6000000001410-2-tps-1670-472.png)
 
-###password
+### secret
 
 The full description is
 
 ````
-password:
-  type: password
+secret:
+  type: secret
   title: Application Admin Password
-  description: application administrator password
-  default: 123456
+  description: letters, numbers, underscores, 8-30 digits long
+  default: 12345678
 ````
 
 - The expression in cli is:
-  ![](https://img.alicdn.com/imgextra/i3/O1CN01TZvXPN1Ne664nVWoS_!!6000000001594-2-tps-1058-256.png)
+  ![](https://img.alicdn.com/imgextra/i3/O1CN019EYuxL1gsjSDv9JN0_!!6000000004198-2-tps-1162-248.png)
 
 - The expression on the webpage is as
-  TODO:
-
+  ![](https://img.alicdn.com/imgextra/i4/O1CN01a5k5QP1JnTkSr1Zo0_!!6000000001073-2-tps-1814-468.png)
 ## custom UI
 The main user of the custom UI is on the web side, and the user can operate it conveniently. Usually starts with `x-`
 #### x-bucket
@@ -129,6 +131,9 @@ triggerRoleArn:
       -AliyunFCInvocationAccess
 ````
 ![](https://img.alicdn.com/imgextra/i1/O1CN01LQCH9a1XiLw3aa09O_!!6000000002957-2-tps-2032-770.png)
+
+> pattern stands for regular, indicating that the value of the current field needs to match the regular
+
 
 ##### Field Description
 | Field Name | Type | Description |
@@ -179,3 +184,44 @@ securityGroupId:
 ````
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
+
+#tipstips
+
+### Random suffix name ${default-suffix}
+Used to generate a random suffix name for the field to ensure that each initialization can get a different value. Such as service name, etc.
+
+````
+serviceName:
+  title: service name
+  type: string
+  default: web-framework-${default-suffix}
+  pattern: "^[a-zA-Z_][a-zA-Z0-9-_]{0,127}$"
+  description: The service name, which can only contain letters, numbers, underscores and dashes. Cannot start with a number or a dash. Length between 1-128
+````
+
+- The expression in cli is:
+![](https://img.alicdn.com/imgextra/i1/O1CN01GfWUYG1tP2mjNMScE_!!6000000005893-2-tps-1178-140.png)
+
+- The expression on the webpage is as
+![](https://img.alicdn.com/imgextra/i3/O1CN01DwxGgH205XDzjlOjo_!!6000000006798-2-tps-1616-380.png)
+
+### custom filter filter
+When the application is initialized, you can customize the filter when parsing the template.
+
+- First we need to define the filter in the `hook/filter.js` file
+
+  Example of `hook/filter.js` content
+  ````js
+  function timestamp(value) {
+    return `your code: ${value}`
+  }
+  module.exports = {
+    timestamp,
+  };
+  ````
+- Then you can use the filters we have defined in the template
+
+  `s.yaml` example using filters
+
+  ````yaml
+  #
