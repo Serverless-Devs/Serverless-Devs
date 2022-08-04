@@ -278,7 +278,7 @@ securityGroupID:
 
 # tips小贴士
 
-### 随机后缀名${default-suffix}
+### 随机后缀名default-suffix
 用于字段生成一个随机后缀名，以保证每次初始化时候都可以得到不同的值。比如服务名称等。
 
 ```
