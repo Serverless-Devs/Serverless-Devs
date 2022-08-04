@@ -15,6 +15,7 @@ category: 'Development Kit Models'
     - [oss x-bucket](#x-bucket)
     - [role authorization x-role](#x-role)
     - [nas network disk x-nas](#x-nas)
+    - [container registry x-acr](#x-acr)
 - [tips] (#tipstips)
   - [random suffix name](#random suffix name${default-suffix})
   - [custom filter](#custom filter filter)
@@ -185,7 +186,23 @@ securityGroupId:
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
 
-#tipstips
+#### x-acr
+
+Used to select and create images for Alibaba Cloud Container Image Service
+
+```
+acrRegistry:
+    title: Mirror repository
+    type: string
+    examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
+    description: The image repository address requires you to activate the service, create the repository, and set the access credentials in the https://cr.console.aliyun.com/
+    x-acr:
+      type: select
+```
+
+![](https://img.alicdn.com/imgextra/i4/O1CN01IwsAuR1Ur6f5MVB5n_!!6000000002570-2-tps-2238-348.png)
+
+# tips
 
 ### Random suffix name ${default-suffix}
 Used to generate a random suffix name for the field to ensure that each initialization can get a different value. Such as service name, etc.

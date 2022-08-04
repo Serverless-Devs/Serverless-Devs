@@ -185,6 +185,28 @@ securityGroupId:
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
 
+#### x-acr
+
+用于阿里云容器镜像服务镜像的选择和创建
+
+```
+acrRegistry:
+    title: 镜像仓库
+    type: string
+    examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
+    description: 镜像仓库地址，需要在 https://cr.console.aliyun.com/ 中开通服务、创建仓库以及设置访问凭证
+    x-acr:
+      type: select
+```
+
+![](https://img.alicdn.com/imgextra/i4/O1CN01IwsAuR1Ur6f5MVB5n_!!6000000002570-2-tps-2238-348.png)
+##### 字段描述
+
+| 字段名     | 类型           | 描述     |
+| ---------- | -------------- | -------- |
+| type | String | select:选择镜像， tag: 创建Tag |
+
+
 # tips小贴士
 
 ### 随机后缀名${default-suffix}
