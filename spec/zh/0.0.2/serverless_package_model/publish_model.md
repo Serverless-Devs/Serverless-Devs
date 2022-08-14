@@ -15,6 +15,7 @@ category: '开发包模型'
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
     - [nas网盘 x-nas](#x-nas)
+    - [容器镜像 x-acr](#x-acr)
 - [tips小贴士](#tips小贴士)
   - [随机后缀名](#随机后缀名${default-suffix})
   - [自定义过滤器](#自定义过滤器filter)
