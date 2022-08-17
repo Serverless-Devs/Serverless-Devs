@@ -1,7 +1,7 @@
 ---
-title: Pacakge 发布
+title: Pacakge 模型 - Parameters参数
 description: 'Pacakge 发布'
-position: 6
+position: 5
 category: '开发包模型'
 ---
 - [发布应用](https://github.com/orgs/Serverless-Devs/discussions/439)
@@ -18,6 +18,7 @@ category: '开发包模型'
     - [容器镜像 x-acr](#x-acr)
 - [tips小贴士](#tips小贴士)
   - [随机后缀名](#随机后缀名${default-suffix})
+  - [模版引擎](#模版引擎)
   - [自定义过滤器](#自定义过滤器filter)
 
 # ParametersUI规范
@@ -227,6 +228,42 @@ serviceName:
 
 - 在网页端表现形式为
 ![](https://img.alicdn.com/imgextra/i3/O1CN01DwxGgH205XDzjlOjo_!!6000000006798-2-tps-1616-380.png)
+
+### 模版引擎
+应用初始化时，使用[art-template](https://aui.github.io/art-template/zh-cn/docs/)进行模版解析
+
+比如：编写应用模板时，用户可以自己指定vpc配置，如果指定了就用自定义的，没指定就用auto
+
+- publish.yaml
+
+```
+vpcConfigType:
+  title: VPC网络配置
+  type: string
+  description: 配置服务中函数使用的网络，例如配置函数是否可以访问公网，是否可以访问 VPC 中的资源等。
+  enum:
+    - auto
+    - 自定义配置
+```
+
+- s.yaml
+
+```yaml
+# ...others
+service:
+  name: "{{ serviceName }}"
+  description: 欢迎使用ServerlessTool
+  {{if vpcConfigType === 'auto'}}
+  vpcConfig: auto
+  {{else}}
+  vpcConfig: # VPC配置, 配置后function可以访问指定VPC
+    vpcId: "{{vpcID}}" # VPC ID
+    securityGroupId: "{{securityGroupID}}" # 安全组ID
+    vswitchIds: # 交换机 ID 列表
+      - "{{vswitchID}}"
+  {{/if}}
+```
+> 更多语法支持可以查看[art-template](https://aui.github.io/art-template/zh-cn/docs/syntax.html)文档
 
 ### 自定义过滤器filter
 应用初始化时，对模版解析的时候可以自定义过滤器。

@@ -521,7 +521,7 @@ services:
     - 如果存在，则默认进行对应；
     - 如果不存在，直接提醒用户需要输入access这样的一个参数，作为Yaml中所必须的参数；
 
-> 关于Parameters参数的格式，严格遵循JSON Scheme的规范标准。
+> 关于Parameters参数的格式，严格遵循JSON Scheme的规范标准，更多使用示例可查看[Pacakge 模型 - Parameters参数](https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/zh/0.0.2/serverless_package_model/publish_model.md)文档。
 
 ### 插件模型规范
 
