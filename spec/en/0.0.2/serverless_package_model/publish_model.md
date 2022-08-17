@@ -1,12 +1,12 @@
 ---
-title: Pacakge Post
+title: Pacakge model - Parameters parameter
 description: 'Pacakge release'
 position: 6
 category: 'Development Kit Models'
 ---
 - [Release app](https://github.com/orgs/Serverless-Devs/discussions/439)
 - [Application Model Specification](https://github.com/Serverless-Devs/Serverless-Devs/blob/publish_docs/spec/en/0.0.2/serverless_package_model/package_model.md#application-model-specification)
-- [Parameters UI Specification] (#ParametersUI Specification)
+- [Parameters UI Specification](#ParametersUI Specification)
   - [default data type](#default data type)
     - [string](#string)
     - [boolean](#boolean)
@@ -16,8 +16,9 @@ category: 'Development Kit Models'
     - [role authorization x-role](#x-role)
     - [nas network disk x-nas](#x-nas)
     - [container registry x-acr](#x-acr)
-- [tips] (#tipstips)
+- [tips](#tips)
   - [random suffix name](#random suffix name${default-suffix})
+  - [template engine](#template engine)
   - [custom filter](#custom filter filter)
 
 # ParametersUI specification
@@ -221,6 +222,42 @@ serviceName:
 
 - The expression on the webpage is as
 ![](https://img.alicdn.com/imgextra/i3/O1CN01DwxGgH205XDzjlOjo_!!6000000006798-2-tps-1616-380.png)
+
+### template engine
+When the application is initialized, use [art-template](https://aui.github.io/art-template/en-cn/docs/) for template parsing
+
+For example, when writing an application template, the user can specify the vpc configuration by himself, if it is specified, use the custom one, and use auto if it is not specified
+
+- publish.yaml
+
+```
+vpcConfigType:
+  title: VPC network configuration
+  type: string
+  description: Configure the network used by the functions in the service, such as whether the function can access the Internet, whether it can access resources in the VPC, and so on.
+  enum:
+    - auto
+    - Custom configuration
+```
+
+- s.yaml
+
+```yaml
+# ...others
+service:
+  name: "{{ serviceName }}"
+  description: Welcome to ServerlessTool
+  {{if vpcConfigType === 'auto'}}
+  vpcConfig: auto
+  {{else}}
+  vpcConfig: # VPC configuration, after configuration, the function can access the specified VPC
+    vpcId: "{{vpcID}}" # VPC ID
+    securityGroupId: "{{securityGroupID}}" # The security group ID
+    vswitchIds: # A list of switch IDs
+      - "{{vswitchID}}"
+  {{/if}}
+```
+> For more syntax support, see the [art-template](https://aui.github.io/art-template/en-cn/docs/syntax.html) documentation
 
 ### custom filter filter
 When the application is initialized, you can customize the filter when parsing the template.
