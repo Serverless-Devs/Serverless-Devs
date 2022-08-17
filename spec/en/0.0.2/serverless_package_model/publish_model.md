@@ -1,7 +1,7 @@
 ---
 title: Pacakge model - Parameters parameter
 description: 'Pacakge release'
-position: 6
+position: 5
 category: 'Development Kit Models'
 ---
 - [Release app](https://github.com/orgs/Serverless-Devs/discussions/439)
