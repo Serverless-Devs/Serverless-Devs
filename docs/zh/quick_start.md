@@ -17,7 +17,7 @@ category: '概述'
     - [传统框架：基于Django的博客项目](#传统框架基于django的博客项目)
 
 ## 工具安装
-- 第一步：安装 Node.js(>=10.8.0) 与 NPM 包管理工具；  
+- 第一步：安装 Node.js(>=12.0.0) 与 NPM 包管理工具；  
 - 第二步：安装 Serverless Devs 开发者工具；   
     ```shell script
     $ npm install @serverless-devs/s -g

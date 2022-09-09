@@ -37,7 +37,7 @@
 
 # 快速上手
 
-❶ 安装 Node.js(>=10.8.0) 与 NPM 包管理工具；   
+❶ 安装 Node.js(>=12.0.0) 与 NPM 包管理工具；   
 ❷ 安装 Serverless Devs 开发者工具；   
 ```shell script
 $ npm install @serverless-devs/s -g

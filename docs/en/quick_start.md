@@ -15,7 +15,7 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
     - [Traditional framework: Django-based blog project](#Traditional-framework-based-on-django-blog-project)
 
 ## Tool installation
-- Step 1: Install Node.js (>=10.8.0) and NPM package management tool;
+- Step 1: Install Node.js (>=12.0.0) and NPM package management tool;
 - Step 2: Install Serverless Devs developer tools;
     ```shell script
     $ npm install @serverless-devs/s -g
