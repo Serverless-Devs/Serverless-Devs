@@ -194,12 +194,12 @@ securityGroupId:
 
 ```
 acrRegistry:
-    title: 镜像仓库
-    type: string
-    examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
-    description: 镜像仓库地址，需要在 https://cr.console.aliyun.com/ 中开通服务、创建仓库以及设置访问凭证
-    x-acr:
-      type: select
+  title: 镜像仓库
+  type: string
+  examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
+  description: 镜像仓库地址，需要在 https://cr.console.aliyun.com/ 中开通服务、创建仓库以及设置访问凭证
+  x-acr:
+    type: select
 ```
 
 ![](https://img.alicdn.com/imgextra/i4/O1CN01IwsAuR1Ur6f5MVB5n_!!6000000002570-2-tps-2238-348.png)
@@ -215,13 +215,13 @@ acrRegistry:
 
 ```
 kafkaInstanceID:
-    title: kafka instance id
-    type: string
-    default: ''
-    description: kafka 实例 id
-    x-kafka:
-      denpendency:
-        - region
+  title: kafka instance id
+  type: string
+  default: ''
+  description: kafka 实例 id
+  x-kafka:
+    denpendency:
+      - region
 ```
 
 ##### 字段描述
@@ -235,25 +235,25 @@ kafkaInstanceID:
 
 ```
 kafkaEndpoint:
-    title: kafka endpoint
-    type: string
-    default: ''
-    description: kafka endpoint, 可以从 kafka 控制台获取
+  title: kafka endpoint
+  type: string
+  default: ''
+  description: kafka endpoint, 可以从 kafka 控制台获取
 vpcID:
-    title: kafka 实例所在 vpc id
-    type: string
-    default: ''
-    description: VPC id。请注意需要填写函数计算支持的 az
+  title: kafka 实例所在 vpc id
+  type: string
+  default: ''
+  description: VPC id。请注意需要填写函数计算支持的 az
 vswitchID:
-    title: vswitchID
-    type: string
-    default: ''
-    description: vpc 中 vswitch id，用于内网访问 kafka
+  title: vswitchID
+  type: string
+  default: ''
+  description: vpc 中 vswitch id，用于内网访问 kafka
 securityGroupID:
-    title: security group id
-    type: string
-    default: ''
-    description: vpc 下安全组 id，用于内网访问 kafka
+  title: security group id
+  type: string
+  default: ''
+  description: vpc 下安全组 id，用于内网访问 kafka
 ```
 
 ![](https://img.alicdn.com/imgextra/i3/O1CN01wwZp7m1sSsUeXvXDI_!!6000000005766-2-tps-2324-766.png)

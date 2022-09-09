@@ -194,12 +194,12 @@ Used to select and create images for Alibaba Cloud Container Image Service
 
 ```
 acrRegistry:
-    title: Mirror repository
-    type: string
-    examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
-    description: The image repository address requires you to activate the service, create the repository, and set the access credentials in the https://cr.console.aliyun.com/
-    x-acr:
-      type: select
+  title: Mirror repository
+  type: string
+  examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
+  description: The image repository address requires you to activate the service, create the repository, and set the access credentials in the https://cr.console.aliyun.com/
+  x-acr:
+    type: select
 ```
 
 ![](https://img.alicdn.com/imgextra/i4/O1CN01IwsAuR1Ur6f5MVB5n_!!6000000002570-2-tps-2238-348.png)
@@ -210,13 +210,13 @@ Choice of Kafka instance ID, kafkaEndpoint, VPCs, switches, security groups
 
 ````
 kafkaInstanceID:
-    title: kafka instance id
-    type: string
-    default: ''
-    description: kafka 实例 id
-    x-kafka:
-      denpendency:
-        - region
+  title: kafka instance id
+  type: string
+  default: ''
+  description: kafka 实例 id
+  x-kafka:
+    denpendency:
+      - region
 ````
 ##### Field Description
 
@@ -229,25 +229,25 @@ kafkaInstanceID:
 
 ````
 kafkaEndpoint:
-    title: kafka endpoint
-    type: string
-    default: ''
-    description: kafka endpoint, 可以从 kafka 控制台获取
+  title: kafka endpoint
+  type: string
+  default: ''
+  description: kafka endpoint, 可以从 kafka 控制台获取
 vpcID:
-    title: kafka 实例所在 vpc id
-    type: string
-    default: ''
-    description: VPC id。请注意需要填写函数计算支持的 az
+  title: kafka 实例所在 vpc id
+  type: string
+  default: ''
+  description: VPC id。请注意需要填写函数计算支持的 az
 vswitchID:
-    title: vswitchID
-    type: string
-    default: ''
-    description: vpc 中 vswitch id，用于内网访问 kafka
+  title: vswitchID
+  type: string
+  default: ''
+  description: vpc 中 vswitch id，用于内网访问 kafka
 securityGroupID:
-    title: security group id
-    type: string
-    default: ''
-    description: vpc 下安全组 id，用于内网访问 kafka
+  title: security group id
+  type: string
+  default: ''
+  description: vpc 下安全组 id，用于内网访问 kafka
 ````
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01OwBZU01pJJN8Ry3sa_!!6000000005339-2-tps-2360-764.png)
