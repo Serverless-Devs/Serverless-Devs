@@ -186,7 +186,7 @@ securityGroupId:
   description: Log in to <a href="https://ecs.console.aliyun.com/#/securityGroup/region/cn-hangzhou" target="_blank">security group</a> to view, usually empty security created by default group (note the same region as above), for example sg-bp1cd2w08t3dy7nhrvtx
 ````
 
-![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
+![](https://img.alicdn.com/imgextra/i3/O1CN01wwZp7m1sSsUeXvXDI_!!6000000005766-2-tps-2324-766.png)
 
 #### x-acr
 

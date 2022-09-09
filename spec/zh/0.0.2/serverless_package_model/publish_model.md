@@ -256,7 +256,7 @@ securityGroupID:
     description: vpc 下安全组 id，用于内网访问 kafka
 ```
 
-![](https://img.alicdn.com/imgextra/i1/O1CN01OwBZU01pJJN8Ry3sa_!!6000000005339-2-tps-2360-764.png)
+![](https://img.alicdn.com/imgextra/i3/O1CN01wwZp7m1sSsUeXvXDI_!!6000000005766-2-tps-2324-766.png)
 
 
 
