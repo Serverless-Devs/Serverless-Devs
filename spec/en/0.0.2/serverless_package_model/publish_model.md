@@ -16,6 +16,7 @@ category: 'Development Kit Models'
     - [role authorization x-role](#x-role)
     - [nas network disk x-nas](#x-nas)
     - [container registry x-acr](#x-acr)
+    - [kafka x-kafka](#x-kafka)
 - [tips](#tips)
   - [random suffix name](#random suffix name${default-suffix})
   - [template engine](#template engine)
@@ -202,6 +203,55 @@ acrRegistry:
 ```
 
 ![](https://img.alicdn.com/imgextra/i4/O1CN01IwsAuR1Ur6f5MVB5n_!!6000000002570-2-tps-2238-348.png)
+
+#### x-kafka
+
+Choice of Kafka instance ID, kafkaEndpoint, VPCs, switches, security groups
+
+````
+kafkaInstanceID:
+    title: kafka instance id
+    type: string
+    default: ''
+    description: kafka 实例 id
+    x-kafka:
+      denpendency:
+        - region
+````
+##### Field Description
+
+| Field Name | Type | Description |
+| ---------- | -------------- | -------- |
+| dependency | list<`string`> | dependency fields |
+
+
+> Note that x-kafka is used with the 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' fields
+
+````
+kafkaEndpoint:
+    title: kafka endpoint
+    type: string
+    default: ''
+    description: kafka endpoint, 可以从 kafka 控制台获取
+vpcID:
+    title: kafka 实例所在 vpc id
+    type: string
+    default: ''
+    description: VPC id。请注意需要填写函数计算支持的 az
+vswitchID:
+    title: vswitchID
+    type: string
+    default: ''
+    description: vpc 中 vswitch id，用于内网访问 kafka
+securityGroupID:
+    title: security group id
+    type: string
+    default: ''
+    description: vpc 下安全组 id，用于内网访问 kafka
+````
+
+![](https://img.alicdn.com/imgextra/i1/O1CN01OwBZU01pJJN8Ry3sa_!!6000000005339-2-tps-2360-764.png)
+
 
 # tips
 
