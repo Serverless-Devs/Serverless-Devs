@@ -16,6 +16,7 @@ category: 'Development Kit Models'
     - [role authorization x-role](#x-role)
     - [nas network disk x-nas](#x-nas)
     - [container registry x-acr](#x-acr)
+    - [kafka x-kafka](#x-kafka)
 - [tips](#tips)
   - [random suffix name](#random suffix name${default-suffix})
   - [template engine](#template engine)
@@ -185,7 +186,7 @@ securityGroupId:
   description: Log in to <a href="https://ecs.console.aliyun.com/#/securityGroup/region/cn-hangzhou" target="_blank">security group</a> to view, usually empty security created by default group (note the same region as above), for example sg-bp1cd2w08t3dy7nhrvtx
 ````
 
-![](https://img.alicdn.com/imgextra/i1/O1CN01eov5OU1op5DsbN82b_!!6000000005273-2-tps-2016-750.png)
+![](https://img.alicdn.com/imgextra/i3/O1CN01wwZp7m1sSsUeXvXDI_!!6000000005766-2-tps-2324-766.png)
 
 #### x-acr
 
@@ -193,15 +194,64 @@ Used to select and create images for Alibaba Cloud Container Image Service
 
 ```
 acrRegistry:
-    title: Mirror repository
-    type: string
-    examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
-    description: The image repository address requires you to activate the service, create the repository, and set the access credentials in the https://cr.console.aliyun.com/
-    x-acr:
-      type: select
+  title: Mirror repository
+  type: string
+  examples: ['registry.cn-hangzhou.aliyuncs.com/fc-demo/custom-nodejs14-event-function:v0.1']
+  description: The image repository address requires you to activate the service, create the repository, and set the access credentials in the https://cr.console.aliyun.com/
+  x-acr:
+    type: select
 ```
 
 ![](https://img.alicdn.com/imgextra/i4/O1CN01IwsAuR1Ur6f5MVB5n_!!6000000002570-2-tps-2238-348.png)
+
+#### x-kafka
+
+Choice of Kafka instance ID, kafkaEndpoint, VPCs, switches, security groups
+
+````
+kafkaInstanceID:
+  title: kafka instance id
+  type: string
+  default: ''
+  description: kafka 实例 id
+  x-kafka:
+    denpendency:
+      - region
+````
+##### Field Description
+
+| Field Name | Type | Description |
+| ---------- | -------------- | -------- |
+| dependency | list<`string`> | dependency fields |
+
+
+> Note that x-kafka is used with the 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' fields
+
+````
+kafkaEndpoint:
+  title: kafka endpoint
+  type: string
+  default: ''
+  description: kafka endpoint, 可以从 kafka 控制台获取
+vpcID:
+  title: kafka 实例所在 vpc id
+  type: string
+  default: ''
+  description: VPC id。请注意需要填写函数计算支持的 az
+vswitchID:
+  title: vswitchID
+  type: string
+  default: ''
+  description: vpc 中 vswitch id，用于内网访问 kafka
+securityGroupID:
+  title: security group id
+  type: string
+  default: ''
+  description: vpc 下安全组 id，用于内网访问 kafka
+````
+
+![](https://img.alicdn.com/imgextra/i1/O1CN01OwBZU01pJJN8Ry3sa_!!6000000005339-2-tps-2360-764.png)
+
 
 # tips
 
