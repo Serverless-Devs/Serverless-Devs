@@ -112,6 +112,11 @@ bucketName:
 ```
 ![](https://img.alicdn.com/imgextra/i3/O1CN01qmCC5P1adGNimqJuM_!!6000000003352-2-tps-1946-700.png)
 
+required中不包含bucketName时页面UI展示
+
+![](https://img.alicdn.com/imgextra/i4/O1CN01dJFaGk22bFtdVcJcV_!!6000000007138-2-tps-2880-1576.png)
+
+
 ##### 字段描述
 | 字段名 | 类型 | 描述 |
 | --- | --- | --- |
