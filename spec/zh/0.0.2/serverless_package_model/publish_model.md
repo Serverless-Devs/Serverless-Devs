@@ -114,7 +114,10 @@ bucketName:
 
 required中不包含bucketName时页面UI展示
 
+启用状态
 ![](https://img.alicdn.com/imgextra/i4/O1CN01tRtOdB1PkAacvHcNn_!!6000000001878-2-tps-2500-332.png)
+
+禁用状态
 ![](https://img.alicdn.com/imgextra/i2/O1CN01yaCNXx20b8Z3JpxX5_!!6000000006867-2-tps-2442-178.png)
 
 
