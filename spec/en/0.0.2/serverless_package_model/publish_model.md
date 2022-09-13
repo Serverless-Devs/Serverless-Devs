@@ -114,7 +114,9 @@ bucketName:
 
 Displayed when Required does not contain bucketName
 
-![](https://img.alicdn.com/imgextra/i4/O1CN01dJFaGk22bFtdVcJcV_!!6000000007138-2-tps-2880-1576.png)
+![](https://img.alicdn.com/imgextra/i4/O1CN01tRtOdB1PkAacvHcNn_!!6000000001878-2-tps-2500-332.png)
+![](https://img.alicdn.com/imgextra/i2/O1CN01yaCNXx20b8Z3JpxX5_!!6000000006867-2-tps-2442-178.png)
+
 
 ##### Field Description
 | Field Name | Type | Description |
