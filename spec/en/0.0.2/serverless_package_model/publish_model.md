@@ -112,6 +112,15 @@ bucketName:
 ````
 ![](https://img.alicdn.com/imgextra/i3/O1CN01qmCC5P1adGNimqJuM_!!6000000003352-2-tps-1946-700.png)
 
+Displayed when Required does not contain bucketName
+
+enabled
+![](https://img.alicdn.com/imgextra/i4/O1CN01vM0QX31cwcMRn3Xwe_!!6000000003665-2-tps-2670-774.png)
+
+Disabled state
+![](https://img.alicdn.com/imgextra/i2/O1CN01yaCNXx20b8Z3JpxX5_!!6000000006867-2-tps-2442-178.png)
+
+
 ##### Field Description
 | Field Name | Type | Description |
 | --- | --- | --- |
