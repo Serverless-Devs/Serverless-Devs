@@ -115,7 +115,7 @@ bucketName:
 Displayed when Required does not contain bucketName
 
 enabled
-![](https://img.alicdn.com/imgextra/i4/O1CN01tRtOdB1PkAacvHcNn_!!6000000001878-2-tps-2500-332.png)
+![](https://img.alicdn.com/imgextra/i4/O1CN01vM0QX31cwcMRn3Xwe_!!6000000003665-2-tps-2670-774.png)
 
 Disabled state
 ![](https://img.alicdn.com/imgextra/i2/O1CN01yaCNXx20b8Z3JpxX5_!!6000000006867-2-tps-2442-178.png)
