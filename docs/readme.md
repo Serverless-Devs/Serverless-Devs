@@ -11,7 +11,7 @@
     <img src="https://img.shields.io/badge/node-%3E%3D%2010.8.0-brightgreen" alt="node.js version">
   </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+    <img src="https://img.shields.io/badge/License-Apache2.0-green" alt="license">
   </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/issues">
     <img src="https://img.shields.io/github/issues/serverless-devs/serverless-devs" alt="issues">
@@ -88,24 +88,30 @@ $ npm install @serverless-devs/s -g
 
 与此同时，我们也非常感谢所有[ 👬 参与贡献的小伙伴](../CONTRIBUTORS.md)，为 Serverless Devs 项目贡献的努力和汗水。
 
-# 开源许可
+# 规范与许可
 
-Serverless Devs 遵循 [MIT License](../LICENSE) 开源许可。
+Serverless Devs 遵循 [Apache-2.0 license](../LICENSE) 开源许可。
 
-位于`node_modules`和外部目录中的所有文件都是本软件使用的外部维护库，具有自己的许可证；我们建议您阅读它们，因为它们的条款可能与[MIT License](../LICENSE)的条款不同。
+位于`node_modules`和外部目录中的所有文件都是本软件使用的外部维护库，具有自己的许可证；我们建议您阅读它们，因为它们的条款可能与[Apache-2.0 license](../LICENSE)的条款不同。
+
+> Serverless Devs adopts CNCF Code of Conduct. This open governance applies to all repos under kubevela org.
 
 # 交流社区
 
 <p align="center">
+<br/><br/>
+<img src="https://landscape.cncf.io/images/left-logo.svg" width="150"/>&nbsp;&nbsp;<img src="https://landscape.cncf.io/images/right-logo.svg" width="200"/>&nbsp;&nbsp;
+<br/><br/>
+Serverless Devs 是 CNCF Sandbox 项目，可以在 <a href="https://landscape.cncf.io/serverless?license=apache-license-2-0">CNCF Cloud Native Landscape</a> 中查看。
+</p>
 
-| <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407298906_20211028074819117230.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407044136_20211028074404326599.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407252200_20211028074732517533.png" width="200px" > |
+
+您如果有关于错误的反馈或者未来的期待，您可以在 [Issues](https://github.com/serverless-devs/serverless-devs/issues) 和 [Discussions](https://github.com/serverless-devs/serverless-devs/discussions) 中进行反馈和交流。如果您想要加入我们的讨论组或者了解 Serverless Devs 的最新动态，您可以通过以下渠道进行：
+
+<p align="center">
+
+| <img src="https://img.alicdn.com/imgextra/i2/O1CN01zifTV61Mkg9QRNBUs_!!6000000001473-2-tps-466-462.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407044136_20211028074404326599.png" width="200px" > | <img src="https://img.alicdn.com/imgextra/i1/O1CN01ECE9wN1RMvgS6d1JM_!!6000000002098-0-tps-881-877.jpg" width="200px" > |
 |--- | --- | --- |
 | <center>关注微信公众号：`serverless`</center> | <center>联系微信小助手：`xiaojiangwh`</center> | <center>加入钉钉交流群：`33947367`</center> | 
 
 </p>
-
------------
-
-> Serverless Devs 开发者工具遵循 [Serverless Devs Model](../spec/readme.md)，更多模型/规范信息可以参考 [Serverless Registry Model](../spec/zh/0.0.2/serverless_registry_model/readme.md)，[Serverless User Model](../spec/zh/0.0.2/serverless_user_model/readme.md) 以及 [Serverless Package Model](../spec/zh/0.0.2/serverless_package_model/readme.md)；
-
-> 隐私说明：为了给开发者提供可优化的使用体验，Serverless Devs会采集部分客户端的错误信息以帮助社区优化工具，当然这些错误信息都是被脱敏后的错误信息，如果您仍然存在疑虑或者不想使用这个功能，您可以通过命令`s set analysis disable`关闭该功能。

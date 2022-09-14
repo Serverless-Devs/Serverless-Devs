@@ -55,6 +55,6 @@ For more information, see [Contribution guidelines](../../../CONTRIBUTING.md).
 
 ## Protocol
 
-Serverless Devs is an open source project that follows the [Massachusetts Institute of Technology (MIT)](../../../LICENSE) protocol. 
+Serverless Devs is an open source project that follows the [Massachusetts Institute of Technology (Apache 2.0)](../../../LICENSE) protocol. 
 
-The node_modules used by Serverless Devs and other third-party dependency libraries may follow protocols that are different from the MIT protocol. We recommend that you read and understand the terms in these protocols because the terms may be different from those in the MIT protocol. 
+The node_modules used by Serverless Devs and other third-party dependency libraries may follow protocols that are different from the Apache 2.0 protocol. We recommend that you read and understand the terms in these protocols because the terms may be different from those in the Apache 2.0 protocol. 

@@ -42,6 +42,6 @@ Serverless Devs Model(SDM) v0.0.1 文档是由 Serverless Devs 社区发起编�
 
 ## 协议
 
-Serverless Devs 是一个遵循 [MIT](../../../LICENSE) 协议的开源项目。
+Serverless Devs 是一个遵循 [Apache 2.0](../../../LICENSE) 协议的开源项目。
 
-Serverless Devs 使用的 node_modules 以及其他第三方的依赖库都可能有其遵循的协议，我们推荐你阅读并了解这些协议，因为其中的条款可能和 MIT 协议中的不完全相同。
+Serverless Devs 使用的 node_modules 以及其他第三方的依赖库都可能有其遵循的协议，我们推荐你阅读并了解这些协议，因为其中的条款可能和 Apache 2.0 协议中的不完全相同。
