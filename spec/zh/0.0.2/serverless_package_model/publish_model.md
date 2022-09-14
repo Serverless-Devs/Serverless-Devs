@@ -231,6 +231,11 @@ kafkaInstanceID:
   x-kafka:
     denpendency:
       - region
+    related:
+      - kafkaEndpoint
+      - vpcId
+      - vswitchId
+      - securityGroupId
 ```
 
 ##### 字段描述
@@ -238,6 +243,7 @@ kafkaInstanceID:
 | 字段名     | 类型           | 描述     |
 | ---------- | -------------- | -------- |
 | dependency | list<`string`> | 依赖字段 |
+| related | list<`string`> | 关联字段 |
 
 
 > 注意，x-kafka 配合 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' 字段使用
