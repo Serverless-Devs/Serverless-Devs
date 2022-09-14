@@ -226,14 +226,20 @@ kafkaInstanceID:
   x-kafka:
     denpendency:
       - region
+    related:
+      - kafkaEndpoint
+      - vpcId
+      - vswitchId
+      - securityGroupId
 ````
 ##### Field Description
 
 | Field Name | Type | Description |
 | ---------- | -------------- | -------- |
 | dependency | list<`string`> | dependency fields |
+| related | list<`string`> | related fields |
 
-> Note that 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' are used in association with the kafkaInstanceID field
+> Note that x-kafka is used with the 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' fields
 
 ````
 kafkaEndpoint:
