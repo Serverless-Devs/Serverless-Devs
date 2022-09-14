@@ -240,7 +240,7 @@ kafkaInstanceID:
 | dependency | list<`string`> | 依赖字段 |
 
 
-> 注意，kafkaInstanceID 关联着 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' 字段使用
+> 注意，'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' 关联着 kafkaInstanceID 字段使用
 
 ```
 kafkaEndpoint:

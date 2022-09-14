@@ -233,7 +233,7 @@ kafkaInstanceID:
 | ---------- | -------------- | -------- |
 | dependency | list<`string`> | dependency fields |
 
-> Note that the kafkaInstanceID is associated with the 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' fields used
+> Note that 'kafkaEndpoint', 'vpcId', 'vswitchId', 'securityGroupId' are used in association with the kafkaInstanceID field
 
 ````
 kafkaEndpoint:
