@@ -84,7 +84,7 @@ The following table describes the directories in the file tree.
 
 | Directory     | Description                                                  |
 | ------------- | ------------------------------------------------------------ |
-| LICENSE       | The default license for the project. The  default license follows the Massachusetts Institute of Technology (MIT) open  source protocol. We recommend that you use the default license. |
+| LICENSE       | The default license for the project. The  default license follows the Massachusetts Institute of Technology (Apache 2.0) open  source protocol. We recommend that you use the default license. |
 | .signore      | The file that can be ignored in your  package when you publish a project. The .signore file is similar to the .npmignore file that you can use to keep the ignored file out of your  package when you publish npm packages. |
 | example       | The test application of the component.                       |
 | publish.yaml  | The file that is required for the project.  The file is identifiable for developers of the Serverless Devs Package. |
@@ -210,7 +210,7 @@ The following table describes the directories in the file tree.
 
 | Directory     | Description                                                  |
 | ------------- | ------------------------------------------------------------ |
-| LICENSE       | The default license for the project. The  default license follows the Massachusetts Institute of Technology (MIT) open  source protocol. We recommend that you use the default license. |
+| LICENSE       | The default license for the project. The  default license follows the Massachusetts Institute of Technology (Apache 2.0) open  source protocol. We recommend that you use the default license. |
 | .signore      | The file that can be ignored in your  package when you publish a project. The .signore file is similar to the .npmignore file that you can use to keep the ignored file out of your  package when you publish npm packages. |
 | example       | The test application of the component.                       |
 | publish.yaml  | The file that is required for the project.  The file is identifiable for developers of the Serverless Devs Package. |

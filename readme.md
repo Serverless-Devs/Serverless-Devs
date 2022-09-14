@@ -11,7 +11,7 @@
     <img src="https://img.shields.io/badge/node-%3E%3D%2010.8.0-brightgreen" alt="node.js version">
   </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+    <img src="https://img.shields.io/badge/License-Apache2.0-green" alt="license">
   </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/issues">
     <img src="https://img.shields.io/github/issues/serverless-devs/serverless-devs" alt="issues">
@@ -89,13 +89,23 @@ $ npm install @serverless-devs/s -g
 
 与此同时，我们也非常感谢所有[ 👬 参与贡献的小伙伴](./CONTRIBUTORS.md)，为 Serverless Devs 项目贡献的努力和汗水。
 
-# 开源许可
+# 规范与许可
 
-Serverless Devs 遵循 [MIT License](./LICENSE) 开源许可。
+Serverless Devs 遵循 [Apache-2.0 license](./LICENSE) 开源许可。
 
-位于`node_modules`和外部目录中的所有文件都是本软件使用的外部维护库，具有自己的许可证；我们建议您阅读它们，因为它们的条款可能与[MIT License](./LICENSE)的条款不同。
+位于`node_modules`和外部目录中的所有文件都是本软件使用的外部维护库，具有自己的许可证；我们建议您阅读它们，因为它们的条款可能与[Apache-2.0 license](./LICENSE)的条款不同。
+
+> Serverless Devs adopts CNCF Code of Conduct. This open governance applies to all repos under kubevela org.
 
 # 交流社区
+
+<p align="center">
+<br/><br/>
+<img src="https://landscape.cncf.io/images/left-logo.svg" width="150"/>&nbsp;&nbsp;<img src="https://landscape.cncf.io/images/right-logo.svg" width="200"/>&nbsp;&nbsp;
+<br/><br/>
+Serverless Devs 是 CNCF Sandbox 项目，可以在 <a href="https://landscape.cncf.io/serverless?license=apache-license-2-0">CNCF Cloud Native Landscape</a> 中查看。
+</p>
+
 
 您如果有关于错误的反馈或者未来的期待，您可以在 [Issues](https://github.com/serverless-devs/serverless-devs/issues) 和 [Discussions](https://github.com/serverless-devs/serverless-devs/discussions) 中进行反馈和交流。如果您想要加入我们的讨论组或者了解 Serverless Devs 的最新动态，您可以通过以下渠道进行：
 

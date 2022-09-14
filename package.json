@@ -19,7 +19,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "license": "MIT",
+  "license": "Apache 2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Serverless-Devs/Serverless-Devs"

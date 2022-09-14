@@ -11,7 +11,7 @@
     <img src="https://img.shields.io/badge/node-%3E%3D%2010.8.0-brightgreen" alt="node.js version">
   </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+    <img src="https://img.shields.io/badge/License-Apache2.0-green" alt="license">
   </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/issues">
     <img src="https://img.shields.io/github/issues/serverless-devs/serverless-devs" alt="issues">
@@ -90,21 +90,31 @@ We very much hope that you can contribute to this project with us. Contributions
 
 At the same time, we are also very grateful to all [ 👬 contributors](./CONTRIBUTORS.md) for their hard work and sweat in the Serverless Devs project.
 
-# License
+# Specifications and licenses
 
-Serverless Devs follow the [MIT License](./LICENSE) open source license.
+Serverless Devs follow the [Apache-2.0 license](./LICENSE) open source license.
 
-All files located in `node_modules` and external directories are externally maintained libraries used by this software and have their own licenses; we recommend that you read them as their terms may differ from the terms of the [MIT License](./LICENSE) different.
+All files located in `node_modules` and external directories are externally maintained libraries used by this software and have their own licenses; we recommend that you read them as their terms may differ from [Apache-2.0 license](./LICENSE) terms are different.
+
+> Serverless Devs adopts CNCF Code of Conduct. This open governance applies to all repos under kubevela org.
 
 # Exchange community
 
-If you have feedback about bugs or future expectations, you can post them in [Issues](https://github.com/serverless-devs/serverless-devs/issues) and [Discussions](https://github.com/serverless-devs/serverless-devs/discussions) for feedback and exchanges. If you want to join our discussion group or keep up to date with Serverless Devs, you can do so through the following channels:
+<p align="center">
+<br/><br/>
+<img src="https://landscape.cncf.io/images/left-logo.svg" width="150"/>&nbsp;&nbsp;<img src="https://landscape.cncf.io/images /right-logo.svg" width="200"/>&nbsp;&nbsp;
+<br/><br/>
+Serverless Devs is a CNCF Sandbox project that can be viewed at <a href="https://landscape.cncf.io/serverless?license=apache-license-2-0">CNCF Cloud Native Landscape</a>.
+</p>
+
+
+If you have feedback about bugs or future expectations, you can post them in [Issues](https://github.com/serverless-devs/serverless-devs/issues) and [Discussions](https://github.com/ serverless-devs/serverless-devs/discussions) for feedback and exchanges. If you'd like to join our discussion group or keep up to date with Serverless Devs, you can do so through the following channels:
 
 <p align="center">
 
-| <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407298906_20211028074819117230.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407044136_20211028074404326599.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407252200_20211028074732517533.png" width="200px" > |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <center>WeChat official account：`serverless`</center>       | <center>WeChat friend：`xiaojiangwh`</center>                | <center>DingTalk Group：`33947367`</center>                  |
+| <img src="https://img.alicdn.com/imgextra/i2/O1CN01zifTV61Mkg9QRNBUs_!!6000000001473-2-tps-466-462.png" width="200px" > | <img src="https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635407044136_20211028074404326599.png" width="200px" > | <img src="https://img.alicdn.com/imgextra/i1/O1CN01ECE9wN1RMvgS6d1JM_!!6000000002098-0-tps-881-877.jpg" width="200px" > |
+|--- | --- | --- |
+| <center>Follow WeChat Official Account: `serverless`</center> | <center>Contact WeChat Assistant: `xiaojiangwh`</center> | <center>Join DingTalk Group: `33947367`</center> |
 
 </p>
 

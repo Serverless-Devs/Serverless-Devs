@@ -84,7 +84,7 @@ $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 | 目录 | 含义 |
 | --- | --- | 
-| LICENSE | 项目默认的LICENSE，默认的LICENSE是遵循MIT开源协议的（推荐） | 
+| LICENSE | 项目默认的LICENSE，默认的LICENSE是遵循Apache 2.0开源协议的（推荐） | 
 | .signore | 项目发布时，可以选择的忽略文件，类似于npm发布是的`.npmignore`文件 | 
 | example | 该组件对应的测试应用 | 
 | publish.yaml | 项目所必须的文件，Serverless Devs Package的开发识别文档 |
@@ -209,7 +209,7 @@ $ find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 | 目录 | 含义 |
 | --- | --- | 
-| LICENSE | 项目默认的LICENSE，默认的LICENSE是遵循MIT开源协议的（推荐） | 
+| LICENSE | 项目默认的LICENSE，默认的LICENSE是遵循Apache 2.0开源协议的（推荐） | 
 | .signore | 项目发布时，可以选择的忽略文件，类似于npm发布是的`.npmignore`文件 | 
 | example | 该组件对应的测试案例 | 
 | publish.yaml | 项目所必须的文件，Serverless Devs Package的开发识别文档 |

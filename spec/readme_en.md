@@ -60,6 +60,6 @@ Contributions to spec can also refer to the following:
 
 ## Protocol
 
-Serverless Devs is an open source project under the [MIT](../LICENSE) license.
+Serverless Devs is an open source project under the [Apache 2.0](../LICENSE) license.
 
-The node_modules and other third-party dependent libraries used by Serverless Devs may have their own agreements. We recommend that you read and understand these agreements, because the terms may not be exactly the same as those in the MIT agreement.
+The node_modules and other third-party dependent libraries used by Serverless Devs may have their own agreements. We recommend that you read and understand these agreements, because the terms may not be exactly the same as those in the Apache 2.0 agreement.
