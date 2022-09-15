@@ -7,6 +7,7 @@
   <a href="https://www.npmjs.com/package/@serverless-devs/s">
     <img src="https://img.shields.io/npm/dy/@serverless-devs/s" alt="npm download">
   </a>
+  <a href="https://bestpractices.coreinfrastructure.org/projects/6486"><img src="https://bestpractices.coreinfrastructure.org/projects/6486/badge"></a>
   <a href="https://nodejs.org/en/">
     <img src="https://img.shields.io/badge/node-%3E%3D%2010.8.0-brightgreen" alt="node.js version">
   </a>
