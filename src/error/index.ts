@@ -1,5 +1,6 @@
 /** @format */
 import { getVersion, getConfig, logger, aiRequest, red, bgRed } from '../utils';
+import path from 'path';
 import core from '../utils/core';
 const { colors, report, isDebugMode, makeUnderLine, isDocker } = core;
 export { CommandError } from './command-error';
@@ -71,6 +72,12 @@ export const HandleError = async (error: Error) => {
           colors.gray(
             `Please copy traceId: ${configOption.traceId} and join Dingding group: 33947367 for consultation.`,
           ),
+        );
+       
+      }
+      if (process.env['serverless_devs_trace_id']) {
+        logger.log(
+          `A complete log of this run can be found in: ${path.join(core.getRootHome(), 'logs', `${process.env['serverless_devs_trace_id']}.log`)}\n`,
         );
       }
     }
