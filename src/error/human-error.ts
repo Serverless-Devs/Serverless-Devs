@@ -25,7 +25,8 @@ export class HumanError {
     const { error } = configs;
     await core.report({
       type: 'jsError',
-      content: `${this.errorMessage}||${error.stack}`,
+      errorMessage: this.errorMessage,
+      errorStack: error.stack,
     });
   }
 }
