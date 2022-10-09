@@ -7,12 +7,15 @@ import { HandleError } from './error';
 import SpecialCommad from './special-commad';
 import help from './help';
 import { COMMAND_LIST } from './constant';
+import checkNodeVersion from './check-node-version';
 import core from './utils/core';
 const pkg = require('../package.json');
 const { lodash } = core;
 const { join, includes } = lodash;
 
 (async () => {
+  // 检查node版本是否过低
+  checkNodeVersion();
   process.env['CLI_VERSION'] = pkg.version;
   registerCommandChecker(program);
   const system_command = program
