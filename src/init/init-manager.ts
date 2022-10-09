@@ -7,7 +7,7 @@ import { DEFAULT_REGIRSTRY } from '../constant';
 import { PROJECT_NAME_INPUT, APPLICATION_TEMPLATE, ALL_TEMPLATE } from './init-config';
 import { emoji } from '../utils/common';
 import core from '../utils/core';
-const { loadApplication, colors, report, inquirer, lodash } = core;
+const { loadApplication, colors, reportTracker, inquirer, lodash } = core;
 const { last, split, find, includes } = lodash;
 
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -97,7 +97,7 @@ export class InitManager {
       const answerValue = answers.template || answers.firstLevel;
       logger.log(`\n${emoji('😋')} Create application command: [s init ${answerValue}]\n`);
       const { appPath } = await this.executeInit(answerValue, dir);
-      report({ type: 'initTemplate', content: answerValue });
+      reportTracker({ trackerType: 'init', templateName: answerValue });
       const findObj: any = find(ALL_TEMPLATE, item => item.value === answerValue);
       if (findObj && findObj.isDeploy) {
         await this.deploy(appPath);
