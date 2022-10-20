@@ -42,7 +42,7 @@ access: xxx-account1    #  秘钥别名
 vars: # [全局变量，提供给各个服务使用]
   Key: Value
 
-Service: # 可以包括多个服务
+services: # 可以包括多个服务
   ServiceName: # 服务名称
     access: xxx-account1      #  秘钥别名，如果和项目的access相同，可省略
     component: componentName  #  组件名称
