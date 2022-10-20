@@ -42,7 +42,7 @@ access: xxx-account1    #  The alias of the key.
 vars: # [Global variable for services]
   Key: Value
 
-Service: # Multiple services can be included.
+services: # Multiple services can be included.
   ServiceName: # The name of the service.
     access: xxx-account1      #  Alias of the key, which can be omitted if the alias is the same as the key of the project.
     component: componentName  #  The name of the component.
