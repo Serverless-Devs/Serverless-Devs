@@ -120,7 +120,7 @@ Parameter description:
 | name      | The name of the application                                  |
 | access    | The alias of the key. You can use the key  information that is configured by using the [config command](command/config.md#config-add-command) and [the key information that is configured   to environment variables](command/config.md#Configure-keys-by-using-environment-variables). |
 | vars      | Global variables, which can be used by  services. Global variables are in the form of key-value. |
-| Service   | The services that are contained in the  application. The value of this parameter is in the form of key-value. |
+| services   | The services that are contained in the  application. The value of this parameter is in the form of key-value. |
 
 Parameters in the services parameter:
 
