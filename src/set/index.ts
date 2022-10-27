@@ -13,8 +13,8 @@ ${emoji('📖')} Document: ${colors.underline(
 program
   .name('s set')
   .usage('[commands] [options]')
-  .command('registry', `${emoji('👀')} Set up a custom registry`)
-  // .command('locale', `${emoji('🔧')} Set up current language`)
+  .command('registry', `${emoji('👀')} Set registry information`)
+  .command('proxy', `${emoji('🔧')} Set proxy information`)
   .command('analysis', `${emoji('👉')} Set to enable or disable analysis`)
   .command('workspace', `${emoji('🙊')} Set workspace path`)
   .helpOption('-h, --help', 'Display help for command')

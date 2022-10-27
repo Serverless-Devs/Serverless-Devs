@@ -7,12 +7,19 @@ import { HandleError } from './error';
 import SpecialCommad from './special-commad';
 import help from './help';
 import { COMMAND_LIST } from './constant';
+import checkNodeVersion from './check-node-version';
+import { setProxy } from './global-agent';
 import core from './utils/core';
 const pkg = require('../package.json');
 const { lodash } = core;
 const { join, includes } = lodash;
 
 (async () => {
+  (process as any).noDeprecation = true;
+  // 检查node版本是否过低
+  checkNodeVersion();
+  // ignore warning
+  setProxy();
   process.env['CLI_VERSION'] = pkg.version;
   registerCommandChecker(program);
   const system_command = program
@@ -35,9 +42,6 @@ const { join, includes } = lodash;
   process.env['serverless_devs_temp_argv'] = JSON.stringify(process.argv.slice(2));
   // TODO: 目前core和s并不依赖temp_params环境变量，只是提供给组件用，后续组件移除temp_params后，此行代码可以删掉
   process.env['temp_params'] = join(process.argv.slice(2), ' ');
-
-  // ignore warning
-  (process as any).noDeprecation = true;
 
   new UpdateNotifier().init().notify();
 

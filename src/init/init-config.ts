@@ -268,7 +268,7 @@ const best_practice_template = [
   },
   {
     name: '[DB] Redis Example',
-    value: 'devsapp start-fc-redis-python',
+    value: 'devsapp/start-fc-redis-python',
   },
   {
     name: 'Puppeteer Example',
@@ -296,7 +296,7 @@ const huawei_template = [
   {
     name: 'Quick start [Deploy a Hello World function to FaaS]',
     value: 'quick_start',
-  }
+  },
 ];
 
 const huawei_quick_start_template = [
@@ -308,19 +308,15 @@ const huawei_quick_start_template = [
     name: '[HTTP] Python3.6',
     value: 'start-fg-http-python3.6',
   },
-]
+];
 
-const all_huawei_template = concat(
-  huawei_template,
-  huawei_quick_start_template,
-);
-
+const all_huawei_template = concat(huawei_template, huawei_quick_start_template);
 
 const baidu_template = [
   {
     name: 'Quick start [Deploy a Hello World function to FaaS]',
     value: 'quick_start',
-  }
+  },
 ];
 
 const baidu_quick_start_template = [
@@ -332,14 +328,17 @@ const baidu_quick_start_template = [
     name: '[HTTP] Python 3',
     value: 'start-cfc-http-python3',
   },
-]
+];
 
-const all_baidu_template = concat(
-  baidu_template,
-  baidu_quick_start_template,
+const all_baidu_template = concat(baidu_template, baidu_quick_start_template);
+
+export const ALL_TEMPLATE = concat(
+  first_level_template,
+  all_ali_template,
+  all_huawei_template,
+  all_baidu_template,
+  devs_template,
 );
-
-export const ALL_TEMPLATE = concat(first_level_template, all_ali_template, all_huawei_template, all_baidu_template, devs_template);
 
 export const APPLICATION_TEMPLATE = [
   {

@@ -1,5 +1,6 @@
 /** @format */
 import { getVersion, getConfig, logger, aiRequest, red, bgRed } from '../utils';
+import path from 'path';
 import core from '../utils/core';
 const { colors, report, isDebugMode, makeUnderLine, isDocker } = core;
 export { CommandError } from './command-error';
@@ -73,6 +74,15 @@ export const HandleError = async (error: Error) => {
           ),
         );
       }
+      if (process.env['serverless_devs_trace_id']) {
+        logger.log(
+          `A complete log of this run can be found in: ${path.join(
+            core.getRootHome(),
+            'logs',
+            `${process.env['serverless_devs_trace_id']}.log`,
+          )}\n`,
+        );
+      }
     }
   }
   !isDocker() && logger.log(colors.gray("You can run 's clean --all' to clean Serverless devs."));
@@ -80,7 +90,8 @@ export const HandleError = async (error: Error) => {
   if (configOption.traceId && !configOption.catchableError) {
     await report({
       type: 'jsError',
-      content: `${tmpError.message}||${tmpError.stack}`,
+      errorMessage: tmpError.message,
+      errorStack: tmpError.stack,
       traceId: configOption.traceId,
     });
   }
