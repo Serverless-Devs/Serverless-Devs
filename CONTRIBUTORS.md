@@ -257,6 +257,10 @@
                 <img src="https://avatars.githubusercontent.com/u/20847533?v=4" width="20%" style="min-width: 100px"><br>
                 <p>niuhuan<br><a href="https://github.com/niuhuan"> Github</a> | <a href="https://github.com/niuhuan/notebook">Blog</a></p>
             </td>
+            <td align="center" width="20%">
+                <img src="https://avatars.githubusercontent.com/u/3874077?v=4" width="20%" style="min-width: 100px"><br>
+                <p>Fan Zhe<br><a href="https://github.com/fanzhe328"> Github</a> | Blog</p>
+            </td>
         </tr>
     </table>
 </center>

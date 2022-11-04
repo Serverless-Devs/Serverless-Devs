@@ -89,6 +89,11 @@ const quick_start_template = [
     isDeploy: true,
   },
   {
+    name: '[HTTP] Go1',
+    value: 'devsapp/start-fc-http-golang1.x',
+    isDeploy: true,
+  },
+  {
     name: '[HTTP] C++ (custom)',
     value: 'devsapp/fc-custom-cpp-http',
     isDeploy: true,
@@ -110,6 +115,11 @@ const quick_start_template = [
   {
     name: '[Event] PHP7',
     value: 'devsapp/start-fc-event-php7',
+    isDeploy: true,
+  },
+  {
+    name: '[Event] Go1',
+    value: 'devsapp/start-fc-event-golang1.x',
     isDeploy: true,
   },
   {
