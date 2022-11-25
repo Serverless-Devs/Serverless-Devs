@@ -56,7 +56,7 @@ Serverless Devs 是一个开源开发的 Serverless 领域的工具链项目，�
 
 同时通过上图也可以看到两个比较明显的词汇：Component和Application：
 - **Component**：指的是组件；是由 Package developer 开发并发布的符合 Serverless Package Model 规范的一段代码，通常这段代码会在应用中被引用，并在 Serverless Devs 开发者工具 中被加载，并按照预定的规则进行执行某些动作。例如，将用户的代码部署到 Serverless 平台；将 Serverless 应用进行构建和打包；对 Serverless 应用进行调试等；
-- **Application**：指的是应用；可以由 Package developer 公开发布到 Registry，以供更多人学习和使用，例如某位贡献者贡献了一个猫狗识别的案例到Registry；也可以由 Serverless developer 开发，例如某人开发了一个 人脸识别的应用；通常情况下一个应用可以引用一个或者多个组件，并通过 Serverless Devs 开发者工具 工具部署到 Serverless 平台，例如我开发了一个猫狗识别的应用，在这个应用中引用了 Lambda 组件帮助我将部分业务逻辑部署到 FaaS 平台，同时我也引用了 Website 组件帮助我把前端业务代码部署到对象存储中；
+- **Application**：指的是应用；可以由 Package developer 公开发布到 Registry，以供更多人学习和使用，例如某位贡献者贡献了一个猫狗识别的案例到Registry；也可以由 Serverless developer 开发，例如某人开发了一个 人脸识别的应用；通常情况下一个应用可以引用一个或者多个组件，并通过 Serverless Devs 开发者 工具部署到 Serverless 平台，例如我开发了一个猫狗识别的应用，在这个应用中引用了 Lambda 组件帮助我将部分业务逻辑部署到 FaaS 平台，同时我也引用了 Website 组件帮助我把前端业务代码部署到对象存储中；
 
 Serverless Devs 的模型设计原则，是希望可以通过更加简单、科学、规范的 Serverless 工具链体系，让开发者更专注于业务逻辑，提升 Serverless 应用开发、部署、运维效率，通过该模型，开发者可以通过一种更灵活、更通用的方法使用不同云厂商以及开源的 Serverless 产品，进而更高效、更简洁、更便利的实现 Serverless 应用管理。
 
