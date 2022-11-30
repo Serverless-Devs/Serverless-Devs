@@ -21,11 +21,14 @@ jobs:
         run: npm run pkg
       - name: Zip the macos
         run: |
-          zip -r ${{ github.ref_name }}.zip ./pkg/macos
+          zip -r s-${{ github.ref_name }}-macos.zip ./pkg/macos
+      - name: Zip the linux
+        run: |
+          zip -r s-${{ github.ref_name }}-linux.zip ./pkg/linux
       - name: Release
         uses: softprops/action-gh-release@v1
-        # if: startsWith(github.ref, 'refs/tags/')
         with:
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: |
-            ${{ github.ref_name }}.zip
+            s-${{ github.ref_name }}-macos.zip
+            s-${{ github.ref_name }}-linux.zip
