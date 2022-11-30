@@ -222,3 +222,4 @@ lib/
 release
 package-lock.json
 .s
+pkg

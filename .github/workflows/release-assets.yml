@@ -1,0 +1,34 @@
+name: release-assets
+
+on: 
+  push:
+    tags:
+      - 'v*' 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Install
+        run: npm install
+      - name: pkg
+        run: npm run pkg
+      - name: Zip the macos
+        run: |
+          zip -r serverless-devs-${{ github.ref_name }}-macos.zip ./pkg/macos
+      - name: Zip the linux
+        run: |
+          zip -r serverless-devs-${{ github.ref_name }}-linux.zip ./pkg/linux
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          files: |
+            s-${{ github.ref_name }}-macos.zip
+            s-${{ github.ref_name }}-linux.zip
