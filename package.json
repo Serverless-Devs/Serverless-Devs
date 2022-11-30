@@ -40,13 +40,15 @@
     "fix": "f2elint fix",
     "typecheck": "npx tsc -p tsconfig.json --noEmit",
     "update": "rm -rf yarn.lock && rm -rf package-lock.json && rm -rf node_modules && yarn",
-    "beta": "npm publish --tag=beta"
+    "beta": "npm publish --tag=beta",
+    "pkg": "tsc && ./shell/pkg.sh"
   },
   "main": "./lib/index.js",
   "bin": {
     "s": "bin/s"
   },
   "devDependencies": {
+    "pkg": "^5.8.0",
     "@serverless-devs/commander": "^6.0.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^14.0.23",
