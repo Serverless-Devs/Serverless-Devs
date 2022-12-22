@@ -1,4 +1,3 @@
-import program from '@serverless-devs/commander';
 import core from '../utils/core';
 import i18n from '../utils/i18n';
 import path from 'path';
@@ -7,7 +6,7 @@ import { getConfig } from '../utils/handler-set-config';
 import { emoji } from '../utils/common';
 import { HandleError } from '../error';
 
-const { rimraf, minimist, fse: fs, colors, getRootHome } = core;
+const { rimraf, fse: fs, colors, getRootHome } = core;
 
 const description = `Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
     
@@ -21,31 +20,31 @@ const description = `Clean up the cache related functions of serverless devs. Yo
 ${emoji('📖')} Document: ${colors.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/clean.md',
 )}`;
-const command = program
-  .name('s clean')
-  .usage('[options]')
-  .option('--all', i18n('clean_up_the_environment'))
-  .option('--cache [dirName]', i18n('delete_the_file_under_the_cache'))
-  .option('--component [componentName]', i18n('remove_components'))
-  .helpOption('-h, --help', i18n('display_help_for_command'))
-  .description(description)
-  .addHelpCommand(false)
-  .parse(process.argv);
 
-(async () => {
-  if (process.argv.length === 2) {
-    command.help();
-  }
+async function run(program) {
+  const command = program
+    .command('clean')
+    .usage('[options]')
+    .option('--all', i18n('clean_up_the_environment'))
+    .option('--cache [dirName]', i18n('delete_the_file_under_the_cache'))
+    .option('--component [componentName]', i18n('remove_components'))
+    .helpOption('-h, --help', i18n('display_help_for_command'))
+    .description(description)
+    .addHelpCommand(false)
+    .action(async options => {
+      try {
+        await doAction(options);
+      } catch (error) {
+        await HandleError(error);
+      }
+    });
 
-  if (process.argv.length > 2) {
+  const doAction = async args => {
     const sPath = getRootHome();
     const cachePath = path.join(sPath, 'cache');
     const componentsPath = path.join(sPath, 'components');
     const githubPath = path.join(componentsPath, 'github.com');
     const devsappPath = path.join(componentsPath, 'devsapp.cn');
-    const args = minimist(process.argv.slice(2), {
-      boolean: ['all'],
-    });
     if (args.all) {
       const files = ['cache', 'components'];
       files.forEach((file: string) => {
@@ -57,6 +56,7 @@ const command = program
         rimraf.sync(sdir);
       } catch (error) {}
       logger.log('The environment of Serverless Devs has been cleaned up successfully.', 'green');
+      return;
     }
     if (args.cache) {
       // cache 无参数
@@ -69,6 +69,7 @@ const command = program
         rimraf.sync(path.join(cachePath, args.cache));
         logger.log(`Cache [${args.cache}] has been cleaned up successfully.`, 'green');
       }
+      return;
     }
     if (args.component) {
       // component 无参数
@@ -96,8 +97,10 @@ const command = program
           }
         }
       }
+      return;
     }
-  }
-})().catch(async error => {
-  await HandleError(error);
-});
+    command.help();
+  };
+}
+
+export = run;
