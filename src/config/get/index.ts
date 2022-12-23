@@ -1,5 +1,5 @@
-import program from '@serverless-devs/commander';
-import { emoji, getProcessArgv, logger, getCredentialWithAll } from '../../utils';
+import { Command } from '@serverless-devs/commander';
+import { emoji, logger, getCredentialWithAll } from '../../utils';
 import core from '../../utils/core';
 import { HandleError } from '../../error';
 const { colors, lodash } = core;
@@ -41,42 +41,54 @@ function notFound() {
   logger.log(msg);
 }
 
-(async () => {
-  const { access, help } = getProcessArgv();
-  program
-    .name('s config get')
+function run(program: Command) {
+  const command = program
+    .command('get')
     .usage('[options]')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)
     .addHelpCommand(false)
-    .parse(process.argv);
+    .action(async () => {
+      try {
+        await doAction();
+      } catch (error) {
+        await HandleError(error);
+      }
+    });
+  const doAction = async () => {
+    const argv = process.argv.slice(2);
+    const argvData = core.getGlobalArgs(argv);
+    const { access, help } = argvData;
 
-  if (help) {
-    program.help();
-  }
-  const accessInfo = secret(await getCredentialWithAll());
-  // s config get
-  if (process.argv.length === 2) {
-    accessInfo ? logger.output(accessInfo) : notFound();
-  }
-
-  // s config get -a default
-  if (access) {
-    const accessData = get(accessInfo, access);
-    if (accessData) {
-      logger.output({ [access]: accessData });
-    } else {
-      logger.error(`\n\n  ${emoji('❌')} Message: Unable to get key information with alias ${access}.
-  ${emoji('🤔')} You have configured these keys: [${keys(accessInfo)}].
-  ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
-        'https://github.com/Serverless-Devs/Serverless-Devs/issues',
-      )}
-`);
-      process.exit(1);
+    if (help) {
+      command.help();
     }
-  }
-})().catch(async error => {
-  await HandleError(error);
-});
+    const accessInfo = secret(await getCredentialWithAll());
+    // s config get
+    if (argv.length === 2) {
+      accessInfo ? logger.output(accessInfo) : notFound();
+    }
+
+    // s config get -a default
+    if (access) {
+      const accessData = get(accessInfo, access);
+      if (accessData) {
+        logger.output({ [access]: accessData });
+      } else {
+        logger.error(`\n\n  ${emoji('❌')} Message: Unable to get key information with alias ${access}.
+    ${emoji('🤔')} You have configured these keys: [${keys(accessInfo)}].
+    ${emoji(
+      '🧭',
+    )} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
+    ${emoji('😈')} If you have questions, please tell us: ${colors.underline(
+          'https://github.com/Serverless-Devs/Serverless-Devs/issues',
+        )}
+  `);
+        process.exit(1);
+      }
+    }
+  };
+}
+
+export = run;

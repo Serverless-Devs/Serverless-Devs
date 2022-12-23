@@ -84,7 +84,6 @@
   },
   "dependencies": {
     "@serverless-devs/core": "latest",
-    "@serverless-devs/ui": "latest",
-    "commander": "^9.4.1"
+    "@serverless-devs/ui": "latest"
   }
 }

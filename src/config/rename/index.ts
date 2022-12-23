@@ -1,8 +1,6 @@
-/** @format */
-
 import path from 'path';
 import fs from 'fs';
-import program from '@serverless-devs/commander';
+import { Command } from '@serverless-devs/commander';
 import { logger } from '../../utils';
 import { HandleError, HumanError } from '../../error';
 import { emoji } from '../../utils';
@@ -42,38 +40,44 @@ function exists({ target, accessFileInfo }: { target: string; accessFileInfo?: a
   });
 }
 
-(async () => {
-  program
-    .name('s config rename')
+function run(program: Command) {
+  const command = program
+    .command('rename')
     .usage('<sourceAliasName> <targetAliasName>')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)
     .addHelpCommand(false)
-    .parse(process.argv);
+    .action(async () => {
+      try {
+        await doAction();
+      } catch (error) {
+        await HandleError(error);
+      }
+    });
 
-  if (program.args.length !== 2) {
-    program.help();
-  }
-
-  const source = program.args[0];
-  const target = program.args[1];
-
-  const filePath = path.join(getRootHome(), 'access.yaml');
-  const accessFileInfo = await getYamlContent(filePath);
-  if (accessFileInfo) {
-    if (accessFileInfo[target]) {
-      exists({ target, accessFileInfo });
-    } else if (accessFileInfo[source]) {
-      accessFileInfo[target] = accessFileInfo[source];
-      delete accessFileInfo[source];
-      fs.writeFileSync(filePath, yaml.dump(accessFileInfo));
-      logger.success(`Key [${source}] has been successfully rename to [${target}].`);
+  const doAction = async () => {
+    const source = process.argv[process.argv.indexOf('rename') + 1];
+    const target = process.argv[process.argv.indexOf('rename') + 2];
+    if (!source || !target) {
+      command.help();
+    }
+    const filePath = path.join(getRootHome(), 'access.yaml');
+    const accessFileInfo = await getYamlContent(filePath);
+    if (accessFileInfo) {
+      if (accessFileInfo[target]) {
+        exists({ target, accessFileInfo });
+      } else if (accessFileInfo[source]) {
+        accessFileInfo[target] = accessFileInfo[source];
+        delete accessFileInfo[source];
+        fs.writeFileSync(filePath, yaml.dump(accessFileInfo));
+        logger.success(`Key [${source}] has been successfully rename to [${target}].`);
+      } else {
+        notFound({ source, accessFileInfo });
+      }
     } else {
       notFound({ source, accessFileInfo });
     }
-  } else {
-    notFound({ source, accessFileInfo });
-  }
-})().catch(async error => {
-  await HandleError(error);
-});
+  };
+}
+
+export = run;
