@@ -16,24 +16,29 @@ function run(program: Command) {
     .usage('[commands] [options]')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)
-    .addHelpCommand(false);
+    .addHelpCommand(false)
+    .action(() => {
+      const argv = process.argv.splice(2);
+      const { help } = core.minimist(argv, { alias: { help: 'h' } });
+      // s config -h , s config
+      if (help || argv.length === 1) {
+        command.outputHelp();
+        const commands = [
+          { add: `${emoji(colors.bold('+'))}` + 'Add an account' },
+          { get: `${emoji(colors.bold('√'))}` + 'Get accounts' },
+          { delete: `${emoji(colors.bold('×'))}` + 'Delete an account' },
+          { rename: `${emoji(colors.bold('>'))}` + 'Rename an account' },
+        ];
+        const helperLength = publishHelp.maxLen(commands);
+        const output = publishHelp.helpInfo(commands, 'Commands', helperLength);
+        console.log(`\n${output}`);
+      }
+    });
 
   require('./add')(command);
   require('./delete')(command);
   require('./get')(command);
   require('./rename')(command);
-
-  command.on('--help', () => {
-    const commands = [
-      { add: `${emoji(colors.bold('+'))}` + 'Add an account' },
-      { get: `${emoji(colors.bold('√'))}` + 'Get accounts' },
-      { delete: `${emoji(colors.bold('×'))}` + 'Delete an account' },
-      { rename: `${emoji(colors.bold('>'))}` + 'Rename an account' },
-    ];
-    const helperLength = publishHelp.maxLen(commands);
-    const output = publishHelp.helpInfo(commands, 'Commands', helperLength);
-    console.log(`\n${output}`);
-  });
 }
 
 export = run;

@@ -1,4 +1,4 @@
-import program from '@serverless-devs/commander';
+import { Command } from '@serverless-devs/commander';
 import { CommandError, HumanError } from '../../error';
 import logger from '../../utils/logger';
 import core from '../../utils/core';
@@ -12,13 +12,6 @@ const description = `Set workspace path. Switching workspaces may make previousl
         $ s set workspace
         $ s set workspace ~/.s`;
 
-program
-  .name('s set workspace')
-  .helpOption('-h, --help', 'Display help for command')
-  .addHelpCommand(false)
-  .description(description)
-  .parse(process.argv);
-
 const promptOption = [
   {
     type: 'input',
@@ -30,29 +23,47 @@ const promptOption = [
     },
   },
 ];
-(async () => {
-  if (program.args.length === 0) {
-    const msg = `\n${emoji('📝')} Current workspace path: ${getRootHome()}\n\n${emoji(
-      '🙊',
-    )} Switching workspaces may make previously cached components and configured key information unavailable.\n`;
-    logger.log(msg);
-    const answers = await inquirer.prompt(promptOption);
-    setConfig('workspace', answers.value);
-  }
-  if (program.args.length > 0) {
-    const val = program.args[0];
-    if (path.isAbsolute(val)) {
-      setConfig('workspace', val);
-      logger.log('Setup succeeded', 'green');
-    } else {
-      new HumanError({
-        errorMessage: 'You must provide an absolute path.',
-        tips: `Please check if the path is absolute, documents: ${colors.underline(
-          'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/command/set.md',
-        )}`,
-      });
+
+function run(program: Command) {
+  const command = program
+    .command('workspace')
+    .helpOption('-h, --help', 'Display help for command')
+    .addHelpCommand(false)
+    .description(description)
+    .action(async () => {
+      try {
+        await doAction();
+      } catch (error) {
+        throw new CommandError(error.message);
+      }
+    });
+  const doAction = async () => {
+    const argv = process.argv.slice(2);
+    const { help } = core.minimist(argv, { alias: { help: 'h' } });
+    help && command.help();
+    if (argv.length === 2) {
+      const msg = `\n${emoji('📝')} Current workspace path: ${getRootHome()}\n\n${emoji(
+        '🙊',
+      )} Switching workspaces may make previously cached components and configured key information unavailable.\n`;
+      logger.log(msg);
+      const answers = await inquirer.prompt(promptOption);
+      setConfig('workspace', answers.value);
     }
-  }
-})().catch(err => {
-  throw new CommandError(err.message);
-});
+    if (argv.length > 2) {
+      const val = argv[2];
+      if (path.isAbsolute(val)) {
+        setConfig('workspace', val);
+        logger.log('Setup succeeded', 'green');
+      } else {
+        new HumanError({
+          errorMessage: 'You must provide an absolute path.',
+          tips: `Please check if the path is absolute, documents: ${colors.underline(
+            'https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/zh/command/set.md',
+          )}`,
+        });
+      }
+    }
+  };
+}
+
+export = run;

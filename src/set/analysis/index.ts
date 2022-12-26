@@ -1,4 +1,4 @@
-import program from '@serverless-devs/commander';
+import { Command } from '@serverless-devs/commander';
 import { CommandError } from '../../error';
 import logger from '../../utils/logger';
 import core from '../../utils/core';
@@ -15,13 +15,6 @@ const description = `Set analysis action.
 ${emoji('📖')} Document: ${colors.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
 )}`;
-
-program
-  .name('s set analysis')
-  .helpOption('-h, --help', 'Display help for command')
-  .addHelpCommand(false)
-  .description(description)
-  .parse(process.argv);
 
 const promptOption = [
   {
@@ -40,19 +33,38 @@ const promptOption = [
     ],
   },
 ];
-(async () => {
-  if (program.args.length === 0) {
-    logger.log(`\n${emoji('📝')} Current analysis action: ${getConfig('analysis', 'enable')}\n`);
-    const answers = await inquirer.prompt(promptOption);
-    setConfig('analysis', answers.analysis);
-  }
-  if (program.args.length > 0) {
-    const val = program.args[0];
-    if (val) {
-      setConfig('analysis', val);
-      logger.log('Setup succeeded', 'green');
+
+function run(program: Command) {
+  const command = program
+    .command('analysis')
+    .helpOption('-h, --help', 'Display help for command')
+    .addHelpCommand(false)
+    .description(description)
+    .action(async () => {
+      try {
+        await doAction();
+      } catch (error) {
+        throw new CommandError(error.message);
+      }
+    });
+
+  const doAction = async () => {
+    const argv = process.argv.splice(2);
+    const { help } = core.minimist(argv, { alias: { help: 'h' } });
+    help && command.help();
+    if (argv.length === 2) {
+      logger.log(`\n${emoji('📝')} Current analysis action: ${getConfig('analysis', 'enable')}\n`);
+      const answers = await inquirer.prompt(promptOption);
+      setConfig('analysis', answers.analysis);
     }
-  }
-})().catch(err => {
-  throw new CommandError(err.message);
-});
+    if (argv.length > 2) {
+      const val = argv[2];
+      if (val) {
+        setConfig('analysis', val);
+        logger.log('Setup succeeded', 'green');
+      }
+    }
+  };
+}
+
+export = run;
