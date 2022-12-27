@@ -1,9 +1,9 @@
 name: release-assets
 
-on: 
+on:
   push:
     tags:
-      - 'v*' 
+      - 'v*'
 
 jobs:
   build:
@@ -25,6 +25,9 @@ jobs:
       - name: Zip the linux
         run: |
           zip -r serverless-devs-${{ github.ref_name }}-linux.zip ./pkg/linux
+      - name: Zip the windows
+        run: |
+          zip -r serverless-devs-${{ github.ref_name }}-windows.zip ./pkg/windows
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -32,3 +35,4 @@ jobs:
           files: |
             serverless-devs-${{ github.ref_name }}-macos.zip
             serverless-devs-${{ github.ref_name }}-linux.zip
+            serverless-devs-${{ github.ref_name }}-windows.zip
