@@ -41,7 +41,7 @@
     "typecheck": "npx tsc -p tsconfig.json --noEmit",
     "update": "rm -rf yarn.lock && rm -rf package-lock.json && rm -rf node_modules && yarn",
     "beta": "npm publish --tag=beta",
-    "pkg": "tsc && ./script/pkg.sh"
+    "pkg": "tsc && pkg bin/s"
   },
   "main": "./lib/index.js",
   "bin": {

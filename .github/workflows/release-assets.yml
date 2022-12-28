@@ -21,13 +21,13 @@ jobs:
         run: npm run pkg
       - name: Zip the macos
         run: |
-          zip -r serverless-devs-${{ github.ref_name }}-macos.zip ./pkg/macos
+          zip -r serverless-devs-${{ github.ref_name }}-macos.zip ./s-macos
       - name: Zip the linux
         run: |
-          zip -r serverless-devs-${{ github.ref_name }}-linux.zip ./pkg/linux
+          zip -r serverless-devs-${{ github.ref_name }}-linux.zip ./s-linux
       - name: Zip the windows
         run: |
-          zip -r serverless-devs-${{ github.ref_name }}-windows.zip ./pkg/windows
+          zip -r serverless-devs-${{ github.ref_name }}-windows.zip ./s-win.exe
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
