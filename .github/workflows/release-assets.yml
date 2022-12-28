@@ -21,18 +21,21 @@ jobs:
         run: npm run pkg
       - name: Zip the macos
         run: |
-          zip -r serverless-devs-${{ github.ref_name }}-macos.zip ./s-macos
+          mv s-macos s-${{ github.ref_name }}-macos
+          zip -r s-${{ github.ref_name }}-macos.zip s-${{ github.ref_name }}-macos
       - name: Zip the linux
         run: |
-          zip -r serverless-devs-${{ github.ref_name }}-linux.zip ./s-linux
+          mv s-linux s-${{ github.ref_name }}-linux
+          zip -r s-${{ github.ref_name }}-linux.zip s-${{ github.ref_name }}-linux
       - name: Zip the windows
         run: |
-          zip -r serverless-devs-${{ github.ref_name }}-windows.zip ./s-win.exe
+          mv s-win.exe s-${{ github.ref_name }}-win.exe
+          zip -r s-${{ github.ref_name }}-win.exe.zip s-${{ github.ref_name }}-win.exe
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: |
-            serverless-devs-${{ github.ref_name }}-macos.zip
-            serverless-devs-${{ github.ref_name }}-linux.zip
-            serverless-devs-${{ github.ref_name }}-windows.zip
+            s-${{ github.ref_name }}-macos.zip
+            s-${{ github.ref_name }}-linux.zip
+            s-${{ github.ref_name }}-win.exe.zip
