@@ -34,14 +34,14 @@
     "test": "jest test/special-command.test",
     "prebuild": "rm -rf lib/*",
     "build": "tsc && cp -r ./src/daemon ./lib",
-    "postbuild": "./shell/postbuild.sh",
+    "postbuild": "./script/postbuild.sh",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",
     "typecheck": "npx tsc -p tsconfig.json --noEmit",
     "update": "rm -rf yarn.lock && rm -rf package-lock.json && rm -rf node_modules && yarn",
     "beta": "npm publish --tag=beta",
-    "pkg": "tsc && ./shell/pkg.sh"
+    "pkg": "tsc && ./script/pkg.sh"
   },
   "main": "./lib/index.js",
   "bin": {
