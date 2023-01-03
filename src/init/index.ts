@@ -1,6 +1,4 @@
-/** @format */
-
-import program from '@serverless-devs/commander';
+import { Command } from '@serverless-devs/commander';
 import { setConfig } from '../utils';
 import { InitManager } from './init-manager';
 import { emoji } from '../utils/common';
@@ -21,25 +19,35 @@ const description = `Initialize a new project based on a template. You can initi
         
 ${emoji('🚀')} More applications: ${colors.underline('https://registry.serverless-devs.com')}`;
 
-program
-  .name('s init')
-  .helpOption('-h, --help', 'Display help for command')
-  .usage('[options] [name | url]')
-  .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
-  .option('-r, --registry <url>', 'Use specify registry')
-  .option('--parameters <parameters>', 'Initialize with custom parameters')
-  .option('--appName <appName>', 'Modify default Application name')
-  .description(description)
-  .addHelpCommand(false)
-  .parse(process.argv);
-(async () => {
-  const initManager = new InitManager();
-  const { dir, registry } = program as any;
-  if (registry) {
-    setConfig('registry', registry);
-  }
-  const name = program.args[0];
-  await initManager.init(name, dir);
-})().catch(async error => {
-  await HandleError(error);
-});
+function run(program: Command) {
+  program
+    .command('init')
+    .helpOption('-h, --help', 'Display help for command')
+    .usage('[options] [name | url]')
+    .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
+    .option('-r, --registry <url>', 'Use specify registry')
+    .option('--parameters <parameters>', 'Initialize with custom parameters')
+    .option('--appName <appName>', 'Modify default Application name')
+    .description(description)
+    .addHelpCommand(false)
+    .action(async () => {
+      try {
+        await doAction();
+      } catch (error) {
+        await HandleError(error);
+      }
+    });
+
+  const doAction = async () => {
+    const argv = process.argv.slice(2);
+    const argvData = core.minimist(argv, { alias: { dir: 'd', registry: 'r' } });
+    const { dir, registry } = argvData;
+    const initManager = new InitManager();
+    if (registry) {
+      setConfig('registry', registry);
+    }
+    await initManager.init(argv[1], dir);
+  };
+}
+
+export = run;

@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s",
-  "version": "2.1.7",
+  "version": "2.1.8-beta.2",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -34,22 +34,21 @@
     "test": "jest test/special-command.test",
     "prebuild": "rm -rf lib/*",
     "build": "tsc && cp -r ./src/daemon ./lib",
-    "postbuild": "./shell/postbuild.sh",
+    "postbuild": "./script/postbuild.sh",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",
     "typecheck": "npx tsc -p tsconfig.json --noEmit",
     "update": "rm -rf yarn.lock && rm -rf package-lock.json && rm -rf node_modules && yarn",
     "beta": "npm publish --tag=beta",
-    "pkg": "tsc && ./shell/pkg.sh"
+    "pkg": "tsc && pkg bin/s"
   },
   "main": "./lib/index.js",
   "bin": {
     "s": "bin/s"
   },
   "devDependencies": {
-    "pkg": "^5.8.0",
-    "@serverless-devs/commander": "^6.0.0",
+    "@serverless-devs/commander": "^6.2.6",
     "@types/jest": "^27.4.0",
     "@types/node": "^14.0.23",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
@@ -72,6 +71,7 @@
     "lint-staged": "^10.0.8",
     "open": "^8.4.0",
     "os-locale": "5.0.0",
+    "pkg": "^5.8.0",
     "prettier": "^2.2.1",
     "semver": "^7.3.5",
     "semver-diff": "^3.1.1",
