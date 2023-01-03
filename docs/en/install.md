@@ -9,6 +9,7 @@ category: 'Overview'
 
 - [Tool installation](#Tool-installation)
     - [Install via command line tool](#Install-via-command-line-tool)
+    - [Install by downloading the binary](#Install by downloading the binary) --- Suitable for all platforms (Windows/Mac/Linux)
     - [Install via script](#Install-via-script)
 - [Tool upgrade](#Tool-upgrade)
 
@@ -32,6 +33,58 @@ $ yarn global add @serverless-devs/s
 > - If an error is reported when executing this command under Linux and the error message is `Error: EACCES: permission denied`, please execute the command `sudo npm install @serverless-devs/s -g`.
 > - If you have a slow installation process in mainland, you can consider using Taobao npm source. The installation command is `npm --registry=https://registry.npm.taobao.org install @serverless-devs/s -g`.
 
+### Install by downloading the binary
+Open the [releases](https://github.com/Serverless-Devs/Serverless-Devs/releases) page, select a release compressed package link corresponding to the platform in the latest version, and click to download directly.
+
+After downloading locally, unzip it and use it directly.
+
+#### Windows Platform
+
+1. Find a latest release version (Release) and download the `s-*-win.exe.zip` file (where * represents the version number, such as 2.1.9).
+2. Unzip the file `s-*-win.exe.zip` to get `s-*.win.exe` file, rename it to `s.exe`.
+3. Just copy the s.exe file to the system PATH directory, for example: `C:\WINDOWS\System32`
+4. Open the command terminal, execute `s.exe --version`, and check the returned version number to verify whether the installation is successful.
+
+
+#### Linux platform
+1. Find a latest release version (Release) and download the `s-*-linux.zip` file (where * represents the version number, such as 2.1.9).
+2. Extract the zip file
+```
+$ unzip s-linux.zip
+Archive: s-2.1.9-linux.zip
+  inflating: s-2.1.9-linux
+```
+3. Move to PATH directory
+```
+$ mv s-*-linux /usr/local/bin/s
+```
+
+4. Verify version
+```
+$ s -v
+@serverless-devs/s: 2.1.9
+```
+
+
+#### MacOS platform
+1. Find the latest release version (Release) and download the `s-*-macos.zip` file (where * represents the version number, such as 2.1.9).
+2. Extract the zip file
+```
+$ unzip s-macos.zip
+Archive: s-2.1.9-macos.zip
+  inflating: s-2.1.9-macos
+```
+
+3. Move to PATH directory
+```
+$ mv s-*-macos /usr/local/bin/s
+```
+
+4. Verify version
+```
+$ s -v
+@serverless-devs/s: 2.1.9
+```
 
 ### Install via script
 
