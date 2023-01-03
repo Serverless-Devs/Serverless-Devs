@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s",
-  "version": "2.1.8",
+  "version": "2.1.10",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -34,7 +34,7 @@
     "test": "jest test/special-command.test",
     "prebuild": "rm -rf lib/*",
     "build": "tsc && cp -r ./src/daemon ./lib",
-    "postbuild": "./script/postbuild.sh",
+    "postbuild": "esbuild lib/index.js --bundle --log-level=error --minify --external:@serverless-devs/core --external:@serverless-devs/ui --platform=node --format=cjs --target=node10.4 --allow-overwrite --outfile=lib/index.js",
     "test:cov": "jest --coverage",
     "lint": "npm run typecheck && f2elint scan -i src",
     "fix": "f2elint fix",

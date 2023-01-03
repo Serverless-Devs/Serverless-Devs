@@ -120,7 +120,7 @@ function run(program: Command) {
       }
     }
     if (AccountID) {
-      keyInformation['AccountID'] = AccountID;
+      keyInformation['AccountID'] = String(AccountID);
     }
     if (SecretAccessKey) {
       keyInformation['SecretAccessKey'] = SecretAccessKey;
