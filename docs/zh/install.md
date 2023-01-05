@@ -9,6 +9,7 @@ category: '概述'
 
 - [工具安装](#工具安装)
     - [通过命令行工具安装](#通过命令行工具安装)
+    - [通过下载二进制安装](#通过下载二进制安装) --- 适合所有平台（Windows/Mac/Linux）
     - [通过脚本安装](#通过脚本安装)
 - [工具升级](#工具升级)
 
@@ -32,6 +33,58 @@ $ yarn global add @serverless-devs/s
 > - 如果在 Linxu 下执行该命令报错且报错信息为 `Error: EACCES: permission denied`，请执行命令 `sudo npm install @serverless-devs/s -g`。   
 > - 如果安装过程较慢，可以考虑使用淘宝 npm 源，安装命令为 `npm --registry=https://registry.npm.taobao.org install @serverless-devs/s -g`。
 
+### 通过下载二进制安装
+打开 [releases](https://github.com/Serverless-Devs/Serverless-Devs/releases) 页面，在最新的版本中选择一个对应平台的 release 压缩包链接，点击即可直接下载。
+
+下载到本地后，解压，即可直接使用。
+
+#### Windows 平台
+
+1. 找到一个最新的发布版本（Release）下载 `s-*-win.exe.zip` 文件（其中 * 表示版本号，如 2.1.9）。
+2. 解压文件 `s-*-win.exe.zip` 得到 `s-*.win.exe` 文件，重名为 `s.exe`。
+3. 讲 s.exe 文件拷贝到系统 PATH 目录即可，比如：`C:\WINDOWS\System32`
+4. 打开命令终端，执行 `s.exe --version`，查看返回版本号以验证是否安装成功。
+
+
+#### Linux 平台
+1. 找到一个最新的发布版本（Release）下载 `s-*-linux.zip` 文件（其中 * 表示版本号，如 2.1.9）。
+2.  解压 zip 文件
+```
+$ unzip s-linux.zip
+Archive:  s-2.1.9-linux.zip
+  inflating: s-2.1.9-linux
+```
+3. 移到 PATH 目录
+```
+$ mv s-*-linux /usr/local/bin/s
+```
+
+4.  验证版本
+```
+$ s -v
+@serverless-devs/s: 2.1.9
+```
+
+
+#### MacOS 平台
+1. 找到一个最新的发布版本（Release）下载 `s-*-macos.zip` 文件（其中 * 表示版本号，如 2.1.9）。
+2. 解压 zip 文件
+```
+$ unzip s-macos.zip
+Archive:  s-2.1.9-macos.zip
+  inflating: s-2.1.9-macos
+```
+
+3. 移到 PATH 目录
+```
+$ mv s-*-macos /usr/local/bin/s
+```
+
+4. 验证版本
+```
+$ s -v
+@serverless-devs/s: 2.1.9
+```
 
 ### 通过脚本安装
 
