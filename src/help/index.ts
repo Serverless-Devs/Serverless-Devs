@@ -11,6 +11,7 @@ const descption = {
     { '--skip-actions': 'Skip the extends section.' },
     { '-t, --template <path>': 'Specify the template file.' },
     { '-a, --access <aliasName>': 'Specify the access alias name.' },
+    { '-o, --output <outputFormat>': 'Specifies the output format.' },
     { '-v, --version': 'Output the version number.' },
     { '-h, --help': 'Display help for command.' },
   ],
