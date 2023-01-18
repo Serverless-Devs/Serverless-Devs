@@ -2,13 +2,23 @@ import { CommanderStatic, Command } from '@serverless-devs/commander';
 import core from '../utils/core';
 import path from 'path';
 import { specifyServiceHelp } from '../utils';
+import { OUTPUT_FORMAT } from '../constant';
+import { HumanError } from '../error';
 const { getGlobalArgs, execCommand, getYamlContent, lodash } = core;
 const { isEmpty, includes, keys, get } = lodash;
 class SpecialCommad {
   constructor(private command: CommanderStatic) {}
   async init() {
     const argv = getGlobalArgs(process.argv.slice(2));
-    const { _: rawData, template, access, 'skip-actions': skipActions, debug, help } = argv;
+    const { _: rawData, template, access, 'skip-actions': skipActions, debug, help, output = 'default' } = argv;
+    if (!includes(OUTPUT_FORMAT, output)) {
+      new HumanError({
+        errorMessage: `Invalid output format: ${output}.`,
+        tips: `Please use one of ${OUTPUT_FORMAT.join(', ')}`,
+      });
+      process.exit(1);
+    }
+
     if (isEmpty(rawData)) return;
     const sub = new Command(rawData[0]);
     sub.allowUnknownOption();
@@ -28,6 +38,7 @@ class SpecialCommad {
         skipActions,
         debug,
         help,
+        output,
       },
     });
   }
