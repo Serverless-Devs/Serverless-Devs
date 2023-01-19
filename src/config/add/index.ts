@@ -55,8 +55,7 @@ function run(program: Command) {
     });
 
   const doAction = async options => {
-    const argv = process.argv.slice(2);
-    const argvData = core.getGlobalArgs(argv);
+    const argvData = core.getGlobalArgs(process.argv.slice(2));
     const {
       AccountID,
       AccessKeyID,
@@ -75,10 +74,6 @@ function run(program: Command) {
       help,
     } = argvData;
     help && command.help();
-
-    if (argv.length === 2) {
-      return await setCredential();
-    }
 
     const keyInformation = {};
     if (keyList && infoList) {
@@ -141,8 +136,9 @@ function run(program: Command) {
       keyInformation['PrivateKeyData'] = PrivateKeyData;
     }
     if (Object.keys(keyInformation).length > 0) {
-      setKnownCredential(keyInformation, access || aliasName);
+      return await setKnownCredential(keyInformation, access || aliasName);
     }
+    await setCredential();
   };
 }
 

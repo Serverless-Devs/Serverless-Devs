@@ -27,7 +27,10 @@ const { join, includes } = lodash;
   // TODO: 目前core和s并不依赖temp_params环境变量，只是提供给组件用，后续组件移除temp_params后，此行代码可以删掉
   process.env['temp_params'] = join(process.argv.slice(2), ' ');
 
-  const system_command = program.version(getVersion(), '-v, --version', 'Output the version number.');
+  const system_command = program
+    .version(getVersion(), '-v, --version', 'Output the version number.')
+    .option('--debug', 'Open debug model.');
+
   new UpdateNotifier().init().notify();
   if (process.argv.length === 2) {
     return await onboarding();

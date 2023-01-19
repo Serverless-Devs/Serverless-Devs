@@ -20,12 +20,13 @@ const description = `Initialize a new project based on a template. You can initi
 ${emoji('🚀')} More applications: ${colors.underline('https://registry.serverless-devs.com')}`;
 
 function run(program: Command) {
-  program
+  const command = program
     .command('init')
     .helpOption('-h, --help', 'Display help for command')
     .usage('[options] [name | url]')
     .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
     .option('-r, --registry <url>', 'Use specify registry')
+    .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('--parameters <parameters>', 'Initialize with custom parameters')
     .option('--appName <appName>', 'Modify default Application name')
     .description(description)
@@ -40,8 +41,12 @@ function run(program: Command) {
 
   const doAction = async () => {
     const argv = process.argv.slice(2);
-    const argvData = core.minimist(argv, { alias: { dir: 'd', registry: 'r' } });
-    const { dir, registry } = argvData;
+    const argvData = core.minimist(argv, { alias: { dir: 'd', registry: 'r', help: 'h' } });
+    const { dir, registry, help } = argvData;
+    if (help) {
+      return command.help();
+    }
+
     const initManager = new InitManager();
     if (registry) {
       setConfig('registry', registry);

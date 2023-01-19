@@ -38,9 +38,8 @@ function run(program: Command) {
     });
 
   const doAction = async () => {
-    const argv = process.argv.slice(2);
-    const argvData = core.getGlobalArgs(argv);
-    const { http_proxy, https_proxy } = argvData;
+    const argvData = core.getGlobalArgs(process.argv.slice(2));
+    const { _: rawData, http_proxy, https_proxy } = argvData;
 
     if (http_proxy || https_proxy || has(argvData, 'enable')) {
       http_proxy && setConfig('http_proxy', http_proxy);
@@ -49,7 +48,7 @@ function run(program: Command) {
       return logger.success('Setup succeeded');
     }
 
-    if (argv.length === 2) {
+    if (rawData.length === 2) {
       const answer = await inquirer.prompt([
         {
           type: 'input',

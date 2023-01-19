@@ -66,10 +66,9 @@ function run(program: Command) {
     });
 
   const doAction = async () => {
-    const argv = process.argv.slice(2);
-    const { help } = core.minimist(argv, { alias: { help: 'h' } });
+    const { _: rawData, help } = core.getGlobalArgs(process.argv.slice(2));
     help && command.help();
-    if (argv.length === 2) {
+    if (rawData.length === 2) {
       logger.log(`\n${emoji('🔎')} Current registry: ${getConfig('registry', 'http://registry.devsapp.cn/simple')}\n`);
       let answers = await inquirer.prompt(registryInquire);
       if (answers.registry === CUSTOMER_KEY) {
@@ -84,8 +83,8 @@ function run(program: Command) {
       let registry = answers.registry;
       setConfig('registry', registry);
     }
-    if (argv.length > 2) {
-      const r = argv[2];
+    if (rawData.length > 2) {
+      const r = rawData[2];
       if (r) {
         setConfig('registry', r);
         logger.success('Setup succeeded');
