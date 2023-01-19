@@ -40,7 +40,7 @@ export const HandleError = async (error: Error) => {
     const messageStr = jsonMsg.message ? `Message: ${jsonMsg.message}\n` : '';
     const tipsStr = jsonMsg.tips ? `* ${makeUnderLine(jsonMsg.tips.replace(/\n/, '\n* '))}` : '';
     logger.log(`\n${colors.hex('#000').bgYellow('WARNING:')}\n======================\n${tipsStr}\n`, 'yellow');
-    isDebugMode() ? logger.log(error.stack) : logger.log(colors.grey(messageStr));
+    logger.log(colors.grey(messageStr));
     configOption.catchableError = true;
     tmpError = jsonMsg;
   } else if (jsonMsg && jsonMsg.code) {
