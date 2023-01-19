@@ -38,10 +38,11 @@ function run(program: Command) {
       }
     });
   const doAction = async () => {
-    const argv = process.argv.slice(2);
-    const { help } = core.minimist(argv, { alias: { help: 'h' } });
+    const { _: rawData, help } = core.getGlobalArgs(process.argv.slice(2));
+    console.log(rawData);
+
     help && command.help();
-    if (argv.length === 2) {
+    if (rawData.length === 2) {
       const msg = `\n${emoji('📝')} Current workspace path: ${getRootHome()}\n\n${emoji(
         '🙊',
       )} Switching workspaces may make previously cached components and configured key information unavailable.\n`;
@@ -49,8 +50,8 @@ function run(program: Command) {
       const answers = await inquirer.prompt(promptOption);
       setConfig('workspace', answers.value);
     }
-    if (argv.length > 2) {
-      const val = argv[2];
+    if (rawData.length > 2) {
+      const val = rawData[2];
       if (path.isAbsolute(val)) {
         setConfig('workspace', val);
         logger.log('Setup succeeded', 'green');

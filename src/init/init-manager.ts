@@ -28,7 +28,7 @@ export class InitManager {
       projectName = answers.projectName;
     }
     const registry = downloadurl ? downloadurl : getConfig('registry') || DEFAULT_REGIRSTRY;
-    const argvData = core.minimist(process.argv.slice(2));
+    const argvData = core.getGlobalArgs(process.argv.slice(2));
     let parameters;
     if (argvData.parameters) {
       try {

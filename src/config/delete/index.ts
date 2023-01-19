@@ -47,8 +47,7 @@ function run(program: Command) {
     });
 
   const doAction = async () => {
-    const argv = process.argv.slice(2);
-    const argvData = core.getGlobalArgs(argv);
+    const argvData = core.getGlobalArgs(process.argv.slice(2));
     const { access } = argvData;
     if (!access) {
       command.help();

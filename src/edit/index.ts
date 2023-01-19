@@ -34,8 +34,6 @@ function run(program: Command) {
   const doAction = async options => {
     const argvData = core.getGlobalArgs(process.argv.slice(2));
     const { help, template } = argvData;
-    console.log({ help, template });
-
     if (help) {
       command.help();
     }

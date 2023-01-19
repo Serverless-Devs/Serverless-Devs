@@ -57,19 +57,13 @@ function run(program: Command) {
       }
     });
   const doAction = async () => {
-    const argv = process.argv.slice(2);
-    const argvData = core.getGlobalArgs(argv);
+    const argvData = core.getGlobalArgs(process.argv.slice(2));
     const { access, help } = argvData;
 
     if (help) {
       command.help();
     }
     const accessInfo = secret(await getCredentialWithAll());
-    // s config get
-    if (argv.length === 2) {
-      accessInfo ? logger.output(accessInfo) : notFound();
-    }
-
     // s config get -a default
     if (access) {
       const accessData = get(accessInfo, access);
@@ -87,7 +81,10 @@ function run(program: Command) {
   `);
         process.exit(1);
       }
+      return;
     }
+    // s config get
+    accessInfo ? logger.output(accessInfo) : notFound();
   };
 }
 
