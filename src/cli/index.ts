@@ -17,6 +17,30 @@ ${emoji('📖')} Document: ${underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/cli.md',
 )}`;
 
+const throwError = error => {
+  let jsonMsg;
+  try {
+    jsonMsg = JSON.parse(error.message);
+  } catch (error) {}
+  if (jsonMsg && jsonMsg.tips) {
+    throw new Error(
+      JSON.stringify({
+        code: 101,
+        message: jsonMsg.message,
+        tips: jsonMsg.tips,
+      }),
+    );
+  } else {
+    throw new Error(
+      JSON.stringify({
+        code: 101,
+        message: error.message,
+        stack: error.stack,
+      }),
+    );
+  }
+};
+
 async function run(program) {
   const command = program
     .command('cli')
@@ -78,11 +102,15 @@ async function run(program) {
           configPath: process.cwd(),
         },
       };
-      const res = await instance[_method](inputs);
-      if (isEmpty(res)) {
-        return logger.success(`End of method: ${_method}`);
+      try {
+        const res = await instance[_method](inputs);
+        if (isEmpty(res)) {
+          return logger.success(`End of method: ${_method}`);
+        }
+        isString(res) ? logger.success(res) : logger.output(res);
+      } catch (error) {
+        throwError(error);
       }
-      isString(res) ? logger.success(res) : logger.output(res);
     }
     // s cli fc-api
     if (rawData.length === 2) {
@@ -105,6 +133,7 @@ async function run(program) {
       }
       throw new Error(
         JSON.stringify({
+          code: 100,
           message: 'The specified command cannot be found.',
           tips: 'Please refer to the help document of [-h/--help] command.',
         }),
