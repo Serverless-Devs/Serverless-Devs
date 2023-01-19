@@ -31,7 +31,7 @@ Get details of installed components.
 📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/component.md
 
 Options:
-  --component [componentName]     Gets the specified component information (like: fc, fc@0.0.1)
+  --component <componentName>     Gets the specified component information (like: fc, fc@0.0.1)
   -h, --help                      Display help for command
 ```
 

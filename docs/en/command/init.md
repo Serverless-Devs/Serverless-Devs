@@ -39,11 +39,12 @@ Initialize a new project based on a template. You can initialize the application
 🚀 More Application: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/en/awesome.md
 
 Options:
-  -d, --dir <dir>           Where to output the initialized app into (default: ./<ProjectName> )
-  -r, --registry <url>      Use specify registry
-  -h, --help                Display help for command
-  --parameters <parameters> Initialize with custom parameters
-  --appName <appName>       Modify default Application name
+  -d, --dir <dir>            Where to output the initialized app into (default: ./<ProjectName> )
+  -r, --registry <url>       Use specify registry
+  -a, --access <aliasName>   Specify the access alias name.
+  --parameters <parameters>  Initialize with custom parameters
+  --appName <appName>        Modify default Application name
+  -h, --help                 Display help for command
 ```
 
 ### Parameter description

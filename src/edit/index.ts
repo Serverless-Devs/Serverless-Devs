@@ -38,8 +38,6 @@ function run(program: Command) {
       command.help();
     }
     const spath = await core.getTemplatePath(template);
-    console.log(spath);
-
     process.env['template'] = spath;
     const port = await core.getAvailablePort(7000);
     // template 通过环境变量传递，务必环境变量template赋值后在require
