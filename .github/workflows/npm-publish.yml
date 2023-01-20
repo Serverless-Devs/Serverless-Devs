@@ -14,6 +14,16 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm install
+      - run: npm run build
+      - run: npm publish
+        if: ${{ !contains(github.ref, 'beta')}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - run: npm run beta
+        if: ${{ contains(github.ref, 'beta')}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - run: curl https://npmmirror.com/sync/@serverless-devs/s
       - name: pkg
         run: npm run pkg
       - name: Zip the macos
@@ -36,13 +46,3 @@ jobs:
             s-${{ github.ref_name }}-macos.zip
             s-${{ github.ref_name }}-linux.zip
             s-${{ github.ref_name }}-win.exe.zip
-      - run: npm run build
-      - run: npm publish
-        if: ${{ !contains(github.ref, 'beta')}}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-      - run: npm run beta
-        if: ${{ contains(github.ref, 'beta')}}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-      - run: curl https://npmmirror.com/sync/@serverless-devs/s

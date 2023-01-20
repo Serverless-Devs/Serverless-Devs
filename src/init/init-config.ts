@@ -75,7 +75,7 @@ const quick_start_template = [
     isDeploy: true,
   },
   {
-    name: '[HTTP] Python3.9',
+    name: '[HTTP] Python3',
     value: 'devsapp/start-fc-http-python3',
     isDeploy: true,
   },
@@ -104,7 +104,7 @@ const quick_start_template = [
     isDeploy: true,
   },
   {
-    name: '[Event] Python3.9',
+    name: '[Event] Python3',
     value: 'devsapp/start-fc-event-python3',
     isDeploy: true,
   },
