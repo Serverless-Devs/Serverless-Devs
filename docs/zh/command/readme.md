@@ -34,7 +34,7 @@ Options
   --skip-actions                 Skip the extends section.      
   -t, --template <path>          Specify the template file.     
   -a, --access <aliasName>       Specify the access alias name. 
-  -o, --output <outputFormat>    Specifies the output format.   
+  -o, --output <outputFormat>    Specify the output format: json, yaml, raw.   
   -v, --version                  Output the version number.     
   -h, --help                     Display help for command.      
 
@@ -64,7 +64,7 @@ Examples
 | access | a | `yaml`中所指定的`access`信息/`default` | 指定本次部署时的密钥信息 | 可以使用通过[config命令](./command/config.md#config-add-命令)配置的密钥信息，以及[配置到环境变量的密钥信息](./command/config.md#通过环境变量配置密钥信息) | 
 | skip-actions | - | - | 跳过`yaml`所设置的`actions`模块 | - | 
 | debug | - | - | 开启`Debug`模式 | 开启`Debug`模式后可以查看到更多的工具执行过程信息 | 
-| output | o | `default` | 指定数据的输出格式 | 支持`default`, `json`, `yaml`, `raw`格式, [查看详情](https://github.com/Serverless-Devs/core/blob/master/docs/common.md#execCommand) | 
+| output | o | `default` | 指定数据的输出格式 | 支持`default`, `json`, `yaml`, `raw`格式 | 
 | version | v | - | 查看版本信息 | - | 
 | help | h | - | 查看帮助信息 | - | 
 

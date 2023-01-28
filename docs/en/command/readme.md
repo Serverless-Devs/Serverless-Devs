@@ -33,7 +33,7 @@ Options
   --skip-actions                 Skip the extends section.      
   -t, --template <path>          Specify the template file.     
   -a, --access <aliasName>       Specify the access alias name. 
-  -o, --output <outputFormat>    Specifies the output format.   
+  -o, --output <outputFormat>    Specify the output format: json, yaml, raw.  
   -v, --version                  Output the version number.     
   -h, --help                     Display help for command.      
 
@@ -63,7 +63,7 @@ Examples
 | access       | a            | the value of the access parameter specified in a YAML file/default | Specifies the information about the key.                     | You can use the key information that is  configured by using [the config command](command/config.md#config-add-command) or [environment variables](command/config.md#Configure keys by using environment variables). |
 | skip-actions | -            | -                                                            | Skips the actions section that is specified in the YAML file. | -                                                            |
 | debug        | -            | -                                                            | Enables the debug mode.                                      | After you enable the debug mode, you can obtain a larger amount of information about the  execution process of a tool. |
-| output       | o           | `default`                     |  Specifies the output format. | Support: `default`, `json`, `yaml`, `raw`, see [detail](https://github.com/Serverless-Devs/core/blob/master/docs/common.md#execCommand)                   | 
+| output       | o           | `default`                     |  Specifies the output format. | Support: `default`, `json`, `yaml`, `raw`                  | 
 | version      | v            | -                                                            | Queries the version information.                             | -                                                            |
 | help         | h            | -                                                            | Queries the help information.                                | -                                                            |
 
