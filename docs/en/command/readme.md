@@ -23,46 +23,36 @@ category: 'Commands'
 ## Background information
 
 Serverless Devs allows you to run a command that contains the `-h` parameter to query the help information about a command. For example, you can run the` s -h` command to query the help information about the `s` command.
-After you run the `s` command, the following help information is returned:
-
 
 ```shell script
-$ s
-Usage: s [options] [command]
+$ s -h
+🚀  Welcome to the Serverless Devs.
 
-  _________                               .__
- /   _____/ ______________  __ ___________|  |   ____   ______ ______
- \_____  \_/ __ \_  __ \  \/ // __ \_  __ \  | _/ __ \ /  ___//  ___/
- /        \  ___/|  | \/\   /\  ___/|  | \/  |_\  ___/ \___ \ \___ \
-/_________/\_____>__|    \_/  \_____>__|  |____/\_____>______>______>
+Options
+  --debug                        Open debug model.              
+  --skip-actions                 Skip the extends section.      
+  -t, --template <path>          Specify the template file.     
+  -a, --access <aliasName>       Specify the access alias name. 
+  -o, --output <outputFormat>    Specifies the output format.   
+  -v, --version                  Output the version number.     
+  -h, --help                     Display help for command.      
 
-Welcome to the Serverless Devs.
+Commands
+  config                         👤  Configure venders account.                
+  init                           💞  Initializing a serverless project.        
+  cli                            🐚  Command line operation without yaml mode. 
+  verify                         🔎  Verify the application.                   
+  set                            🔧  Settings for the tool.                    
+  clean                          💥  Clean up the environment.                 
+  component                      🔌  Installed component information.          
+  edit                           🙌  Application editing.                      
 
-More: 
-📘 Documents: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs
-🙌 Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
-📦 Applications: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/en/awesome.md
 
-Quick start:
-🍻 Can perform [s init] fast experience
+Examples
+  init                           Perform [s init] fast experience Serverless Devs. 
 
-Options:
-  -t, --template [templatePath]  Specify the template file
-  -a, --access [aliasName]       Specify the access alias name
-  --skip-actions                 Skip the extends section
-  --debug                        Open debug model
-  -v, --version                  Output the version number
-  -h, --help                     Display help for command
-
-Commands:
-  config                         👤 Configure venders account.
-  init                           💞 Initializing a serverless project.
-  cli                            🐚 Command line operation without yaml mode.
-  verify                         🔍 Verify the application.
-  edit                           ✏️ Edit the application.
-  set                            🔧 Settings for the tool.
-  clean                          💥 Clean up the environment.
-  component                      🔌 Installed component information.
+🧭  More information: https://github.com/Serverless-Devs/Serverless-Devs
+🚀  More applications: https://registry.serverless-devs.com
 ```
 
 ## Supported parameters
@@ -73,6 +63,7 @@ Commands:
 | access       | a            | the value of the access parameter specified in a YAML file/default | Specifies the information about the key.                     | You can use the key information that is  configured by using [the config command](command/config.md#config-add-command) or [environment variables](command/config.md#Configure keys by using environment variables). |
 | skip-actions | -            | -                                                            | Skips the actions section that is specified in the YAML file. | -                                                            |
 | debug        | -            | -                                                            | Enables the debug mode.                                      | After you enable the debug mode, you can obtain a larger amount of information about the  execution process of a tool. |
+| output       | o           | `default`                     |  Specifies the output format. | Support: `default`, `json`, `yaml`, `raw`, see [detail](https://github.com/Serverless-Devs/core/blob/master/docs/common.md#execCommand)                   | 
 | version      | v            | -                                                            | Queries the version information.                             | -                                                            |
 | help         | h            | -                                                            | Queries the help information.                                | -                                                            |
 
