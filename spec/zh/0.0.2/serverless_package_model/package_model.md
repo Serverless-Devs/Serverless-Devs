@@ -296,9 +296,9 @@ export default class ComponentDemo {
         "access": ""
     },
     "credentials": {},
-    "prop": {},
+    "props": {},
     "args": "",
-    "argsObj": []
+    "argsObj": [],
 }
 ```
 
@@ -307,7 +307,7 @@ export default class ComponentDemo {
 | command | 用户所执行的命令 | 
 | project | 用户的项目基本信息 | 
 | credentials | 用户的密钥信息 | 
-| prop | 用户配置的属性/参数 |
+| props | 用户配置的属性/参数 |
 | args| 用户传递的参数（字符串形式） | 
 | argsObj| 用户传递的参数（解析后的，以数组形式传递） |
 
@@ -345,7 +345,7 @@ services:
         "AccessKeyID": "********",
         "AccessKeySecret": "********"
     },
-    "prop": {
+    "props": {
         "Region": "cn-hangzhou",
         "CodeUri": "./src"
     },
@@ -709,10 +709,11 @@ module.exports = async function index(inputs, args) {
             "access": ""
         },
         "credentials": {},
-        "prop": {},
+        "props": {},
         "args": "",
         "argsObj": [],
-        "output": {}
+        "services": [],
+        "output": {},
     }
     ```
     
@@ -721,9 +722,10 @@ module.exports = async function index(inputs, args) {
     | command | 用户所执行的命令 | 
     | project | 用户的项目基本信息 | 
     | credentials | 用户的密钥信息 | 
-    | prop | 用户配置的属性/参数 |
+    | props | 用户配置的属性/参数 |
     | args| 用户传递的参数（字符串形式） | 
     | argsObj| 用户传递的参数（解析后的，以数组形式传递） |
+    | services| 记录服务的传递参数 |
     | output| 如果在组件执行之前使用插件，无此参数，如果在组件执行之后使用插件，有此参数，此参数表示组件的输出结果 |
 
 - `args`参数是插件的入参，格式为`object`
@@ -741,9 +743,10 @@ module.exports = async function index(inputs, args) {
         "access": ""
     },
     "credentials": {},
-    "prop": {},
+    "props": {},
     "args": "",
     "argsObj": [],
+    "services": [],
     "plugin": {}
 }
 ```
@@ -804,7 +807,7 @@ services:
         "AccessKeyID": "********",
         "AccessKeySecret": "********"
     },
-    "prop": {
+    "props": {
         "Region": "cn-hangzhou",
         "CodeUri": "./src"
     },

@@ -295,7 +295,7 @@ The structure of the input parameter `inputs` is:
         "access": ""
     },
     "credentials": {},
-    "prop": {},
+    "props": {},
     "args": "",
     "argsObj": []
 }
@@ -306,7 +306,7 @@ The structure of the input parameter `inputs` is:
 | command | The command executed by the user |
 | project | User's project basic information |
 | credentials | User's key information |
-| prop | User-configured properties/parameters |
+| props | User-configured properties/parameters |
 | args| Arguments passed by the user (in string form) |
 | argsObj| Arguments passed by the user (parsed, passed as an array) |
 
@@ -344,7 +344,7 @@ When the user executes `s test mytest -a -b abc`, at this time, the `test` metho
         "AccessKeyID": "********",
         "AccessKeySecret": "********"
     },
-    "prop": {
+    "props": {
         "Region": "cn-hangzhou",
         "CodeUri": "./src"
     },
@@ -709,9 +709,10 @@ In the above case, the plugin method has two input parameters, `inputs` and `arg
             "access": ""
         },
         "credentials": {},
-        "prop": {},
+        "props": {},
         "args": "",
         "argsObj": [],
+        "services": [],
         "output": {}
     }
     ````
@@ -721,9 +722,10 @@ In the above case, the plugin method has two input parameters, `inputs` and `arg
     | command | The command executed by the user |
     | project | User's project basic information |
     | credentials | User's key information |
-    | prop | User-configured properties/parameters |
+    | props | User-configured properties/parameters |
     | args| Arguments passed by the user (in string form) |
     | argsObj| Arguments passed by the user (parsed, passed as an array) |
+    | services| Record the passing parameters for the service |
     | output| If the plugin is used before the component is executed, there is no parameter. If the plugin is used after the component is executed, there is this parameter. This parameter indicates the output result of the component |
 
 - The `args` parameter is the input parameter of the plugin, the format is `object`
@@ -741,9 +743,10 @@ Since the returned result (`reutrn`) may be used as the input of the component, 
         "access": ""
     },
     "credentials": {},
-    "prop": {},
+    "props": {},
     "args": "",
     "argsObj": [],
+    "services": [],
     "plugin": {}
 }
 ````
@@ -804,7 +807,7 @@ When the user executes `s test mytest -a -b abc`, at this time, the default meth
         "AccessKeyID": "********",
         "AccessKeySecret": "********"
     },
-    "prop": {
+    "props": {
         "Region": "cn-hangzhou",
         "CodeUri": "./src"
     },
