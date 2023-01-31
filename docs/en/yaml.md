@@ -42,6 +42,8 @@ access: xxx-account1    #  The alias of the key.
 vars: # [Global variable for services]
   Key: Value
 
+actions: globalActions #  Customize global execution logic
+
 services: # Multiple services can be included.
   ServiceName: # The name of the service.
     access: xxx-account1      #  Alias of the key, which can be omitted if the alias is the same as the key of the project.
@@ -59,6 +61,24 @@ access: xxx-account1  #  Alias of the key
 
 vars: # [Global variables for services]
   logo: https://image.aliyun.com/xxxx.png
+
+actions: # Customize global execution logic
+  pre-deploy: # Run before the project deploy
+    - run: npm install # Command line to run
+      path: ./src # Path to run the command line
+  success-deploy: # Run after the project deploy succeeded
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  fail-deploy: # Run after the project deploy failed
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  complete-deploy: # Run after the project deploy complete
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+
 
 services:
   nextjs-portal: #  Service name
@@ -120,7 +140,8 @@ Parameter description:
 | name      | The name of the application                                  |
 | access    | The alias of the key. You can use the key  information that is configured by using the [config command](command/config.md#config-add-command) and [the key information that is configured   to environment variables](command/config.md#Configure-keys-by-using-environment-variables). |
 | vars      | Global variables, which can be used by  services. Global variables are in the form of key-value. |
-| services   | The services that are contained in the  application. The value of this parameter is in the form of key-value. |
+| actions   | Customize global execution logic |
+| services  | The services that are contained in the  application. The value of this parameter is in the form of key-value. |
 
 Parameters in the services parameter:
 
@@ -180,6 +201,101 @@ If there are too many services in the YAML file of a serverless application mode
 
 ### Behavior description
 
+#### Global actions
+
+The basic format of global actions is:
+
+```yaml
+actions: # Customize global execution logic
+  pre-command: # Run before the project deploy
+    - run: npm install # Command line to run
+      path: ./src # Path to run the command line
+  success-command: # Run after the project deploy succeeded
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  fail-command: # Run after the project deploy failed
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  complete-command: # Run after the project deploy complete
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+```
+
+E.g:
+
+```yaml
+actions: # Customize global execution logic
+  pre-deploy: # Run before the project deploy
+    - run: npm install # Command line to run
+      path: ./src # Path to run the command line
+  success-deploy: # Run after the project deploy succeeded
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  fail-deploy: # Run after the project deploy failed
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  complete-deploy: # Run after the project deploy complete
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+```
+
+When the Serverless Devs developer tools execute related commands, the global 'pre-command' operation will be executed before the project executes the relevant command, the global 'success-command' operation will be executed after the project execution is successful, the global 'fail-command' operation will be executed after the project execution fails, and the global 'complete-command' operation will be executed after the project execution is completed.
+
+Take the following Yaml as an example:
+
+```yaml
+edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+name: FullStack # Project name
+access: default  # The alias of the key.
+
+actions: # Customize global execution logic
+  pre-deploy: # Run before the project deploy
+    - run: npm install # Command line to run
+      path: ./src # Path to run the command line
+  success-deploy: # Run after the project deploy succeeded
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  fail-deploy: # Run after the project deploy failed
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  complete-deploy: # Run after the project deploy complete
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+
+services:
+  nextjs-portal: # service name
+    access: xxx-account1 # Secret key alias, if it is the same as the project's access, it can be omitted
+    component: vue-component # component name
+    props: # property value of the component
+      src: ./frontend_src
+      url: url
+```
+
+When the developer executes the 'deploy' command in the current application, the system will operate in the following order:
+1. Execute the global 'pre-deploy' command: execute 'npm install' in the './' directory
+2. Call the `deploy` method of the component `vue-component`, and pass the `props` and the basic information of the project into the `deploy` method of the component `vue-component`
+3. If step '2' is executed successfully, the global 'success-deploy' operation is executed, and if the execution fails, the global 'fail-deploy' operation is executed, regardless of success or failure, as long as the execution is completed, the global 'complete-deploy' operation must be executed.
+
+The above sequence is only applicable to the premise that there is no error in the whole process. If there is an error in the process, the system will report an error and terminate the execution of the subsequent process.
+
+Regarding the positioning and difference of "run" and "plugin" in "actions":
+
+- 'run', which needs to specify the execution directory, is just a 'hook' capability, which can be considered as a simple execution command (that is, a command to invoke the system);
+- 'plugin', which is a lightweight plugin that typically only supports one capability per plugin;
+
+> Note: Only 'run' and 'plugin' are supported in global actions.
+
+#### Service actions
+
 In the Yaml file corresponding to the Serverless Application model, corresponding behavior operations can be provided for the service. The basic format is:
 
 ````yaml
@@ -237,7 +353,7 @@ services:
       post-deploy: # run after deploy
         - plugin: fc-warm
           args:
-           
+            key: value
 ```
 
 When the developer executes the `deploy` command under the current application, the system will operate in the following order:
