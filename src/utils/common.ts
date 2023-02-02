@@ -202,3 +202,12 @@ export async function specifyServiceHelp(filePath: string) {
     );
   }
 }
+
+export const getParams = (key: string) => {
+  const params = process.argv.slice(2);
+  const index = params.indexOf(key);
+  if (index > -1) {
+    return params[index + 1];
+  }
+  return null;
+};
