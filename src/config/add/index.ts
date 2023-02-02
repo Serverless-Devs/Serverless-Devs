@@ -1,6 +1,6 @@
 import { Command } from '@serverless-devs/commander';
 import { CommandError } from '../../error';
-import { emoji } from '../../utils';
+import { emoji, getParams } from '../../utils';
 import core from '../../utils/core';
 const { setCredential, setKnownCredential, colors, getAccountId, getCommand, chalk } = core;
 import { HandleError, HumanWarning } from '../../error';
@@ -65,8 +65,8 @@ function run(program: Command) {
       SecretKey,
       PrivateKeyData,
       SecretID,
-      keyList,
-      infoList,
+      keyList = getParams('-kl'),
+      infoList = getParams('-il'),
       SecurityToken,
       f,
       access,
