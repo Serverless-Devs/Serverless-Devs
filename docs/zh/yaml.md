@@ -42,6 +42,8 @@ access: xxx-account1    #  秘钥别名
 vars: # [全局变量，提供给各个服务使用]
   Key: Value
 
+actions: globalActions #  自定义全局的执行逻辑
+
 services: # 可以包括多个服务
   ServiceName: # 服务名称
     access: xxx-account1      #  秘钥别名，如果和项目的access相同，可省略
@@ -59,6 +61,23 @@ access: xxx-account1  #  秘钥别名
 
 vars: # [全局变量，提供给各个服务使用]
   logo: https://image.aliyun.com/xxxx.png
+
+actions: # 自定义全局的执行逻辑
+  pre-deploy: # 项目deploy执行之前执行
+    - run: npm install # 要运行的命令行
+      path: ./src # 命令行运行的路径
+  success-deploy: # 项目deploy执行成功之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  fail-deploy: # 项目deploy执行失败之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  complete-deploy: # 项目deploy执行完成之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
 
 services:
   nextjs-portal: #  服务名称
@@ -119,6 +138,7 @@ services:
 | name  | 应用名称 | 
 | access  | 秘钥别名，可以使用通过[config命令](./command/config.md#config-add-命令)配置的密钥信息，以及[配置到环境变量的密钥信息](./command/config.md#通过环境变量配置密钥信息) |
 | vars  | 全局变量，提供给各个服务使用，是一个Key-Value的形式 |
+| actions  | 自定义全局的执行逻辑 |
 | services  | 应用所包含的服务，是一个Key-Value的形式 |
 
 关于Service参数：
@@ -182,6 +202,99 @@ Serverless Application模型对应的Yaml文件支持多种变量格式：
 
 ### 行为描述
 
+#### 全局actions
+
+全局actions的基本格式是：
+
+```yaml
+actions: # 自定义全局的执行逻辑
+  pre-命令: # 项目deploy执行之前执行
+    - run: npm install # 要运行的命令行
+      path: ./src # 命令行运行的路径
+  success-命令: # 项目deploy执行成功之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  fail-命令: # 项目deploy执行失败之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  complete-命令: # 项目deploy执行完成之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+```
+
+例如：
+
+```yaml
+actions: # 自定义全局的执行逻辑
+  pre-deploy: # 项目deploy执行之前执行
+    - run: npm install # 要运行的命令行
+      path: ./src # 命令行运行的路径
+  success-deploy: # 项目deploy执行成功之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  fail-deploy: # 项目deploy执行失败之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  complete-deploy: # 项目deploy执行完成之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+```
+
+当Serverless Devs开发者工具执行相关的命令时，项目执行相关的命令之前，会执行全局的`pre-命令`操作，项目执行成功之后，会执行全局的`success-命令`操作，项目执行失败之后，会执行全局的`fail-命令`操作, 项目执行完成之后，会执行全局的`complete-命令`操作。
+
+以下面的Yaml为例：
+
+```yaml
+edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: FullStack       #  项目名称
+access: default       #  秘钥别名
+
+actions: # 自定义全局的执行逻辑
+  pre-deploy: # 项目deploy执行之前执行
+    - run: npm install # 要运行的命令行
+      path: ./src # 命令行运行的路径
+  success-deploy: # 项目deploy执行成功之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  fail-deploy: # 项目deploy执行失败之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  complete-deploy: # 项目deploy执行完成之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+
+services:
+  nextjs-portal: #  服务名称
+    component: vue-component  # 组件名称
+    props: #  组件的属性值
+      src: ./frontend_src
+      url: url
+```
+
+当开发者在当前应用下执行了`deploy`命令，系统将会按照以下顺序进行操作：
+1. 执行全局的`pre-deploy`命令：在`./src`目录下执行`npm install`
+2. 调用组件`vue-component`的`deploy`方法，并将`props`和项目的基本信息传入到组件`vue-component`的`deploy`方法中
+3. 如果第`2`步骤执行成功则执行全局的`success-deploy`操作，执行失败则执行全局的`fail-deploy`操作，不管成功还是失败，只要执行完成后一定执行全局的`complete-deploy`操作。
+
+以上顺序仅适用于整个流程没有出错的前提下，如果流程出现错误，系统将会进行报错，并终止后续流程的执行。
+
+关于`actions`中的`run`，`plugin`的定位和区别：
+- `run`，需要指定执行目录，仅仅是一个`hook`的能力，可以认为就是单纯的执行命令（即调用系统的命令）；
+- `plugin`，是一种轻量化的插件，每个插件通常情况下只会支持一个能力；
+
+> 注意：全局的actions中仅支持`run`和`plugin`。
+
+#### 服务actions
+
 在Serverless Application模型对应的Yaml文件中，可以针对服务，提供对应的行为操作，其基本格式是：
 
 ```yaml
@@ -239,7 +352,7 @@ services:
       post-deploy: # 在deploy之后运行
         - plugin: fc-warm
           args:
-           
+            key: value 
 ```
 
 当开发者在当前应用下执行了`deploy`命令，系统将会按照以下顺序进行操作：
