@@ -68,7 +68,7 @@ FaaS platforms/products currently supported by the Serverless Devs project:
   - Alibaba Cloud Function Compute (FC): [Project repository](https://github.com/devsapp/fc)
   - AWS Lambda: [Project repository](https://github.com/devscomp/lambda)
   - Baidu Intelligent Cloud Function Computing (CFC): [Project Repository](https://github.com/xinwuyun/cfc)
-  - HUAWEI CLOUD Function Workflow (FG): [Project Repository](https://github.com/xinwuyun/fg)
+  - HUAWEI CLOUD Function Workflow (FG): [Project Repository](https://github.com/zy-linn/fgs-component)
   - Tencent Cloud Function (SCF): [Project repository](https://github.com/devscomp/scf)
 - Installable
   - OpenFunction(of): [Project repository](https://github.com/OpenFunction/serverless-devs)

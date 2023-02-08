@@ -13,7 +13,7 @@ category: 'Overview'
 - [Alibaba Cloud Serverless App Engine (SAE)](https://github.com/devsapp/sae)
 - [AWS Lambda](https://github.com/devscomp/lambda)
 - [Baidu Cloud Cloud Function Compute (CFC)](https://github.com/xinwuyun/cfc)
-- [HUAWEI CLOUD FunctionGraph (FG)](https://github.com/xinwuyun/fg)
+- [HUAWEI CLOUD FunctionGraph (FG)](https://github.com/zy-linn/fgs-component)
 - [Tencent Cloud Serverless Cloud Function (SCF)](https://github.com/devscomp/scf)
 
 
