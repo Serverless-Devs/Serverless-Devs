@@ -68,7 +68,7 @@ $ npm install @serverless-devs/s -g
   - 阿里云函数计算（FC）: [项目仓库](https://github.com/devsapp/fc)
   - AWS Lambda: [项目仓库](https://github.com/devscomp/lambda)
   - 百度智能云函数计算（CFC）: [项目仓库](https://github.com/xinwuyun/cfc)
-  - 华为云函数工作流（FG）: [项目仓库](https://github.com/xinwuyun/fg)
+  - 华为云函数工作流（FG）: [项目仓库](https://github.com/zy-linn/fgs-component)
   - 腾讯云云函数（SCF）: [项目仓库](https://github.com/devscomp/scf)
 - Installable
   - OpenFunction（ofn）: [项目仓库](https://github.com/OpenFunction/serverless-devs)
