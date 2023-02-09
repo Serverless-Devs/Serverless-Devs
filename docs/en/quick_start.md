@@ -28,11 +28,7 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
 ## Key Configuration
 
 > Since this quick start document will take [Alibaba Cloud Function Computing](https://www.aliyun.com/product/fc) as an example, the password configuration here is also based on Alibaba Cloud password configuration:
-> - Get AccountId: https://account.console.aliyun.com/#/secure  
 > - Get key: https://usercenter.console.aliyun.com/#/manage/ak
-
-- Open [Get AccountId Page](https://account.console.aliyun.com/#/secure) to obtain AccountId:
-  ![Get AccountId Page](https://images.devsapp.cn/access/aliyun-accountid.jpg)
 
 - Open [Get Key Page](https://usercenter.console.aliyun.com/#/manage/ak) to obtain key:
   ![Get Key Page](https://images.devsapp.cn/access/aliyun-access.jpg)
@@ -40,31 +36,28 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
 - Execute `s config add` and select `Alibaba Cloud (alibaba)`:
     ```shell script
     $ s config add 
-    ? Please select a template: Alibaba Cloud (alibaba)
+    ? Please select a provider: Alibaba Cloud (alibaba)
     🧭 Refer to the document for alibaba key:  http://config.devsapp.net/account/alibaba
-    ? AccountID () 
+    ? AccessKeyID: 
     ```
 - At this point, you can follow the instructions to configure the key:
     ```shell script
     ? Please select a template: Alibaba Cloud (alibaba)
     🧭 Refer to the document for alibaba key:  http://config.devsapp.net/account/alibaba
-    ? AccountID Fill in AccountID here
     ? AccessKeyID Fill in AccessKeyID here
     ? AccessKeySecret Fill in AccessKeySecret here
     ? Please create alias for key pair. If not, please enter to skip alibaba-access
     
         Alias: alibaba-access
-        AccountID: Fill in AccountID here
+        AccountID: Get AccountID automatically
         AccessKeyID: Fill in AccessKeyID here
         AccessKeySecret: Fill in AccessKeySecret here
     
-    Configuration successful
+    ✔ Configuration successful
     ```
 - In order to verify whether the password is correctly configured, you can view the specified password through `s config get -a alibaba-access`:
     ```shell script
     $ s config get -a alibaba-access
-    [2021-10-27T17:39:39.881] [INFO ] [S-CLI] - 
-    
     alibaba-access:
       AccountID: *******ID
       AccessKeyID: *********ID

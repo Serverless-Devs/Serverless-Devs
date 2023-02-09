@@ -30,11 +30,7 @@ category: '概述'
 ## 密钥配置
 
 > 由于本快速上手文档，将会以 [阿里云函数计算](https://www.aliyun.com/product/fc) 为例，所以此处的密钥配置也是以阿里云密钥配置为例： 
-> - AccountId获取页面：https://account.console.aliyun.com/#/secure  
 > - 获取密钥页面：https://usercenter.console.aliyun.com/#/manage/ak
-
-- 打开 [AccountId获取页面](https://account.console.aliyun.com/#/secure) 获取AccountId ：
-  ![AccountId获取页面](https://images.devsapp.cn/access/aliyun-accountid.jpg)
 
 - 打开 [获取密钥页面](https://usercenter.console.aliyun.com/#/manage/ak) 获取密钥信息 ：
   ![获取密钥页面](https://images.devsapp.cn/access/aliyun-access.jpg)
@@ -42,31 +38,28 @@ category: '概述'
 - 执行`s config add`，并选择`Alibaba Cloud (alibaba)`：
     ```shell script
     $ s config add 
-    ? Please select a template: Alibaba Cloud (alibaba)
+    ? Please select a provider: Alibaba Cloud (alibaba)
     🧭 Refer to the document for alibaba key:  http://config.devsapp.net/account/alibaba
-    ? AccountID () 
+    ? AccessKeyID:  
     ```
 - 此时，可以按照引导，进行密钥的配置：
     ```shell script
     ? Please select a template: Alibaba Cloud (alibaba)
     🧭 Refer to the document for alibaba key:  http://config.devsapp.net/account/alibaba
-    ? AccountID 此处填写AccountID
     ? AccessKeyID 此处填写AccessKeyID
     ? AccessKeySecret 此处填写AccessKeySecret
     ? Please create alias for key pair. If not, please enter to skip alibaba-access
     
         Alias: alibaba-access
-        AccountID: 此处填写AccountID
+        AccountID: 自动获取AccountID
         AccessKeyID: 此处填写AccessKeyID
         AccessKeySecret: 此处填写AccessKeySecret
     
-    Configuration successful
+    ✔ Configuration successful
     ```
 - 为了验证密钥是否正确配置，可以通过`s config get -a alibaba-access`进行指定密钥的查看：
     ```shell script
     $ s config get -a alibaba-access
-    [2021-10-27T17:39:39.881] [INFO ] [S-CLI] - 
-    
     alibaba-access:
       AccountID: 此处填*******tID
       AccessKeyID: 此处填*********yID
