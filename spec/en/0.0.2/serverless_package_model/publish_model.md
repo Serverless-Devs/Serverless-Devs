@@ -272,6 +272,7 @@ Used for configurable domain names to access your functions
 ```
 domain:
   title: domain configuration
+  type: string
   required: false
   x-domain: true
 ```

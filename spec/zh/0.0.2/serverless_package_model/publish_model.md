@@ -280,6 +280,7 @@ securityGroupID:
 ```
 domain:
   title: 域名配置
+  type: string
   required: false
   x-domain: true
 ```
@@ -288,7 +289,7 @@ domain:
 
 | 字段名     | 类型           | 描述     |
 | ---------- | -------------- | -------- |
-| x-domain | Boolean | 配置 x-domain: true，可在web端显示域名配置项  |
+| x-domain | Boolean | x-domain: true，可在web端显示域名配置项  |
 
 ##### 自动配置UI
 
