@@ -17,6 +17,7 @@ category: 'Development Kit Models'
     - [nas network disk x-nas](#x-nas)
     - [container registry x-acr](#x-acr)
     - [kafka x-kafka](#x-kafka)
+    - [domain configuration x-domain](#x-domain)
 - [tips](#tips)
   - [random suffix name](#random suffix name${default-suffix})
   - [template engine](#template engine)

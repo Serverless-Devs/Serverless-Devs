@@ -17,6 +17,7 @@ category: '开发包模型'
     - [nas网盘 x-nas](#x-nas)
     - [容器镜像 x-acr](#x-acr)
     - [kafka x-kafka](#x-kafka)
+    - [域名配置 x-domain](#x-domain)
 - [tips小贴士](#tips小贴士)
   - [随机后缀名](#随机后缀名${default-suffix})
   - [模版引擎](#模版引擎)
