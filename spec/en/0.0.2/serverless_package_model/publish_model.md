@@ -17,6 +17,7 @@ category: 'Development Kit Models'
     - [nas network disk x-nas](#x-nas)
     - [container registry x-acr](#x-acr)
     - [kafka x-kafka](#x-kafka)
+    - [domain configuration x-domain](#x-domain)
 - [tips](#tips)
   - [random suffix name](#random suffix name${default-suffix})
   - [template engine](#template engine)
@@ -265,6 +266,30 @@ securityGroupID:
 ````
 
 ![](https://img.alicdn.com/imgextra/i1/O1CN01OwBZU01pJJN8Ry3sa_!!6000000005339-2-tps-2360-764.png)
+
+#### x-domain
+Used for configurable domain names to access your functions
+```
+domain:
+  title: domain configuration
+  type: string
+  required: false
+  x-domain: true
+```
+
+##### Field Description
+
+| Field Name    | Type           | Description     |
+| ---------- | -------------- | -------- |
+| x-domain | Boolean | x-domain: true, domain name configuration items can be displayed on the web |
+
+##### Automatic Configuration UI
+
+![](https://img.alicdn.com/imgextra/i2/O1CN01XZFXdd1NIZWVVKHit_!!6000000001547-2-tps-2576-212.png)
+
+##### Custom Configuration Domain Name UI
+
+![](https://img.alicdn.com/imgextra/i2/O1CN01iPn9PR1V1doJEP4Y5_!!6000000002593-2-tps-2366-290.png)
 
 
 # tips

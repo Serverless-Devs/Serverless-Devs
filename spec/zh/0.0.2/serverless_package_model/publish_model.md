@@ -17,6 +17,7 @@ category: '开发包模型'
     - [nas网盘 x-nas](#x-nas)
     - [容器镜像 x-acr](#x-acr)
     - [kafka x-kafka](#x-kafka)
+    - [域名配置 x-domain](#x-domain)
 - [tips小贴士](#tips小贴士)
   - [随机后缀名](#随机后缀名${default-suffix})
   - [模版引擎](#模版引擎)
@@ -273,8 +274,30 @@ securityGroupID:
 
 ![](https://img.alicdn.com/imgextra/i3/O1CN01wwZp7m1sSsUeXvXDI_!!6000000005766-2-tps-2324-766.png)
 
+#### x-domain
+用于可配置域名来访问您的函数
 
+```
+domain:
+  title: 域名配置
+  type: string
+  required: false
+  x-domain: true
+```
 
+##### 字段描述
+
+| 字段名     | 类型           | 描述     |
+| ---------- | -------------- | -------- |
+| x-domain | Boolean | x-domain: true，可在web端显示域名配置项  |
+
+##### 自动配置UI
+
+![](https://img.alicdn.com/imgextra/i2/O1CN01XZFXdd1NIZWVVKHit_!!6000000001547-2-tps-2576-212.png)
+
+##### 自定义配置域名UI
+
+![](https://img.alicdn.com/imgextra/i2/O1CN01iPn9PR1V1doJEP4Y5_!!6000000002593-2-tps-2366-290.png)
 
 # tips小贴士
 
