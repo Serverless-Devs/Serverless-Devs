@@ -278,9 +278,10 @@ securityGroupID:
 用于可配置域名来访问您的函数
 
 ```
-domain:
+domainName:
   title: 域名配置
   type: string
+  default: auto
   required: false
   x-domain: true
 ```
