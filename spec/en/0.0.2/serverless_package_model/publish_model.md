@@ -270,10 +270,11 @@ securityGroupID:
 #### x-domain
 Used for configurable domain names to access your functions
 ```
-domain:
+domainName:
   title: domain configuration
   type: string
   required: false
+  default: auto
   x-domain: true
 ```
 
