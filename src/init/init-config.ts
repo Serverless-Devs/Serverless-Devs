@@ -201,8 +201,8 @@ const web_framework_template = [
     isDeploy: true,
   },
   {
-    name: 'Next.js (SSR)',
-    value: 'devsapp/start-next-ssr',
+    name: 'Next.js',
+    value: 'devsapp/start-next',
     isDeploy: true,
   },
   {
