@@ -282,7 +282,7 @@ const best_practice_template = [
   },
   {
     name: 'Puppeteer Example',
-    value: 'devsapp/puppeteer-nodejs',
+    value: 'devsapp/start-puppeteer',
   },
   {
     name: 'FFmpeg Example',
