@@ -201,8 +201,8 @@ const web_framework_template = [
     isDeploy: true,
   },
   {
-    name: 'Next.js (SSR)',
-    value: 'devsapp/start-next-ssr',
+    name: 'Next.js',
+    value: 'devsapp/start-next',
     isDeploy: true,
   },
   {
@@ -282,7 +282,7 @@ const best_practice_template = [
   },
   {
     name: 'Puppeteer Example',
-    value: 'devsapp/puppeteer-nodejs',
+    value: 'devsapp/start-puppeteer',
   },
   {
     name: 'FFmpeg Example',

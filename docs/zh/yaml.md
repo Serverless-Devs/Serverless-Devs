@@ -449,3 +449,26 @@ services:
 -----------
 
 > 在一个应用下，如何一键部署整个应用？又或者如何只部署应用中的某个Service？可以参考[自定义命令使用指南](./command/custom.md)
+
+#### actions通配符
+
+全局actions和服务actions都支持通配符，工具会识别魔法变量regex里的内容来正则匹配当前的执行方法。比如全局的`pre-${regex(.)}`表示项目执行任何方法之前都会执行`pre`的动作 
+
+```yaml
+actions: # 自定义全局的执行逻辑
+  pre-${regex(.)}: # 项目执行任何方法之前执行
+    - run: npm install # 要运行的命令行
+      path: ./src # 命令行运行的路径
+  success-${regex(.)}: # 项目执行任何方法成功之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  fail-${regex(.)}: # 项目执行任何方法失败之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  complete-${regex(.)}: # 项目执行任何方法完成之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+```

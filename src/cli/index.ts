@@ -61,7 +61,11 @@ async function run(program) {
 
   const doAction = async options => {
     const argvData = core.getGlobalArgs(process.argv.slice(2));
-    const { _: rawData, access = 'default' } = argvData;
+    const { _: rawData, access = 'default', help } = argvData;
+    // s cli
+    if (rawData.length === 1 || help) {
+      command.help();
+    }
     const [componentName, method] = rawData.slice(1);
     const instance = await loadComponent(componentName);
 
@@ -112,6 +116,7 @@ async function run(program) {
         throwError(error);
       }
     }
+
     // s cli fc-api
     if (rawData.length === 2) {
       if (instance['index']) {
@@ -139,7 +144,6 @@ async function run(program) {
         }),
       );
     }
-    command.help();
   };
 }
 
