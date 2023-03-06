@@ -450,3 +450,45 @@ Concrete examples of the three:
 -------------
 
 > For more information about how to deploy an application with a few clicks or how to deploy a specific service in an application, see the [custom command user guide](command/custom.md).
+
+#### actions wildcard
+
+Both global actions and service actions support wildcards, and the tool will recognize the content in the magic variable regex to match the current execution method. For example, the global `pre-${regex(.)}` indicates that the project will execute the action of `pre` before executing any method.
+
+```yaml
+actions: # Customize global execution logic
+  pre-${regex(.)}: # 项目执行任何方法之前执行
+    - run: npm install # 要运行的命令行
+      path: ./src # 命令行运行的路径
+  success-${regex(.)}: # 项目执行任何方法成功之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  fail-${regex(.)}: # 项目执行任何方法失败之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  complete-${regex(.)}: # 项目执行任何方法完成之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+```
+
+```yaml
+actions: # Customize global execution logic
+  pre-deploy: # Run before the project executes any methods
+    - run: npm install # Command line to run
+      path: ./src # Path to run the command line
+  success-deploy: # Run after the project executes any methods succeeded
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  fail-deploy: # Run after the project executes any methods failed
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+  complete-deploy: # Run after the project executes any methods complete
+    - plugin: dingding-robot # plugin to use
+      args: # Arguments for the plugin
+        key: value 
+```
