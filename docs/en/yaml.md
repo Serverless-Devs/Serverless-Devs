@@ -457,25 +457,6 @@ Both global actions and service actions support wildcards, and the tool will rec
 
 ```yaml
 actions: # Customize global execution logic
-  pre-${regex(.)}: # 项目执行任何方法之前执行
-    - run: npm install # 要运行的命令行
-      path: ./src # 命令行运行的路径
-  success-${regex(.)}: # 项目执行任何方法成功之后执行
-    - plugin: dingding-robot # 要使用的插件
-      args: # 插件的参数
-        key: value 
-  fail-${regex(.)}: # 项目执行任何方法失败之后执行
-    - plugin: dingding-robot # 要使用的插件
-      args: # 插件的参数
-        key: value 
-  complete-${regex(.)}: # 项目执行任何方法完成之后执行
-    - plugin: dingding-robot # 要使用的插件
-      args: # 插件的参数
-        key: value 
-```
-
-```yaml
-actions: # Customize global execution logic
   pre-deploy: # Run before the project executes any methods
     - run: npm install # Command line to run
       path: ./src # Path to run the command line
