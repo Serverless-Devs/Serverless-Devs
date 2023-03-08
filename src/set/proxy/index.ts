@@ -39,8 +39,8 @@ function run(program: Command) {
 
   const doAction = async () => {
     const argvData = core.getGlobalArgs(process.argv.slice(2));
-    const { _: rawData, http_proxy, https_proxy } = argvData;
-
+    const { _: rawData, http_proxy, https_proxy, help } = argvData;
+    help && command.help();
     if (http_proxy || https_proxy || has(argvData, 'enable')) {
       http_proxy && setConfig('http_proxy', http_proxy);
       https_proxy && setConfig('https_proxy', https_proxy);
@@ -72,8 +72,6 @@ function run(program: Command) {
       setConfig('proxy_enable', answer.http_proxy_enable);
       return;
     }
-
-    command.help();
   };
 }
 

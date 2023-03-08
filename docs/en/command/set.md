@@ -87,43 +87,44 @@ You can use the following methods to run the set registry command:
 
 > 🙊 Note: By default, the serverless registry is `serverless devs offical registry [http://registry.devsapp.cn/simple] `.
 
-## set locale command
+## set proxy command
 
-The set locale command is used to configure the languages of Serverless Devs. 
+This command allows you to set up a global proxy for HTTP requests.
 
-After you run the `s set locale -h` command, the following help information is returned:
+Execute the `s set proxy -h` command, you can see the help document
 
 ```shell script
-$ s set locale -h
+$ s set proxy -h
 
-Usage: s set locale [options]
+Usage: s set proxy [options]
 
-Set language information.
+Set proxy information.
 
-    Example:
-        $ s set locale
-        $ s set locale zh
+Example:
+   $ s set proxy
+   $ s set proxy --http_proxy xxxx:xxx --https_proxy xxxx:xxx
+   $ s set proxy --enable false
 
-Options:
-  -h, --help  Display help for command
+📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md
+
+Options
+  --enable                           whether to enable proxy
+  --http_proxy <http_proxy_value>    Specify the http_proxy.
+  --https_proxy <https_proxy_value>  Specify the https_proxy.
+  -h, --help                         Display help for command
 ```
 
-There are two ways to set the locale:
-1. Provide the language abbreviation directly, for example: `s set locale zh`
-2. Switch language information through interactive methods:
-     ```shell script
-     $ s set locale
-    
-     💬 Current language: Chinese (zh)
-    
-     ? Choose a language? (Use arrow keys)
-     ❯ Chinese (zh)
-       English (en)
-     ````
-     At this point, you only need to select the corresponding option, and you can operate in a guided manner.
+There are two ways to set up proxy:
 
-> 🙊 Note: The system default locale is: `zh`
+1. Configure directly, for example:`s set proxy --http_proxy xxxx:xxx --https_proxy xxxx:xxx --enable`
+2. Through the interactive method, configure:
 
+   ```shell script
+   $ s set proxy
+   ? Please enter http_proxy:  xxxx:xxx
+   ? Please enter https_proxy:  xxxx:xxx
+   ? Do you want to enable proxy Yes
+   ```
 ## set analysis command
 
 With this command, you can configure the data analysis capabilities of the Serverless Devs developer tools.

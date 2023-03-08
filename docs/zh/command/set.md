@@ -10,7 +10,7 @@ category: '命令'
 
 - [命令解析](#命令解析)
 - [set registry 命令](#set-registry-命令)
-- [set locale 命令](#set-locale-命令)
+- [set proxy 命令](#set-proxy-命令)
 - [set analysis 命令](#set-analysis-命令)
 - [set workspace 命令](#set-workspace-命令)
 
@@ -87,43 +87,44 @@ Options:
 
 > 🙊 注：系统默认的 Registry 是：`serverless devs offical registry [http://registry.devsapp.cn/simple] `
 
-## set locale 命令
+## set proxy 命令
 
-通过该命令，可以对 Serverless Devs 开发者工具的语言进行配置。 
+通过该命令，可以对 http 请求设置全局代理。
 
-执行`s set locale -h`命令，可以看到帮助文档
+执行`s set proxy -h`命令，可以看到帮助文档
 
 ```shell script
-$ s set locale -h
+$ s set proxy -h
 
-Usage: s set locale [options]
+Usage: s set proxy [options]
 
-Set language information.
+Set proxy information.
 
-    Example:
-        $ s set locale
-        $ s set locale zh
+Example:
+   $ s set proxy
+   $ s set proxy --http_proxy xxxx:xxx --https_proxy xxxx:xxx
+   $ s set proxy --enable false
 
-Options:
-  -h, --help  Display help for command
+📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md
+
+Options
+  --enable                           whether to enable proxy
+  --http_proxy <http_proxy_value>    Specify the http_proxy.
+  --https_proxy <https_proxy_value>  Specify the https_proxy.
+  -h, --help                         Display help for command
 ```
 
-设置 locale 的方法有两种：
-1. 直接提供语言缩写，例如：`s set locale zh`
-2. 通过交互式方法，进行语言信息的切换：
-    ```shell script
-    $ s set locale
-    
-    💬 Current language: 中文（zh）
-    
-    ? Choose a language? (Use arrow keys)
-    ❯ 中文（zh）
-      English（en）
-    ```
-    此时，只需要选择对应的选项，就可以引导式的进行操作。
+设置 proxy 的方法有两种：
 
-> 🙊 注：系统默认的 locale 是：`zh`
+1. 直接进行配置，例如：`s set proxy --http_proxy xxxx:xxx --https_proxy xxxx:xxx --enable`
+2. 通过交互式方法，进行配置：
 
+   ```shell script
+   $ s set proxy
+   ? Please enter http_proxy:  xxxx:xxx
+   ? Please enter https_proxy:  xxxx:xxx
+   ? Do you want to enable proxy Yes
+   ```
 ## set analysis 命令
 
 通过该命令，可以对 Serverless Devs 开发者工具的数据分析能力进行配置。  
