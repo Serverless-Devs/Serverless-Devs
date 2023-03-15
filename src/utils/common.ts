@@ -6,9 +6,10 @@ import os from 'os';
 import core, { getCoreVersion } from './core';
 import { getConfig } from './handler-set-config';
 import logger from './logger';
+import { isCiCdEnvironment } from '@serverless-devs/utils';
 
 const pkg = require('../../package.json');
-const { colors, got, isDocker, isCiCdEnv, lodash, publishHelp } = core;
+const { colors, got, isDocker, lodash, publishHelp } = core;
 const { get, trim, assign, filter, includes, omit, isPlainObject, isEmpty } = lodash;
 const { underline, bold } = colors;
 
@@ -56,7 +57,7 @@ export const aiRequest = async (message, category: string = 'unknow') => {
     const analysis = getConfig('analysis');
     if (analysis !== 'enable') return;
     // 在CICD环境中不处理
-    if (isDocker() || isCiCdEnv()) return;
+    if (isDocker() || isCiCdEnvironment()) return;
     const list = await got(`http://qaapis.devsapp.cn/apis/v1/search?category=${category}&code=TypeError&s=${message}`, {
       timeout: 2000,
       json: true,
