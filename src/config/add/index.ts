@@ -2,7 +2,7 @@ import { Command } from '@serverless-devs/commander';
 import { CommandError } from '../../error';
 import { emoji, getParams } from '../../utils';
 import core from '../../utils/core';
-const { setCredential, setKnownCredential, colors, getAccountId, getCommand, chalk } = core;
+const { setCredential, setKnownCredential, colors, getCommand, chalk } = core;
 import { HandleError, HumanWarning } from '../../error';
 
 const description = `You can add an account
@@ -98,25 +98,19 @@ function run(program: Command) {
       keyInformation['SecurityToken'] = SecurityToken;
     }
     // 同时存在ak/sk 认为是阿里云密钥
-    if (AccessKeyID && AccessKeySecret && !AccountID) {
-      try {
-        const data = await getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken });
-        keyInformation['AccountID'] = data.AccountId;
-      } catch (error) {
-        if (!f) {
-          new HumanWarning({
-            warningMessage: 'You may be configuring an incorrect Alibaba Cloud SecretKey.',
-            tips: `Please check the accuracy of Alibaba Cloud SecretKey. If your configuration is not an Alibaba Cloud SecretKey, you can force writing by adding the -f parameter. Or execute ${chalk.yellow(
-              `${getCommand()} -f`,
-            )}`,
-          });
-          process.exit(1);
+    if (AccessKeyID && AccessKeySecret) {
+      if (AccountID) {
+        keyInformation['AccountID'] = String(AccountID);
+        const data = await getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken }, f)
+        if (data.AccountId !== keyInformation['AccountID']) {
+          new HumanWarning({ warningMessage: `It is detected that the account id you added may be incorrect, please confirm whether the account id should be ${data.AccountId}` });
         }
+      } else {
+        const data = await getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken }, f)
+        keyInformation['AccountID'] = data.AccountId;
       }
     }
-    if (AccountID) {
-      keyInformation['AccountID'] = String(AccountID);
-    }
+
     if (SecretAccessKey) {
       keyInformation['SecretAccessKey'] = SecretAccessKey;
     }
@@ -140,6 +134,22 @@ function run(program: Command) {
     }
     await setCredential();
   };
+}
+
+const getAccountId = async ({ AccessKeyID, AccessKeySecret, SecurityToken }, f: boolean) => {
+  try {
+    return await core.getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken });
+  } catch (error) {
+    if (!f) {
+      new HumanWarning({
+        warningMessage: 'You may be configuring an incorrect Alibaba Cloud SecretKey.',
+        tips: `Please check the accuracy of Alibaba Cloud SecretKey. If your configuration is not an Alibaba Cloud SecretKey, you can force writing by adding the -f parameter. Or execute ${chalk.yellow(
+          `${getCommand()} -f`,
+        )}`,
+      });
+      process.exit(1);
+    }
+  }
 }
 
 export = run;
