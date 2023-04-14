@@ -12,6 +12,7 @@ category: '命令'
 - [set registry 命令](#set-registry-命令)
 - [set proxy 命令](#set-proxy-命令)
 - [set analysis 命令](#set-analysis-命令)
+- [set log 命令](#set-log-命令)
 - [set workspace 命令](#set-workspace-命令)
 
 ## 命令解析
@@ -33,12 +34,16 @@ Commands:
   registry    👀 Set up a custom registry
   locale      🔧 Set up current language
   analysis    👉 Set to enable or disable analysis
+  log         🔊  Set to enable or disable log      
+  workspace   🙊  Set workspace path
 ```
 
 在该命令中，包括了三个子命令：
 - [registry：配置 Serverless Devs 所使用的 registry](#set-registry-命令)
 - [locale：配置 Serverless Devs 所默认的语言](#set-locale-命令)
 - [analysis：配置 Serverless Devs 所进行的数据分析行为](#set-analysis-命令)
+- [log：配置 Serverless Devs 记录日志的行为](#set-log-命令)
+- [workspace：配置 Serverless Devs 所默认的工作空间](#set-workspace-命令)
 
 
 ## set registry 命令
@@ -161,6 +166,43 @@ Options:
     此时，只需要选择对应的选项，就可以引导式的进行操作。
 
 > 🙊 注：系统默认的 analysis 是：`enable`
+
+## set log 命令
+
+通过该命令，可以对 Serverless Devs 开发者工具的写入日志能力进行配置。  
+
+执行`s set log -h`命令，可以看到帮助文档
+
+```shell script
+$ s set log -h
+
+Usage: s set log [options]
+
+Set log action.
+
+    Example:
+        $ s set log
+        $ s set log disable
+
+Options:
+  -h, --help  Display help for command
+```
+
+设置 log 的方法有两种：
+1. 直接进行配置，例如：`s set log disable`
+2. 通过交互式方法，进行配置：
+    ```shell script
+    $ s set log
+    
+    📝 Current log action: enable
+    
+    ? Choose a action? (Use arrow keys)
+    ❯ enable
+      disable
+    ```
+    此时，只需要选择对应的选项，就可以引导式的进行操作。
+
+> 🙊 注：系统默认的 log 是：`enable`
 
 ## set workspace 命令
 
