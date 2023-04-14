@@ -21,7 +21,7 @@
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/56686088?v=4" width="20%" style="min-width: 100px"><br>
-                <p>wss-git<br><a href="https://github.com/wss-git">Github</a> | Blog</p>
+                <p>wss-git<br><a href="https://github.com/wss-git">Github</a> |  <a href="https://docs.shoushuai.top/">Blog</a></p>
             </td>
             <td align="center" width="20%">
                 <img src="https://avatars.githubusercontent.com/u/31543505?v=4" width="20%" style="min-width: 100px"><br>
