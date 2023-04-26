@@ -27,6 +27,7 @@ function run(program: Command) {
           { registry: `${emoji('👀')} Set registry information` },
           { proxy: `${emoji('🔧')} Set proxy information` },
           { analysis: `${emoji('👉')} Set to enable or disable analysis` },
+          { log: `${emoji('🔊')} Set to enable or disable log` },
           { workspace: `${emoji('🙊')} Set workspace path` },
         ];
         const helperLength = publishHelp.maxLen(commands);
@@ -36,6 +37,7 @@ function run(program: Command) {
     });
 
   require('./analysis')(command);
+  require('./log')(command);
   require('./proxy')(command);
   require('./registry')(command);
   require('./workspace')(command);

@@ -12,6 +12,7 @@ The `set` commands are used to configure tools.
 - [set registry command](#set-registry-command)
 - [set locale command](#set-locale-command)
 - [set analysis command](#set-analysis-command)
+- [set log command](#set-log-command)
 - [set workspace command](#set-workspace-command)
 
 ## Command description
@@ -33,12 +34,16 @@ Commands:
   registry    👀 Set up a custom registry
   locale      🔧 Set up current language
   analysis    👉 Set to enable or disable analysis
+  log         🔊  Set to enable or disable log      
+  workspace   🙊  Set workspace path
 ```
 
 The sample code contains the following subcommands:
 - [registry: Configure repositories for Serverless Devs.](#set-registry-command)
 - [locale: Configure the languages of Serverless Devs.](#set-locale-command)
 - [analysis: Configure data analysis for Serverless Devs.](#set-analysis-command)
+- [log: Configure logging behavior for serverless devs](#set-log-command)
+- [workspace: Configure the default workspace for serverless devs](#set-workspace-command)
 
 ## set registry command
 
@@ -161,6 +166,43 @@ There are two ways to set up analysis:
      At this point, you only need to select the corresponding option, and you can operate in a guided manner.
 
 > 🙊 Note: The system default analysis is: `enable`
+
+## set log command
+
+With this command, you can configure the data log capabilities of the Serverless Devs developer tools.
+
+Execute the `s set log -h` command, you can see the help document
+
+```shell script
+$ s set log -h
+
+Usage: s set log [options]
+
+Set log action.
+
+    Example:
+        $ s set log
+        $ s set log disable
+
+Options:
+  -h, --help  Display help for command
+```
+
+There are two ways to set up log:
+1. Configure directly, for example: `s set log disable`
+2. Through the interactive method, configure:
+     ```shell script
+     $ s set log
+    
+     📝 Current log action: enable
+    
+     ? Choose an action? (Use arrow keys)
+     ❯ enable
+       disable
+     ````
+     At this point, you only need to select the corresponding option, and you can operate in a guided manner.
+
+> 🙊 Note: The system default log is: `enable`
 
 ## set workspace command
 
