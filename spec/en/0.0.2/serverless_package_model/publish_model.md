@@ -11,6 +11,8 @@ category: 'Development Kit Models'
     - [string](#string)
     - [boolean](#boolean)
     - [secret](#secret)
+    - [integer](#integer--int)
+    - [int](#integer--int)
   - [custom UI](#custom UI)
     - [oss x-bucket](#x-bucket)
     - [role authorization x-role](#x-role)
@@ -97,6 +99,24 @@ secret:
 
 - The expression on the webpage is as
   ![](https://img.alicdn.com/imgextra/i4/O1CN01a5k5QP1JnTkSr1Zo0_!!6000000001073-2-tps-1814-468.png)
+
+### integer | int
+
+The full description is
+
+````
+gpuMemorySize:
+  title: memory size
+  type: integer | int
+  default: 4096
+  description: The size of memory allocated by the application
+````
+
+- The expression in cli is:
+  ![](https://img.alicdn.com/imgextra/i3/O1CN01KFRzeg22H6Wo4QABg_!!6000000007094-2-tps-1448-164.png)
+
+- The expression on the webpage is as
+  ![](https://img.alicdn.com/imgextra/i4/O1CN01JAlEQn20jq98w0heO_!!6000000006886-2-tps-1521-145.png)
 ## custom UI
 The main user of the custom UI is on the web side, and the user can operate it conveniently. Usually starts with `x-`
 #### x-bucket
