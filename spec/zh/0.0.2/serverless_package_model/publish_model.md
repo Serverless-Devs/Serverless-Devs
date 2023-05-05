@@ -11,6 +11,7 @@ category: '开发包模型'
     - [string](#string)
     - [boolean](#boolean)
     - [secret](#secret)
+    - [integer | int](#integer|int)
   - [自定义UI](#自定义UI)
     - [oss x-bucket](#x-bucket)
     - [角色授权 x-role](#x-role)
@@ -97,6 +98,25 @@ secret:
 
 - 在网页端表现形式为
   ![](https://img.alicdn.com/imgextra/i4/O1CN01a5k5QP1JnTkSr1Zo0_!!6000000001073-2-tps-1814-468.png)
+
+### integer | int
+
+完整的描述为
+
+```
+gpuMemorySize:
+  title: 显存大小
+  type: integer | int
+  default: 4096
+  description: 应用分配显存大小
+```
+
+- 在 cli 的表现形式为:
+  ![](https://img.alicdn.com/imgextra/i3/O1CN01KFRzeg22H6Wo4QABg_!!6000000007094-2-tps-1448-164.png)
+
+- 在网页端表现形式为
+  ![](https://img.alicdn.com/imgextra/i4/O1CN01JAlEQn20jq98w0heO_!!6000000006886-2-tps-1521-145.png)
+
 ## 自定义UI
 自定义UI主要用户在web端，用户能够方便的进行操作。一般以`x-`开头
 #### x-bucket
