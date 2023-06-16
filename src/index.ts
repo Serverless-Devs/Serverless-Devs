@@ -1,10 +1,35 @@
 import { Command } from 'commander';
+import { CLI_VERSION } from './constant';
+import { checkNodeVersion, getPid, setProxy } from './utils';
+import { HandleError } from './error';
 
-const program = new Command();
+const preRun = () => {
+  // 添加环境变量
+  process.env.CLI_VERSION = CLI_VERSION;
+  process.env.serverless_devs_trace_id = `${getPid()}${Date.now()}`;
 
-program
-  .name('s-cli')
-  .description('CLI to some JavaScript string utilities')
-  .version('0.8.0');
+  // 检查node版本是否过低
+  checkNodeVersion(); 
+  // 设置全局代理
+  setProxy();
+  // TODO: 更新处理  new UpdateNotifier().init().notify();
+}
 
-program.parse(process.argv);
+(async () => {
+  preRun();
+
+  const program = new Command();
+
+  // 根命令
+  await require('./command')(program);
+  // 支持的系统命令
+  await require('./command/config')(program);
+
+  program.parse(process.argv);
+})().catch(async error => {
+  await HandleError(error);
+});
+
+process.on('exit', code => {
+  console.debug(`process exitCode: ${code}`);
+});
