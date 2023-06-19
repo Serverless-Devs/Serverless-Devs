@@ -48,6 +48,7 @@
     "chalk": "^4.1.0",
     "commander": "^11.0.0",
     "global-agent": "^3.0.0",
+    "inquirer": "^8.2.5",
     "lodash": "^4.17.21",
     "table-layout": "^3.0.2",
     "ts-node": "^9.1.1",

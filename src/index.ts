@@ -24,6 +24,7 @@ const preRun = () => {
   await require('./command')(program);
   // 支持的系统命令
   await require('./command/config')(program);
+  await require('./command/set')(program);
 
   program.parse(process.argv);
 })().catch(async error => {
