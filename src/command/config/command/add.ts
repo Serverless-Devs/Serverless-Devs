@@ -1,7 +1,9 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from "commander";
 import { underline } from "chalk";
-import { emoji } from "../../utils";
+import { emoji } from "../../../utils";
+import { HandleError } from '../../../error';
+import { handlerSecret } from '../utils';
 
 const description = `You can add an account
 
@@ -37,16 +39,24 @@ export = (program: Command) => {
     .option('--SecretID <SecretID>', 'SecretID of key information')
     .option('--PrivateKeyData <PrivateKeyData>', 'PrivateKeyData of key information')
     .option('--kl, --keyList <keyList>', 'Keys of key information, like: --kl key1,key2,key3')
-    .option('--kl, --infoList <infoList>', 'Values of key information, like: --il info1,info2,info3')
-    .option('--debug', 'Debug mode')
+    .option('--il, --infoList <infoList>', 'Values of key information, like: --il info1,info2,info3')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('-f', 'Mandatory overwrite key information')
     .helpOption('-h, --help', 'Display help for command')
     // .allowUnknownOption()
     .description(description)
     .action(async (options) => {
-      console.log('add options: ', options);
-      const credential = new Credential();
-      await credential.set(options)
+      try {
+        const credential = new Credential();
+        const result = await credential.set(options)
+        if (result) {
+          console.log({
+            Alias: result.access,
+            credential: handlerSecret(result.credential)
+          });
+        }
+      } catch (err) {
+        await HandleError(err);
+      }
     })
 };

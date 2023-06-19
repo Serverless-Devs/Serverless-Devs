@@ -30,5 +30,9 @@ export = async (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .on('--help', showHelp);
   
-  await require('./add')(configProgram);
+  await require('./command/add')(configProgram);
+  await require('./command/get')(configProgram);
+  await require('./command/remove')(configProgram);
+  await require('./command/rename')(configProgram);
+  await require('./command/default')(configProgram);
 }
