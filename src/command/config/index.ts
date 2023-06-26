@@ -18,11 +18,14 @@ const showHelp = () => {
   ];
   const helperLength = publishHelp.maxLen(commands);
   const output = publishHelp.helpInfo(commands, 'Commands', helperLength);
-  console.log('\n', output);
+  console.log('Usage: s config [commands] [options]');
+  console.log('\n', description, '\n');
+  console.log(output);
 };
 
 export = async (program: Command) => {
   const configProgram = program.command('config');
+  configProgram.helpInformation = () => '';
 
   configProgram.description(description)
     // .argument('<string>', 'string to split')

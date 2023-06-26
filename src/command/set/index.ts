@@ -20,11 +20,15 @@ const showHelp = () => {
   ];
   const helperLength = publishHelp.maxLen(commands);
   const output = publishHelp.helpInfo(commands, 'Commands', helperLength);
-  console.log('\n', output);
+
+  console.log('Usage: s config [commands] [options]');
+  console.log('\n', description, '\n');
+  console.log(output);
 };
 
 export = async (program: Command) => {
   const configProgram = program.command('set');
+  configProgram.helpInformation = () => '';
 
   configProgram.description(description)
     .usage('[commands] [options]')
