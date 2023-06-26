@@ -14,3 +14,5 @@ export const CLI_VERSION = (() => {
 export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
+
+export const DEFAULT_REGISTRY = 'http://registry.devsapp.cn/simple';
