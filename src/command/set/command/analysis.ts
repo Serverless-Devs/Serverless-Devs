@@ -1,8 +1,8 @@
-import { Command } from "commander";
+import { Command } from 'commander';
 import { setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import { underline } from "chalk";
-import { emoji } from "../../../utils";
+import { underline } from 'chalk';
+import { emoji } from '../../../utils';
 
 const description = `Set analysis action.
 
@@ -32,9 +32,9 @@ const promptOption = [
   },
 ];
 
-
 export = (program: Command) => {
-  program.command('analysis')
+  program
+    .command('analysis')
     .usage('[options]')
     .description(description)
     .helpOption('-h, --help', 'Display help for command')
@@ -49,6 +49,5 @@ export = (program: Command) => {
         type = answers.analysis;
       }
       setGlobalConfig('analysis', type);
-    })
+    });
 };
-

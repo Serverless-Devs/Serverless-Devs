@@ -9,11 +9,11 @@ const preRun = () => {
   process.env.serverless_devs_trace_id = `${getPid()}${Date.now()}`;
 
   // 检查node版本是否过低
-  checkNodeVersion(); 
+  checkNodeVersion();
   // 设置全局代理
   setProxy();
   // TODO: 更新处理  new UpdateNotifier().init().notify();
-}
+};
 
 (async () => {
   preRun();

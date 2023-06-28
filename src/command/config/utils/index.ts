@@ -11,4 +11,4 @@ export const handlerSecret = (credential: Record<string, string>) => {
     }
   }
   return show;
-}
+};

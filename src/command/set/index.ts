@@ -1,7 +1,7 @@
-import { Command } from "commander";
-import { emoji } from "../../utils";
-import { underline } from "chalk";
-import { publishHelp } from "../../utils";
+import { Command } from 'commander';
+import { emoji } from '../../utils';
+import { underline } from 'chalk';
+import { publishHelp } from '../../utils';
 
 const description = `You can make some default settings for the tool here.
 
@@ -30,15 +30,16 @@ export = async (program: Command) => {
   const configProgram = program.command('set');
   configProgram.helpInformation = () => '';
 
-  configProgram.description(description)
+  configProgram
+    .description(description)
     .usage('[commands] [options]')
     .helpOption('-h, --help', 'Display help for command')
     .on('--help', showHelp);
-  
+
   await require('./command/registry')(configProgram);
   // await require('./command/language')(configProgram);
   await require('./command/proxy')(configProgram);
   await require('./command/analysis')(configProgram);
   await require('./command/log')(configProgram);
   await require('./command/workspace')(configProgram);
-}
+};

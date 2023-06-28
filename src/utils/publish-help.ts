@@ -1,10 +1,9 @@
-
 import _ from 'lodash';
 import tableLayout from 'table-layout';
 import { bold, underline } from 'chalk';
 
-const keyFn = (list) => _.first(_.keys(list));
-const descFn = (list) => _.first(_.values(list));
+const keyFn = list => _.first(_.keys(list));
+const descFn = list => _.first(_.values(list));
 export const makeUnderLine = (text: string) => {
   const matches = text.match(/http[s]?:\/\/[^\s|,]+/);
   if (matches) {
@@ -12,17 +11,17 @@ export const makeUnderLine = (text: string) => {
   } else {
     return text;
   }
-}
+};
 
 const publishHelper = {
   /**
-   * 
+   *
    * @param list  e.g.: [{'--debug': 'Open debug model.'}]
    */
-  maxLen: (list) => {
+  maxLen: list => {
     list = _.isArray(list) ? list : _.map(list, (item, key) => ({ [key]: item }));
     return (
-      _.map(list, (item) => keyFn(item)).reduce((a, c) => {
+      _.map(list, item => keyFn(item)).reduce((a, c) => {
         return Math.max(a, c.length);
       }, 0) + 2
     );
@@ -50,7 +49,7 @@ const publishHelper = {
       );
     }
     list = _.isArray(list)
-      ? _.map(list, (item) => ({
+      ? _.map(list, item => ({
           command: [keyFn(item)],
           desc: descFn(item),
         }))
@@ -58,7 +57,7 @@ const publishHelper = {
     if (_.isEmpty(list)) {
       return '';
     }
-    const proxy = list.map((row) => {
+    const proxy = list.map(row => {
       return new Proxy(row, {
         get(target, property, receiver) {
           if (property === 'desc') {

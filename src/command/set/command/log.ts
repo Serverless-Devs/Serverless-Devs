@@ -1,8 +1,8 @@
-import { Command } from "commander";
+import { Command } from 'commander';
 import { setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import { underline } from "chalk";
-import { emoji } from "../../../utils";
+import { underline } from 'chalk';
+import { emoji } from '../../../utils';
 
 const description = `Set log action.
 
@@ -33,9 +33,9 @@ const promptOption = [
   },
 ];
 
-
 export = (program: Command) => {
-  program.command('log')
+  program
+    .command('log')
     .usage('[options]')
     .description(description)
     .helpOption('-h, --help', 'Display help for command')
@@ -50,6 +50,5 @@ export = (program: Command) => {
         type = answers.log;
       }
       setGlobalConfig('log', type);
-    })
+    });
 };
-

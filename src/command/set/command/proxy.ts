@@ -1,8 +1,8 @@
-import { Command } from "commander";
+import { Command } from 'commander';
 import { setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import { underline } from "chalk";
-import { emoji } from "../../../utils";
+import { underline } from 'chalk';
+import { emoji } from '../../../utils';
 
 const description = `Set proxy information.
 
@@ -16,7 +16,8 @@ ${emoji('📖')} Document: ${underline(
 )}`;
 
 export = (program: Command) => {
-  program.command('proxy')
+  program
+    .command('proxy')
     .usage('[options]')
     .option('--enable', 'whether to enable proxy')
     .option('--no-enable', 'whether to no enable proxy', true)
@@ -24,7 +25,7 @@ export = (program: Command) => {
     .option('--https_proxy <https_proxy_value>', 'Specify the https_proxy.')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)
-    .action(async (option) => {
+    .action(async option => {
       const { http_proxy, https_proxy, enable } = option || {};
       if (http_proxy || https_proxy || typeof enable === 'boolean') {
         http_proxy && setGlobalConfig('http_proxy', http_proxy);
@@ -32,7 +33,7 @@ export = (program: Command) => {
         typeof enable === 'boolean' && setGlobalConfig('proxy_enable', enable);
         return;
       }
-    
+
       const answer = await inquirer.prompt([
         {
           type: 'input',
@@ -54,5 +55,5 @@ export = (program: Command) => {
       setGlobalConfig('http_proxy', answer.http_proxy);
       setGlobalConfig('https_proxy', answer.https_proxy);
       setGlobalConfig('proxy_enable', answer.http_proxy_enable);
-    })
+    });
 };

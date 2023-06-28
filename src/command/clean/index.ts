@@ -1,8 +1,8 @@
 import rimraf from 'rimraf';
 import fs from 'fs';
-import { Command } from "commander";
-import { underline } from "chalk";
-import { emoji } from "../../utils";
+import { Command } from 'commander';
+import { underline } from 'chalk';
+import { emoji } from '../../utils';
 import { getRootHome } from '@serverless-devs/utils';
 import path from 'path';
 
@@ -18,14 +18,15 @@ const description = `Clean up the cache related functions of serverless devs. Yo
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/clean')}`;
 
 export = (program: Command) => {
-  program.command('clean')
+  program
+    .command('clean')
     .usage('[options]')
     .option('--all', 'Clean up the environment')
     .option('--cache [dirName]', 'Delete the <dirName> file in the cache')
     .option('--component [componentName]', 'Remove component (like: fc, fc@0.0.1)')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)
-    .action(async (options) => {
+    .action(async options => {
       const { all, cache, component } = options;
       if (all) {
         cleanComponent(true);
@@ -42,7 +43,7 @@ export = (program: Command) => {
         cleanCache(cache);
         return;
       }
-    })
+    });
 };
 
 function cleanCache(cache: string | boolean) {
@@ -52,7 +53,7 @@ function cleanCache(cache: string | boolean) {
   // cache 无参数
   if (cache === true) {
     rimraf.sync(cachePath);
-   return;
+    return;
   }
   // cache 有参数
   rimraf.sync(path.join(cachePath, cache as string));
@@ -66,10 +67,7 @@ function cleanComponent(component: string | boolean) {
     return;
   }
 
-  const registryPath = [
-    path.join(componentsPath, 'github.com'),
-    path.join(componentsPath, 'devsapp.cn'),
-  ];
+  const registryPath = [path.join(componentsPath, 'github.com'), path.join(componentsPath, 'devsapp.cn')];
 
   for (const registry of registryPath) {
     const p = path.join(registry, component as string);

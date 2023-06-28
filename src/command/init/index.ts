@@ -1,8 +1,8 @@
-import { Command } from "commander";
-import { underline } from "chalk";
-import { emoji } from "../../utils";
+import { Command } from 'commander';
+import { underline } from 'chalk';
+import { emoji } from '../../utils';
 import { HandleError } from '../../error';
-import Manager from "./manager";
+import Manager from './manager';
 
 const description = `Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
@@ -18,7 +18,8 @@ Example:
 ${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}`;
 
 export = (program: Command) => {
-  program.command('init')
+  program
+    .command('init')
     .usage('[options]')
     .helpOption('-h, --help', 'Display help for command')
     .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
@@ -28,7 +29,7 @@ export = (program: Command) => {
     .option('--app-name <appName>', 'Modify default Application name')
     .option('--project <project>', 'Specify Template')
     .description(description)
-    .action(async (options) => {
+    .action(async options => {
       if (options.parameters) {
         try {
           options.parameters = JSON.parse(options.parameters);
@@ -52,5 +53,5 @@ export = (program: Command) => {
       } catch (err) {
         await HandleError(err);
       }
-    })
+    });
 };

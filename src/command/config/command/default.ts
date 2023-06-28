@@ -1,7 +1,7 @@
 import Credential from '@serverless-devs/credential';
-import { Command } from "commander";
-import { underline } from "chalk";
-import { emoji } from "../../../utils";
+import { Command } from 'commander';
+import { underline } from 'chalk';
+import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
 
 const description = `Specify an access as the default.
@@ -17,17 +17,17 @@ ${emoji('📖')} Document: ${underline(
 export = (program: Command) => {
   const command = program.command('default');
 
-  command.usage('[options]')
+  command
+    .usage('[options]')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)
-    .action(async (options) => {
+    .action(async options => {
       try {
         const credential = new Credential();
         await credential.default(options.access);
-       
       } catch (error) {
         await HandleError(error);
       }
-    })
+    });
 };

@@ -1,8 +1,8 @@
-import { Command } from "commander";
+import { Command } from 'commander';
 import { setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import { underline } from "chalk";
-import { emoji } from "../../../utils";
+import { underline } from 'chalk';
+import { emoji } from '../../../utils';
 
 const description = `Set registry information.
 
@@ -45,9 +45,9 @@ const registryInquire = [
   },
 ];
 
-
 export = (program: Command) => {
-  program.command('registry')
+  program
+    .command('registry')
     .usage('[options]')
     .description(description)
     .helpOption('-h, --help', 'Display help for command')
@@ -69,6 +69,5 @@ export = (program: Command) => {
       }
 
       setGlobalConfig('registry', registry);
-    })
+    });
 };
-

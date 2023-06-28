@@ -1,12 +1,12 @@
 import inquirer from 'inquirer';
-import { spawn, spawnSync } from "child_process";
+import { spawn, spawnSync } from 'child_process';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import loadApplication from '@serverless-devs/load-application';
-import { cyan, underline, yellow } from "chalk";
+import { cyan, underline, yellow } from 'chalk';
 import { last, split, trim, find, includes } from 'lodash';
-import { emoji } from "../../utils";
-import { ALL_TEMPLATE, APPLICATION_TEMPLATE } from "./constant";
-import { DEFAULT_REGISTRY } from "../../constant";
+import { emoji } from '../../utils';
+import { ALL_TEMPLATE, APPLICATION_TEMPLATE } from './constant';
+import { DEFAULT_REGISTRY } from '../../constant';
 
 interface IOptions {
   dir?: string;
@@ -27,7 +27,7 @@ export default class Manager {
 
   constructor(options: IOptions) {
     this.template = options?.project;
-    this.dir = options?.dir ;
+    this.dir = options?.dir;
     this.registry = options?.registry || DEFAULT_REGISTRY;
     this.parameters = options?.parameters;
     this.access = options?.access;
@@ -39,7 +39,7 @@ export default class Manager {
 
   async init() {
     console.log(`\n${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}\n`);
-  
+
     if (this.template?.endsWith('.get')) {
       return await this.gitCloneProject();
     }
@@ -62,13 +62,15 @@ export default class Manager {
   private async executeInit() {
     let projectName = this.dir;
     if (!projectName) {
-      const defaultValue = last( split(this.template, '/') );
-      const answers = await inquirer.prompt([{
-        type: 'input',
-        name: 'projectName',
-        message: 'Please input your project name (init dir)',
-        default: defaultValue,
-      }]);
+      const defaultValue = last(split(this.template, '/'));
+      const answers = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'projectName',
+          message: 'Please input your project name (init dir)',
+          default: defaultValue,
+        },
+      ]);
 
       projectName = trim(answers.projectName);
     }
@@ -86,12 +88,9 @@ export default class Manager {
       console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       console.log(
-        `${emoji('💞')} Document ❤ Star: ` +
-          cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
+        `${emoji('💞')} Document ❤ Star: ` + cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
       );
-      console.log(
-        `${emoji('🚀')} More applications: ` + cyan.underline('https://registry.serverless-devs.com\n'),
-      );
+      console.log(`${emoji('🚀')} More applications: ` + cyan.underline('https://registry.serverless-devs.com\n'));
     }
 
     return { appPath };

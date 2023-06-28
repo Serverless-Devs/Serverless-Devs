@@ -1,10 +1,10 @@
 import os from 'os';
 import path from 'path';
-import { Command } from "commander";
+import { Command } from 'commander';
 import { getRootHome, setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import { underline } from "chalk";
-import { emoji } from "../../../utils";
+import { underline } from 'chalk';
+import { emoji } from '../../../utils';
 import { HumanError } from '../../../error';
 
 const description = `Set workspace path. Switching workspaces may make previously cached components and configured key information unavailable.
@@ -29,9 +29,9 @@ const promptOption = [
   },
 ];
 
-
 export = (program: Command) => {
-  program.command('workspace')
+  program
+    .command('workspace')
     .usage('[options]')
     .description(description)
     .helpOption('-h, --help', 'Display help for command')
@@ -46,7 +46,7 @@ export = (program: Command) => {
 
         const answers = await inquirer.prompt(promptOption);
         uri = answers.value;
-      } else if (!path.isAbsolute(uri)){
+      } else if (!path.isAbsolute(uri)) {
         throw new HumanError({
           errorMessage: 'You must provide an absolute path.',
           tips: `Please check if the path is absolute, documents: ${underline(
@@ -56,6 +56,5 @@ export = (program: Command) => {
       }
 
       setGlobalConfig('workspace', uri);
-    })
+    });
 };
-

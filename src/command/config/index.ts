@@ -1,7 +1,7 @@
-import { Command } from "commander";
-import { emoji } from "../../utils";
-import { underline, bold } from "chalk";
-import { publishHelp } from "../../utils";
+import { Command } from 'commander';
+import { emoji } from '../../utils';
+import { underline, bold } from 'chalk';
+import { publishHelp } from '../../utils';
 
 const description = `Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
@@ -27,15 +27,16 @@ export = async (program: Command) => {
   const configProgram = program.command('config');
   configProgram.helpInformation = () => '';
 
-  configProgram.description(description)
+  configProgram
+    .description(description)
     // .argument('<string>', 'string to split')
     .usage('[commands] [options]')
     .helpOption('-h, --help', 'Display help for command')
     .on('--help', showHelp);
-  
+
   await require('./command/add')(configProgram);
   await require('./command/get')(configProgram);
   await require('./command/remove')(configProgram);
   await require('./command/rename')(configProgram);
   await require('./command/default')(configProgram);
-}
+};

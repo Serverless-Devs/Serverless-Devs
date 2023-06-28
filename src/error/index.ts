@@ -8,7 +8,6 @@ export { HumanError } from './human-error';
 export { HumanWarning } from './human-warning';
 
 export const HandleError = async (error: Error) => {
-  
   console.error('TODO: HandleError\n', error);
   process.exit(1);
 };

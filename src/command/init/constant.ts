@@ -365,7 +365,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(first_level_template).value,
     source: (_answersSoFar, input) => {
       if (input) {
-        return ALL_TEMPLATE.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return ALL_TEMPLATE.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return first_level_template;
     },
@@ -381,7 +381,7 @@ export const APPLICATION_TEMPLATE = [
     },
     source: async function (_answersSoFar, input) {
       if (input) {
-        return devs_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return devs_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return devs_template;
     },
@@ -396,7 +396,7 @@ export const APPLICATION_TEMPLATE = [
     message: 'Hello, serverlesser. Which template do you like?',
     source: async function (_answersSoFar, input) {
       if (input) {
-        return all_ali_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return all_ali_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return ali_template;
     },
@@ -411,7 +411,7 @@ export const APPLICATION_TEMPLATE = [
     message: 'Hello, serverlesser. Which template do you like?',
     source: async function (_answersSoFar, input) {
       if (input) {
-        return all_huawei_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return all_huawei_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return huawei_template;
     },
@@ -427,7 +427,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(huawei_quick_start_template).value,
     source: async function (_answersSoFar, input) {
       if (input) {
-        return huawei_quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return huawei_quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return huawei_quick_start_template;
     },
@@ -442,7 +442,7 @@ export const APPLICATION_TEMPLATE = [
     message: 'Hello, serverlesser. Which template do you like?',
     source: async function (_answersSoFar, input) {
       if (input) {
-        return all_baidu_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return all_baidu_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return baidu_template;
     },
@@ -458,7 +458,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(baidu_quick_start_template).value,
     source: async function (_answersSoFar, input) {
       if (input) {
-        return baidu_quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return baidu_quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return baidu_quick_start_template;
     },
@@ -474,7 +474,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(quick_start_template).value,
     source: async function (_answersSoFar, input) {
       if (input) {
-        return quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return quick_start_template;
     },
@@ -490,7 +490,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(container_example_template).value,
     source: async function (_answersSoFar, input) {
       if (input) {
-        return container_example_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return container_example_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return container_example_template;
     },
@@ -506,7 +506,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(web_framework_template).value,
     source: async function (_answersSoFar, input) {
       if (input) {
-        return web_framework_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return web_framework_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return web_framework_template;
     },
@@ -522,7 +522,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(static_website_template).value,
     source: async function (_answersSoFar, input) {
       if (input) {
-        return static_website_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return static_website_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return static_website_template;
     },
@@ -538,7 +538,7 @@ export const APPLICATION_TEMPLATE = [
     default: first(best_practice_template).value,
     source: async function (_answersSoFar, input) {
       if (input) {
-        return best_practice_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)))
+        return best_practice_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return best_practice_template;
     },

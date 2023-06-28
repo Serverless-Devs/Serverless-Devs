@@ -1,7 +1,7 @@
-import { Command } from "commander";
-import { CLI_VERSION } from "../constant";
-import { emoji } from "../utils";
-import publishHelp, { makeUnderLine } from "../utils/publish-help";
+import { Command } from 'commander';
+import { CLI_VERSION } from '../constant';
+import { emoji } from '../utils';
+import publishHelp, { makeUnderLine } from '../utils/publish-help';
 
 const description = {
   Options: [
@@ -46,7 +46,7 @@ const handlerHelp = async (): Promise<string> => {
     .join('');
 
   return output;
-}
+};
 
 export = async (program: Command) => {
   const helpMessage = await handlerHelp();
@@ -58,7 +58,6 @@ export = async (program: Command) => {
       console.log(helpMessage);
     });
 
-  
   program.exitOverride(async error => {
     if (error.code === 'commander.help') {
       process.exit(program.args.length > 0 ? 1 : 0);
@@ -67,4 +66,4 @@ export = async (program: Command) => {
       process.exit(0);
     }
   });
-}
+};

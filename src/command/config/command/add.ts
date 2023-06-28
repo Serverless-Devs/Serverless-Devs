@@ -1,7 +1,7 @@
 import Credential from '@serverless-devs/credential';
-import { Command } from "commander";
-import { underline } from "chalk";
-import { emoji } from "../../../utils";
+import { Command } from 'commander';
+import { underline } from 'chalk';
+import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
 import { handlerSecret } from '../utils';
 
@@ -28,7 +28,8 @@ ${emoji('🧭')} How to get the key: ${underline(
 export = (program: Command) => {
   const command = program.command('add');
 
-  command.usage('[options]')
+  command
+    .usage('[options]')
     .option('--AccountID <AccountID>', 'AccountID of key information')
     .option('--AccessKeyID <AccessKeyID>', 'AccessKeyID of key information')
     .option('--AccessKeySecret <AccessKeySecret>', 'AccessKeySecret of key information')
@@ -45,18 +46,18 @@ export = (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     // .allowUnknownOption()
     .description(description)
-    .action(async (options) => {
+    .action(async options => {
       try {
         const credential = new Credential();
-        const result = await credential.set(options)
+        const result = await credential.set(options);
         if (result) {
           console.log({
             Alias: result.access,
-            credential: handlerSecret(result.credential)
+            credential: handlerSecret(result.credential),
           });
         }
       } catch (err) {
         await HandleError(err);
       }
-    })
+    });
 };
