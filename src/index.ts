@@ -27,6 +27,7 @@ const preRun = () => {
   await require('./command/set')(program);
   await require('./command/clean')(program);
   await require('./command/init')(program);
+  await require('./command/registry')(program);
 
   program.parse(process.argv);
 })().catch(async error => {

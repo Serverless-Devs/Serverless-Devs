@@ -44,6 +44,7 @@
   "devDependencies": {
     "@serverless-devs/credential": "^0.0.1",
     "@serverless-devs/load-application": "^0.0.1",
+    "@serverless-devs/registry": "^0.0.1",
     "@serverless-devs/utils": "^0.0.7",
     "@types/node": "^18.16.1",
     "chalk": "^4.1.0",
