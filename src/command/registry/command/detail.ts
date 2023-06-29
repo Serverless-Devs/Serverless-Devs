@@ -11,13 +11,14 @@ Example:
    
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#detail')}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('detail', { hidden: true })
+    .command('detail')
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji('🌱')} View specific package details`)
     .option('--name <name>', 'Serverless Package name')
     .helpOption('-h, --help', 'Display help for command')
-    .description(description)
     .action(async option => {
       const { name } = option;
       const registry = new Registry({});

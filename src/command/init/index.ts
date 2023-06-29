@@ -18,7 +18,7 @@ Example:
     
 ${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
     .command('init')
     .usage('[options]')

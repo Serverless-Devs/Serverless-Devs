@@ -48,7 +48,7 @@ const handlerHelp = async (): Promise<string> => {
   return output;
 };
 
-export = async (program: Command) => {
+export default async (program: Command) => {
   const helpMessage = await handlerHelp();
   program.helpInformation = () => '';
   program

@@ -30,11 +30,12 @@ const promptOption = [
   },
 ];
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('workspace', { hidden: true })
+    .command('workspace')
     .usage('[options]')
     .description(description)
+    .summary(`${emoji('🙊')} Set workspace path`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
       let uri: string = process.argv[4];

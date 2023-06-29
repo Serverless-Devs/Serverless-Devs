@@ -10,12 +10,13 @@ Example:
    
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#publish')}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('publish', { hidden: true })
+    .command('publish')
+    .description(description)
+    .summary(`${emoji('✅')} Public Serverless Package to Serverless Regsitry`)
     .usage('[options]')
     .helpOption('-h, --help', 'Display help for command')
-    .description(description)
     .action(async () => {
       const registry = new Registry({});
       await registry.publish();

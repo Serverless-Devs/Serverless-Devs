@@ -4,6 +4,13 @@ import { checkNodeVersion, getPid, setProxy } from './utils';
 import logger from './logger';
 import { HandleError } from './error';
 
+import subConfig from './command/config';
+import subSet from './command/set';
+import subClean from './command/clean';
+import subInit from './command/init';
+import subRegistry from './command/registry';
+import root from './command/root';
+
 const preRun = () => {
   // 添加环境变量
   process.env.CLI_VERSION = CLI_VERSION;
@@ -26,13 +33,13 @@ const preRun = () => {
   const program = new Command();
 
   // 根命令
-  await require('./command')(program);
+  await root(program);
   // 支持的系统命令
-  await require('./command/config')(program);
-  await require('./command/set')(program);
-  await require('./command/clean')(program);
-  await require('./command/init')(program);
-  await require('./command/registry')(program);
+  subConfig(program);
+  subSet(program);
+  subClean(program);
+  subInit(program);
+  subRegistry(program);
 
   program.parse(process.argv);
 })().catch(async error => {

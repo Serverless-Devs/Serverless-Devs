@@ -45,11 +45,12 @@ const registryInquire = [
   },
 ];
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('registry', { hidden: true })
+    .command('registry')
     .usage('[options]')
     .description(description)
+    .summary(`${emoji('👀')} Set registry information`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
       let registry: string = process.argv[4];

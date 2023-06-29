@@ -13,15 +13,16 @@ Example:
    
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#login')}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('login', { hidden: true })
+    .command('login')
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji('😃')} Login Serverless Registry`)
     .option('--token <token>', 'Login by token')
     .option('--retoken', 'Reset login token')
     .option('--get-token', 'Get login token')
     .helpOption('-h, --help', 'Display help for command')
-    .description(description)
     .action(async option => {
       const { token, retoken, getToken } = option;
 

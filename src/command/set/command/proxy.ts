@@ -15,16 +15,17 @@ ${emoji('📖')} Document: ${underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
 )}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('proxy', { hidden: true })
+    .command('proxy')
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji('🔧')} Set proxy information`)
     .option('--enable', 'whether to enable proxy')
     .option('--no-enable', 'whether to no enable proxy', true)
     .option('--http_proxy <http_proxy_value>', 'Specify the http_proxy.')
     .option('--https_proxy <https_proxy_value>', 'Specify the https_proxy.')
     .helpOption('-h, --help', 'Display help for command')
-    .description(description)
     .action(async option => {
       const { http_proxy, https_proxy, enable } = option || {};
       if (http_proxy || https_proxy || typeof enable === 'boolean') {

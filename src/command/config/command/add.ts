@@ -1,6 +1,6 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import { bold, underline } from 'chalk';
 import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
 import { handleSecret } from '../utils';
@@ -26,11 +26,13 @@ ${emoji('🧭')} How to get the key: ${underline(
   'https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config',
 )}`;
 
-export = (program: Command) => {
-  const command = program.command('add', { hidden: true })
+export default (program: Command) => {
+  const command = program.command('add')
 
   command
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji(bold('+'))} Add an account`)
     .option('--AccountID <AccountID>', 'AccountID of key information')
     .option('--AccessKeyID <AccessKeyID>', 'AccessKeyID of key information')
     .option('--AccessKeySecret <AccessKeySecret>', 'AccessKeySecret of key information')
@@ -47,7 +49,6 @@ export = (program: Command) => {
     .option('-f', 'Mandatory overwrite key information')
     .helpOption('-h, --help', 'Display help for command')
     // .allowUnknownOption()
-    .description(description)
     .action(async options => {
       try {
         const credential = new Credential({ logger });

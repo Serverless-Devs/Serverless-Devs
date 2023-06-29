@@ -11,12 +11,13 @@ Example:
    
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#list')}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('list', { hidden: true })
+    .command('list')
     .usage('[options]')
-    .helpOption('-h, --help', 'Display help for command')
     .description(description)
+    .summary(`${emoji('🐵')} List the packages you have published`)
+    .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
       const registry = new Registry({});
       const result = await registry.list();

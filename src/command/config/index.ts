@@ -1,7 +1,11 @@
 import { Command } from 'commander';
 import { emoji } from '../../utils';
-import { underline, bold } from 'chalk';
-import { publishHelp } from '../../utils';
+import { underline } from 'chalk';
+import subAdd from './command/add';
+import subGet from './command/get';
+import subDefault from './command/default';
+import subRename from './command/rename';
+import subRemove from './command/remove';
 
 const description = `Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
@@ -9,27 +13,8 @@ ${emoji('📖')} Document: ${underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
 )}`;
 
-const showHelp = () => {
-  const commands = [
-    { add: `${emoji(bold('+'))}` + 'Add an account' },
-    { get: `${emoji(bold('√'))}` + 'Get accounts' },
-    { delete: `${emoji(bold('×'))}` + 'Delete an account' },
-    { rename: `${emoji(bold('>'))}` + 'Rename an account' },
-  ];
-  const helperLength = publishHelp.maxLen(commands);
-  const output = publishHelp.helpInfo(commands, 'Commands', helperLength);
-
-  return `Usage: s config [commands] [options]
-
-${description}
-
-${output}
-`;
-};
-
-export = async (program: Command) => {
+export default (program: Command) => {
   const configProgram = program.command('config');
-  configProgram.helpInformation = showHelp;
 
   configProgram
     .description(description)
@@ -37,9 +22,9 @@ export = async (program: Command) => {
     .usage('[commands] [options]')
     .helpOption('-h, --help', 'Display help for command')
 
-  await require('./command/add')(configProgram);
-  await require('./command/get')(configProgram);
-  await require('./command/remove')(configProgram);
-  await require('./command/rename')(configProgram);
-  await require('./command/default')(configProgram);
+  subAdd(configProgram);
+  subGet(configProgram);
+  subRemove(configProgram);
+  subRename(configProgram);
+  subDefault(configProgram);
 };

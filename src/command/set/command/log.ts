@@ -33,11 +33,12 @@ const promptOption = [
   },
 ];
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('log', { hidden: true })
+    .command('log')
     .usage('[options]')
     .description(description)
+    .summary(`${emoji('🔊')} Set to enable or disable log`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
       let type: string = process.argv[4];

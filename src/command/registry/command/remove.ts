@@ -10,14 +10,15 @@ Example:
    
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#delete')}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('delete', { hidden: true })
+    .command('delete')
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji('❌')} Delete specific package`)
     .option('--name <name>', 'Serverless Package name. e.g.: fc@1.0.1')
     .option('--type <type>', 'Serverless Package type. value: Component, Application, Plugin')
     .helpOption('-h, --help', 'Display help for command')
-    .description(description)
     .action(async option => {
       const { name, type = 'Component' } = option;
       const registry = new Registry({});

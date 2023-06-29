@@ -32,11 +32,12 @@ const promptOption = [
   },
 ];
 
-export = (program: Command) => {
+export default (program: Command) => {
   program
-    .command('analysis', { hidden: true })
+    .command('analysis')
     .usage('[options]')
     .description(description)
+    .summary(`${emoji('👉')} Set to enable or disable analysis`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
       let type: string = process.argv[4];

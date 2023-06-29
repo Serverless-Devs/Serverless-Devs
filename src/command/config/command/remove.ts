@@ -1,6 +1,6 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import { bold, underline } from 'chalk';
 import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
 import logger from '../../../logger';
@@ -15,13 +15,14 @@ ${emoji('📖')} Document: ${underline(
 )}`;
 
 export = (program: Command) => {
-  const command = program.command('delete', { hidden: true })
+  const command = program.command('delete')
 
   command
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji(bold('×'))} Delete an account`)
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .helpOption('-h, --help', 'Display help for command')
-    .description(description)
     .action(async options => {
       try {
         const credential = new Credential({ logger });

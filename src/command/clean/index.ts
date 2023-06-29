@@ -19,44 +19,6 @@ const description = `Clean up the cache related functions of serverless devs. Yo
     
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/clean')}`;
 
-export = (program: Command) => {
-  program
-    .command('clean')
-    .usage('[options]')
-    .option('--all', 'Clean up the environment')
-    .option('--logs', 'Clean logs')
-    .option('--cache [dirName]', 'Delete the <dirName> file in the cache')
-    .option('--component [componentName]', 'Remove component (like: fc, fc@0.0.1)')
-    .helpOption('-h, --help', 'Display help for command')
-    .description(description)
-    .action(async options => {
-      const { all, cache, component, logs } = options;
-      if (all) {
-        cleanComponent(true);
-        cleanCache(true);
-        cleanLogs();
-        logger.info('The environment of Serverless Devs has been cleaned up successfully.');
-        return;
-      }
-
-      if (logs) {
-        cleanLogs();
-      }
-
-      if (component) {
-        cleanComponent(component);
-        return;
-      }
-
-      if (cache) {
-        cleanCache(cache);
-        return;
-      }
-
-      logger.error("There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view");
-    });
-};
-
 function cleanLogs() {
   const sPath = getRootHome();
   const p = path.join(sPath, 'logs');
@@ -101,3 +63,41 @@ function cleanComponent(component: string | boolean) {
   }
   logger.info(`Component [${component}] has been cleaned up successfully.`);
 }
+
+export default (program: Command) => {
+  program
+    .command('clean')
+    .usage('[options]')
+    .option('--all', 'Clean up the environment')
+    .option('--logs', 'Clean logs')
+    .option('--cache [dirName]', 'Delete the <dirName> file in the cache')
+    .option('--component [componentName]', 'Remove component (like: fc, fc@0.0.1)')
+    .helpOption('-h, --help', 'Display help for command')
+    .description(description)
+    .action(async options => {
+      const { all, cache, component, logs } = options;
+      if (all) {
+        cleanComponent(true);
+        cleanCache(true);
+        cleanLogs();
+        logger.info('The environment of Serverless Devs has been cleaned up successfully.');
+        return;
+      }
+
+      if (logs) {
+        cleanLogs();
+      }
+
+      if (component) {
+        cleanComponent(component);
+        return;
+      }
+
+      if (cache) {
+        cleanCache(cache);
+        return;
+      }
+
+      logger.error("There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view");
+    });
+};
