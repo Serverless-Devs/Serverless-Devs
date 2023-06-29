@@ -1,12 +1,17 @@
 import { Command } from 'commander';
 import { CLI_VERSION } from './constant';
 import { checkNodeVersion, getPid, setProxy } from './utils';
+import logger from './logger';
 import { HandleError } from './error';
 
 const preRun = () => {
   // 添加环境变量
   process.env.CLI_VERSION = CLI_VERSION;
   process.env.serverless_devs_trace_id = `${getPid()}${Date.now()}`;
+
+  // 初始化日志
+  logger.initialization();
+  logger.write(`run trace id: ${process.env.serverless_devs_trace_id}`);
 
   // 检查node版本是否过低
   checkNodeVersion();
@@ -35,5 +40,6 @@ const preRun = () => {
 });
 
 process.on('exit', code => {
-  console.debug(`process exitCode: ${code}`);
+  logger.debug(`process exitCode: ${code}`);
+  logger.loggerInstance.__clear();
 });

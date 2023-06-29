@@ -3,7 +3,8 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
-import { handlerSecret } from '../utils';
+import { handleSecret } from '../utils';
+import logger from '../../../logger';
 
 const description = `You can rename an account.
   
@@ -24,13 +25,12 @@ export = (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .description(description)
     .action(async options => {
-      console.log('options: ', options);
       try {
-        const credential = new Credential();
+        const credential = new Credential({ logger });
         const result = await credential.rename(options);
-        console.log({
+        logger.output({
           Alias: result.access,
-          credential: handlerSecret(result.credential),
+          credential: handleSecret(result.credential),
         });
       } catch (err) {
         await HandleError(err);

@@ -1,6 +1,6 @@
 import { fieldEncryption } from '@serverless-devs/utils';
 
-export const handlerSecret = (credential: Record<string, string>) => {
+export const handleSecret = (credential: Record<string, string>) => {
   const show = {};
   for (const key in credential) {
     const value = credential[key];

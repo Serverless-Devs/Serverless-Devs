@@ -6,6 +6,7 @@ import inquirer from 'inquirer';
 import { underline } from 'chalk';
 import { emoji } from '../../../utils';
 import { HumanError } from '../../../error';
+import logger from '../../../logger';
 
 const description = `Set workspace path. Switching workspaces may make previously cached components and configured key information unavailable.
 
@@ -42,7 +43,7 @@ export = (program: Command) => {
         const msg = `\n${emoji('📝')} Current workspace path: ${getRootHome()}\n\n${emoji(
           '🙊',
         )} Switching workspaces may make previously cached components and configured key information unavailable.\n`;
-        console.log(msg);
+        logger.write(msg);
 
         const answers = await inquirer.prompt(promptOption);
         uri = answers.value;

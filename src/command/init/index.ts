@@ -3,6 +3,7 @@ import { underline } from 'chalk';
 import { emoji } from '../../utils';
 import { HandleError } from '../../error';
 import Manager from './manager';
+import logger from '../../logger';
 
 const description = `Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
@@ -43,7 +44,7 @@ export = (program: Command) => {
         const template = process.argv[3];
         if (template && !template?.startsWith('-')) {
           options.project = template;
-          console.warn(`This method has been discontinued, please use --project ${template}`);
+          logger.warn(`This method has been discontinued, please use --project ${template}`);
         }
       }
 

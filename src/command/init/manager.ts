@@ -7,6 +7,7 @@ import { last, split, trim, find, includes } from 'lodash';
 import { emoji } from '../../utils';
 import { ALL_TEMPLATE, APPLICATION_TEMPLATE } from './constant';
 import { DEFAULT_REGISTRY } from '../../constant';
+import logger from '../../logger';
 
 interface IOptions {
   dir?: string;
@@ -38,7 +39,7 @@ export default class Manager {
   }
 
   async init() {
-    console.log(`\n${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}\n`);
+    logger.info(`\n${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}\n`);
 
     if (this.template?.endsWith('.get')) {
       return await this.gitCloneProject();
@@ -47,7 +48,7 @@ export default class Manager {
     if (!this.template) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       this.template = answers.template || answers.firstLevel;
-      console.log(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
+      logger.info(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
     }
 
     const { appPath } = await this.executeInit();
@@ -76,21 +77,21 @@ export default class Manager {
     }
 
     const appPath = await loadApplication(this.template, {
+      logger,
       projectName,
-      // logger: console, // TODO
       parameters: this.parameters,
       appName: this.appName,
       access: this.access,
     });
 
     if (appPath) {
-      console.info(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
-      console.log(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
-      console.log(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
-      console.log(
+      logger.info(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
+      logger.info(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
+      logger.info(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
+      logger.info(
         `${emoji('💞')} Document ❤ Star: ` + cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
       );
-      console.log(`${emoji('🚀')} More applications: ` + cyan.underline('https://registry.serverless-devs.com\n'));
+      logger.info(`${emoji('🚀')} More applications: ` + cyan.underline('https://registry.serverless-devs.com\n'));
     }
 
     return { appPath };

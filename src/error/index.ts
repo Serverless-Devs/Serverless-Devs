@@ -1,3 +1,5 @@
+import logger from '../logger';
+
 export { CommandError } from './command-error';
 export { ConfigDeleteError } from './config-delete-error';
 export { ConfigError } from './config-error';
@@ -8,6 +10,6 @@ export { HumanError } from './human-error';
 export { HumanWarning } from './human-warning';
 
 export const HandleError = async (error: Error) => {
-  console.error('TODO: HandleError\n', error);
+  logger.write('TODO: HandleError\n', error);
   process.exit(1);
 };

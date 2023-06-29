@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
+import logger from '../../../logger';
 
 const description = `Login Serverless Registry.
 
@@ -35,7 +36,7 @@ export = (program: Command) => {
 
       if (getToken) {
         const t = await registry.getToken();
-        console.log(t);
+        logger.output(t);
         return;
       }
 

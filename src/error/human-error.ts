@@ -1,5 +1,6 @@
 import { bgRed } from '../constant';
 import colors from 'chalk';
+import logger from '../logger';
 
 interface IConfigs {
   errorMessage: string;
@@ -15,9 +16,9 @@ export class HumanError {
   constructor(configs: IConfigs) {
     const { errorMessage, tips } = configs;
     this.errorMessage = errorMessage;
-    console.log(`\n${bgRed('ERROR:')}`);
-    console.log(`TypeError: ${errorMessage}\n`);
-    tips && console.log(`${colors.gray(tips)}\n`);
+    logger.write(`\n${bgRed('ERROR:')}`);
+    logger.write(`TypeError: ${errorMessage}\n`);
+    tips && logger.write(`${colors.gray(tips)}\n`);
   }
 
   async report(configs: IReport) {

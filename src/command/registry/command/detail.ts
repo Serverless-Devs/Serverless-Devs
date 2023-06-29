@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
+import logger from '../../../logger';
 
 const description = `View application details.
 
@@ -21,6 +22,6 @@ export = (program: Command) => {
       const { name } = option;
       const registry = new Registry({});
       const result = await registry.detail(name);
-      console.log(JSON.stringify(result));
+      logger.output(result);
     });
 };

@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
+import logger from '../../../logger';
 
 const description = `View the components published by the current login to the Serverless Registry account.
 
@@ -19,6 +20,6 @@ export = (program: Command) => {
     .action(async () => {
       const registry = new Registry({});
       const result = await registry.list();
-      console.log(JSON.stringify(result));
+      logger.output(result);
     });
 };

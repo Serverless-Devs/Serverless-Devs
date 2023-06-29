@@ -3,7 +3,8 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
-import { handlerSecret } from '../utils';
+import { handleSecret } from '../utils';
+import logger from '../../../logger';
 
 const description = `You can add an account
 
@@ -42,18 +43,19 @@ export = (program: Command) => {
     .option('--kl, --keyList <keyList>', 'Keys of key information, like: --kl key1,key2,key3')
     .option('--il, --infoList <infoList>', 'Values of key information, like: --il info1,info2,info3')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
+    .option('-b, --bbb <aliasName>', 'Specify the access alias name.')
     .option('-f', 'Mandatory overwrite key information')
     .helpOption('-h, --help', 'Display help for command')
     // .allowUnknownOption()
     .description(description)
     .action(async options => {
       try {
-        const credential = new Credential();
+        const credential = new Credential({ logger });
         const result = await credential.set(options);
         if (result) {
-          console.log({
+          logger.output({
             Alias: result.access,
-            credential: handlerSecret(result.credential),
+            Credential: handleSecret(result.credential),
           });
         }
       } catch (err) {

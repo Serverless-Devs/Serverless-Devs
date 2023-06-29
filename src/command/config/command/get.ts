@@ -3,7 +3,8 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
-import { handlerSecret } from '../utils';
+import { handleSecret } from '../utils';
+import logger from '../../../logger';
 
 const description = `You can get accounts.
  
@@ -26,22 +27,22 @@ export = (program: Command) => {
     .description(description)
     .action(async options => {
       try {
-        const credential = new Credential();
+        const credential = new Credential({ logger });
         if (options.access) {
           const result = await credential.get(options.access);
 
-          console.log({
+          logger.output({
             Alias: result.access,
-            credential: handlerSecret(result.credential),
+            Credential: handleSecret(result.credential),
           });
         } else {
           const result = await credential.getAll();
           const show = {};
           for (const alias in result) {
             const value = result[alias];
-            show[alias] = handlerSecret(value);
+            show[alias] = handleSecret(value);
           }
-          console.log(show);
+          logger.output(show);
         }
       } catch (error) {
         if (error.message.includes('Not found access')) {
@@ -51,7 +52,7 @@ export = (program: Command) => {
   ${emoji('😈')} If you have questions, please tell us: ${underline(
             'https://github.com/Serverless-Devs/Serverless-Devs/issues',
           )}`;
-          console.log(msg);
+          logger.write(msg);
           return;
         }
         await HandleError(error);

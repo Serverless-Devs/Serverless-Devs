@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import { emoji } from '../../../utils';
 import { HandleError } from '../../../error';
+import logger from '../../../logger';
 
 const description = `Specify an access as the default.
   
@@ -24,7 +25,7 @@ export = (program: Command) => {
     .description(description)
     .action(async options => {
       try {
-        const credential = new Credential();
+        const credential = new Credential({ logger });
         await credential.default(options.access);
       } catch (error) {
         await HandleError(error);
