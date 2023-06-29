@@ -12,7 +12,7 @@ ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#delet
 
 export = (program: Command) => {
   program
-    .command('delete')
+    .command('delete', { hidden: true })
     .usage('[options]')
     .option('--name <name>', 'Serverless Package name. e.g.: fc@1.0.1')
     .option('--type <type>', 'Serverless Package type. value: Component, Application, Plugin')

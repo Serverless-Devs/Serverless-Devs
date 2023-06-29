@@ -17,7 +17,7 @@ ${emoji('📖')} Document: ${underline(
 
 export = (program: Command) => {
   program
-    .command('proxy')
+    .command('proxy', { hidden: true })
     .usage('[options]')
     .option('--enable', 'whether to enable proxy')
     .option('--no-enable', 'whether to no enable proxy', true)

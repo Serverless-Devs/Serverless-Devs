@@ -18,21 +18,24 @@ const showHelp = () => {
   ];
   const helperLength = publishHelp.maxLen(commands);
   const output = publishHelp.helpInfo(commands, 'Commands', helperLength);
-  console.log('Usage: s config [commands] [options]');
-  console.log('\n', description, '\n');
-  console.log(output);
+
+  return `Usage: s config [commands] [options]
+
+${description}
+
+${output}
+`;
 };
 
 export = async (program: Command) => {
   const configProgram = program.command('config');
-  configProgram.helpInformation = () => '';
+  configProgram.helpInformation = showHelp;
 
   configProgram
     .description(description)
     // .argument('<string>', 'string to split')
     .usage('[commands] [options]')
     .helpOption('-h, --help', 'Display help for command')
-    .on('--help', showHelp);
 
   await require('./command/add')(configProgram);
   await require('./command/get')(configProgram);

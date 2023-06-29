@@ -15,7 +15,7 @@ ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#login
 
 export = (program: Command) => {
   program
-    .command('login')
+    .command('login', { hidden: true })
     .usage('[options]')
     .option('--token <token>', 'Login by token')
     .option('--retoken', 'Reset login token')

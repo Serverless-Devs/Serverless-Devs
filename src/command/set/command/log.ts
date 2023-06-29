@@ -35,7 +35,7 @@ const promptOption = [
 
 export = (program: Command) => {
   program
-    .command('log')
+    .command('log', { hidden: true })
     .usage('[options]')
     .description(description)
     .helpOption('-h, --help', 'Display help for command')

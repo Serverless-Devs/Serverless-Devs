@@ -17,7 +17,7 @@ ${emoji('📖')} Document: ${underline(
 )}`;
 
 export = (program: Command) => {
-  const command = program.command('get');
+  const command = program.command('get', { hidden: true })
 
   command
     .usage('[options]')

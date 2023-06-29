@@ -12,7 +12,7 @@ ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#publi
 
 export = (program: Command) => {
   program
-    .command('publish')
+    .command('publish', { hidden: true })
     .usage('[options]')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)

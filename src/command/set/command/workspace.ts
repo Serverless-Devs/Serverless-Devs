@@ -32,7 +32,7 @@ const promptOption = [
 
 export = (program: Command) => {
   program
-    .command('workspace')
+    .command('workspace', { hidden: true })
     .usage('[options]')
     .description(description)
     .helpOption('-h, --help', 'Display help for command')

@@ -13,7 +13,7 @@ ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#list'
 
 export = (program: Command) => {
   program
-    .command('list')
+    .command('list', { hidden: true })
     .usage('[options]')
     .helpOption('-h, --help', 'Display help for command')
     .description(description)

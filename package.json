@@ -59,6 +59,7 @@
     "rimraf": "^5.0.1",
     "table-layout": "^3.0.2",
     "ts-node": "^9.1.1",
+    "@serverless-devs/parse-spec": "^0.0.1-beta.1",
     "typescript": "^5.0.4"
   },
   "lint-staged": {

@@ -47,7 +47,7 @@ const registryInquire = [
 
 export = (program: Command) => {
   program
-    .command('registry')
+    .command('registry', { hidden: true })
     .usage('[options]')
     .description(description)
     .helpOption('-h, --help', 'Display help for command')
