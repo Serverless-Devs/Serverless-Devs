@@ -10,7 +10,6 @@ import subRegistry from './registry';
 
 export default async (program: Command) => {
   program
-    .usage('')
     .option('--debug', 'Open debug model.')
     .option('--skip-actions', 'Skip the extends section.')
     .option('-t, --template <path>', 'Specify the template file.')

@@ -28,7 +28,7 @@ const preRun = () => {
   // 处理指令
   await root(program);
 
-  program.parse(process.argv);
+  await program.parseAsync(process.argv);
 })().catch(async error => {
   await HandleError(error);
 });
