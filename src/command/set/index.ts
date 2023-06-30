@@ -16,8 +16,9 @@ ${emoji('📖')} Document: ${underline(
 
 export default (program: Command) => {
   const configProgram = program.command('set')
-    .description(description)
     .usage('[commands] [options]')
+    .description(description)
+    .summary(`${emoji('🔧')} Settings for the tool.`)
     .helpOption('-h, --help', 'Display help for command')
 
   subRegistry(configProgram);

@@ -3,13 +3,7 @@ import { CLI_VERSION } from './constant';
 import { checkNodeVersion, getPid, setProxy } from './utils';
 import logger from './logger';
 import { HandleError } from './error';
-
-import subConfig from './command/config';
-import subSet from './command/set';
-import subClean from './command/clean';
-import subInit from './command/init';
-import subRegistry from './command/registry';
-import root from './command/root';
+import root from './command';
 
 const preRun = () => {
   // 添加环境变量
@@ -31,15 +25,8 @@ const preRun = () => {
   preRun();
 
   const program = new Command();
-
-  // 根命令
+  // 处理指令
   await root(program);
-  // 支持的系统命令
-  subConfig(program);
-  subSet(program);
-  subClean(program);
-  subInit(program);
-  subRegistry(program);
 
   program.parse(process.argv);
 })().catch(async error => {

@@ -22,6 +22,8 @@ export default (program: Command) => {
   program
     .command('init')
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji('💞')} Initializing a serverless project.`)
     .helpOption('-h, --help', 'Display help for command')
     .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
     .option('-r, --registry <url>', 'Use specify registry')
@@ -29,7 +31,6 @@ export default (program: Command) => {
     .option('--parameters <parameters>', 'Initialize with custom parameters')
     .option('--app-name <appName>', 'Modify default Application name')
     .option('--project <project>', 'Specify Template')
-    .description(description)
     .action(async options => {
       if (options.parameters) {
         try {

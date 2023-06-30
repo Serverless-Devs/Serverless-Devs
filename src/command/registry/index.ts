@@ -19,6 +19,7 @@ export default (program: Command) => {
   configProgram
     .description(description)
     .usage('[commands] [options]')
+    .summary(`${emoji('📖')} Manage serverless packages on serverless registry`)
     .helpOption('-h, --help', 'Display help for command')
 
   subLogin(configProgram);

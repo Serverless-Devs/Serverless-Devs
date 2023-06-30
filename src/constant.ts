@@ -1,3 +1,5 @@
+// 此文件建议放在src根目录不要移动
+// 避免 esbuild 或者 ncc 改变 package.json 的寻址路径
 import colors from 'chalk';
 
 // cli 的版本

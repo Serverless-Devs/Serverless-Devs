@@ -68,12 +68,13 @@ export default (program: Command) => {
   program
     .command('clean')
     .usage('[options]')
+    .description(description)
+    .summary(`${emoji('💥')} Clean up the environment.`)
     .option('--all', 'Clean up the environment')
     .option('--logs', 'Clean logs')
     .option('--cache [dirName]', 'Delete the <dirName> file in the cache')
     .option('--component [componentName]', 'Remove component (like: fc, fc@0.0.1)')
     .helpOption('-h, --help', 'Display help for command')
-    .description(description)
     .action(async options => {
       const { all, cache, component, logs } = options;
       if (all) {

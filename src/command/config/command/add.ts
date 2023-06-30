@@ -51,6 +51,7 @@ export default (program: Command) => {
     // .allowUnknownOption()
     .action(async options => {
       try {
+        console.log('???', command.optsWithGlobals());
         const credential = new Credential({ logger });
         const result = await credential.set(options);
         if (result) {
