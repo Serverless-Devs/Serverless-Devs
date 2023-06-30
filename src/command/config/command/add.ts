@@ -27,7 +27,7 @@ ${emoji('🧭')} How to get the key: ${underline(
 )}`;
 
 export default (program: Command) => {
-  const command = program.command('add')
+  const command = program.command('add');
 
   command
     .usage('[options]')

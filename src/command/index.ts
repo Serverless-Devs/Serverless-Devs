@@ -16,7 +16,7 @@ export default async (program: Command) => {
     .option('-t, --template <path>', 'Specify the template file.')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw.')
-    .version(CLI_VERSION, '-v, --version', 'Output the version number.')
+    .version(CLI_VERSION, '-v, --version', 'Output the version number.');
 
   // 支持的系统命令
   subConfig(program);
@@ -35,7 +35,9 @@ export default async (program: Command) => {
 
   // 追加的 help 信息
   program.addHelpText('before', `${emoji('😃')} Welcome to the Serverless Devs.\n`);
-  program.addHelpText('after', `
+  program.addHelpText(
+    'after',
+    `
 ${customRootHelp || ''}
 
 ${emoji('🙌')}  Quick Start:      https://docs.serverless-devs.com/quick-start
@@ -43,7 +45,8 @@ ${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverles
 ${emoji('💡')}  Documentation:    https://docs.serverless-devs.com
 ${emoji('🚀')}  Example Projects: https://registry.serverless-devs.com
 ${emoji('📝')}  Feedback:         https://feedback.serverless-devs.com
-`)
+`,
+  );
 
   program.exitOverride(async error => {
     if (error.code === 'commander.help') {

@@ -15,11 +15,12 @@ ${emoji('📖')} Document: ${underline(
 )}`;
 
 export default (program: Command) => {
-  const configProgram = program.command('set')
+  const configProgram = program
+    .command('set')
     .usage('[commands] [options]')
     .description(description)
     .summary(`${emoji('🔧')} Settings for the tool.`)
-    .helpOption('-h, --help', 'Display help for command')
+    .helpOption('-h, --help', 'Display help for command');
 
   subRegistry(configProgram);
   subProxy(configProgram);

@@ -17,7 +17,7 @@ interface IParseSpecResult {
 }
 
 export default class Custom {
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
 
   async init() {
     // ****** 解析参数 ****** //
@@ -28,10 +28,9 @@ export default class Custom {
       help,
     } = parseArgv(argv);
 
-
     // ****** 判断是否处理自定义指令 ****** //
     // 系统命令不处理，避免覆盖系统命令
-    const systemCommandNames = this.program.commands.map((command) => command.name());
+    const systemCommandNames = this.program.commands.map(command => command.name());
     if (projectName === 'help' || systemCommandNames.includes(projectName)) {
       return;
     }
@@ -56,20 +55,20 @@ export default class Custom {
       if (!method) {
         customProgram = this.program.command(projectName).allowUnknownOption();
         await this.singleComponent(projectName, steps[0].component, customProgram);
-  
-      // 运行 s <project> <command> 如果运行命令和二级指令不相同，则认为是指定了，例如：
-      // s abc deploy 解析 method 是 deploy, abc 则为 yaml 配置的 project; 此时 steps 长度有且应该为 1
+
+        // 运行 s <project> <command> 如果运行命令和二级指令不相同，则认为是指定了，例如：
+        // s abc deploy 解析 method 是 deploy, abc 则为 yaml 配置的 project; 此时 steps 长度有且应该为 1
       } else if (method !== projectName) {
         logger.debug('Handle appoint project name');
         const projectProgram = this.program.command(projectName);
         customProgram = projectProgram.command(method).allowUnknownOption();
         await this.singleComponent(projectName, steps[0].component, customProgram);
-      // s deploy <subcommand>
+        // s deploy <subcommand>
       } else {
         customProgram = this.program.command(method).allowUnknownOption();
         await this.multipleComponent(components, steps, customProgram);
       }
-  
+
       // ****** 调用 engine ****** //
       customProgram.action(async () => {
         console.log('TODO: 调用 engine');
@@ -85,8 +84,9 @@ export default class Custom {
     }
 
     // s --help
-    const helpArray = steps.map(({ projectName }) => 
-      `${projectName} [options]          Please use [s ${projectName} -h]  obtain the documentation.`
+    const helpArray = steps.map(
+      ({ projectName }) =>
+        `${projectName} [options]          Please use [s ${projectName} -h]  obtain the documentation.`,
     );
 
     return `Custom Commands
@@ -115,7 +115,7 @@ export default class Custom {
       customHelp[component] = {
         project: [projectName],
         help: `TODO: ${instance.help}`,
-      }
+      };
     }
 
     customProgram.helpInformation = () => {
@@ -133,11 +133,11 @@ export default class Custom {
     logger.debug('Need handle single component');
     const instance = await loadComponent(component);
 
-    instance.help?.()
+    instance.help?.();
 
     // TODO: 新增 help  依赖 组件抛出的 command 规范
     if (customProgram) {
-      customProgram.addHelpText('after', 'TODO: xxxx')
+      customProgram.addHelpText('after', 'TODO: xxxx');
     }
 
     return `
@@ -166,11 +166,11 @@ Custom Commands
 
     const components = new Set<string>();
     const steps = get(result, 'steps', []).map(item => {
-      components.add(item.component)
+      components.add(item.component);
       return {
         projectName: item.projectName,
         component: item.component,
-      }
+      };
     });
     const method = get(result, 'method');
 

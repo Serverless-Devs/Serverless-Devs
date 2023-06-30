@@ -30,7 +30,7 @@ class Logger {
     this.write = (...args) => logger.write.apply(logger, args);
     this.error = (...args) => logger.error.apply(logger, args);
     this.output = (...args) => logger.output.apply(logger, args);
-  }
+  };
 }
 
 export default new Logger();

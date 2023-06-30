@@ -16,7 +16,7 @@ ${emoji('📖')} Document: ${underline(
 )}`;
 
 export default (program: Command) => {
-  const command = program.command('rename')
+  const command = program.command('rename');
 
   command
     .usage('[options]')

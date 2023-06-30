@@ -28,7 +28,6 @@ const preRun = () => {
   const program = new Command();
   await root(program);
   await program.parseAsync(process.argv);
-
 })().catch(async error => {
   await HandleError(error);
 });

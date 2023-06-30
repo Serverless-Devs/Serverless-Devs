@@ -50,10 +50,7 @@ function cleanComponent(component: string | boolean) {
     return;
   }
 
-  const registryPath = [
-    path.join(componentsPath, 'github.com'),
-    path.join(componentsPath, 'devsapp.cn')
-  ];
+  const registryPath = [path.join(componentsPath, 'github.com'), path.join(componentsPath, 'devsapp.cn')];
 
   for (const registry of registryPath) {
     const p = path.join(registry, component as string);
@@ -99,6 +96,8 @@ export default (program: Command) => {
         return;
       }
 
-      logger.error("There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view");
+      logger.error(
+        "There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view",
+      );
     });
 };

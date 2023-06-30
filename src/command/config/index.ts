@@ -20,7 +20,7 @@ export default (program: Command) => {
     .description(description)
     .summary(`${emoji('👤')} Configure venders account.`)
     .usage('[commands] [options]')
-    .helpOption('-h, --help', 'Display help for command')
+    .helpOption('-h, --help', 'Display help for command');
 
   subAdd(configProgram);
   subGet(configProgram);

@@ -12,7 +12,6 @@ const description = `You can manage Serverless Packages on Serverless Registry.
 
 ${emoji('📖')} Document: ${underline('https://serverless.help/s/registry')}`;
 
-
 export default (program: Command) => {
   const configProgram = program.command('registry');
 
@@ -20,7 +19,7 @@ export default (program: Command) => {
     .description(description)
     .usage('[commands] [options]')
     .summary(`${emoji('📖')} Manage serverless packages on serverless registry`)
-    .helpOption('-h, --help', 'Display help for command')
+    .helpOption('-h, --help', 'Display help for command');
 
   subLogin(configProgram);
   subPublish(configProgram);
