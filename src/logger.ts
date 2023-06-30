@@ -14,7 +14,7 @@ class Logger {
   output: (...args: any[]) => any;
 
   initialization = () => {
-    const level = includes(process.env, '--debug') ? 'DEBUG' : 'INFO';
+    const level = includes(process.argv, '--debug') ? 'DEBUG' : 'INFO';
     this.loggerInstance = new _Logger({
       traceId: process.env.serverless_devs_trace_id as string,
       logDir: path.join(getRootHome(), 'logs'),

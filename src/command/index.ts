@@ -7,6 +7,7 @@ import subSet from './set';
 import subClean from './clean';
 import subInit from './init';
 import subRegistry from './registry';
+import Custom from './custom';
 
 export default async (program: Command) => {
   program
@@ -17,23 +18,26 @@ export default async (program: Command) => {
     .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw.')
     .version(CLI_VERSION, '-v, --version', 'Output the version number.')
 
-  // TODO: 需要支持命令
-  // program.addHelpCommand('edit', `${emoji('🙌')} Application editing.`);
-  // program.addHelpCommand('component', `${emoji('🔌')} Installed component information.`);
-  // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`);
-  // program.addHelpCommand('cli', `${emoji('🐚')} Command line operation without yaml mode.`);
-  program.addHelpCommand('<custom>', `${emoji('🧭')} Custom Commands`);
-
   // 支持的系统命令
   subConfig(program);
   subSet(program);
   subClean(program);
   subInit(program);
   subRegistry(program);
+  const customRootHelp = await new Custom(program).init();
+
+  // TODO: 需要支持命令
+  // program.addHelpCommand('edit', `${emoji('🙌')} Application editing.`);
+  // program.addHelpCommand('component', `${emoji('🔌')} Installed component information.`);
+  // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`);
+  // program.addHelpCommand('cli', `${emoji('🐚')} Command line operation without yaml mode.`);
+  program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
 
   // 追加的 help 信息
   program.addHelpText('before', `${emoji('😃')} Welcome to the Serverless Devs.\n`);
   program.addHelpText('after', `
+${customRootHelp || ''}
+
 ${emoji('🙌')}  Quick Start:      https://docs.serverless-devs.com/quick-start
 ${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
 ${emoji('💡')}  Documentation:    https://docs.serverless-devs.com

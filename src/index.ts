@@ -24,11 +24,11 @@ const preRun = () => {
 (async () => {
   preRun();
 
-  const program = new Command();
   // 处理指令
+  const program = new Command();
   await root(program);
-
   await program.parseAsync(process.argv);
+
 })().catch(async error => {
   await HandleError(error);
 });
