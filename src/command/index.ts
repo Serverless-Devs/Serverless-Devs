@@ -24,12 +24,14 @@ export default async (program: Command) => {
   subClean(program);
   subInit(program);
   subRegistry(program);
+
+  // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
   const customRootHelp = await new Custom(program).init();
 
   // TODO: 需要支持命令
   // program.addHelpCommand('edit', `${emoji('🙌')} Application editing.`);
   // program.addHelpCommand('component', `${emoji('🔌')} Installed component information.`);
-  // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`);
+  // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`); // TODO? 
   // program.addHelpCommand('cli', `${emoji('🐚')} Command line operation without yaml mode.`);
   program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
 

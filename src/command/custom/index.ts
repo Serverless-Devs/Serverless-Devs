@@ -24,7 +24,7 @@ export default class Custom {
     const argv = process.argv.slice(2);
     const {
       _: [projectName, customCommand],
-      template = '/Users/wss/Desktop/3.0/dev-toolkit/packages/parse-spec/__tests__/mock/simple.yaml', // mock
+      template,
       help,
     } = parseArgv(argv);
 
@@ -72,6 +72,8 @@ export default class Custom {
       // ****** 调用 engine ****** //
       customProgram.action(async () => {
         console.log('TODO: 调用 engine');
+        // TODO: 组件入参
+        // 
       });
 
       return;

@@ -108,7 +108,6 @@ export default class Manager {
     ]);
 
     if (answers.name) {
-      // TODO: execa?
       spawnSync('s deploy', { cwd: appPath, shell: true, stdio: 'inherit' });
     }
   }
