@@ -43,11 +43,13 @@
     "s": "bin/s"
   },
   "devDependencies": {
-    "@serverless-devs/credential": "^0.0.2",
-    "@serverless-devs/load-application": "^0.0.1",
-    "@serverless-devs/logger": "^0.0.1",
-    "@serverless-devs/registry": "^0.0.1",
-    "@serverless-devs/utils": "^0.0.7",
+    "@serverless-devs/credential": "beta",
+    "@serverless-devs/engine": "^0.0.1-beta.2",
+    "@serverless-devs/load-application": "beta",
+    "@serverless-devs/logger": "beta",
+    "@serverless-devs/parse-spec": "beta",
+    "@serverless-devs/registry": "beta",
+    "@serverless-devs/utils": "beta",
     "@types/node": "^18.16.1",
     "chalk": "^4.1.0",
     "commander": "^11.0.0",
@@ -59,7 +61,6 @@
     "rimraf": "^5.0.1",
     "table-layout": "^3.0.2",
     "ts-node": "^9.1.1",
-    "@serverless-devs/parse-spec": "^0.0.1-beta.1",
     "typescript": "^5.0.4"
   },
   "lint-staged": {

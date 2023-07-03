@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import Engine from '@serverless-devs/engine';
 import { parseArgv } from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import { get } from 'lodash';
@@ -71,9 +72,19 @@ export default class Custom {
 
       // ****** 调用 engine ****** //
       customProgram.action(async () => {
-        console.log('TODO: 调用 engine');
-        // TODO: 组件入参
-        // 
+        // TODO: 指定之后是否还需要找 s yaml
+
+        const engine = new Engine({
+          template,
+          logConfig: {
+            customLogger: logger.loggerInstance,
+          }
+        });
+
+        const context = await engine.start();
+        logger.output(context);
+
+        logger.loggerInstance.__clear();
       });
 
       return;
