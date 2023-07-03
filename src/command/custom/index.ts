@@ -5,6 +5,7 @@ import loadComponent from '@serverless-devs/load-component';
 import { get } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '../../logger';
+import Logger from '@serverless-devs/logger';
 
 interface IStep {
   projectName: string;
@@ -25,7 +26,7 @@ export default class Custom {
     const argv = process.argv.slice(2);
     const {
       _: [projectName, customCommand],
-      template,
+      template = '/Users/wss/Desktop/3.0/dev-toolkit/packages/engine/__tests__/mock/flow.yaml',
       help,
     } = parseArgv(argv);
 
@@ -74,6 +75,9 @@ export default class Custom {
       customProgram.action(async () => {
         // TODO: 指定之后是否还需要找 s yaml
 
+        // @ts-ignore
+        console.log(logger.loggerInstance instanceof Logger );
+
         const engine = new Engine({
           template,
           logConfig: {
@@ -82,9 +86,9 @@ export default class Custom {
         });
 
         const context = await engine.start();
-        logger.output(context);
+        // logger.output(context);
 
-        logger.loggerInstance.__clear();
+        // logger.loggerInstance.__clear();
       });
 
       return;
