@@ -5,7 +5,6 @@ import loadComponent from '@serverless-devs/load-component';
 import { get } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '../../logger';
-import Logger from '@serverless-devs/logger';
 
 interface IStep {
   projectName: string;
@@ -75,20 +74,22 @@ export default class Custom {
       customProgram.action(async () => {
         // TODO: 指定之后是否还需要找 s yaml
 
-        // @ts-ignore
-        console.log(logger.loggerInstance instanceof Logger );
+        try {
+          const engine = new Engine({
+            template,
+            logConfig: {
+              customLogger: logger.loggerInstance,
+            }
+          });
+  
+          const context = await engine.start();
+          logger.output(context);
 
-        const engine = new Engine({
-          template,
-          logConfig: {
-            customLogger: logger.loggerInstance,
-          }
-        });
-
-        const context = await engine.start();
-        // logger.output(context);
-
-        // logger.loggerInstance.__clear();
+          logger.loggerInstance.__clear();
+        } catch (ex) {
+          logger.loggerInstance.__clear();
+          throw ex;
+        }
       });
 
       return;
