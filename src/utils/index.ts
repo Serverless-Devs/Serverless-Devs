@@ -1,17 +1,13 @@
-/** @format */
+import os from 'os';
 
-import logger from './logger';
-export * from './common';
-export * from './handler-set-config';
-export { default as logger } from './logger';
-export { default as i18n } from './i18n';
+export { default as getPid } from './get-pid';
+export { default as checkNodeVersion } from './check-node-version';
+export { default as setProxy } from './set-proxy';
+export { default as publishHelp } from './publish-help';
 
-export function registerCommandChecker(program: any) {
-  program.on('command:*', (cmds: any) => {
-    const commands = program.commands.map((command: any) => command.name());
-    if (!commands.includes(cmds[0])) {
-      logger.error(`  error: unknown command ${cmds[0]}`);
-      program.help();
-    }
-  });
-}
+export const emoji = (text: string, fallback?: string) => {
+  if (os.platform() === 'win32') {
+    return fallback || '◆';
+  }
+  return `${text} `;
+};
