@@ -43,6 +43,7 @@
     "s": "bin/s"
   },
   "devDependencies": {
+    "@serverless-devs/core": "^0.1.59",
     "@serverless-devs/credential": "beta",
     "@serverless-devs/engine": "^0.0.1-beta.2",
     "@serverless-devs/load-application": "beta",
