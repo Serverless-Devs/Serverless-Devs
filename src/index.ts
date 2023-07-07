@@ -12,7 +12,7 @@ const preRun = () => {
 
   // 初始化日志
   logger.initialization();
-  logger.write(`run trace id: ${process.env.serverless_devs_trace_id}`);
+  logger.write(`run traceId: ${process.env.serverless_devs_trace_id}`);
 
   // 检查node版本是否过低
   checkNodeVersion();
