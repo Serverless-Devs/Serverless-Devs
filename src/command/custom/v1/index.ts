@@ -8,10 +8,12 @@ import { emoji } from '../../../utils'
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
 import { HandleError } from '../../../error';
+import { ISpec } from '../types';
+
 
 class V1 {
   private customProgram: Command;
-  constructor(private program: Command, private spec: Record<string, any> = {}) { }
+  constructor(private program: Command, private spec ={} as ISpec) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -84,12 +86,14 @@ class V1 {
     // s website -h
     if (projectName) {
       const componentName = find(steps, item => item.projectName === projectName)?.component;
-      return this.customProgram.addHelpText('after', await help(componentName));
+      const result = await help(componentName)
+      return this.customProgram.helpInformation = () => result;
     }
     // s deploy -h
     // 仅有一个组件
     if (components.length === 1) {
-      return this.customProgram.addHelpText('after', await help(first(components)));
+      const result = await help(first(components))
+      return this.customProgram.helpInformation = () => result;
     }
     // 多个组件
     return await this.doExecCommand();
