@@ -11,13 +11,14 @@ import logger from '../../logger';
 
 class Help {
   private customProgram: Command;
-  constructor(private program: Command, private spec = {} as ISpec) { }
+  constructor(private program: Command, private spec = {} as ISpec) { 
+    this.customProgram = program;
+  }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw } = parseArgv(argv);
     // s -h
     if (raw.length === 0) return await this.showHelp();
-    this.customProgram = this.program.command(raw[0]);
     // s website -h || s deploy -h
     if (raw.length === 1) return await this.showRaw1Help();
     // s website deploy -h || s website deploy function -h
@@ -58,6 +59,7 @@ class Help {
     // TODO:
     // s website -h
     if (projectName) {
+      this.customProgram = this.program.command(projectName);
       const componentName = find(steps, item => item.projectName === projectName)?.component;
       const instance = await loadComponent(componentName);
       const publishPath = path.join(instance.__path, 'publish.yaml');
@@ -107,6 +109,7 @@ class Help {
   // s website deploy -h
   async showRaw2Help() {
     const { steps, projectName, method } = this.spec;
+    this.customProgram = this.program.command(projectName);
     const componentName = find(steps, item => item.projectName === projectName)?.component;
     await this.singleComponentHelp(componentName, method);
   }
