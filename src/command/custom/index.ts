@@ -26,7 +26,7 @@ export default class Custom {
     if (isEmpty(this.spec)) return;
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
     if (help) return await new Help(this.program, this.spec).init();
-    this.program.command(raw[0]).action(async () => {
+    this.program.command(raw[0]).allowUnknownOption().action(async () => {
       const engine = new Engine({
         template,
         logConfig: {
