@@ -10,13 +10,13 @@ import { HandleError } from '../../error';
 import { ISpec } from './types';
 import Help from './help';
 
-
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const argv = process.argv.slice(2);
-    const { _: raw, template, help } = parseArgv(argv);
+    const { _: raw, template, help, version } = parseArgv(argv);
+    if (version) return;
     // 工具内置命令不处理
     const systemCommandNames = this.program.commands.map(command => command.name());
     if (systemCommandNames.includes(raw[0])) return;
@@ -26,21 +26,24 @@ export default class Custom {
     if (isEmpty(this.spec)) return;
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
     if (help) return await new Help(this.program, this.spec).init();
-    this.program.command(raw[0]).allowUnknownOption().action(async () => {
-      const engine = new Engine({
-        template,
-        logConfig: {
-          customLogger: logger.loggerInstance,
-        }
+    this.program
+      .command(raw[0])
+      .allowUnknownOption()
+      .action(async () => {
+        const engine = new Engine({
+          template,
+          logConfig: {
+            customLogger: logger.loggerInstance,
+          },
+        });
+        const context = await engine.start();
+        this.output(context);
+        logger.loggerInstance.__clear();
       });
-      const context = await engine.start();
-      this.output(context);
-      logger.loggerInstance.__clear();
-    })
   }
   output(context: IContext) {
     if (get(context, 'status') === 'success') {
-      const data = get(context, 'output', {})
+      const data = get(context, 'output', {});
       const argv = process.argv.slice(2);
       const { output = 'default' } = parseArgv(argv);
       if (output === IOutput.JSON) {
@@ -64,8 +67,8 @@ export default class Custom {
       const components = new Set<string>();
       each(get(spec, 'steps', []), item => {
         components.add(item.component);
-      })
-      return { ...spec, components: Array.from(components) }
+      });
+      return { ...spec, components: Array.from(components) };
     } catch (error) {
       return {} as ISpec;
     }

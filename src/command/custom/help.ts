@@ -4,16 +4,12 @@ import { parseArgv, getYamlContent } from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import { get, isEmpty, each, find, first, map } from 'lodash';
 import path from 'path';
-import { tableLayout, emoji } from '../../utils'
+import { tableLayout, emoji } from '../../utils';
 import chalk from 'chalk';
 import logger from '../../logger';
 
-
 class Help {
-  private customProgram: Command;
-  constructor(private program: Command, private spec = {} as ISpec) { 
-    this.customProgram = program;
-  }
+  constructor(private program: Command, private spec = {} as ISpec) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw } = parseArgv(argv);
@@ -43,7 +39,14 @@ class Help {
       return helpInfo.join('\n');
     }
     // 多个组件
-    helpInfo.push(tableLayout(map(steps, item => ({ command: `${item.projectName} [options]`, description: `Please use [s ${item.projectName} -h]  obtain the documentation.` }))));
+    helpInfo.push(
+      tableLayout(
+        map(steps, item => ({
+          command: `${item.projectName} [options]`,
+          description: `Please use [s ${item.projectName} -h]  obtain the documentation.`,
+        })),
+      ),
+    );
     return helpInfo.join('\n');
   }
   private customHelp(commands: Record<string, any> = {}) {
@@ -55,63 +58,81 @@ class Help {
   }
   // s website -h || s deploy -h
   async showRaw1Help() {
-    const { projectName, steps, components, method } = this.spec;
-    // TODO:
+    const { projectName, steps, components } = this.spec;
     // s website -h
     if (projectName) {
-      this.customProgram = this.program.command(projectName);
+      const customProgram = this.program.command(projectName);
       const componentName = find(steps, item => item.projectName === projectName)?.component;
       const instance = await loadComponent(componentName);
       const publishPath = path.join(instance.__path, 'publish.yaml');
       const publishContent = getYamlContent(publishPath);
-      const result = [`${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`];
-      result.push(this.customHelp(instance.commands))
+      customProgram.addHelpText(
+        'before',
+        `${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`,
+      );
+      each(instance.commands, (item, key) => {
+        customProgram.command(key).summary(get(item, 'help.summary', get(item, 'help.description')));
+      });
       if (publishContent['HomePage']) {
-        result.push(`${emoji('🧭')} ${'More information: ' + chalk.underline(publishContent['HomePage'])}`);
+        customProgram.addHelpText(
+          'after',
+          `\n${emoji('🧭')} ${'More information: ' + chalk.underline(publishContent['HomePage'])}`,
+        );
       }
-      this.customProgram.helpInformation = () => result.join('\n');
       return;
     }
     // s deploy -h
     // 仅有一个组件时
     if (components.length === 1) {
-      return await this.singleComponentHelp(first(components), method);
+      return await this.singleComponentHelp(first(components));
     }
-    // TODO: 多个组件
+    // 多个组件
     for (const item of steps) {
       logger.info(`Start executing project ${item.projectName}`);
-      const res = await this.singleComponentHelp(item.component, method);
-      res.outputHelp();
+      const res = await this.singleComponentHelp(item.component);
+      if (res) {
+        res.outputHelp();
+        res.helpInformation = () => '';
+      }
       logger.info(`Project ${item.projectName} successfully to execute`);
     }
-    this.customProgram.helpInformation = () => '';
   }
-  private async singleComponentHelp(componentName: string, method: string) {
+  private async singleComponentHelp(componentName: string) {
+    const { projectName, method } = this.spec;
     const instance = await loadComponent(componentName);
     const data = get(instance, `commands.${method}`);
+    if (isEmpty(data)) {
+      logger.info('The help information of the component is not obtained');
+      return;
+    }
     const description = get(data, 'help.description');
-   const currentProgram = this.customProgram.command(method).description(description).summary(get(data, 'help.summary', description))
+    let customProgram = projectName ? this.program.command(projectName).command(method) : this.program.command(method);
+    customProgram.description(description).summary(get(data, 'help.summary', description));
     const subCommands = get(data, 'subCommands', {});
     each(subCommands, (item, key) => {
       const subDescription = get(item, 'help.description');
-      const subCustomProgram = currentProgram.command(key).description(subDescription).summary(get(item, 'help.summary', subDescription));
-      each(get(item, 'help.option', []), (item) => {
+      const subCustomProgram = customProgram
+        .command(key)
+        .description(subDescription)
+        .summary(get(item, 'help.summary', subDescription));
+      each(get(item, 'help.option', []), item => {
         const [start, ...rest] = item;
-        subCustomProgram.option(start, ...rest)
+        subCustomProgram.option(start, ...rest);
       });
     });
-    each(get(data, 'help.option', []), (item) => {
+    each(get(data, 'help.option', []), item => {
       const [start, ...rest] = item;
-      currentProgram.option(start, ...rest)
+      customProgram.option(start, ...rest);
     });
-    return this.customProgram;
+    return customProgram;
   }
   // s website deploy -h
   async showRaw2Help() {
-    const { steps, projectName, method } = this.spec;
-    this.customProgram = this.program.command(projectName);
+    const { steps, projectName } = this.spec;
+    this.program.command(projectName);
     const componentName = find(steps, item => item.projectName === projectName)?.component;
-    await this.singleComponentHelp(componentName, method);
+    const res = await this.singleComponentHelp(componentName);
+    res.help();
   }
 }
 

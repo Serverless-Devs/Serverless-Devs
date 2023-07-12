@@ -1,5 +1,5 @@
 import os from 'os';
-import { maxBy, repeat, filter } from 'lodash'
+import { maxBy, repeat, filter } from 'lodash';
 import TableLayout from 'table-layout';
 
 export { default as getPid } from './get-pid';
@@ -13,11 +13,10 @@ export const emoji = (text: string, fallback?: string) => {
   return `${text} `;
 };
 
-
-export const tableLayout = (data: { command: string, description: string }[], indent = 0) => {
-  const newData = filter(data, (item) => item.command !== 'help')
-  const commandMaxLen = maxBy(newData, (item) => item.command.length).command.length;
-  const descMaxLen = maxBy(newData, (item) => item.description.length).description.length;
+export const tableLayout = (data: { command: string; description: string }[], indent = 0) => {
+  const newData = filter(data, item => item.command !== 'help');
+  const commandMaxLen = maxBy(newData, item => item.command.length).command.length;
+  const descMaxLen = maxBy(newData, item => item.description.length).description.length;
   return new TableLayout(newData, {
     padding: { left: repeat(' ', indent + 2) },
     columns: [
@@ -30,5 +29,5 @@ export const tableLayout = (data: { command: string, description: string }[], in
         width: descMaxLen + 10,
       },
     ],
-  }).toString()
-}
+  }).toString();
+};

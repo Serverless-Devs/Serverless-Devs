@@ -4,16 +4,15 @@ import path from 'path';
 import { getYamlContent } from '@serverless-devs/utils';
 import { get, isPlainObject, values, first, isEmpty, find, each } from 'lodash';
 import { underline, bold } from 'chalk';
-import { emoji } from '../../../utils'
+import { emoji } from '../../../utils';
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
 import { HandleError } from '../../../error';
 import { ISpec } from '../types';
 
-
 class V1 {
   private customProgram: Command;
-  constructor(private program: Command, private spec ={} as ISpec) { }
+  constructor(private program: Command, private spec = {} as ISpec) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -21,18 +20,18 @@ class V1 {
     if (raw.length === 0 && help) return await this.showSimpleHelp();
     // s website -h || s deploy -h
     if (raw.length === 1) {
-      this.customProgram = this.program.command(raw[0]).allowUnknownOption()
+      this.customProgram = this.program.command(raw[0]).allowUnknownOption();
       if (help) return await this.showHelp();
     }
     // s website deploy -h
     if (raw.length > 1) {
-      this.customProgram = this.program.command(raw[0]).allowUnknownOption()
+      this.customProgram = this.program.command(raw[0]).allowUnknownOption();
       if (help) return await this.showComflexHelp();
     }
 
     this.customProgram.action(async () => {
       await this.doExecCommand();
-    })
+    });
   }
   async doExecCommand() {
     const argv = process.argv.slice(2);
@@ -86,18 +85,17 @@ class V1 {
     // s website -h
     if (projectName) {
       const componentName = find(steps, item => item.projectName === projectName)?.component;
-      const result = await help(componentName)
-      return this.customProgram.helpInformation = () => result;
+      const result = await help(componentName);
+      return (this.customProgram.helpInformation = () => result);
     }
     // s deploy -h
     // 仅有一个组件
     if (components.length === 1) {
-      const result = await help(first(components))
-      return this.customProgram.helpInformation = () => result;
+      const result = await help(first(components));
+      return (this.customProgram.helpInformation = () => result);
     }
     // 多个组件
     return await this.doExecCommand();
-
   }
   // s website deploy -h
   async showComflexHelp() {
@@ -133,19 +131,21 @@ const commonHelp = async (name: string) => {
     result.push(publishHelp.helpInfo(customDescription, 'Custom Commands', 27));
   }
   return result;
-}
+};
 
 const help = async (name: string) => {
   const instance = await loadComponent(name);
   const publishPath = path.join(instance.__path, 'publish.yaml');
   const publishContent = getYamlContent(publishPath);
-  const result = [`${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`];
+  const result = [
+    `${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`,
+  ];
   const res = await commonHelp(name);
   result.push(...res);
   if (publishContent['HomePage']) {
     result.push(`${emoji('🧭')} ${makeUnderLine('More information: ' + publishContent['HomePage'])}`);
   }
   return result.join('\n');
-}
+};
 
 export default V1;

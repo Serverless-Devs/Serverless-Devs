@@ -11,6 +11,7 @@ import Custom from './custom';
 
 export default async (program: Command) => {
   program
+    .name('s')
     .option('--debug', 'Open debug model.')
     .option('--skip-actions', 'Skip the extends section.')
     .option('-t, --template <path>', 'Specify the template file.')
@@ -31,7 +32,7 @@ export default async (program: Command) => {
   // TODO: 需要支持命令
   // program.addHelpCommand('edit', `${emoji('🙌')} Application editing.`);
   // program.addHelpCommand('component', `${emoji('🔌')} Installed component information.`);
-  // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`); // TODO? 
+  // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`); // TODO?
   // program.addHelpCommand('cli', `${emoji('🐚')} Command line operation without yaml mode.`);
   program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
 
@@ -40,7 +41,7 @@ export default async (program: Command) => {
   program.addHelpText(
     'after',
     `
-${customRootHelp}
+${customRootHelp || ''}
 
 ${emoji('🙌')}  Quick Start:      https://docs.serverless-devs.com/quick-start
 ${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
