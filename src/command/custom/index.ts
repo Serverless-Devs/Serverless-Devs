@@ -60,6 +60,7 @@ export default class Custom {
     HandleError(context.error);
   }
   parseSpec() {
+    // TODO: 捕捉错误
     try {
       const argv = process.argv.slice(2);
       const { template } = parseArgv(argv);
