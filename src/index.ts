@@ -32,6 +32,10 @@ const preRun = () => {
   await HandleError(error);
 });
 
+process.on('uncaughtException', async err => {
+  await HandleError(err);
+});
+
 process.on('exit', code => {
   logger.debug(`process exitCode: ${code}`);
   logger.loggerInstance.__clear();
