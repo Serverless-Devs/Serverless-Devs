@@ -4,7 +4,7 @@ import { parseArgv, getYamlContent } from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import { get, isEmpty, each, find, first, map } from 'lodash';
 import path from 'path';
-import { tableLayout, emoji } from '../../utils';
+import { helpFormat, emoji } from '../../utils';
 import chalk from 'chalk';
 import logger from '../../logger';
 
@@ -40,7 +40,7 @@ class Help {
     }
     // 多个组件
     helpInfo.push(
-      tableLayout(
+      helpFormat(
         map(steps, item => ({
           command: `${item.projectName} [options]`,
           description: `Please use [s ${item.projectName} -h]  obtain the documentation.`,
@@ -54,7 +54,7 @@ class Help {
     each(commands, (item, key) => {
       result.push({ command: key, description: get(item, 'help.summary', get(item, 'help.description')) });
     });
-    return tableLayout(result);
+    return helpFormat(result);
   }
   // s website -h || s deploy -h
   async showRaw1Help() {

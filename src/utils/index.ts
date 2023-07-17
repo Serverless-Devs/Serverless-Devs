@@ -13,7 +13,7 @@ export const emoji = (text: string, fallback?: string) => {
   return `${text} `;
 };
 
-export const tableLayout = (data: { command: string; description: string }[], indent = 0) => {
+export const helpFormat = (data: { command: string; description: string }[], indent = 0) => {
   const newData = filter(data, item => item.command !== 'help');
   const commandMaxLen = maxBy(newData, item => get(item, 'command.length')).command.length;
   const descMaxLen = maxBy(newData, item => get(item, 'description.length')).description.length;
@@ -27,6 +27,24 @@ export const tableLayout = (data: { command: string; description: string }[], in
       {
         name: 'description',
         width: descMaxLen + 10,
+      },
+    ],
+  }).toString();
+};
+
+export const errorFormat = (data: { key: string; value: string }[]) => {
+  const keyMaxLen = maxBy(data, item => get(item, 'key.length')).key.length;
+  const valueMaxLen = maxBy(data, item => get(item, 'value.length')).value.length;
+  return new TableLayout(data, {
+    padding: { left: '' },
+    columns: [
+      {
+        name: 'key',
+        width: keyMaxLen + 2,
+      },
+      {
+        name: 'value',
+        width: valueMaxLen + 10,
       },
     ],
   }).toString();
