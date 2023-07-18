@@ -13,6 +13,7 @@ class Logger {
   error: (...args: any[]) => any;
   output: (...args: any[]) => any;
   progress: (...args: any[]) => any;
+  tips: (...args: any[]) => any;
 
   initialization = () => {
     const level = includes(process.argv, '--debug') ? 'DEBUG' : undefined;
@@ -32,6 +33,7 @@ class Logger {
     this.error = (...args) => logger.error.apply(logger, args);
     this.output = (...args) => logger.output.apply(logger, args);
     this.progress = (...args) => logger.progress.apply(logger, args);
+    this.tips = (...args) => logger.tips.apply(logger, args);
   };
 }
 
