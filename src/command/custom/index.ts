@@ -9,6 +9,7 @@ import yaml from 'js-yaml';
 import { HandleError } from '../../error';
 import { ISpec } from './types';
 import Help from './help';
+import chalk from 'chalk';
 
 export default class Custom {
   private spec = {} as ISpec;
@@ -36,27 +37,24 @@ export default class Custom {
           },
         });
         const context = await engine.start();
-        this.output(context);
-        logger.loggerInstance.__clear();
+        get(context, 'status') === 'success' ? this.output(context) : HandleError(context.error);
       });
   }
   output(context: IContext) {
-    if (get(context, 'status') === 'success') {
-      const data = get(context, 'output', {});
-      const argv = process.argv.slice(2);
-      const { output = 'default' } = parseArgv(argv);
-      if (output === IOutput.JSON) {
-        return logger.log(JSON.stringify(data, null, 2));
-      }
-      if (output === IOutput.RAW) {
-        return logger.log(JSON.stringify(data));
-      }
-      if (output === IOutput.YAML) {
-        return logger.log(yaml.dump(data));
-      }
-      return logger.output(data);
+    const data = get(context, 'output', {});
+    const argv = process.argv.slice(2);
+    const { output = 'default' } = parseArgv(argv);
+    logger.write(`\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`)
+    if (output === IOutput.JSON) {
+      return logger.log(JSON.stringify(data, null, 2));
     }
-    HandleError(context.error);
+    if (output === IOutput.RAW) {
+      return logger.log(JSON.stringify(data));
+    }
+    if (output === IOutput.YAML) {
+      return logger.log(yaml.dump(data));
+    }
+    logger.output(data);
   }
   parseSpec() {
     const argv = process.argv.slice(2);

@@ -98,15 +98,15 @@ class Help {
     }
   }
   private async singleComponentHelp(componentName: string) {
-    const { projectName, method } = this.spec;
+    const { projectName, command } = this.spec;
     const instance = await loadComponent(componentName);
-    const data = get(instance, `commands.${method}`);
+    const data = get(instance, `commands.${command}`);
     if (isEmpty(data)) {
       logger.info('The help information of the component is not obtained');
       return;
     }
     const description = get(data, 'help.description');
-    let customProgram = projectName ? this.program.command(projectName).command(method) : this.program.command(method);
+    let customProgram = projectName ? this.program.command(projectName).command(command) : this.program.command(command);
     customProgram.description(description).summary(get(data, 'help.summary', description));
     const subCommands = get(data, 'subCommands', {});
     each(subCommands, (item, key) => {

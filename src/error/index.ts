@@ -23,6 +23,7 @@ export const HandleError = async (error: IEngineError | IEngineError[] ) => {
   }else{
     doOneError(error);
   }
+  logger.write('\n')
   logger.write(errorFormat([
     { key: 'Env:', value: `${process.platform}-${process.arch} node-${process.version}` },
     { key: 'Logs:', value: `${path.join(getRootHome(), 'logs', process.env.serverless_devs_trace_id)}` },
@@ -39,7 +40,6 @@ const doOneError = (error: IEngineError) => {
       '====================',
       chalk.red('Error Message:'),
       chalk.red(tipsError.message),
-      chalk.yellow('\n👀 Get detail log: s cli runlog xxxxxxxxxx\n'),
     ];
     if (tipsError.tips) {
       arr.push('🍼 Tips', '====================', chalk.yellow(`${tipsError.tips}\n`));
@@ -52,7 +52,6 @@ const doOneError = (error: IEngineError) => {
   const arr = [
     chalk.red('Error Message:'),
     chalk.red(e.message),
-    chalk.yellow('\n👀 Get detail log: s cli runlog xxxxxxxxxx\n'),
   ];
   logger.write(arr.join('\n'));
 

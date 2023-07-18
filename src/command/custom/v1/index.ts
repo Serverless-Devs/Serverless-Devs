@@ -40,7 +40,7 @@ class V1 {
       return await core.execCommand({
         syaml: template,
         serverName: this.spec.projectName,
-        method: this.spec.method,
+        method: this.spec.command,
         args: process.argv.slice(2),
         globalArgs: {
           access,
