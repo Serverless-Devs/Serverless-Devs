@@ -44,9 +44,9 @@
   },
   "devDependencies": {
     "@serverless-devs/credential": "beta",
-    "@serverless-devs/engine": "^0.0.1-beta.13",
+    "@serverless-devs/engine": "^0.0.1-beta.15",
     "@serverless-devs/load-application": "beta",
-    "@serverless-devs/logger": "^0.0.2-beta.4",
+    "@serverless-devs/logger": "^0.0.2-beta.5",
     "@serverless-devs/parse-spec": "^0.0.1-beta.7",
     "@serverless-devs/registry": "beta",
     "@serverless-devs/utils": "beta",

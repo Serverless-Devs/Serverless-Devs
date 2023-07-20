@@ -27,7 +27,6 @@ const preRun = () => {
   const program = new Command();
   await root(program);
   await program.parseAsync(process.argv);
-  process.exit(0);
 })().catch(async error => {
   await HandleError(error);
 });
@@ -39,5 +38,4 @@ process.on('uncaughtException', async err => {
 process.on('exit', code => {
   logger.write(`run traceId: ${process.env.serverless_devs_trace_id}`);
   logger.debug(`process exitCode: ${code}`);
-  logger.loggerInstance.__clear();
 });
