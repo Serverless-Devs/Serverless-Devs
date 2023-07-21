@@ -38,4 +38,11 @@ process.on('uncaughtException', async err => {
 process.on('exit', code => {
   logger.write(`run traceId: ${process.env.serverless_devs_trace_id}`);
   logger.debug(`process exitCode: ${code}`);
+  // fix 光标位置
+  logger.loggerInstance.__clear();
+});
+
+process.on('SIGINT', () => {
+  logger.debug('process SIGINT');
+  process.exit();
 });
