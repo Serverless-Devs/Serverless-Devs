@@ -1,7 +1,6 @@
 import _Logger from '@serverless-devs/logger';
-import { includes } from 'lodash';
 import path from 'path';
-import { getRootHome } from '@serverless-devs/utils';
+import { getRootHome, isDebugMode } from '@serverless-devs/utils';
 
 class Logger {
   loggerInstance: _Logger;
@@ -16,11 +15,10 @@ class Logger {
   tips: (...args: any[]) => any;
 
   initialization = () => {
-    const level = includes(process.argv, '--debug') ? 'DEBUG' : undefined;
     this.loggerInstance = new _Logger({
       traceId: process.env.serverless_devs_trace_id as string,
       logDir: path.join(getRootHome(), 'logs'),
-      level,
+      level: isDebugMode() ? 'DEBUG' : undefined,
     });
 
     const logger = this.loggerInstance.__generate('s_cli');

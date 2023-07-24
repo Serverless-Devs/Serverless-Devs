@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import Engine, { IContext } from '@serverless-devs/engine';
-import { parseArgv } from '@serverless-devs/utils';
+import { parseArgv, getRootHome } from '@serverless-devs/utils';
 import { get, each } from 'lodash';
 import ParseSpec, { IOutput } from '@serverless-devs/parse-spec';
 import V1 from './v1';
@@ -10,6 +10,7 @@ import { HandleError } from '../../error';
 import { ISpec } from './types';
 import Help from './help';
 import chalk from 'chalk';
+import path from 'path';
 
 export default class Custom {
   private spec = {} as ISpec;
@@ -57,6 +58,7 @@ export default class Custom {
       return logger.log(yaml.dump(data));
     }
     logger.output(data);
+    logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_trace_id))}\n`)
   }
   parseSpec() {
     const argv = process.argv.slice(2);
