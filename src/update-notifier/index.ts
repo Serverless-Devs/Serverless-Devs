@@ -5,7 +5,7 @@ import boxen from 'boxen';
 import { UPDATE_CHECK_INTERVAL } from '../constant';
 import { isCiCdEnvironment } from '@serverless-devs/utils';
 import core from '../utils/core';
-const { fse: fs, chalk, execa, getRootHome } = core;
+const { fse: fs, chalk, getRootHome } = core;
 const pkg = require('../../package.json');
 const semver = require('semver');
 const semverDiff = require('semver-diff');
@@ -42,23 +42,14 @@ class UpdateNotifier {
   async update() {
     const latest = await latestVersion(pkg.name);
     const type = semverDiff(pkg.version, latest);
-    const isInstall = ['major', 'minor'].includes(type);
     const data = {
-      output: isInstall ? false : semver.gt(latest, pkg.version),
+      output: semver.gt(latest, pkg.version),
       current: pkg.version,
       latest,
       type,
       lastUpdateCheck: Date.now(),
     };
     fs.writeFileSync(updateNotifierPath, format(data));
-    isInstall && this.install();
-  }
-  install() {
-    try {
-      execa.sync(`npm install ${pkg.name} -g`, { shell: true });
-    } catch (error) {
-      execa.sync(`yarn global add ${pkg.name}`, { shell: true });
-    }
   }
   notify() {
     if (!this.config('output')) return;

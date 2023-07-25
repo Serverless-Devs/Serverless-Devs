@@ -26,6 +26,7 @@ function run(program: Command) {
     .usage('[options] [name | url]')
     .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
     .option('-r, --registry <url>', 'Use specify registry')
+    .option('--uri <uri>', 'Use specify uri, Eg: remote url, local dir, local zip file')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('--parameters <parameters>', 'Initialize with custom parameters')
     .option('--appName <appName>', 'Modify default Application name')

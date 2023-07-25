@@ -45,6 +45,7 @@ export class InitManager {
       parameters,
       appName: argvData.appName,
       access: argvData.access,
+      uri: argvData.uri,
     });
     if (appPath) {
       await this.assemblySpecialApp(name, { projectName, appPath }); // Set some app template content
