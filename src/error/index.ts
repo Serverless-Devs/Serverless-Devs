@@ -1,4 +1,4 @@
-import { TipsError, getRootHome, isDebugMode } from '@serverless-devs/utils';
+import { DevsError, getRootHome, isDebugMode } from '@serverless-devs/utils';
 import logger from '../logger';
 import chalk from 'chalk';
 import path from 'path';
@@ -33,16 +33,16 @@ export const HandleError = async (error: IEngineError | IEngineError[]) => {
 };
 
 const doOneError = (error: IEngineError) => {
-  const tipsError = error as TipsError;
-  if (tipsError.CODE === TipsError.CODE) {
+  const devsError = error as DevsError;
+  if (devsError.CODE === DevsError.CODE) {
     const arr = [
-      `\n${chalk.red('✖')} ${tipsError.prefix}`,
+      `\n${chalk.red('✖')} ${devsError.prefix}`,
       '====================',
       chalk.red('Error Message:'),
-      chalk.red(isDebugMode() ? tipsError.stack : tipsError.message),
+      chalk.red(isDebugMode() ? devsError.stack : devsError.message),
     ];
-    if (tipsError.tips) {
-      arr.push('🍼 Tips', '====================', chalk.yellow(`${tipsError.tips}\n`));
+    if (devsError.tips) {
+      arr.push('🍼 Tips', '====================', chalk.yellow(`${devsError.tips}\n`));
     }
     logger.write(arr.join('\n'));
     return;
