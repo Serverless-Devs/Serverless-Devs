@@ -1,7 +1,6 @@
 import { Command } from 'commander';
 import { underline } from 'chalk';
 import { emoji } from '../../utils';
-import { HandleError } from '../../error';
 import Manager from './manager';
 import logger from '../../logger';
 
@@ -45,15 +44,10 @@ export default (program: Command) => {
         const template = process.argv[3];
         if (template && !template?.startsWith('-')) {
           options.project = template;
-          logger.warn(`This method has been discontinued, please use --project ${template}`);
+          logger.warn(`This method has been deprecated, please use --project ${template}`);
         }
       }
-
-      try {
-        const manager = new Manager(options);
-        await manager.init();
-      } catch (err) {
-        await HandleError(err);
-      }
+      const manager = new Manager(options);
+      await manager.init();
     });
 };

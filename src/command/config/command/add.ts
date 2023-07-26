@@ -2,7 +2,6 @@ import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
 import { bold, underline } from 'chalk';
 import { emoji } from '../../../utils';
-import { HandleError } from '../../../error';
 import { handleSecret } from '../utils';
 import logger from '../../../logger';
 
@@ -44,24 +43,17 @@ export default (program: Command) => {
     .option('--PrivateKeyData <PrivateKeyData>', 'PrivateKeyData of key information')
     .option('--kl, --keyList <keyList>', 'Keys of key information, like: --kl key1,key2,key3')
     .option('--il, --infoList <infoList>', 'Values of key information, like: --il info1,info2,info3')
-    .option('-a, --access <aliasName>', 'Specify the access alias name.')
-    .option('-b, --bbb <aliasName>', 'Specify the access alias name.')
     .option('-f', 'Mandatory overwrite key information')
     .helpOption('-h, --help', 'Display help for command')
-    // .allowUnknownOption()
+    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
-      try {
-        console.log('???', command.optsWithGlobals());
-        const credential = new Credential({ logger });
-        const result = await credential.set(options);
-        if (result) {
-          logger.output({
-            Alias: result.access,
-            Credential: handleSecret(result.credential),
-          });
-        }
-      } catch (err) {
-        await HandleError(err);
+      const credential = new Credential({ logger });
+      const result = await credential.set({ ...options, ...program.optsWithGlobals() });
+      if (result) {
+        logger.output({
+          Alias: result.access,
+          Credential: handleSecret(result.credential),
+        });
       }
     });
 };

@@ -7,7 +7,6 @@ import { underline, bold } from 'chalk';
 import { emoji } from '../../../utils';
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
-import { HandleError } from '../../../error';
 import { ISpec } from '../types';
 
 class V1 {
@@ -36,23 +35,19 @@ class V1 {
   async doExecCommand() {
     const argv = process.argv.slice(2);
     const { template, help, access, skipActions, debug, output } = parseArgv(argv);
-    try {
-      return await core.execCommand({
-        syaml: template,
-        serverName: this.spec.projectName,
-        method: this.spec.command,
-        args: process.argv.slice(2),
-        globalArgs: {
-          access,
-          skipActions,
-          debug,
-          help,
-          output,
-        },
-      });
-    } catch (error) {
-      HandleError(error);
-    }
+    return await core.execCommand({
+      syaml: template,
+      serverName: this.spec.projectName,
+      method: this.spec.command,
+      args: process.argv.slice(2),
+      globalArgs: {
+        access,
+        skipActions,
+        debug,
+        help,
+        output,
+      },
+    });
   }
   // s -h
   async showSimpleHelp() {

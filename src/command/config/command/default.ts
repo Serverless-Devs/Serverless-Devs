@@ -2,7 +2,6 @@ import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
 import { bold, underline } from 'chalk';
 import { emoji } from '../../../utils';
-import { HandleError } from '../../../error';
 import logger from '../../../logger';
 
 const description = `Specify an access as the default.
@@ -22,14 +21,10 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`${emoji(bold('-'))} Set default accounts`)
-    .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .helpOption('-h, --help', 'Display help for command')
+    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
-      try {
-        const credential = new Credential({ logger });
-        await credential.default(options.access);
-      } catch (error) {
-        await HandleError(error);
-      }
+      const credential = new Credential({ logger });
+      await credential.default(program.optsWithGlobals().access);
     });
 };

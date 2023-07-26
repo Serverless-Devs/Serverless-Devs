@@ -4,7 +4,6 @@ import { emoji } from '../../utils';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '../../logger';
 import { get } from 'lodash';
-import { HandleError } from '../../error';
 // TODO:文档链接
 const description = `Application priview.
   
@@ -23,15 +22,11 @@ export default (program: Command) => {
     .configureHelp({ showGlobalOptions: true })
     .action(async options => {
       const { template } = program.optsWithGlobals();
-      try {
-        const spec = new ParseSpec(template).start();
-        if (get(spec, 'yaml.use3x')) {
-          logger.debug(`Template: ${get(spec, 'yaml.path')}`)
-          return logger.output(get(spec, 'yaml.content'))
-        }
-        logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`)
-      } catch (error) {
-        HandleError(error)
+      const spec = new ParseSpec(template).start();
+      if (get(spec, 'yaml.use3x')) {
+        logger.debug(`Template: ${get(spec, 'yaml.path')}`)
+        return logger.output(get(spec, 'yaml.content'))
       }
+      logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`)
     });
 };

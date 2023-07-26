@@ -2,7 +2,6 @@ import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
 import { bold, underline } from 'chalk';
 import { emoji } from '../../../utils';
-import { HandleError } from '../../../error';
 import { handleSecret } from '../utils';
 import logger from '../../../logger';
 
@@ -23,20 +22,20 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`${emoji(bold('√'))} Get accounts`)
-    .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .helpOption('-h, --help', 'Display help for command')
+    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
       try {
         const credential = new Credential({ logger });
-        if (options.access) {
-          const result = await credential.get(options.access);
-
+        const access = program.optsWithGlobals().access;
+        if (access) {
+          const result = await credential.get(access);
           logger.output({
             Alias: result.access,
             Credential: handleSecret(result.credential),
           });
         } else {
-          const result = await credential.getAll();
+          const result = credential.getAll();
           const show = {};
           for (const alias in result) {
             const value = result[alias];
@@ -55,7 +54,7 @@ export default (program: Command) => {
           logger.write(msg);
           return;
         }
-        await HandleError(error);
+        throw error;
       }
     });
 };
