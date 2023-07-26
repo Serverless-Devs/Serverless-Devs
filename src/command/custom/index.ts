@@ -24,7 +24,11 @@ export default class Custom {
     if (systemCommandNames.includes(raw[0])) return;
     // help命令不处理
     if (raw[0] === 'help') return;
-    this.spec = this.parseSpec();
+    try {
+      this.spec = this.parseSpec();
+    } catch (error) {
+      if (!help) throw error;
+    }
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
     if (help) return await new Help(this.program, this.spec).init();
     this.program

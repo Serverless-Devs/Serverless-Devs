@@ -221,4 +221,5 @@ download/
 lib/
 release
 .s
-pkg
+# pkg 二进制文件
+s-*

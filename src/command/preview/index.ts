@@ -26,10 +26,10 @@ export default (program: Command) => {
       try {
         const spec = new ParseSpec(template).start();
         if (get(spec, 'yaml.use3x')) {
-          logger.debug(`template: ${get(spec, 'yaml.path')}`)
+          logger.debug(`Template: ${get(spec, 'yaml.path')}`)
           return logger.output(get(spec, 'yaml.content'))
         }
-        logger.tips(`not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`)
+        logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`)
       } catch (error) {
         HandleError(error)
       }
