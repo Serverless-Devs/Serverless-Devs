@@ -43,8 +43,6 @@ export default class Custom {
         });
         const context = await engine.start();
         get(context, 'status') === 'success' ? this.output(context) : HandleError(context.error);
-        // clear logger
-        logger.loggerInstance.__clear();
       });
   }
   output(context: IContext) {
