@@ -4,15 +4,14 @@ import { checkNodeVersion, getPid, setProxy } from './utils';
 import logger from './logger';
 import { HandleError } from './error';
 import root from './command';
+import onboarding from './onboarding';
 
 const preRun = () => {
   // 添加环境变量
   process.env.CLI_VERSION = CLI_VERSION;
   process.env.serverless_devs_trace_id = `${getPid()}${Date.now()}`;
-
   // 初始化日志
   logger.initialization();
-
   // 检查node版本是否过低
   checkNodeVersion();
   // 设置全局代理
@@ -22,6 +21,11 @@ const preRun = () => {
 
 (async () => {
   preRun();
+  // 处理 onboarding
+  if (process.argv.length === 2) {
+    await onboarding();
+    return;
+  }
 
   // 处理指令
   const program = new Command();

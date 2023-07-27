@@ -43,7 +43,7 @@ export default (program: Command) => {
     .option('--PrivateKeyData <PrivateKeyData>', 'PrivateKeyData of key information')
     .option('--kl, --keyList <keyList>', 'Keys of key information, like: --kl key1,key2,key3')
     .option('--il, --infoList <infoList>', 'Values of key information, like: --il info1,info2,info3')
-    .option('-f', 'Mandatory overwrite key information')
+    .option('-f, --force', 'Mandatory overwrite key information')
     .helpOption('-h, --help', 'Display help for command')
     .configureHelp({ showGlobalOptions: true })
     .action(async options => {
