@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { getGlobalConfig, parseArgv, setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import { underline } from 'chalk';
+import chalk, { underline } from 'chalk';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
 import { DEFAULT_REGISTRY } from '../../../constant';
@@ -73,6 +73,6 @@ export default (program: Command) => {
       }
 
       setGlobalConfig('registry', registry);
-      logger.write(`Set registry to ${registry} successfully`);
+      logger.write(chalk.green(`Set registry to ${registry} successfully`));
     });
 };
