@@ -5,6 +5,7 @@ import logger from './logger';
 import { HandleError } from './error';
 import root from './command';
 import onboarding from './onboarding';
+import UpdateNotifier from './update-notifier';
 
 const preRun = () => {
   // 添加环境变量
@@ -16,7 +17,8 @@ const preRun = () => {
   checkNodeVersion();
   // 设置全局代理
   setProxy();
-  // TODO: 更新处理  new UpdateNotifier().init().notify();
+  // 检查更新
+  new UpdateNotifier().init().notify();
 };
 
 (async () => {
