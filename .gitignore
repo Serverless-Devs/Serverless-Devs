@@ -223,3 +223,4 @@ release
 .s
 # pkg 二进制文件
 s-*
+replace-committers.sh*
