@@ -18,6 +18,7 @@ export default async (program: Command) => {
     .option('-t, --template <path>', 'Specify the template file.')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw.')
+    .configureHelp({ showGlobalOptions: true })
     .version(getVersion(), '-v, --version', 'Output the version number.');
 
   // 支持的系统命令

@@ -23,7 +23,6 @@ export default (program: Command) => {
     .description(description)
     .summary(`${emoji(bold('√'))} Get accounts`)
     .helpOption('-h, --help', 'Display help for command')
-    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
       try {
         const credential = new Credential({ logger });

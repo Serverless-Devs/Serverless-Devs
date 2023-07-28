@@ -21,7 +21,6 @@ export = (program: Command) => {
     .description(description)
     .summary(`${emoji(bold('×'))} Delete an account`)
     .helpOption('-h, --help', 'Display help for command')
-    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
       const credential = new Credential({ logger });
       const access = program.optsWithGlobals().access;

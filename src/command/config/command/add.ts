@@ -45,7 +45,6 @@ export default (program: Command) => {
     .option('--il, --infoList <infoList>', 'Values of key information, like: --il info1,info2,info3')
     .option('-f, --force', 'Mandatory overwrite key information')
     .helpOption('-h, --help', 'Display help for command')
-    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
       const credential = new Credential({ logger });
       const result = await credential.set({ ...options, ...program.optsWithGlobals() });

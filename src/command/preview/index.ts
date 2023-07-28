@@ -19,7 +19,6 @@ export default (program: Command) => {
     .description(description)
     .summary(`${emoji('👀')} Preview Yaml render results.`)
     .helpOption('-h, --help', 'Display help for command')
-    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
       const { template } = program.optsWithGlobals();
       const spec = new ParseSpec(template).start();

@@ -22,7 +22,6 @@ export default (program: Command) => {
     .description(description)
     .summary(`${emoji(bold('-'))} Set default accounts`)
     .helpOption('-h, --help', 'Display help for command')
-    .configureHelp({ showGlobalOptions: true })
     .action(async options => {
       const credential = new Credential({ logger });
       await credential.default(program.optsWithGlobals().access);
