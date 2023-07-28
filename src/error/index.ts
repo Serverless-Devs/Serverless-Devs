@@ -2,7 +2,7 @@ import { DevsError, getRootHome, isDebugMode } from '@serverless-devs/utils';
 import logger from '../logger';
 import chalk from 'chalk';
 import path from 'path';
-import { errorFormat } from '../utils';
+import { formatError } from '../utils';
 import { IEngineError } from '@serverless-devs/engine';
 import { isArray } from 'lodash';
 
@@ -16,7 +16,7 @@ export const HandleError = async (error: IEngineError | IEngineError[]) => {
     doOneError(error);
   }
   logger.write('\n')
-  logger.write(errorFormat([
+  logger.write(formatError([
     { key: 'Env:', value: `${process.platform}-${process.arch} node-${process.version}` },
     { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_trace_id)) },
     { key: 'Get Help:', value: `DingTalk: 33947367` },

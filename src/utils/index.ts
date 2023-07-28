@@ -1,6 +1,10 @@
 import os from 'os';
 import { maxBy, repeat, filter, get } from 'lodash';
 import TableLayout from 'table-layout';
+import { getRootHome } from '@serverless-devs/utils';
+const pkg = require('../../package.json');
+
+
 
 export { default as getPid } from './get-pid';
 export { default as checkNodeVersion } from './check-node-version';
@@ -13,7 +17,7 @@ export const emoji = (text: string, fallback?: string) => {
   return `${text} `;
 };
 
-export const helpFormat = (data: { command: string; description: string }[], indent = 0) => {
+export const formatHelp = (data: { command: string; description: string }[], indent = 0) => {
   const newData = filter(data, item => item.command !== 'help');
   const commandMaxLen = maxBy(newData, item => get(item, 'command.length')).command.length;
   const descMaxLen = maxBy(newData, item => get(item, 'description.length')).description.length;
@@ -32,7 +36,7 @@ export const helpFormat = (data: { command: string; description: string }[], ind
   }).toString();
 };
 
-export const errorFormat = (data: { key: string; value: string }[]) => {
+export const formatError = (data: { key: string; value: string }[]) => {
   const keyMaxLen = maxBy(data, item => get(item, 'key.length')).key.length;
   const valueMaxLen = maxBy(data, item => get(item, 'value.length')).value.length;
   return new TableLayout(data, {
@@ -49,3 +53,14 @@ export const errorFormat = (data: { key: string; value: string }[]) => {
     ],
   }).toString();
 };
+
+
+export function getVersion() {
+  const data = [
+    `${pkg.name}: ${pkg.version}`,
+    `s-home: ${getRootHome()}`,
+    `${process.platform}-${process.arch}`,
+    `node-${process.version}`,
+  ];
+  return data.filter(o => o).join(', ');
+}

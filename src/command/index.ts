@@ -1,6 +1,5 @@
 import { Command } from 'commander';
-import { CLI_VERSION } from '../constant';
-import { emoji } from '../utils';
+import { emoji, getVersion } from '../utils';
 
 import subConfig from './config';
 import subSet from './set';
@@ -19,7 +18,7 @@ export default async (program: Command) => {
     .option('-t, --template <path>', 'Specify the template file.')
     .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw.')
-    .version(CLI_VERSION, '-v, --version', 'Output the version number.');
+    .version(getVersion(), '-v, --version', 'Output the version number.');
 
   // 支持的系统命令
   subConfig(program);

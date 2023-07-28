@@ -1,15 +1,15 @@
 import { Command } from 'commander';
-import { CLI_VERSION } from './constant';
 import { checkNodeVersion, getPid, setProxy } from './utils';
 import logger from './logger';
 import { HandleError } from './error';
 import root from './command';
 import onboarding from './onboarding';
 import UpdateNotifier from './update-notifier';
+const pkg = require('../package.json');
 
 const preRun = () => {
   // 添加环境变量
-  process.env.CLI_VERSION = CLI_VERSION;
+  process.env.CLI_VERSION = pkg.version;
   process.env.serverless_devs_trace_id = `${getPid()}${Date.now()}`;
   // 初始化日志
   logger.initialization();
