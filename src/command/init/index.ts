@@ -26,7 +26,6 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
     .option('-r, --registry <url>', 'Use specify registry')
-    .option('-a, --access <aliasName>', 'Specify the access alias name.')
     .option('--parameters <parameters>', 'Initialize with custom parameters')
     .option('--app-name <appName>', 'Modify default Application name')
     .option('--project <project>', 'Specify Template')
@@ -47,7 +46,7 @@ export default (program: Command) => {
           logger.warn(`This method has been deprecated, please use --project ${template}`);
         }
       }
-      const manager = new Manager(options);
+      const manager = new Manager({ ...options, ...program.optsWithGlobals() });
       await manager.init();
     });
 };

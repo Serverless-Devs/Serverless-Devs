@@ -84,6 +84,7 @@ export default (program: Command) => {
 
       if (logs) {
         cleanLogs();
+        return;
       }
 
       if (component) {

@@ -1,8 +1,9 @@
 import { Command } from 'commander';
-import { setGlobalConfig } from '@serverless-devs/utils';
+import { getGlobalConfig, parseArgv, setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import { underline } from 'chalk';
+import chalk, { underline } from 'chalk';
 import { emoji } from '../../../utils';
+import logger from '../../../logger';
 
 const description = `Set log action.
 
@@ -41,15 +42,18 @@ export default (program: Command) => {
     .summary(`${emoji('🔊')} Set to enable or disable log`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
-      let type: string = process.argv[4];
+      logger.write(`\n${emoji('🔊')} Current log action: ${getGlobalConfig('log', 'enable')}\n`);
+      const { _: raw } = parseArgv(process.argv.slice(2));
+      let type = raw[2]
       if (type) {
         if (!['enable', 'disable'].includes(type)) {
-          throw new Error(`Not Supported: ${type}. Only accept parameters enable, disable`);
+          throw new Error(`Not Supported: ${type}. Only accept [enable, disable]`);
         }
       } else {
         const answers = await inquirer.prompt(promptOption);
         type = answers.log;
       }
       setGlobalConfig('log', type);
+      logger.write(chalk.green(`Set log to ${type} successfully`));
     });
 };

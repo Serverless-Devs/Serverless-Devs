@@ -39,16 +39,16 @@ export default class Manager {
   }
 
   async init() {
-    logger.info(`\n${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}\n`);
+    logger.write(`\n${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}\n`);
 
-    if (this.template?.endsWith('.get')) {
+    if (this.template?.endsWith('.git')) {
       return await this.gitCloneProject();
     }
 
     if (!this.template) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       this.template = answers.template || answers.firstLevel;
-      logger.info(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
+      logger.write(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
     }
 
     const { appPath } = await this.executeInit();
