@@ -17,10 +17,14 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`${emoji('🐵')} List the packages you have published`)
+    .option('--category <category>', 'category ID')
+    .option('--tag <tag>', 'Tag ID')
+    .option('--search <search>', 'Search keyword')
+    .option('--page <number>', 'Page number', '1')
     .helpOption('-h, --help', 'Display help for command')
-    .action(async () => {
+    .action(async (options) => {
       const registry = new Registry({});
-      const result = await registry.list();
+      const result = await registry.list(options);
       logger.output(result);
     });
 };

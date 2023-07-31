@@ -21,7 +21,7 @@ export default (program: Command) => {
     .summary(`${emoji('😃')} Login Serverless Registry`)
     .option('--token <token>', 'Login by token')
     .option('--retoken', 'Reset login token')
-    .option('--get-token', 'Get login token')
+    // .option('--get-token', 'Get login token')
     .helpOption('-h, --help', 'Display help for command')
     .action(async option => {
       const { token, retoken, getToken } = option;

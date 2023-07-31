@@ -16,12 +16,12 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`${emoji('❌')} Delete specific package`)
-    .option('--name <name>', 'Serverless Package name. e.g.: fc@1.0.1')
-    .option('--type <type>', 'Serverless Package type. value: Component, Application, Plugin')
+    .option('--name <name>', 'Serverless Package name')
+    .option('--version <version>', 'Serverless Package version')
     .helpOption('-h, --help', 'Display help for command')
     .action(async option => {
-      const { name, type = 'Component' } = option;
+      const { name, version } = option;
       const registry = new Registry({});
-      await registry.remove(name, type);
+      await registry.remove(name, version);
     });
 };

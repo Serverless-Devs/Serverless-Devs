@@ -17,12 +17,13 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`${emoji('🌱')} View specific package details`)
-    .option('--name <name>', 'Serverless Package name')
+    .option('--package-name <name>', 'Serverless Package name')
+    .option('--page <number>', 'Page number', '1')
     .helpOption('-h, --help', 'Display help for command')
     .action(async option => {
-      const { name } = option;
+      const { packageName, page } = option;
       const registry = new Registry({});
-      const result = await registry.detail(name);
+      const result = await registry.detail(packageName, page);
       logger.output(result);
     });
 };

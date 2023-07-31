@@ -50,7 +50,7 @@
     "@serverless-devs/load-application": "^0.0.2",
     "@serverless-devs/logger": "^0.0.2-beta.6",
     "@serverless-devs/parse-spec": "^0.0.1-beta.9",
-    "@serverless-devs/registry": "beta",
+    "@serverless-devs/registry": "^0.0.2-beta.2",
     "@serverless-devs/utils": "^0.0.8-beta.5",
     "@types/fs-extra": "^11.0.1",
     "@types/inquirer": "^9.0.3",
