@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { underline } from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
+import logger from '../../../logger';
 
 const description = `Delete application version.
 
@@ -21,7 +22,9 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .action(async option => {
       const { name, version } = option;
-      const registry = new Registry({});
+      const registry = new Registry({
+        logger: logger as unknown as Console
+      });
       await registry.remove(name, version);
     });
 };
