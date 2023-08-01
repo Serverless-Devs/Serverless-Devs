@@ -5,6 +5,6 @@ export const red = colors.hex('#fd5750');
 export const yellow = colors.hex('#F3F99D');
 export const bgRed = colors.hex('#000').bgHex('#fd5750');
 
-export const DEFAULT_REGISTRY = 'http://registry.devsapp.cn/simple';
+export const DEFAULT_REGISTRY = 'http://api.devsapp.cn/v3';
 // 12 小时检查一次更新
 export const UPDATE_CHECK_INTERVAL = 1000 * 60 * 60 * 12;

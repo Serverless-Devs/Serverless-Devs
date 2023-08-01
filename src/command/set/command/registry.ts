@@ -25,8 +25,13 @@ const registryInquire = [
     choices: [
       {
         key: DEFAULT_REGISTRY,
-        name: `serverless registry [${DEFAULT_REGISTRY}]`,
+        name: `serverless v3 registry [${DEFAULT_REGISTRY}]`,
         value: DEFAULT_REGISTRY,
+      },
+      {
+        key: 'http://registry.devsapp.cn/simple',
+        name: `serverless v2 registry [http://registry.devsapp.cn/simple]`,
+        value: 'http://registry.devsapp.cn/simple',
       },
       {
         key: 'https://api.github.com/repos',
