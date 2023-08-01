@@ -1,16 +1,17 @@
 import { Command } from 'commander';
-import { checkNodeVersion, getPid, setProxy } from './utils';
+import { checkNodeVersion, setProxy } from './utils';
 import logger from './logger';
 import { HandleError } from './error';
 import root from './command';
 import onboarding from './onboarding';
 import UpdateNotifier from './update-notifier';
+import * as utils from '@serverless-devs/utils';
 const pkg = require('../package.json');
 
 const preRun = () => {
   // 添加环境变量
   process.env.CLI_VERSION = pkg.version;
-  process.env.serverless_devs_trace_id = `${getPid()}${Date.now()}`;
+  process.env.serverless_devs_trace_id = utils.format();
   // 初始化日志
   logger.initialization();
   // 检查node版本是否过低

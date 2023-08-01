@@ -5,8 +5,6 @@ import { getRootHome } from '@serverless-devs/utils';
 const pkg = require('../../package.json');
 
 
-
-export { default as getPid } from './get-pid';
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
 
