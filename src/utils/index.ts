@@ -2,6 +2,8 @@ import os from 'os';
 import { maxBy, repeat, filter, get } from 'lodash';
 import TableLayout from 'table-layout';
 import { getRootHome } from '@serverless-devs/utils';
+import fs from 'fs-extra';
+import path from 'path';
 const pkg = require('../../package.json');
 
 
@@ -61,4 +63,21 @@ export function getVersion() {
     `node-${process.version}`,
   ];
   return data.filter(o => o).join(', ');
+}
+
+export async function getFolderSize(rootItemPath: string) {
+  const fileSizes = new Map();
+  await processItem(rootItemPath);
+  async function processItem(itemPath: string) {
+    const stats = fs.lstatSync(itemPath);
+    if (typeof stats !== 'object') return;
+    fileSizes.set(stats.ino, stats.size);
+    if (stats.isDirectory()) {
+      const directoryItems = fs.readdirSync(itemPath);
+      if (typeof directoryItems !== 'object') return;
+      await Promise.all(directoryItems.map(directoryItem => processItem(path.join(itemPath, directoryItem))));
+    }
+  }
+  const folderSize = Array.from(fileSizes.values()).reduce((total, fileSize) => total + fileSize, 0);
+  return folderSize;
 }

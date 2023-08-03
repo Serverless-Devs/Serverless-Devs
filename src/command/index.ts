@@ -8,6 +8,7 @@ import subInit from './init';
 import subRegistry from './registry';
 import subPreview from './preview';
 import subCli from './cli';
+import subComponent from './component';
 
 import Custom from './custom';
 
@@ -25,10 +26,11 @@ export default async (program: Command) => {
   // 支持的系统命令
   subConfig(program);
   subSet(program);
-  subClean(program);
-  subInit(program);
   subRegistry(program);
   subPreview(program);
+  subComponent(program);
+  subClean(program);
+  subInit(program);
   subCli(program);
 
   // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
@@ -38,7 +40,6 @@ export default async (program: Command) => {
   // program.addHelpCommand('edit', `${emoji('🙌')} Application editing.`);
   // program.addHelpCommand('component', `${emoji('🔌')} Installed component information.`);
   // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`); // TODO?
-  // program.addHelpCommand('cli', `${emoji('🐚')} Command line operation without yaml mode.`);
   program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
 
   // 追加的 help 信息
