@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import { spawn, spawnSync } from 'child_process';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import loadApplication from '@serverless-devs/load-application';
-import { cyan, underline, yellow } from 'chalk';
+import chalk from 'chalk';
 import { last, split, trim, find, includes } from 'lodash';
 import { emoji } from '../../utils';
 import { ALL_TEMPLATE, APPLICATION_TEMPLATE } from './constant';
@@ -39,7 +39,7 @@ export default class Manager {
   }
 
   async init() {
-    logger.write(`\n${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}\n`);
+    logger.write(`\n${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}\n`);
 
     if (this.template?.endsWith('.git')) {
       return await this.gitCloneProject();
@@ -89,9 +89,9 @@ export default class Manager {
       logger.write(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       logger.write(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       logger.write(
-        `${emoji('💞')} Document ❤ Star: ` + cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
+        `${emoji('💞')} Document ❤ Star: ` + chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
       );
-      logger.write(`${emoji('🚀')} More applications: ` + cyan.underline('https://registry.serverless-devs.com\n'));
+      logger.write(`${emoji('🚀')} More applications: ` + chalk.cyan.underline('https://registry.serverless-devs.com\n'));
     }
 
     return { appPath };
@@ -103,7 +103,7 @@ export default class Manager {
         type: 'confirm',
         name: 'name',
         default: 'Y',
-        message: yellow('Do you want to deploy the project immediately?'),
+        message: chalk.yellow('Do you want to deploy the project immediately?'),
       },
     ]);
 

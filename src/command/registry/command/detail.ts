@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
@@ -9,7 +9,7 @@ const description = `View application details.
 Example:
   $ s registry detail --name fc
    
-${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#detail')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#detail')}`;
 
 export default (program: Command) => {
   program

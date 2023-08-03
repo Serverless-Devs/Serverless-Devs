@@ -1,6 +1,6 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
-import { bold, underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
 
@@ -10,7 +10,7 @@ const description = `Specify an access as the default.
     $ s config default
     $ s config default -a demo
     
-${emoji('📖')} Document: ${underline(
+${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
 )}`;
 
@@ -20,7 +20,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(bold('-'))} Set default accounts`)
+    .summary(`${emoji(chalk.bold('-'))} Set default accounts`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const credential = new Credential({ logger });

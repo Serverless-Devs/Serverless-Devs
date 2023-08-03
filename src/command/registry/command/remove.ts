@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
@@ -9,7 +9,7 @@ const description = `Delete application version.
 Example:
   $ s registry delete --name fc@1.0.1 --type Component
    
-${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#delete')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#delete')}`;
 
 export default (program: Command) => {
   program

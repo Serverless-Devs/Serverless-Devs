@@ -1,6 +1,6 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
-import { bold, underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import { handleSecret } from '../utils';
 import logger from '../../../logger';
@@ -10,7 +10,7 @@ const description = `You can rename an account.
   Example:
     $ s config rename --source source --target target
     
-${emoji('📖')} Document: ${underline(
+${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
 )}`;
 
@@ -20,7 +20,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(bold('>'))} Rename an account`)
+    .summary(`${emoji(chalk.bold('>'))} Rename an account`)
     .option('--source <source>', 'Source alias name')
     .option('--target <target>', 'Target alias name')
     .helpOption('-h, --help', 'Display help for command')

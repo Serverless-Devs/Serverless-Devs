@@ -1,6 +1,6 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
-import { bold, underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import { handleSecret } from '../utils';
 import logger from '../../../logger';
@@ -21,7 +21,7 @@ const description = `You can add an account
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-${emoji('🧭')} How to get the key: ${underline(
+${emoji('🧭')} How to get the key: ${chalk.underline(
   'https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config',
 )}`;
 
@@ -31,7 +31,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(bold('+'))} Add an account`)
+    .summary(`${emoji(chalk.bold('+'))} Add an account`)
     .option('--AccountID <AccountID>', 'AccountID of key information')
     .option('--AccessKeyID <AccessKeyID>', 'AccessKeyID of key information')
     .option('--AccessKeySecret <AccessKeySecret>', 'AccessKeySecret of key information')

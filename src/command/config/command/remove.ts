@@ -1,6 +1,6 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
-import { bold, underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
 
@@ -9,7 +9,7 @@ const description = `You can delete an account.
   Example:
     $ s config delete -a demo
     
-${emoji('📖')} Document: ${underline(
+${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
 )}`;
 
@@ -19,7 +19,7 @@ export = (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(bold('×'))} Delete an account`)
+    .summary(`${emoji(chalk.bold('×'))} Delete an account`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const credential = new Credential({ logger });

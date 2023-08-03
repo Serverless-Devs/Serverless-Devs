@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import chalk, { underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
 
@@ -12,7 +12,7 @@ Example:
    $ s set proxy --http_proxy xxxx:xxx --https_proxy xxxx:xxx
    $ s set proxy --enable
    
-${emoji('📖')} Document: ${underline(
+${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
 )}`;
 

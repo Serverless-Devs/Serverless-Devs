@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { emoji } from '../../utils';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 
 import subLogin from './command/login';
 import subPublish from './command/publish';
@@ -10,7 +10,7 @@ import subDelete from './command/remove';
 
 const description = `You can manage Serverless Packages on Serverless Registry.
 
-${emoji('📖')} Document: ${underline('https://serverless.help/s/registry')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry')}`;
 
 export default (program: Command) => {
   const configProgram = program.command('registry');

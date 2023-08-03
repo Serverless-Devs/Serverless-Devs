@@ -3,7 +3,7 @@ import { loadComponent, makeUnderLine, publishHelp } from '@serverless-devs/core
 import path from 'path';
 import { getYamlContent } from '@serverless-devs/utils';
 import { get, isPlainObject, values, first, isEmpty, find, each } from 'lodash';
-import { underline, bold } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
@@ -113,12 +113,12 @@ const commonHelp = async (name: string) => {
   const useObject = isPlainObject(first(values(get(customDescription, '[0]'))));
   const result = [];
   if (useObject) {
-    result.push(underline(bold('Custom Commands\n\n')));
+    result.push(chalk.underline(chalk.bold('Custom Commands\n\n')));
     for (const item of customDescription) {
       if (isPlainObject(item)) {
         for (const key in item) {
           const ele = item[key];
-          result.push(publishHelp.helpInfo(ele, underline(bold(key)), 23, 4));
+          result.push(publishHelp.helpInfo(ele, chalk.underline(chalk.bold(key)), 23, 4));
         }
       }
     }

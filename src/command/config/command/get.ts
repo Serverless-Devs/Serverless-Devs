@@ -1,6 +1,6 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
-import { bold, underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import { handleSecret } from '../utils';
 import logger from '../../../logger';
@@ -11,7 +11,7 @@ const description = `You can get accounts.
     $ s config get
     $ s config get -a demo
     
-${emoji('📖')} Document: ${underline(
+${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
 )}`;
 
@@ -21,7 +21,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(bold('√'))} Get accounts`)
+    .summary(`${emoji(chalk.bold('√'))} Get accounts`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       try {
@@ -47,7 +47,7 @@ export default (program: Command) => {
           const msg = `
   ${emoji('🤔')} You have not yet been found to have configured key information.
   ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈')} If you have questions, please tell us: ${underline(
+  ${emoji('😈')} If you have questions, please tell us: ${chalk.underline(
             'https://github.com/Serverless-Devs/Serverless-Devs/issues',
           )}`;
           logger.write(msg);

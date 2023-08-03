@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
@@ -11,7 +11,7 @@ Example:
   $ s registry login --token xxxxxxxxxxxxxxx
   $ s registry login --retoken
    
-${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#login')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#login')}`;
 
 export default (program: Command) => {
   program

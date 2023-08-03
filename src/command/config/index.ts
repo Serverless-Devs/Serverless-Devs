@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { emoji } from '../../utils';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import subAdd from './command/add';
 import subGet from './command/get';
 import subDefault from './command/default';
@@ -9,7 +9,7 @@ import subRemove from './command/remove';
 
 const description = `Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
-${emoji('📖')} Document: ${underline(
+${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
 )}`;
 

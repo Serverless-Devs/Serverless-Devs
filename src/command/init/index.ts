@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../utils';
 import Manager from './manager';
 import logger from '../../logger';
@@ -15,7 +15,7 @@ Example:
     $ s init --project git@github.com:foo/bar.git
     $ s init --project https://github.com/foo/bar.git
     
-${emoji('🚀')} More applications: ${underline('https://registry.serverless-devs.com')}`;
+${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}`;
 
 export default (program: Command) => {
   program

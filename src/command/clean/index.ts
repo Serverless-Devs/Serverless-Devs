@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../utils';
 import { getRootHome } from '@serverless-devs/utils';
 import path from 'path';
@@ -17,7 +17,7 @@ const description = `Clean up the cache related functions of serverless devs. Yo
   Tips:
     Get all installed component: s component
     
-${emoji('📖')} Document: ${underline('https://serverless.help/s/clean')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/clean')}`;
 
 function cleanLogs() {
   const sPath = getRootHome();

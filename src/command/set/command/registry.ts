@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { getGlobalConfig, parseArgv, setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
-import chalk, { underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
 import { DEFAULT_REGISTRY } from '../../../constant';
@@ -12,7 +12,7 @@ Example:
    $ s set registry
    $ s set registry http://registry.devsapp.cn/simple
    
-${emoji('📖')} Document: ${underline(
+${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
 )}`;
 

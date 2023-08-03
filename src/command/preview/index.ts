@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import { emoji } from '../../utils';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '../../logger';
@@ -10,7 +10,7 @@ const description = `Application priview.
   Example:
     $ s priview
     
-${emoji('📖')} Document: ${underline('https://serverless.help/s/priview')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/priview')}`;
 
 
 export default (program: Command) => {

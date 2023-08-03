@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { underline } from 'chalk';
+import chalk from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '../../../utils';
 import logger from '../../../logger';
@@ -9,7 +9,7 @@ const description = `View the components published by the current login to the S
 Example:
   $ s registry list
    
-${emoji('📖')} Document: ${underline('https://serverless.help/s/registry#list')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#list')}`;
 
 export default (program: Command) => {
   program
