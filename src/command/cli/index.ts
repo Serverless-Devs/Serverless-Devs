@@ -9,9 +9,8 @@ import path from 'path';
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
   
   Example:
-    $ s cli fc-api listServices
-    $ s cli fc-api listFunctions --service-name my-service
-    $ s cli fc-api deploy -p "{/"function/": /"function-name/"}"
+    $ s cli fc api ListServices
+    $ s cli fc api ListFunctions --path '{"serviceName": "serviceName"}' --body '{"K1": "V1"}'
     
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/cli')}`;
 
