@@ -7,6 +7,7 @@ import subClean from './clean';
 import subInit from './init';
 import subRegistry from './registry';
 import subPreview from './preview';
+import subCli from './cli';
 
 import Custom from './custom';
 
@@ -28,6 +29,7 @@ export default async (program: Command) => {
   subInit(program);
   subRegistry(program);
   subPreview(program);
+  subCli(program);
 
   // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
   const customRootHelp = await new Custom(program).init();
