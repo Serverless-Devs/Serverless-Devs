@@ -66,7 +66,7 @@ export default (program: Command) => {
     .command('clean')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('💥')} Clean up the environment.`)
+    .summary(`${emoji('💥')} Clean up the environment`)
     .option('--all', 'Clean up the environment')
     .option('--logs', 'Clean logs')
     .option('--cache [dirName]', 'Delete the <dirName> file in the cache')

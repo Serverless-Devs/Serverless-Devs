@@ -8,7 +8,7 @@ import fs from 'fs-extra';
 import TableLayout from 'table-layout';
 import { get, maxBy } from 'lodash';
 // TODO:文档链接
-const description = `Application priview.
+const description = `Get details of installed components.
   
   Example:
     $ s component
@@ -20,7 +20,7 @@ export default (program: Command) => {
   program
     .command('component')
     .description(description)
-    .summary(`${emoji('🔌')} Installed component information.`)
+    .summary(`${emoji('🔌')} Installed component information`)
     .helpOption('-h, --help', 'Display help for command.')
     .action(async options => {
       await doAction(options);

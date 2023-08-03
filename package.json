@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s",
-  "version": "3.0.0-beta.3",
+  "version": "3.0.0-beta.5",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -37,7 +37,8 @@
     "postbuild": "esbuild src/update-notifier/index.ts --bundle --log-level=error --minify --platform=node --format=cjs --target=node12 --outfile=lib/update-notifier.js",
     "beta": "npm publish --tag=beta",
     "prepkg": "npm run build",
-    "pkg": "pkg bin/s"
+    "pkg": "pkg bin/s",
+    "prepublishOnly": "npm run build"
   },
   "main": "./lib/index.js",
   "bin": {

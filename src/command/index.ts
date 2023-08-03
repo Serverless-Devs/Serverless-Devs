@@ -15,13 +15,15 @@ import Custom from './custom';
 export default async (program: Command) => {
   program
     .name('s')
-    .option('--debug', 'Open debug model.')
-    .option('--skip-actions', 'Skip the extends section.')
-    .option('-t, --template <path>', 'Specify the template file.')
-    .option('-a, --access <aliasName>', 'Specify the access alias name.')
-    .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw.')
+    .option('--debug', 'Open debug model')
+    .option('--skip-actions', 'Skip the extends section')
+    .option('-t, --template <path>', 'Specify the template file')
+    .option('-a, --access <aliasName>', 'Specify the access alias name')
+    .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw')
     .configureHelp({ showGlobalOptions: true })
-    .version(getVersion(), '-v, --version', 'Output the version number.');
+    .helpOption('-h, --help', 'Display help for command')
+    .addHelpCommand(false)
+    .version(getVersion(), '-v, --version', 'Output the version number');
 
   // 支持的系统命令
   subConfig(program);
@@ -43,7 +45,7 @@ export default async (program: Command) => {
   program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
 
   // 追加的 help 信息
-  program.addHelpText('before', `${emoji('😃')} Welcome to the Serverless Devs.\n`);
+  program.addHelpText('before', `${emoji('😃')} Welcome to the Serverless Devs\n`);
   program.addHelpText(
     'after',
     `
