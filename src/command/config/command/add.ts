@@ -11,7 +11,7 @@ const description = `You can add an account
         $ s config add
         $ s config add --AccessKey ****** --SecretKey ******
         $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
-        $ s config add --keyList key1,key2,key3 --valueList value1,value2,value3
+        $ s config add --keyList key1,key2,key3 --infoList value1,value2,value3
 
     Configuration parameters template for vendors:
         alibaba: AccessKeyID, AccessKeySecret
