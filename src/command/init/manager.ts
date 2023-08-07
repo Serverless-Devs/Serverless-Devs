@@ -16,6 +16,8 @@ interface IOptions {
   parameters?: Record<string, any>;
   appName?: string;
   project?: string;
+  uri?: string;
+  reserveComments?: boolean;
 }
 
 export default class Manager {
@@ -26,14 +28,13 @@ export default class Manager {
   parameters?: Record<string, any>;
   registry?: string;
 
-  constructor(options?: IOptions) {
+  constructor(private options: IOptions = {}) {
     this.template = options?.project;
     this.dir = options?.dir;
     this.registry = options?.registry || DEFAULT_REGISTRY;
     this.parameters = options?.parameters;
     this.access = options?.access;
     this.appName = options?.appName;
-
     // 添加交互插件
     inquirer.registerPrompt('autocomplete', inquirerPrompt);
   }
@@ -82,6 +83,8 @@ export default class Manager {
       parameters: this.parameters,
       appName: this.appName,
       access: this.access,
+      uri: this.options.uri,
+      reserveComments: this.options.reserveComments,
     });
 
     if (appPath) {

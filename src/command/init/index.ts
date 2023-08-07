@@ -26,9 +26,12 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
     .option('-r, --registry <url>', 'Use specify registry')
+    .option('--uri <uri>', 'Use specify uri, Eg: remote url, local dir, local zip file')
+    .option('--project <project>', 'Specify Template')
     .option('--parameters <parameters>', 'Initialize with custom parameters')
     .option('--app-name <appName>', 'Modify default Application name')
-    .option('--project <project>', 'Specify Template')
+    .option('--reserve-comments', 'Reserve comments')
+    .option('--no-reserve-comments', 'Not reserve comments')
     .action(async options => {
       if (options.parameters) {
         try {
