@@ -3,7 +3,7 @@ import execDaemon  from '../exec-daemon';
 import latestVersion from 'latest-version';
 import boxen from 'boxen';
 import { UPDATE_CHECK_INTERVAL } from '../constant';
-import { isCiCdEnvironment, getRootHome } from '@serverless-devs/utils';
+import { getRootHome } from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import semver from 'semver';
@@ -28,7 +28,6 @@ class UpdateNotifier {
     return key ? require(updateNotifierPath)[key] : require(updateNotifierPath);
   }
   check() {
-    if (isCiCdEnvironment()) return false;
     if (!this.config('lastUpdateCheck')) return true;
     return Date.now() - this.config('lastUpdateCheck') > UPDATE_CHECK_INTERVAL;
   }
