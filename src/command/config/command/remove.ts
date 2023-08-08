@@ -13,7 +13,7 @@ ${emoji('📖')} Document: ${chalk.underline(
   'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
 )}`;
 
-export = (program: Command) => {
+export default (program: Command) => {
   const command = program.command('delete');
 
   command

@@ -71,4 +71,4 @@ class UpdateNotifier {
   }
 }
 
-export = UpdateNotifier;
+export default UpdateNotifier;

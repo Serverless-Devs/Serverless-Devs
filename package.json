@@ -34,7 +34,7 @@
     "watch": "npm run build -- --watch",
     "prebuild": "npm run prewatch",
     "build": "esbuild src/index.ts --bundle --log-level=error --minify --platform=node --format=cjs --target=node12 --outfile=lib/index.js",
-    "postbuild": "esbuild src/update-notifier/index.ts --bundle --log-level=error --minify --platform=node --format=cjs --target=node12 --outfile=lib/update-notifier.js",
+    "postbuild": "esbuild src/daemon-lib.ts --bundle --log-level=error --minify --platform=node --format=cjs --target=node12 --outfile=lib/daemon/lib.js",
     "beta": "npm publish --tag=beta",
     "prepkg": "npm run build",
     "pkg": "pkg bin/s",

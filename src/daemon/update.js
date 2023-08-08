@@ -1,4 +1,4 @@
-const UpdateNotifier = require('../update-notifier');
+const { UpdateNotifier } = require('./lib');
 
 (async () => {
   try {
