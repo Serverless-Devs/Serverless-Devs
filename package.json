@@ -49,7 +49,7 @@
     "@serverless-devs/credential": "beta",
     "@serverless-devs/engine": "^0.0.1-beta.21",
     "@serverless-devs/load-application": "^0.0.3-beta.4",
-    "@serverless-devs/logger": "^0.0.2-beta.6",
+    "@serverless-devs/logger": "^0.0.2-beta.7",
     "@serverless-devs/parse-spec": "^0.0.1-beta.10",
     "@serverless-devs/registry": "^0.0.2-beta.5",
     "@serverless-devs/utils": "^0.0.8-beta.7",
