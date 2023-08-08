@@ -1,6 +1,6 @@
 {
   "name": "@xsahxl/s",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -48,11 +48,11 @@
     "@serverless-devs/core": "^0.1.62",
     "@serverless-devs/credential": "beta",
     "@serverless-devs/engine": "^0.0.1-beta.21",
-    "@serverless-devs/load-application": "^0.0.3-beta.2",
+    "@serverless-devs/load-application": "^0.0.3-beta.4",
     "@serverless-devs/logger": "^0.0.2-beta.6",
     "@serverless-devs/parse-spec": "^0.0.1-beta.10",
     "@serverless-devs/registry": "^0.0.2-beta.5",
-    "@serverless-devs/utils": "^0.0.8-beta.6",
+    "@serverless-devs/utils": "^0.0.8-beta.7",
     "@types/fs-extra": "^11.0.1",
     "@types/inquirer": "^9.0.3",
     "@types/js-yaml": "^4.0.5",
