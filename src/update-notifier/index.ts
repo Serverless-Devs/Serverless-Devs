@@ -34,7 +34,7 @@ class UpdateNotifier {
   }
   init() {
     if (this.check()) {
-      execDaemon('update.js');
+      execDaemon('update-cli.js');
     }
     return this;
   }

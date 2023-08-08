@@ -2,14 +2,14 @@ const { UpdateNotifier } = require('./lib');
 
 (async () => {
   try {
-    console.log('Starting update daemon...');
+    console.log('********Starting update cli in daemon********');
 
     // Exit process when offline
     setTimeout(process.exit, 1000 * 30);
 
     const updateNotifier = new UpdateNotifier();
     await updateNotifier.update();
-    console.log('Update daemon finished successfully');
+    console.log('********Update cli successfully in daemon********');
     // Call process exit explicitly to terminate the child process,
     // otherwise the child process will run forever, according to the Node.js docs
     process.exit();
