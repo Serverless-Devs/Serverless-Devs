@@ -25,9 +25,9 @@ const preRun = () => {
 (async () => {
   preRun();
   // 处理 onboarding
-  if (process.argv.length === 2) {
-    await onboarding();
-    return;
+  const { _: raw, help } = utils.parseArgv(process.argv.slice(2));
+  if (raw.length === 0 && !help) {
+    return await onboarding();
   }
 
   // 处理指令
