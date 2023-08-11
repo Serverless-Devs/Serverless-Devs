@@ -102,12 +102,12 @@ function run(program: Command) {
       if (AccountID) {
         keyInformation['AccountID'] = String(AccountID);
         const data = await getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken }, f)
-        if (data.AccountId !== keyInformation['AccountID']) {
+        if (data?.AccountId !== keyInformation['AccountID']) {
           new HumanWarning({ warningMessage: `It is detected that the account id you added may be incorrect, please confirm whether the account id should be ${data.AccountId}` });
         }
       } else {
         const data = await getAccountId({ AccessKeyID, AccessKeySecret, SecurityToken }, f)
-        keyInformation['AccountID'] = data.AccountId;
+        keyInformation['AccountID'] = data?.AccountId;
       }
     }
 
