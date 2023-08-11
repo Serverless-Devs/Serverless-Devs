@@ -1,0 +1,8 @@
+#!/bin/
+
+set -e
+
+s3 deploy -y
+
+s3 remove -y
+

@@ -1,0 +1,68 @@
+# ------------------------------------
+#   If you want to use this file directly, please add [-t/--template] parameter, for example [s deploy -t s_en.yaml]
+# ------------------------------------
+#   Welcome to use Alibaba Cloud Function Compute FC components for project development
+#   Component warehouse address: https://github.com/devsapp/fc
+#   Component help documentation: https://www.serverless-devs.com/fc/readme
+#   Yaml reference documentation: https://www.serverless-devs.com/fc/yaml/readme
+#   About: The relationship between Serverless Devs and FC components, how to declare/deploy multiple functions and other issues, you can refer to the documentation: https://www.serverless-devs.com/fc/tips
+#   For questions about how to do CICD, please refer to: https://www.serverless-devs.com/serverless-devs/cicd
+#   For issues such as how to divide the environment, please refer to: https://www.serverless-devs.com/serverless-devs/extend
+#   For more function calculation cases, please refer to: https://github.com/devsapp/awesome/blob/main/README_en.md
+#   If you have any questions, please come to the DingTalk group and ask: 33947367
+# ------------------------------------
+edition: 3.0.0
+name: hello-world-app
+# access is the key information configuration required by the current application:
+# Key configuration can refer to: https://www.serverless-devs.com/serverless-devs/command/config
+# For the order of key usage, please refer to: https://www.serverless-devs.com/serverless-devs/tool#Key usage order and specification
+access: "{{ access }}"
+
+vars: # global variables
+  region: cn-hangzhou
+
+resources:
+  hello_world: # business name/module name
+    # If you only want to perform related operations on the business below hello_world, you can add hello_world to the command line, for example:
+    # Build only hello_world: s hello_world build
+    # If s build is directly executed without hello_world, the tool will perform the same operation on all business modules at the same level as hello_world under the current Yaml (if there are other level modules, such as the next_function commented below), according to certain Sequential build operations
+    component: fc3@dev    # The name of the component. The Serverless Devs tool itself is similar to a game console and does not have specific business capabilities. The component is similar to a game card. Users can achieve different functions by inserting different game cards into the game console, that is, by using Different components implement different specific business capabilities
+    # actions:         # Customize execution logic. For the use of actions, please refer to: https://www.serverless-devs.com/serverless-devs/yaml#Behavior description
+    props:
+      region: ${vars.region} # For the usage of variables, please refer to: https://www.serverless-devs.com/serverless-devs/yaml#Variable assignment
+      function:
+        functionName: "{{ functionName }}"
+        description: 'hello world by serverless devs'
+        runtime: "{{ runtime }}"
+        code: ./code
+        handler: index.handler
+        memorySize: 128
+        timeout: 60
+      # triggers:
+      #   - triggerName: httpTrigger 
+      #     triggerType: http 
+      #     description: 'xxxx'
+      #     qualifier: LATEST 
+      #     triggerConfig:
+      #       authType: anonymous # enum：anonymous、function
+      #       disableURLInternet: false # 是否禁用公网访问 URL
+      #       methods: # enum：GET、POST、PUT、DELETE、HEAD
+      #         - GET
+      #         - POST
+
+  # next_function: 
+  #   # If you execute s deploy under the current project, the modules will be deployed at the same time
+  #   # If you want to deploy the current service and function separately, you can execute s + module name/business name + deploy, for example: s next_function deploy
+  #   # If you want to deploy the current function separately, you can execute s + module name/business name + deploy function, for example: s next_function deploy function
+  #   # For more commands, please refer to: https://www.serverless-devs.com/fc/readme#Document related
+  #   component: fc3@dev
+  #   props:
+  #     region: ${vars.region}
+  #     function: 
+  #       functionName: next_function_example
+  #       description: 'hello world by serverless devs'
+  #       runtime: "{{ runtime }}"
+  #       codeUri: ./code
+  #       handler: index.handler
+  #       memorySize: 128
+  #       timeout: 60
