@@ -34,8 +34,6 @@ const preRun = () => {
   const program = new Command();
   await root(program);
   await program.parseAsync(process.argv);
-  // TODO: open-api 可以正常退出进程后，删除此行
-  process.exit(0);
 })().catch(async error => {
   await HandleError(error);
 });
