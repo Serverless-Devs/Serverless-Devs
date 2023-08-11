@@ -3,16 +3,14 @@ import { spawn, spawnSync } from 'child_process';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import loadApplication from '@serverless-devs/load-application';
 import chalk from 'chalk';
-import { last, split, trim, find, includes } from 'lodash';
+import { last, split, trim, find, includes, endsWith } from 'lodash';
 import { emoji } from '../../utils';
 import { ALL_TEMPLATE, APPLICATION_TEMPLATE } from './constant';
-import { DEFAULT_REGISTRY } from '../../constant';
 import logger from '../../logger';
 
 interface IOptions {
   dir?: string;
   access?: string;
-  registry?: string;
   parameters?: Record<string, any>;
   appName?: string;
   project?: string;
@@ -21,20 +19,9 @@ interface IOptions {
 }
 
 export default class Manager {
-  template?: string;
-  dir?: string;
-  appName?: string;
-  access?: string;
-  parameters?: Record<string, any>;
-  registry?: string;
-
+  private template: string;
   constructor(private options: IOptions = {}) {
-    this.template = options?.project;
-    this.dir = options?.dir;
-    this.registry = options?.registry || DEFAULT_REGISTRY;
-    this.parameters = options?.parameters;
-    this.access = options?.access;
-    this.appName = options?.appName;
+
     // 添加交互插件
     inquirer.registerPrompt('autocomplete', inquirerPrompt);
   }
@@ -42,11 +29,11 @@ export default class Manager {
   async init() {
     logger.write(`\n${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}\n`);
 
-    if (this.template?.endsWith('.git')) {
+    if (endsWith(this.options.project, '.git')) {
       return await this.gitCloneProject();
     }
-
-    if (!this.template) {
+    this.template = this.options.project;
+    if (!this.options.project && !this.options.uri) {
       const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
       this.template = answers.template || answers.firstLevel;
       logger.write(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
@@ -62,7 +49,7 @@ export default class Manager {
   }
 
   private async executeInit() {
-    let projectName = this.dir;
+    let projectName = this.options.dir;
     if (!projectName) {
       const defaultValue = last(split(this.template, '/'));
       const answers = await inquirer.prompt([
@@ -71,6 +58,12 @@ export default class Manager {
           name: 'projectName',
           message: 'Please input your project name (init dir)',
           default: defaultValue,
+          validate: (input: string) => {
+            if (!input) {
+              return 'Project name is required';
+            }
+            return true;
+          }
         },
       ]);
 
@@ -80,9 +73,9 @@ export default class Manager {
     const appPath = await loadApplication(this.template, {
       logger,
       projectName,
-      parameters: this.parameters,
-      appName: this.appName,
-      access: this.access,
+      parameters: this.options.parameters,
+      appName: this.options.appName,
+      access: this.options.access,
       uri: this.options.uri,
       reserveComments: this.options.reserveComments,
     });
@@ -119,7 +112,7 @@ export default class Manager {
     return new Promise(resolve => {
       spawn('git', ['clone', this.template], {
         shell: true,
-        cwd: this.dir ? this.dir : './',
+        cwd: this.options.dir ? this.options.dir : './',
         stdio: ['ignore', 'inherit', 'inherit'],
       }).on('close', code => resolve({ code }));
     });
