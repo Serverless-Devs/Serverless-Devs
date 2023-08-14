@@ -21,7 +21,7 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const { template } = program.optsWithGlobals();
-      const spec = new ParseSpec(template).start();
+      const spec = await new ParseSpec(template, { logger }).start();
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`)
         return logger.output(get(spec, 'yaml.content'))

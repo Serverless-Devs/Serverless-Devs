@@ -1,0 +1,9 @@
+#!/bin/
+
+set -e
+
+# don't throw error
+sl preview
+
+# throw error
+sl deploy

@@ -28,7 +28,7 @@ export default class Custom {
     // help命令不处理
     if (raw[0] === 'help') return;
     try {
-      this.spec = this.parseSpec();
+      this.spec = await this.parseSpec();
     } catch (error) {
       if (!help) throw error;
     }
@@ -80,10 +80,10 @@ export default class Custom {
       logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_trace_id))}\n`)
     }
   }
-  private parseSpec() {
+  private async parseSpec() {
     const argv = process.argv.slice(2);
     const { template } = utils.parseArgv(argv);
-    const spec = new ParseSpec(template, argv).start();
+    const spec = await new ParseSpec(template, {argv, logger}).start();
     const components = new Set<string>();
     each(get(spec, 'steps', []), item => {
       components.add(item.component);
