@@ -12,7 +12,7 @@ resources:
       region: ${vars.region}
       function:
         functionName: 'next-start-hello-qszl'
-        runtime: 'nodejs16'
+        runtime: ${env('runtime', 'nodejs16')}
         code: ./code
         handler: index.handler
         memorySize: 128
