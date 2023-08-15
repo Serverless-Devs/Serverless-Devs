@@ -9,5 +9,6 @@ echo "basic..."
 
 # extend
 echo "extend..."
-sl preview -t ./extend/s.yaml
+sl preview -t ./extend/case1/s.yaml
+# sl preview -t ./extend/s.yaml
 
