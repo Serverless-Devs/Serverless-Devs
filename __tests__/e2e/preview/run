@@ -2,8 +2,12 @@
 
 set -e
 
-# don't throw error
-sl preview
+# basic
+echo "basic..."
+# sl preview
 
-# throw error
-sl deploy
+
+# extend
+echo "extend..."
+sl preview -t ./extend/s.yaml
+

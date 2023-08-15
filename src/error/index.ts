@@ -28,6 +28,8 @@ export const HandleError = async (error: IEngineError | IEngineError[]) => {
 };
 
 const doOneError = (error: IEngineError) => {
+  // 空出一行间隙
+  logger.write(' ');
   const devsError = error as DevsError;
   if (devsError.CODE === DevsError.CODE) {
     const arr = devsError.prefix ? [`${chalk.red('✖')} ${devsError.prefix}`, '===================='] : [];

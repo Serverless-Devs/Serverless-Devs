@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { emoji } from '../../utils';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '../../logger';
-import { get } from 'lodash';
+import { get, omit } from 'lodash';
 // TODO:文档链接
 const description = `Application priview.
   
@@ -23,7 +23,8 @@ export default (program: Command) => {
       const spec = await new ParseSpec(template, { logger }).start();
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
-        return logger.output(get(spec, 'yaml.content'));
+        const content = get(spec, 'yaml.content');
+        return logger.output(omit(content, ['extend']));
       }
       logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
     });
