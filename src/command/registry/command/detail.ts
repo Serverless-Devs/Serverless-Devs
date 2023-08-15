@@ -23,7 +23,7 @@ export default (program: Command) => {
     .action(async option => {
       const { packageName, page } = option;
       const registry = new Registry({
-        logger: logger as unknown as Console
+        logger: logger as unknown as Console,
       });
       const result = await registry.detail(packageName, page);
       logger.output(result);

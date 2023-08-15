@@ -20,7 +20,7 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
       const registry = new Registry({
-        logger: logger as unknown as Console
+        logger: logger as unknown as Console,
       });
       await registry.publish();
     });

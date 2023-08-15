@@ -12,7 +12,6 @@ const description = `Application priview.
     
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/priview')}`;
 
-
 export default (program: Command) => {
   program
     .command('preview')
@@ -23,9 +22,9 @@ export default (program: Command) => {
       const { template } = program.optsWithGlobals();
       const spec = await new ParseSpec(template, { logger }).start();
       if (get(spec, 'yaml.use3x')) {
-        logger.debug(`Template: ${get(spec, 'yaml.path')}`)
-        return logger.output(get(spec, 'yaml.content'))
+        logger.debug(`Template: ${get(spec, 'yaml.path')}`);
+        return logger.output(get(spec, 'yaml.content'));
       }
-      logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`)
+      logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
     });
 };

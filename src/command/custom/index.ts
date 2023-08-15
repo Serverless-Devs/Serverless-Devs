@@ -17,7 +17,7 @@ import { UPDATE_COMPONENT_CHECK_INTERVAL } from '../../constant';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);
@@ -56,7 +56,7 @@ export default class Custom {
       const instance = await loadComponent(item.component);
       const lockPath = utils.getLockFile(instance.__path);
       const lockInfo = utils.readJson(lockPath);
-      if (!lockInfo.lastUpdateCheck || (Date.now() - lockInfo.lastUpdateCheck) > UPDATE_COMPONENT_CHECK_INTERVAL) {
+      if (!lockInfo.lastUpdateCheck || Date.now() - lockInfo.lastUpdateCheck > UPDATE_COMPONENT_CHECK_INTERVAL) {
         execDaemon('update-component.js', { component: item.component });
       }
     }
@@ -65,7 +65,11 @@ export default class Custom {
     const data = get(context, 'output', {});
     const argv = process.argv.slice(2);
     const { output = 'default' } = utils.parseArgv(argv);
-    logger.write(`\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`)
+    logger.write(
+      `\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray(
+        '====================',
+      )}`,
+    );
     if (output === IOutput.JSON) {
       return logger.log(JSON.stringify(data, null, 2));
     }
@@ -77,13 +81,17 @@ export default class Custom {
     }
     logger.output(data);
     if (utils.getGlobalConfig('log', 'enable') === 'enable') {
-      logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_trace_id))}\n`)
+      logger.write(
+        `\nA complete log of this run can be found in: ${chalk.underline(
+          path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_trace_id),
+        )}\n`,
+      );
     }
   }
   private async parseSpec() {
     const argv = process.argv.slice(2);
     const { template } = utils.parseArgv(argv);
-    const spec = await new ParseSpec(template, {argv, logger}).start();
+    const spec = await new ParseSpec(template, { argv, logger }).start();
     const components = new Set<string>();
     each(get(spec, 'steps', []), item => {
       components.add(item.component);

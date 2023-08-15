@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { emoji, getFolderSize } from '../../utils';
 import logger from '../../logger';
 import path from 'path';
-import * as utils from '@serverless-devs/utils'
+import * as utils from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import TableLayout from 'table-layout';
 import { get, maxBy } from 'lodash';
@@ -14,7 +14,6 @@ const description = `Get details of installed components.
     $ s component
     
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/component')}`;
-
 
 export default (program: Command) => {
   program
@@ -32,7 +31,12 @@ const doAction = async options => {
   const componentPath = path.join(home, 'components');
   const devsappPath = path.join(componentPath, 'devsapp.cn');
   if (!fs.existsSync(devsappPath)) {
-    logger.tips('Not found component.', `You can visit ${chalk.cyan.underline('https://docs.serverless-devs.com/serverless-devs/quick_start')} to learn more.`)
+    logger.tips(
+      'Not found component.',
+      `You can visit ${chalk.cyan.underline(
+        'https://docs.serverless-devs.com/serverless-devs/quick_start',
+      )} to learn more.`,
+    );
     return;
   }
   const devsappDir = fs.readdirSync(devsappPath);
@@ -94,26 +98,28 @@ const doAction = async options => {
   }
   logger.write(`\n${emoji('🔎')} serverless registry\n`);
   const getWidth = (key: string) => maxBy(rows, item => get(item, `${key}.length`))[key].length;
-  logger.write(new TableLayout(rows, {
-    columns: [
-      {
-        name: 'Component',
-        width: getWidth('Component') + 4,
-      },
-      {
-        name: 'Version',
-        width: getWidth('Version') + 4,
-      },
-      {
-        name: 'Size',
-        width: getWidth('Size') + 4,
-      },
-      {
-        name: 'Description',
-        width: getWidth('Description') + 10,
-      },
-    ]
-  }).toString());
+  logger.write(
+    new TableLayout(rows, {
+      columns: [
+        {
+          name: 'Component',
+          width: getWidth('Component') + 4,
+        },
+        {
+          name: 'Version',
+          width: getWidth('Version') + 4,
+        },
+        {
+          name: 'Size',
+          width: getWidth('Size') + 4,
+        },
+        {
+          name: 'Description',
+          width: getWidth('Description') + 10,
+        },
+      ],
+    }).toString(),
+  );
 };
 
 async function getComponent(filePath: string) {

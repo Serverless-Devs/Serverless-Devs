@@ -6,7 +6,6 @@ import fs from 'fs-extra';
 import path from 'path';
 const pkg = require('../../package.json');
 
-
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
 
@@ -53,7 +52,6 @@ export const formatError = (data: { key: string; value: string }[]) => {
     ],
   }).toString();
 };
-
 
 export function getVersion() {
   const data = [

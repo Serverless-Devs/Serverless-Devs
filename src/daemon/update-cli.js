@@ -17,5 +17,4 @@ const { UpdateNotifier } = require('./lib');
     console.error(error);
     process.exit(1);
   }
-
-})()
+})();

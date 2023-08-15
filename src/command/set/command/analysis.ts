@@ -43,7 +43,7 @@ export default (program: Command) => {
     .action(async () => {
       logger.write(`\n${emoji('👉')} Current analysis action: ${getGlobalConfig('analysis', 'enable')}\n`);
       const { _: raw } = parseArgv(process.argv.slice(2));
-      let type = raw[2]
+      let type = raw[2];
       if (type) {
         if (!['enable', 'disable'].includes(type)) {
           throw new Error(`Not Supported: ${type}. Only accept [enable, disable]`);

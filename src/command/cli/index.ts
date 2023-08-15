@@ -14,7 +14,6 @@ const description = `Directly use serverless devs to use components, develop and
     
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/cli')}`;
 
-
 export default (program: Command) => {
   const cliProgram = program
     .command('cli')
@@ -122,7 +121,8 @@ const getCredentialWithExisted = async (access: string) => {
 async function specifyServiceHelp(filePath: string) {
   const publishYamlInfor = await core.getYamlContent(filePath);
   logger.write(
-    `\n  ${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']
+    `\n  ${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${
+      publishYamlInfor['Description']
     }\n`,
   );
   const commands = publishYamlInfor['Commands'];

@@ -27,7 +27,7 @@ export default (program: Command) => {
       const { token, retoken, getToken } = option;
 
       const registry = new Registry({
-        logger: logger as unknown as Console
+        logger: logger as unknown as Console,
       });
       if (token) {
         await registry.login(token);

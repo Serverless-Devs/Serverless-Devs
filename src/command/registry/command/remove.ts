@@ -23,7 +23,7 @@ export default (program: Command) => {
     .action(async option => {
       const { name, version } = option;
       const registry = new Registry({
-        logger: logger as unknown as Console
+        logger: logger as unknown as Console,
       });
       await registry.remove(name, version);
     });

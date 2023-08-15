@@ -9,7 +9,10 @@ import chalk from 'chalk';
 import logger from '../../logger';
 
 class Help {
-  constructor(private program: Command, private spec = {} as ISpec) {}
+  constructor(
+    private program: Command,
+    private spec = {} as ISpec,
+  ) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw } = parseArgv(argv);
@@ -106,7 +109,9 @@ class Help {
       return;
     }
     const description = get(data, 'help.description');
-    let customProgram = projectName ? this.program.command(projectName).command(command) : this.program.command(command);
+    let customProgram = projectName
+      ? this.program.command(projectName).command(command)
+      : this.program.command(command);
     customProgram.description(description).summary(get(data, 'help.summary', description));
     const subCommands = get(data, 'subCommands', {});
     each(subCommands, (item, key) => {

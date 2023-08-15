@@ -11,7 +11,10 @@ import { ISpec } from '../types';
 
 class V1 {
   private customProgram: Command;
-  constructor(private program: Command, private spec = {} as ISpec) {}
+  constructor(
+    private program: Command,
+    private spec = {} as ISpec,
+  ) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
