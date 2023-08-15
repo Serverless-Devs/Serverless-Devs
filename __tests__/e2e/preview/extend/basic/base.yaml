@@ -25,9 +25,23 @@ vars: # 全局变量
     name: website-wof2
     description: Serverless Devs Website Service
     internetAccess: true
+template: 
+  template1: 
+    region: cn-hangzhou
+    runtime: python3
+    vpcConfig: vpc-1
+  template2: 
+    region: cn-beijing
+    runtime: nodejs14
+    vpcConfig: vpc-2
+
 resources:
   framework: # 业务名称/模块名称
     component: v3test # 组件名称
+    extend: 
+      name: template2   # 继承template中的指定key对应的结构，与props内容进行合并
+      ignore:           # 忽略的属性
+        - vpcConfig
     props: # 组件的属性值
       region: ${vars.region}
       service: ${vars.service}

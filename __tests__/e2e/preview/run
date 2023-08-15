@@ -4,11 +4,13 @@ set -e
 
 # basic
 echo "basic..."
-# sl preview
+sl preview
 
 
 # extend
-echo "extend..."
-sl preview -t ./extend/case1/s.yaml
-# sl preview -t ./extend/s.yaml
+echo "extend basic..."
+sl preview -t ./extend/basic/s.yaml
+
+echo "extend huaqin..."
+sl preview -t ./extend/huaqin/s.yaml
 
