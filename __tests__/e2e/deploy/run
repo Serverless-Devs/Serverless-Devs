@@ -2,7 +2,14 @@
 
 set -e
 
-s3 deploy -y
+echo 'sl deploy -y'
+sl deploy -y
 
-s3 remove -y
+echo 'sl deploy -y -o json'
+sl deploy -y -o json
 
+echo 'sl deploy -y -o raw'
+sl deploy -y -o raw
+
+echo 'sl deploy -y -o yaml'
+sl deploy -y -o yaml

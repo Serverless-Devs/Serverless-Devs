@@ -62,7 +62,7 @@ export default class Custom {
     }
   }
   private output(context: IContext) {
-    const data = get(context, 'output', {});
+    const data = get(context, 'output');
     const argv = process.argv.slice(2);
     const { output = 'default' } = utils.parseArgv(argv);
     logger.write(
@@ -71,13 +71,13 @@ export default class Custom {
       )}`,
     );
     if (output === IOutput.JSON) {
-      return logger.log(JSON.stringify(data, null, 2));
+      return logger.write(JSON.stringify(data, null, 2));
     }
     if (output === IOutput.RAW) {
-      return logger.log(JSON.stringify(data));
+      return logger.write(JSON.stringify(data));
     }
     if (output === IOutput.YAML) {
-      return logger.log(yaml.dump(data));
+      return logger.write(yaml.dump(data));
     }
     logger.output(data);
     if (utils.getGlobalConfig('log', 'enable') === 'enable') {
