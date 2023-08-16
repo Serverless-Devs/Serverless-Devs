@@ -19,6 +19,7 @@ export default (program: Command) => {
     .usage('[commands] [options]')
     .description(description)
     .summary(`${emoji('🔧')} Settings for the tool`)
+    .addHelpCommand(false)
     .helpOption('-h, --help', 'Display help for command');
 
   subRegistry(configProgram);
