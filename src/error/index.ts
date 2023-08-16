@@ -19,12 +19,17 @@ export const HandleError = async (error: IEngineError | IEngineError[]) => {
   }
   // 空出一行间隙
   logger.write(' ');
-  logger.write(formatError([
-    { key: 'Env:', value: `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch} node-${process.version}` },
-    { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_trace_id)) },
-    { key: 'Get Help:', value: `DingTalk: 33947367` },
-    { key: 'Feedback:', value: chalk.cyan.underline('https://feedback.serverless-devs.com') },
-  ]))
+  logger.write(
+    formatError([
+      {
+        key: 'Env:',
+        value: `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch} node-${process.version}`,
+      },
+      { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_trace_id)) },
+      { key: 'Get Help:', value: `DingTalk: 33947367` },
+      { key: 'Feedback:', value: chalk.cyan.underline('https://feedback.serverless-devs.com') },
+    ]),
+  );
 };
 
 const doOneError = (error: IEngineError) => {
@@ -33,7 +38,7 @@ const doOneError = (error: IEngineError) => {
   const devsError = error as DevsError;
   if (devsError.CODE === DevsError.CODE) {
     const arr = devsError.prefix ? [`${chalk.red('✖')} ${devsError.prefix}`, '===================='] : [];
-    arr.push(chalk.red('Error Message:'), chalk.red(isDebugMode() ? devsError.stack : devsError.message))
+    arr.push(chalk.red('Error Message:'), chalk.red(isDebugMode() ? devsError.stack : devsError.message));
     if (devsError.tips) {
       arr.push('\n🍼 Tips', '====================', chalk.yellow(`${devsError.tips}`));
     }
@@ -42,11 +47,6 @@ const doOneError = (error: IEngineError) => {
   }
   // 其它错误
   const e = error as Error;
-  const arr = [
-    chalk.red('Error Message:'),
-    chalk.red(isDebugMode() ? e.stack : e.message),
-
-  ];
+  const arr = [chalk.red('Error Message:'), chalk.red(isDebugMode() ? e.stack : e.message)];
   logger.write(arr.join('\n'));
-
-}
+};

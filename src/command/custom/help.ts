@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import { ISpec } from './types';
 import { parseArgv, getYamlContent } from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
-import { get, isEmpty, each, find, first, map } from 'lodash';
+import { get, isEmpty, each, find, first, map, filter, includes } from 'lodash';
 import path from 'path';
 import { formatHelp, emoji } from '../../utils';
 import chalk from 'chalk';
@@ -18,9 +18,7 @@ class Help {
     const { _: raw } = parseArgv(argv);
     // s -h
     if (raw.length === 0) return await this.showHelp();
-    // s website -h || s deploy -h
     if (raw.length === 1) return await this.showRaw1Help();
-    // s website deploy -h || s website deploy function -h
     if (raw.length > 1) return await this.showRaw2Help();
   }
   // s -h
@@ -90,15 +88,7 @@ class Help {
       return await this.singleComponentHelp(first(components));
     }
     // 多个组件
-    for (const item of steps) {
-      logger.info(`Start executing project ${item.projectName}`);
-      const res = await this.singleComponentHelp(item.component);
-      if (res) {
-        res.outputHelp();
-        res.helpInformation = () => '';
-      }
-      logger.info(`Project ${item.projectName} successfully to execute`);
-    }
+    await this.multiComponentHelp();
   }
   private async singleComponentHelp(componentName: string) {
     const { projectName, command } = this.spec;
@@ -113,31 +103,55 @@ class Help {
       ? this.program.command(projectName).command(command)
       : this.program.command(command);
     customProgram.description(description).summary(get(data, 'help.summary', description));
-    const subCommands = get(data, 'subCommands', {});
-    each(subCommands, (item, key) => {
-      const subDescription = get(item, 'help.description');
-      const subCustomProgram = customProgram
-        .command(key)
-        .description(subDescription)
-        .summary(get(item, 'help.summary', subDescription));
-      each(get(item, 'help.option', []), item => {
-        const [start, ...rest] = item;
-        subCustomProgram.option(start, ...rest);
-      });
-    });
     each(get(data, 'help.option', []), item => {
       const [start, ...rest] = item;
       customProgram.option(start, ...rest);
     });
-    return customProgram;
+
+    const argv = process.argv.slice(2);
+    const { _: raw } = parseArgv(argv);
+    const subCommand = filter(raw, o => !includes([projectName, command], o));
+    if (isEmpty(subCommand)) return customProgram;
+
+    const subCommandInfo = get(data, `subCommands.${subCommand}`, {});
+    const subDescription = get(subCommandInfo, 'help.description');
+    const subCustomProgram = customProgram
+      .command(first(subCommand))
+      .description(subDescription)
+      .summary(get(subCommandInfo, 'help.summary', subDescription));
+    each(get(subCommandInfo, 'help.option', []), item => {
+      const [start, ...rest] = item;
+      subCustomProgram.option(start, ...rest);
+    });
+    return subCustomProgram;
+  }
+  private async multiComponentHelp() {
+    const { steps } = this.spec;
+    for (const item of steps) {
+      logger.info(`Start executing project ${item.projectName}`);
+      const res = await this.singleComponentHelp(item.component);
+      if (res) {
+        res.outputHelp();
+        res.helpInformation = () => '';
+      }
+      logger.info(`Project ${item.projectName} successfully to execute`);
+    }
   }
   // s website deploy -h
+  // s deploy function -h
+  // s website deploy function -h
   async showRaw2Help() {
-    const { steps, projectName } = this.spec;
-    this.program.command(projectName);
-    const componentName = find(steps, item => item.projectName === projectName)?.component;
-    const res = await this.singleComponentHelp(componentName);
-    res.help();
+    const { steps, projectName, components } = this.spec;
+    if (projectName) {
+      const componentName = find(steps, item => item.projectName === projectName)?.component;
+      return await this.singleComponentHelp(componentName);
+    }
+    // 仅有一个组件时
+    if (components.length === 1) {
+      return await this.singleComponentHelp(first(components));
+    }
+    // 多个组件
+    await this.multiComponentHelp();
   }
 }
 
