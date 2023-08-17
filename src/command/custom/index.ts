@@ -1,12 +1,12 @@
 import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty } from 'lodash';
 import ParseSpec, { IOutput } from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '../../logger';
 import yaml from 'js-yaml';
-import { HandleError } from '../../error';
+import handleError from '../../error';
 import { ISpec } from './types';
 import Help from './help';
 import chalk from 'chalk';
@@ -46,7 +46,18 @@ export default class Custom {
         });
         const context = await engine.start();
         await this.update(context);
-        get(context, 'status') === 'success' ? this.output(context) : HandleError(context.error);
+        if (get(context, 'status') === 'success') {
+          this.output(context);
+          if (utils.getGlobalConfig('log') !== 'disable') {
+            logger.write(
+              `\nA complete log of this run can be found in: ${chalk.underline(
+                path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid),
+              )}\n`,
+            );
+          }
+          return;
+        }
+        await handleError(context.error);
       });
   }
   private async update(context: IContext) {
@@ -63,6 +74,7 @@ export default class Custom {
   }
   private output(context: IContext) {
     const data = get(context, 'output');
+    if (isEmpty(data)) return;
     const argv = process.argv.slice(2);
     const { output = 'default' } = utils.parseArgv(argv);
     logger.write(
@@ -80,13 +92,6 @@ export default class Custom {
       return logger.write(yaml.dump(data));
     }
     logger.output(data);
-    if (utils.getGlobalConfig('log', 'enable') === 'enable') {
-      logger.write(
-        `\nA complete log of this run can be found in: ${chalk.underline(
-          path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_trace_id),
-        )}\n`,
-      );
-    }
   }
   private async parseSpec() {
     const argv = process.argv.slice(2);

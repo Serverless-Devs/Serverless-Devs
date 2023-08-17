@@ -5,6 +5,11 @@ access: 'default'
 vars:
   region: cn-huhehaote
 
+actions:
+  complete-apierror:
+    - run: echo "complete-apierror"
+    - run: npm run error
+
 resources:
   demo:
     component: v3test

@@ -3,3 +3,4 @@
 set -e
 
 sl error --debug
+sl apierror --debug

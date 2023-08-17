@@ -2,6 +2,7 @@ import { DevsError, getRootHome, isDebugMode } from '@serverless-devs/utils';
 import logger from '../logger';
 import chalk from 'chalk';
 import path from 'path';
+import fs from 'fs-extra';
 import { formatError } from '../utils';
 import { IEngineError } from '@serverless-devs/engine';
 import { get, isArray } from 'lodash';
@@ -9,19 +10,22 @@ export { default as HumanError } from './human-error';
 
 const pkg = require('../../package.json');
 
-export const HandleError = async (error: IEngineError | IEngineError[]) => {
+const handleError = async (error: IEngineError | IEngineError[]) => {
+  const errorFile = path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid, 'error.json');
+  fs.ensureFileSync(errorFile);
+  fs.writeJSONSync(errorFile, [], { spaces: 2 });
   let exitCode = 1;
   if (isArray(error)) {
     for (const e of error) {
       doOneError(e);
-      const code = get(e, 'exitCode')
+      const code = get(e, 'exitCode');
       if (code) {
         exitCode = code;
       }
     }
   } else {
     doOneError(error);
-    const code = get(error, 'exitCode')
+    const code = get(error, 'exitCode');
     if (code) {
       exitCode = code;
     }
@@ -43,6 +47,7 @@ export const HandleError = async (error: IEngineError | IEngineError[]) => {
 };
 
 const doOneError = (error: IEngineError) => {
+  writeError(error);
   // 空出一行间隙
   logger.write(' ');
   const devsError = error as DevsError;
@@ -60,3 +65,31 @@ const doOneError = (error: IEngineError) => {
   const arr = [chalk.red('Error Message:'), chalk.red(isDebugMode() ? e.stack : e.message)];
   logger.write(arr.join('\n'));
 };
+
+const writeError = (error: IEngineError) => {
+  const getData = (error: IEngineError) => {
+    const data = get(error, 'data');
+    if (data) {
+      return data;
+    }
+    const e = error as DevsError;
+    if (e.CODE === DevsError.CODE) {
+      return {
+        prefix: e.prefix,
+        message: e.message,
+        exitCode: e.exitCode,
+        tips: e.tips,
+      };
+    }
+    return {
+      message: e.message,
+    };
+  };
+
+  const errorFile = path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid, 'error.json');
+  const errorInfo = fs.readJSONSync(errorFile);
+  errorInfo.push(getData(error));
+  fs.writeJSONSync(errorFile, errorInfo, { spaces: 2 });
+};
+
+export default handleError;

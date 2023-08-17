@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import { checkNodeVersion, setProxy } from './utils';
 import logger from './logger';
-import { HandleError } from './error';
+import handleError from './error';
 import root from './command';
 import onboarding from './onboarding';
 import UpdateNotifier from './update-notifier';
@@ -35,11 +35,11 @@ const preRun = () => {
   await root(program);
   await program.parseAsync(process.argv);
 })().catch(async error => {
-  await HandleError(error);
+  await handleError(error);
 });
 
 process.on('uncaughtException', async err => {
-  await HandleError(err);
+  await handleError(err);
 });
 
 process.on('exit', code => {
