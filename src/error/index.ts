@@ -34,7 +34,7 @@ export const HandleError = async (error: IEngineError | IEngineError[]) => {
         key: 'Env:',
         value: `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch} node-${process.version}`,
       },
-      { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_trace_id)) },
+      { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid)) },
       { key: 'Get Help:', value: `DingTalk: 33947367` },
       { key: 'Feedback:', value: chalk.cyan.underline('https://feedback.serverless-devs.com') },
     ]),

@@ -10,8 +10,8 @@ const pkg = require('../package.json');
 
 const preRun = () => {
   // 添加环境变量
-  process.env.CLI_VERSION = pkg.version;
-  process.env.serverless_devs_trace_id = utils.format();
+  process.env.serverless_devs_version = pkg.version;
+  process.env.serverless_devs_traceid = utils.traceid();
   // 初始化日志
   logger.initialization();
   // 检查node版本是否过低
@@ -43,7 +43,7 @@ process.on('uncaughtException', async err => {
 });
 
 process.on('exit', code => {
-  logger.debug(`Run traceId: ${process.env.serverless_devs_trace_id}`);
+  logger.debug(`Run traceid: ${process.env.serverless_devs_traceid}`);
   logger.debug(`Process exitCode: ${code}`);
   // fix 光标位置
   logger.loggerInstance.__clear();

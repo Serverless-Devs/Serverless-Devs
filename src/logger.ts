@@ -16,7 +16,7 @@ class Logger {
 
   initialization = () => {
     this.loggerInstance = new _Logger({
-      traceId: process.env.serverless_devs_trace_id as string,
+      traceId: process.env.serverless_devs_traceid as string,
       logDir: path.join(getRootHome(), 'logs'),
       level: isDebugMode() ? 'DEBUG' : undefined,
     });
