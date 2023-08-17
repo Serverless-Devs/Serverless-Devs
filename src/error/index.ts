@@ -4,18 +4,27 @@ import chalk from 'chalk';
 import path from 'path';
 import { formatError } from '../utils';
 import { IEngineError } from '@serverless-devs/engine';
-import { isArray } from 'lodash';
+import { get, isArray } from 'lodash';
 export { default as HumanError } from './human-error';
 
 const pkg = require('../../package.json');
 
 export const HandleError = async (error: IEngineError | IEngineError[]) => {
+  let exitCode = 1;
   if (isArray(error)) {
     for (const e of error) {
       doOneError(e);
+      const code = get(e, 'exitCode')
+      if (code) {
+        exitCode = code;
+      }
     }
   } else {
     doOneError(error);
+    const code = get(error, 'exitCode')
+    if (code) {
+      exitCode = code;
+    }
   }
   // 空出一行间隙
   logger.write(' ');
@@ -30,6 +39,7 @@ export const HandleError = async (error: IEngineError | IEngineError[]) => {
       { key: 'Feedback:', value: chalk.cyan.underline('https://feedback.serverless-devs.com') },
     ]),
   );
+  process.exit(exitCode);
 };
 
 const doOneError = (error: IEngineError) => {

@@ -1,0 +1,5 @@
+#!/bin/
+
+set -e
+
+sl error --debug
