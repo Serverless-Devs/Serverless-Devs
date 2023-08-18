@@ -4,3 +4,5 @@ set -e
 
 sl error --debug
 sl apierror --debug
+
+sl deploy -t not-found.yaml
