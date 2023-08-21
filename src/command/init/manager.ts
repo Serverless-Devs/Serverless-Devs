@@ -7,6 +7,8 @@ import { last, split, trim, find, includes, endsWith } from 'lodash';
 import { emoji } from '../../utils';
 import { ALL_TEMPLATE, APPLICATION_TEMPLATE } from './constant';
 import logger from '../../logger';
+import execDaemon from '../../exec-daemon';
+import { EReportType } from '../../type';
 
 interface IOptions {
   dir?: string;
@@ -37,10 +39,9 @@ export default class Manager {
       this.template = answers.template || answers.firstLevel;
       logger.write(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
     }
-
     const { appPath } = await this.executeInit();
-
     const findObj: any = find(ALL_TEMPLATE, item => includes(item.value, this.template));
+    appPath && execDaemon('report.js', { type: EReportType.init, template: this.template });
     if (includes(process.argv, '--parameters')) return;
     if (findObj && findObj.isDeploy) {
       await this.deploy(appPath);
@@ -85,7 +86,7 @@ export default class Manager {
       logger.write(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
       logger.write(
         `${emoji('💞')} Document ❤ Star: ` +
-          chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
+        chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
       );
       logger.write(
         `${emoji('🚀')} More applications: ` + chalk.cyan.underline('https://registry.serverless-devs.com\n'),

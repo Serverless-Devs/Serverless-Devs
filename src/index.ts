@@ -6,11 +6,9 @@ import root from './command';
 import onboarding from './onboarding';
 import UpdateNotifier from './update-notifier';
 import * as utils from '@serverless-devs/utils';
-const pkg = require('../package.json');
 
 const preRun = () => {
   // 添加环境变量
-  process.env.serverless_devs_version = pkg.version;
   process.env.serverless_devs_traceid = utils.traceid();
   // 初始化日志
   logger.initialization();
@@ -29,7 +27,6 @@ const preRun = () => {
   if (raw.length === 0 && !help && !version) {
     return await onboarding();
   }
-
   // 处理指令
   const program = new Command();
   await root(program);

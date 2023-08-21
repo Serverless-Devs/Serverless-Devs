@@ -14,10 +14,11 @@ import path from 'path';
 import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '../../exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '../../constant';
+import { EReportType } from '../../type';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) {}
+  constructor(private program: Command) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);
@@ -45,7 +46,8 @@ export default class Custom {
           },
         });
         const context = await engine.start();
-        await this.update(context);
+        await this.updateComponent(context);
+        execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv });
         if (get(context, 'status') === 'success') {
           this.output(context);
           if (utils.getGlobalConfig('log') !== 'disable') {
@@ -60,7 +62,7 @@ export default class Custom {
         await handleError(context.error);
       });
   }
-  private async update(context: IContext) {
+  private async updateComponent(context: IContext) {
     let executedComponent = filter(get(context, 'steps'), item => item.status === STEP_STATUS.SUCCESS);
     executedComponent = uniqBy(executedComponent, item => item.component);
     for (const item of executedComponent) {
