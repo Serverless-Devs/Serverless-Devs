@@ -84,13 +84,8 @@ export default class Manager {
       logger.write(`\n${emoji('🏄‍')} Thanks for using Serverless-Devs`);
       logger.write(`${emoji('👉')} You could [cd ${appPath}] and enjoy your serverless journey!`);
       logger.write(`${emoji('🧭️')} If you need help for this example, you can use [s -h] after you enter folder.`);
-      logger.write(
-        `${emoji('💞')} Document ❤ Star: ` +
-        chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'),
-      );
-      logger.write(
-        `${emoji('🚀')} More applications: ` + chalk.cyan.underline('https://registry.serverless-devs.com\n'),
-      );
+      logger.write(`${emoji('💞')} Document ❤ Star: ` + chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs'));
+      logger.write(`${emoji('🚀')} More applications: ` + chalk.cyan.underline('https://registry.serverless-devs.com\n'));
     }
 
     return { appPath };

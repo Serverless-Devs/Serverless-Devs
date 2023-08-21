@@ -21,9 +21,7 @@ const description = `You can add an account
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-${emoji('🧭')} How to get the key: ${chalk.underline(
-  'https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config',
-)}`;
+${emoji('🧭')} How to get the key: ${chalk.underline('https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config')}`;
 
 export default (program: Command) => {
   const command = program.command('add');

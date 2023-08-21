@@ -135,9 +135,7 @@ const help = async (name: string) => {
   const instance = await loadComponent(name);
   const publishPath = path.join(instance.__path, 'publish.yaml');
   const publishContent = getYamlContent(publishPath);
-  const result = [
-    `${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`,
-  ];
+  const result = [`${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`];
   const res = await commonHelp(name);
   result.push(...res);
   if (publishContent['HomePage']) {

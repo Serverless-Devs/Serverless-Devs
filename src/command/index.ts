@@ -40,7 +40,6 @@ export default async (program: Command) => {
 
   // TODO: 需要支持命令
   // program.addHelpCommand('edit', `${emoji('🙌')} Application editing.`);
-  // program.addHelpCommand('component', `${emoji('🔌')} Installed component information.`);
   // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`); // TODO?
   program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
 

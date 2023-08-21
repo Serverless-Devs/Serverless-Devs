@@ -11,9 +11,7 @@ const description = `You can get accounts.
     $ s config get
     $ s config get -a demo
     
-${emoji('📖')} Document: ${chalk.underline(
-  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md',
-)}`;
+${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md')}`;
 
 export default (program: Command) => {
   const command = program.command('get');
@@ -47,9 +45,7 @@ export default (program: Command) => {
           const msg = `
   ${emoji('🤔')} You have not yet been found to have configured key information.
   ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈')} If you have questions, please tell us: ${chalk.underline(
-    'https://github.com/Serverless-Devs/Serverless-Devs/issues',
-  )}`;
+  ${emoji('😈')} If you have questions, please tell us: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`;
           logger.write(msg);
           return;
         }

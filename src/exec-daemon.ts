@@ -9,9 +9,7 @@ function execDaemon(filename: string, config: Record<string, any> = {}) {
   const filePath = path.join(__dirname, 'daemon', filename);
   if (!fs.existsSync(filePath)) return;
   if (process.env['serverless_devs_daemon_enable'] === 'false') {
-    logger.info(
-      `It is detected that the environment variable 'serverless_devs_daemon_enable' is false and the daemon: ${filePath} will run in the main process`,
-    );
+    logger.info(`It is detected that the environment variable 'serverless_devs_daemon_enable' is false and the daemon: ${filePath} will run in the main process`);
     return spawn(process.execPath, [filePath, JSON.stringify(config)], {
       stdio: 'inherit',
     });

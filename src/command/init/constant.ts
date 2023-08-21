@@ -291,14 +291,7 @@ const best_practice_template = [
   },
 ];
 
-const all_ali_template = concat(
-  ali_template,
-  quick_start_template,
-  container_example_template,
-  web_framework_template,
-  static_website_template,
-  best_practice_template,
-);
+const all_ali_template = concat(ali_template, quick_start_template, container_example_template, web_framework_template, static_website_template, best_practice_template);
 
 const huawei_template = [
   {
@@ -348,13 +341,7 @@ const baidu_quick_start_template = [
 
 const all_baidu_template = concat(baidu_template, baidu_quick_start_template);
 
-export const ALL_TEMPLATE = concat(
-  first_level_template,
-  all_ali_template,
-  all_huawei_template,
-  all_baidu_template,
-  devs_template,
-);
+export const ALL_TEMPLATE = concat(first_level_template, all_ali_template, all_huawei_template, all_baidu_template, devs_template);
 
 export const APPLICATION_TEMPLATE = [
   {

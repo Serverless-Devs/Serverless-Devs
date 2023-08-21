@@ -18,7 +18,7 @@ import { EReportType } from '../../type';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);
@@ -51,11 +51,7 @@ export default class Custom {
         if (get(context, 'status') === 'success') {
           this.output(context);
           if (utils.getGlobalConfig('log') !== 'disable') {
-            logger.write(
-              `\nA complete log of this run can be found in: ${chalk.underline(
-                path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid),
-              )}\n`,
-            );
+            logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
           }
           return;
         }
@@ -79,11 +75,7 @@ export default class Custom {
     if (isEmpty(data)) return;
     const argv = process.argv.slice(2);
     const { output = 'default' } = utils.parseArgv(argv);
-    logger.write(
-      `\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray(
-        '====================',
-      )}`,
-    );
+    logger.write(`\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     if (output === IOutput.JSON) {
       return logger.write(JSON.stringify(data, null, 2));
     }

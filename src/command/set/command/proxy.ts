@@ -12,9 +12,7 @@ Example:
    $ s set proxy --http_proxy xxxx:xxx --https_proxy xxxx:xxx
    $ s set proxy --enable
    
-${emoji('📖')} Document: ${chalk.underline(
-  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
-)}`;
+${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md')}`;
 
 export default (program: Command) => {
   program

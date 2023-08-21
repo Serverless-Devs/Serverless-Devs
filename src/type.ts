@@ -1,6 +1,6 @@
 export enum EReportType {
-    command = 'command',
-    init = 'init',
+  command = 'command',
+  init = 'init',
 }
 
-export type TReportType = `${EReportType}`
+export type TReportType = `${EReportType}`;

@@ -67,18 +67,12 @@ class Help {
       const instance = await loadComponent(componentName);
       const publishPath = path.join(instance.__path, 'publish.yaml');
       const publishContent = getYamlContent(publishPath);
-      customProgram.addHelpText(
-        'before',
-        `${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`,
-      );
+      customProgram.addHelpText('before', `${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`);
       each(instance.commands, (item, key) => {
         customProgram.command(key).summary(get(item, 'help.summary', get(item, 'help.description')));
       });
       if (publishContent['HomePage']) {
-        customProgram.addHelpText(
-          'after',
-          `\n${emoji('🧭')} ${'More information: ' + chalk.underline(publishContent['HomePage'])}`,
-        );
+        customProgram.addHelpText('after', `\n${emoji('🧭')} ${'More information: ' + chalk.underline(publishContent['HomePage'])}`);
       }
       return;
     }
@@ -99,9 +93,7 @@ class Help {
       return;
     }
     const description = get(data, 'help.description');
-    let customProgram = projectName
-      ? this.program.command(projectName).command(command)
-      : this.program.command(command);
+    let customProgram = projectName ? this.program.command(projectName).command(command) : this.program.command(command);
     customProgram.description(description).summary(get(data, 'help.summary', description));
     each(get(data, 'help.option', []), item => {
       const [start, ...rest] = item;

@@ -54,12 +54,7 @@ export const formatError = (data: { key: string; value: string }[]) => {
 };
 
 export function getVersion() {
-  const data = [
-    `${pkg.name}: ${pkg.version}`,
-    `s-home: ${getRootHome()}`,
-    `${process.platform}-${process.arch}`,
-    `node-${process.version}`,
-  ];
+  const data = [`${pkg.name}: ${pkg.version}`, `s-home: ${getRootHome()}`, `${process.platform}-${process.arch}`, `node-${process.version}`];
   return data.filter(o => o).join(', ');
 }
 

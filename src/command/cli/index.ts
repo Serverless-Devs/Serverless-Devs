@@ -120,11 +120,7 @@ const getCredentialWithExisted = async (access: string) => {
 
 async function specifyServiceHelp(filePath: string) {
   const publishYamlInfor = await core.getYamlContent(filePath);
-  logger.write(
-    `\n  ${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${
-      publishYamlInfor['Description']
-    }\n`,
-  );
+  logger.write(`\n  ${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
   const commands = publishYamlInfor['Commands'];
   if (commands) {
     const maxLength = core.publishHelp.maxLen(commands);
@@ -132,9 +128,7 @@ async function specifyServiceHelp(filePath: string) {
     const newObj = {};
     for (const key in commands) {
       const ele = commands[key];
-      isPlainObject(ele)
-        ? tmp.push(core.publishHelp.helpInfo(ele, chalk.underline(chalk.bold(key)), maxLength, 4))
-        : (newObj[key] = ele);
+      isPlainObject(ele) ? tmp.push(core.publishHelp.helpInfo(ele, chalk.underline(chalk.bold(key)), maxLength, 4)) : (newObj[key] = ele);
     }
     tmp.length > 0 && logger.write(tmp.join('\n'));
     if (!isEmpty(newObj)) {
@@ -143,11 +137,7 @@ async function specifyServiceHelp(filePath: string) {
       }
       logger.write('');
     }
-    logger.write(
-      publishYamlInfor['HomePage']
-        ? `  ${emoji('🧭')} ${core.makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n'
-        : '',
-    );
+    logger.write(publishYamlInfor['HomePage'] ? `  ${emoji('🧭')} ${core.makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n' : '');
   }
   function getTempCommandStr(commands: string, length: number) {
     const commandsLength = commands.length;

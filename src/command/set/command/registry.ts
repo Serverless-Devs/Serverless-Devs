@@ -12,9 +12,7 @@ Example:
    $ s set registry
    $ s set registry http://registry.devsapp.cn/simple
    
-${emoji('📖')} Document: ${chalk.underline(
-  'https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md',
-)}`;
+${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md')}`;
 
 const CUSTOMER_KEY = 'custom';
 const registryInquire = [

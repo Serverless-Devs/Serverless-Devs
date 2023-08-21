@@ -52,9 +52,9 @@ class UpdateNotifier {
   notify() {
     if (!this.config('output')) return;
     if (pkg.version === this.config('latest')) return;
-    const defaultTemplate = `Update available ${chalk.dim(pkg.version)} ${chalk.reset('→')} ${chalk.green(
-      this.config('latest'),
-    )} \nRun ${chalk.cyan(`npm i -g ${pkg.name}`)} to update`;
+    const defaultTemplate = `Update available ${chalk.dim(pkg.version)} ${chalk.reset('→')} ${chalk.green(this.config('latest'))} \nRun ${chalk.cyan(
+      `npm i -g ${pkg.name}`,
+    )} to update`;
 
     const message = boxen(defaultTemplate, {
       padding: 1,

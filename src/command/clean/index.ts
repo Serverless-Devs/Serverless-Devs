@@ -97,8 +97,6 @@ export default (program: Command) => {
         return;
       }
 
-      logger.error(
-        "There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view",
-      );
+      logger.error("There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view");
     });
 };
