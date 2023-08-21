@@ -50,7 +50,6 @@ export default async (program: Command) => {
     'after',
     `
 ${customRootHelp || ''}
-
 ${emoji('🙌')}  Quick Start:      https://docs.serverless-devs.com/quick-start
 ${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
 ${emoji('💡')}  Documentation:    https://docs.serverless-devs.com

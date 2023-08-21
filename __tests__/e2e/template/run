@@ -1,0 +1,7 @@
+#!/bin/
+
+set -e
+
+# basic
+echo "basic..."
+sl deploy

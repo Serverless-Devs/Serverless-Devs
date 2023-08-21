@@ -6,3 +6,5 @@ sl error --debug
 sl apierror --debug
 
 sl deploy -t not-found.yaml
+
+sl deploy -t invalid-flow.yaml
