@@ -6,6 +6,9 @@ import root from './command';
 import onboarding from './onboarding';
 import UpdateNotifier from './update-notifier';
 import * as utils from '@serverless-devs/utils';
+import dotenv from 'dotenv';
+import { expand } from 'dotenv-expand';
+import path from 'path';
 
 const preRun = () => {
   // 添加环境变量
@@ -18,6 +21,8 @@ const preRun = () => {
   setProxy();
   // 检查更新
   new UpdateNotifier().init().notify();
+  // 加载.env文件
+  expand(dotenv.config({ path: path.join(process.cwd(), '.env') }));
 };
 
 (async () => {
