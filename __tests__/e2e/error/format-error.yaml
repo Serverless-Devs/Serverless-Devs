@@ -6,8 +6,8 @@ vars:
   region: cn-huhehaote
 
 resources:
-  demo:
-    component: xxx@dev
+  demo
+    component: v3test
     props: # 组件的属性值
       region: ${vars.region}
       function:
