@@ -40,20 +40,20 @@ echo 'output error'
 sl deploy -t output.yaml
 
 # 内置指令
-echo 'add error access'
+echo 'sl config add --AccessKeyID 123 --AccessKeySecret 456 -a test'
 sl config add --AccessKeyID 123 --AccessKeySecret 456 -a test
 
-echo 'get access with not exist'
+echo 'sl config get -a not-exist'
 sl config get -a not-exist
 
-echo 'rename source not exist'
+echo 'sl config rename --source source --target target'
 sl config rename --source source --target target  
 
-echo 'delete access not exist'
+echo 'sl config delete -a not-exist'
 sl config delete -a not-exist
 
-echo 'application xxx not found'
+echo 'sl init --project xxx -d shltest'
 sl init --project xxx -d shltest
 
-echo 'application xxx@dev not found'
+echo 'sl init --project xxx@dev -d shltest'
 sl init --project xxx@dev -d shltest
