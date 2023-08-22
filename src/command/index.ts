@@ -56,13 +56,4 @@ ${emoji('🚀')}  Example Projects: https://registry.serverless-devs.com
 ${emoji('📝')}  Feedback:         https://feedback.serverless-devs.com
 `,
   );
-
-  program.exitOverride(async error => {
-    if (error.code === 'commander.help') {
-      process.exit(program.args.length > 0 ? 1 : 0);
-    }
-    if (error.code === 'commander.executeSubCommandAsync' || error.code === 'commander.helpDisplayed') {
-      process.exit(0);
-    }
-  });
 };

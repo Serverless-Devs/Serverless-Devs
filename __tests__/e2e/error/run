@@ -57,3 +57,12 @@ sl init --project xxx -d shltest
 
 echo 'sl init --project xxx@dev -d shltest'
 sl init --project xxx@dev -d shltest
+
+echo 'sl config remove'
+sl config remove
+
+echo 'sl set analsis'
+sl set analsis 
+
+echo 'sl registry publsih'
+sl registry publsih

@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { emoji } from '../../utils';
+import { emoji, suggestCommand } from '../../utils';
 import chalk from 'chalk';
 import subAdd from './command/add';
 import subGet from './command/get';
@@ -13,7 +13,7 @@ ${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs
 
 export default (program: Command) => {
   const configProgram = program.command('config');
-
+  suggestCommand(configProgram);
   configProgram
     .description(description)
     .summary(`${emoji('👤')} Configure venders account`)

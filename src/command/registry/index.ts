@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { emoji } from '../../utils';
+import { emoji, suggestCommand } from '../../utils';
 import chalk from 'chalk';
 
 import subLogin from './command/login';
@@ -14,7 +14,7 @@ ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry
 
 export default (program: Command) => {
   const configProgram = program.command('registry');
-
+  suggestCommand(configProgram);
   configProgram
     .description(description)
     .usage('[commands] [options]')
