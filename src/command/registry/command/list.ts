@@ -23,9 +23,7 @@ export default (program: Command) => {
     .option('--page <number>', 'Page number', '1')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      const registry = new Registry({
-        logger: logger as unknown as Console,
-      });
+      const registry = new Registry({ logger });
       const result = await registry.list(options);
       logger.output(result);
     });

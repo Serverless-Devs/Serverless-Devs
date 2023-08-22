@@ -28,7 +28,7 @@ export default class Manager {
   }
 
   async init() {
-    logger.write(`\n${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}\n`);
+    logger.write(`\n${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}`);
 
     if (endsWith(this.options.project, '.git')) {
       return await this.gitCloneProject();

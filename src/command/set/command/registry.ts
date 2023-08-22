@@ -52,7 +52,7 @@ const registryInquire = [
 
 export default (program: Command) => {
   program
-    .command('registry')
+    .command('registry', { hidden: true })
     .usage('[options]')
     .description(description)
     .summary(`${emoji('👀')} Set registry information`)

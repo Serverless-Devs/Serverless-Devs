@@ -27,13 +27,11 @@ sl error -t component-not-found.yaml
 echo 'flow is invalid'
 sl deploy -t invalid-flow.yaml
 
-
 echo 'warning: the [xx] command was not found.'
 sl xx -t basic.yaml
 
 echo 'error: the [xx] command was not found.'
 sl demo xx -t basic.yaml
-
 
 echo 'api error'
 sl apierror -t basic.yaml
@@ -41,10 +39,21 @@ sl apierror -t basic.yaml
 echo 'output error'
 sl deploy -t output.yaml
 
-
 # 内置指令
-echo 'config remove'
-sl config remove
-
 echo 'add error access'
 sl config add --AccessKeyID 123 --AccessKeySecret 456 -a test
+
+echo 'get access with not exist'
+sl config get -a not-exist
+
+echo 'rename source not exist'
+sl config rename --source source --target target  
+
+echo 'delete access not exist'
+sl config delete -a not-exist
+
+echo 'application xxx not found'
+sl init --project xxx -d shltest
+
+echo 'application xxx@dev not found'
+sl init --project xxx@dev -d shltest
