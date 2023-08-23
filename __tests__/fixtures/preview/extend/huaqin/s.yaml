@@ -1,0 +1,22 @@
+extend: base.yaml
+####### 如有新函数，复制如下节点 ############
+resources:
+  fc-demo: #  服务名称,和 s.yaml 保持一致
+    props:
+      function:
+        name: demo #  函数名，会体现到路由中
+        description: demo入口 # 函数描述
+        codeUri: ./func-demo # 具体的代码文件夹
+    actions:
+      pre-deploy: # 自定义执行逻辑 在deploy之前运行
+        - run: node setSrcVer.js ./func-demo # 要运行的命令行
+  #############################################################
+  fc-main: #  服务名称,和 s.yaml 保持一致
+    props:
+      function:
+        name: main #  函数名，会体现到路由中
+        description: 主系统入口
+        codeUri: ./main
+    actions:
+      pre-deploy: # 自定义执行逻辑 在deploy之前运行
+        - run: node setSrcVer.js ./main # 要运行的命令行

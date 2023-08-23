@@ -1,0 +1,66 @@
+edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: appname #  项目名称
+access: my_access #  秘钥别名
+vars:
+  fcFunctionTemp:
+    component: fc # 组件名称
+    props: #  组件的属性值
+      region: cn-shanghai
+      service:
+        name: hq-dpm-api
+        description: xxxx
+        role: acs:ram::xxx:role/aliyunfcdefaultrole
+        logConfig:
+          project: xxx
+          logstore: function-log
+          enableRequestMetrics: true
+          enableInstanceMetrics: true
+          logBeginRule: 'None'
+        vpcConfig:
+          vpcId: vpc-xxx
+          securityGroupId: sg-xxx
+          vswitchIds:
+            - vsw-xxx
+        internetAccess: false
+        tracingConfig:
+          type: null
+          params: null
+          jaegerConfig: null
+      function:
+        name: demo # 将被覆盖
+        description: 模块描述 # 将被覆盖
+        runtime: nodejs12
+        codeUri: ./func-demo # 将被覆盖
+        handler: index.handler
+        memorySize: 128
+        timeout: 10 # 超时秒，可根据情况覆盖
+        initializationTimeout: 30
+        initializer: index.initializer
+        instanceConcurrency: 10 # 并发数，可根据情况覆盖
+        instanceType: e1
+        instanceLifecycleConfig:
+          preStop:
+            handler: index.uninit
+            timeout: 30
+        layers:
+          - xx#dpmNodeModules#10 # 使用的层名，需要统一，可以修改
+          - xx#dpmOpt#12 # 使用的层名，需要统一，可以修改
+        environmentVariables:
+          NODE_PATH: /opt # 环境变量
+          testEnv: true
+      triggers:
+        - name: httpTrigger
+          type: http
+          config:
+            authType: anonymous
+            methods:
+              - GET
+              - POST
+    actions: # 自定义执行逻辑
+      pre-deploy: # 在deploy之前运行
+        - run: node setSrcVer.js --./demo # 要运行的命令行，将覆盖
+          path: ./ # 命令行运行的路径
+
+resources:
+  fc-demo: ${vars.fcFunctionTemp} #  服务名称，本节点为模板，所有涉及 demo 的地方均需要修改
+  fc-main: ${vars.fcFunctionTemp}

@@ -43,7 +43,6 @@ const handleError = async (error: IEngineError | IEngineError[]) => {
       { key: 'Feedback:', value: chalk.cyan.underline('https://feedback.serverless-devs.com') },
     ]),
   );
-  if (process.env.NODE_ENV === 'test') return;
   process.exit(exitCode);
 };
 

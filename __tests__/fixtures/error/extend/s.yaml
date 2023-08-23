@@ -1,0 +1,19 @@
+# ------------------------------------
+#   欢迎您使用阿里云函数计算 FC 组件进行项目开发
+#   组件仓库地址：https://github.com/devsapp/fc
+#   组件帮助文档：https://www.serverless-devs.com/fc/readme
+#   Yaml参考文档：https://www.serverless-devs.com/fc/yaml/readme
+extend: base.yaml
+
+vars: # 全局变量
+  region: cn-hangzhou
+  service:
+    name: website-wof2-pre
+    description: this is a new description
+    internetAccess: true
+
+resources:
+  framework: # 业务名称/模块名称
+    props: # 组件的属性值
+      service:
+        name: ${vars.service.name}

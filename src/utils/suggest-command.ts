@@ -14,11 +14,10 @@ const suggestCommand = (program: Command) => {
         suggestion = cmd;
       }
     });
-    new HumanError(`Unknown command ${chalk.yellow(unknownCommand)}.`, suggestion && `Did you mean ${chalk.yellow(suggestion)}?`)
+    new HumanError(`Unknown command ${chalk.yellow(unknownCommand)}.`, suggestion && `Did you mean ${chalk.yellow(suggestion)}?`);
     if (process.env.NODE_ENV === 'test') return;
     process.exit(1);
   });
-
 };
 
 export default suggestCommand;

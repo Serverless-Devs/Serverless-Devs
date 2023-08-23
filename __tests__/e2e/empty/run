@@ -1,5 +1,0 @@
-#!/bin/
-
-set -e
-
-sl emptyarray
