@@ -1,0 +1,14 @@
+- name: prod
+  describation: this is a describation
+  type: test
+  region: cn-chengdu
+  role: acs:ram::<account>:role/serverlessdevsinfra-testing
+  props:
+    test: 1
+- name: dev
+  describation: this is a describation
+  type: test
+  region: cn-chengdu
+  role: acs:ram::<account>:role/serverlessdevsinfra-testing
+  props:
+    test: 1

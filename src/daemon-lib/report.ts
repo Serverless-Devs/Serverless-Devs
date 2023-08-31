@@ -28,12 +28,12 @@ class Report {
     if (payload.uid) {
       this.url = `${this.url}&mainUid=${payload.uid}`;
     }
-    console.log(`repot url: ${this.url}`);
+    console.log(`report url: ${this.url}`);
     await this.report();
   }
   async reportInit(payload = {} as IReportInit) {
     this.url = `${this.url}&trackerType=${EReportType.init}&trackerName=${payload.template}`;
-    console.log(`repot url: ${this.url}`);
+    console.log(`report url: ${this.url}`);
     await this.report();
   }
   private async report() {

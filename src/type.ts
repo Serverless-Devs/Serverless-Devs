@@ -4,3 +4,13 @@ export enum EReportType {
 }
 
 export type TReportType = `${EReportType}`;
+
+export interface IGlobalOptions {
+  debug?: boolean;
+  skipActions?: boolean;
+  template?: string;
+  access?: string;
+  output?: string;
+  help?: boolean;
+  version?: boolean;
+}

@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { emoji, getVersion } from '../utils';
 
 import subConfig from './config';
+import subEnvironment from './environment';
 import subSet from './set';
 import subClean from './clean';
 import subInit from './init';
@@ -27,6 +28,7 @@ export default async (program: Command) => {
 
   // 支持的系统命令
   subConfig(program);
+  subEnvironment(program);
   subSet(program);
   subRegistry(program);
   subPreview(program);
