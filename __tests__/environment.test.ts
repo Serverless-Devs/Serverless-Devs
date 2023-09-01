@@ -14,7 +14,7 @@ test('the s.yaml/s.yml file was not found', async () => {
   expect(stdout).toMatch(/the s.yaml\/s.yml file was not found/);
 });
 
-test.only('find the default yaml file', async () => {
+test('find the default yaml file', async () => {
   const name = 'dev';
   const options = ['--name', name, '--describation', 'this is a describation', '--type', 'test', '--region', 'cn-chengdu', '--role', 'acs:ram::<account>:role/serverlessdevsinfra-testing', '--props', "{\"test\":1}"]
   const res = spawnSync(s, ['environment', 'init', '--debug', ...options], { cwd });
@@ -24,4 +24,19 @@ test.only('find the default yaml file', async () => {
   const content = utils.getYamlContent(environmentFilePath);
   console.log(content);
   expect(find(content, { name })).toBeTruthy();
+});
+
+test('deploy', async () => {
+  const res = spawnSync(s, ['deploy', '--env', 'prod', '--debug'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+
+});
+
+test('preview', async () => {
+  const res = spawnSync(s, ['preview', '--env', 'prod', '--debug'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
 });

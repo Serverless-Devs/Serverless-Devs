@@ -1,11 +1,25 @@
-- name: prod
-  describation: this is a describation
-  type: test
-  region: cn-chengdu
+- access: prod
+  name: prod
+  description: 'testing environment'
+  type: 'testing' # 环境类别
+  region: cn-hangzhou
   role: acs:ram::<account>:role/serverlessdevsinfra-testing
-  props:
-    test: 1
+  props: # 环境自定义属性
+    function:
+      internetAccess: true
+      role: ${environment.role} #引用环境role
+      vpcConfig: # 指定vpc，不引用环境创建的
+        vpcId: xxx
+        securityGroupId: xxx      
+        vswitchIds:        
+          - vsw-xxx
+      cpu: 1
+      memorySize: 1024
+      instanceConcurrency: 1
+      layers:  # 引用环境region
+      - acs:fc:${environment.region}:official:layers/Python310/versions/2
 - name: dev
+  access: dev
   describation: this is a describation
   type: test
   region: cn-chengdu

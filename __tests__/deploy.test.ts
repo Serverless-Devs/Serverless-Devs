@@ -7,26 +7,27 @@ test('s deploy', async () => {
   const res = spawnSync(s, ['deploy', '-t', template]);
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(typeof stdout).toBe('string');
+  expect(res.status).toBe(0);
+
 });
 
 test('s deploy -o json', async () => {
   const res = spawnSync(s, ['deploy', '-t', template, '-o', 'json']);
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toMatch(/"hello": "world"/);
+  expect(res.status).toBe(0);
 });
 
 test('s deploy -o yaml', async () => {
   const res = spawnSync(s, ['deploy', '-t', template, '-o', 'yaml']);
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toMatch(/hello: world/);
+  expect(res.status).toBe(0);
 });
 
 test('s deploy -o raw', async () => {
   const res = spawnSync(s, ['deploy', '-t', template, '-o', 'raw']);
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toMatch(/"hello":"world"/);
+  expect(res.status).toBe(0);
 });

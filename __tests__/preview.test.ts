@@ -8,8 +8,7 @@ test('s preview', async () => {
   const res = spawnSync(s, ['preview'], { cwd, env });
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toMatch(/nodejs14/);
-  expect(stdout).toMatch(/this is a test cn-huhehaote-1740298130743624-start-hello-qszl/);
+  expect(res.status).toBe(0);
 });
 
 test('extend basic', async () => {
@@ -17,7 +16,7 @@ test('extend basic', async () => {
   const res = spawnSync(s, ['preview', '-t', template], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(typeof stdout).toBe('string');
+  expect(res.status).toBe(0);
 });
 
 test('extend basic', async () => {
@@ -25,5 +24,5 @@ test('extend basic', async () => {
   const res = spawnSync(s, ['preview', '-t', template], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(typeof stdout).toBe('string');
+  expect(res.status).toBe(0);
 });

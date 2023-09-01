@@ -1,26 +1,24 @@
-- access: access_testing
-  name: testing
-  description: 'testing environment'
-  type: 'testing' # 环境类别
-  region: cn-hangzhou
-  role: acs:ram::<account>:role/serverlessdevsinfra-testing
-  props:
-    function:
-      runtime: python3
-      handler: index.handler
-      codeUri: ./code
-      memorySize: 128
-      timeout: 60
-- access: access_testing
-  name: testing
-  description: 'testing environment'
-  type: 'testing' # 环境类别
-  region: cn-hangzhou
-  role: acs:ram::<account>:role/serverlessdevsinfra-testing
-  props:
-    function:
-      runtime: python3
-      handler: index.handler
-      codeUri: ./code
-      memorySize: 128
-      timeout: 60
+edition: 3.0.0
+name: web-framework-app
+access: "default"
+
+resources:
+  function-a:
+    component: v3test
+    props: 
+      function:
+        name: fcv3-function-b-${environment.name}
+        codeUri: './code'
+        runtime: python3.9
+        handler: index.app
+        timeout: 60
+
+  function-b:
+    component: v3test
+    props:
+      function:
+        name: fcv3-function-b-${environment.name}
+        codeUri: './code1'
+        runtime: python3.9
+        handler: index.app
+        timeout: 60

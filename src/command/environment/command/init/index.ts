@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { emoji } from '../../../../utils';
 import Init from './init';
 
-// TODO: text
+// TODO: @封崇
 const description = `You can add an account
 
     Example:
@@ -27,6 +27,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
+    // TODO: @封崇 line31-37
     .summary(`${emoji(chalk.bold('+'))} Add an account`)
     .option('--name <name>', 'AccountID of key information')
     .option('--describation <describation>', 'AccessKeyID of key information')
