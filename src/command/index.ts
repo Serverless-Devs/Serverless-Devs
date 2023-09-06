@@ -13,7 +13,7 @@ import subComponent from './component';
 
 import Custom from './custom';
 
-export default async (program: Command) => {
+const root = async (program: Command) => {
   program
     .name('s')
     .option('--debug', 'Open debug model')
@@ -59,3 +59,5 @@ ${emoji('📝')}  Feedback:         https://feedback.serverless-devs.com
 `,
   );
 };
+
+export = root;

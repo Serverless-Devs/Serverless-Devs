@@ -47,6 +47,9 @@
   "bin": {
     "s3": "bin/s"
   },
+  "engines": {
+    "node": ">=14.14.0"
+  },
   "devDependencies": {
     "@serverless-devs/core": "^0.1.62",
     "@serverless-devs/credential": "^0.0.2-beta.3",

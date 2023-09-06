@@ -2,7 +2,6 @@ import { Command } from 'commander';
 import { checkNodeVersion, setProxy } from './utils';
 import logger from './logger';
 import handleError from './error';
-import root from './command';
 import onboarding from './onboarding';
 import UpdateNotifier from './update-notifier';
 import * as utils from '@serverless-devs/utils';
@@ -34,7 +33,8 @@ const preRun = () => {
   }
   // 处理指令
   const program = new Command();
-  await root(program);
+  // require: fix to catch error in low node version
+  await require('./command')(program);
   await program.parseAsync(process.argv);
 })().catch(async error => {
   await handleError(error);
