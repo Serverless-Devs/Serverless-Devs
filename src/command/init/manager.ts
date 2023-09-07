@@ -18,6 +18,7 @@ interface IOptions {
   project?: string;
   uri?: string;
   reserveComments?: boolean;
+  y?: boolean;
 }
 
 export default class Manager {
@@ -48,36 +49,40 @@ export default class Manager {
     }
   }
 
-  private async executeInit() {
+  private async getProjectName() {
     let projectName = this.options.dir;
-    if (!projectName) {
-      const defaultValue = last(split(this.template, '/'));
-      const answers = await inquirer.prompt([
-        {
-          type: 'input',
-          name: 'projectName',
-          message: 'Please input your project name (init dir)',
-          default: defaultValue,
-          validate: (input: string) => {
-            if (!input) {
-              return 'Project name is required';
-            }
-            return true;
-          },
+    if (projectName) return projectName;
+    const defaultValue = last(split(this.template, '/'));
+    if (this.options.y) return defaultValue;
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'projectName',
+        message: 'Please input your project name (init dir)',
+        default: defaultValue,
+        validate: (input: string) => {
+          if (!input) {
+            return 'Project name is required';
+          }
+          return true;
         },
-      ]);
+      },
+    ]);
+    return trim(answers.projectName);
+  }
 
-      projectName = trim(answers.projectName);
-    }
+  private async executeInit() {
+
 
     const appPath = await loadApplication(this.template, {
       logger,
-      projectName,
+      projectName: await this.getProjectName(),
       parameters: this.options.parameters,
       appName: this.options.appName,
       access: this.options.access,
       uri: this.options.uri,
       reserveComments: this.options.reserveComments,
+      y: this.options.y
     });
 
     if (appPath) {
