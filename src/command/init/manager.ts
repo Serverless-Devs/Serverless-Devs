@@ -9,6 +9,7 @@ import { APPLICATION_TEMPLATE } from './constant';
 import logger from '../../logger';
 import execDaemon from '../../exec-daemon';
 import { EReportType } from '../../type';
+import path from 'path';
 
 interface IOptions {
   dir?: string;
@@ -45,8 +46,7 @@ export default class Manager {
   }
 
   private async getProjectName() {
-    let projectName = this.options.dir;
-    if (projectName) return projectName;
+    if (this.options.dir) return path.basename(this.options.dir);
     const defaultValue = last(split(this.template, '/'));
     if (this.options.y) return defaultValue;
     const answers = await inquirer.prompt([
@@ -67,9 +67,8 @@ export default class Manager {
   }
 
   private async executeInit() {
-
-
     const appPath = await loadApplication(this.template, {
+      dest: path.isAbsolute(this.options.dir) ? path.dirname(this.options.dir) : process.cwd(),
       logger,
       projectName: await this.getProjectName(),
       parameters: this.options.parameters,
