@@ -1,11 +1,11 @@
 import inquirer from 'inquirer';
-import { spawn, spawnSync } from 'child_process';
+import { spawn } from 'child_process';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import loadApplication from '@serverless-devs/load-application';
 import chalk from 'chalk';
-import { last, split, trim, find, includes, endsWith } from 'lodash';
+import { last, split, trim, endsWith } from 'lodash';
 import { emoji } from '../../utils';
-import { ALL_TEMPLATE, APPLICATION_TEMPLATE } from './constant';
+import { APPLICATION_TEMPLATE } from './constant';
 import logger from '../../logger';
 import execDaemon from '../../exec-daemon';
 import { EReportType } from '../../type';
@@ -41,12 +41,7 @@ export default class Manager {
       logger.write(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
     }
     const { appPath } = await this.executeInit();
-    const findObj: any = find(ALL_TEMPLATE, item => includes(item.value, this.template));
     appPath && execDaemon('report.js', { type: EReportType.init, template: this.template });
-    if (includes(process.argv, '--parameters')) return;
-    if (findObj && findObj.isDeploy) {
-      await this.deploy(appPath);
-    }
   }
 
   private async getProjectName() {
@@ -94,21 +89,6 @@ export default class Manager {
     }
 
     return { appPath };
-  }
-
-  private async deploy(appPath: string) {
-    const answers: any = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'name',
-        default: 'Y',
-        message: chalk.yellow('Do you want to deploy the project immediately?'),
-      },
-    ]);
-
-    if (answers.name) {
-      spawnSync('s deploy', { cwd: appPath, shell: true, stdio: 'inherit' });
-    }
   }
 
   private async gitCloneProject() {

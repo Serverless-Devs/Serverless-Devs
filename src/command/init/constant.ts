@@ -69,12 +69,10 @@ const quick_start_template = [
   {
     name: '[HTTP] Node.js 14',
     value: 'devsapp/start-fc-http-nodejs14',
-    isDeploy: true,
   },
   {
     name: '[HTTP] Python3',
     value: 'devsapp/start-fc-http-python3',
-    isDeploy: true,
   },
   {
     name: '[HTTP] Java8',
@@ -83,27 +81,22 @@ const quick_start_template = [
   {
     name: '[HTTP] PHP7',
     value: 'devsapp/start-fc-http-php7',
-    isDeploy: true,
   },
   {
     name: '[HTTP] Go1',
     value: 'devsapp/start-fc-http-golang1.x',
-    isDeploy: true,
   },
   {
     name: '[HTTP] C++ (custom)',
     value: 'devsapp/fc-custom-cpp-http',
-    isDeploy: true,
   },
   {
     name: '[Event] Node.js 14',
     value: 'devsapp/start-fc-event-nodejs14',
-    isDeploy: true,
   },
   {
     name: '[Event] Python3',
     value: 'devsapp/start-fc-event-python3',
-    isDeploy: true,
   },
   {
     name: '[Event] Java8',
@@ -112,12 +105,10 @@ const quick_start_template = [
   {
     name: '[Event] PHP7',
     value: 'devsapp/start-fc-event-php7',
-    isDeploy: true,
   },
   {
     name: '[Event] Go1',
     value: 'devsapp/start-fc-event-golang1.x',
-    isDeploy: true,
   },
   {
     name: '[Event] Go (custom)',
@@ -165,7 +156,6 @@ const container_example_template = [
   {
     name: '[Event] Node.js 14',
     value: 'devsapp/start-fc-custom-container-event-nodejs14',
-    isDeploy: true,
   },
   {
     name: '[Event] Python3.9',
@@ -181,12 +171,10 @@ const web_framework_template = [
   {
     name: 'Express.js',
     value: 'devsapp/start-express',
-    isDeploy: true,
   },
   {
     name: 'Egg.js',
     value: 'devsapp/start-egg',
-    isDeploy: true,
   },
   {
     name: 'Koa.js',
@@ -195,27 +183,22 @@ const web_framework_template = [
   {
     name: 'Nuxt.js (SSR)',
     value: 'devsapp/start-nuxt-ssr',
-    isDeploy: true,
   },
   {
     name: 'Next.js',
     value: 'devsapp/start-next',
-    isDeploy: true,
   },
   {
     name: 'Django',
     value: 'devsapp/start-django',
-    isDeploy: true,
   },
   {
     name: 'Flask',
     value: 'devsapp/start-flask',
-    isDeploy: true,
   },
   {
     name: 'Tornado',
     value: 'devsapp/start-tornado',
-    isDeploy: true,
   },
   {
     name: 'Springboot',
@@ -235,17 +218,14 @@ const static_website_template = [
   {
     name: 'Docusaurus',
     value: 'devsapp/website-docusaurus',
-    isDeploy: true,
   },
   {
     name: 'Hexo',
     value: 'devsapp/website-hexo',
-    isDeploy: true,
   },
   {
     name: 'Vuepress',
     value: 'devsapp/website-vuepress',
-    isDeploy: true,
   },
 ];
 
@@ -253,17 +233,14 @@ const best_practice_template = [
   {
     name: '[AI] PyTorch',
     value: 'devsapp/start-pytorch',
-    isDeploy: true,
   },
   {
     name: '[AI] Tensorflow',
     value: 'devsapp/start-tensorflow',
-    isDeploy: true,
   },
   {
     name: '[AI] Image Prediction',
     value: 'devsapp/image-prediction-app',
-    isDeploy: true,
   },
   {
     name: '[DB] MySQL Example',
