@@ -68,7 +68,7 @@ export default class Manager {
 
   private async executeInit() {
     const appPath = await loadApplication(this.template, {
-      dest: path.isAbsolute(this.options.dir) ? path.dirname(this.options.dir) : process.cwd(),
+      dest: this.options.dir && path.isAbsolute(this.options.dir) ? path.dirname(this.options.dir) : process.cwd(),
       logger,
       projectName: await this.getProjectName(),
       parameters: this.options.parameters,
