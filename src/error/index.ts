@@ -43,7 +43,7 @@ const handleError = async (error: IEngineError | IEngineError[]) => {
       { key: 'Feedback:', value: chalk.cyan.underline('https://feedback.serverless-devs.com') },
     ]),
   );
-  process.exit(exitCode);
+  process.exitCode = exitCode;
 };
 
 const doOneError = (error: IEngineError) => {
@@ -58,12 +58,14 @@ const doOneError = (error: IEngineError) => {
       arr.push('\n🍼 Tips', '====================', chalk.yellow(`${devsError.tips}`));
     }
     logger.write(arr.join('\n'));
+    showStack(devsError.stack);
     return;
   }
   // 其它错误
   const e = error as Error;
   const arr = [chalk.red('Error Message:'), chalk.red(isDebugMode() ? e.stack : e.message)];
   logger.write(arr.join('\n'));
+  showStack(e.stack);
 };
 
 const writeError = (error: IEngineError) => {
@@ -90,6 +92,11 @@ const writeError = (error: IEngineError) => {
   const errorInfo = fs.readJSONSync(errorFile);
   errorInfo.push(getData(error));
   fs.writeJSONSync(errorFile, errorInfo, { spaces: 2 });
+};
+
+const showStack = (msg: string) => {
+  if (isDebugMode()) return;
+  logger.debug(msg)
 };
 
 export default handleError;
