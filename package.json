@@ -53,11 +53,11 @@
   "devDependencies": {
     "@serverless-devs/core": "^0.1.64",
     "@serverless-devs/credential": "^0.0.2-beta.3",
-    "@serverless-devs/engine": "^0.0.1-beta.29",
+    "@serverless-devs/engine": "^0.0.1-beta.30",
     "@serverless-devs/load-application": "^0.0.3-beta.21",
     "@serverless-devs/load-component": "^0.0.2-beta.15",
     "@serverless-devs/logger": "^0.0.2-beta.15",
-    "@serverless-devs/parse-spec": "^0.0.1-beta.30",
+    "@serverless-devs/parse-spec": "^0.0.1-beta.31",
     "@serverless-devs/registry": "^0.0.2-beta.11",
     "@serverless-devs/utils": "^0.0.8",
     "@types/fs-extra": "^11.0.1",

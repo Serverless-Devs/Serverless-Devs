@@ -116,3 +116,11 @@ test('s set analsis', async () => {
   console.log(stdout);
   expect(stdout).toMatch(/Unknown command/);
 });
+
+
+test('pre deploy format error', async () => {
+  const res = spawnSync(s, ['deploy', '-t', 'pre-deploy-format-error.yaml'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(stdout).toMatch(/Project action pre-deploy is invalid, it must be array/);
+});

@@ -31,7 +31,7 @@ test('template in yaml', async () => {
   expect(stdout).toMatch(/"region":"cn-huhehaote","runtime":"python3"/);
 });
 
-test.only('--output-file', async () => {
+test('--output-file', async () => {
   const dest = path.join(__dirname, './fixtures/basic');
   const outputFile = path.join(dest, 'output.json');
   const template = path.join(dest, 's.yaml');
