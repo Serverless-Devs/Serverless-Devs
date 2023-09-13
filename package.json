@@ -56,7 +56,7 @@
     "@serverless-devs/engine": "^0.0.1-beta.29",
     "@serverless-devs/load-application": "^0.0.3-beta.21",
     "@serverless-devs/load-component": "^0.0.2-beta.15",
-    "@serverless-devs/logger": "^0.0.2-beta.14",
+    "@serverless-devs/logger": "^0.0.2-beta.15",
     "@serverless-devs/parse-spec": "^0.0.1-beta.30",
     "@serverless-devs/registry": "^0.0.2-beta.11",
     "@serverless-devs/utils": "^0.0.8",

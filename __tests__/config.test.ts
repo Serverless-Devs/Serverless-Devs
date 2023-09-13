@@ -9,8 +9,8 @@ test('s config get from env', async () => {
       ...process.env,
       AccountID: '123',
       AccessKeyID: '123',
-      AccessKeySecret: '123'
-    }
+      AccessKeySecret: '123',
+    },
   });
   const stdout = res.stdout.toString();
   console.log(stdout);

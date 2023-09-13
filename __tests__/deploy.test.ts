@@ -8,7 +8,6 @@ test('s deploy', async () => {
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);
-
 });
 
 test('s deploy -o json', async () => {

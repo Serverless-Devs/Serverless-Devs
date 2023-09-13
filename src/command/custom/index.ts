@@ -11,6 +11,7 @@ import { ISpec } from './types';
 import Help from './help';
 import chalk from 'chalk';
 import path from 'path';
+import fs from 'fs-extra';
 import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '../../exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '../../constant';
@@ -49,7 +50,8 @@ export default class Custom {
         await this.updateComponent(context);
         execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv });
         if (get(context, 'status') === 'success') {
-          this.output(context);
+          const result = this.output(context);
+          this.writeOutputFile(result);
           if (utils.getGlobalConfig('log') !== 'disable') {
             logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
           }
@@ -77,15 +79,29 @@ export default class Custom {
     const { output = 'default' } = utils.parseArgv(argv);
     logger.write(`\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     if (output === IOutput.JSON) {
-      return logger.write(JSON.stringify(data, null, 2));
+      const newData = JSON.stringify(data, null, 2);
+      logger.write(newData);
+      return newData;
     }
     if (output === IOutput.RAW) {
-      return logger.write(JSON.stringify(data));
+      const newData = JSON.stringify(data);
+      logger.write(newData);
+      return newData;
     }
     if (output === IOutput.YAML) {
-      return logger.write(yaml.dump(data));
+      const newData = yaml.dump(data);
+      logger.write(newData);
+      return newData;
     }
-    logger.output(data);
+    return logger.output(data);
+  }
+  private writeOutputFile(result: string) {
+    const argv = process.argv.slice(2);
+    const argvData = utils.parseArgv(argv);
+    const outputFile = get(argvData, 'output-file');
+    if (!outputFile) return;
+    const filePath = utils.getAbsolutePath(outputFile);
+    fs.writeFileSync(filePath, result, 'utf-8');
   }
   private async parseSpec() {
     const argv = process.argv.slice(2);

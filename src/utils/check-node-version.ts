@@ -1,8 +1,7 @@
 import { HumanError } from '../error';
 import chalk from 'chalk';
 import semver from 'semver';
-const pkg = require('../../package.json')
-
+const pkg = require('../../package.json');
 
 function checkNodeVersion() {
   const { version } = semver.minVersion(pkg.engines.node);

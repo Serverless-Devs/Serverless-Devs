@@ -21,6 +21,7 @@ const root = async (program: Command) => {
     .option('-t, --template <path>', 'Specify the template file')
     .option('-a, --access <aliasName>', 'Specify the access alias name')
     .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw')
+    .option('-o, --output-file <outputFilePath>', 'Specify the output file path')
     .configureHelp({ showGlobalOptions: true })
     .helpOption('-h, --help', 'Display help for command')
     .addHelpCommand(false)

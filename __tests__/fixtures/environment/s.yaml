@@ -1,11 +1,11 @@
 edition: 3.0.0
 name: web-framework-app
-access: "default"
+access: 'default'
 
 resources:
   function-a:
     component: v3test
-    props: 
+    props:
       function:
         name: fcv3-function-b-${environment.name}
         codeUri: './code'

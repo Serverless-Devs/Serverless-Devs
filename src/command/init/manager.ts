@@ -76,7 +76,7 @@ export default class Manager {
       access: this.options.access,
       uri: this.options.uri,
       reserveComments: this.options.reserveComments,
-      y: this.options.y
+      y: this.options.y,
     });
 
     if (appPath) {

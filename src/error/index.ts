@@ -96,7 +96,7 @@ const writeError = (error: IEngineError) => {
 
 const showStack = (msg: string) => {
   if (isDebugMode()) return;
-  logger.debug(msg)
+  logger.debug(msg);
 };
 
 export default handleError;

@@ -6,7 +6,6 @@ import { find } from 'lodash';
 const s = path.resolve(__dirname, '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/environment');
 
-
 test('the s.yaml/s.yml file was not found', async () => {
   const res = spawnSync(s, ['environment', 'init']);
   const stdout = res.stdout.toString();
@@ -16,7 +15,20 @@ test('the s.yaml/s.yml file was not found', async () => {
 
 test('find the default yaml file', async () => {
   const name = 'dev';
-  const options = ['--name', name, '--describation', 'this is a describation', '--type', 'test', '--region', 'cn-chengdu', '--role', 'acs:ram::<account>:role/serverlessdevsinfra-testing', '--props', "{\"test\":1}"]
+  const options = [
+    '--name',
+    name,
+    '--describation',
+    'this is a describation',
+    '--type',
+    'test',
+    '--region',
+    'cn-chengdu',
+    '--role',
+    'acs:ram::<account>:role/serverlessdevsinfra-testing',
+    '--props',
+    '{"test":1}',
+  ];
   const res = spawnSync(s, ['environment', 'init', '--debug', ...options], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
@@ -31,7 +43,6 @@ test('deploy', async () => {
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);
-
 });
 
 test('preview', async () => {
