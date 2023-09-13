@@ -11,15 +11,15 @@ import { ISpec } from './types';
 import Help from './help';
 import chalk from 'chalk';
 import path from 'path';
-import fs from 'fs-extra';
 import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '../../exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '../../constant';
 import { EReportType } from '../../type';
+import { writeOutput } from './common';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) {}
+  constructor(private program: Command) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);
@@ -50,8 +50,8 @@ export default class Custom {
         await this.updateComponent(context);
         execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv });
         if (get(context, 'status') === 'success') {
-          const result = this.output(context);
-          this.writeOutputFile(result);
+          this.output(context);
+          writeOutput(get(context, 'output'))
           if (utils.getGlobalConfig('log') !== 'disable') {
             logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
           }
@@ -79,29 +79,15 @@ export default class Custom {
     const { output = 'default' } = utils.parseArgv(argv);
     logger.write(`\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     if (output === IOutput.JSON) {
-      const newData = JSON.stringify(data, null, 2);
-      logger.write(newData);
-      return newData;
+      return logger.write(JSON.stringify(data, null, 2));
     }
     if (output === IOutput.RAW) {
-      const newData = JSON.stringify(data);
-      logger.write(newData);
-      return newData;
+      return logger.write(JSON.stringify(data));
     }
     if (output === IOutput.YAML) {
-      const newData = yaml.dump(data);
-      logger.write(newData);
-      return newData;
+      return logger.write(yaml.dump(data));
     }
     return logger.output(data);
-  }
-  private writeOutputFile(result: string) {
-    const argv = process.argv.slice(2);
-    const argvData = utils.parseArgv(argv);
-    const outputFile = get(argvData, 'output-file');
-    if (!outputFile) return;
-    const filePath = utils.getAbsolutePath(outputFile);
-    fs.writeFileSync(filePath, result, 'utf-8');
   }
   private async parseSpec() {
     const argv = process.argv.slice(2);

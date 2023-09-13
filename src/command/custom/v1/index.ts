@@ -8,13 +8,14 @@ import { emoji } from '../../../utils';
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
 import { ISpec } from '../types';
+import { writeOutput } from '../common';
 
 class V1 {
   private customProgram: Command;
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) {}
+  ) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -38,7 +39,7 @@ class V1 {
   async doExecCommand() {
     const argv = process.argv.slice(2);
     const { template, help, access, skipActions, debug, output } = parseArgv(argv);
-    return await core.execCommand({
+    const res = await core.execCommand({
       syaml: template,
       serverName: this.spec.projectName,
       method: this.spec.command,
@@ -51,6 +52,7 @@ class V1 {
         output,
       },
     });
+    writeOutput(res)
   }
   // s -h
   async showSimpleHelp() {

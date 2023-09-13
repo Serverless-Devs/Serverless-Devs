@@ -86,6 +86,7 @@
     "lodash": "^4.17.21",
     "pkg": "^5.8.1",
     "prettier": "^3.0.3",
+    "prettyjson": "^1.2.5",
     "rimraf": "^5.0.1",
     "semver": "^7.5.4",
     "semver-diff": "^4.0.0",
