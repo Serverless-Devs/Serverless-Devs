@@ -1,0 +1,85 @@
+# ------------------------------------
+#   If you want to use this file directly, please add [-t/--template] parameter, for example [s deploy -t s_en.yaml]
+# ------------------------------------
+#   Welcome to use Alibaba Cloud Function Compute FC components for project development
+#   Component warehouse address: https://github.com/devsapp/fc
+#   Component help documentation: https://www.serverless-devs.com/fc/readme
+#   Yaml reference documentation: https://www.serverless-devs.com/fc/yaml/readme
+#   About:
+#     - The relationship between Serverless Devs and FC components, how to declare/deploy multiple functions, how to deploy code packages over 50M
+#     - About the usage of .fcignore, what the .s directory in the tool does, and how to process the build product after the function performs the build operation
+#   and other issues, you can refer to the documentation: https://www.serverless-devs.com/fc/tips
+#   For questions about how to do CICD, please refer to: https://www.serverless-devs.com/serverless-devs/cicd
+#   For issues such as how to divide the environment, please refer to: https://www.serverless-devs.com/serverless-devs/extend
+#   For more function calculation cases, please refer to: https://github.com/devsapp/awesome/blob/main/README_en.md
+#   If you have any questions, please come to the DingTalk group and ask: 33947367
+# ------------------------------------
+edition: 1.0.0
+name: hello-world-app
+# access is the key information configuration required by the current application:
+# Key configuration can refer to: https://www.serverless-devs.com/serverless-devs/command/config
+# For the order of key usage, please refer to: https://www.serverless-devs.com/serverless-devs/tool#Key usage order and specification
+# access: "{{ access }}"
+
+vars: # global variables
+  region: cn-hangzhou
+  service:
+    name: hello-world-service
+    description: 'hello world by serverless devs'
+
+services:
+  helloworld: # business name/module name
+    # If you only want to perform related operations on the business below helloworld, you can add helloworld to the command line, for example:
+    # Build only helloworld: s helloworld build
+    # If s build is directly executed without helloworld, the tool will perform the same operation on all business modules at the same level as helloworld under the current Yaml (if there are other level modules, such as the next-function commented below), according to certain Sequential build operations
+    component: fc    # The name of the component. The Serverless Devs tool itself is similar to a game console and does not have specific business capabilities. The component is similar to a game card. Users can achieve different functions by inserting different game cards into the game console, that is, by using Different components implement different specific business capabilities
+#    actions:         # Customize execution logic. For the use of actions, please refer to: https://www.serverless-devs.com/serverless-devs/yaml#Behavior description
+#      pre-deploy:    # run before deploy
+#        - component: fc build --use-docker --dockerfile ./code/Dockerfile # The component to run, the format is [component: component name command parameter] (you can get the component list through s cli registry search --type Component)
+#        - run: docker build xxx                  # System command to execute, similar to a hook
+#          path: ./src                            # The path to execute system commands/hooks
+#        - plugin: myplugin                       # and running plugins (you can get a list of components via s cli registry search --type Plugin)
+#          args:                                  # parameter information of the plugin
+#            testKey: testValue
+#      post-deploy:                               # run after deploy
+#        - component: fc versions publish         # command line to run
+    props:
+      region: ${vars.region} # For the usage of variables, please refer to: https://www.serverless-devs.com/serverless-devs/yaml#Variable assignment
+      service: ${vars.service}
+      function:
+        name: custom-cpp-event-function
+        description: 'hello world by serverless devs'
+        runtime: nodejs14
+        codeUri: ./code
+        handler: index.handler
+        memorySize: 128
+        timeout: 60
+      triggers:
+        - name: httpTrigger
+          type: http
+          config:
+            authType: anonymous
+            methods:
+              - GET
+      customDomains:
+        - domainName: auto
+          protocol: HTTP
+          routeConfigs:
+            - path: /*
+              methods:
+                - GET
+                - POST
+#  next-function: # The case of the second function, just for reference
+#    # If you execute s deploy under the current project, the modules will be deployed at the same time:
+#    #   helloworld: service hello-world-service, function cpp-event-function
+#    #   next-function: service hello-world-service, function next-function-example
+#    # If you want to deploy the current service and function separately, you can execute s + module name/business name + deploy, for example: s next-function deploy
+#    # If you want to deploy the current function separately, you can execute s + module name/business name + deploy function, for example: s next-function deploy function
+#    # For more commands, please refer to: https://www.serverless-devs.com/fc/readme#Document related
+#    component: fc
+#    props:
+#      region: ${vars.region}
+#      service: ${vars.service} # The overall service configuration of the application
+#      function: # define a new function
+#        name: next-function-example
+#        description: 'hello world by serverless devs'

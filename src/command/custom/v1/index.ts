@@ -14,7 +14,7 @@ class V1 {
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) {}
+  ) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -78,7 +78,7 @@ class V1 {
   }
   // s website -h || s deploy -h
   async showHelp() {
-    const { projectName, steps, components } = this.spec;
+    const { projectName, steps } = this.spec;
     this.customProgram.helpInformation = () => '';
     // s website -h
     if (projectName) {
@@ -86,13 +86,6 @@ class V1 {
       const result = await help(componentName);
       return (this.customProgram.helpInformation = () => result);
     }
-    // s deploy -h
-    // 仅有一个组件
-    if (components.length === 1) {
-      const result = await help(first(components));
-      return (this.customProgram.helpInformation = () => result);
-    }
-    // 多个组件
     return await this.doExecCommand();
   }
   // s website deploy -h
