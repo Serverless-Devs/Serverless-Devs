@@ -117,7 +117,6 @@ test('s set analsis', async () => {
   expect(stdout).toMatch(/Unknown command/);
 });
 
-
 test('pre deploy format error', async () => {
   const res = spawnSync(s, ['deploy', '-t', 'pre-deploy-format-error.yaml'], { cwd });
   const stdout = res.stdout.toString();

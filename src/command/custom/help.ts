@@ -99,7 +99,13 @@ class Help {
       const [start, ...rest] = item;
       customProgram.option(start, ...rest);
     });
-
+    each(get(data, 'subCommands', {}), (item, key) => {
+      const desc = get(item, 'help.description');
+      customProgram
+        .command(key)
+        .description(desc)
+        .summary(get(item, 'help.summary', desc));
+    });
     const argv = process.argv.slice(2);
     const { _: raw } = parseArgv(argv);
     const subCommand = filter(raw, o => !includes([projectName, command], o));

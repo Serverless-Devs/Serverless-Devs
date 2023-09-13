@@ -19,12 +19,12 @@ name: hello-world-app
 # access 是当前应用所需要的密钥信息配置：
 # 密钥配置可以参考：https://www.serverless-devs.com/serverless-devs/command/config
 # 密钥使用顺序可以参考：https://www.serverless-devs.com/serverless-devs/tool#密钥使用顺序与规范
-access: "default"
+access: 'default'
 
 vars: # 全局变量
-  region: "cn-hangzhou"
+  region: 'cn-hangzhou'
   service:
-    name: "hello-world-service"
+    name: 'hello-world-service'
     description: 'hello world by serverless devs'
 
 services:
@@ -47,7 +47,7 @@ services:
       region: ${vars.region} # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
       service: ${vars.service}
       function:
-        name: "start-fc-http-nodejs14"
+        name: 'start-fc-http-nodejs14'
         description: 'hello world by serverless devs'
         runtime: nodejs14
         codeUri: ./code
@@ -69,7 +69,6 @@ services:
               methods:
                 - GET
                 - POST
-
 #  next-function: # 第二个函数的案例，仅供参考
 #    # 如果在当前项目下执行 s deploy，会同时部署模块：
 #    #   helloworld：服务hello-world-service，函数cpp-event-function
