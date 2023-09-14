@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import { Command, Option } from 'commander';
 import { emoji, getVersion } from '../utils';
 
 import subConfig from './config';
@@ -20,8 +20,8 @@ const root = async (program: Command) => {
     .option('--skip-actions', 'Skip the extends section')
     .option('-t, --template <path>', 'Specify the template file')
     .option('-a, --access <aliasName>', 'Specify the access alias name')
-    .option('-o, --output <outputFormat>', 'Specify the output format: json, yaml, raw')
-    .option('-o, --output-file <outputFilePath>', 'Specify the output file path')
+    .addOption(new Option('-o, --output <outputFormat>', 'Specify the output format').choices(['default', 'json', 'yaml', 'raw']))
+    .option('--output-file <outputFilePath>', 'Specify the output file path')
     .configureHelp({ showGlobalOptions: true })
     .helpOption('-h, --help', 'Display help for command')
     .addHelpCommand(false)
