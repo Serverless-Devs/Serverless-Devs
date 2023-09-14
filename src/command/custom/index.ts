@@ -19,7 +19,7 @@ import { writeOutput } from './common';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);
@@ -51,7 +51,7 @@ export default class Custom {
         execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv });
         if (get(context, 'status') === 'success') {
           this.output(context);
-          writeOutput(get(context, 'output'))
+          writeOutput(get(context, 'output'));
           if (utils.getGlobalConfig('log') !== 'disable') {
             logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
           }

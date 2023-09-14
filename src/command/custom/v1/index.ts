@@ -15,7 +15,7 @@ class V1 {
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) { }
+  ) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -52,7 +52,7 @@ class V1 {
         output,
       },
     });
-    writeOutput(res)
+    writeOutput(res);
   }
   // s -h
   async showSimpleHelp() {

@@ -31,7 +31,7 @@
     "start": "npm run watch",
     "test": "jest --testTimeout 10000",
     "test:watch": "jest --testTimeout 10000 --watchAll",
-    "format": "prettier --write src/ __tests__/",
+    "format": "prettier --write src/ __tests__/**/*.test.ts",
     "prewatch": "rm -rf lib && mkdir lib && cp -r ./src/daemon ./lib",
     "watch": "npm run build -- --watch",
     "prebuild": "npm run prewatch",

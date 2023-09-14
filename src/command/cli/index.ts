@@ -1,10 +1,15 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import * as core from '@serverless-devs/core';
-import { emoji } from '../../utils';
-import { includes, isEmpty, isPlainObject, isString } from 'lodash';
+import { emoji, isJson } from '../../utils';
+import { isFc3 } from './utils';
+import v1 from './v1';
+import * as utils from '@serverless-devs/utils';
+import loadComponent from '@serverless-devs/load-component';
+import Credential from '@serverless-devs/credential';
+import { filter, get, includes, isEmpty, isString } from 'lodash';
 import logger from '../../logger';
-import path from 'path';
+import Help from './help';
+
 // TODO:文档链接
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
   
@@ -15,133 +20,73 @@ const description = `Directly use serverless devs to use components, develop and
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/cli')}`;
 
 export default (program: Command) => {
+  const { _: raw = [], help } = utils.parseArgv(process.argv.slice(2));
+  if (raw[0] !== 'cli') return;
+
   const cliProgram = program
     .command('cli')
     .description(description)
     .summary(`${emoji('🐚')} Command line operation without yaml mode`)
-    .option('-p, --props <jsonString>>', 'The json string of props')
+    .option('-p, --props <jsonString>>', 'The json string of props', v => isJson(v))
     .option('-h, --help', 'Display help for command', undefined) // 避免自动调用help信息（s cli fc -h）
-    .allowUnknownOption()
-    .action(async options => {
-      await doAction(options);
+    .allowUnknownOption();
+  // s cli or s cli -h
+  if (raw.length === 1 || (raw.length === 1 && help)) {
+    cliProgram.help();
+  }
+  const [componentName] = raw.slice(1);
+  if (isFc3(componentName)) {
+    help && new Help(cliProgram).init();
+    cliProgram.action(async () => {
+      await doAction();
     });
+    return;
+  }
+  v1(cliProgram);
+};
 
-  const doAction = async options => {
-    const argvData = core.getGlobalArgs(process.argv.slice(2));
-    const { _: rawData, access = 'default', help } = argvData;
-    // s cli
-    if (rawData.length === 1 || (rawData.length === 1 && help)) {
-      cliProgram.help();
-    }
-    const [componentName, method] = rawData.slice(1);
-    const instance = await core.loadComponent(componentName);
+const doAction = async () => {
+  const { _: raw = [], ...rest } = utils.parseArgv(process.argv.slice(2), {
+    alias: {
+      props: 'p',
+    },
+    string: ['props', 'a'],
+  });
 
-    async function getCurentCredential(access: string) {
-      if (access === core.ALIYUN_CLI) {
-        return await core.getCredential(access);
-      }
-      return await getCredentialWithExisted(access);
-    }
-
-    async function execComponent(_method) {
-      const credentials = await getCurentCredential(access);
-      let tempProp = {};
-      try {
-        const p = argvData.props || argvData.p;
-        tempProp = p ? JSON.parse(p) : {};
-      } catch (e) {
-        throw new Error('-p/--props parameter format error');
-      }
-      const argsObj = rawData
-        .slice(3)
-        .filter(o => !includes(argvData._argsObj, o))
-        .concat(argvData._argsObj);
-      const inputs = {
-        props: tempProp,
-        credentials: credentials || {},
-        appName: 'default',
-        project: {
-          component: componentName,
-          access,
-          projectName: 'default',
-          provider: undefined,
-        },
-        command: _method,
-        args: argsObj.join(' '),
-        argsObj,
-        path: {
-          configPath: process.cwd(),
-        },
-      };
-      try {
-        const res = await instance[_method](inputs);
-        if (isEmpty(res)) {
-          return logger.write(chalk.green(`End of method: ${_method}`));
-        }
-        isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
-      } catch (error) {
-        // TODO: error
-      }
-    }
-
-    // s cli fc -h
-    if (rawData.length === 2) {
-      if (instance['index']) {
-        return await execComponent('index');
-      }
-      const publishPath = path.join(instance.__path, 'publish.yml');
-      await specifyServiceHelp(publishPath);
-      return;
-    }
-    // s cli fc api ListServices
-    if (rawData.length >= 3) {
-      if (instance[method]) {
-        return await execComponent(method);
-      }
-      // TODO: error
-      // throw new Error(
-      //   JSON.stringify({
-      //     code: 100,
-      //     message: 'The specified command cannot be found.',
-      //     tips: 'Please refer to the help document of [-h/--help] command.',
-      //   }),
-      // );
-    }
+  const [componentName, command] = raw.slice(1);
+  const componentLogger = logger.loggerInstance.__generate(componentName);
+  const instance = await loadComponent(componentName, { logger: componentLogger });
+  const access = get(rest, 'access', 'default');
+  const inputs = {
+    cwd: process.cwd(),
+    name: 'default',
+    props: get(rest, 'props', {}),
+    command: command,
+    args: filter(process.argv.slice(3), v => !includes([componentName, command], v)),
+    resource: {
+      name: 'default',
+      component: componentName,
+      access,
+    },
+    getCredential: async () => {
+      const res = await new Credential({ logger: componentLogger }).get(access);
+      return get(res, 'credential', {});
+    },
   };
-};
-
-const getCredentialWithExisted = async (access: string) => {
-  const data = await core.getCredentialAliasList();
-  if (includes(data, access)) {
-    const info = await core.getCredential(access);
-    return info;
-  }
-};
-
-async function specifyServiceHelp(filePath: string) {
-  const publishYamlInfor = await core.getYamlContent(filePath);
-  logger.write(`\n  ${emoji('🚀')} ${publishYamlInfor['Name']}@${publishYamlInfor['Version']}: ${publishYamlInfor['Description']}\n`);
-  const commands = publishYamlInfor['Commands'];
-  if (commands) {
-    const maxLength = core.publishHelp.maxLen(commands);
-    let tmp = [];
-    const newObj = {};
-    for (const key in commands) {
-      const ele = commands[key];
-      isPlainObject(ele) ? tmp.push(core.publishHelp.helpInfo(ele, chalk.underline(chalk.bold(key)), maxLength, 4)) : (newObj[key] = ele);
+  if (instance[command]) {
+    try {
+      const res = await instance[command](inputs);
+      if (isEmpty(res)) return logger.write(chalk.green(`End of method: ${command}`));
+      return isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+    } catch (error) {
+      throw new utils.DevsError(error.message, {
+        stack: error.stack,
+        exitCode: 101,
+      });
     }
-    tmp.length > 0 && logger.write(tmp.join('\n'));
-    if (!isEmpty(newObj)) {
-      for (const key in newObj) {
-        logger.write(`    ${getTempCommandStr(key, maxLength)} ${newObj[key]}`);
-      }
-      logger.write('');
-    }
-    logger.write(publishYamlInfor['HomePage'] ? `  ${emoji('🧭')} ${core.makeUnderLine('More information: ' + publishYamlInfor['HomePage'])} ` + '\n' : '');
   }
-  function getTempCommandStr(commands: string, length: number) {
-    const commandsLength = commands.length;
-    const tempArray = new Array(length - commandsLength).fill(' ');
-    return `${commands}${tempArray.join('')} : `;
-  }
-}
+  throw new utils.DevsError('The specified command cannot be found.', {
+    exitCode: 100,
+    tips: 'Please refer to the help document of [-h/--help] command.',
+  });
+};

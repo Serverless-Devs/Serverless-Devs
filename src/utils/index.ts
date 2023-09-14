@@ -75,3 +75,11 @@ export async function getFolderSize(rootItemPath: string) {
   const folderSize = Array.from(fileSizes.values()).reduce((total, fileSize) => total + fileSize, 0);
   return folderSize;
 }
+
+export const isJson = (value: string, message: string = '-p/--props parameter format error') => {
+  try {
+    JSON.parse(value);
+  } catch (e) {
+    throw new Error(message);
+  }
+};
