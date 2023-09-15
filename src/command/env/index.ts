@@ -8,7 +8,7 @@ const description = `Configure venders account, including Alibaba Cloud, Baidu C
 
 ${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md')}`;
 export default (program: Command) => {
-  const configProgram = program.command('environment');
+  const configProgram = program.command('env');
   suggestCommand(configProgram);
   configProgram
     .description(description)

@@ -28,13 +28,13 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     // TODO: @封崇 line31-37
-    .summary(`${emoji(chalk.bold('+'))} Add an account`)
-    .option('--name <name>', 'AccountID of key information')
-    .option('--describation <describation>', 'AccessKeyID of key information')
-    .option('--type <type>', 'AccessKeySecret of key information')
-    .option('--region <region>', 'SecurityToken of key information')
-    .option('--role <role>', 'SecretAccessKey of key information')
-    .option('--props <props>', 'AccessKey of key information')
+    .summary(`${emoji(chalk.bold('+'))} init`)
+    .option('--name <name>', 'name')
+    .option('--project <project>', 'project')
+    .option('--description <description>', 'description')
+    .option('--type <type>', 'type')
+    .option('--region <region>', 'region')
+    .option('--role <role>', 'role')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Init({ ...options, ...program.optsWithGlobals() }).start();

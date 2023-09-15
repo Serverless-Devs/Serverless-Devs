@@ -2,53 +2,55 @@ import { isEmpty, trim } from 'lodash';
 
 const validateInput = (input: string) => (isEmpty(trim(input)) ? 'Cannot be empty' : true);
 
+export const ENVIRONMENT_FILE_NAME = 'env.yaml';
+
 export const INQUIRE_OPTIONS = [
   {
     type: 'input',
-    message: 'name: ',
+    message: 'name:',
     name: 'name',
     validate: validateInput,
   },
   {
     type: 'input',
-    message: 'describation: ',
-    name: 'describation',
+    message: 'project:',
+    name: 'project',
     validate: validateInput,
   },
   {
     type: 'input',
-    message: 'type: ',
+    message: 'description:',
+    name: 'description',
+  },
+  {
+    type: 'input',
+    message: 'type:',
     name: 'type',
     validate: validateInput,
   },
   {
     type: 'input',
-    message: 'region: ',
+    message: 'region:',
     name: 'region',
     validate: validateInput,
   },
   {
     type: 'input',
-    message: 'role: ',
+    message: 'role:',
     name: 'role',
     validate: validateInput,
   },
   {
     type: 'input',
-    message: 'props: ',
-    name: 'props',
-    validate: (input: string) => {
-      if (isEmpty(trim(input))) {
-        return 'Cannot be empty';
-      }
-      try {
-        JSON.parse(input);
-        return true;
-      } catch (e) {
-        return 'Must be a valid JSON string';
-      }
-    },
+    message: 'access:',
+    name: 'access',
+    default: 'default',
+    validate: validateInput,
+  },
+  {
+    type: 'input',
+    message: 'template:',
+    name: 'template',
+    default: ENVIRONMENT_FILE_NAME,
   },
 ];
-
-export const ENVIRONMENT_FILE_NAME = '.environment.yaml';

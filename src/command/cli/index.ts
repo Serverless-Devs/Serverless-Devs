@@ -27,7 +27,7 @@ export default (program: Command) => {
     .command('cli')
     .description(description)
     .summary(`${emoji('🐚')} Command line operation without yaml mode`)
-    .option('-p, --props <jsonString>>', 'The json string of props', v => isJson(v))
+    .option('-p, --props <jsonString>', 'The json string of props', v => isJson(v))
     .option('-h, --help', 'Display help for command', undefined) // 避免自动调用help信息（s cli fc -h）
     .allowUnknownOption();
   // s cli or s cli -h

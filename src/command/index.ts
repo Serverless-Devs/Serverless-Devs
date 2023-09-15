@@ -2,7 +2,7 @@ import { Command, Option } from 'commander';
 import { emoji, getVersion } from '../utils';
 
 import subConfig from './config';
-import subEnvironment from './environment';
+import subEnv from './env';
 import subSet from './set';
 import subClean from './clean';
 import subInit from './init';
@@ -29,7 +29,7 @@ const root = async (program: Command) => {
 
   // 支持的系统命令
   subConfig(program);
-  subEnvironment(program);
+  subEnv(program);
   subSet(program);
   subRegistry(program);
   subPreview(program);
