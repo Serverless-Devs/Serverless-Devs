@@ -50,14 +50,11 @@ function cleanComponent(component: string | boolean) {
     return;
   }
 
-  const registryPath = [path.join(componentsPath, 'github.com'), path.join(componentsPath, 'devsapp.cn')];
-
-  for (const registry of registryPath) {
-    const p = path.join(registry, component as string);
-    if (fs.existsSync(p)) {
-      rimraf.sync(p);
-    }
+  const p = path.join(componentsPath, 'devsapp.cn', component as string);
+  if (!fs.existsSync(p)) {
+    return logger.tips(`Component [${component}] does not exist.`, 'Please check whether the component has been downloaded.');
   }
+  rimraf.sync(p);
   logger.info(`Component [${component}] has been cleaned up successfully.`);
 }
 
