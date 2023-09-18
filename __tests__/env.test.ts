@@ -1,7 +1,7 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
 import * as utils from '@serverless-devs/utils';
-import { ENVIRONMENT_FILE_NAME } from '../src/command/env/command/init/constant';
+import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
 import { find, get } from 'lodash';
 const s = path.resolve(__dirname, '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/env');

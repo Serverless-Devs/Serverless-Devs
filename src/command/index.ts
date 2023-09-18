@@ -22,6 +22,7 @@ const root = async (program: Command) => {
     .option('-a, --access <aliasName>', 'Specify the access alias name')
     .addOption(new Option('-o, --output <outputFormat>', 'Specify the output format').choices(['default', 'json', 'yaml', 'raw']))
     .option('--output-file <outputFilePath>', 'Specify the output file path')
+    .option('--env <envName>', 'Specify the env name')
     .configureHelp({ showGlobalOptions: true })
     .helpOption('-h, --help', 'Display help for command')
     .addHelpCommand(false)
