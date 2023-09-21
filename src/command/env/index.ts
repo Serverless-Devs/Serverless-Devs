@@ -19,5 +19,5 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command');
 
   subInit(envProgram);
-  subDefault(envProgram)
+  subDefault(envProgram);
 };

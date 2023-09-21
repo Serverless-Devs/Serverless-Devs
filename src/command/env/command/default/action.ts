@@ -19,15 +19,15 @@ class Action {
     if (isEmpty(project)) {
       throw new Error(`Environment file ${envFile} is not a valid yaml file`);
     }
-    const msg = `Set default env [${this.options.name}] for project [${project}] successfully`
+    const msg = `Set default env [${this.options.name}] for project [${project}] successfully`;
     if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
       const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
-      set(defaultEnvContent, project, this.options.name)
-      fs.writeJSONSync(ENVIRONMENT_FILE_PATH, defaultEnvContent, { spaces: 2 })
-      return logger.write(msg)
+      set(defaultEnvContent, project, this.options.name);
+      fs.writeJSONSync(ENVIRONMENT_FILE_PATH, defaultEnvContent, { spaces: 2 });
+      return logger.write(msg);
     }
-    fs.writeJSONSync(ENVIRONMENT_FILE_PATH, { [project]: this.options.name }, { spaces: 2 })
-    logger.write(msg)
+    fs.writeJSONSync(ENVIRONMENT_FILE_PATH, { [project]: this.options.name }, { spaces: 2 });
+    logger.write(msg);
   }
 }
 

@@ -5,7 +5,7 @@ import inquirer from 'inquirer';
 import path from 'path';
 import fs from 'fs-extra';
 import yaml from 'js-yaml';
-import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec'
+import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
 
 class Action {
@@ -29,11 +29,11 @@ class Action {
     const exist = find(environments, { name: data.name });
     const temp = exist
       ? map(environments, item => {
-        if (item.name === data.name) {
-          return { ...item, ...data };
-        }
-        return item;
-      })
+          if (item.name === data.name) {
+            return { ...item, ...data };
+          }
+          return item;
+        })
       : concat(environments, data);
     fs.writeFileSync(environmentFilePath, yaml.dump({ project, environments: temp }));
   }
@@ -53,11 +53,11 @@ class Action {
         validate: (input: string) => {
           const val = trim(input);
           if (isEmpty(val)) {
-            return 'Cannot be empty'
+            return 'Cannot be empty';
           }
           if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
             const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
-            if (includes(values(defaultEnvContent), val)) return `project [${val}] already exists`
+            if (includes(values(defaultEnvContent), val)) return `project [${val}] already exists`;
           }
           return true;
         },

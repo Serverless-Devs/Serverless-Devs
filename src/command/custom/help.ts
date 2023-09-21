@@ -12,7 +12,7 @@ class Help {
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) {}
+  ) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw } = parseArgv(argv);
@@ -76,13 +76,13 @@ class Help {
       }
       return;
     }
-    // s deploy -h
-    // 仅有一个组件时
-    if (components.length === 1) {
-      return await this.singleComponentHelp(first(components));
+    if (components.length > 1) {
+      // 多个组件
+      await this.multiComponentHelp();
+      return;
     }
-    // 多个组件
-    await this.multiComponentHelp();
+    const res = await this.singleComponentHelp(first(components));
+    res && res.outputHelp();
   }
   private async singleComponentHelp(componentName: string) {
     const { projectName, command } = this.spec;
@@ -94,7 +94,10 @@ class Help {
     }
     const description = get(data, 'help.description');
     let customProgram = projectName ? this.program.command(projectName).command(command) : this.program.command(command);
-    customProgram.description(description).summary(get(data, 'help.summary', description));
+    customProgram
+      .description(description)
+      .summary(get(data, 'help.summary', description))
+      .option('-h, --help', 'Display help for command', undefined); // 手动调用help信息
     each(get(data, 'help.option', []), item => {
       const [start, ...rest] = item;
       customProgram.option(start, ...rest);
@@ -104,7 +107,8 @@ class Help {
       customProgram
         .command(key)
         .description(desc)
-        .summary(get(item, 'help.summary', desc));
+        .summary(get(item, 'help.summary', desc))
+        .option('-h, --help', 'Display help for command', undefined); // 手动调用help信息
     });
     const argv = process.argv.slice(2);
     const { _: raw } = parseArgv(argv);
@@ -116,7 +120,8 @@ class Help {
     const subCustomProgram = customProgram
       .command(first(subCommand))
       .description(subDescription)
-      .summary(get(subCommandInfo, 'help.summary', subDescription));
+      .summary(get(subCommandInfo, 'help.summary', subDescription))
+      .option('-h, --help', 'Display help for command', undefined); // 手动调用help信息
     each(get(subCommandInfo, 'help.option', []), item => {
       const [start, ...rest] = item;
       subCustomProgram.option(start, ...rest);
@@ -128,10 +133,7 @@ class Help {
     for (const item of steps) {
       logger.info(`Start executing project ${item.projectName}`);
       const res = await this.singleComponentHelp(item.component);
-      if (res) {
-        res.outputHelp();
-        res.helpInformation = () => '';
-      }
+      res && res.outputHelp();
       logger.info(`Project ${item.projectName} successfully to execute`);
     }
   }
@@ -142,14 +144,18 @@ class Help {
     const { steps, projectName, components } = this.spec;
     if (projectName) {
       const componentName = find(steps, item => item.projectName === projectName)?.component;
-      return await this.singleComponentHelp(componentName);
-    }
-    // 仅有一个组件时
-    if (components.length === 1) {
-      return await this.singleComponentHelp(first(components));
+      const res = await this.singleComponentHelp(componentName);
+      res && res.outputHelp();
+      return;
     }
     // 多个组件
-    await this.multiComponentHelp();
+    if (components.length > 1) {
+      await this.multiComponentHelp();
+      return;
+    }
+    // 仅有一个组件时
+    const res = await this.singleComponentHelp(first(components));
+    res && res.outputHelp();
   }
 }
 
