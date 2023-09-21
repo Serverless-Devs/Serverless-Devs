@@ -53,5 +53,6 @@ process.on('exit', code => {
 
 process.on('SIGINT', () => {
   logger.debug('Process SIGINT');
+  process.emit('DEVS:SIGINT' as any)
   process.exit();
 });
