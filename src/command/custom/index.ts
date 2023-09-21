@@ -19,7 +19,7 @@ import { writeOutput } from './common';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) {}
+  constructor(private program: Command) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);
@@ -32,7 +32,11 @@ export default class Custom {
     try {
       this.spec = await this.parseSpec();
     } catch (error) {
-      if (!help) throw error;
+      /**
+       * s -h 不强依赖yaml文件，不报错
+       * s alias -h 强依赖yaml文件，报错
+       */
+      if (raw.length > 0) throw error;
     }
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
     if (help) return await new Help(this.program, this.spec).init();
