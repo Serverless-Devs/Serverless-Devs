@@ -1,4 +1,4 @@
-const pkg = require('../../package.json');
+const pkg = require('../../../package.json');
 import { REPORT_BASE_URL } from '@/constant';
 import * as utils from '@serverless-devs/utils';
 import isDocker from 'is-docker';

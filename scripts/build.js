@@ -15,7 +15,7 @@ const utils = require('@serverless-devs/utils');
       outfile: 'lib/index.js',
     },
     {
-      entryPoints: 'src/daemon-lib/index.ts',
+      entryPoints: 'src/daemon/libs/index.ts',
       outfile: 'lib/daemon/lib.js'
     }
   ];
@@ -36,14 +36,15 @@ const utils = require('@serverless-devs/utils');
     })
     // 只 watch 主流程的文件
     if (watch) {
-      console.log('watching...')
+      console.log(`watch ${item.entryPoints}...`)
       await context.watch();
-      break;
+      continue;
     }
     await context.rebuild();
     console.log(`build ${item.entryPoints} to ${item.outfile} successfully\n`)
     context.dispose();
   }
+  await fs.remove('lib/daemon/libs');
 })().catch((err) => {
   console.error(err);
   process.exit(1);
