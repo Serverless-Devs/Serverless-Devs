@@ -34,7 +34,6 @@ const utils = require('@serverless-devs/utils');
         '@': path.resolve('src'),
       },
     })
-    // 只 watch 主流程的文件
     if (watch) {
       console.log(`watch ${item.entryPoints}...`)
       await context.watch();
