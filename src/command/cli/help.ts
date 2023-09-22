@@ -1,16 +1,15 @@
 import { Command } from 'commander';
-import * as core from '@serverless-devs/core';
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import { each, get, isEmpty } from 'lodash';
 
 class Help {
   private raw: string[] = [];
-  constructor(private program: Command) {}
+  constructor(private program: Command) { }
   async init() {
     const {
       _: [, ...raw],
-    } = core.getGlobalArgs(process.argv.slice(2));
+    } = utils.parseArgv(process.argv.slice(2));
     this.raw = raw;
     if (raw.length === 1) return await this.showRaw1();
     if (raw.length === 2) return await this.showRaw2();
