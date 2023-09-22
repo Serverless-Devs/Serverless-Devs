@@ -33,3 +33,4 @@ Makefile
 s-*
 replace-committers.sh*
 __tests__
+scripts
