@@ -1,5 +1,5 @@
 import { concat, filter, find, map, isEmpty, trim, includes, values } from 'lodash';
-import logger from '../../../../logger';
+import logger from '@/logger';
 import { IOptions } from './type';
 import inquirer from 'inquirer';
 import path from 'path';
@@ -29,11 +29,11 @@ class Action {
     const exist = find(environments, { name: data.name });
     const temp = exist
       ? map(environments, item => {
-          if (item.name === data.name) {
-            return { ...item, ...data };
-          }
-          return item;
-        })
+        if (item.name === data.name) {
+          return { ...item, ...data };
+        }
+        return item;
+      })
       : concat(environments, data);
     fs.writeFileSync(environmentFilePath, yaml.dump({ project, environments: temp }));
   }

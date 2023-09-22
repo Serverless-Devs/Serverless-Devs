@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { emoji } from '@/utils';
 import { getRootHome } from '@serverless-devs/utils';
 import path from 'path';
-import logger from '../../logger';
+import logger from '@/logger';
 
 const rimraf = require('rimraf');
 

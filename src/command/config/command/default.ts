@@ -1,8 +1,8 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '../../../utils';
-import logger from '../../../logger';
+import { emoji } from '@/utils';
+import logger from '@/logger';
 
 const description = `Specify an access as the default.
   

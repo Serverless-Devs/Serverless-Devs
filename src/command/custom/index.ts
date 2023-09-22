@@ -4,17 +4,17 @@ import * as utils from '@serverless-devs/utils';
 import { get, each, filter, uniqBy, isEmpty } from 'lodash';
 import ParseSpec, { IOutput } from '@serverless-devs/parse-spec';
 import V1 from './v1';
-import logger from '../../logger';
+import logger from '@/logger';
 import yaml from 'js-yaml';
-import handleError from '../../error';
+import handleError from '@/error';
 import { ISpec } from './types';
 import Help from './help';
 import chalk from 'chalk';
 import path from 'path';
 import loadComponent from '@serverless-devs/load-component';
-import execDaemon from '../../exec-daemon';
-import { UPDATE_COMPONENT_CHECK_INTERVAL } from '../../constant';
-import { EReportType } from '../../type';
+import execDaemon from '@/exec-daemon';
+import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
+import { EReportType } from '@/type';
 import { writeOutput } from './common';
 
 export default class Custom {

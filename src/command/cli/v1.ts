@@ -2,9 +2,9 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import * as core from '@serverless-devs/core';
 import * as utils from '@serverless-devs/utils';
-import { emoji } from '../../utils';
+import { emoji } from '@/utils';
 import { includes, isEmpty, isPlainObject, isString } from 'lodash';
-import logger from '../../logger';
+import logger from '@/logger';
 import path from 'path';
 
 const v1 = (program: Command) => {

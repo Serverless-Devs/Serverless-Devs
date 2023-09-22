@@ -1,4 +1,4 @@
-import { IGlobalOptions } from '../../../../type';
+import { IGlobalOptions } from '@/type';
 
 export type IOptions = IGlobalOptions & {
   project?: string;

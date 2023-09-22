@@ -2,8 +2,8 @@ import { Command } from 'commander';
 import { setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { emoji } from '../../../utils';
-import logger from '../../../logger';
+import { emoji } from '@/utils';
+import logger from '@/logger';
 
 const description = `Set proxy information.
 

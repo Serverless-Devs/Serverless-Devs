@@ -1,4 +1,4 @@
-import { HumanError } from '../error';
+import { HumanError } from '@/error';
 import chalk from 'chalk';
 import semver from 'semver';
 const pkg = require('../../package.json');

@@ -4,9 +4,9 @@ import { parseArgv, getYamlContent } from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import { get, isEmpty, each, find, first, map, filter, includes } from 'lodash';
 import path from 'path';
-import { formatHelp, emoji } from '../../utils';
+import { formatHelp, emoji } from '@/utils';
 import chalk from 'chalk';
-import logger from '../../logger';
+import logger from '@/logger';
 
 class Help {
   constructor(

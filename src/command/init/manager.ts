@@ -4,11 +4,11 @@ import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import loadApplication from '@serverless-devs/load-application';
 import chalk from 'chalk';
 import { last, split, trim, endsWith } from 'lodash';
-import { emoji } from '../../utils';
+import { emoji } from '@/utils';
 import { APPLICATION_TEMPLATE } from './constant';
-import logger from '../../logger';
-import execDaemon from '../../exec-daemon';
-import { EReportType } from '../../type';
+import logger from '@/logger';
+import execDaemon from '@/exec-daemon';
+import { EReportType } from '@/type';
 import path from 'path';
 
 interface IOptions {

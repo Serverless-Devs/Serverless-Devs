@@ -1,8 +1,8 @@
 import path from 'path';
-import execDaemon from '../exec-daemon';
+import execDaemon from '@/exec-daemon';
 import latestVersion from 'latest-version';
 import boxen from 'boxen';
-import { UPDATE_CHECK_INTERVAL } from '../constant';
+import { UPDATE_CHECK_INTERVAL } from '@/constant';
 import { getRootHome } from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import chalk from 'chalk';

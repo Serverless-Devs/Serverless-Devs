@@ -1,5 +1,5 @@
 import { Command, Option } from 'commander';
-import { emoji, getVersion } from '../utils';
+import { emoji, getVersion } from '@/utils';
 
 import subConfig from './config';
 import subEnv from './env';

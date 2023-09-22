@@ -4,7 +4,7 @@ import path from 'path';
 import { getYamlContent } from '@serverless-devs/utils';
 import { get, isPlainObject, values, first, isEmpty, find, each } from 'lodash';
 import chalk from 'chalk';
-import { emoji } from '../../../utils';
+import { emoji } from '@/utils';
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
 import { ISpec } from '../types';
@@ -15,7 +15,7 @@ class V1 {
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) {}
+  ) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);

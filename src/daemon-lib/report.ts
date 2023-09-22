@@ -1,9 +1,9 @@
 const pkg = require('../../package.json');
-import { REPORT_BASE_URL } from '../constant';
+import { REPORT_BASE_URL } from '@/constant';
 import * as utils from '@serverless-devs/utils';
 import isDocker from 'is-docker';
 import axios from 'axios';
-import { EReportType } from '../type';
+import { EReportType } from '@/type';
 
 interface IReportCommand {
   uid: string;

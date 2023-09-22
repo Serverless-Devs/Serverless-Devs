@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, getFolderSize } from '../../utils';
-import logger from '../../logger';
+import { emoji, getFolderSize } from '@/utils';
+import logger from '@/logger';
 import path from 'path';
 import * as utils from '@serverless-devs/utils';
 import fs from 'fs-extra';

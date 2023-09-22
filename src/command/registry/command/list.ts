@@ -1,8 +1,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import Registry from '@serverless-devs/registry';
-import { emoji } from '../../../utils';
-import logger from '../../../logger';
+import { emoji } from '@/utils';
+import logger from '@/logger';
 
 const description = `View the components published by the current login to the Serverless Registry account.
 

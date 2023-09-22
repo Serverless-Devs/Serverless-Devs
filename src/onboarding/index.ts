@@ -1,10 +1,10 @@
-import Manger from '../command/init/manager';
-import { red } from '../constant';
+import Manger from '@/command/init/manager';
+import { red } from '@/constant';
 import inquirer from 'inquirer';
 import { getYamlPath } from '@serverless-devs/utils';
-import logger from '../logger';
+import logger from '@/logger';
 import chalk from 'chalk';
-import { emoji } from '../utils';
+import { emoji } from '@/utils';
 
 async function onboarding() {
   if (getYamlPath('s.yaml')) {

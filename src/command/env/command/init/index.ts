@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '../../../../utils';
+import { emoji } from '@/utils';
 import Action from './action';
 
 // TODO: @封崇

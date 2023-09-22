@@ -1,9 +1,9 @@
 import { DevsError, getRootHome, isDebugMode } from '@serverless-devs/utils';
-import logger from '../logger';
+import logger from '@/logger';
 import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs-extra';
-import { formatError } from '../utils';
+import { formatError } from '@/utils';
 import { IEngineError } from '@serverless-devs/engine';
 import { get, isArray } from 'lodash';
 export { default as HumanError } from './human-error';

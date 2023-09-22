@@ -1,9 +1,9 @@
 import Credential from '@serverless-devs/credential';
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '../../../utils';
+import { emoji } from '@/utils';
 import { handleSecret } from '../utils';
-import logger from '../../../logger';
+import logger from '@/logger';
 
 const description = `You can rename an account.
   

@@ -2,9 +2,9 @@ import { Command } from 'commander';
 import { getGlobalConfig, parseArgv, setGlobalConfig } from '@serverless-devs/utils';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { emoji } from '../../../utils';
-import logger from '../../../logger';
-import { DEFAULT_REGISTRY } from '../../../constant';
+import { emoji } from '@/utils';
+import logger from '@/logger';
+import { DEFAULT_REGISTRY } from '@/constant';
 
 const description = `Set registry information.
 

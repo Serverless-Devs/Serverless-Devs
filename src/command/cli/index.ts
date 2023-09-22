@@ -1,13 +1,13 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, isJson } from '../../utils';
+import { emoji, isJson } from '@/utils';
 import { isFc3 } from './utils';
 import v1 from './v1';
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import Credential from '@serverless-devs/credential';
 import { each, filter, get, includes, isEmpty, isString } from 'lodash';
-import logger from '../../logger';
+import logger from '@/logger';
 import Help from './help';
 
 // TODO:文档链接

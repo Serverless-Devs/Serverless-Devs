@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { emoji, suggestCommand } from '../../utils';
+import { emoji, suggestCommand } from '@/utils';
 import chalk from 'chalk';
 import subInit from './command/init';
 import subDefault from './command/default';

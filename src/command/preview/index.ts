@@ -1,8 +1,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '../../utils';
+import { emoji } from '@/utils';
 import ParseSpec from '@serverless-devs/parse-spec';
-import logger from '../../logger';
+import logger from '@/logger';
 import { get, omit } from 'lodash';
 // TODO:文档链接
 const description = `Application priview.

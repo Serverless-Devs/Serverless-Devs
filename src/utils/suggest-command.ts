@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import leven from 'leven';
 import { get } from 'lodash';
-import { HumanError } from '../error';
+import { HumanError } from '@/error';
 
 const suggestCommand = (program: Command) => {
   program.on('command:*', ([unknownCommand]) => {

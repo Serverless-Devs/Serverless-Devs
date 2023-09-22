@@ -1,6 +1,6 @@
-import { bgRed } from '../constant';
+import { bgRed } from '@/constant';
 import colors from 'chalk';
-import logger from '../logger';
+import logger from '@/logger';
 
 class HumanError extends Error {
   constructor(message: string, tips?: string) {
