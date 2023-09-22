@@ -4,11 +4,10 @@ import path from 'path';
 import { getYamlContent } from '@serverless-devs/utils';
 import { get, isPlainObject, values, first, isEmpty, find, each } from 'lodash';
 import chalk from 'chalk';
-import { emoji } from '@/utils';
+import { emoji, writeOutput } from '@/utils';
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
 import { ISpec } from '../types';
-import { writeOutput } from '../common';
 
 class V1 {
   private customProgram: Command;

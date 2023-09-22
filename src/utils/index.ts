@@ -9,6 +9,7 @@ const pkg = require('../../package.json');
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
 export { default as suggestCommand } from './suggest-command';
+export { default as writeOutput } from './write-out-put';
 
 export const emoji = (text: string, fallback?: string) => {
   if (os.platform() === 'win32') {

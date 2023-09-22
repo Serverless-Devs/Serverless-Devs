@@ -40,3 +40,6 @@ test('--output-file', async () => {
   console.log(stdout);
   expect(fs.existsSync(outputFile)).toBeTruthy();
 });
+
+// sl cli fc api ListServices -o json --output-file o.json   
+// sl cli fc3@dev layer list -a shl --region cn-hangzhou -o json --output-file o.json

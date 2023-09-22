@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, isJson } from '@/utils';
+import { emoji, isJson, writeOutput } from '@/utils';
 import { isFc3 } from './utils';
 import v1 from './v1';
 import * as utils from '@serverless-devs/utils';
@@ -82,7 +82,9 @@ const doAction = async () => {
     try {
       const res = await instance[command](inputs);
       if (isEmpty(res)) return logger.write(chalk.green(`End of method: ${command}`));
-      return isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+      isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+      writeOutput(res);
+      return;
     } catch (error) {
       throw new utils.DevsError(error.message, {
         stack: error.stack,

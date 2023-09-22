@@ -5,7 +5,7 @@ import yaml from 'js-yaml';
 import { IOutput } from '@serverless-devs/parse-spec';
 import prettyjson from 'prettyjson';
 
-export const writeOutput = (data: Record<string, any>) => {
+const writeOutput = (data: Record<string, any>) => {
   if (isEmpty(data)) return;
   const argv = process.argv.slice(2);
   const argvData = utils.parseArgv(argv);
@@ -21,3 +21,5 @@ export const writeOutput = (data: Record<string, any>) => {
   const defaultValue = prettyjson.render(data, { keysColor: 'bold', emptyArrayMsg: '[]' });
   fs.writeFileSync(filePath, get(newMap, output, defaultValue), 'utf-8');
 };
+
+export default writeOutput;

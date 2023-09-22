@@ -15,7 +15,7 @@ import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
 import { EReportType } from '@/type';
-import { writeOutput } from './common';
+import { writeOutput } from '@/utils';
 
 export default class Custom {
   private spec = {} as ISpec;

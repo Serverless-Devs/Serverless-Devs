@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import * as core from '@serverless-devs/core';
 import * as utils from '@serverless-devs/utils';
-import { emoji } from '@/utils';
+import { emoji, writeOutput } from '@/utils';
 import { includes, isEmpty, isPlainObject, isString } from 'lodash';
 import logger from '@/logger';
 import path from 'path';
@@ -65,6 +65,7 @@ const v1 = (program: Command) => {
           return logger.write(chalk.green(`End of method: ${_method}`));
         }
         isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+        writeOutput(res);
       } catch (error) {
         throw new utils.DevsError(error.message, {
           stack: error.stack,
