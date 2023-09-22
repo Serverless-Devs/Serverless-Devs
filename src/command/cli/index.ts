@@ -6,7 +6,7 @@ import v1 from './v1';
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import Credential from '@serverless-devs/credential';
-import { filter, get, includes, isEmpty, isString } from 'lodash';
+import { each, filter, get, includes, isEmpty, isString } from 'lodash';
 import logger from '../../logger';
 import Help from './help';
 
@@ -39,6 +39,7 @@ export default (program: Command) => {
     help && new Help(cliProgram).init();
     cliProgram.action(async () => {
       await doAction();
+      logger.loggerInstance.__clear();
     });
     return;
   }
@@ -70,7 +71,11 @@ const doAction = async () => {
     },
     getCredential: async () => {
       const res = await new Credential({ logger: componentLogger }).get(access);
-      return get(res, 'credential', {});
+      const credential = get(res, 'credential', {})
+      each(credential, v => {
+        logger.loggerInstance.__setSecret([v]);
+      });
+      return credential;
     },
   };
   if (instance[command]) {
