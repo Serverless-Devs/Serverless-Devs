@@ -1,5 +1,5 @@
 import { get, isEmpty, set } from 'lodash';
-import logger from '../../../../logger';
+import logger from '@/logger';
 import { IOptions } from './type';
 import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
 import fs from 'fs-extra';

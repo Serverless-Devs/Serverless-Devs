@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '../../utils';
+import { emoji } from '@/utils';
 import { getRootHome } from '@serverless-devs/utils';
 import path from 'path';
 import logger from '../../logger';
