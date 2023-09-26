@@ -15,7 +15,7 @@ import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
 import { EReportType } from '@/type';
-import { writeOutput } from '@/utils';
+import { emoji, writeOutput } from '@/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
@@ -81,7 +81,7 @@ export default class Custom {
     if (isEmpty(data)) return;
     const argv = process.argv.slice(2);
     const { output = 'default' } = utils.parseArgv(argv);
-    logger.write(`\n🚀 Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
+    logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     if (output === IOutput.JSON) {
       return logger.write(JSON.stringify(data, null, 2));
     }

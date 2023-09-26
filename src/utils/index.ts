@@ -1,4 +1,3 @@
-import os from 'os';
 import { maxBy, repeat, filter, get } from 'lodash';
 import TableLayout from 'table-layout';
 import { getRootHome } from '@serverless-devs/utils';
@@ -10,13 +9,7 @@ export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
 export { default as suggestCommand } from './suggest-command';
 export { default as writeOutput } from './write-out-put';
-
-export const emoji = (text: string, fallback?: string) => {
-  if (os.platform() === 'win32') {
-    return fallback || '◆';
-  }
-  return `${text} `;
-};
+export { emoji } from '@serverless-devs/utils'
 
 export const formatHelp = (data: { command: string; description: string }[], indent = 0) => {
   const newData = filter(data, item => item.command !== 'help');
