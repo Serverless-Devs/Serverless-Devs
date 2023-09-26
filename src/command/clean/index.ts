@@ -70,30 +70,39 @@ export default (program: Command) => {
     .option('--component [componentName]', 'Remove component (like: fc, fc@0.0.1)')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      const { all, cache, component, logs } = options;
-      if (all) {
-        cleanComponent(true);
-        cleanCache(true);
-        cleanLogs();
-        logger.info('The environment of Serverless Devs has been cleaned up successfully.');
-        return;
+      try {
+        doAction(options)
+      } catch (error) {
+        // EPERM: operation not permitted, unlink 'C:\Users\Administrator\.s\logs\0926105449\s_cli.log'
+        // windows 可能会出现这个问题，但是文件是删除了的，所以这里忽略
       }
-
-      if (logs) {
-        cleanLogs();
-        return;
-      }
-
-      if (component) {
-        cleanComponent(component);
-        return;
-      }
-
-      if (cache) {
-        cleanCache(cache);
-        return;
-      }
-
-      logger.error("There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view");
     });
+
+  const doAction = (options) => {
+    const { all, cache, component, logs } = options;
+    if (all) {
+      cleanComponent(true);
+      cleanCache(true);
+      cleanLogs();
+      logger.info('The environment of Serverless Devs has been cleaned up successfully.');
+      return;
+    }
+
+    if (logs) {
+      cleanLogs();
+      return;
+    }
+
+    if (component) {
+      cleanComponent(component);
+      return;
+    }
+
+    if (cache) {
+      cleanCache(cache);
+      return;
+    }
+    logger.error("There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view");
+
+  }
 };
