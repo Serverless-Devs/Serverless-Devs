@@ -17,7 +17,7 @@ class Help {
   }
   async showRaw1() {
     const [componentName] = this.raw;
-    const componentCommand = this.program.command(componentName);
+    const componentCommand = this.program.command(componentName).allowUnknownOption();
     const instance = await loadComponent(componentName);
     each(get(instance, 'commands'), (item, key) => {
       const desc = get(item, 'help.description');
@@ -41,7 +41,7 @@ class Help {
   }
   async showRaw2() {
     const [componentName, command] = this.raw;
-    const componentCommand = this.program.command(componentName).command(command);
+    const componentCommand = this.program.command(componentName).command(command).allowUnknownOption();
     const instance = await loadComponent(componentName);
     const data = get(instance, `commands.${command}`);
     if (isEmpty(data)) {
@@ -70,7 +70,7 @@ class Help {
 
   async showRaw3() {
     const [componentName, command, subCmd] = this.raw;
-    const componentCommand = this.program.command(componentName).command(command).command(subCmd);
+    const componentCommand = this.program.command(componentName).command(command).command(subCmd).allowUnknownOption();
     const instance = await loadComponent(componentName);
     const data = get(instance, `commands.${command}.subCommands.${subCmd}`);
     if (isEmpty(data)) {

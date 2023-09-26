@@ -36,7 +36,9 @@ export default (program: Command) => {
   }
   const [componentName] = raw.slice(1);
   if (isFc3(componentName)) {
-    help && new Help(cliProgram).init();
+    if (help) {
+      return new Help(cliProgram).init()
+    }
     cliProgram.action(async () => {
       await doAction();
       logger.loggerInstance.__clear();
