@@ -20,6 +20,8 @@ const writeOutput = (data: Record<string, any>) => {
   };
   const defaultValue = prettyjson.render(data, { keysColor: 'bold', emptyArrayMsg: '[]' });
   fs.writeFileSync(filePath, get(newMap, output, defaultValue), 'utf-8');
+  // 使用cat命令查看文件时，文件的末尾会显示一个%符号，可能是由于文件的最后一行缺少换行符（\n）导致的
+  fs.appendFileSync(filePath, '\n');
 };
 
 export default writeOutput;
