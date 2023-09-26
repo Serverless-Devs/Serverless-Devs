@@ -83,7 +83,6 @@ const doAction = async () => {
   if (instance[command]) {
     try {
       const res = await instance[command](inputs);
-      if (isEmpty(res)) return logger.write(chalk.green(`End of method: ${command}`));
       isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
       writeOutput(res);
       return;
