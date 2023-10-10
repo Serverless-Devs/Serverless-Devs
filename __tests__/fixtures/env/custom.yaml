@@ -1,16 +1,8 @@
 project: custom-project
 environments:
-  - name: dev
-    project: custom-project
-    description: this is a description
-    type: test
-    region: cn-chengdu
-    role: acs:ram::<account>:role/serverlessdevsinfra-testing
-    template: custom.yaml
   - name: custom
-    project: custom-project
     description: this is a description
-    type: test
+    type: testing
     region: cn-chengdu
     role: acs:ram::<account>:role/serverlessdevsinfra-testing
-    template: custom.yaml
+    access: default

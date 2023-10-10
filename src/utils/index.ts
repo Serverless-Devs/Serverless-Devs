@@ -70,10 +70,10 @@ export async function getFolderSize(rootItemPath: string) {
   return folderSize;
 }
 
-export const isJson = (value: string, message: string = '-p/--props parameter format error') => {
+export const isJson = (value: string, key: string = '-p/--props') => {
   try {
-    JSON.parse(value);
+    return JSON.parse(value);
   } catch (e) {
-    throw new Error(message);
+    throw new Error(`${key} parameter format error`);
   }
 };

@@ -1,7 +1,7 @@
-import { concat, filter, find, map, isEmpty, trim, includes, values } from 'lodash';
+import { concat, find, map, isEmpty, trim, endsWith, get, omit } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
-import inquirer from 'inquirer';
+import inquirer, { Answers } from 'inquirer';
 import path from 'path';
 import fs from 'fs-extra';
 import yaml from 'js-yaml';
@@ -13,43 +13,42 @@ class Action {
     logger.debug(`s env init --option: ${JSON.stringify(options)}`);
   }
   async start() {
-    const envPath = this.getEnvPath();
-    logger.debug(`envPath: ${envPath}`);
-    await this.writeEnvironmentFile(envPath);
-  }
-  private getEnvPath() {
-    if (this.options.template) return this.options.template;
-    return path.join(process.cwd(), ENVIRONMENT_FILE_NAME);
-  }
-  private async writeEnvironmentFile(environmentFilePath: string) {
     const data = await this.getOptions();
     logger.debug(`writeEnvironmentFile data: ${JSON.stringify(data)}`);
-    fs.ensureFileSync(environmentFilePath);
-    const { project = data.project, environments = [] } = utils.getYamlContent(environmentFilePath) || {};
-    const exist = find(environments, { name: data.name });
-    const temp = exist
-      ? map(environments, item => {
-        if (item.name === data.name) {
-          return { ...item, ...data };
-        }
-        return item;
-      })
-      : concat(environments, data);
-    fs.writeFileSync(environmentFilePath, yaml.dump({ project, environments: temp }));
+    const { template, project, ...rest } = data;
+    const newData = omit(rest, ['debug'])
+    // 追加内容
+    if (fs.existsSync(template)) {
+      const { project, environments } = utils.getYamlContent(template);
+      fs.writeFileSync(template, yaml.dump({ project, environments: concat(environments, newData) }));
+      return;
+    }
+    // 第一次
+    fs.ensureFileSync(template);
+    fs.writeFileSync(template, yaml.dump({ project, environments: [newData] }));
   }
   private getPromptOptions() {
     const validateInput = (input: string) => (isEmpty(trim(input)) ? 'Cannot be empty' : true);
     return [
       {
         type: 'input',
-        message: 'name:',
-        name: 'name',
-        validate: validateInput,
+        message: 'template:',
+        name: 'template',
+        default: ENVIRONMENT_FILE_NAME,
+        validate: (input: string) => {
+          if (endsWith(input, '.yml') || endsWith(input, '.yaml')) return true;
+          return 'Must be a yaml file';
+        }
       },
       {
         type: 'input',
         message: 'project:',
         name: 'project',
+        when: (answers: Answers) => {
+          // 文件不存在，说明第一次初始化
+          if (!fs.existsSync(answers.template)) return true;
+          return false;
+        },
         validate: (input: string) => {
           const val = trim(input);
           if (isEmpty(val)) {
@@ -57,8 +56,24 @@ class Action {
           }
           if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
             const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
-            if (includes(values(defaultEnvContent), val)) return `project [${val}] already exists`;
+            if (find(defaultEnvContent, o => o.project === val)) return `project [${val}] already exists`;
           }
+          return true;
+        },
+      },
+      {
+        type: 'input',
+        message: 'name:',
+        name: 'name',
+        validate: (input: string, answers: Answers) => {
+          const val = trim(input);
+          if (isEmpty(val)) {
+            return 'Cannot be empty';
+          }
+          if (fs.existsSync(answers.template)) {
+            const envContent = utils.getYamlContent(answers.template);
+            if (find(envContent.environments, o => o.name === val)) return `name [${val}] already exists, you can specify other value except [${map(envContent.environments, o => o.name).join(', ')}]`;
+          };
           return true;
         },
       },
@@ -68,10 +83,10 @@ class Action {
         name: 'description',
       },
       {
-        type: 'input',
+        type: 'list',
         message: 'type:',
         name: 'type',
-        validate: validateInput,
+        choices: ['testing', 'staging', 'production']
       },
       {
         type: 'input',
@@ -87,25 +102,34 @@ class Action {
       },
       {
         type: 'input',
-        message: 'access:',
-        name: 'access',
-        default: 'default',
-        validate: validateInput,
+        message: 'overlays:',
+        name: 'overlays',
+        validate: (input: string) => {
+          try {
+            JSON.parse(input);
+            return true;
+          } catch (error) {
+            return 'Must be a json string'
+          }
+        },
       },
       {
         type: 'input',
-        message: 'template:',
-        name: 'template',
-        default: ENVIRONMENT_FILE_NAME,
+        message: 'access:',
+        name: 'access',
+        default: 'default',
       },
+
     ];
   }
   private async getOptions() {
-    const argv = filter(process.argv, item => item !== '--debug');
-    if (argv.length === 4) {
-      return await inquirer.prompt(this.getPromptOptions());
+    // 判断是否需要交互式询问 --name
+    if (this.options.name) {
+      this.options.template = get(this.options, 'template', path.join(process.cwd(), ENVIRONMENT_FILE_NAME));
+      this.options.access = get(this.options, 'access', 'default');
+      return this.options;
     }
-    return this.options;
+    return await inquirer.prompt(this.getPromptOptions());
   }
 }
 

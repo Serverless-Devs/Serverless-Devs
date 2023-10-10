@@ -1,6 +1,6 @@
-import { Command } from 'commander';
+import { Command, Option } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '@/utils';
+import { emoji, isJson } from '@/utils';
 import Action from './action';
 
 // TODO: @封崇
@@ -29,12 +29,13 @@ export default (program: Command) => {
     .description(description)
     // TODO: @封崇 line31-37
     .summary(`${emoji(chalk.bold('+'))} init`)
-    .option('--name <name>', 'name')
     .option('--project <project>', 'project')
+    .option('--name <name>', 'name')
     .option('--description <description>', 'description')
-    .option('--type <type>', 'type')
+    .addOption(new Option('--type <type>', 'type').choices(['testing', 'staging', 'production']))
     .option('--region <region>', 'region')
     .option('--role <role>', 'role')
+    .option('--overlays <jsonString>', 'The json string of overlays', v => isJson(v, '--overlays'))
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

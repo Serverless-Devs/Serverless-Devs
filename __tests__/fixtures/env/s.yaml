@@ -7,7 +7,7 @@ resources:
     component: v3test
     props:
       function:
-        name: fcv3-function-b-${environment.name}
+        name: fcv3-function-b
         codeUri: './code'
         runtime: python3.9
         handler: index.app
@@ -17,7 +17,7 @@ resources:
     component: v3test
     props:
       function:
-        name: fcv3-function-b-${environment.name}
+        name: fcv3-function-b
         codeUri: './code1'
         runtime: python3.9
         handler: index.app
