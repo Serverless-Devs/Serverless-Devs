@@ -1,11 +1,10 @@
 import { IGlobalOptions } from '@/type';
 
 export type IOptions = IGlobalOptions & {
-  project?: string;
-  name?: string;
+  name: string;
+  region: string;
   description?: string;
   type?: string;
-  region?: string;
   role?: string;
   overlays?: Record<string, any>;
 };

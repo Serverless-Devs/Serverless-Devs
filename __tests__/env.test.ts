@@ -75,7 +75,7 @@ test('preview', async () => {
   expect(res.status).toBe(0);
 });
 
-test.only('update', async () => {
+test('update', async () => {
   const name = 'dev';
   const template = 'update.yaml';
   const environmentFilePath = path.join(cwd, template);
@@ -97,4 +97,19 @@ test.only('update', async () => {
   const res = utils.getYamlContent(environmentFilePath);
   console.log(res);
   expect(find(get(res, 'environments'), { name })).toBeTruthy();
+});
+
+test.only('describe', async () => {
+  const name = 'dev';
+  const template = 'update.yaml';
+  const args = [
+    '--name',
+    name,
+    '-t',
+    template,
+  ];
+  const res = spawnSync(s, ['env', 'describe', ...args], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
 });

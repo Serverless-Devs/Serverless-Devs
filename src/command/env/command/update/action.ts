@@ -9,7 +9,7 @@ import path from 'path';
 import { assert } from 'console';
 
 class Action {
-  constructor(private options: IOptions = {}) {
+  constructor(private options: IOptions) {
     logger.debug(`s env update --option: ${JSON.stringify(options)}`);
   }
   async start() {

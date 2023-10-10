@@ -7,7 +7,7 @@ import * as utils from '@serverless-devs/utils';
 import assert from 'assert';
 
 class Action {
-  constructor(private options: IOptions = {}) {
+  constructor(private options: IOptions) {
     logger.debug(`s env default --option: ${JSON.stringify(options)}`);
   }
   async start() {
