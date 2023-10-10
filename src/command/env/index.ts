@@ -5,6 +5,7 @@ import subInit from './command/init';
 import subDefault from './command/default';
 import subUpdate from './command/update';
 import subDescribe from './command/describe';
+import subRemove from './command/remove';
 
 // TODO: @封崇
 const description = `Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
@@ -24,4 +25,5 @@ export default (program: Command) => {
   subDefault(envProgram);
   subUpdate(envProgram);
   subDescribe(envProgram);
+  subRemove(envProgram);
 };

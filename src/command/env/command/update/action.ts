@@ -16,7 +16,6 @@ class Action {
     const { template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME), ...rest } = this.options;
     const newData = omit(rest, ['debug']);
     assert(fs.existsSync(template), `The file ${template} was not found`);
-    // 追加内容
     const { project, environments } = utils.getYamlContent(template);
     const isExist = find(environments, item => item.name === this.options.name);
     assert(isExist, `The environment ${this.options.name} was not found`);

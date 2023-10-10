@@ -7,7 +7,7 @@ import { find, get } from 'lodash';
 const s = path.resolve(__dirname, '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/env');
 
-test('init', async () => {
+test.only('init', async () => {
   const environmentFilePath = path.join(cwd, ENVIRONMENT_FILE_NAME);
   fs.removeSync(environmentFilePath);
   const name = 'dev';
@@ -99,16 +99,20 @@ test('update', async () => {
   expect(find(get(res, 'environments'), { name })).toBeTruthy();
 });
 
-test.only('describe', async () => {
+test('describe', async () => {
   const name = 'dev';
   const template = 'update.yaml';
-  const args = [
-    '--name',
-    name,
-    '-t',
-    template,
-  ];
+  const args = ['--name', name, '-t', template];
   const res = spawnSync(s, ['env', 'describe', ...args], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
+test.only('describe', async () => {
+  const name = 'dev';
+  const args = ['--name', name];
+  const res = spawnSync(s, ['env', 'remove', ...args], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);
