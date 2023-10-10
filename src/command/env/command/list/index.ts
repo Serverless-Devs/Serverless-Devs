@@ -23,13 +23,12 @@ const description = `You can add an account
 ${emoji('🧭')} How to get the key: ${chalk.underline('https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config')}`;
 
 export default (program: Command) => {
-  const command = program.command('describe');
+  const command = program.command('list');
   command
     .usage('[options]')
     .description(description)
-    // TODO: @封崇 line31-32
-    .summary(`${emoji(chalk.bold('+'))} describe`)
-    .requiredOption('--name <name>', 'name')
+    // TODO: @封崇
+    .summary(`${emoji(chalk.bold('+'))} list`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

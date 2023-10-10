@@ -32,6 +32,6 @@ export default (program: Command) => {
     .requiredOption('--name <name>', 'name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      await new Action({ ...options }).start();
+      await new Action({ ...options, ...program.optsWithGlobals() }).start();
     });
 };
