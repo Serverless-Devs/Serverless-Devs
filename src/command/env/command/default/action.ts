@@ -18,11 +18,13 @@ class Action {
     const project = get(envYamlContent, 'project');
     // env.yaml文件中不存在project字段
     assert(project, `Environment file ${envFile} is not a valid yaml file, you must set project field`);
-    assert(find(envYamlContent.environments, o => o.name === this.options.name), `Environment [${this.options.name}] is not exist`)
+    assert(
+      find(envYamlContent.environments, o => o.name === this.options.name),
+      `Environment [${this.options.name}] is not exist`,
+    );
     const msg = `Set default env [${this.options.name}] for project [${project}] successfully`;
     if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
       const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
-      console.log(defaultEnvContent)
       set(defaultEnvContent, project, this.options.name);
       fs.writeJSONSync(ENVIRONMENT_FILE_PATH, concat(defaultEnvContent, { project, default: this.options.name, path: envFile }), { spaces: 2 });
       return logger.write(msg);

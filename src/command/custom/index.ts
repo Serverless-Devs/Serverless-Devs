@@ -19,7 +19,7 @@ import { emoji, writeOutput } from '@/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);

@@ -9,7 +9,7 @@ export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
 export { default as suggestCommand } from './suggest-command';
 export { default as writeOutput } from './write-out-put';
-export { emoji } from '@serverless-devs/utils'
+export { emoji } from '@serverless-devs/utils';
 
 export const formatHelp = (data: { command: string; description: string }[], indent = 0) => {
   const newData = filter(data, item => item.command !== 'help');

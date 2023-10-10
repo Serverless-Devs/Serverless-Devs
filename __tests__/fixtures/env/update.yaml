@@ -1,0 +1,20 @@
+project: custom-project
+environments:
+  - name: dev
+    description: this is a description
+    type: staging
+    region: cn-chengdu
+    role: acs:ram::<account>:role/serverlessdevsinfra-testing
+    overlays:
+      global:
+        key: value
+    access: default
+  - name: other
+    description: this is a description
+    type: staging
+    region: cn-chengdu
+    role: acs:ram::<account>:role/serverlessdevsinfra-testing
+    overlays:
+      global:
+        key: value
+    access: default

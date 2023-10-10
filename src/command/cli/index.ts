@@ -37,7 +37,7 @@ export default (program: Command) => {
   const [componentName] = raw.slice(1);
   if (isFc3(componentName)) {
     if (help) {
-      return new Help(cliProgram).init()
+      return new Help(cliProgram).init();
     }
     cliProgram.action(async () => {
       await doAction();
@@ -73,7 +73,7 @@ const doAction = async () => {
     },
     getCredential: async () => {
       const res = await new Credential({ logger: componentLogger }).get(access);
-      const credential = get(res, 'credential', {})
+      const credential = get(res, 'credential', {});
       each(credential, v => {
         logger.loggerInstance.__setSecret([v]);
       });

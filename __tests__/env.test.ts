@@ -7,7 +7,7 @@ import { find, get } from 'lodash';
 const s = path.resolve(__dirname, '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/env');
 
-test.only('init', async () => {
+test('init', async () => {
   const environmentFilePath = path.join(cwd, ENVIRONMENT_FILE_NAME);
   fs.removeSync(environmentFilePath);
   const name = 'dev';
@@ -26,7 +26,7 @@ test.only('init', async () => {
     'acs:ram::<account>:role/serverlessdevsinfra-testing',
     '--overlays',
     '{"global":{"key":"value"}}',
-    '--debug'
+    '--debug',
   ];
   spawnSync(s, ['env', 'init', ...args], { cwd, stdio: 'inherit' });
   const res = utils.getYamlContent(environmentFilePath);
@@ -73,4 +73,28 @@ test('preview', async () => {
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);
+});
+
+test.only('update', async () => {
+  const name = 'dev';
+  const template = 'update.yaml';
+  const environmentFilePath = path.join(cwd, template);
+  const args = [
+    '--name',
+    name,
+    '--description',
+    'this is a description',
+    '--type',
+    'staging',
+    '--region',
+    'cn-chengdu',
+    '--role',
+    'acs:ram::<account>:role/serverlessdevsinfra-testing',
+    '-t',
+    template,
+  ];
+  spawnSync(s, ['env', 'update', ...args], { cwd, stdio: 'inherit' });
+  const res = utils.getYamlContent(environmentFilePath);
+  console.log(res);
+  expect(find(get(res, 'environments'), { name })).toBeTruthy();
 });

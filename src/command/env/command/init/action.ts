@@ -13,10 +13,14 @@ class Action {
     logger.debug(`s env init --option: ${JSON.stringify(options)}`);
   }
   async start() {
+    await this.doAction();
+    logger.write('Environment init successfully');
+  }
+  private async doAction() {
     const data = await this.getOptions();
     logger.debug(`writeEnvironmentFile data: ${JSON.stringify(data)}`);
     const { template, project, ...rest } = data;
-    const newData = omit(rest, ['debug'])
+    const newData = omit(rest, ['debug']);
     // 追加内容
     if (fs.existsSync(template)) {
       const { project, environments } = utils.getYamlContent(template);
@@ -38,7 +42,7 @@ class Action {
         validate: (input: string) => {
           if (endsWith(input, '.yml') || endsWith(input, '.yaml')) return true;
           return 'Must be a yaml file';
-        }
+        },
       },
       {
         type: 'input',
@@ -72,8 +76,9 @@ class Action {
           }
           if (fs.existsSync(answers.template)) {
             const envContent = utils.getYamlContent(answers.template);
-            if (find(envContent.environments, o => o.name === val)) return `name [${val}] already exists, you can specify other value except [${map(envContent.environments, o => o.name).join(', ')}]`;
-          };
+            if (find(envContent.environments, o => o.name === val))
+              return `name [${val}] already exists, you can specify other value except [${map(envContent.environments, o => o.name).join(', ')}]`;
+          }
           return true;
         },
       },
@@ -86,7 +91,7 @@ class Action {
         type: 'list',
         message: 'type:',
         name: 'type',
-        choices: ['testing', 'staging', 'production']
+        choices: ['testing', 'staging', 'production'],
       },
       {
         type: 'input',
@@ -109,7 +114,7 @@ class Action {
             JSON.parse(input);
             return true;
           } catch (error) {
-            return 'Must be a json string'
+            return 'Must be a json string';
           }
         },
       },
@@ -119,7 +124,6 @@ class Action {
         name: 'access',
         default: 'default',
       },
-
     ];
   }
   private async getOptions() {
@@ -129,7 +133,8 @@ class Action {
       this.options.access = get(this.options, 'access', 'default');
       return this.options;
     }
-    return await inquirer.prompt(this.getPromptOptions());
+    const res = await inquirer.prompt(this.getPromptOptions());
+    return { ...res, overlays: JSON.parse(res.overlays) };
   }
 }
 

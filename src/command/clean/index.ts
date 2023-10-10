@@ -71,14 +71,14 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       try {
-        doAction(options)
+        doAction(options);
       } catch (error) {
         // EPERM: operation not permitted, unlink 'C:\Users\Administrator\.s\logs\0926105449\s_cli.log'
         // windows 可能会出现这个问题，但是文件是删除了的，所以这里忽略
       }
     });
 
-  const doAction = (options) => {
+  const doAction = options => {
     const { all, cache, component, logs } = options;
     if (all) {
       cleanComponent(true);
@@ -103,6 +103,5 @@ export default (program: Command) => {
       return;
     }
     logger.error("There are no specified parameters. If you need to clear all caches, please specify 's clean --all'. For more information, please use 's clean --help' to view");
-
-  }
+  };
 };

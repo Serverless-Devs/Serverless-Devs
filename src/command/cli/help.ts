@@ -5,7 +5,7 @@ import { each, get, isEmpty } from 'lodash';
 
 class Help {
   private raw: string[] = [];
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const {
       _: [, ...raw],
