@@ -64,7 +64,12 @@ const v1 = (program: Command) => {
         if (isEmpty(res)) {
           return logger.write(chalk.green(`End of method: ${_method}`));
         }
-        isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+        const showOutput = () => {
+          const argv = utils.parseArgv(process.argv.slice(2))
+          if (argv['output-file']) return;
+          isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+        }
+        showOutput();
         writeOutput(res);
       } catch (error) {
         throw new utils.DevsError(error.message, {

@@ -19,7 +19,7 @@ import { emoji, writeOutput } from '@/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) {}
+  constructor(private program: Command) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version } = utils.parseArgv(argv);
@@ -80,7 +80,9 @@ export default class Custom {
     const data = get(context, 'output');
     if (isEmpty(data)) return;
     const argv = process.argv.slice(2);
-    const { output = 'default' } = utils.parseArgv(argv);
+    const argvs = utils.parseArgv(argv);
+    const { output = IOutput.DEFAULT } = argvs;
+    if (argvs['output-file']) return;
     logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     if (output === IOutput.JSON) {
       return logger.write(JSON.stringify(data, null, 2));

@@ -83,7 +83,11 @@ const doAction = async () => {
   if (instance[command]) {
     try {
       const res = await instance[command](inputs);
-      isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+      const showOutput = () => {
+        if (rest['output-file']) return;
+        isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+      }
+      showOutput();
       writeOutput(res);
       return;
     } catch (error) {
@@ -98,3 +102,6 @@ const doAction = async () => {
     tips: 'Please refer to the help document of [-h/--help] command.',
   });
 };
+
+
+
