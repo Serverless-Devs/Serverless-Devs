@@ -8,6 +8,7 @@ import { EReportType } from '@/type';
 interface IReportCommand {
   uid: string;
   argv: string[];
+  component: string;
 }
 
 interface IReportInit {
@@ -27,6 +28,9 @@ class Report {
     }
     if (payload.uid) {
       this.url = `${this.url}&mainUid=${payload.uid}`;
+    }
+    if (payload.component) {
+      this.url = `${this.url}&component=${payload.component}`;
     }
     console.log(`report url: ${this.url}`);
     await this.report();

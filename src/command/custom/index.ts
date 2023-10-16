@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy, isEmpty } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty, join } from 'lodash';
 import ParseSpec, { IOutput } from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
@@ -52,7 +52,7 @@ export default class Custom {
         });
         const context = await engine.start();
         await this.updateComponent(context);
-        execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv });
+        execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv, component: join(get(this.spec, 'components'), ', ') });
         if (get(context, 'status') === 'success') {
           this.output(context);
           writeOutput(get(context, 'output'));
