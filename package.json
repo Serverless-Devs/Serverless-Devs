@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s3",
-  "version": "0.0.3-beta.7",
+  "version": "0.0.3",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -42,7 +42,7 @@
   },
   "main": "./lib/index.js",
   "bin": {
-    "s3": "bin/s"
+    "s": "bin/s"
   },
   "engines": {
     "node": ">=14.14.0"
