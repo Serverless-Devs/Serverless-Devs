@@ -41,5 +41,24 @@ test('--output-file', async () => {
   expect(fs.existsSync(outputFile)).toBeTruthy();
 });
 
+
+test.only('--no-verify', async () => {
+  const dest = path.join(__dirname, './fixtures/basic');
+  const template = path.join(dest, 'verify.yaml');
+  const res = spawnSync(s, ['deploy', '-t', template, '--no-verify'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
+test.only('appcenter default --no-verify', async () => {
+  const dest = path.join(__dirname, './fixtures/basic');
+  const template = path.join(dest, 'verify.yaml');
+  const res = spawnSync(s, ['deploy', '-t', template], { cwd, env: { ...process.env, BUILD_IMAGE_ENV: 'fc-backend' } });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
 // sl cli fc api ListServices -o json --output-file o.json
 // sl cli fc3@dev layer list -a shl --region cn-hangzhou -o json --output-file o.json
