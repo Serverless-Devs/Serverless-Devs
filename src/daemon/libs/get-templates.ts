@@ -10,13 +10,15 @@ class Templates {
   }
 
   async update() {
-    await axios.get('https://images.devsapp.cn/bin/s-init.json').then((res) => {
+    await axios.get('https://images.devsapp.cn/bin/s-init.json', { timeout: 3000 })
+    .then((res) => {
       const { data } = res;
       const fileContent = fs.readJSONSync(this.aliMenuPath);
       if (fileContent["version"]!== data["version"]) { 
         fs.writeJSONSync(this.aliMenuPath, data, { spaces: 2 });
       }
-    }).catch(err => {
+    })
+    .catch(err => {
       console.log('Sync templates failed. Use existing templates.');
     });
   }
