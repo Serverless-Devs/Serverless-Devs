@@ -6,7 +6,7 @@ import fs from 'fs-extra';
 class Templates {
   aliMenuPath: string;
   constructor() {
-    this.aliMenuPath = path.join(getRootHome(), 'm.lock');
+    this.aliMenuPath = path.join(getRootHome(), 'config', 'ali-template.json');
   }
 
   async update() {

@@ -5,7 +5,7 @@ import loadApplication from '@serverless-devs/load-application';
 import chalk from 'chalk';
 import { last, split, trim, endsWith, concat, first, lowerCase } from 'lodash';
 import { emoji } from '@/utils';
-import { APPLICATION_TEMPLATE, ALL_TEMPLATE, first_level_template } from './constant';
+import { APPLICATION_TEMPLATE, ALL_TEMPLATE, first_level_template, ali_default } from './constant';
 import logger from '@/logger';
 import execDaemon from '@/exec-daemon';
 import { EReportType } from '@/type';
@@ -79,24 +79,30 @@ export default class Manager {
     }).catch(err => {
       // logger.write(`${chalk.red('Sync templates failed. Use existing templates.')}`)
       // throw new DevsError('Sync templates failed.', err);
+      return {ali_template: ali_default.ali_template, contents: ali_default.contents, version: ali_default.version}
     });
   }
 
-  private async getApplicationTemplates() {
-    const aliMenuPath = path.join(getRootHome(), 'm.lock');
+  private async getAliMenu(path: string) {
     let aliMenu;
-    if (fs.existsSync(aliMenuPath)) { 
+    if (fs.existsSync(path)) { 
       // 已存在配置文件，调daemon检查更新
-      aliMenu = fs.readJSONSync(aliMenuPath);
+      aliMenu = fs.readJSONSync(path);
       execDaemon('update-templates.js');
     } else {
       // 不存在配置文件，获取远端模版菜单
       const remoteMenu = await this.getInitAliMenu();
       if (remoteMenu) {
-        fs.writeJSONSync(aliMenuPath, remoteMenu, { spaces: 2 });
+        fs.writeJSONSync(path, remoteMenu, { spaces: 2 });
         aliMenu = remoteMenu;
       }
     }
+    return aliMenu;
+  }
+
+  private async getApplicationTemplates() {
+    const aliMenuPath = path.join(getRootHome(), 'config', 'ali-template.json');
+    const aliMenu = await this.getAliMenu(aliMenuPath);
 
     // 加入阿里云模版类别菜单
     let all_ali_template = [...aliMenu.ali_template];
