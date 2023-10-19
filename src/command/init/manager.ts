@@ -3,13 +3,16 @@ import { spawn } from 'child_process';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import loadApplication from '@serverless-devs/load-application';
 import chalk from 'chalk';
-import { last, split, trim, endsWith } from 'lodash';
+import { last, split, trim, endsWith, concat, first, lowerCase } from 'lodash';
 import { emoji } from '@/utils';
-import { APPLICATION_TEMPLATE } from './constant';
+import { APPLICATION_TEMPLATE, ALL_TEMPLATE, first_level_template } from './constant';
 import logger from '@/logger';
 import execDaemon from '@/exec-daemon';
 import { EReportType } from '@/type';
 import path from 'path';
+import axios from 'axios';
+import { getRootHome } from '@serverless-devs/utils';
+import fs from 'fs-extra';
 
 interface IOptions {
   dir?: string;
@@ -37,7 +40,8 @@ export default class Manager {
     }
     this.template = this.options.project;
     if (!this.options.project && !this.options.uri) {
-      const answers: any = await inquirer.prompt(APPLICATION_TEMPLATE);
+      const applicationsTemplates = await this.getApplicationTemplates();
+      const answers: any = await inquirer.prompt(applicationsTemplates);
       this.template = answers.template || answers.firstLevel;
       logger.write(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
     }
@@ -65,6 +69,97 @@ export default class Manager {
     ]);
     return trim(answers.projectName);
   }
+
+  private async getInitAliMenu() {
+    const aliMenu = axios.get('https://images.devsapp.cn/bin/s-init.json');
+    return aliMenu.then(res => {
+      const { data } = res;
+
+      return {ali_template: data.ali_template, contents: data.contents, version: data.version};
+    }).catch(err => {
+      // logger.write(`${chalk.red('Sync templates failed. Use existing templates.')}`)
+      // throw new DevsError('Sync templates failed.', err);
+    });
+  }
+
+  private async getApplicationTemplates() {
+    const aliMenuPath = path.join(getRootHome(), 'm.lock');
+    if (!fs.existsSync(aliMenuPath)) {
+      fs.writeJSONSync(aliMenuPath, { version: '0.0.0' }, { spaces: 2 });
+    }
+    let aliMenu = fs.readJSONSync(aliMenuPath);
+    const remoteMenu = await this.getInitAliMenu();
+
+    if (remoteMenu && aliMenu.version !== remoteMenu.version) {
+      fs.writeJSONSync(aliMenuPath, remoteMenu, { spaces: 2 });
+      aliMenu = remoteMenu;
+    }
+
+    // 加入阿里云模版类别菜单
+    let all_ali_template = [...aliMenu.ali_template];
+    for (const i of Object.keys(aliMenu.contents)) {
+      all_ali_template = concat(all_ali_template, aliMenu.contents[i])
+    }
+    const all_template = ALL_TEMPLATE.concat(all_ali_template);
+    const ali_obj = {
+      type: 'autocomplete',
+      name: 'ali_template',
+      when(answers) {
+        return answers.firstLevel === 'Alibaba_Cloud_Serverless';
+      },
+      default: first(aliMenu.ali_template)['value'],
+      message: 'Hello, serverlesser. Which template do you like?',
+      source: async function (_answersSoFar, input) {
+        if (input) {
+          return all_ali_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
+        }
+        return aliMenu.ali_template;
+      },
+    };
+    APPLICATION_TEMPLATE.push(ali_obj);
+
+    // 加入最上层类别
+    const top_obj = {
+      type: 'autocomplete',
+      name: 'firstLevel',
+      loop: true,
+      message: 'Hello Serverless for Cloud Vendors',
+      default: first(first_level_template).value,
+      when(answers) {
+        return true;
+      },
+      source: async function (_answersSoFar, input) {
+        if (input) {
+          return all_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
+        }
+        return first_level_template;
+      },
+    };
+    APPLICATION_TEMPLATE.unshift(top_obj);
+
+    // 加入阿里云模版
+    for (const i of Object.keys(aliMenu.contents)) {
+      const templateObj = {
+        type: 'autocomplete',
+        name: 'template',
+        loop: true,
+        when(answers) {
+          return answers.ali_template === i;;
+        },
+        message: 'Which template do you like?',
+        default: first(aliMenu.contents[i])['value'],
+        source: async function (_answersSoFar, input) {
+          if (input) {
+            return aliMenu.contents[i].filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
+          }
+          return aliMenu.contents[i];
+        },
+      }
+      APPLICATION_TEMPLATE.push(templateObj);
+    }
+    return APPLICATION_TEMPLATE;
+  }
+
 
   private async executeInit() {
     const appPath = await loadApplication(this.template, {
