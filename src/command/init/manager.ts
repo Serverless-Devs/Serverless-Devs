@@ -77,8 +77,6 @@ export default class Manager {
 
       return {ali_template: data.ali_template, contents: data.contents, version: data.version};
     }).catch(err => {
-      // logger.write(`${chalk.red('Sync templates failed. Use existing templates.')}`)
-      // throw new DevsError('Sync templates failed.', err);
       return {ali_template: ali_default.ali_template, contents: ali_default.contents, version: ali_default.version}
     });
   }

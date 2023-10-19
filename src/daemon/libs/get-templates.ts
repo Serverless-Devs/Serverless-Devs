@@ -17,8 +17,7 @@ class Templates {
         fs.writeJSONSync(this.aliMenuPath, data, { spaces: 2 });
       }
     }).catch(err => {
-      // logger.write(`${chalk.red('Sync templates failed. Use existing templates.')}`)
-      // throw new DevsError('Sync templates failed.', err);
+      console.log('Sync templates failed. Use existing templates.');
     });
   }
 }
