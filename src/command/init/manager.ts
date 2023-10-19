@@ -84,15 +84,18 @@ export default class Manager {
 
   private async getApplicationTemplates() {
     const aliMenuPath = path.join(getRootHome(), 'm.lock');
-    if (!fs.existsSync(aliMenuPath)) {
-      fs.writeJSONSync(aliMenuPath, { version: '0.0.0' }, { spaces: 2 });
-    }
-    let aliMenu = fs.readJSONSync(aliMenuPath);
-    const remoteMenu = await this.getInitAliMenu();
-
-    if (remoteMenu && aliMenu.version !== remoteMenu.version) {
-      fs.writeJSONSync(aliMenuPath, remoteMenu, { spaces: 2 });
-      aliMenu = remoteMenu;
+    let aliMenu;
+    if (fs.existsSync(aliMenuPath)) { 
+      // 已存在配置文件，调daemon检查更新
+      aliMenu = fs.readJSONSync(aliMenuPath);
+      execDaemon('update-templates.js');
+    } else {
+      // 不存在配置文件，获取远端模版菜单
+      const remoteMenu = await this.getInitAliMenu();
+      if (remoteMenu) {
+        fs.writeJSONSync(aliMenuPath, remoteMenu, { spaces: 2 });
+        aliMenu = remoteMenu;
+      }
     }
 
     // 加入阿里云模版类别菜单
