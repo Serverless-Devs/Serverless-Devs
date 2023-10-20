@@ -1,24 +1,24 @@
 edition: 3.0.0
 name: web-framework-app
-access: 'default'
+access: "default"
 
 resources:
   function-a:
     component: v3test
     props:
-      function:
-        name: fcv3-function-b
-        codeUri: './code'
-        runtime: python3.9
-        handler: index.app
-        timeout: 60
+      region: cn-chengdu
+      functionName: fcv3-function-a
+      code: "./code"
+      runtime: python3.9
+      handler: index.app
+      timeout: 60
 
   function-b:
     component: v3test
     props:
-      function:
-        name: fcv3-function-b
-        codeUri: './code1'
-        runtime: python3.9
-        handler: index.app
-        timeout: 60
+      region: cn-chengdu
+      functionName: fcv3-function-b
+      code: "./code1"
+      runtime: python3.9
+      handler: index.app
+      timeout: 60

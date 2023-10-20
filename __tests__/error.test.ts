@@ -35,7 +35,7 @@ test('s error -t component-not-found.yaml', async () => {
   const res = spawnSync(s, ['deploy', '-t', 'component-not-found.yaml'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toMatch(/Component xxx is not found/);
+  expect(stdout).toMatch(/Component or plugin xxx is not found/);
 });
 
 test('s deploy -t invalid-flow.yaml', async () => {
@@ -76,7 +76,7 @@ test('s deploy -t output.yaml', async () => {
 });
 
 test('s config add --AccessKeyID 123 --AccessKeySecret 456 -a test', async () => {
-  const res = spawnSync(s, ['config', 'add', '--AccessKeyID', '123', '--AccessKeySecret', '456', '-a', 'test'], { cwd });
+  const res = spawnSync(s, ['config', 'add', '--AccessKeyID', '123', '--AccessKeySecret', '456', '-a', 'test', '-f'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(stdout).toMatch(/Specified access key is not found/);
