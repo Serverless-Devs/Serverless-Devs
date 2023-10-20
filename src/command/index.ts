@@ -23,7 +23,6 @@ const root = async (program: Command) => {
     .addOption(new Option('-o, --output <outputFormat>', 'Specify the output format').choices(['default', 'json', 'yaml', 'raw']))
     .option('--output-file <outputFilePath>', 'Specify the output file path')
     .option('--env <envName>', 'Specify the env name')
-    .option('--no-verify', 'Do not verify yaml')
     .configureHelp({ showGlobalOptions: true })
     .helpOption('-h, --help', 'Display help for command')
     .addHelpCommand(false)
