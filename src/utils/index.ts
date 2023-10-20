@@ -1,8 +1,11 @@
 import { maxBy, repeat, filter, get } from 'lodash';
 import TableLayout from 'table-layout';
-import { getRootHome } from '@serverless-devs/utils';
+import { getRootHome, parseArgv } from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import path from 'path';
+import { IOutput } from '@serverless-devs/parse-spec';
+import logger from '@/logger';
+import yaml from 'js-yaml';
 const pkg = require('../../package.json');
 
 export { default as checkNodeVersion } from './check-node-version';
@@ -77,3 +80,17 @@ export const isJson = (value: string, key: string = '-p/--props') => {
     throw new Error(`${key} parameter format error`);
   }
 };
+
+export const showOutput = (data: any) => {
+  const { output = IOutput.DEFAULT } = parseArgv(process.argv.slice(2));
+  if (output === IOutput.JSON) {
+    return logger.write(JSON.stringify(data, null, 2));
+  }
+  if (output === IOutput.RAW) {
+    return logger.write(JSON.stringify(data));
+  }
+  if (output === IOutput.YAML) {
+    return logger.write(yaml.dump(data));
+  }
+  return logger.output(data);
+}

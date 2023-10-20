@@ -1,9 +1,10 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '@/utils';
+import { emoji, showOutput, writeOutput } from '@/utils';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import { get, omit } from 'lodash';
+import { parseArgv } from '@serverless-devs/utils';
 // TODO:文档链接
 const description = `Application priview.
   
@@ -26,7 +27,9 @@ export default (program: Command) => {
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
         const content = get(spec, 'yaml.content');
-        return logger.output(omit(content, ['extend']));
+        const argvs = parseArgv(process.argv.slice(2));
+        const data = omit(content, ['extend'])
+        return argvs['output-file'] ? writeOutput(data) : showOutput(data);
       }
       logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
     });

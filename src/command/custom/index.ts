@@ -2,10 +2,9 @@ import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
 import { get, each, filter, uniqBy, isEmpty, join } from 'lodash';
-import ParseSpec, { IOutput } from '@serverless-devs/parse-spec';
+import ParseSpec from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
-import yaml from 'js-yaml';
 import handleError from '@/error';
 import { ISpec } from './types';
 import Help from './help';
@@ -15,14 +14,14 @@ import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
 import { EReportType } from '@/type';
-import { emoji, writeOutput } from '@/utils';
+import { emoji, showOutput, writeOutput } from '@/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
   constructor(private program: Command) { }
   async init() {
     const argv = process.argv.slice(2);
-    const { _: raw, template, help, version } = utils.parseArgv(argv);
+    const { _: raw, template, help, version, ...rest } = utils.parseArgv(argv);
     if (version) return;
     // 工具内置命令不处理
     const systemCommandNames = this.program.commands.map(command => command.name());
@@ -54,8 +53,7 @@ export default class Custom {
         await this.updateComponent(context);
         execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv, component: join(get(this.spec, 'components'), ', ') });
         if (get(context, 'status') === 'success') {
-          this.output(context);
-          writeOutput(get(context, 'output'));
+          rest['output-file'] ? writeOutput(get(context, 'output')) : this.output(context);
           if (utils.getGlobalConfig('log') !== 'disable') {
             logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
           }
@@ -79,21 +77,8 @@ export default class Custom {
   private output(context: IContext) {
     const data = get(context, 'output');
     if (isEmpty(data)) return;
-    const argv = process.argv.slice(2);
-    const argvs = utils.parseArgv(argv);
-    const { output = IOutput.DEFAULT } = argvs;
-    if (argvs['output-file']) return;
     logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
-    if (output === IOutput.JSON) {
-      return logger.write(JSON.stringify(data, null, 2));
-    }
-    if (output === IOutput.RAW) {
-      return logger.write(JSON.stringify(data));
-    }
-    if (output === IOutput.YAML) {
-      return logger.write(yaml.dump(data));
-    }
-    return logger.output(data);
+    showOutput(data);
   }
   private async parseSpec() {
     const argv = process.argv.slice(2);
