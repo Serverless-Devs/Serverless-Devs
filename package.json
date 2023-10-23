@@ -84,7 +84,7 @@
     "**/*.{js,jsx,ts}": "f2elint exec eslint"
   },
   "dependencies": {
-    "@serverless-devs/core": "latest",
+    "@serverless-devs/core": "^0.1.65",
     "@serverless-devs/ui": "latest"
   }
 }
