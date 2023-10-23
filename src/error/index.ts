@@ -40,7 +40,7 @@ const handleError = async (error: IEngineError | IEngineError[]) => {
       },
       { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid)) },
       { key: 'Get Help:', value: `DingTalk: 33947367` },
-      { key: 'Feedback:', value: chalk.cyan.underline('https://feedback.serverless-devs.com') },
+      { key: 'Feedback:', value: chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues') },
     ]),
   );
   process.exitCode = exitCode;

@@ -57,7 +57,7 @@ ${emoji('🙌')}  Quick Start:      https://docs.serverless-devs.com/quick-start
 ${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
 ${emoji('💡')}  Documentation:    https://docs.serverless-devs.com
 ${emoji('🚀')}  Example Projects: https://registry.serverless-devs.com
-${emoji('📝')}  Feedback:         https://feedback.serverless-devs.com
+${emoji('📝')}  Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues
 `,
   );
 };
