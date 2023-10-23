@@ -21,7 +21,7 @@ const throwError = error => {
   let jsonMsg;
   try {
     jsonMsg = JSON.parse(error.message);
-  } catch (error) {}
+  } catch (error) { }
   if (jsonMsg && jsonMsg.tips) {
     throw new Error(
       JSON.stringify({
@@ -63,7 +63,7 @@ async function run(program) {
     const argvData = core.getGlobalArgs(process.argv.slice(2));
     const { _: rawData, access = 'default', help } = argvData;
     // s cli
-    if (rawData.length === 1 || help) {
+    if (rawData.length === 1 || (rawData.length === 1 && help)) {
       command.help();
     }
     const [componentName, method] = rawData.slice(1);
