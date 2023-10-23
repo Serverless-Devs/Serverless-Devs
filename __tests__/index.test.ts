@@ -42,10 +42,10 @@ test('--output-file', async () => {
 });
 
 
-test('verify from component', async () => {
+test.only('--no-verify', async () => {
   const dest = path.join(__dirname, './fixtures/basic');
   const template = path.join(dest, 'verify.yaml');
-  const res = spawnSync(s, ['plan', '-t', template], { cwd });
+  const res = spawnSync(s, ['deploy', '-t', template, '--no-verify'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);

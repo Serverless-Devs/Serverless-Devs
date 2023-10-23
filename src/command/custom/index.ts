@@ -21,7 +21,7 @@ export default class Custom {
   constructor(private program: Command) { }
   async init() {
     const argv = process.argv.slice(2);
-    const { _: raw, template, help, version, ...rest } = utils.parseArgv(argv);
+    const { _: raw, template, help, version, verify = true, ...rest } = utils.parseArgv(argv);
     if (version) return;
     // 工具内置命令不处理
     const systemCommandNames = this.program.commands.map(command => command.name());
@@ -48,6 +48,7 @@ export default class Custom {
           logConfig: {
             customLogger: logger.loggerInstance,
           },
+          verify,
         });
         const context = await engine.start();
         await this.updateComponent(context);
