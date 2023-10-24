@@ -34,7 +34,6 @@ class Action {
     fs.writeFileSync(template, yaml.dump({ project, environments: [newData] }));
   }
   private getPromptOptions() {
-    const validateInput = (input: string) => (isEmpty(trim(input)) ? 'Cannot be empty' : true);
     return [
       {
         type: 'input',
@@ -86,7 +85,7 @@ class Action {
       },
       {
         type: 'input',
-        message: 'description:',
+        message: 'description (optional):',
         name: 'description',
       },
       {
@@ -103,15 +102,15 @@ class Action {
       },
       {
         type: 'input',
-        message: 'role:',
+        message: 'role (optional):',
         name: 'role',
-        validate: validateInput,
       },
       {
         type: 'input',
-        message: 'overlays:',
+        message: 'overlays (optional):',
         name: 'overlays',
         validate: (input: string) => {
+          if (isEmpty(trim(input))) return true;
           try {
             JSON.parse(input);
             return true;
@@ -136,7 +135,7 @@ class Action {
       return this.options;
     }
     const res = await inquirer.prompt(this.getPromptOptions());
-    return { ...res, overlays: JSON.parse(res.overlays) };
+    return { ...res, overlays: res.overlays ? JSON.parse(res.overlays) : null };
   }
 }
 
