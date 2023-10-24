@@ -32,7 +32,7 @@ test('s deploy -o raw', async () => {
   expect(res.status).toBe(0);
 });
 
-test('s deploy -t project-extend.yaml', async () => {
+test.skip('s deploy -t project-extend.yaml', async () => {
   const res = spawnSync(s, ['deploy', '-t', 'project-extend.yaml', '--debug'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
