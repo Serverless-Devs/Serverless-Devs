@@ -1,7 +1,8 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
 const s = path.resolve(__dirname, '../bin/s');
-const template = path.resolve(__dirname, './fixtures/deploy/s.yaml');
+const cwd = path.resolve(__dirname, './fixtures/deploy');
+const template = path.resolve(cwd, './s.yaml');
 
 test('s deploy', async () => {
   const res = spawnSync(s, ['deploy', '-t', template]);
@@ -26,6 +27,13 @@ test('s deploy -o yaml', async () => {
 
 test('s deploy -o raw', async () => {
   const res = spawnSync(s, ['deploy', '-t', template, '-o', 'raw']);
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
+test('s deploy -t project-extend.yaml', async () => {
+  const res = spawnSync(s, ['deploy', '-t', 'project-extend.yaml', '--debug'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);

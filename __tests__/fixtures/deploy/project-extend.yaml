@@ -1,0 +1,92 @@
+# ------------------------------------
+#   If you need English case, you can refer to [s_en.yaml] file
+# ------------------------------------
+#   欢迎您使用阿里云函数计算 FC 组件进行项目开发
+#   组件仓库地址：https://github.com/devsapp/fc3
+#   组件帮助文档：https://github.com/devsapp/fc3/blob/master/docs/zh/readme.md
+#   Yaml参考文档：https://github.com/devsapp/fc3/blob/master/docs/zh/yaml/readme.md
+#   关于Serverless Devs和FC组件的关系、如何声明/部署多个函数等问题，可以参考文档：https://github.com/devsapp/fc3/blob/master/docs/zh/tips.md
+#   关于如何做CICD等问题，可以参考：https://www.serverless-devs.com/serverless-devs/cicd
+#   关于如何进行环境划分等问题，可以参考：https://www.serverless-devs.com/serverless-devs/extend
+#   更多函数计算案例，可参考：https://github.com/devsapp/awesome/
+#   有问题快来钉钉群问一下吧：33947367
+# ------------------------------------
+edition: 3.0.0
+name: web-framework-app
+# access 是当前应用所需要的密钥信息配置：
+# 密钥配置可以参考：https://www.serverless-devs.com/serverless-devs/command/config
+# 密钥使用顺序可以参考：https://www.serverless-devs.com/serverless-devs/tool#密钥使用顺序与规范
+access: 'default'
+
+vars:
+  region: cn-hangzhou
+
+template: 
+  global:
+    region: ${env('region')}
+    test: acs:ram::${vars.region}-${config('AccountID')}:role/fc-web-framework-app
+    description: Serverless Devs Web Framework Function
+    runtime: custom
+    memorySize: 1024
+    timeout: 30
+    instanceConcurrency: 100
+    customRuntimeConfig:
+      command:
+        - ./bootstrap
+    code: ./code
+    triggers:
+      - triggerName: httpTrigger # 触发器名称
+        triggerType: http # 触发器类型
+        description: 'xxxx'
+        # qualifier: test # 触发服务的版本
+        triggerConfig:
+          authType: anonymous # 鉴权类型，可选值：anonymous、function
+          disableURLInternet: false # 是否禁用公网访问 URL
+          methods: # HTTP 触发器支持的访问方法，可选值：GET、POST、PUT、DELETE、HEAD
+            - GET
+            - POST
+    vpcConfig: auto
+    logConfig: auto
+
+flow:
+  deploy:
+    - [ api_1, api_2 ]
+    - [ fc3_domain_0 ]
+  "version":
+    - [ api_1, api_2 ]
+  "alias":
+    - [ api_1, api_2 ]
+
+resources:
+  api_1:
+    component: v3test
+    extend:
+      name: global
+    props:
+      functionName: 's-template-demo_springboot-api-1'
+  api_2: # 第二个函数的案例，仅供参考
+   # 如果在当前项目下执行 s deploy，会同时部署模块
+   # 如果想单独部署当前服务与函数，可以执行 s + 模块名/业务名 + deploy，例如：s next_function deploy
+   # 如果想单独部署当前函数，可以执行 s + 模块名/业务名 + deploy function，例如：s next_function deploy function
+   # 更多命令可参考：https://github.com/devsapp/fc3/blob/master/docs/zh/readme.md#文档相关
+    component: v3test
+    props:
+      extend:
+        name: global
+        ignore: vpcConfig
+      functionName: 's-template-demo_springboot-api-2'
+      
+  fc3_domain_0:
+    component: v3test
+    props:
+      region: ${vars.region}
+      domainName: auto
+      protocol: HTTP
+      routeConfig:
+        routes:
+          - path: /
+            functionName: ${resources.api_1.props.functionName}
+            # qualifier:  test
+          - path: /fcheaders
+            functionName: ${resources.api_2.props.functionName}
+            # qualifier:  test
