@@ -21,7 +21,6 @@ interface IOptions {
   appName?: string;
   project?: string;
   uri?: string;
-  reserveComments?: boolean;
   y?: boolean;
 }
 
@@ -75,15 +74,15 @@ export default class Manager {
     return aliMenu.then(res => {
       const { data } = res;
 
-      return {ali_template: data.ali_template, contents: data.contents, version: data.version};
+      return { ali_template: data.ali_template, contents: data.contents, version: data.version };
     }).catch(err => {
-      return {ali_template: ali_default.ali_template, contents: ali_default.contents, version: ali_default.version}
+      return { ali_template: ali_default.ali_template, contents: ali_default.contents, version: ali_default.version }
     });
   }
 
   private async getAliMenu(path: string) {
     let aliMenu;
-    if (fs.existsSync(path)) { 
+    if (fs.existsSync(path)) {
       // 已存在配置文件，调daemon检查更新
       aliMenu = fs.readJSONSync(path);
       execDaemon('update-templates.js');
@@ -177,7 +176,6 @@ export default class Manager {
       appName: this.options.appName,
       access: this.options.access,
       uri: this.options.uri,
-      reserveComments: this.options.reserveComments,
       y: this.options.y,
     });
 
