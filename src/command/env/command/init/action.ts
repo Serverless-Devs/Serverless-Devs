@@ -8,6 +8,7 @@ import yaml from 'js-yaml';
 import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
 const KEYS = ['name', 'description', 'type', 'region', 'role', 'overlays', 'access']
+import { regions } from './index';
 
 class Action {
   constructor(private options: IOptions = {}) {
@@ -95,10 +96,10 @@ class Action {
         choices: ['testing', 'staging', 'production'],
       },
       {
-        type: 'input',
+        type: 'list',
         message: 'region:',
         name: 'region',
-        validate: validateInput,
+        choices: regions,
       },
       {
         type: 'input',

@@ -29,7 +29,7 @@ export default (program: Command) => {
     .description(description)
     // TODO: @封崇
     .summary(`${emoji(chalk.bold('+'))} default`)
-    .requiredOption('--name <name>', 'Specify the env name')
+    .option('--name <name>', 'Specify the env name')
     .helpOption('-h, --help', 'Displsay help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

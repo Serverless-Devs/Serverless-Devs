@@ -22,6 +22,28 @@ const description = `You can add an account
 
 ${emoji('🧭')} How to get the key: ${chalk.underline('https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config')}`;
 
+export const regions = [
+  'cn-beijing',
+  'cn-hangzhou',
+  'cn-shanghai',
+  'cn-qingdao',
+  'cn-zhangjiakou',
+  'cn-huhehaote',
+  'cn-shenzhen',
+  'cn-chengdu',
+  'cn-hongkong',
+  'ap-southeast-1',
+  'ap-southeast-2',
+  'ap-southeast-3',
+  'ap-southeast-5',
+  'ap-northeast-1',
+  'eu-central-1',
+  'eu-west-1',
+  'us-west-1',
+  'us-east-1',
+  'ap-south-1'
+];
+
 export default (program: Command) => {
   const command = program.command('init');
   command
@@ -33,7 +55,7 @@ export default (program: Command) => {
     .option('--name <name>', 'name')
     .option('--description <description>', 'description')
     .addOption(new Option('--type <type>', 'type').choices(['testing', 'staging', 'production']))
-    .option('--region <region>', 'region')
+    .addOption(new Option('--region <region>', 'region').choices(regions))
     .option('--role <role>', 'role')
     .option('--overlays <jsonString>', 'The json string of overlays', v => isJson(v, '--overlays'))
     .helpOption('-h, --help', 'Display help for command')
