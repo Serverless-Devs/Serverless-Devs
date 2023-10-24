@@ -1,4 +1,4 @@
-import { find, map, omit } from 'lodash';
+import { find, map, pick } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
 import fs from 'fs-extra';
@@ -7,6 +7,7 @@ import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
 import path from 'path';
 import { assert } from 'console';
+import { ENV_KEYS } from '../../constant';
 
 class Action {
   constructor(private options: IOptions) {
@@ -14,7 +15,8 @@ class Action {
   }
   async start() {
     const { template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME), ...rest } = this.options;
-    const newData = omit(rest, ['debug']);
+    const newData = pick(rest, ENV_KEYS);
+
     assert(fs.existsSync(template), `The file ${template} was not found`);
     const { project, environments } = utils.getYamlContent(template);
     const isExist = find(environments, item => item.name === this.options.name);

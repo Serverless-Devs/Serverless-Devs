@@ -7,8 +7,8 @@ import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
-const KEYS = ['name', 'description', 'type', 'region', 'role', 'overlays', 'access']
 import { regions } from './index';
+import { ENV_KEYS } from '../../constant';
 
 class Action {
   constructor(private options: IOptions = {}) {
@@ -22,7 +22,7 @@ class Action {
     const data = await this.getOptions();
     logger.debug(`writeEnvironmentFile data: ${JSON.stringify(data)}`);
     const { template, project, ...rest } = data;
-    const newData = pick(rest, KEYS);
+    const newData = pick(rest, ENV_KEYS);
     // 追加内容
     if (fs.existsSync(template)) {
       const { project, environments } = utils.getYamlContent(template);

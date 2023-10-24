@@ -42,7 +42,7 @@ test('--output-file', async () => {
 });
 
 
-test.only('--no-verify', async () => {
+test('--no-verify', async () => {
   const dest = path.join(__dirname, './fixtures/basic');
   const template = path.join(dest, 'verify.yaml');
   const res = spawnSync(s, ['deploy', '-t', template, '--no-verify'], { cwd });
