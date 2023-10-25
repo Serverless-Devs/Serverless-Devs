@@ -1,4 +1,4 @@
-import { concat, find, map, isEmpty, trim, endsWith, get, pick } from 'lodash';
+import { concat, find, map, isEmpty, trim, endsWith, get, pick, lowerCase } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
 import inquirer, { Answers } from 'inquirer';
@@ -9,9 +9,12 @@ import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/p
 import * as utils from '@serverless-devs/utils';
 import { regions } from './index';
 import { ENV_KEYS } from '../../constant';
+import Credential from '@serverless-devs/credential';
+import inquirerPrompt from 'inquirer-autocomplete-prompt';
 
 class Action {
   constructor(private options: IOptions = {}) {
+    inquirer.registerPrompt('autocomplete', inquirerPrompt);
     logger.debug(`s env init --option: ${JSON.stringify(options)}`);
   }
   async start() {
@@ -34,6 +37,8 @@ class Action {
     fs.writeFileSync(template, yaml.dump({ project, environments: [newData] }));
   }
   private getPromptOptions() {
+    const credential = new Credential({ logger });
+    const access = Object.keys(credential.getAll());
     return [
       {
         type: 'input',
@@ -120,10 +125,16 @@ class Action {
         },
       },
       {
-        type: 'input',
+        type: 'autocomplete',
         message: 'access:',
         name: 'access',
         default: 'default',
+        source: async function (_answersSoFar, input) {
+          if (input) {
+            return access.filter((item: any) => lowerCase(item).includes(lowerCase(input)));
+          }
+          return access;
+        },
       },
     ];
   }
