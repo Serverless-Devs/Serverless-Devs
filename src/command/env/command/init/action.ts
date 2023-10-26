@@ -8,9 +8,10 @@ import yaml from 'js-yaml';
 import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
 import { regions } from './index';
-import { ENV_KEYS } from '../../constant';
 import Credential from '@serverless-devs/credential';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
+import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME, ENV_KEYS } from '../../constant';
+import loadComponent from '@serverless-devs/load-component';
 
 class Action {
   constructor(private options: IOptions = {}) {
@@ -26,15 +27,19 @@ class Action {
     logger.debug(`writeEnvironmentFile data: ${JSON.stringify(data)}`);
     const { template, project, ...rest } = data;
     const newData = pick(rest, ENV_KEYS);
+    const componentName = utils.getGlobalConfig(ENV_COMPONENT_KEY, ENV_COMPONENT_NAME);
+    const instance = await loadComponent(componentName);
+    // TODO:执行组件的什么方法
+    const result = await instance.env(newData);
     // 追加内容
     if (fs.existsSync(template)) {
       const { project, environments } = utils.getYamlContent(template);
-      fs.writeFileSync(template, yaml.dump({ project, environments: concat(environments, newData) }));
+      fs.writeFileSync(template, yaml.dump({ project, environments: concat(environments, result) }));
       return;
     }
     // 第一次
     fs.ensureFileSync(template);
-    fs.writeFileSync(template, yaml.dump({ project, environments: [newData] }));
+    fs.writeFileSync(template, yaml.dump({ project, environments: [result] }));
   }
   private getPromptOptions() {
     const credential = new Credential({ logger });
