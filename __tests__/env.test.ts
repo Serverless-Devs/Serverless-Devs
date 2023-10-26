@@ -109,6 +109,20 @@ test('describe', async () => {
   expect(res.status).toBe(0);
 });
 
+test('default --name', async () => {
+  const res = spawnSync(s, ['env', 'default', '--name', 'dev'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
+test('default', async () => {
+  const res = spawnSync(s, ['env', 'default'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
 test('remove', async () => {
   const name = 'dev';
   const args = ['--name', name];
