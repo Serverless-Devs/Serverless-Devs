@@ -1,8 +1,8 @@
 name: Node.js Package
 
 on:
-  release:
-    types: [created]
+  push:
+    branches: [publish]
 
 jobs:
   publish-npm:
@@ -11,37 +11,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm run build
-      - run: npm publish
-        if: ${{ !contains(github.ref, 'beta')}}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: npm run beta
-        if: ${{ contains(github.ref, 'beta')}}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: curl https://npmmirror.com/sync/@serverless-devs/s
-      - name: pkg
-        run: npm run pkg
-      - name: Zip the macos
-        run: |
-          mv s-macos s-${{ github.ref_name }}-macos
-          zip -r s-${{ github.ref_name }}-macos.zip s-${{ github.ref_name }}-macos
-      - name: Zip the linux
-        run: |
-          mv s-linux s-${{ github.ref_name }}-linux
-          zip -r s-${{ github.ref_name }}-linux.zip s-${{ github.ref_name }}-linux
-      - name: Zip the windows
-        run: |
-          mv s-win.exe s-${{ github.ref_name }}-win.exe
-          zip -r s-${{ github.ref_name }}-win.exe.zip s-${{ github.ref_name }}-win.exe
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          files: |
-            s-${{ github.ref_name }}-macos.zip
-            s-${{ github.ref_name }}-linux.zip
-            s-${{ github.ref_name }}-win.exe.zip
