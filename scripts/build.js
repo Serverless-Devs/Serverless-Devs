@@ -4,7 +4,6 @@ const path = require('path');
 const utils = require('@serverless-devs/utils');
 
 (async () => {
-  await fs.remove('lib');
   fs.ensureDirSync('lib');
   fs.copySync('src/daemon', 'lib/daemon')
   const { watch } = utils.parseArgv(process.argv.slice(2));

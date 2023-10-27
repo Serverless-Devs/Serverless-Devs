@@ -13,16 +13,15 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm install
       - run: npm run build
       - run: npm publish
         if: ${{ !contains(github.ref, 'beta')}}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: npm run beta
         if: ${{ contains(github.ref, 'beta')}}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: curl https://npmmirror.com/sync/@serverless-devs/s
       - name: pkg
         run: npm run pkg
