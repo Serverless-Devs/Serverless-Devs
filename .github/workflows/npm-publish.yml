@@ -33,7 +33,7 @@ jobs:
       - name: Install ossutil
         run: curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
       - name: Upload file to OSS
-        run: ossutil --endpoint ${{secrets.ENDPOINT}} --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp -f s-$VERSION-macos s-$VERSION-linux s-$VERSION-win.exe oss://${{secrets.BUCKET_NAME}}
+        run: ossutil --endpoint ${{secrets.ENDPOINT}} --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp ./ oss://${{secrets.BUCKET_NAME}} -r --include "s-*" --only-current-dir
       - name: Zip files
         run: |
           zip -r s-${{ github.ref_name }}-macos.zip s-${{ github.ref_name }}-macos
