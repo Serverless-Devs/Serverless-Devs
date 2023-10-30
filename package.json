@@ -35,8 +35,7 @@
     "watch": "npm run build -- --watch",
     "prebuild": "rm -rf node_modules && npm install --production false",
     "build": "node ./scripts/build.js",
-    "prepkg": "npm run build",
-    "pkg": "pkg bin/s",
+    "pkg": "pkg bin/s --out-path releases",
     "prepublishOnly": "npm run build",
     "beta": "npm publish --tag=beta",
     "pub": "npm publish"
