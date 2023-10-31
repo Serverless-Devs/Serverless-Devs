@@ -219,10 +219,6 @@ jdt.ls-java-projec
 *slow-spec.ts
 download/
 lib/
-release
+releases
 .s
-# pkg 二进制文件
-s-*
-replace-committers.sh*
-
 __tests__/_temp/

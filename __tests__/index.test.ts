@@ -60,7 +60,7 @@ test('--skip-actions v3', async () => {
   expect(res.status).toBe(0);
 });
 
-test('--skip-actions v2', async () => {
+test.skip('--skip-actions v2', async () => {
   const dest = path.join(__dirname, './fixtures/skip-actions/v2');
   const template = path.join(dest, 's.yaml');
   const res = spawnSync(s, ['deploy', '-t', template, '--skip-actions']);

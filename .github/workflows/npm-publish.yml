@@ -11,32 +11,29 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm install
       - run: npm run build
       - run: npm publish
         if: ${{ !contains(github.ref, 'beta')}}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: npm run beta
         if: ${{ contains(github.ref, 'beta')}}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: curl https://npmmirror.com/sync/@serverless-devs/s
       - name: pkg
         run: npm run pkg
-      - name: Zip the macos
+      - name: Rename files
         run: |
-          mv s-macos s-${{ github.ref_name }}-macos
+          mv releases/s-macos s-${{ github.ref_name }}-macos
+          mv releases/s-linux s-${{ github.ref_name }}-linux
+          mv releases/s-win.exe s-${{ github.ref_name }}-win.exe
+      - name: Zip files
+        run: |
           zip -r s-${{ github.ref_name }}-macos.zip s-${{ github.ref_name }}-macos
-      - name: Zip the linux
-        run: |
-          mv s-linux s-${{ github.ref_name }}-linux
           zip -r s-${{ github.ref_name }}-linux.zip s-${{ github.ref_name }}-linux
-      - name: Zip the windows
-        run: |
-          mv s-win.exe s-${{ github.ref_name }}-win.exe
           zip -r s-${{ github.ref_name }}-win.exe.zip s-${{ github.ref_name }}-win.exe
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -46,3 +43,9 @@ jobs:
             s-${{ github.ref_name }}-macos.zip
             s-${{ github.ref_name }}-linux.zip
             s-${{ github.ref_name }}-win.exe.zip
+      - name: Install ossutil
+        run: curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
+      - name: Rename linux files
+        run: mv s-${{ github.ref_name }}-linux ${{ github.ref_name }}
+      - name: Upload file to OSS
+        run: ossutil --endpoint ${{secrets.ENDPOINT}} --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp ${{ github.ref_name }} oss://${{secrets.BUCKET_NAME}}/bin/s/
