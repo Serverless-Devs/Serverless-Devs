@@ -14,7 +14,7 @@ class V1 {
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) {}
+  ) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -37,7 +37,7 @@ class V1 {
   }
   async doExecCommand() {
     const argv = process.argv.slice(2);
-    const { template, help, access, skipActions, debug, output } = parseArgv(argv);
+    const { template, help, access, debug, output, ...rest } = parseArgv(argv);
     const res = await core.execCommand({
       syaml: template,
       serverName: this.spec.projectName,
@@ -45,7 +45,7 @@ class V1 {
       args: process.argv.slice(2),
       globalArgs: {
         access,
-        skipActions,
+        skipActions: rest['skip-actions'],
         debug,
         help,
         output,

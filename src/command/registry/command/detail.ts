@@ -7,7 +7,7 @@ import logger from '@/logger';
 const description = `View application details.
 
 Example:
-  $ s registry detail --name fc
+  $ s registry detail --package-name fc3
    
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#detail')}`;
 
