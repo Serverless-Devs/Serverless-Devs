@@ -1,0 +1,37 @@
+edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: framework #  项目名称
+access: "default"
+
+vars:
+  region: cn-huhehaote
+
+resources:
+  next_demo:
+    component: v3test
+    actions:
+      pre-deploy:
+        - run: node -v
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "next-start-hello-qszl"
+      runtime: ${env('runtime', 'nodejs16')}
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      timeout: 30
+      environmentVariables:
+        test: this is a test ${vars.region}-${config('AccountID')}
+        AccountID: ${config('AccountID')}
+        name: ${this.name}
+        access: ${this.access}
+        code: ${this.props.code}
+  demo:
+    component: v3test
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "start-hello-qszl"
+      runtime: "nodejs16"
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      timeout: 30

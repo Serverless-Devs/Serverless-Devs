@@ -51,5 +51,23 @@ test('--no-verify', async () => {
   expect(res.status).toBe(0);
 });
 
+test('--skip-actions v3', async () => {
+  const dest = path.join(__dirname, './fixtures/skip-actions/v3');
+  const template = path.join(dest, 's.yaml');
+  const res = spawnSync(s, ['deploy', '-t', template, '--skip-actions']);
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
+test('--skip-actions v2', async () => {
+  const dest = path.join(__dirname, './fixtures/skip-actions/v2');
+  const template = path.join(dest, 's.yaml');
+  const res = spawnSync(s, ['deploy', '-t', template, '--skip-actions']);
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
 // sl cli fc api ListServices -o json --output-file o.json
 // sl cli fc3@dev layer list -a shl --region cn-hangzhou -o json --output-file o.json

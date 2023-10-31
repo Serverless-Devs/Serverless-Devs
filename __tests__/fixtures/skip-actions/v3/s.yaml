@@ -1,0 +1,12 @@
+extend: basic.yaml
+
+vars:
+  region: cn-huhehaote
+
+resources:
+  next_demo:
+    component: v3test
+    props: # 组件的属性值
+      region: ${vars.region}
+      function:
+        functionName: new-function-name
