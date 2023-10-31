@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s3",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -35,7 +35,6 @@
     "watch": "npm run build -- --watch",
     "prebuild": "rm -rf node_modules && npm install",
     "build": "node ./scripts/build.js",
-    "prepkg": "npm run build",
     "pkg": "pkg bin/s",
     "prepublishOnly": "npm run build",
     "beta": "npm publish --tag=beta",
