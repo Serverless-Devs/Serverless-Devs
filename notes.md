@@ -1,1 +1,1 @@
-- 测试流水线发布beta版本
+- fix: config(AccountID) not work for serverless_devs_access_cicd_alias_name in cicd
