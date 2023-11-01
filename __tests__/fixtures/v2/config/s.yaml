@@ -1,0 +1,32 @@
+edition: 1.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: framework #  项目名称
+access: "xxx"
+
+vars:
+  region: cn-huhehaote
+
+services:
+  next_demo:
+    component: ${path(./fc.js)}
+    actions:
+      pre-deploy:
+        - run: node -v
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "next-start-hello-qszl"
+      runtime: ${env('runtime', 'nodejs16')}
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      environmentVariables:
+        test: this is a test ${vars.region}-${config(AccountID)}
+  demo:
+    component: ${path(./fc.js)}
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "start-hello-qszl"
+      runtime: "nodejs16"
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      timeout: 30

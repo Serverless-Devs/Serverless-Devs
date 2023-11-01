@@ -52,7 +52,7 @@ test('--no-verify', async () => {
 });
 
 test('--skip-actions v3', async () => {
-  const dest = path.join(__dirname, './fixtures/skip-actions/v3');
+  const dest = path.join(__dirname, './fixtures/skip-actions');
   const template = path.join(dest, 's.yaml');
   const res = spawnSync(s, ['deploy', '-t', template, '--skip-actions']);
   const stdout = res.stdout.toString();
@@ -60,10 +60,29 @@ test('--skip-actions v3', async () => {
   expect(res.status).toBe(0);
 });
 
-test.skip('--skip-actions v2', async () => {
-  const dest = path.join(__dirname, './fixtures/skip-actions/v2');
+test('--skip-actions v2', async () => {
+  const dest = path.join(__dirname, './fixtures/v2/skip-actions');
   const template = path.join(dest, 's.yaml');
   const res = spawnSync(s, ['deploy', '-t', template, '--skip-actions']);
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
+
+test.skip(`config('AccountID') v3`, async () => {
+  const dest = path.join(__dirname, './fixtures/basic');
+  const template = path.join(dest, 'config.yaml');
+  const res = spawnSync(s, ['deploy', '-t', template, '--debug'], { env: { ...process.env, BUILD_IMAGE_ENV: 'fc-backend', serverless_devs_access_cicd_alias_name: 'quanxi' } });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
+test.skip(`config('AccountID') v2`, async () => {
+  const dest = path.join(__dirname, './fixtures/v2/config');
+  const template = path.join(dest, 's.yaml');
+  const res = spawnSync(s, ['deploy', '-t', template, '--debug'], { env: { ...process.env, BUILD_IMAGE_ENV: 'fc-backend', serverless_devs_access_cicd_alias_name: 'quanxi' } });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);
