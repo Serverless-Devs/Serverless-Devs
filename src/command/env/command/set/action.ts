@@ -9,7 +9,7 @@ class Action {
   }
   async start() {
     setGlobalConfig(ENV_COMPONENT_KEY, this.options.component);
-    logger.write(`Set env component [${this.options.component}] successfully`)
+    logger.write(`Set env component [${this.options.component}] successfully`);
   }
 }
 

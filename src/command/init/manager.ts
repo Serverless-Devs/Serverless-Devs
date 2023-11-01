@@ -71,13 +71,15 @@ export default class Manager {
 
   private async getInitAliMenu() {
     const aliMenu = axios.get('https://images.devsapp.cn/bin/s-init.json');
-    return aliMenu.then(res => {
-      const { data } = res;
+    return aliMenu
+      .then(res => {
+        const { data } = res;
 
-      return { ali_template: data.ali_template, contents: data.contents, version: data.version };
-    }).catch(err => {
-      return { ali_template: ali_default.ali_template, contents: ali_default.contents, version: ali_default.version }
-    });
+        return { ali_template: data.ali_template, contents: data.contents, version: data.version };
+      })
+      .catch(err => {
+        return { ali_template: ali_default.ali_template, contents: ali_default.contents, version: ali_default.version };
+      });
   }
 
   private async getAliMenu(path: string) {
@@ -104,7 +106,7 @@ export default class Manager {
     // 加入阿里云模版类别菜单
     let all_ali_template = [...aliMenu.ali_template];
     for (const i of Object.keys(aliMenu.contents)) {
-      all_ali_template = concat(all_ali_template, aliMenu.contents[i])
+      all_ali_template = concat(all_ali_template, aliMenu.contents[i]);
     }
     const all_template = ALL_TEMPLATE.concat(all_ali_template);
     const ali_obj = {
@@ -150,7 +152,7 @@ export default class Manager {
         name: 'template',
         loop: true,
         when(answers) {
-          return answers.ali_template === i;;
+          return answers.ali_template === i;
         },
         message: 'Which template do you like?',
         default: first(aliMenu.contents[i])['value'],
@@ -160,12 +162,11 @@ export default class Manager {
           }
           return aliMenu.contents[i];
         },
-      }
+      };
       APPLICATION_TEMPLATE.push(templateObj);
     }
     return APPLICATION_TEMPLATE;
   }
-
 
   private async executeInit() {
     const appPath = await loadApplication(this.template, {

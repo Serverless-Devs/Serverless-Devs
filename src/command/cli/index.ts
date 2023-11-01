@@ -86,7 +86,7 @@ const doAction = async () => {
       const showOutput = () => {
         if (rest['output-file']) return;
         isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
-      }
+      };
       showOutput();
       writeOutput(res);
       return;
@@ -102,6 +102,3 @@ const doAction = async () => {
     tips: 'Please refer to the help document of [-h/--help] command.',
   });
 };
-
-
-

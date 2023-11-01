@@ -14,7 +14,7 @@ class V1 {
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) { }
+  ) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -49,6 +49,9 @@ class V1 {
         debug,
         help,
         output,
+      },
+      env: {
+        serverless_devs_temp_argv: JSON.stringify(process.argv.slice(2)),
       },
     });
     writeOutput(res);

@@ -45,89 +45,89 @@ const devs_template = [
 export const ali_default = {
   ali_template: [
     {
-      name: "Quick start [Deploy a Hello World function to FaaS]",
-      value: "quick_start"
+      name: 'Quick start [Deploy a Hello World function to FaaS]',
+      value: 'quick_start',
     },
     {
-      name: "Custom runtime example [Deploy function to FaaS with custom runtime]",
-      value: "custom_runtime"
+      name: 'Custom runtime example [Deploy function to FaaS with custom runtime]',
+      value: 'custom_runtime',
     },
     {
-      name: "Container example [Deploy function to FaaS with custom-container]",
-      value: "container_example"
+      name: 'Container example [Deploy function to FaaS with custom-container]',
+      value: 'container_example',
     },
     {
-      name: "Custom domain example [Deploy function to FaaS with custom domain]",
-      value: "custom_domain"
-    }
+      name: 'Custom domain example [Deploy function to FaaS with custom domain]',
+      value: 'custom_domain',
+    },
   ],
   contents: {
     quick_start: [
       {
-        name: "Node.js",
-        value: "start-fc3-nodejs"
+        name: 'Node.js',
+        value: 'start-fc3-nodejs',
       },
       {
-        name: "Python3",
-        value: "start-fc3-python"
+        name: 'Python3',
+        value: 'start-fc3-python',
       },
       {
-        name: "Java",
-        value: "start-fc3-java"
+        name: 'Java',
+        value: 'start-fc3-java',
       },
       {
-        name: "Go",
-        value: "start-fc3-golang"
+        name: 'Go',
+        value: 'start-fc3-golang',
       },
       {
-        name: "Dotnet",
-        value: "start-fc3-dotnetcore"
-      }
+        name: 'Dotnet',
+        value: 'start-fc3-dotnetcore',
+      },
     ],
     custom_runtime: [
       {
-        name: "Node.js",
-        value: "start-fc3-custom-nodejs"
+        name: 'Node.js',
+        value: 'start-fc3-custom-nodejs',
       },
       {
-        name: "Python3",
-        value: "start-fc3-custom-python"
+        name: 'Python3',
+        value: 'start-fc3-custom-python',
       },
       {
-        name: "Java",
-        value: "start-fc3-custom-java"
+        name: 'Java',
+        value: 'start-fc3-custom-java',
       },
       {
-        name: "Go",
-        value: "start-fc3-custom-golang"
-      }
+        name: 'Go',
+        value: 'start-fc3-custom-golang',
+      },
     ],
     container_example: [
       {
-        name: "Node.js",
-        value: "start-fc3-custom-container-nodejs"
+        name: 'Node.js',
+        value: 'start-fc3-custom-container-nodejs',
       },
       {
-        name: "Python3",
-        value: "start-fc3-custom-container-python"
+        name: 'Python3',
+        value: 'start-fc3-custom-container-python',
       },
       {
-        name: "Java",
-        value: "start-fc3-custom-container-java"
+        name: 'Java',
+        value: 'start-fc3-custom-container-java',
       },
       {
-        name: "Go",
-        value: "start-fc3-custom-container-golang"
-      }
+        name: 'Go',
+        value: 'start-fc3-custom-container-golang',
+      },
     ],
     custom_domain: [
       {
-        name: "default",
-        value: "fc-custom-domain"
-      }
-    ]
+        name: 'default',
+        value: 'fc-custom-domain',
+      },
+    ],
   },
-  version: "0.0.5"
+  version: '0.0.5',
 };
 
 const huawei_template = [

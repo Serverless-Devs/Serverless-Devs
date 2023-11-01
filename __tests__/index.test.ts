@@ -41,7 +41,6 @@ test('--output-file', async () => {
   expect(fs.existsSync(outputFile)).toBeTruthy();
 });
 
-
 test('--no-verify', async () => {
   const dest = path.join(__dirname, './fixtures/basic');
   const template = path.join(dest, 'verify.yaml');
@@ -68,7 +67,6 @@ test.skip('--skip-actions v2', async () => {
   console.log(stdout);
   expect(res.status).toBe(0);
 });
-
 
 test.skip(`config('AccountID') v3`, async () => {
   const dest = path.join(__dirname, './fixtures/basic');

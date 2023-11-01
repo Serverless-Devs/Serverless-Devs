@@ -20,13 +20,10 @@ class Action {
     // env.yaml文件中不存在project字段
     assert(project, `Environment file ${envFile} is not a valid yaml file, you must set project field`);
     if (!get(this.options, 'name')) {
-      if (fs.existsSync(ENVIRONMENT_FILE_PATH)){
+      if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
         const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
         const currentDefaultEnv = defaultEnvContent?.find(i => i.project === project && i.path === envFile);
-        return logger.write(currentDefaultEnv ? 
-          `\n${emoji('👉')} Current default envrironment: ${currentDefaultEnv.default}\n` : 
-          `\n${emoji('👉')} No default envrironment.\n`
-        );
+        return logger.write(currentDefaultEnv ? `\n${emoji('👉')} Current default envrironment: ${currentDefaultEnv.default}\n` : `\n${emoji('👉')} No default envrironment.\n`);
       } else {
         return logger.write(`\n${emoji('👉')} No default envrironment.\n`);
       }

@@ -18,7 +18,7 @@ import { emoji, showOutput, writeOutput } from '@/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version, verify = true, ...rest } = utils.parseArgv(argv);

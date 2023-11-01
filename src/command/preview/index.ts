@@ -28,7 +28,7 @@ export default (program: Command) => {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
         const content = get(spec, 'yaml.content');
         const argvs = parseArgv(process.argv.slice(2));
-        const data = omit(content, ['extend'])
+        const data = omit(content, ['extend']);
         return argvs['output-file'] ? writeOutput(data) : showOutput(data);
       }
       logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);

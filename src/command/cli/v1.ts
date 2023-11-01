@@ -65,10 +65,10 @@ const v1 = (program: Command) => {
           return logger.write(chalk.green(`End of method: ${_method}`));
         }
         const showOutput = () => {
-          const argv = utils.parseArgv(process.argv.slice(2))
+          const argv = utils.parseArgv(process.argv.slice(2));
           if (argv['output-file']) return;
           isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
-        }
+        };
         showOutput();
         writeOutput(res);
       } catch (error) {

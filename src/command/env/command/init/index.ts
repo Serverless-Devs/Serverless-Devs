@@ -41,7 +41,7 @@ export const regions = [
   'eu-west-1',
   'us-west-1',
   'us-east-1',
-  'ap-south-1'
+  'ap-south-1',
 ];
 
 export default (program: Command) => {

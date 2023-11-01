@@ -93,4 +93,4 @@ export const showOutput = (data: any) => {
     return logger.write(yaml.dump(data));
   }
   return logger.output(data);
-}
+};

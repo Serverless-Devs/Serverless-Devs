@@ -9,5 +9,4 @@ test.only('remove', async () => {
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(stdout).toMatch(/data format is invalid/);
-
 });
