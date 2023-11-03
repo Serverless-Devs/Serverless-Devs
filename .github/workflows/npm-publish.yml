@@ -48,4 +48,4 @@ jobs:
       - name: Rename linux files
         run: mv s-${{ github.ref_name }}-linux ${{ github.ref_name }}
       - name: Upload file to OSS
-        run: ossutil --endpoint ${{secrets.ENDPOINT}} --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp ${{ github.ref_name }} oss://${{secrets.BUCKET_NAME}}/bin/s/
+        run: ossutil --endpoint oss-cn-hangzhou.aliyuncs.com --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp ${{ github.ref_name }} oss://serverless-tool-images/bin/s/
