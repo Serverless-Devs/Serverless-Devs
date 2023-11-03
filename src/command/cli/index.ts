@@ -1,12 +1,11 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { emoji, isJson, writeOutput } from '@/utils';
-import { isFc3 } from './utils';
 import v1 from './v1';
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import Credential from '@serverless-devs/credential';
-import { each, filter, get, includes, isEmpty, isString } from 'lodash';
+import { each, filter, get, includes, isString } from 'lodash';
 import logger from '@/logger';
 import Help from './help';
 
@@ -19,7 +18,7 @@ const description = `Directly use serverless devs to use components, develop and
     
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/cli')}`;
 
-export default (program: Command) => {
+export default async (program: Command) => {
   const { _: raw = [], help } = utils.parseArgv(process.argv.slice(2));
   if (raw[0] !== 'cli') return;
 
@@ -35,18 +34,23 @@ export default (program: Command) => {
     cliProgram.help();
   }
   const [componentName] = raw.slice(1);
-  if (isFc3(componentName)) {
-    if (help) {
-      return new Help(cliProgram).init();
-    }
-    cliProgram.action(async () => {
-      await doAction();
-      logger.loggerInstance.__clear();
-    });
-    return;
-  }
-  v1(cliProgram);
+  const v3 = await isFc3(componentName)
+  if (!v3) return v1(cliProgram);
+  if (help) return new Help(cliProgram).init();
+  cliProgram.action(async () => {
+    await doAction();
+    logger.loggerInstance.__clear();
+  });
 };
+
+const isFc3 = async (componentName: string) => {
+  try {
+    const instance = await loadComponent(componentName);
+    if (instance.__path) return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 const doAction = async () => {
   const { _: raw = [], ...rest } = utils.parseArgv(process.argv.slice(2), {
