@@ -58,7 +58,7 @@ resources:
   #  # 如果想单独部署当前服务与函数，可以执行 s + 模块名/业务名 + deploy，例如：s next_function deploy
   #  # 如果想单独部署当前函数，可以执行 s + 模块名/业务名 + deploy function，例如：s next_function deploy function
   #  # 更多命令可参考：https://www.serverless-devs.com/fc/readme#文档相关
-  #   component: fc3@dev
+  #   component: fc3
   #   props:
   #     region: ${vars.region}
   #     function: # 定义一个新的函数

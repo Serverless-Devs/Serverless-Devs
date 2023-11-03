@@ -55,7 +55,7 @@ test('s version list -h with yaml', async () => {
 describe('多个组件', () => {
   const env = {
     ...process.env,
-    component: 'fc3@dev',
+    component: 'fc3',
   };
 
   test('s -h with yaml', async () => {
