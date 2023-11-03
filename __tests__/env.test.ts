@@ -7,7 +7,7 @@ import { find, get } from 'lodash';
 const s = path.resolve(__dirname, '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/env');
 
-// component v3test@0.0.10
+// component v3test
 test('init', async () => {
   const environmentFilePath = path.join(cwd, ENVIRONMENT_FILE_NAME);
   fs.removeSync(environmentFilePath);
