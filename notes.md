@@ -1,1 +1,1 @@
-- fix: config(AccountID) not work for serverless_devs_access_cicd_alias_name in cicd
+- feat: s cli 优先从v3获取组件，其次v2
