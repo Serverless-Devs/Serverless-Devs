@@ -11,7 +11,7 @@ flow:
 
 resources:
   next_demo:
-    component: v3test
+    component: fc3test
     props: # 组件的属性值
       region: ${vars.region}
       function:
@@ -28,7 +28,7 @@ resources:
           access: ${this.access}
           code: ${this.props.function.code}
   demo:
-    component: v3test
+    component: fc3test
     props: # 组件的属性值
       region: ${vars.region}
       function:

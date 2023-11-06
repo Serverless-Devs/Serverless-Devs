@@ -16,27 +16,27 @@ name: hello-world-app
 # access 是当前应用所需要的密钥信息配置：
 # 密钥配置可以参考：https://www.serverless-devs.com/serverless-devs/command/config
 # 密钥使用顺序可以参考：https://www.serverless-devs.com/serverless-devs/tool#密钥使用顺序与规范
-access: 'default'
+access: "default"
 
 vars: # 全局变量
-  region: 'cn-huhehaote'
+  region: "cn-huhehaote"
 
 resources:
   hello_world:
     # 如果只想针对 hello_world 下面的业务进行相关操作，可以在命令行中加上 hello_world，例如：
     # 只对 hello_world 进行构建：s hello_world build
     # 如果不带有 hello_world ，而是直接执行 s build，工具则会对当前Yaml下，所有和 hello_world 平级的业务模块（如有其他平级的模块，例如下面注释的next_function），按照一定顺序进行 build 操作
-    component: v3test # 组件名称，Serverless Devs 工具本身类似于一种游戏机，不具备具体的业务能力，组件类似于游戏卡，用户通过向游戏机中插入不同的游戏卡实现不同的功能，即通过使用不同的组件实现不同的具体业务能力
+    component: fc3test # 组件名称，Serverless Devs 工具本身类似于一种游戏机，不具备具体的业务能力，组件类似于游戏卡，用户通过向游戏机中插入不同的游戏卡实现不同的功能，即通过使用不同的组件实现不同的具体业务能力
     actions: # 自定义执行逻辑，关于actions 的使用，可以参考：https://docs.serverless-devs.com/serverless-devs/yaml#%E8%A1%8C%E4%B8%BA%E6%8F%8F%E8%BF%B0actions
       pre-deploy:
         - run: echo "hello world"
-        - component: v3test test
+        - component: fc3test test
     props:
       region: ${vars.region} # 关于变量的使用方法，可以参考：https://docs.serverless-devs.com/serverless-devs/yaml#%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC
       function:
-        functionName: 'start-nodejs-b97b'
-        description: 'hello world by serverless devs'
-        runtime: 'nodejs14'
+        functionName: "start-nodejs-b97b"
+        description: "hello world by serverless devs"
+        runtime: "nodejs14"
         code: ./code
         handler: index.handler
         memorySize: 128

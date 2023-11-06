@@ -7,7 +7,7 @@ vars:
 
 resources:
   next_demo:
-    component: v3test
+    component: fc3test
     actions:
       pre-deploy:
         - run: node -v
@@ -26,7 +26,7 @@ resources:
         access: ${this.access}
         code: ${this.props.code}
   demo:
-    component: v3test
+    component: fc3test
     props: # 组件的属性值
       region: ${vars.region}
       functionName: "start-hello-qszl"

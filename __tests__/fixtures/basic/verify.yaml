@@ -17,7 +17,7 @@ template:
 
 resources:
   next_demo:
-    component: v3test
+    component: fc3test@0.0.1 # not validate
     extend:
       name: template1 # 继承template中的指定key对应的结构，与props内容进行合并
       ignore: # 忽略的属性
@@ -37,7 +37,7 @@ resources:
         access: ${this.access}
         code: ${this.props.code}
   demo:
-    component: v3test
+    component: fc3test@0.0.2 # validate
     extend:
       name: template2
     props: # 组件的属性值
@@ -49,7 +49,7 @@ resources:
       memorySize: 128
       timeout: 30
   last_demo:
-    component: v3test
+    component: fc3test
     extend:
       name: template2
     props: # 组件的属性值

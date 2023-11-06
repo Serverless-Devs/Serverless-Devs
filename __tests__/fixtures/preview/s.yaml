@@ -1,17 +1,17 @@
 edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
 name: framework #  项目名称
-access: 'default'
+access: "default"
 
 vars:
   region: cn-huhehaote
 
 resources:
   next_demo:
-    component: v3test
+    component: fc3test
     props: # 组件的属性值
       region: ${vars.region}
       function:
-        functionName: 'next-start-hello-qszl'
+        functionName: "next-start-hello-qszl"
         runtime: ${env('runtime', 'nodejs16')}
         code: ./code
         handler: index.handler
@@ -24,12 +24,12 @@ resources:
           access: ${this.access}
           code: ${this.props.function.code}
   demo:
-    component: v3test
+    component: fc3test
     props: # 组件的属性值
       region: ${vars.region}
       function:
-        functionName: 'start-hello-qszl'
-        runtime: 'nodejs16'
+        functionName: "start-hello-qszl"
+        runtime: "nodejs16"
         code: ./code
         handler: index.handler
         memorySize: 128

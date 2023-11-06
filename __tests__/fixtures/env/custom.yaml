@@ -6,3 +6,4 @@ environments:
     region: cn-chengdu
     role: acs:ram::<account>:role/serverlessdevsinfra-testing
     access: default
+    message: this is a message from v3test

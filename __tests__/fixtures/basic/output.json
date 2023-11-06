@@ -1,5 +1,6 @@
 {
   "demo": {
-    "hello": "world"
+    "hello": "world",
+    "message": "this is a deploy function"
   }
 }

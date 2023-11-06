@@ -4,7 +4,7 @@ access: "default"
 
 resources:
   function-a:
-    component: v3test
+    component: fc3test
     props:
       region: cn-chengdu
       functionName: fcv3-function-a
@@ -14,7 +14,7 @@ resources:
       timeout: 60
 
   function-b:
-    component: v3test
+    component: fc3test
     props:
       region: cn-chengdu
       functionName: fcv3-function-b

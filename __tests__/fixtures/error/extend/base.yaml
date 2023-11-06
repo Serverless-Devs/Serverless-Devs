@@ -37,7 +37,7 @@ template:
 
 resources:
   framework: # 业务名称/模块名称
-    component: v3test # 组件名称
+    component: fc3test # 组件名称
     extend: 
       name: template2   # 继承template中的指定key对应的结构，与props内容进行合并
       ignore:           # 忽略的属性
@@ -67,7 +67,7 @@ resources:
     # 如果想单独部署当前服务与函数，可以执行 s + 模块名/业务名 + deploy，例如：s next-function deploy
     # 如果想单独部署当前函数，可以执行 s + 模块名/业务名 + deploy function，例如：s next-function deploy function
     # 更多命令可参考：https://www.serverless-devs.com/fc/readme#文档相关
-    component: v3test
+    component: fc3test
     props:
       region: ${vars.region}
       service: ${vars.service} # 应用整体的服务配置

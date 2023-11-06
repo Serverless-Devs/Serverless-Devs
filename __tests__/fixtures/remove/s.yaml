@@ -16,13 +16,13 @@ name: web-framework-app
 # access 是当前应用所需要的密钥信息配置：
 # 密钥配置可以参考：https://www.serverless-devs.com/serverless-devs/command/config
 # 密钥使用顺序可以参考：https://www.serverless-devs.com/serverless-devs/tool#密钥使用顺序与规范
-access: 'default'
+access: "default"
 
 vars:
   region: cn-hangzhou
   role: acs:ram::1431999136518149:role/aliyunfcdefaultrole
 
-template: 
+template:
   global:
     description: Serverless Devs Web Framework Function
     runtime: custom
@@ -36,7 +36,7 @@ template:
     triggers:
       - triggerName: httpTrigger # 触发器名称
         triggerType: http # 触发器类型
-        description: 'xxxx'
+        description: "xxxx"
         # qualifier: test # 触发服务的版本
         triggerConfig:
           authType: anonymous # 鉴权类型，可选值：anonymous、function
@@ -46,7 +46,6 @@ template:
             - POST
     vpcConfig: auto
     logConfig: auto
-  
 
 actions:
   pre-deploy:
@@ -55,39 +54,39 @@ actions:
 
 flow:
   deploy:
-    - [ api_1, api_2 ]
-    - [ fc3_domain_0 ]
+    - [api_1, api_2]
+    - [fc3_domain_0]
   version:
-    - [ api_1, api_2 ]
+    - [api_1, api_2]
   alias:
-    - [ api_1, api_2 ]
-  remove: [ api_1, api_2, fc3_domain_0 ]
+    - [api_1, api_2]
+  remove: [api_1, api_2, fc3_domain_0]
 
 resources:
   api_1:
-    component: v3test
+    component: fc3test
     extend:
       name: global
     props:
       region: ${vars.region}
       role: ${vars.role}
-      functionName: 's-template-demo_springboot-api-1'
+      functionName: "s-template-demo_springboot-api-1"
   api_2: # 第二个函数的案例，仅供参考
-   # 如果在当前项目下执行 s deploy，会同时部署模块
-   # 如果想单独部署当前服务与函数，可以执行 s + 模块名/业务名 + deploy，例如：s next_function deploy
-   # 如果想单独部署当前函数，可以执行 s + 模块名/业务名 + deploy function，例如：s next_function deploy function
-   # 更多命令可参考：https://github.com/devsapp/fc3/blob/master/docs/zh/readme.md#文档相关
-    component: v3test
+    # 如果在当前项目下执行 s deploy，会同时部署模块
+    # 如果想单独部署当前服务与函数，可以执行 s + 模块名/业务名 + deploy，例如：s next_function deploy
+    # 如果想单独部署当前函数，可以执行 s + 模块名/业务名 + deploy function，例如：s next_function deploy function
+    # 更多命令可参考：https://github.com/devsapp/fc3/blob/master/docs/zh/readme.md#文档相关
+    component: fc3test
     extend:
       name: global
       ignore: vpcConfig
     props:
       region: ${vars.region}
       role: ${vars.role}
-      functionName: 's-template-demo_springboot-api-2'
-      
+      functionName: "s-template-demo_springboot-api-2"
+
   fc3_domain_0:
-    component: v3test
+    component: fc3test
     props:
       region: ${vars.region}
       domainName: auto

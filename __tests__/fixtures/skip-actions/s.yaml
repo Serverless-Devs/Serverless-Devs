@@ -5,7 +5,7 @@ vars:
 
 resources:
   next_demo:
-    component: v3test
+    component: fc3test
     props: # 组件的属性值
       region: ${vars.region}
       function:
