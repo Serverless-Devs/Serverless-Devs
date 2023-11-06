@@ -1,1 +1,1 @@
-- feat: s cli 优先从v3获取组件，其次v2
+- fix: docs, bug fix
