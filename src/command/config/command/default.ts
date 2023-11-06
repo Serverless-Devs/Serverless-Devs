@@ -23,5 +23,6 @@ export default (program: Command) => {
     .action(async options => {
       const credential = new Credential({ logger });
       await credential.default(program.optsWithGlobals().access);
+      logger.write(chalk.green(`Access [${program.optsWithGlobals().access}] has been set as default.`));
     });
 };

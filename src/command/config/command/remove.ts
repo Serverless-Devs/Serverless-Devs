@@ -23,5 +23,6 @@ export default (program: Command) => {
       const credential = new Credential({ logger });
       const access = program.optsWithGlobals().access;
       await credential.remove(access);
+      logger.write(chalk.green(`Access [${access}] has been successfully deleted.`));
     });
 };

@@ -33,11 +33,11 @@ export default class Manager {
 
   async init() {
     logger.write(`\n${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}`);
-
+    this.template = this.options.project;
     if (endsWith(this.options.project, '.git')) {
       return await this.gitCloneProject();
     }
-    this.template = this.options.project;
+
     if (!this.options.project && !this.options.uri) {
       const applicationsTemplates = await this.getApplicationTemplates();
       const answers: any = await inquirer.prompt(applicationsTemplates);

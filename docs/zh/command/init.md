@@ -26,24 +26,37 @@ Usage: s init [options] [name | url]
 
 Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
-    Example:
-        $ s init
-        $ s init project
-        $ s init project -d my_dir
-        $ s init project --appName my-express
-        $ s init project --parameters '{"serviceName":"websiteService"}'
-        $ s init git@github.com:foo/bar.git
-        $ s init https://github.com/foo/bar.git
-        
+Example:
+    $ s init
+    $ s init --project fc
+    $ s init --project fc -d my_dir
+    $ s init --project fc --app-name my-express
+    $ s init --project fc --parameters '{"serviceName":"websiteService"}'
+    $ s init --project git@github.com:foo/bar.git
+    $ s init --project https://github.com/foo/bar.git
+    
 🚀  More applications: https://registry.serverless-devs.com
 
 Options:
-  -d, --dir <dir>            Where to output the initialized app into (default: ./<ProjectName> )
-  -r, --registry <url>       Use specify registry
-  -a, --access <aliasName>   Specify the access alias name.
-  --parameters <parameters>  Initialize with custom parameters
-  --appName <appName>        Modify default Application name
-  -h, --help                 Display help for command
+  -d, --dir <dir>                 Where to output the initialized app into (default: ./<ProjectName> )
+  -r, --registry <url>            Use specify registry
+  --uri <uri>                     Use specify uri, Eg: remote url, local dir, local zip file
+  --project <project>             Specify Template
+  -y                              Assume that the answer to any question which would be asked is yes
+  --parameters <parameters>       Initialize with custom parameters
+  --app-name <appName>            Modify default Application name
+  -h, --help                      Display help for command
+
+Global Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  -v, --version                   Output the version number
 ```
 
 ### 参数解析
@@ -52,6 +65,8 @@ Options:
 |-----|-----|-----|-----|
 | dir | d | `./<ProjectName>` | 项目初始化的路径/目录 | 
 | registry | -r | http://registry.devsapp.cn/simple | 源配置地址，类似于Python中指定pip源，或者Node.js中指定NPM源 | 
+| uri |  |  | 远程或本地文件的地址 |
+| project |  |  | 模版名称 |
 | parameters |  | {"serviceName":"websiteService"} | 初始化参数 | 
 | appName |  | my-express | 应用/项目名称 | 
 
@@ -64,97 +79,93 @@ Options:
 ```shell script
 $ s init
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-
+🚀  More applications: https://registry.serverless-devs.com
 ? Hello Serverless for Cloud Vendors (Use arrow keys or type to search)
 ❯ Alibaba Cloud Serverless 
   AWS Cloud Serverless 
-  Baidu Cloud Serverless 
-  Huawei Cloud Serverless 
   Tencent Cloud Serverless 
+  Huawei Cloud Serverless 
+  Baidu Cloud Serverless 
   Dev Template for Serverless Devs 
 ```
 
 此时只需要选择对应的选项，按照引导进行操作，即可。例如选择`Alibaba Cloud Serverless`，就可以看到阿里云Serverless产品下的应用模板分类:
 
 ```shell script
-? Please select an Serverless-Devs Application (Use arrow keys or type to search)
+? Hello, serverlesser. Which template do you like? (Use arrow keys or type to search)
 ❯ Quick start [Deploy a Hello World function to FaaS] 
+  Custom runtime example [Deploy function to FaaS with custom runtime] 
   Container example [Deploy function to FaaS with custom-container] 
-  Web Framework [Deploy a web framework to FaaS] 
-  Static website [Deploy a static website] 
-  Best practice [Experience serverless project] 
+  Custom domain example [Deploy function to FaaS with custom domain] 
 ```
 
-此时可以继续选择某分类下的具体应用进行初始化，例如选择`fc-runtime-starter`之后，可以看到该分类下的具体模板应用：
+此时可以继续选择某分类下的具体应用进行初始化，例如选择`Quick start`之后，可以看到该分类下的具体模板应用：
 
 ```shell script
 ? Which template do you like? (Use arrow keys or type to search)
-❯ [HTTP] Node.js 12 
-  [HTTP] Python3 
-  [HTTP] Java8 
-  [HTTP] PHP7 
-  [HTTP] C++ (custom) 
-  [Event] Node.js 12 
-  [Event] Python3 
+❯ Node.js 
+  Python3 
+  Java 
+  Go 
+  Dotnet 
 (Move up and down to reveal more choices)
 ```
 
-选择`fc-http-nodejs`即可完成创建：
+选择`Node.js`即可完成创建：
 
 ```shell script
 $ s init                                         
 
 🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
 
+🚀  More applications: https://registry.serverless-devs.com
 ? Hello Serverless for Cloud Vendors Alibaba Cloud Serverless
-? Please select an Serverless-Devs Application fc-runtime-starter - 快速部署一个 FC 函数
-? Please select an templete fc-http-nodejs - 快速部署一个 nodejs12 http函数
+? Hello, serverlesser. Which template do you like? Quick start [Deploy a Hello World function to FaaS]
+? Which template do you like? Node.js
 
 ......
 
-💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
+💞  Document ❤ Star: https://github.com/Serverless-Devs/Serverless-Devs
+🚀  More applications: https://registry.serverless-devs.com
 ```
 
-更多关于默认源对应的应用信息，可以参考[Package Awesome](https://github.com/Serverless-Devs/package-awesome)
+更多关于默认源对应的应用信息，可以参考[Serverless Registry](https://registry.serverless-devs.com/)
 
 #### 直接初始化
 
-通过`s init [name | url]`，可以从配置的`Registry`或者指定的仓库`Url`获取模板项目。
+通过`s init --project [name | url]`，可以从配置的`Registry`或者指定的仓库`Url`获取模板项目。
 
 ##### 初始化Registry应用
 
-以默认的`Registry`为例，可以初始化相对应的案例项目：`start-fc-http-nodejs12`，可以通过`s init start-fc-http-nodejs12`命令来进行：
+以默认的`Registry`为例，可以初始化相对应的案例项目：`start-fc-http-nodejs12`，可以通过`s init --project start-fc-http-nodejs12`命令来进行：
 
 ```shell script
-$ s init start-fc-http-nodejs12
+$ s init --project start-fc-http-nodejs12
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-
+🚀  More applications: https://registry.serverless-devs.com
 ? Please input your project name (init dir) start-fc-http-nodejs12
-✔ file decompression completed
+Downloading[/simple/start-fc-http-nodejs12/zipball/1.1.23]...
 
 ......
 
-💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
+💞  Document ❤ Star: https://github.com/Serverless-Devs/Serverless-Devs
+🚀  More applications: https://registry.serverless-devs.com
 ```
 
 ##### 初始化仓库应用
 
-以Github仓库 `https://github.com/devsapp/puppeteer-app` 为例，可以通过`s init git@github.com:devsapp/puppeteer-app.git`命令初始化该案例项目：
+以Github仓库 `https://github.com/devsapp/start-fc` 为例，可以通过`s init --project https://github.com/devsapp/start-fc.git`命令初始化该案例项目：
 
 ```shell script
-$ s init git@github.com:devsapp/puppeteer-app.git
+$ s init --project https://github.com/devsapp/start-fc.git
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-
-Cloning into 'puppeteer-app'...
-remote: Enumerating objects: 35, done.
-remote: Counting objects: 100% (35/35), done.
-remote: Compressing objects: 100% (23/23), done.
-remote: Total 35 (delta 10), reused 30 (delta 6), pack-reused 0
-Receiving objects: 100% (35/35), 6.59 KiB | 3.30 MiB/s, done.
-Resolving deltas: 100% (10/10), done.
+🚀  More applications: https://registry.serverless-devs.com
+Cloning into 'start-fc'...
+remote: Enumerating objects: 6403, done.
+remote: Counting objects: 100% (1693/1693), done.
+remote: Compressing objects: 100% (953/953), done.
+remote: Total 6403 (delta 863), reused 1462 (delta 667), pack-reused 4710
+Receiving objects: 100% (6403/6403), 33.25 MiB | 3.57 MiB/s, done.
 ```
 
 

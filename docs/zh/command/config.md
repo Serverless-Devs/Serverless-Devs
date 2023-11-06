@@ -22,10 +22,13 @@ category: '命令'
 - [config rename 命令](#config-rename-命令)
     - [参数解析](#参数解析-3)
     - [操作案例](#操作案例-3)
+- [config default 命令](#config-default-命令)
+    - [参数解析](#参数解析-4)
+    - [操作案例](#操作案例-4)
 - [注意事项](#注意事项)
-    - [通过环境变量设置密钥](#通过环境变量设置密钥)
-    - [关于配置密钥的使用顺序](#关于配置密钥的使用顺序)
-    
+  - [通过环境变量设置密钥](#通过环境变量设置密钥)
+  - [关于配置密钥的使用顺序](#关于配置密钥的使用顺序)
+
 ## 命令解析
 
 当执行`s config -h`之后，可以进行相关帮助信息的查看：
@@ -35,16 +38,28 @@ Usage: s config [commands] [options]
 
 Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
 
 Options:
-  -h, --help  Display help for command
+  -h, --help                      Display help for command
+
+Global Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  -v, --version                   Output the version number
 
 Commands:
-  add         ➕ Add an account
-  get         ✔️ Get accounts
-  delete      ✖️ Delete an account
-  rename      >️ Rename an account
+  add [options]                   +  Add an account
+  get                             √  Get accounts
+  delete                          ×  Delete an account
+  rename [options]                >  Rename an account
+  default   * Set default account
 ```
 
 在该命令中，包括了四个子命令：
@@ -52,6 +67,7 @@ Commands:
 - [get：查看密钥配置](#config-get-命令)
 - [delete：删除密钥配置](#config-delete-命令)
 - [rename：重命名密钥配置](#config-rename-命令)
+- [default：设置默认密钥配置](#config-default-命令)
 
 
 ## config add 命令
@@ -61,7 +77,7 @@ Commands:
 通过`-h/--help`可以查看到配置帮助：
 
 ```shell script
-Usage: s config add [commands] [name]
+Usage: s config add [options]
 
 You can add an account
 
@@ -69,33 +85,43 @@ You can add an account
         $ s config add
         $ s config add --AccessKey ****** --SecretKey ******
         $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
-        $ s config add --keyList key1,key2,key3 --valueList value1,value2,value3
+        $ s config add --keyList key1,key2,key3 --infoList value1,value2,value3
 
     Configuration parameters template for vendors:
-        alibaba: AccountID, AccessKeyID, AccessKeySecret
+        alibaba: AccessKeyID, AccessKeySecret
         aws: AccessKeyID, SecretAccessKey
         baidu: AccessKeyID, SecretAccessKey
         huawei: AccessKey, SecretKey
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-🧭 How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config
+🧭  How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config
 
 Options:
-  --AccountID [AccountID]              AccountID of key information
-  --AccessKeyID [AccessKeyID]          AccessKeyID of key information
-  --AccessKeySecret [AccessKeySecret]  AccessKeySecret of key information
-  --SecurityToken [SecurityToken]      SecurityToken of key information
-  --SecretAccessKey [SecretAccessKey]  SecretAccessKey of key information
-  --AccessKey [AccessKey]              AccessKey of key information
-  --SecretKey [SecretKey]              SecretKey of key information
-  --SecretID [SecretID]                SecretID of key information
-  --PrivateKeyData [PrivateKeyData]    PrivateKeyData of key information
-  -kl , --keyList [keyList]            Keys of key information, like: -kl key1,key2,key3
-  -il , --infoList [infoList]          Values of key information, like: -il info1,info2,info3
-  -a, --access [aliasName]             Key pair alias, if the alias is not set, use default instead
-  -f                                   Mandatory overwrite key information
+  --AccountID <AccountID>              AccountID of key information
+  --AccessKeyID <AccessKeyID>          AccessKeyID of key information
+  --AccessKeySecret <AccessKeySecret>  AccessKeySecret of key information
+  --SecurityToken <SecurityToken>      SecurityToken of key information
+  --SecretAccessKey <SecretAccessKey>  SecretAccessKey of key information
+  --AccessKey <AccessKey>              AccessKey of key information
+  --SecretKey <SecretKey>              SecretKey of key information
+  --SecretID <SecretID>                SecretID of key information
+  --PrivateKeyData <PrivateKeyData>    PrivateKeyData of key information
+  --kl, --keyList <keyList>            Keys of key information, like: --kl key1,key2,key3
+  --il, --infoList <infoList>          Values of key information, like: --il info1,info2,info3
+  -f, --force                          Mandatory overwrite key information
   -h, --help                           Display help for command
+
+Global Options:
+  --debug                              Open debug model
+  --skip-actions                       Skip the extends section
+  -t, --template <path>                Specify the template file
+  -a, --access <aliasName>             Specify the access alias name
+  -o, --output <outputFormat>          Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>       Specify the output file path
+  --env <envName>                      Specify the env name
+  --no-verify                          Do not verify yaml
+  -v, --version                        Output the version number
 ```
 
 
@@ -115,7 +141,7 @@ Options:
 | keyList | kl | 选填 | 在默认字段无法满足配置诉求时，可以通过`keyList`与`infoList`进行批量自定义配置 |
 | infoList | il | 选填 | 在默认字段无法满足配置诉求时，可以通过``keyList`与`infoList`进行批量自定义配置 |
 | access | a | 选填 | 密钥的别名 |
-| f | - | 选填 | 强制修改/覆盖已经配置的密钥信息 |
+| force | f | 选填 | 强制修改/覆盖已经配置的密钥信息 |
 
 ### 操作案例
 
@@ -132,7 +158,7 @@ $ s config add
   Google Cloud (google) 
   Huawei Cloud (huawei) 
   Tencent Cloud (tencent) 
-  Custom (others) 
+(Move up and down to reveal more choices)
 ```
 
 当使用者选择某个选项之后，系统会进行交互式引导：
@@ -141,9 +167,16 @@ $ s config add
 s config add 
 
 ? Please select a provider: Alibaba Cloud (alibaba)
-? AccessKeyID **********
-? AccessKeySecret **********
-? Please create alias for key pair. If not, please enter to skip default
+🧭 Refer to the document for Alibaba Cloud key: http://config.devsapp.net/account/alibaba
+? AccessKeyID:  ******
+? AccessKeySecret:  ******
+? Please create alias for key pair. If not, please enter to skip (default-2) 
+Alias:      default-2
+Credential: 
+  __provider:      Alibaba Cloud
+  AccessKeyID:     LTA******************KNA
+  AccessKeySecret: U2q************************RuI
+  AccountID:       124**********881
 ```
 
 也可以通过命令式直接进行密钥的添加：
@@ -187,18 +220,29 @@ google:     PrivateKeyData
 ```shell script
 $ s config get -h
 
-Usage: s config get [options] [name]
+Usage: s config get [options]
 
 You can get accounts.
  
-     Example:
-        $ s config get
-        $ s config get -a demo
- 
+  Example:
+    $ s config get
+    $ s config get -a demo
+    
+📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
 
 Options:
-  -a, --access [aliasName]  Key pair alia, if the alias is not set, use default instead
-  -h, --help                Display help for command
+  -h, --help                      Display help for command
+
+Global Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  -v, --version                   Output the version number
 ```
 
 ### 参数解析
@@ -246,17 +290,28 @@ release:
 ```shell script
 $ s config delete -h
 
-Usage: s config delete [options] [name]
+Usage: s config delete [options]
 
 You can delete an account.
-
-     Example:
-        $ s config delete -a demo
-
+  
+  Example:
+    $ s config delete -a demo
+    
+📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
 
 Options:
-  -a, --access [aliasName]  Key pair alias, if the alias is not set, use default instead
-  -h,--help                 Display help for command
+  -h, --help                      Display help for command
+
+Global Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  -v, --version                   Output the version number
 ```
 
 ### 参数解析
@@ -271,7 +326,7 @@ Options:
 
 ```shell script
 $ s config delete -a test
-Key [test] has been successfully removed
+Access [test] has been successfully deleted.
 ```
 
 ## config rename 命令
@@ -283,32 +338,142 @@ Key [test] has been successfully removed
 ```shell script
 $ s config rename -h
 
-Usage: s config rename <sourceAliasName> <targetAliasName>
+Usage: s config rename [options]
 
 You can rename an account.
-
-     Example:
-        $ s config rename sourceAliasName targetAliasName
-
+  
+  Example:
+    $ s config rename --source source --target target
+    
+📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
 
 Options:
-  -h,--help                 Display help for command
+  --source <source>               Source alias name
+  --target <target>               Target alias name
+  -h, --help                      Display help for command
+
+Global Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  -v, --version                   Output the version number
 ```
 
 ### 参数解析
 
 | 参数全称 | 参数缩写 | 是否必填 | 参数含义     |
 |-----|------|-----|----------|
-| sourceAliasName |      | 必填 | 原始密钥的别名  |
-| targetAliasName |      | 必填 | 变更后密钥的别名 |
+| source | - | 必填 | 原始密钥的别名  |
+| target | - | 必填 | 变更后密钥的别名 |
 
 ### 操作案例
 
-如果想要变更某个已经配置的密钥的别名，可以通过`config rename`进行删除，例如，想要删除别名为`test`的密钥信息别名为`test2`，就可以执行：
+如果想要变更某个已经配置的密钥的别名，可以通过`config rename`进行变更，例如，想要变更别名为`test`的密钥信息别名为`test2`，就可以执行：
 
 ```shell script
-$ s config rename test test2  
-Key [test] has been successfully rename to [test2].
+$ s config rename --source test --target test2  
+Alias:      test2  
+credential: 
+  AccessKeyID:     ******************
+  AccessKeySecret: ******************
+  AccountID:       ******************
+```
+
+也可以步输入参数，通过交互更改：
+
+```shell script
+$ s config rename
+? Please select need rename alias name: (Use arrow keys)
+❯ test
+```
+
+选择需要更改的别名后，再输入目标别名即可：
+
+```shell script
+$ s config rename
+? Please select need rename alias name: default2
+? Please select need rename alias name: default
+Alias:      default
+credential: 
+  __provider:      Alibaba Cloud
+  AccessKeyID:     LTA******************TCU
+  AccessKeySecret: Gwv************************GwT
+  AccountID:       124**********881
+  __default:       true
+```
+
+## config default 命令
+
+通过`config default`命令，您可以配置默认密钥信息。
+
+通过`-h/--help`可以查看到配置帮助：
+
+```shell script
+$ s config default -h
+
+Usage: s config default [options]
+
+Specify an access as the default.
+  
+  Example:
+    $ s config default
+    $ s config default -a demo
+    
+📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+
+Options:
+  -h, --help                      Display help for command
+
+Global Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  -v, --version                   Output the version number
+```
+
+### 参数解析
+
+| 参数全称 | 参数缩写 | 是否必填 | 参数含义     |
+|-----|------|-----|----------|
+| access | a | 选填 | 密钥的别名  |
+
+### 操作案例
+
+可以通过`s config default`命令来配置默认的密钥信息。例如，想要设置当前默认的密钥为`demo`，可以执行：
+
+```shell script
+$ s config default
+
+You can choose an access to set as the default.
+
+? Please select an access: (Use arrow keys)
+❯ demo
+  demo1
+  demo2
+(Move up and down to reveal more choices)
+```
+
+选择之后会提示：
+
+```shell script
+Access [demo] has been set as default.
+```
+
+以上为交互式设置，也可以直接输入`s config default -a demo`进行设置。
+
+```shell script
+$ s config default -a demo
+Access [demo] has been set as default.
 ```
 
 ## 注意事项
