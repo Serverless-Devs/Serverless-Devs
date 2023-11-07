@@ -19,24 +19,25 @@ category: '命令'
 
 ```shell script
 $ s clean -h
-Usage: s cli [options]
+Usage: s clean [options]
 
 Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
+  
+  Example:
+    $ s clean --component fc-api
+    $ s clean --all
+
+  Tips:
+    Get all installed component: s component
     
-    Example:
-        $ s clean --component fc-api
-        $ s clean --all
-
-    Tips:
-        Get all installed component: s component
-
-📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/clean.md
+📖  Document: https://serverless.help/s/clean
 
 Options:
-  --all                         Clean up the environment
-  --cache [dirName]             Delete the <dirName> file in the cache
-  --component [componentName]   Remove component (like: fc, fc@0.0.1)
-  -h, --help                    Display help for command
+  --all                           Clean up the environment
+  --logs                          Clean logs
+  --cache [dirName]               Delete the <dirName> file in the cache
+  --component [componentName]     Remove component (like: fc, fc@0.0.1)
+  -h, --help                      Display help for command
 ```
 
 ### 参数解析
@@ -44,6 +45,7 @@ Options:
 | 参数全称 | 参数缩写 | 是否必填 | 参数含义 |
 |-----|-----|-----|-----|
 | all |  | 选填 | 清理环境 |
+| logs |  | 选填 | 清理日志 |
 | cache |  | 选填 | 删除缓存里的的<dirName>文件 |
 | component |  | 选填 | 删除指定的组件，可以是组件名，也可以是[组件名@版本号] |
 
@@ -53,14 +55,31 @@ Options:
 
 ```shell script
 $ s clean --component fc-api
-Component [fc-api] has been cleaned up successfully.
+[2023-******][INFO][s_cli] Component [fc-api] has been cleaned up successfully.
+```
+
+如果想要清理缓存，可以通过`--cache`参数进行清理，例如：
+
+```shell script
+$ s clean --cache 
+[2023-******][INFO][s_cli] Cache cleaned up successfully.
+```
+
+还可以通过`--logs`参数清理日志文件：
+
+```shell script
+$ s clean --logs
+[2023-******][INFO][s_cli] Logs cleaned up successfully.
 ```
 
 如果想要清理整体环境，可以直接通过`--all`参数进行，例如：
 
 ```shell script
 $ s clean --all       
-The environment of Serverless Devs has been cleaned up successfully.
+[2023-******][INFO][s_cli] Component cleaned up successfully.
+[2023-******][INFO][s_cli] Cache cleaned up successfully.
+[2023-******][INFO][s_cli] Logs cleaned up successfully.
+[2023-******][INFO][s_cli] The environment of Serverless Devs has been cleaned up successfully.
 ```
 
 ## 注意事项

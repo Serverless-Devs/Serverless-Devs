@@ -37,6 +37,10 @@ const devs_template = [
     value: 'devsapp/start-component',
   },
   {
+    name: 'Component Scaffolding V3',
+    value: 'start-component-v3',
+  },
+  {
     name: 'Plugin Scaffolding',
     value: 'devsapp/start-plugin',
   },
