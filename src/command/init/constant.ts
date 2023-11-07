@@ -30,7 +30,7 @@ export const first_level_template = [
 const devs_template = [
   {
     name: 'Application Scaffolding',
-    value: 'devsapp/start-application',
+    value: 'start-application-v3',
   },
   {
     name: 'Component Scaffolding',
