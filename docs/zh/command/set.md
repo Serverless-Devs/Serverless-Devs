@@ -1,7 +1,7 @@
 ---
 title: Set 命令
 description: 'Set 命令'
-position: 9
+position: 3
 category: '命令'
 ---
 # Set 命令
@@ -27,17 +27,6 @@ You can make some default settings for the tool here.
 
 Options:
   -h, --help                      Display help for command
-
-Global Options:
-  --debug                         Open debug model
-  --skip-actions                  Skip the extends section
-  -t, --template <path>           Specify the template file
-  -a, --access <aliasName>        Specify the access alias name
-  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>  Specify the output file path
-  --env <envName>                 Specify the env name
-  --no-verify                     Do not verify yaml
-  -v, --version                   Output the version number
 
 Commands:
   proxy [options]                 🔧  Set proxy information

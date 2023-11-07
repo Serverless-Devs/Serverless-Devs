@@ -91,7 +91,7 @@ const doAction = async options => {
       }
     }
   }
-  logger.write(`\n${emoji('🔎')} serverless registry\n`);
+  logger.write(`\n${emoji('🔎')} serverless registry [https://registry.serverless-devs.com]\n`);
   const getWidth = (key: string) => maxBy(rows, item => get(item, `${key}.length`))[key].length;
   logger.write(
     new TableLayout(rows, {

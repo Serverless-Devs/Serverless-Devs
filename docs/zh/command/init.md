@@ -1,7 +1,7 @@
 ---
 title: Init 命令
 description: 'Init 命令'
-position: 3
+position: 2
 category: '命令'
 ---
 # Init 命令
@@ -46,17 +46,6 @@ Options:
   --parameters <parameters>       Initialize with custom parameters
   --app-name <appName>            Modify default Application name
   -h, --help                      Display help for command
-
-Global Options:
-  --debug                         Open debug model
-  --skip-actions                  Skip the extends section
-  -t, --template <path>           Specify the template file
-  -a, --access <aliasName>        Specify the access alias name
-  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>  Specify the output file path
-  --env <envName>                 Specify the env name
-  --no-verify                     Do not verify yaml
-  -v, --version                   Output the version number
 ```
 
 ### 参数解析

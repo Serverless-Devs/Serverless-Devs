@@ -1,7 +1,7 @@
 ---
 title: Clean 命令
 description: 'Clean 命令'
-position: 7
+position: 4
 category: '命令'
 ---
 # Clean 命令

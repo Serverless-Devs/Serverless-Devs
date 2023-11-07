@@ -1,7 +1,7 @@
 ---
 title: Config 命令
 description: 'Config 命令'
-position: 2
+position: 1
 category: '命令'
 ---
 
@@ -42,17 +42,6 @@ Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, T
 
 Options:
   -h, --help                      Display help for command
-
-Global Options:
-  --debug                         Open debug model
-  --skip-actions                  Skip the extends section
-  -t, --template <path>           Specify the template file
-  -a, --access <aliasName>        Specify the access alias name
-  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>  Specify the output file path
-  --env <envName>                 Specify the env name
-  --no-verify                     Do not verify yaml
-  -v, --version                   Output the version number
 
 Commands:
   add [options]                   +  Add an account
@@ -111,17 +100,6 @@ Options:
   --il, --infoList <infoList>          Values of key information, like: --il info1,info2,info3
   -f, --force                          Mandatory overwrite key information
   -h, --help                           Display help for command
-
-Global Options:
-  --debug                              Open debug model
-  --skip-actions                       Skip the extends section
-  -t, --template <path>                Specify the template file
-  -a, --access <aliasName>             Specify the access alias name
-  -o, --output <outputFormat>          Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>       Specify the output file path
-  --env <envName>                      Specify the env name
-  --no-verify                          Do not verify yaml
-  -v, --version                        Output the version number
 ```
 
 
@@ -232,17 +210,6 @@ You can get accounts.
 
 Options:
   -h, --help                      Display help for command
-
-Global Options:
-  --debug                         Open debug model
-  --skip-actions                  Skip the extends section
-  -t, --template <path>           Specify the template file
-  -a, --access <aliasName>        Specify the access alias name
-  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>  Specify the output file path
-  --env <envName>                 Specify the env name
-  --no-verify                     Do not verify yaml
-  -v, --version                   Output the version number
 ```
 
 ### 参数解析
@@ -301,17 +268,6 @@ You can delete an account.
 
 Options:
   -h, --help                      Display help for command
-
-Global Options:
-  --debug                         Open debug model
-  --skip-actions                  Skip the extends section
-  -t, --template <path>           Specify the template file
-  -a, --access <aliasName>        Specify the access alias name
-  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>  Specify the output file path
-  --env <envName>                 Specify the env name
-  --no-verify                     Do not verify yaml
-  -v, --version                   Output the version number
 ```
 
 ### 参数解析
@@ -351,17 +307,6 @@ Options:
   --source <source>               Source alias name
   --target <target>               Target alias name
   -h, --help                      Display help for command
-
-Global Options:
-  --debug                         Open debug model
-  --skip-actions                  Skip the extends section
-  -t, --template <path>           Specify the template file
-  -a, --access <aliasName>        Specify the access alias name
-  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>  Specify the output file path
-  --env <envName>                 Specify the env name
-  --no-verify                     Do not verify yaml
-  -v, --version                   Output the version number
 ```
 
 ### 参数解析
@@ -428,17 +373,6 @@ Specify an access as the default.
 
 Options:
   -h, --help                      Display help for command
-
-Global Options:
-  --debug                         Open debug model
-  --skip-actions                  Skip the extends section
-  -t, --template <path>           Specify the template file
-  -a, --access <aliasName>        Specify the access alias name
-  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
-  --output-file <outputFilePath>  Specify the output file path
-  --env <envName>                 Specify the env name
-  --no-verify                     Do not verify yaml
-  -v, --version                   Output the version number
 ```
 
 ### 参数解析
