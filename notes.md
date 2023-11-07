@@ -1,1 +1,1 @@
-- fix: docs, bug fix
+- feat: add v3 component template
