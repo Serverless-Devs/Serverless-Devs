@@ -11,11 +11,11 @@ category: '概述'
 
 - [描述文件简介](#描述文件简介)
 - [描述文件格式/规范](#描述文件格式规范)
-    - [元数据](#元数据)
-    - [变量赋值](#变量赋值)
-    - [特殊变量](#特殊变量)
-    - [服务顺序](#服务顺序)
-    - [行为描述 actions](#行为描述actions)
+- [元数据](#元数据)
+- [变量赋值](#变量赋值)
+- [特殊变量](#特殊变量)
+- [服务顺序](#执行顺序)
+- [行为描述](#行为描述)
 
 ## 描述文件简介
 
@@ -35,31 +35,30 @@ category: '概述'
 关于 Serverless Devs 所支持的资源/行为描述文件基本格式为：
 
 ```yaml
-edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
-name: applicationName   #  应用名称
-access: xxx-account1    #  秘钥别名
+edition: 3.0.0 # 命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: hello-world-app # 项目名称
+access: default # 秘钥别名
 
-vars: # [全局变量，提供给各个服务使用]
+vars: # [全局变量，提供给各个项目使用]
   Key: Value
 
-actions: globalActions #  自定义全局的执行逻辑
+actions: globalActions # 自定义全局的执行逻辑
 
-services: # 可以包括多个服务
-  ServiceName: # 服务名称
-    access: xxx-account1      #  秘钥别名，如果和项目的access相同，可省略
-    component: componentName  #  组件名称
-    props: serviceProp        #  组件的属性值
-    actions: serviceActions   #  自定义执行逻辑
+resources: # 可以包括多个业务模块
+  ProjectName: # 业务模块
+    actions: projectActions # 自定义执行逻辑
+    component: componentName # 组件名称
+    props: componentProps # 组件的属性值
 ```
 
 例如，一个相对完整的 Yaml 案例可以是：
 
 ```yaml
-edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
-name: FullStack       #  项目名称
-access: xxx-account1  #  秘钥别名
+edition: 3.0.0 # 命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: hello-world-app # 项目名称
+access: default # 秘钥别名
 
-vars: # [全局变量，提供给各个服务使用]
+vars: # [全局变量，提供给各个业务模块使用]
   logo: https://image.aliyun.com/xxxx.png
 
 actions: # 自定义全局的执行逻辑
@@ -68,10 +67,17 @@ actions: # 自定义全局的执行逻辑
       path: ./src # 命令行运行的路径
   success-deploy: # 项目deploy执行成功之后执行
     - plugin: dingding-robot # 要使用的插件
+      allow_failure: true # true/false 允许失败条件
       args: # 插件的参数
         key: value 
   fail-deploy: # 项目deploy执行失败之后执行
     - plugin: dingding-robot # 要使用的插件
+      allow_failure: # 允许失败条件
+        command: # 允许失败的执行command
+          - deploy
+        exit_code: # 允许失败的退出码
+          - 100
+          - 101
       args: # 插件的参数
         key: value 
   complete-deploy: # 项目deploy执行完成之后执行
@@ -79,22 +85,24 @@ actions: # 自定义全局的执行逻辑
       args: # 插件的参数
         key: value 
 
-services:
-  nextjs-portal: #  服务名称
-    access: xxx-account1  #  秘钥别名，如果和项目的access相同，可省略
-    component: vue-component  # 组件名称
-    props: #  组件的属性值
-      src: ./frontend_src
-      url: url
+resources:
+  nextjs_portal: #  项目名称
+    component: fc3  # 组件名称
     actions: # 自定义执行逻辑
       pre-deploy: # 在deploy之前运行
-        - run: s exec -- publish  # 要运行的命令行
-          path: ./backend_src # 命令行运行的路径
-        - run: s build  # 要运行的命令行
-          path: ./backend_src # 命令行运行的路径
-      post-deploy: # 在deploy之后运行
-        - run: s clean
-          path: ./frontend_src
+        - run: npm install  # 要运行的命令行
+          path: ./nextjs_portal # 命令行运行的路径
+      success-deploy: # 在deploy之后运行
+        - component: fc3 invoke  # 要运行的组件，格式为【component: 组件名 命令 参数】
+          allow_failure: true # true/false 允许失败条件
+    props: #  组件的属性值
+      region: ${vars.region}
+      functionName: nextjs_portal
+      runtime: nodejs14
+      code: ./nextjs_portal
+      handler: index.handler
+      memorySize: 128
+      timeout: 30
 
   assets:
     component: static
@@ -102,7 +110,7 @@ services:
       cache-control: "public, max-age=604800, immutable"
       www: "./public"
 
-  express-blog:
+  express_blog:
     component: express
     props:
       app: ./express-blog
@@ -117,109 +125,208 @@ services:
     props:
       routes:
         - route: /~assets
-          value: ${assets.output.url}
+          value: ${resources.assets.output.url}
         - route: /
-          value: ${nextjs-portal.output.url}
+          value: ${resources.nextjs_portal.output.url}
           index: index.html
         - route: /~portal
-          value: ${nextjs-portal.output.url}
+          value: ${resources.nextjs_portal.output.url}
           inex: index.html
         - route: /~blog
-          value: ${express-blog.output.url}
+          value: ${resources.express_blog.output.url}
 ```
 
-### 元数据
+## 元数据
 
 在该格式中：
 
 | 参数名 |  代表含义   | 
 |  ----  | ----  | 
 | edition  | 命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范 | 
-| name  | 应用名称 | 
+| name  | 项目名称 | 
 | access  | 秘钥别名，可以使用通过[config命令](./command/config.md#config-add-命令)配置的密钥信息，以及[配置到环境变量的密钥信息](./command/config.md#通过环境变量配置密钥信息) |
-| vars  | 全局变量，提供给各个服务使用，是一个Key-Value的形式 |
+| extend  | 所继承的模板 |
+| template  | 可被继承的模板 |
+| flow  | 操作顺序 |
+| vars  | 全局变量，提供给各个业务模块使用，是一个Key-Value的形式 |
 | actions  | 自定义全局的执行逻辑 |
-| services  | 应用所包含的服务，是一个Key-Value的形式 |
+| resources  | 项目所包含的业务模块，是一个Key-Value的形式 |
 
-关于Service参数：
+### template
+关于 template 参数：
+可被继承的模板，主要为key-object形式，例如；
+```yaml
+template: 
+  template1: 
+    region: cn-hangzhou
+    runtime: python3
+    vpcConfig: vpc-1
+  template2: 
+    region: cn-beijing
+    runtime: nodejs14
+    vpcConfig: vpc-2
+```
+
+此时在 resource 中即成当前模板，可以进行重写操作，例如：
+```yaml
+resources:
+  resource1:
+    component: fc       # 组件名称
+    extend: 
+      name: template1   # 继承template中的指定key对应的结构，与props内容进行合并
+      ignore:           # 忽略的属性
+         - vpcConfig
+    props:
+      region: cn-shanghai
+      vcpu: 1
+      memorySize: 128
+  resource2:
+    component: fc        # 组件名称
+    extend: 
+      name: template1    # 继承template中的指定key对应的结构，与props内容进行合并
+    props:
+      region: cn-hongkong
+      vcpu: 1
+      memorySize: 128
+  resource3:
+    component: fc        # 组件名称
+    extend: 
+       name: template2   # 继承template中的指定key对应的结构，与props内容进行合并
+  resource4:
+    component: fc        # 组件名称
+    props:
+      region: cn-hongkong
+      vcpu: 1
+      memorySize: 128
+```
+完成渲染后，该部分的结果：
+- resource1：继承了template1，同时删除了vpcConfig参数，在template1基础上配置了region、vcpu以及memorySize；
+- resource2：继承了template1，在template1基础上配置了region、vcpu以及memorySize；
+- resource3：继承了template2；
+- Resource4：没有做任何继承，配置了region、vcpu以及memorySize；
+
+渲染结果：
+```yaml
+resources:
+  resource1:
+    component: fc # 组件名称
+    props:
+      region: cn-shanghai
+      runtime: python3
+      vcpu: 1
+      memorySize: 128
+  resource2:
+    component: fc # 组件名称
+    props:
+      region: cn-hongkong
+      runtime: python3
+      vpcConfig: vpc-1
+      vcpu: 1
+      memorySize: 128
+  resource3:
+    component: fc # 组件名称
+    props:
+      region: cn-hongkong
+      vcpu: 1
+      memorySize: 128
+  resource4:
+    component: fc # 组件名称
+    props:
+      region: cn-hongkong
+      vcpu: 1
+      memorySize: 128
+```
+### flow
+flow表示执行流程或顺序，主要是key-list形式组成，例如：
+```yaml
+flow:
+  deploy: # 支持正则
+    - [project_a]
+    - [project_b, project_c]
+```
+表示的是，在进行deploy操作时先部署project_a，然后同时（并行）部署project_b, project_c；
+
+### resources
+关于resources中Value参数：
 
 | 参数名 |  代表含义   | 
 |  ----  | ----  | 
-| access  | 秘钥别名，如果和项目的access相同，可省略 | 
 | component  | 组件名称 | 
+| extend  | 所继承的模板 | 
 | actions  | 自定义执行逻辑 |
 | props  | 组件的属性值 |
 
-### 变量赋值
+## 变量赋值
 
 Serverless Application模型对应的Yaml文件支持多种变量格式：
 
-- 获取当前机器中的环境变量：${env(环境变量)}，例如${env(secretId)}
-- 获取外部文档的变量：${file(路径)}，例如${file(./path)}
+- 获取当前机器中的环境变量：${env('环境变量')}，例如${env('secretId')}, ${env('secretId', '默认值')}
+- 获取外部文档的变量：${file('路径')}，例如${file('./path')}
 - 获取全局变量：${vars.*}
-- 获取其他项目的变量：${projectName.props.*}
-- 获取Yaml中其他项目的结果变量：${projectName.output.*}
-- 获取当前配置的config变量：${config(AccountID)}
-  本质是获取 `s config get`中变量值
+- 获取其他业务模块的变量：${resources.project_name.props.*}
+- 获取业务模块的结果变量：${resources.project_name.output.*}
+- 获取当前配置的config变量：${config('AccountID')}, 本质是获取 `s config get`中变量值
 - 获取当前模块的信息：${this.xx}
   以下面的Yaml为例：
-  ```
-  edition: 1.0.0
+  ```yaml
+  edition: 3.0.0
   name: NextProject
   access: default-access
 
-  services:
-    nextjs-portal:
-      component: fc
+  resources:
+    nextjs_portal:
+      component: component
       actions:
         pre-deploy:
           - run: s invoke ${this.props.url}
             path: ./backend_src
       props:
-        codeUri: ./frontend_src
+        code: ./frontend_src
         url: url
   ```
-  在`nextjs-portal`中:
-    - 使用`${this.name}`表示`nextjs-portal`
-    - 使用`${this.props.codeUri}`表示 `./frontend_src`
+  在`nextjs_portal`中:
+    - 使用`${this.name}`表示`nextjs_portal`
+    - 使用`${this.props.code}`表示 `./frontend_src`
     - 使用`${this.access}`表示`default-access`
 
 
 
-### 特殊变量
+## 特殊变量
 在Serverless-Devs中有些特殊变量有特定的用途，开发者没有特殊的需求，避免使用特殊变量
 - `${aliyun-cli}`
  作用在`access`的值中，从获取[aliyun cli](https://github.com/aliyun/aliyun-cli)的默认的`profile`，并且生效。
 
  > 执行`aliyun configure list`可以查看当前生效的`profile`
 
-### 服务顺序
+## 执行顺序
 
-如果一个Serverless Application模型对应的Yaml文件中有过多的服务，系统会默认分析部署顺序，该部署顺序分为两个步骤：
+如果一个Serverless Project 模型对应的 Yaml 文件中有过多的服务，系统会默认分析部署顺序，该部署顺序分为两个方面：
+- 是否已经制定flow流程
+  - 按照指定的流程进行部署，没在流程中的不进行额外的操作·
+- 没有指定flow流程
+  - 分析项目中的依赖关系
+  - 有依赖关系的按照依赖关系从前到后部署，无依赖关系的按Yaml配置的从上到下部署
 
-1. 分析项目中的依赖关系
-2. 有依赖关系的按照依赖关系从前到后部署，无依赖关系的按Yaml配置的从上到下部署
+## 行为描述
 
-### 行为描述actions
+### 全局Action
 
-#### 全局actions
-
-全局actions的基本格式是：
+全局Action的基本格式是：
 
 ```yaml
 actions: # 自定义全局的执行逻辑
-  pre-命令: # 项目deploy执行之前执行
+  pre-命令: # 项目在命令执行之前执行
     - run: npm install # 要运行的命令行
       path: ./src # 命令行运行的路径
-  success-命令: # 项目deploy执行成功之后执行
+  success-命令: # 项目在命令执行成功之后执行
     - plugin: dingding-robot # 要使用的插件
       args: # 插件的参数
         key: value 
-  fail-命令: # 项目deploy执行失败之后执行
+  fail-命令: # 项目在命令执行失败之后执行
     - plugin: dingding-robot # 要使用的插件
       args: # 插件的参数
         key: value 
-  complete-命令: # 项目deploy执行完成之后执行
+  complete-命令: # 项目在命令执行完成之后执行
     - plugin: dingding-robot # 要使用的插件
       args: # 插件的参数
         key: value 
@@ -251,7 +358,7 @@ actions: # 自定义全局的执行逻辑
 以下面的Yaml为例：
 
 ```yaml
-edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+edition: 3.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
 name: FullStack       #  项目名称
 access: default       #  秘钥别名
 
@@ -272,8 +379,8 @@ actions: # 自定义全局的执行逻辑
       args: # 插件的参数
         key: value 
 
-services:
-  nextjs-portal: #  服务名称
+resources:
+  nextjs_portal: #  业务模块
     component: vue-component  # 组件名称
     props: #  组件的属性值
       src: ./frontend_src
@@ -285,32 +392,37 @@ services:
 2. 调用组件`vue-component`的`deploy`方法，并将`props`和项目的基本信息传入到组件`vue-component`的`deploy`方法中
 3. 如果第`2`步骤执行成功则执行全局的`success-deploy`操作，执行失败则执行全局的`fail-deploy`操作，不管成功还是失败，只要执行完成后一定执行全局的`complete-deploy`操作。
 
-以上顺序仅适用于整个流程没有出错的前提下，如果流程出现错误，系统将会进行报错，并终止后续流程的执行。
 
 关于`actions`中的`run`，`plugin`的定位和区别：
 - `run`，需要指定执行目录，仅仅是一个`hook`的能力，可以认为就是单纯的执行命令（即调用系统的命令）；
 - `plugin`，是一种轻量化的插件，每个插件通常情况下只会支持一个能力；
 
-> 注意：全局的actions中仅支持`run`和`plugin`。
+> 注意：全局Action中仅支持`run`和`plugin`。
 
-#### 服务actions
+#### 局部Action
 
-在Serverless Application模型对应的Yaml文件中，可以针对服务，提供对应的行为操作，其基本格式是：
+在Serverless Application模型对应的Yaml文件中，可以针对业务模块提供对应的行为操作，其基本格式是：
 
 ```yaml
 actions: # 自定义执行逻辑
   pre-命令: # 在命令之前运行
     - run: command  # 要运行的操作
       path: ./path # 运行操作的路径
-    - component: pgo  # 要执行的组件，格式为：组件名 命令 参数
+    - component: pgo  # 要运行的组件，格式为【component: 组件名 命令 参数】
     - plugin: website-fc  # 要使用的插件
       args: # 插件的参数
         key: value 
-  post-命令: # 在命令之后运行
-    - run: command  # 要运行的操作
-      path: ./path # 运行操作的路径
-    - component: pgo  # 要执行的组件，格式为：组件名 命令 参数
-    - plugin: website-fc  # 要使用的插件
+  success-命令: # 在命令执行成功之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+    - component: pgo  # 要运行的组件，格式为【component: 组件名 命令 参数】
+  fail-deploy: # 在命令执行失败之后执行
+    - plugin: dingding-robot # 要使用的插件
+      args: # 插件的参数
+        key: value 
+  complete-deploy: # 在命令执行完成之后执行
+    - plugin: dingding-robot # 要使用的插件
       args: # 插件的参数
         key: value 
 ```
@@ -318,50 +430,39 @@ actions: # 自定义执行逻辑
 例如：
 
 ```yaml
-actions: # 自定义执行逻辑
-  pre-deploy: # 在deploy之前运行
-    - run: npm install  # 要运行的命令行
-      path: ./backend_src # 命令行运行的路径
-    - component: fc build --use-docker  # 要运行的命令行
-  post-deploy: # 在deploy之后运行
-    - plugin: fc-warm
-      args:
-        corn: '********'
-```
-
-当Serverless Devs开发者工具执行到该服务时，会在进行相关的命令之行之前，优先按照顺序执行`pre-命令`的操作，所有内容完成执行之后，再执行`post-命令`的操作。
-
-以下面的Yaml为例：
-
-```yaml
-edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+edition: 3.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
 name: FullStack       #  项目名称
-
-services:
-  nextjs-portal: #  服务名称
-    access: xxx-account1  #  秘钥别名，如果和项目的access相同，可省略
-    component: vue-component  # 组件名称
-    props: #  组件的属性值
-      src: ./frontend_src
-      url: url
-    actions: # 自定义执行逻辑
+access: default       #  秘钥别名
+resources:
+  nextjs_portal: #  业务模块
+    actions: # 自定义全局的执行逻辑
       pre-deploy: # 在deploy之前运行
         - run: npm install  # 要运行的命令行
           path: ./backend_src # 命令行运行的路径
         - component: fc build --use-docker  # 要运行的命令行
-      post-deploy: # 在deploy之后运行
+      success-deploy: # 在deploy成功之后运行
         - plugin: fc-warm
           args:
+            corn: '********'
+      fail-deploy: # 在deploy执行失败之后执行
+        - plugin: dingding-robot # 要使用的插件
+          args: # 插件的参数
             key: value 
+      complete-deploy: # 在deploy执行完成之后执行
+        - plugin: dingding-robot # 要使用的插件
+          args: # 插件的参数
+            key: value 
+    component: vue-component  # 组件名称
+    props: #  组件的属性值
+      src: ./frontend_src
+      url: url
 ```
 
 当开发者在当前应用下执行了`deploy`命令，系统将会按照以下顺序进行操作：
 1. 在`./backend_src`目录下执行`npm install`
-2. 在对项目`nextjs-portal`，使用`fc`组件的`build`方法，入参为`--use-docker`(即在`docker`环境下，对项目`nextjs-portal`进行构建)
+2. 在对项目`nextjs_portal`，使用`fc`组件的`build`方法，入参为`--use-docker`(即在`docker`环境下，对项目`nextjs_portal`进行构建)
 3. 调用组件`vue-component`的`deploy`方法，并将`props`和项目的基本信息传入到组件`vue-component`的`deploy`方法中
-4. 将部署的输出结果等信息，传递给插件`fc-warm`，并将`{"corn": "********"}`作为参数传入
-
-以上顺序仅适用于整个流程没有出错的前提下，如果流程出现错误，系统将会进行报错，并终止后续流程的执行。
+4. 如果第`3`步骤执行成功则执行`success-deploy`操作，将部署的输出结果等信息，传递给插件`fc-warm`，并将`{"corn": "********"}`作为参数传入，执行失败则执行`fail-deploy`操作，不管成功还是失败，只要执行完成后一定执行`complete-deploy`操作。
 
 关于`actions`中的`run`，`component`，`plugin`的定位和区别：
 - `run`，需要指定执行目录，仅仅是一个`hook`的能力，可以认为就是单纯的执行命令（即调用系统的命令）；
@@ -373,11 +474,11 @@ services:
 关于三者的具体的例子：
 - 如果Yaml是：
     ```yaml
-    edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+    edition: 3.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
     name: FullStack       #  项目名称
     
-    services:
-      nextjs-portal: #  服务名称
+    resources:
+      nextjs_portal: #  业务模块
         component: test-component  # 组件名称
         props: #  组件的属性值
           src: ./frontend_src
@@ -387,11 +488,11 @@ services:
 
 - 如果Yaml是：
     ```yaml
-    edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+    edition: 3.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
     name: FullStack       #  项目名称
     
-    services:
-      nextjs-portal: #  服务名称
+    resources:
+      nextjs_portal: #  业务模块
         component: test-component  # 组件名称
         actions: # 自定义执行逻辑
           pre-deploy: # 在deploy之前运行
@@ -407,11 +508,11 @@ services:
 
 - 如果Yaml是：
     ```yaml
-    edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+    edition: 3.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
     name: FullStack       #  项目名称
     
-    services:
-      nextjs-portal: #  服务名称
+    resources:
+      nextjs_portal: #  业务模块
         component: test-component  # 组件名称
         actions: # 自定义执行逻辑
           pre-deploy: # 在deploy之前运行
@@ -426,11 +527,11 @@ services:
 
 - 如果Yaml是：
    ```yaml
-    edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+    edition: 3.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
     name: FullStack       #  项目名称
     
-    services:
-      nextjs-portal: #  服务名称
+    resources:
+      nextjs_portal: #  业务模块
         component: test-component  # 组件名称
         actions: # 自定义执行逻辑
           pre-deploy: # 在deploy之前运行
@@ -448,27 +549,17 @@ services:
 
 -----------
 
-> 在一个应用下，如何一键部署整个应用？又或者如何只部署应用中的某个Service？可以参考[自定义命令使用指南](./command/custom.md)
+> 在一个项目下，如何一键部署整个项目？又或者如何只部署应用中的某个业务模块？可以参考[自定义命令使用指南](./command/custom.md)
 
-#### actions通配符
+### Action通配符
 
-全局actions和服务actions都支持通配符，工具会识别魔法变量regex里的内容来正则匹配当前的执行方法。比如全局的`pre-${regex(.)}`表示项目执行任何方法之前都会执行`pre`的动作 
+工具会识别魔法变量regex里的内容来正则匹配当前的执行方法。比如全局的`pre-${regex(.)}`表示项目执行任何方法之前都会执行`pre`的动作 
+
+> 本质上是将`regex`接收的参数value执行 `new RegExp('value').test('当前执行的指令')`， 比如:  `new RegExp('.').test('deploy')`
 
 ```yaml
-actions: # 自定义全局的执行逻辑
-  pre-${regex(.)}: # 项目执行任何方法之前执行
+actions: 
+  pre-${regex('.')}: # 执行任何方法之前都会执行
     - run: npm install # 要运行的命令行
       path: ./src # 命令行运行的路径
-  success-${regex(.)}: # 项目执行任何方法成功之后执行
-    - plugin: dingding-robot # 要使用的插件
-      args: # 插件的参数
-        key: value 
-  fail-${regex(.)}: # 项目执行任何方法失败之后执行
-    - plugin: dingding-robot # 要使用的插件
-      args: # 插件的参数
-        key: value 
-  complete-${regex(.)}: # 项目执行任何方法完成之后执行
-    - plugin: dingding-robot # 要使用的插件
-      args: # 插件的参数
-        key: value 
 ```
