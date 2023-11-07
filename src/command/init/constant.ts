@@ -38,7 +38,7 @@ const devs_template = [
   },
   {
     name: 'Plugin Scaffolding',
-    value: 'devsapp/start-plugin',
+    value: 'start-plugin-v3',
   },
 ];
 
