@@ -1,1 +1,1 @@
-- feat: add v3 component template
+- fix: cli component show help
