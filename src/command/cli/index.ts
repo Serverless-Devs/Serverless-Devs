@@ -36,7 +36,8 @@ export default async (program: Command) => {
   const [componentName] = raw.slice(1);
   const v3 = await isFc3(componentName)
   if (!v3) return v1(cliProgram);
-  if (help) return new Help(cliProgram).init();
+  // s cli fc3 or s cli fc3 -h
+  if (help || raw.length === 2) return new Help(cliProgram).init();
   cliProgram.action(async () => {
     await doAction();
     logger.loggerInstance.__clear();
