@@ -54,7 +54,7 @@
     "@serverless-devs/load-application": "^0.0.7",
     "@serverless-devs/load-component": "^0.0.2",
     "@serverless-devs/logger": "^0.0.2-beta.15",
-    "@serverless-devs/parse-spec": "^0.0.6",
+    "@serverless-devs/parse-spec": "^0.0.7",
     "@serverless-devs/registry": "^0.0.3",
     "@serverless-devs/utils": "^0.0.10",
     "@types/fs-extra": "^11.0.3",

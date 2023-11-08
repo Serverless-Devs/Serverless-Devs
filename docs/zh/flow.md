@@ -21,7 +21,7 @@ flow:
 
 ```yaml
 flow:
-  ${regx('.')}: # 支持正则
+  ${regex('.')}: # 支持正则
     - [project_a]
     - [project_b, project_c]
 ```
