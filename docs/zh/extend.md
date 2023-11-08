@@ -1,8 +1,8 @@
 ---
 title: Yaml 继承
 description: 'Yaml 继承'
-position: 9
-category: '概述'
+position: 3
+category: '使用文档'
 ---
 
 # Yaml 继承

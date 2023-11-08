@@ -1,8 +1,8 @@
 ---
 title: 描述文件（Yaml）规范
 description: 'Serverless Devs描述文件（Yaml）规范'
-position: 3
-category: '概述'
+position: 1
+category: '使用文档'
 ---
 
 # 描述文件（Yaml）规范
@@ -147,7 +147,7 @@ resources:
 | access  | 秘钥别名，可以使用通过[config命令](./command/config.md#config-add-命令)配置的密钥信息，以及[配置到环境变量的密钥信息](./command/config.md#通过环境变量配置密钥信息) |
 | extend  | 所继承的模板 |
 | template  | 可被继承的模板 |
-| flow  | 操作顺序 |
+| [flow](./flow.md)  | 操作顺序 |
 | vars  | 全局变量，提供给各个业务模块使用，是一个Key-Value的形式 |
 | actions  | 自定义全局的执行逻辑 |
 | resources  | 项目所包含的业务模块，是一个Key-Value的形式 |
@@ -236,16 +236,6 @@ resources:
       vcpu: 1
       memorySize: 128
 ```
-### flow
-flow表示执行流程或顺序，主要是key-list形式组成，例如：
-```yaml
-flow:
-  deploy: # 支持正则
-    - [project_a]
-    - [project_b, project_c]
-```
-表示的是，在进行deploy操作时先部署project_a，然后同时（并行）部署project_b, project_c；
-
 ### resources
 关于resources中Value参数：
 

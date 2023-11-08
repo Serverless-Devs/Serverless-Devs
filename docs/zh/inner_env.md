@@ -1,8 +1,8 @@
 ---
 title: 内置环境变量
 description: 'Serverless Devs 内置环境变量'
-position: 11
-category: '概述'
+position: 4
+category: '使用文档'
 ---
 
 ## 通过环境变量设置密钥
