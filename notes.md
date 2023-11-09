@@ -1,1 +1,1 @@
-- feat: silent mode
+- fix: cli no output
