@@ -24,6 +24,7 @@ const root = async (program: Command) => {
     .option('--output-file <outputFilePath>', 'Specify the output file path')
     .option('--env <envName>', 'Specify the env name')
     .option('--no-verify', 'Do not verify yaml')
+    .option('--silent', 'Silent mode')
     .configureHelp({ showGlobalOptions: true })
     .helpOption('-h, --help', 'Display help for command')
     .addHelpCommand(false)

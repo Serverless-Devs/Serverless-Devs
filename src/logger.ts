@@ -13,6 +13,8 @@ class Logger {
   output: (...args: any[]) => any;
   progress: (...args: any[]) => any;
   tips: (...args: any[]) => any;
+  unsilent: (...args: any[]) => any;
+  silent: (...args: any[]) => any;
 
   initialization = () => {
     this.loggerInstance = new _Logger({
@@ -32,6 +34,8 @@ class Logger {
     this.output = (...args) => logger.output.apply(logger, args);
     this.progress = (...args) => logger.progress.apply(logger, args);
     this.tips = (...args) => logger.tips.apply(logger, args);
+    this.unsilent = (...args) => logger.unsilent.apply(logger, args);
+    this.silent = (...args) => logger.silent.apply(logger, args);
   };
 }
 

@@ -11,6 +11,7 @@ export { default as HumanError } from './human-error';
 const pkg = require('../../package.json');
 
 const handleError = async (error: IEngineError | IEngineError[]) => {
+  logger.unsilent();
   const errorFile = path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid, 'error.json');
   fs.ensureFileSync(errorFile);
   fs.writeJSONSync(errorFile, [], { spaces: 2 });
@@ -43,6 +44,7 @@ const handleError = async (error: IEngineError | IEngineError[]) => {
       { key: 'Feedback:', value: chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues') },
     ]),
   );
+  logger.silent();
   process.exitCode = exitCode;
 };
 
