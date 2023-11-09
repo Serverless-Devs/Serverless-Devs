@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs-extra';
 import { formatError } from '@/utils';
+import { parseArgv } from '@serverless-devs/utils';
 import { IEngineError } from '@serverless-devs/engine';
 import { get, isArray } from 'lodash';
 export { default as HumanError } from './human-error';
@@ -12,6 +13,7 @@ const pkg = require('../../package.json');
 
 const handleError = async (error: IEngineError | IEngineError[]) => {
   logger.unsilent();
+  const { silent } = parseArgv(process.argv.slice(2));
   const errorFile = path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid, 'error.json');
   fs.ensureFileSync(errorFile);
   fs.writeJSONSync(errorFile, [], { spaces: 2 });
@@ -44,7 +46,7 @@ const handleError = async (error: IEngineError | IEngineError[]) => {
       { key: 'Feedback:', value: chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues') },
     ]),
   );
-  logger.silent();
+  if (silent) logger.silent();
   process.exitCode = exitCode;
 };
 

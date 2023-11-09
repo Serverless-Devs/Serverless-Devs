@@ -83,7 +83,7 @@ export const isJson = (value: string, key: string = '-p/--props') => {
 
 export const showOutput = (data: any) => {
   logger.unsilent();
-  const { output = IOutput.DEFAULT } = parseArgv(process.argv.slice(2));
+  const { output = IOutput.DEFAULT, silent } = parseArgv(process.argv.slice(2));
   if (output === IOutput.JSON) {
     return logger.write(JSON.stringify(data, null, 2));
   }
@@ -94,5 +94,6 @@ export const showOutput = (data: any) => {
     return logger.write(yaml.dump(data));
   }
   logger.output(data);
-  return logger.silent();
+  if (silent) logger.silent();
+  return;
 };
