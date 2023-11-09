@@ -1,1 +1,1 @@
-- fix: cli component show help
+- feat: retry download three times
