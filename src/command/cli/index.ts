@@ -54,7 +54,7 @@ const isFc3 = async (componentName: string) => {
 }
 
 const doAction = async () => {
-  const { _: raw = [], ...rest } = utils.parseArgv(process.argv.slice(2), {
+  const { _: raw = [], silent, ...rest } = utils.parseArgv(process.argv.slice(2), {
     alias: {
       props: 'p',
     },
@@ -90,7 +90,9 @@ const doAction = async () => {
       const res = await instance[command](inputs);
       const showOutput = () => {
         if (rest['output-file']) return;
+        logger.unsilent();
         isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+        if (silent) logger.silent();
       };
       showOutput();
       writeOutput(res);

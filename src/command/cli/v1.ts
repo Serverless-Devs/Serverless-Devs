@@ -14,7 +14,7 @@ const v1 = (program: Command) => {
 
   const doAction = async options => {
     const argvData = core.getGlobalArgs(process.argv.slice(2));
-    const { _: rawData, access = 'default', help } = argvData;
+    const { _: rawData, access = 'default', help, silent } = argvData;
     // s cli
     if (rawData.length === 1 || (rawData.length === 1 && help)) {
       program.help();
@@ -67,7 +67,9 @@ const v1 = (program: Command) => {
         const showOutput = () => {
           const argv = utils.parseArgv(process.argv.slice(2));
           if (argv['output-file']) return;
+          logger.unsilent();
           isString(res) ? logger.write(chalk.green(res)) : logger.output(res);
+          if (silent) logger.silent();
         };
         showOutput();
         writeOutput(res);
