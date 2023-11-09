@@ -1,1 +1,1 @@
-- feat: retry download three times
+- feat: silent mode
