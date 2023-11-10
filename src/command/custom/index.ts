@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy, isEmpty, join } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty, join, keys } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
@@ -75,8 +75,13 @@ export default class Custom {
       }
     }
   }
+  // 当输出只有一条时，舍去key
+  private parseOutput(data: Object) {
+    if (keys(data).length === 1) return data[keys(data)[0]];
+    return data;
+  }
   private output(context: IContext) {
-    const data = get(context, 'output');
+    const data = this.parseOutput(get(context, 'output'));
     if (isEmpty(data)) return;
     logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     showOutput(data);
