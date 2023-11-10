@@ -81,8 +81,8 @@ export default class Custom {
     return data;
   }
   private output(context: IContext) {
+    if (isEmpty(get(context, 'output'))) return;
     const data = this.parseOutput(get(context, 'output'));
-    if (isEmpty(data)) return;
     logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     showOutput(data);
   }

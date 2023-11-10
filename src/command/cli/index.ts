@@ -91,7 +91,7 @@ const doAction = async () => {
       const showOutput = () => {
         if (rest['output-file']) return;
         logger.unsilent();
-        isString(res) ? silent ? logger.write(res) : logger.write(chalk.green(res)) : logger.output(res);
+        isString(res) ? (silent ? logger.write(res) : logger.write(chalk.green(res))) : logger.output(res);
         if (silent) logger.silent();
       };
       showOutput();

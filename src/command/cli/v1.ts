@@ -68,7 +68,7 @@ const v1 = (program: Command) => {
           const argv = utils.parseArgv(process.argv.slice(2));
           if (argv['output-file']) return;
           logger.unsilent();
-          isString(res) ? silent ? logger.write(res) : logger.write(chalk.green(res)) : logger.output(res);
+          isString(res) ? (silent ? logger.write(res) : logger.write(chalk.green(res))) : logger.output(res);
           if (silent) logger.silent();
         };
         showOutput();
