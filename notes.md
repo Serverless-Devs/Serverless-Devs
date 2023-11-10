@@ -1,1 +1,1 @@
-- fix: cli no output
+- fix: --silent remove output color, remove key when only one output
