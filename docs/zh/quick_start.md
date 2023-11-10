@@ -20,7 +20,7 @@ category: '概述'
 - 第一步：安装 Node.js(>=12.0.0) 与 NPM 包管理工具；  
 - 第二步：安装 Serverless Devs 开发者工具；   
     ```shell script
-    $ npm install @serverless-devs/s3 -g
+    $ npm install @serverless-devs/s33 -g
     ```
 - 第三步：可以通过`s -v`判断工具是否安装成功，如果安装成功可以看到相对应的版本信息，例如：
     ```shell script

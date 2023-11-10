@@ -18,7 +18,7 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
 - Step 1: Install Node.js (>=12.0.0) and NPM package management tool;
 - Step 2: Install Serverless Devs developer tools;
     ```shell script
-    $ npm install @serverless-devs/s -g
+    $ npm install @serverless-devs/s3 -g
     ```
 - Step 3: You can use `s -v` to judge whether the tool is installed successfully. If the installation is successful, you can see the corresponding version information, for example:
     ```shell script
