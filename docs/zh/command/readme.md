@@ -1,7 +1,7 @@
 ---
 title: 命令操作文档
 description: 'Serverless Devs 命令操作文档'
-position: 1
+position: 0
 category: '命令'
 ---
 
