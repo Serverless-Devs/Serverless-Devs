@@ -1,1 +1,1 @@
-- fix: --silent remove output color, remove key when only one output
+- fix：魔法变量使用方式兼容2.x，比如中划线，env(AccountID)等
