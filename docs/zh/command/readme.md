@@ -27,33 +27,40 @@ Serverless Devs 可以通过`-h`唤起对应命令的帮助文档，例如查看
 
 ```shell script
 $ s -h
-🚀  Welcome to the Serverless Devs.
+😃  Welcome to the Serverless Devs
 
-Options
-  --debug                        Open debug model.              
-  --skip-actions                 Skip the extends section.      
-  -t, --template <path>          Specify the template file.     
-  -a, --access <aliasName>       Specify the access alias name. 
-  -o, --output <outputFormat>    Specify the output format: json, yaml, raw.   
-  -v, --version                  Output the version number.     
-  -h, --help                     Display help for command.      
+Usage: s [options] [command]
 
-Commands
-  config                         👤  Configure venders account.                
-  init                           💞  Initializing a serverless project.        
-  cli                            🐚  Command line operation without yaml mode. 
-  verify                         🔎  Verify the application.                   
-  set                            🔧  Settings for the tool.                    
-  clean                          💥  Clean up the environment.                 
-  component                      🔌  Installed component information.          
-  edit                           🙌  Application editing.                      
+Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  --silent                        Silent mode
+  -v, --version                   Output the version number
+  -h, --help                      Display help for command
+
+Commands:
+  config                          👤  Configure venders account
+  env                             🌱  Environment operation
+  set                             🔧  Settings for the tool
+  registry                        🚢  Serverless registry platform
+  preview [options]               👀  Preview Yaml render results
+  component                       🔌  Installed component information
+  clean [options]                 💥  Clean up the environment
+  init [options]                  💞  Initializing a serverless project
+  <custom>                        🧭  Custom Commands
 
 
-Examples
-  init                           Perform [s init] fast experience Serverless Devs. 
-
-🧭  More information: https://github.com/Serverless-Devs/Serverless-Devs
-🚀  More applications: https://registry.serverless-devs.com
+🙌   Quick Start:      https://docs.serverless-devs.com/quick-start
+🌟   Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
+💡   Documentation:    https://docs.serverless-devs.com
+🚀   Example Projects: https://registry.serverless-devs.com
+📝   Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues
 ```
 
 ## 全局参数
@@ -67,14 +74,16 @@ Examples
 | output | o | `default` | 指定数据的输出格式 | 支持`default`, `json`, `yaml`, `raw`格式 | 
 | version | v | - | 查看版本信息 | - | 
 | help | h | - | 查看帮助信息 | - | 
+| silent | - | - | 静默模式 | 将只输出组件运行结果 | 
+| env | - | - | 指定环境 | 在多环境下使用 | 
+| output-file | - | - | 指定输出文件路径 | - | 
+| no-verify | - | - | 不校验`yaml`文件 | - | 
 
 ## 命令详情
 
 - [config: 密钥配置](./config.md)
 - [init: 项目初始化](./init.md)
 - [cli: 纯命令行模式](./cli.md)
-- [verify: 应用校验](./verify.md)
-- [edit: 应用编辑](./edit.md)
 - [clean: 工具清理](./clean.md)
 - [set: 工具配置](./set.md)
 - [component: 组件信息](./component.md)

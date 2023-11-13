@@ -15,18 +15,18 @@ category: '使用文档'
 
 如果同时存在以上三个环境变量，那个这个密钥的优先级是最高的，抛出的密钥别名为 `$system_environment_access`
 
-### 以 `_serverless_devs_access` 结尾
-在环境变量中可以命名 key 为`*********_serverless_devs_access`，例如`default_serverless_devs_access`，value 为 JSON 字符串，例如：
-   - Key：`default_serverless_devs_access`
+### 以 `_serverless_devs_key` 结尾
+在环境变量中可以命名 key 为`*********_serverless_devs_key`，例如`default_serverless_devs_key`，value 为 JSON 字符串，例如：
+   - Key：`default_serverless_devs_key`
    - Value：`{\"AccountID\":\"temp_accountid\",\"AccessKeyID\":\"temp_accesskeyid\",\"AccessKeySecret\":\"temp_accesskeysecret\"}`  
-  此时，可以在配置密钥的时候指定密钥`default_serverless_devs_access`;
+  此时，可以在配置密钥的时候指定密钥`default_serverless_devs_key`;
 
   在`s.yaml`配置如下:
 
   ```yaml
   edition: 1.0.0 # 命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
   name: app # 项目名称
-  access: default_serverless_devs_access # 秘钥别名
+  access: default_serverless_devs_key # 秘钥别名
 
   services:
     fc-deploy-test:
