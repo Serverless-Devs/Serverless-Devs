@@ -12,15 +12,7 @@ const description = `You can add an account
         $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
         $ s config add --keyList key1,key2,key3 --infoList value1,value2,value3
 
-    Configuration parameters template for vendors:
-        alibaba: AccessKeyID, AccessKeySecret
-        aws: AccessKeyID, SecretAccessKey
-        baidu: AccessKeyID, SecretAccessKey
-        huawei: AccessKey, SecretKey
-        google: PrivateKeyData
-        tencent: AccountID, SecretID, SecretKey
-
-${emoji('🧭')} How to get the key: ${chalk.underline('https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config')}`;
+${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/env.md')}`;
 
 export default (program: Command) => {
   const command = program.command('default');

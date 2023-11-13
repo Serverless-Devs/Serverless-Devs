@@ -4,23 +4,12 @@ import { emoji, isJson } from '@/utils';
 import Action from './action';
 
 // TODO: @封崇
-const description = `You can add an account
+const description = `Initialize new environment.
 
     Example:
-        $ s config add
-        $ s config add --AccessKey ****** --SecretKey ******
-        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
-        $ s config add --keyList key1,key2,key3 --infoList value1,value2,value3
+        $ s env init --name test --project demo --description 'This is a test environment' --type testing --region cn-hangzhou --role xxx
 
-    Configuration parameters template for vendors:
-        alibaba: AccessKeyID, AccessKeySecret
-        aws: AccessKeyID, SecretAccessKey
-        baidu: AccessKeyID, SecretAccessKey
-        huawei: AccessKey, SecretKey
-        google: PrivateKeyData
-        tencent: AccountID, SecretID, SecretKey
-
-${emoji('🧭')} How to get the key: ${chalk.underline('https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config')}`;
+${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/env.md')}`;
 
 export const regions = [
   'cn-beijing',
@@ -50,14 +39,14 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     // TODO: @封崇 line31-37
-    .summary(`${emoji(chalk.bold('+'))} init`)
-    .option('--project <project>', 'project')
-    .option('--name <name>', 'name')
-    .option('--description <description>', 'description')
-    .addOption(new Option('--type <type>', 'type').choices(['testing', 'staging', 'production']))
-    .addOption(new Option('--region <region>', 'region').choices(regions))
-    .option('--role <role>', 'role')
-    .option('--overlays <jsonString>', 'The json string of overlays', v => isJson(v, '--overlays'))
+    .summary(`Initialize new environment`)
+    .option('--project <project>', 'Specify the project of the environment')
+    .option('--name <name>', 'Specify the environment name')
+    .option('--description <description>', 'Specify the description of the environment')
+    .addOption(new Option('--type <type>', 'Specify the type of the environment, which must be one of testing, staging, and production. The default is testing').choices(['testing', 'staging', 'production']))
+    .addOption(new Option('--region <region>', 'Specify the region of the environment').choices(regions))
+    .option('--role <role>', 'Specify the role that the environment uses when accessing the user\'s cloud service')
+    .option('--overlays <jsonString>', 'Declare the differentiated configuration used in the environment, which is used to overwrite s.yaml during deployment', v => isJson(v, '--overlays'))
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

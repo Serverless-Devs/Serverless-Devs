@@ -4,23 +4,12 @@ import { emoji } from '@/utils';
 import Action from './action';
 
 // TODO: @封崇
-const description = `You can add an account
+const description = `Show the information of a environment.
 
     Example:
-        $ s config add
-        $ s config add --AccessKey ****** --SecretKey ******
-        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
-        $ s config add --keyList key1,key2,key3 --infoList value1,value2,value3
+        $ s env describe --name test-env
 
-    Configuration parameters template for vendors:
-        alibaba: AccessKeyID, AccessKeySecret
-        aws: AccessKeyID, SecretAccessKey
-        baidu: AccessKeyID, SecretAccessKey
-        huawei: AccessKey, SecretKey
-        google: PrivateKeyData
-        tencent: AccountID, SecretID, SecretKey
-
-${emoji('🧭')} How to get the key: ${chalk.underline('https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config')}`;
+${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/env.md')}`;
 
 export default (program: Command) => {
   const command = program.command('describe');
@@ -28,8 +17,8 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     // TODO: @封崇 line31-32
-    .summary(`${emoji(chalk.bold('+'))} describe`)
-    .requiredOption('--name <name>', 'name')
+    .summary(`Show the information of a environment`)
+    .requiredOption('--name <name>', 'Specify the environment name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

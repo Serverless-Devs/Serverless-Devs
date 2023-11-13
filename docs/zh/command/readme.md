@@ -13,8 +13,6 @@ category: '命令'
     - [config: 密钥配置](./config.md)
     - [init: 项目初始化](./init.md)
     - [cli: 纯命令行模式](./cli.md)
-    - [verify: 应用校验](./verify.md)
-    - [edit: 应用编辑](./edit.md)
     - [clean: 工具清理](./clean.md)
     - [component: 组件信息](./component.md)
     - [set: 工具配置](./set.md)

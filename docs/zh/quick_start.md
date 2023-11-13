@@ -11,8 +11,7 @@ category: '概述'
 
 - [工具安装](#工具安装)
 - [密钥配置](#密钥配置)
-- [上手体验](#上手体验)
-    - [Serverless：Hello World](#serverlesshello-world)
+- [上手体验：快速部署一个Node应用](#上手体验快速部署一个Node应用)
 
 ## 工具安装
 - 第一步：安装 Node.js(>=12.0.0) 与 NPM 包管理工具；  
@@ -69,9 +68,7 @@ category: '概述'
 > 强烈建议您遵循 [阿里云安全最佳实践](https://help.aliyun.com/document_detail/102600.html?spm=5176.2020520153.0.0.57f1336a8PQ1KR) ，使用 RAM 子用户 AccessKey 来进行 API 调用。
 
 
-## 上手体验
-
-### Serverless：Hello World
+## 上手体验：快速部署一个Node应用
 
 - 执行`s`命令：
     ```shell script
@@ -178,7 +175,7 @@ category: '概述'
       timeout:        30
     ```
 
-    此时我们已经成功部署了一个应用。
+    此时我们已经成功部署了一个应用。可以前往[函数计算控制台](https://fcnext.console.aliyun.com/overview)查看详情。
 - 部署成功之后，我们可以使用`s invoke`命令对该函数应用进行调用。例如：
 
     ```shell script
