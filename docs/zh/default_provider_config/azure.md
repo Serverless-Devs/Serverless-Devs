@@ -1,7 +1,7 @@
 ---
 title: Azure密钥获取
 description: 'Azure密钥获取'
-position: 5
+position: 6
 category: '密钥配置'
 ---
 # Azure密钥获取

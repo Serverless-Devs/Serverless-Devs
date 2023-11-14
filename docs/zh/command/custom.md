@@ -1,7 +1,7 @@
 ---
 title: 自定义命令
 description: '自定义命令使用指南'
-position: 10
+position: 12
 category: '命令'
 ---
 
@@ -20,7 +20,7 @@ edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Sem
 name: FullStack       #  项目名称
 access: xxx-account1
 
-services:
+resources:
   backend: #  服务名称
     component: django-component  # 组件名称
     props: #  组件的属性值

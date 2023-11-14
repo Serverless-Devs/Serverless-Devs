@@ -1,7 +1,7 @@
 ---
 title: Init 命令
 description: 'Init 命令'
-position: 2
+position: 8
 category: '命令'
 ---
 # Init 命令

@@ -1,7 +1,7 @@
 ---
 title: 阿里云密钥获取
 description: '阿里云密钥获取'
-position: 2
+position: 4
 category: '密钥配置'
 ---
 # 阿里云密钥获取

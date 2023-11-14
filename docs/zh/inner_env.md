@@ -1,7 +1,7 @@
 ---
 title: 内置环境变量
 description: 'Serverless Devs 内置环境变量'
-position: 4
+position: 3
 category: '使用文档'
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Config 命令
 description: 'Config 命令'
-position: 1
+position: 6
 category: '命令'
 ---
 

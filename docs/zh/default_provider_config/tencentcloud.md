@@ -1,7 +1,7 @@
 ---
 title: 腾讯云密钥获取
 description: '腾讯云密钥获取'
-position: 8
+position: 10
 category: '密钥配置'
 ---
 # 腾讯云密钥获取

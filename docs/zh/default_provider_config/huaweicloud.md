@@ -1,7 +1,7 @@
 ---
 title: 华为云密钥获取
 description: '华为云密钥获取'
-position: 7
+position: 9
 category: '密钥配置'
 ---
 # 华为云密钥获取

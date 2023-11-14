@@ -1,7 +1,7 @@
 ---
 title: 百度云密钥获取
 description: '百度云密钥获取'
-position: 3
+position: 7
 category: '密钥配置'
 ---
 # 百度云密钥获取

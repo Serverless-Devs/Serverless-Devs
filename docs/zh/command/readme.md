@@ -1,7 +1,7 @@
 ---
 title: 命令操作文档
 description: 'Serverless Devs 命令操作文档'
-position: 0
+position: 2
 category: '命令'
 ---
 
@@ -17,6 +17,8 @@ category: '命令'
     - [component: 组件信息](./component.md)
     - [set: 工具配置](./set.md)
     - [custom: 自定义命令](./custom.md)
+    - [registry: 模板管理](./registry.md)
+    - [preview: 预览渲染结果](./preview.md)
 
 
 ## 前言
@@ -86,3 +88,5 @@ Commands:
 - [set: 工具配置](./set.md)
 - [component: 组件信息](./component.md)
 - [custom: 自定义命令](./custom.md)
+- [registry: 模板管理](./registry.md)
+- [preview: 预览渲染结果](./preview.md)

@@ -1,7 +1,7 @@
 ---
 title: Preview 命令
 description: 'Preview 命令'
-position: 6
+position: 9
 category: '命令'
 ---
 # Preview 命令

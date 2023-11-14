@@ -1,7 +1,7 @@
 ---
 title: Yaml 继承
 description: 'Yaml 继承'
-position: 3
+position: 5
 category: '使用文档'
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Set 命令
 description: 'Set 命令'
-position: 3
+position: 11
 category: '命令'
 ---
 # Set 命令
