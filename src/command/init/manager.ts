@@ -70,7 +70,7 @@ export default class Manager {
   }
 
   private async getInitAliMenu() {
-    const aliMenu = axios.get('https://images.devsapp.cn/bin/s-init.json');
+    const aliMenu = axios.get('https://images.devsapp.cn/bin/s/ali-template.json');
     return aliMenu
       .then(res => {
         const { data } = res;

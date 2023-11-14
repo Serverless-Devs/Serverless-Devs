@@ -11,7 +11,7 @@ class Templates {
 
   async update() {
     await axios
-      .get('https://images.devsapp.cn/bin/s-init.json', { timeout: 3000 })
+      .get('https://images.devsapp.cn/bin/s/ali-template.json', { timeout: 3000 })
       .then(res => {
         const { data } = res;
         const fileContent = fs.readJSONSync(this.aliMenuPath);
