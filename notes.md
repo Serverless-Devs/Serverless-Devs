@@ -1,1 +1,1 @@
-- fix：ali template, load-application
+- fix：path/file 兼容 2.x的使用方式
