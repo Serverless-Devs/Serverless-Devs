@@ -67,6 +67,7 @@ const doAction = async () => {
   const access = get(rest, 'access', 'default');
   const inputs = {
     cwd: process.cwd(),
+    userAgent: utils.getUserAgent({ component: componentName, componentVersion: instance.__version }),
     name: 'default',
     props: get(rest, 'props', {}),
     command: command,

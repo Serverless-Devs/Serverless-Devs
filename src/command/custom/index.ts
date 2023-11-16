@@ -14,7 +14,7 @@ import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
 import { EReportType } from '@/type';
-import { emoji, showOutput, writeOutput, getPkgInfo } from '@/utils';
+import { emoji, showOutput, writeOutput } from '@/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
@@ -49,7 +49,6 @@ export default class Custom {
             customLogger: logger.loggerInstance,
           },
           verify,
-          serverlessDevsVersion: getPkgInfo('version'),
         });
         const context = await engine.start();
         await this.updateComponent(context);

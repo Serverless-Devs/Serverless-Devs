@@ -69,6 +69,8 @@ export serverless_devs_registry_token=xxx
 export serverless_devs_traceid=xxx
 ```
 
+## 通过环境变量 serverless_devs_version 获取工具当前的版本
+
 ## debug
 
 - 可以设置环境变量`DEBUG`为`true`开启 debug日志

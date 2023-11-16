@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { checkNodeVersion, setProxy } from './utils';
+import { checkNodeVersion, getPkgInfo, setProxy } from '@/utils';
 import logger from './logger';
 import handleError from './error';
 import onboarding from './onboarding';
@@ -11,6 +11,7 @@ import path from 'path';
 
 const preRun = () => {
   // 添加环境变量
+  process.env.serverless_devs_version = getPkgInfo('version');
   process.env.serverless_devs_traceid = utils.traceid();
   // 初始化日志
   logger.initialization();
