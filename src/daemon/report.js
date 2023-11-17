@@ -6,14 +6,37 @@ const { Report } = require('./lib');
 
     // Exit process when offline
     setTimeout(process.exit, 1000 * 30);
-    const { type, template, uid, argv, component } = JSON.parse(process.argv[2]);
+    const { type, template, uid, argv, component, message, userAgent } = JSON.parse(process.argv[2]);
     console.log('type', type);
-    console.log('template', template);
-    console.log('uid', uid);
-    console.log('argv', argv);
-    console.log('component', component);
     const instance = new Report();
-    type === 'init' ? await instance.reportInit({ template }) : await instance.reportCommand({ uid, argv, component });
+    const run = async () => {
+      if (type === 'init') {
+        console.log('template', template);
+        return await instance.reportInit({ template });
+      }
+      console.log('userAgent', userAgent)
+      if (type === 'command') {
+        console.log('uid', uid);
+        console.log('argv', argv);
+        console.log('component', component);
+        return await instance.reportCommand({ uid, argv, component, userAgent })
+      }
+      // 解析异常
+      if (type === 'parseException') {
+        console.log('argv', argv);
+        console.log('message', message);
+        return await instance.reportParseException({ argv, message, userAgent })
+      }
+      // 执行异常
+      if (type === 'runtimeException') {
+        console.log('uid', uid);
+        console.log('argv', argv);
+        console.log('component', component);
+        console.log('message', message);
+        return await instance.reportRuntimeException({ uid, argv, component, message, userAgent })
+      }
+    }
+    await run();
     console.log('********report successfully in daemon********');
     // Call process exit explicitly to terminate the child process,
     // otherwise the child process will run forever, according to the Node.js docs

@@ -1,4 +1,4 @@
-import { DevsError, getRootHome, isDebugMode } from '@serverless-devs/utils';
+import { DevsError, getRootHome, getUserAgent, isDebugMode } from '@serverless-devs/utils';
 import logger from '@/logger';
 import chalk from 'chalk';
 import path from 'path';
@@ -7,11 +7,12 @@ import { formatError } from '@/utils';
 import { parseArgv } from '@serverless-devs/utils';
 import { IEngineError } from '@serverless-devs/engine';
 import { get, isArray } from 'lodash';
+import execDaemon from '@/exec-daemon';
 export { default as HumanError } from './human-error';
 
 const pkg = require('../../package.json');
 
-const handleError = async (error: IEngineError | IEngineError[]) => {
+const handleError = async (error: IEngineError | IEngineError[], params: Record<string, any> = {}) => {
   logger.unsilent();
   const { silent } = parseArgv(process.argv.slice(2));
   const errorFile = path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid, 'error.json');
@@ -20,14 +21,14 @@ const handleError = async (error: IEngineError | IEngineError[]) => {
   let exitCode = 1;
   if (isArray(error)) {
     for (const e of error) {
-      doOneError(e);
+      doOneError(e, params);
       const code = get(e, 'exitCode');
       if (code) {
         exitCode = code;
       }
     }
   } else {
-    doOneError(error);
+    doOneError(error, params);
     const code = get(error, 'exitCode');
     if (code) {
       exitCode = code;
@@ -50,7 +51,8 @@ const handleError = async (error: IEngineError | IEngineError[]) => {
   process.exitCode = exitCode;
 };
 
-const doOneError = (error: IEngineError) => {
+const doOneError = (error: IEngineError, params: Record<string, any> = {}) => {
+  execDaemon('report.js', { argv: process.argv.slice(2), userAgent: getUserAgent(), ...params, type: get(error, 'trackerType'), message: error.message });
   writeError(error);
   // 空出一行间隙
   logger.write(' ');

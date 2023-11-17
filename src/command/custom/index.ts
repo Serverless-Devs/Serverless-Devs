@@ -15,6 +15,7 @@ import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
 import { EReportType } from '@/type';
 import { emoji, showOutput, writeOutput } from '@/utils';
+import { ETrackerType, DevsError, getUserAgent } from '@serverless-devs/utils'
 
 export default class Custom {
   private spec = {} as ISpec;
@@ -35,7 +36,12 @@ export default class Custom {
        * s -h 不强依赖yaml文件，不报错
        * s alias -h 强依赖yaml文件，报错
        */
-      if (raw.length > 0) throw error;
+      if (raw.length > 0) {
+        throw new DevsError(error.message, {
+          stack: error.stack,
+          trackerType: ETrackerType.parseException
+        })
+      }
     }
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
     if (help) return await new Help(this.program, this.spec).init();
@@ -52,16 +58,27 @@ export default class Custom {
         });
         const context = await engine.start();
         await this.updateComponent(context);
-        execDaemon('report.js', { type: EReportType.command, uid: get(context, 'credential.AccountID'), argv, component: join(get(this.spec, 'components'), ', ') });
+        const reportComponent = await this.getReportComponent()
+        const reportData = { uid: get(context, 'credential.AccountID'), argv, component: reportComponent, userAgent: getUserAgent({ component: reportComponent }) };
         if (get(context, 'status') === 'success') {
+          execDaemon('report.js', { ...reportData, type: EReportType.command });
           rest['output-file'] ? writeOutput(get(context, 'output')) : this.output(context);
           if (utils.getGlobalConfig('log') !== 'disable') {
             logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
           }
           return;
         }
-        await handleError(context.error);
+        await handleError(context.error, reportData);
       });
+  }
+  private async getReportComponent() {
+    const reportComponentList = [];
+    const components = get(this.spec, 'components');
+    for (const name of components) {
+      const instance = await loadComponent(name);
+      reportComponentList.push(instance.__info);
+    }
+    return join(reportComponentList, ',');
   }
   private async updateComponent(context: IContext) {
     let executedComponent = filter(get(context, 'steps'), item => item.status === STEP_STATUS.SUCCESS);

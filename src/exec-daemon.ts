@@ -1,11 +1,9 @@
 import path from 'path';
 import { spawn } from 'child_process';
 import fs from 'fs-extra';
-import { isCiCdEnvironment } from '@serverless-devs/utils';
 import logger from './logger';
 
 function execDaemon(filename: string, config: Record<string, any> = {}) {
-  if (isCiCdEnvironment()) return;
   const filePath = path.join(__dirname, 'daemon', filename);
   if (!fs.existsSync(filePath)) return;
   if (process.env['serverless_devs_daemon_enable'] === 'false') {
