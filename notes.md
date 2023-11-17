@@ -1,1 +1,1 @@
-- feat: engine调用组件传入的inputs新增参数userAgent
+- fix: add more info in hook error
