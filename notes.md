@@ -1,1 +1,2 @@
-- feat: engine调用组件传入的inputs新增参数userAgent
+- 数据上报添加userAgent
+- 错误处理区分parseException和runtimeException

@@ -250,35 +250,17 @@ resources:
 
 Serverless Application模型对应的Yaml文件支持多种变量格式：
 
-- 获取当前机器中的环境变量：${env('环境变量')}，例如${env('secretId')}, ${env('secretId', '默认值')}
-- 获取外部文档的变量：${file('路径')}，例如${file('./path')}
+- 获取当前机器中的环境变量：${env('环境变量')}，例如 ${env('secretId')}, ${env('secretId', '默认值')}
+- 获取外部文档的变量：${file('路径')}，例如 ${file('./path')}
 - 获取全局变量：${vars.*}
+- 获取Json字符串内容的变量：${json('json字符串')}，例如 ${json(file('./a.json'))}
+- 获取路径的变量：${path('路径')}，例如 ${path('../')}
 - 获取其他业务模块的变量：${resources.project_name.props.*}
 - 获取业务模块的结果变量：${resources.project_name.output.*}
-- 获取当前配置的config变量：${config('AccountID')}, 本质是获取 `s config get`中变量值
+- 获取当前配置的config变量：${config('AccountID')}, 本质是获取 `s config get`中的变量值。
 - 获取当前模块的信息：${this.xx}
-  以下面的Yaml为例：
-  ```yaml
-  edition: 3.0.0
-  name: NextProject
-  access: default-access
 
-  resources:
-    nextjs_portal:
-      component: component
-      actions:
-        pre-deploy:
-          - run: s invoke ${this.props.url}
-            path: ./backend_src
-      props:
-        code: ./frontend_src
-        url: url
-  ```
-  在`nextjs_portal`中:
-    - 使用`${this.name}`表示`nextjs_portal`
-    - 使用`${this.props.code}`表示 `./frontend_src`
-    - 使用`${this.access}`表示`default-access`
-
+详细信息可查看[Yaml 变量赋值](./variables.md)
 
 
 ## 特殊变量

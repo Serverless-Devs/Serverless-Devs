@@ -1,11 +1,11 @@
 ---
-title: Yaml变量赋值
+title: Yaml 变量赋值
 description: 'Serverless Devs描述文件（Yaml）中变量的使用与赋值'
 position: 2
 category: '使用文档'
 ---
 
-# Yaml变量赋值
+# Yaml 变量赋值
 
 - [概述](#概述)
 - [使用案例](#使用案例)
@@ -26,7 +26,7 @@ Serverless Application模型对应的Yaml文件支持多种变量格式：
 - 获取当前机器中的环境变量：${env('环境变量')}，例如 ${env('secretId')}, ${env('secretId', '默认值')}
 - 获取外部文档的变量：${file('路径')}，例如 ${file('./path')}
 - 获取全局变量：${vars.*}
-- 获取Json字符串内容的变量：${json('json字符串')}，例如 ${json('{"a": 1}')}
+- 获取Json字符串内容的变量：${json('json字符串')}，例如 ${json(file('./a.json'))}
 - 获取路径的变量：${path('路径')}，例如 ${path('../')}
 - 获取其他业务模块的变量：${resources.project_name.props.*}
 - 获取业务模块的结果变量：${resources.project_name.output.*}

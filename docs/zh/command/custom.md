@@ -16,7 +16,7 @@ category: '命令'
 例如，某应用的资源/行为描述文件如下：
 
 ```yaml
-edition: 1.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+edition: 3.0.0        #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
 name: FullStack       #  项目名称
 access: xxx-account1
 
