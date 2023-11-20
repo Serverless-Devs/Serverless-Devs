@@ -12,4 +12,4 @@ export const UPDATE_CHECK_INTERVAL = 1000 * 60 * 60 * 12;
 // 组件 10分钟检查一次更新
 export const UPDATE_COMPONENT_CHECK_INTERVAL = 1000 * 60 * 10;
 
-export const REPORT_BASE_URL = 'http://cn-tracker.cn-heyuan.log.aliyuncs.com/logstores/serverless-devs/track';
+export const REPORT_BASE_URL = 'http://serverless-devs3-metrics.cn-hangzhou.log.aliyuncs.com/logstores/serverless-devs/track';

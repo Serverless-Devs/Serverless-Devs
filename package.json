@@ -75,7 +75,6 @@
     "global-agent": "^3.0.0",
     "inquirer": "^9.2.12",
     "inquirer-autocomplete-prompt": "^3.0.1",
-    "is-docker": "^3.0.0",
     "jest": "^29.7.0",
     "js-yaml": "^4.1.0",
     "latest-version": "^7.0.0",
