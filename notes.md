@@ -1,2 +1,1 @@
-- 数据上报添加userAgent
-- 错误处理区分parseException和runtimeException
+- update @serverless-devs/core version 0.1.66
