@@ -42,7 +42,7 @@ export default class Manager {
       const applicationsTemplates = await this.getApplicationTemplates();
       const answers: any = await inquirer.prompt(applicationsTemplates);
       this.template = answers.template || answers.firstLevel;
-      logger.write(`\n${emoji('😋')} Create application command: [s init --project ${this.template}]\n`);
+      logger.write(`\n${emoji('😋')} Create application command: [s init ${this.template}]\n`);
     }
     const { appPath } = await this.executeInit();
     appPath && execDaemon('report.js', { type: EReportType.init, template: this.template });

@@ -7,7 +7,7 @@ import logger from '@/logger';
 const description = `Delete application version.
 
 Example:
-  $ s registry delete --name fc@1.0.1 --type Component
+  $ s registry delete --name fc --version-id 1.0.1
    
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#delete')}`;
 
@@ -18,11 +18,11 @@ export default (program: Command) => {
     .description(description)
     .summary(`${emoji('❌')} Delete specific package`)
     .option('--name <name>', 'Serverless Package name')
-    .option('--version <version>', 'Serverless Package version')
+    .option('--version-id <version-id>', 'Serverless Package version')
     .helpOption('-h, --help', 'Display help for command')
     .action(async option => {
-      const { name, version } = option;
+      const { name, versionId } = option;
       const registry = new Registry({ logger });
-      await registry.remove(name, version);
+      await registry.remove(name, versionId);
     });
 };

@@ -125,7 +125,7 @@ category: '概述'
     ? Hello, serverlesser. Which template do you like? Quick start [Deploy a Hello World function to FaaS]
     ? Which template do you like? Node.js
 
-    😋  Create application command: [s init --project start-fc3-nodejs]
+    😋  Create application command: [s init start-fc3-nodejs]
 
     ? Please input your project name (init dir) start-fc-http-nodejs14
     Downloading[/v3/packages/start-fc3-nodejs/zipball/0.0.7]...
