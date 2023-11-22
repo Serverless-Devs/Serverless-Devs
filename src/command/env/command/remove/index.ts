@@ -17,7 +17,7 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     // TODO: @封崇 line31-32
-    .summary(`Remove an environment.`)
+    .summary(`Remove an environment`)
     .requiredOption('--name <name>', 'Specify the environment name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {

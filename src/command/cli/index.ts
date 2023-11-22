@@ -16,7 +16,7 @@ const description = `Directly use serverless devs to use components, develop and
     $ s cli fc api ListServices
     $ s cli fc api ListFunctions --path '{"serviceName": "serviceName"}' --body '{"K1": "V1"}'
     
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/cli')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/cli')}`;
 
 export default async (program: Command) => {
   const { _: raw = [], help } = utils.parseArgv(process.argv.slice(2));

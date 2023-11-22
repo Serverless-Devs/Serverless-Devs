@@ -26,7 +26,7 @@ Get details of installed components.
   Example:
     $ s component
     
-📖  Document: https://serverless.help/s/component
+📖  Document: https://serverless.help/t/s/component
 
 Options:
   -h, --help                      Display help for command.

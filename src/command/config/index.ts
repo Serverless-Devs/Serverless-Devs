@@ -9,7 +9,7 @@ import subRemove from './command/remove';
 
 const description = `Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
-${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/config')}`;
 
 export default (program: Command) => {
   const configProgram = program.command('config');

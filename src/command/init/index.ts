@@ -2,7 +2,6 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { emoji } from '@/utils';
 import Manager from './manager';
-import logger from '@/logger';
 
 const description = `Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
@@ -14,7 +13,8 @@ Example:
     $ s init project --parameters '{"serviceName":"websiteService"}'
     $ s init git@github.com:foo/bar.git
     $ s init https://github.com/foo/bar.git
-    
+
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/init')}
 ${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}`;
 
 export default (program: Command) => {

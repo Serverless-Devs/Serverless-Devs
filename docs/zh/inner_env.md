@@ -24,11 +24,11 @@ category: '使用文档'
   在`s.yaml`配置如下:
 
   ```yaml
-  edition: 1.0.0 # 命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+  edition: 3.0.0 # 命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
   name: app # 项目名称
   access: default_serverless_devs_key # 秘钥别名
 
-  services:
+  resources:
     fc-deploy-test:
       component: fc  # 组件名称
       props: #  组件的属性值

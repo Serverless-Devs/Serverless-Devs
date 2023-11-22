@@ -35,6 +35,7 @@ Example:
     $ s init git@github.com:foo/bar.git
     $ s init https://github.com/foo/bar.git
     
+📖  Document: https://serverless.help/t/s/init
 🚀  More applications: https://registry.serverless-devs.com
 
 Options:

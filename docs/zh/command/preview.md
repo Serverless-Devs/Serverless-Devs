@@ -24,7 +24,7 @@ Application priview.
   Example:
     $ s priview
     
-📖  Document: https://serverless.help/s/priview
+📖  Document: https://serverless.help/t/s/preview
 
 Options:
   --env <envName>                 Specify the environment name

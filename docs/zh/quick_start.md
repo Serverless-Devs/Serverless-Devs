@@ -21,7 +21,7 @@ category: '概述'
     ```
 - 第三步：可以通过`s -v`判断工具是否安装成功，如果安装成功可以看到相对应的版本信息，例如：
     ```shell script
-    @serverless-devs/s3: 0.0.13, s-home: /Users/xxx/.s, darwin-x64, node-v17.7.1
+    @serverless-devs/s3: 0.1.0, s-home: /Users/xxx/.s, darwin-x64, node-v17.7.1
     ```
 
 ## 密钥配置
