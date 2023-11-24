@@ -3,7 +3,6 @@ import chalk from 'chalk';
 import { emoji, isJson } from '@/utils';
 import Action from './action';
 
-// TODO: @封崇
 const description = `Update environment properties.
 
     Example:
@@ -16,13 +15,10 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    // TODO: @封崇 line31-37
     .summary(`Update environment properties`)
     .requiredOption('--name <name>', 'Specify the environment name')
     .option('--description <description>', 'Specify the description of the environment')
     .addOption(new Option('--type <type>', 'Specify the type of the environment, which must be one of testing, staging, and production. The default is testing').choices(['testing', 'staging', 'production']))
-    .requiredOption('--region <region>', 'Specify the region of the environment')
-    .option('--role <role>', 'Specify the role that the environment uses when accessing the user\'s cloud service.')
     .option('--overlays <jsonString>', 'Declare the differentiated configuration used in the environment, which is used to overwrite s.yaml during deployment.', v => isJson(v, '--overlays'))
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {

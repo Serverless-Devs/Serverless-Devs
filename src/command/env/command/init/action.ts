@@ -1,4 +1,4 @@
-import { concat, find, map, isEmpty, trim, endsWith, get, pick, lowerCase } from 'lodash';
+import { concat, find, map, isEmpty, trim, endsWith, get, pick, lowerCase, each } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
 import inquirer, { Answers } from 'inquirer';
@@ -7,11 +7,10 @@ import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
-import { regions } from './index';
 import Credential from '@serverless-devs/credential';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
-import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME, ENV_KEYS } from '../../constant';
-import loadComponent from '@serverless-devs/load-component';
+import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME, ENV_KEYS } from "@/command/env/constant";
+import loadComponent from "@serverless-devs/load-component";
 
 class Action {
   constructor(private options: IOptions = {}) {
@@ -23,14 +22,64 @@ class Action {
     logger.write('Environment init successfully');
   }
   private async doAction() {
-    const data = await this.getOptions();
-    logger.debug(`writeEnvironmentFile data: ${JSON.stringify(data)}`);
-    const { template, project, ...rest } = data;
-    const newData = pick(rest, ENV_KEYS);
     const componentName = utils.getGlobalConfig(ENV_COMPONENT_KEY, ENV_COMPONENT_NAME);
-    const instance = await loadComponent(componentName);
-    // TODO:执行组件的什么方法
-    const result = await instance.env(newData);
+    const componentLogger = logger.loggerInstance.__generate(componentName);
+    const instance = await loadComponent(componentName, { logger: componentLogger });
+
+    // initialize the basic information of the environment
+    const { deployInfraStack, ...basicInfo } = await this.getBasicInfo();
+    const { access, template } = basicInfo;
+    if (!basicInfo.project) {
+      const { project } = utils.getYamlContent(template);
+      basicInfo.project = project;
+    }
+    const envInfo = { ...basicInfo }
+    // initialize the infra stack information of the environment component
+    if (deployInfraStack) {
+      const infraStackInfo = await instance.env({
+        props: {
+          ...basicInfo
+        },
+        command: 'env',
+        args: ['init', '--prompt-infra-stack'],
+        getCredential: async () => {
+          const res = await new Credential({ logger: componentLogger }).get(access);
+          const credential = get(res, 'credential', {});
+          each(credential, v => {
+            logger.loggerInstance.__setSecret([v]);
+          });
+          return credential;
+        },
+      });
+      envInfo.infraStack = { ...infraStackInfo }
+    }
+
+    logger.debug(`writeEnvironmentFile data: ${JSON.stringify(envInfo)}`);
+    const newData = pick(envInfo, ENV_KEYS);
+    const { project } = newData;
+    const inputs = {
+      cwd: process.cwd(),
+      userAgent: utils.getUserAgent({ component: instance.__info }),
+      props: {
+        ...newData,
+      },
+      command: 'env',
+      args: ['init'],
+      getCredential: async () => {
+        const res = await new Credential({ logger: componentLogger }).get(access);
+        const credential = get(res, 'credential', {});
+        each(credential, v => {
+          logger.loggerInstance.__setSecret([v]);
+        });
+        return credential;
+      },
+    };
+
+    const { 'project': p, ...rest } = await instance.env(inputs);
+    const result = {
+      access,
+      ...rest
+    }
     // 追加内容
     if (fs.existsSync(template)) {
       const { project, environments } = utils.getYamlContent(template);
@@ -41,13 +90,14 @@ class Action {
     fs.ensureFileSync(template);
     fs.writeFileSync(template, yaml.dump({ project, environments: [result] }));
   }
+
   private getPromptOptions() {
     const credential = new Credential({ logger });
     const access = Object.keys(credential.getAll());
     return [
       {
         type: 'input',
-        message: 'template:',
+        message: 'Please specify the manifest file of the environment:',
         name: 'template',
         default: ENVIRONMENT_FILE_NAME,
         validate: (input: string) => {
@@ -57,7 +107,7 @@ class Action {
       },
       {
         type: 'input',
-        message: 'project:',
+        message: 'Please specify the project to which the environment belongs:',
         name: 'project',
         when: (answers: Answers) => {
           // 文件不存在，说明第一次初始化
@@ -78,7 +128,7 @@ class Action {
       },
       {
         type: 'input',
-        message: 'name:',
+        message: 'Please input your environment name:',
         name: 'name',
         validate: (input: string, answers: Answers) => {
           const val = trim(input);
@@ -95,29 +145,18 @@ class Action {
       },
       {
         type: 'input',
-        message: 'description (optional):',
+        message: 'Please input a description of the environment:',
         name: 'description',
       },
       {
         type: 'list',
-        message: 'type:',
+        message: 'Please specify the type of environment:',
         name: 'type',
         choices: ['testing', 'staging', 'production'],
       },
       {
-        type: 'list',
-        message: 'region:',
-        name: 'region',
-        choices: regions,
-      },
-      {
         type: 'input',
-        message: 'role (optional):',
-        name: 'role',
-      },
-      {
-        type: 'input',
-        message: 'overlays (optional):',
+        message: 'Please input the configuration of the service to be overridden by the environment(must be json string):',
         name: 'overlays',
         validate: (input: string) => {
           if (isEmpty(trim(input))) return true;
@@ -131,7 +170,7 @@ class Action {
       },
       {
         type: 'autocomplete',
-        message: 'access:',
+        message: 'Please select an access:',
         name: 'access',
         default: 'default',
         source: async function (_answersSoFar, input) {
@@ -141,10 +180,15 @@ class Action {
           return access;
         },
       },
+      {
+        type: 'confirm',
+        name: 'deployInfraStack',
+        message: 'Do you want to apply InfraStack now?',
+        default: false,
+      },
     ];
   }
-  private async getOptions() {
-    // 判断是否需要交互式询问 --name
+  private async getBasicInfo() {
     if (this.options.name) {
       this.options.template = get(this.options, 'template', path.join(process.cwd(), ENVIRONMENT_FILE_NAME));
       this.options.access = get(this.options, 'access', 'default');

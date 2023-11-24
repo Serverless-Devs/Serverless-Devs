@@ -5,6 +5,4 @@ export type IOptions = IGlobalOptions & {
   name?: string;
   description?: string;
   type?: string;
-  region?: string;
-  role?: string;
 };
