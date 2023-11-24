@@ -1,5 +1,4 @@
 ## feature
-- remove --project in s init
-- overlays: change global to component
+- support str, env.init
 
 
