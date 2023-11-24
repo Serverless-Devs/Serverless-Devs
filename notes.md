@@ -1,5 +1,4 @@
-## feature
-- change target into source
-- support str, env.init
+## fix
+- Magic params not found when value is ''
 
 
