@@ -11,7 +11,7 @@ const description = `You can get accounts.
     $ s config get
     $ s config get -a demo
     
-${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/config')}`;
 
 export default (program: Command) => {
   const command = program.command('get');

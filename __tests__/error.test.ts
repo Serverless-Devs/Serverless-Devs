@@ -103,8 +103,8 @@ test('s config delete -a not-exist', async () => {
   expect(stdout).toMatch(/Not found alias name: not-exist/);
 });
 
-test('s init --project xxx -d shltest', async () => {
-  const res = spawnSync(s, ['init', '--project', 'xx', '-d', 'shltest'], { cwd });
+test('s init xxx -d shltest', async () => {
+  const res = spawnSync(s, ['init', 'xx', '-d', 'shltest'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(stdout).toMatch(/Application xx is not found/);

@@ -23,7 +23,7 @@ Usage: s set [commands] [options]
 
 You can make some default settings for the tool here.
 
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖  Document: https://serverless.help/t/s/set
 
 Options:
   -h, --help                      Display help for command
@@ -57,7 +57,7 @@ Example:
    $ s set proxy --http_proxy xxxx:xxx --https_proxy xxxx:xxx
    $ s set proxy --enable
    
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md
+📖  Document: https://serverless.help/t/s/set
 
 Options:
   --enable                           whether to enable proxy
@@ -95,7 +95,7 @@ Set analysis action.
         $ s set analysis
         $ s set analysis disable
         
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md
+📖  Document: https://serverless.help/t/s/set
 
 Options:
   -h, --help  Display help for command
@@ -135,7 +135,7 @@ Set log action.
     $ s set log enable
     $ s set log disable
         
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/set.md
+📖  Document: https://serverless.help/t/s/set
 
 Options:
   -h, --help  Display help for command

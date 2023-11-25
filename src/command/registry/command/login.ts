@@ -11,7 +11,7 @@ Example:
   $ s registry login --token xxxxxxxxxxxxxxx
   $ s registry login --retoken
    
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#login')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-login')}`;
 
 export default (program: Command) => {
   program

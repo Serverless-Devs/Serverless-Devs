@@ -30,7 +30,7 @@ Clean up the cache related functions of serverless devs. You can clean up the en
   Tips:
     Get all installed component: s component
     
-📖  Document: https://serverless.help/s/clean
+📖  Document: https://serverless.help/t/s/clean
 
 Options:
   --all                           Clean up the environment

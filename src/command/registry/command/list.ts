@@ -9,7 +9,7 @@ const description = `View the components published by the current login to the S
 Example:
   $ s registry list
    
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/s/registry#list')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-list')}`;
 
 export default (program: Command) => {
   program

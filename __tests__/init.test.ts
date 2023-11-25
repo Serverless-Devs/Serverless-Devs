@@ -13,7 +13,6 @@ test('start-unzip-oss-v3@0.0.5', async () => {
   const dest = path.join(cwd, template);
   const res = spawnSync(s, [
     'init',
-    '--project',
     template,
     '-d',
     dest,
@@ -34,7 +33,6 @@ test('TripBookingOrderProcessing@0.0.8', async () => {
   const dest = path.join(cwd, template);
   const res = spawnSync(s, [
     'init',
-    '--project',
     template,
     '-d',
     dest,
@@ -55,7 +53,6 @@ test('start-cadt-app@0.0.4', async () => {
   const dest = path.join(cwd, template);
   const res = spawnSync(s, [
     'init',
-    '--project',
     template,
     '-d',
     dest,

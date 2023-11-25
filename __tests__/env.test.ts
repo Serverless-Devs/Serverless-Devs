@@ -25,7 +25,7 @@ test('init', async () => {
     '--role',
     'acs:ram::<account>:role/serverlessdevsinfra-testing',
     '--overlays',
-    '{"global":{"key":"value"}}',
+    '{"components":{"fc3test":{"region":"hangzhou"}}}',
     '--debug',
   ];
   spawnSync(s, ['env', 'init', ...args], { cwd, stdio: 'inherit' });

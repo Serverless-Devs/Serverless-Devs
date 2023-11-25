@@ -10,7 +10,7 @@ const description = `You can rename an account.
   Example:
     $ s config rename --source source --target target
     
-${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/config')}`;
 
 export default (program: Command) => {
   const command = program.command('rename');

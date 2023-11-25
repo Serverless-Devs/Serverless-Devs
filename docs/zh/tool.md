@@ -46,17 +46,17 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 
 ### 应用内服务部署顺序
 
-- 被依赖的 `service` 优先部署；
+- 被依赖的 `resource` 优先部署；
 - 从上到下的顺序，按顺序进行部署；
 
 > 例如，某资源描述 Yaml 可以缩写成：
 >
 > ```yaml
-> edition: 1.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+> edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
 > name: FullStack #  项目名称
 > access: xxx-account1 #  秘钥别名
 >
-> services:
+> resources:
 >   nextjs-portal: #  服务名称
 >     component: vue-component # 组件名称
 >     props: #  组件的属性值
@@ -83,7 +83,7 @@ Serverless Devs 作为 Serverless 领域的开发者工具，其输出的标准�
 
 - 通过`-a/--access`参数指定的密钥信息
 - 使用已经配置的`default`密钥信息
-- 使用通过环境变量配置的`default_serverless_devs_access`密钥信息
+- 使用通过环境变量配置的`default_serverless_devs_key`密钥信息
 - 不使用密钥信息 / 进入密钥信息配置引导
 
 具体的流程图为：
@@ -97,7 +97,7 @@ Serverless Devs 可以比较容易的通过环境变量进行密钥信息的设�
 1. 通过命令引入环境变量中的密钥：例如在环境变量中有`ALIBABA_CLOUD_ACCOUNT_ID`、`ALIBABA_CLOUD_ACCESS_KEY_ID`、`ALIBABA_CLOUD_ACCESS_KEY_SECRET`等相关内容，此时可以通过`s config add`命令进行添加：
 
 ```shell script
-s config add -a default-aliyun -kl AccountID,AccessKeyID,AccessKeySecret -il ${ALIBABA_CLOUD_ACCOUNT_ID},${ALIBABA_CLOUD_ACCESS_KEY_ID},${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
+s config add -a default-aliyun --kl AccountID,AccessKeyID,AccessKeySecret --il ${ALIBABA_CLOUD_ACCOUNT_ID},${ALIBABA_CLOUD_ACCESS_KEY_ID},${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
 ```
 
 2. 通过指定环境变量的名字进行配置：例如当前有阿里云密钥对：
@@ -108,16 +108,16 @@ s config add -a default-aliyun -kl AccountID,AccessKeyID,AccessKeySecret -il ${A
      此时可以在环境变量中可以命名 key 为`*********_serverless_devs_access`，例如`default_serverless_devs_access`，value 为 JSON 字符串，例如：
    - Key：`default_serverless_devs_access`
    - Value：`{\"AccountID\":\"temp_accountid\",\"AccessKeyID\":\"temp_accesskeyid\",\"AccessKeySecret\":\"temp_accesskeysecret\"}`  
-     此时，可以在配置密钥的时候指定密钥`default_serverless_devs_access`，例如`${env(default_serverless_devs_access)}`
+     此时，可以在配置密钥的时候指定密钥`default_serverless_devs_key`，例如`${env(default_serverless_devs_key)}`
 
    在`s.yaml`配置如下:
 
    ```
-   edition: 1.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+   edition: 3.0.0          #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
    name: fcDeployApp       #  项目名称
    access: default_serverless_devs_access  #  秘钥别名
 
-   services:
+   resources:
      fc-deploy-test:
        component: fc-deploy  # 组件名称
        props: #  组件的属性值

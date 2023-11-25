@@ -30,7 +30,7 @@ class Help {
       '  Can be used in projects with Serverless Devs Yaml. Usage：',
       '    - s <component_command>：Operate on the project, E.x: s deploy',
       '    - s <project_name> <component_command>：Operate on the resource, E.x: s website deploy',
-      '  More information: https://serverless.help/custom',
+      '  More information: https://serverless.help/t/s/custom',
       '',
     ];
     // 仅有一个组件时

@@ -22,26 +22,26 @@ category: '命令'
 
 ```shell script
 $ s init -h
-Usage: s init [options] [name | url]
+Usage: s init [options]
 
 Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
 
 Example:
     $ s init
-    $ s init --project fc
-    $ s init --project fc -d my_dir
-    $ s init --project fc --app-name my-express
-    $ s init --project fc --parameters '{"serviceName":"websiteService"}'
-    $ s init --project git@github.com:foo/bar.git
-    $ s init --project https://github.com/foo/bar.git
+    $ s init project 
+    $ s init project -d my_dir
+    $ s init project --app-name my-express
+    $ s init project --parameters '{"serviceName":"websiteService"}'
+    $ s init git@github.com:foo/bar.git
+    $ s init https://github.com/foo/bar.git
     
+📖  Document: https://serverless.help/t/s/init
 🚀  More applications: https://registry.serverless-devs.com
 
 Options:
   -d, --dir <dir>                 Where to output the initialized app into (default: ./<ProjectName> )
   -r, --registry <url>            Use specify registry
   --uri <uri>                     Use specify uri, Eg: remote url, local dir, local zip file
-  --project <project>             Specify Template
   -y                              Assume that the answer to any question which would be asked is yes
   --parameters <parameters>       Initialize with custom parameters
   --app-name <appName>            Modify default Application name
@@ -54,8 +54,8 @@ Options:
 |-----|-----|-----|-----|
 | dir | d | `./<ProjectName>` | 项目初始化的路径/目录 | 
 | registry | -r | http://registry.devsapp.cn/simple | 源配置地址，类似于Python中指定pip源，或者Node.js中指定NPM源 | 
-| uri |  |  | 远程或本地文件的地址 |
-| project |  |  | 模版名称 |
+| uri | - | - | 远程或本地文件的地址 |
+| - | y | - | 所有问题都默认选择yes | 
 | parameters |  | {"serviceName":"websiteService"} | 初始化参数 | 
 | appName |  | my-express | 应用/项目名称 | 
 
@@ -122,14 +122,14 @@ $ s init
 
 #### 直接初始化
 
-通过`s init --project [name | url]`，可以从配置的`Registry`或者指定的仓库`Url`获取模板项目。
+通过`s init [name | url]`，可以从配置的`Registry`或者指定的仓库`Url`获取模板项目。
 
 ##### 初始化Registry应用
 
-以默认的`Registry`为例，可以初始化相对应的案例项目：`start-fc-http-nodejs12`，可以通过`s init --project start-fc-http-nodejs12`命令来进行：
+以默认的`Registry`为例，可以初始化相对应的案例项目：`start-fc-http-nodejs12`，可以通过`s init start-fc-http-nodejs12`命令来进行：
 
 ```shell script
-$ s init --project start-fc-http-nodejs12
+$ s init start-fc-http-nodejs12
 
 🚀  More applications: https://registry.serverless-devs.com
 ? Please input your project name (init dir) start-fc-http-nodejs12
@@ -143,10 +143,10 @@ Downloading[/simple/start-fc-http-nodejs12/zipball/1.1.23]...
 
 ##### 初始化仓库应用
 
-以Github仓库 `https://github.com/devsapp/start-fc` 为例，可以通过`s init --project https://github.com/devsapp/start-fc.git`命令初始化该案例项目：
+以Github仓库 `https://github.com/devsapp/start-fc` 为例，可以通过`s init  https://github.com/devsapp/start-fc.git`命令初始化该案例项目：
 
 ```shell script
-$ s init --project https://github.com/devsapp/start-fc.git
+$ s init https://github.com/devsapp/start-fc.git
 
 🚀  More applications: https://registry.serverless-devs.com
 Cloning into 'start-fc'...

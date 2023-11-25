@@ -21,9 +21,9 @@ category: '使用文档'
 ```
 ### `s.yaml`为默认配置
 ```
-edition: 1.0.0
+edition: 3.0.0
 access: "default"
-services:
+resources:
   fc-deploy-test:
     component: fc
     props:
@@ -42,7 +42,7 @@ services:
 ### `s.pre.yaml`配置如下
 ```
 extend: s.yaml
-services:
+resources:
   fc-deploy-test:
     props:
       service:
@@ -52,7 +52,7 @@ services:
 ### `s.pro.yaml`配置如下
 ```
 extend: s.yaml
-services:
+resources:
   fc-deploy-test:
     props:
       service:
@@ -65,9 +65,9 @@ services:
 ### 最终生效的配置
 通过指定yaml配置`s deploy -t s.pro.yaml`生效
 ```
-edition: 1.0.0
+edition: 3.0.0
 access: "default"
-services:
+resources:
   fc-deploy-test:
     component: fc
     props:
@@ -87,9 +87,9 @@ services:
 
 ## 合并规则
 配置的合并使用[extend2](https://www.npmjs.com/package/extend2) 模块进行深度拷贝。
-但是考虑到`yaml`的配置层级比较深，比如上面的[示例](#/典型场景),我们在预发环境需要覆盖`service名称`，需要严格按照层级关系进行编写，相对繁琐。 
+但是考虑到`yaml`的配置层级比较深，比如上面的[示例](#/典型场景),我们在预发环境需要覆盖`resource名称`，需要严格按照层级关系进行编写，相对繁琐。 
 ```
-services:
+resources:
   fc-deploy-test:
     props:
       service:

@@ -36,7 +36,7 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 
 ```shell script
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+🚀 More applications: https://registry.serverless-devs.com
 
 ? Hello Serverless for Cloud Vendors (Use arrow keys or type to search)
 ❯ Alibaba Cloud Serverless 
@@ -51,12 +51,13 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 ```shell script
 $ s init
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+🚀 More applications: https://registry.serverless-devs.com
 
 ? Hello Serverless for Cloud Vendors Dev Template for Serverless Devs
 ? Please select an Serverless-Devs Application (Use arrow keys or type to search)
 ❯ Application Scaffolding 
   Component Scaffolding 
+  Plugin Scaffolding 
 ```
 
 此时，选择`Component Scaffolding`，并按回车，即可完成一个完整的Serverless Devs的Component项目的初始化，可以通过命令查看文件树：
@@ -104,7 +105,7 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 
 ```shell script
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+🚀 More applications: https://registry.serverless-devs.com
 
 ? Hello Serverless for Cloud Vendors (Use arrow keys or type to search)
 ❯ Alibaba Cloud Serverless 
@@ -119,12 +120,13 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 ```shell script
 $ s init
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+🚀 More applications: https://registry.serverless-devs.com
 
 ? Hello Serverless for Cloud Vendors Dev Template for Serverless Devs
 ? Please select an Serverless-Devs Application (Use arrow keys or type to search)
 ❯ Application Scaffolding 
   Component Scaffolding 
+  Plugin Scaffolding 
 ```
 
 此时，选择`Application Scaffolding`，并按回车，即可完成一个完整的Serverless Devs的Application项目的初始化，可以通过命令查看文件树：
@@ -161,7 +163,7 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 
 ```shell script
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+🚀 More applications: https://registry.serverless-devs.com
 
 ? Hello Serverless for Cloud Vendors (Use arrow keys or type to search)
 ❯ Alibaba Cloud Serverless 
@@ -176,7 +178,7 @@ Serverless Devs的组件开发案例已经被集成到Serverless Devs命令行�
 ```shell script
 $ s init
 
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
+🚀 More applications: https://registry.serverless-devs.com
 
 ? Hello Serverless for Cloud Vendors Dev Template for Serverless Devs
 ? Please select an Serverless-Devs Application (Use arrow keys or type to search)

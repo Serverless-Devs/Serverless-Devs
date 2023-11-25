@@ -34,7 +34,7 @@ Usage: s registry [commands] [options]
 
 You can manage Serverless Packages on Serverless Registry.
 
-📖  Document: https://serverless.help/s/registry
+📖  Document: https://serverless.help/t/s/registry
 
 Options:
   -h, --help                      Display help for command
@@ -72,7 +72,7 @@ Example:
   $ s registry login --token xxxxxxxxxxxxxxx
   $ s registry login --retoken
    
-📖  Document: https://serverless.help/s/registry#login
+📖  Document: https://serverless.help/t/s/registry-login
 
 Options:
   --token <token>                 Login by token
@@ -109,7 +109,7 @@ Publish Serverless Registry.
 Example:
   $ s registry publish
    
-📖  Document: https://serverless.help/s/registry#publish
+📖  Document: https://serverless.help/t/s/registry-publish
 
 Options:
   -h, --help                      Display help for command
@@ -138,7 +138,7 @@ View the components published by the current login to the Serverless Registry ac
 Example:
   $ s registry list
    
-📖  Document: https://serverless.help/s/registry#list
+📖  Document: https://serverless.help/t/s/registry-list
 
 Options:
   --category <category>           category ID
@@ -205,7 +205,7 @@ View application details.
 Example:
   $ s registry detail --package-name fc3
    
-📖  Document: https://serverless.help/s/registry#detail
+📖  Document: https://serverless.help/t/s/registry-detail
 
 Options:
   --package-name <name>           Serverless Package name
@@ -266,7 +266,7 @@ Delete application version.
 Example:
   $ s registry delete --name fc --version-id 1.0.1
    
-📖  Document: https://serverless.help/s/registry#delete
+📖  Document: https://serverless.help/t/s/registry-delete
 
 Options:
   --name <name>                   Serverless Package name

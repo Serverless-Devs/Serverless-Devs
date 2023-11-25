@@ -38,7 +38,7 @@ Usage: s config [commands] [options]
 
 Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖  Document: https://serverless.help/t/s/config
 
 Options:
   -h, --help                      Display help for command
@@ -84,7 +84,7 @@ You can add an account
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
 
-🧭  How to get the key: https://github.com/Serverless-Devs/docs/tree/master/zh/others/provider-config
+🧭  How to get the key: https://serverless.help/t/s/provider_config
 
 Options:
   --AccountID <AccountID>              AccountID of key information
@@ -145,7 +145,7 @@ $ s config add
 s config add 
 
 ? Please select a provider: Alibaba Cloud (alibaba)
-🧭 Refer to the document for Alibaba Cloud key: http://config.devsapp.net/account/alibaba
+🧭 Refer to the document for Alibaba Cloud key: https://serverless.help/t/s/alibabacloud
 ? AccessKeyID:  ******
 ? AccessKeySecret:  ******
 ? Please create alias for key pair. If not, please enter to skip (default-2) 
@@ -206,7 +206,7 @@ You can get accounts.
     $ s config get
     $ s config get -a demo
     
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖  Document: https://serverless.help/t/s/config
 
 Options:
   -h, --help                      Display help for command
@@ -301,7 +301,7 @@ You can rename an account.
   Example:
     $ s config rename --source source --target target
     
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖  Document: https://serverless.help/t/s/config
 
 Options:
   --source <source>               Source alias name
@@ -369,7 +369,7 @@ Specify an access as the default.
     $ s config default
     $ s config default -a demo
     
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖  Document: https://serverless.help/t/s/config
 
 Options:
   -h, --help                      Display help for command

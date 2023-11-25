@@ -3,7 +3,6 @@ import chalk from 'chalk';
 import { emoji } from '@/utils';
 import Action from './action';
 
-// TODO: @封崇
 const description = `Show the information of a environment.
 
     Example:
@@ -16,7 +15,6 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    // TODO: @封崇 line31-32
     .summary(`Show the information of a environment`)
     .requiredOption('--name <name>', 'Specify the environment name')
     .helpOption('-h, --help', 'Display help for command')

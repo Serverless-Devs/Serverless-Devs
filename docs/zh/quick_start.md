@@ -21,7 +21,7 @@ category: '概述'
     ```
 - 第三步：可以通过`s -v`判断工具是否安装成功，如果安装成功可以看到相对应的版本信息，例如：
     ```shell script
-    @serverless-devs/s3: 0.0.13, s-home: /Users/xxx/.s, darwin-x64, node-v17.7.1
+    @serverless-devs/s3: 0.1.0, s-home: /Users/xxx/.s, darwin-x64, node-v17.7.1
     ```
 
 ## 密钥配置
@@ -125,7 +125,7 @@ category: '概述'
     ? Hello, serverlesser. Which template do you like? Quick start [Deploy a Hello World function to FaaS]
     ? Which template do you like? Node.js
 
-    😋  Create application command: [s init --project start-fc3-nodejs]
+    😋  Create application command: [s init start-fc3-nodejs]
 
     ? Please input your project name (init dir) start-fc-http-nodejs14
     Downloading[/v3/packages/start-fc3-nodejs/zipball/0.0.7]...

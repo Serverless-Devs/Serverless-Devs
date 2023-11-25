@@ -3,21 +3,19 @@ import chalk from 'chalk';
 import { emoji } from '@/utils';
 import Action from './action';
 
-// TODO: @封崇
-const description = `Remove an environment.
+const description = `Destroy an environment.
 
     Example:
-        $ s env remove --name test-env
+        $ s env destroy --name test-env
 
 ${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/env.md')}`;
 
 export default (program: Command) => {
-  const command = program.command('remove');
+  const command = program.command('destroy');
   command
     .usage('[options]')
     .description(description)
-    // TODO: @封崇 line31-32
-    .summary(`Remove an environment.`)
+    .summary(`Destroy an environment.`)
     .requiredOption('--name <name>', 'Specify the environment name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
