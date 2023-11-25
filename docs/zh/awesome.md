@@ -9,8 +9,7 @@ category: '概述'
 
 ## 组件集合
 
-- [阿里云函数计算（FC）](https://github.com/devsapp/fc)
-- [阿里云Serverless应用引擎（FC）](https://github.com/devsapp/sae)
+- [阿里云函数计算（FC）](https://github.com/devsapp/fc3)
 - [AWS Lambda](https://github.com/devscomp/lambda)
 - [百度智能云函数计算（CFC）](https://github.com/xinwuyun/cfc)
 - [华为云函数工作流（FG）](https://github.com/zy-linn/fgs-component)
