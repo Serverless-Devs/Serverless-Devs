@@ -33,6 +33,7 @@
     "test:watch": "jest --testTimeout 10000 --watchAll",
     "format": "prettier --write src/ __tests__/**/*.test.ts",
     "watch": "npm run build -- --watch",
+    "prebuild": "rm -rf node_modules && npm install --production false",
     "build": "node ./scripts/build.js",
     "pkg": "pkg bin/s --out-path releases",
     "prepublishOnly": "npm run build",
