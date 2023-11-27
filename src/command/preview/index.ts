@@ -6,12 +6,12 @@ import logger from '@/logger';
 import { get, omit } from 'lodash';
 import { parseArgv } from '@serverless-devs/utils';
 // TODO:文档链接
-const description = `Application priview.
+const description = `Application preview.
   
   Example:
-    $ s priview
+    $ s preview
     
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/priview')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/preview')}`;
 
 export default (program: Command) => {
   program
