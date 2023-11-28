@@ -1,4 +1,4 @@
-import { maxBy, repeat, filter, get } from 'lodash';
+import { maxBy, repeat, filter, get, each } from 'lodash';
 import TableLayout from 'table-layout';
 import { getRootHome, parseArgv } from '@serverless-devs/utils';
 import fs from 'fs-extra';
@@ -7,6 +7,11 @@ import { IOutput } from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import yaml from 'js-yaml';
 const pkg = require('../../package.json');
+import * as utils from '@serverless-devs/utils';
+import loadComponent from "@serverless-devs/load-component";
+import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from "@/command/env/constant";
+import Credential from "@serverless-devs/credential";
+import { IEnvArgs } from '@/type';
 
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
@@ -98,4 +103,32 @@ export const showOutput = (data: any) => {
   logger.output(data);
   if (silent) logger.silent();
   return;
+};
+
+export const runEnvComponent = async (args: IEnvArgs, access: any) => {
+  const componentName = utils.getGlobalConfig(ENV_COMPONENT_KEY, ENV_COMPONENT_NAME);
+  const componentLogger = logger.loggerInstance.__generate(componentName);
+  const instance = await loadComponent(componentName, { logger: componentLogger });
+
+  try {
+    const infraStackInfo = await instance.env({
+      cwd: process.cwd(),
+      userAgent: utils.getUserAgent({ component: instance.__info }),
+      getCredential: async () => {
+        const res = await new Credential({ logger: componentLogger }).get(access);
+        const credential = get(res, 'credential', {});
+        each(credential, v => {
+          logger.loggerInstance.__setSecret([v]);
+        });
+        return credential;
+      },
+      ...args,
+    });
+    return infraStackInfo;
+  } catch (error) {
+    throw new utils.DevsError(error.message, {
+      stack: error.stack,
+      exitCode: 101,
+    });
+  }
 };

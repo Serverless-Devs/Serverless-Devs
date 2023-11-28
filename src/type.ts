@@ -14,3 +14,9 @@ export interface IGlobalOptions {
   help?: boolean;
   version?: boolean;
 }
+
+export interface IEnvArgs {
+  props: any;
+  command: string;
+  args?: string[];
+}

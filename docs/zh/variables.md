@@ -301,7 +301,27 @@ resources:
 
 ### 使用`${config('')}`获取当前配置的config变量
 
+以下面的Yaml为例：
 
+```yaml
+props: # 组件的属性值
+  region: cn-hangzhou
+  function:
+    ...
+    environmentVariables:
+      AccountID: ${config('AccountID')}
+      ...
+```
+
+在`props`中，`${config('AccountID')}`将尝试获取在`s config`中配置的`AccountID`的值。若`AccountID`的值为`123456789012`，则渲染结果为：
+
+```yaml
+props: # 组件的属性值
+  region: cn-hangzhou
+  function:
+   ...
+    environmentVariables:
+      AccountID: 123456789012
 
 ### 使用`${this.xx}`获取当前模块的信息
 

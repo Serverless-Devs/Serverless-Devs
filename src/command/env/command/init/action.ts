@@ -1,4 +1,4 @@
-import { concat, find, map, isEmpty, trim, endsWith, get, pick, lowerCase, each } from 'lodash';
+import { concat, find, map, isEmpty, trim, endsWith, get, pick, lowerCase } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
 import inquirer, { Answers } from 'inquirer';
@@ -9,8 +9,8 @@ import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/p
 import * as utils from '@serverless-devs/utils';
 import Credential from '@serverless-devs/credential';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
-import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME, ENV_KEYS } from "@/command/env/constant";
-import loadComponent from "@serverless-devs/load-component";
+import { ENV_KEYS } from "@/command/env/constant";
+import { runEnvComponent } from '@/utils';
 
 class Action {
   constructor(private options: IOptions = {}) {
@@ -22,10 +22,6 @@ class Action {
     logger.write('Environment init successfully');
   }
   private async doAction() {
-    const componentName = utils.getGlobalConfig(ENV_COMPONENT_KEY, ENV_COMPONENT_NAME);
-    const componentLogger = logger.loggerInstance.__generate(componentName);
-    const instance = await loadComponent(componentName, { logger: componentLogger });
-
     // initialize the basic information of the environment
     const { deployInfraStack, ...basicInfo } = await this.getBasicInfo();
     const { access, template } = basicInfo;
@@ -36,21 +32,13 @@ class Action {
     const envInfo = { ...basicInfo }
     // initialize the infra stack information of the environment component
     if (deployInfraStack) {
-      const infraStackInfo = await instance.env({
+      const infraStackInfo = await runEnvComponent({
         props: {
           ...basicInfo
         },
         command: 'env',
         args: ['init', '--prompt-infra-stack'],
-        getCredential: async () => {
-          const res = await new Credential({ logger: componentLogger }).get(access);
-          const credential = get(res, 'credential', {});
-          each(credential, v => {
-            logger.loggerInstance.__setSecret([v]);
-          });
-          return credential;
-        },
-      });
+      }, access);
       envInfo.infraStack = { ...infraStackInfo }
     }
 
@@ -58,24 +46,14 @@ class Action {
     const newData = pick(envInfo, ENV_KEYS);
     const { project } = newData;
     const inputs = {
-      cwd: process.cwd(),
-      userAgent: utils.getUserAgent({ component: instance.__info }),
       props: {
         ...newData,
       },
       command: 'env',
       args: ['init'],
-      getCredential: async () => {
-        const res = await new Credential({ logger: componentLogger }).get(access);
-        const credential = get(res, 'credential', {});
-        each(credential, v => {
-          logger.loggerInstance.__setSecret([v]);
-        });
-        return credential;
-      },
     };
 
-    const { 'project': p, ...rest } = await instance.env(inputs);
+    const { 'project': p, ...rest } = await runEnvComponent(inputs, access);
     const result = {
       access,
       ...rest
