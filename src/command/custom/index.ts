@@ -26,6 +26,11 @@ export default class Custom {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version, verify = true, env, ...rest } = utils.parseArgv(argv);
     if (version) return;
+    // 工具内置命令不处理
+    const systemCommandNames = this.program.commands.map(command => command.name());
+    if (systemCommandNames.includes(raw[0])) return;
+    // help命令不处理
+    if (raw[0] === 'help') return;
     // 若带env参数，运行env deploy
     if (env && env !== true) {
       const template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME);
@@ -44,11 +49,6 @@ export default class Custom {
 
       await runEnvComponent(inputs, access);
     }
-    // 工具内置命令不处理
-    const systemCommandNames = this.program.commands.map(command => command.name());
-    if (systemCommandNames.includes(raw[0])) return;
-    // help命令不处理
-    if (raw[0] === 'help') return;
     try {
       this.spec = await this.parseSpec();
     } catch (error) {

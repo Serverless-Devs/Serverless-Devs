@@ -23,9 +23,10 @@ const { Report } = require('./lib');
       }
       // 解析异常
       if (type === 'parseException') {
+        console.log('uid', uid);
         console.log('argv', argv);
         console.log('message', message);
-        return await instance.reportParseException({ argv, message, userAgent })
+        return await instance.reportParseException({ uid, argv, message, userAgent })
       }
       // 执行异常
       if (type === 'runtimeException') {
