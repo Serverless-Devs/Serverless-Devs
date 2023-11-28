@@ -7,6 +7,13 @@ import { find, get } from 'lodash';
 const s = path.resolve(__dirname, '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/env');
 
+test('set', async () => {
+  const res = spawnSync(s, ['env', 'set', '--component', 'ServerlessDevsAdmin@dev'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
+
 test('init', async () => {
   const environmentFilePath = path.join(cwd, ENVIRONMENT_FILE_NAME);
   fs.removeSync(environmentFilePath);
@@ -20,10 +27,6 @@ test('init', async () => {
     'this is a description',
     '--type',
     'testing',
-    '--region',
-    'cn-chengdu',
-    '--role',
-    'acs:ram::<account>:role/serverlessdevsinfra-testing',
     '--overlays',
     '{"components":{"fc3test":{"region":"hangzhou"}}}',
     '--debug',
@@ -48,10 +51,6 @@ test('init -t', async () => {
     'this is a description',
     '--type',
     'testing',
-    '--region',
-    'cn-chengdu',
-    '--role',
-    'acs:ram::<account>:role/serverlessdevsinfra-testing',
     '-t',
     template,
   ];
@@ -88,8 +87,6 @@ test('update', async () => {
     'staging',
     '--region',
     'cn-chengdu',
-    '--role',
-    'acs:ram::<account>:role/serverlessdevsinfra-testing',
     '-t',
     template,
   ];
@@ -123,10 +120,10 @@ test('default', async () => {
   expect(res.status).toBe(0);
 });
 
-test('remove', async () => {
+test('destroy', async () => {
   const name = 'dev';
   const args = ['--name', name];
-  const res = spawnSync(s, ['env', 'remove', ...args], { cwd });
+  const res = spawnSync(s, ['env', 'destroy', ...args], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);
