@@ -1,4 +1,2 @@
-## fix
-- Magic params not found when value is ''
-
-
+## feature
+- Run env component when --env param is set
