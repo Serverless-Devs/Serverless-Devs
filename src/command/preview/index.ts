@@ -26,7 +26,7 @@ export default (program: Command) => {
     .option('--env <envName>', 'Specify the environment name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      const { env } = options;
+      const { template, env } = program.optsWithGlobals();
       if (env && env !== true) {
         const template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME);
         const { environments } = utils.getYamlContent(template);
@@ -44,7 +44,6 @@ export default (program: Command) => {
 
         await runEnvComponent(inputs, access);
       }
-      const { template } = program.optsWithGlobals();
       const spec = await new ParseSpec(template, { logger }).start();
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
