@@ -6,7 +6,7 @@ const { Report } = require('./lib');
 
     // Exit process when offline
     setTimeout(process.exit, 1000 * 30);
-    const { type, template, uid, argv, component, message, userAgent } = JSON.parse(process.argv[2]);
+    const { type, template, uid, argv, command, component, message, userAgent } = JSON.parse(process.argv[2]);
     console.log('type', type);
     const instance = new Report();
     const run = async () => {
@@ -14,19 +14,20 @@ const { Report } = require('./lib');
         console.log('template', template);
         return await instance.reportInit({ template });
       }
-      console.log('userAgent', userAgent)
+      console.log('userAgent', userAgent);
+      console.log('command', command);
       if (type === 'command') {
         console.log('uid', uid);
         console.log('argv', argv);
         console.log('component', component);
-        return await instance.reportCommand({ uid, argv, component, userAgent })
+        return await instance.reportCommand({ uid, argv, command, component, userAgent })
       }
       // 解析异常
       if (type === 'parseException') {
         console.log('uid', uid);
         console.log('argv', argv);
         console.log('message', message);
-        return await instance.reportParseException({ uid, argv, message, userAgent })
+        return await instance.reportParseException({ argv, command, message, userAgent })
       }
       // 执行异常
       if (type === 'runtimeException') {
@@ -34,7 +35,7 @@ const { Report } = require('./lib');
         console.log('argv', argv);
         console.log('component', component);
         console.log('message', message);
-        return await instance.reportRuntimeException({ uid, argv, component, message, userAgent })
+        return await instance.reportRuntimeException({ uid, argv, command, component, message, userAgent })
       }
     }
     await run();

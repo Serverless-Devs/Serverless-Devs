@@ -79,7 +79,7 @@ export default class Custom {
         const context = await engine.start();
         await this.updateComponent(context);
         const reportComponent = await this.getReportComponent()
-        const reportData = { uid: get(context, 'credential.AccountID'), argv, component: reportComponent, userAgent: getUserAgent({ component: reportComponent }) };
+        const reportData = { uid: get(context, 'credential.AccountID'), argv, command: this.spec.command, component: reportComponent, userAgent: getUserAgent({ component: reportComponent }) };
         if (get(context, 'status') === 'success') {
           execDaemon('report.js', { ...reportData, type: EReportType.command });
           rest['output-file'] ? writeOutput(get(context, 'output')) : this.output(context);

@@ -1,6 +1,5 @@
-const pkg = require('../../../package.json');
 import { REPORT_BASE_URL } from '@/constant';
-import { getCurrentEnvironment, ETrackerType } from '@serverless-devs/utils';
+import { ETrackerType } from '@serverless-devs/utils';
 import axios from 'axios';
 import { EReportType } from '@/type';
 
@@ -37,7 +36,10 @@ class Report {
     let temp = `trackerType=${payload.trackerType}`
     const { argv = [] } = payload;
     if (argv.length > 0) {
-      temp = `${temp}&trackerName=${`s ${argv.join(' ')}`}`;
+      temp = `${temp}&trackerDesc=${`s ${argv.join(' ')}`}`;
+    }
+    if ('command' in payload) {
+      temp = `${temp}&trackerName=${payload.command}`;
     }
     if ('userAgent' in payload) {
       temp = `${temp}&userAgent=${payload.userAgent}`;
