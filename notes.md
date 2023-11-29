@@ -1,2 +1,2 @@
 ## feature
-- report trackerDesc
+- s cli support report
