@@ -8,6 +8,10 @@ import Credential from '@serverless-devs/credential';
 import { each, filter, get, includes, isString } from 'lodash';
 import logger from '@/logger';
 import Help from './help';
+import execDaemon from '@/exec-daemon';
+import { EReportType } from '@/type';
+import { getUserAgent } from '@serverless-devs/utils';
+import handleError from '@/error';
 
 // TODO:文档链接
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
@@ -87,6 +91,15 @@ const doAction = async () => {
     },
   };
   if (instance[command]) {
+    const argv = process.argv.slice(2);
+    const getUid = async () => {
+      // 尝试获取uid
+      try {
+        const res = await new Credential({ logger: componentLogger }).get(access);
+        return get(res, 'credential.AccountID');
+      } catch (error) { }
+    }
+    const reportData = { uid: await getUid(), argv, command, component: componentName, userAgent: getUserAgent({ component: componentName }) };
     try {
       const res = await instance[command](inputs);
       const showOutput = () => {
@@ -97,12 +110,15 @@ const doAction = async () => {
       };
       showOutput();
       writeOutput(res);
+      execDaemon('report.js', { ...reportData, type: EReportType.command });
       return;
     } catch (error) {
-      throw new utils.DevsError(error.message, {
+      handleError(new utils.DevsError(error.message, {
         stack: error.stack,
         exitCode: 101,
-      });
+        trackerType: 'runtimeException'
+      }), reportData);
+      return;
     }
   }
   throw new utils.DevsError('The specified command cannot be found.', {
