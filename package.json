@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@serverless-devs/credential": "^0.0.3",
-    "@serverless-devs/engine": "^0.0.18",
+    "@serverless-devs/engine": "^0.0.19",
     "@serverless-devs/core": "^0.1.66",
     "@serverless-devs/load-application": "^0.0.8",
     "@serverless-devs/load-component": "^0.0.5",
