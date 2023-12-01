@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, isJson, writeOutput } from '@/utils';
+import { emoji, getUid, isJson, writeOutput } from '@/utils';
 import v1 from './v1';
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
@@ -92,14 +92,7 @@ const doAction = async () => {
   };
   if (instance[command]) {
     const argv = process.argv.slice(2);
-    const getUid = async () => {
-      // 尝试获取uid
-      try {
-        const res = await new Credential({ logger: componentLogger }).get(access);
-        return get(res, 'credential.AccountID');
-      } catch (error) { }
-    }
-    const reportData = { uid: await getUid(), argv, command, component: componentName, userAgent: getUserAgent({ component: componentName }) };
+    const reportData = { uid: await getUid(access), argv, command, component: componentName, userAgent: getUserAgent({ component: componentName }) };
     try {
       const res = await instance[command](inputs);
       const showOutput = () => {
@@ -116,7 +109,7 @@ const doAction = async () => {
       handleError(new utils.DevsError(error.message, {
         stack: error.stack,
         exitCode: 101,
-        trackerType: 'runtimeException'
+        trackerType: utils.ETrackerType.runtimeException,
       }), reportData);
       return;
     }

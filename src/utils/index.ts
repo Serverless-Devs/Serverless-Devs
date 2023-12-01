@@ -132,3 +132,11 @@ export const runEnvComponent = async (args: IEnvArgs, access: any) => {
     });
   }
 };
+
+// 尝试获取uid
+export const getUid = async (access: string) => {
+  try {
+    const res = await new Credential({ logger }).get(access);
+    return get(res, 'credential.AccountID');
+  } catch (error) { };
+};

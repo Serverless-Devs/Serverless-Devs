@@ -1,20 +1,23 @@
 import { Command } from 'commander';
 import { loadComponent, makeUnderLine, publishHelp } from '@serverless-devs/core';
 import path from 'path';
-import { getYamlContent } from '@serverless-devs/utils';
-import { get, isPlainObject, values, first, isEmpty, find, each } from 'lodash';
+import { DevsError, ETrackerType, getUserAgent, getYamlContent } from '@serverless-devs/utils';
+import { get, isPlainObject, values, first, isEmpty, find, each, join } from 'lodash';
 import chalk from 'chalk';
-import { emoji, writeOutput } from '@/utils';
+import { emoji, getUid, writeOutput } from '@/utils';
 import { parseArgv } from '@serverless-devs/utils';
 import * as core from '@serverless-devs/core';
 import { ISpec } from '../types';
+import { EReportType } from '@/type';
+import execDaemon from '@/exec-daemon';
+import handleError from '@/error';
 
 class V1 {
   private customProgram: Command;
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) {}
+  ) { }
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -38,23 +41,45 @@ class V1 {
   async doExecCommand() {
     const argv = process.argv.slice(2);
     const { template, help, access, debug, output, ...rest } = parseArgv(argv);
-    const res = await core.execCommand({
-      syaml: template,
-      serverName: this.spec.projectName,
-      method: this.spec.command,
-      args: process.argv.slice(2),
-      globalArgs: {
-        access,
-        skipActions: rest['skip-actions'],
-        debug,
-        help,
-        output,
-      },
-      env: {
-        serverless_devs_temp_argv: JSON.stringify(process.argv.slice(2)),
-      },
-    });
-    writeOutput(res);
+    const reportComponent = await this.getReportComponent();
+    const reportData = { uid: await getUid(access), argv, command: this.spec.command, component: reportComponent, userAgent: getUserAgent({ component: reportComponent }) };
+    try {
+      const res = await core.execCommand({
+        syaml: template,
+        serverName: this.spec.projectName,
+        method: this.spec.command,
+        args: process.argv.slice(2),
+        globalArgs: {
+          access,
+          skipActions: rest['skip-actions'],
+          debug,
+          help,
+          output,
+        },
+        env: {
+          serverless_devs_temp_argv: JSON.stringify(process.argv.slice(2)),
+        },
+      });
+      writeOutput(res);
+      execDaemon('report.js', { ...reportData, type: EReportType.command });
+    } catch (error) {
+      handleError(new DevsError(error.message, {
+        stack: error.stack,
+        trackerType: ETrackerType.runtimeException,
+      }), reportData)
+    }
+  }
+
+  async getReportComponent() {
+    const reportComponentList = [];
+    const components = get(this.spec, 'components');
+    for (const name of components) {
+      const instance = await loadComponent(name);
+      const publishData = getYamlContent(path.join(instance.__path, 'publish.yaml'));
+      const version = get(publishData, 'Version');
+      reportComponentList.push(version ? `${get(publishData, 'Name')}@${version}` : name);
+    }
+    return join(reportComponentList, ',');
   }
   // s -h
   async showSimpleHelp() {

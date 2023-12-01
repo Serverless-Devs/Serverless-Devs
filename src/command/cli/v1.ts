@@ -1,11 +1,14 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import * as core from '@serverless-devs/core';
-import * as utils from '@serverless-devs/utils';
-import { emoji, writeOutput } from '@/utils';
+import { emoji, getUid, writeOutput } from '@/utils';
 import { includes, isEmpty, isPlainObject, isString } from 'lodash';
 import logger from '@/logger';
 import path from 'path';
+import execDaemon from '@/exec-daemon';
+import { EReportType } from '@/type';
+import { DevsError, ETrackerType, getUserAgent, parseArgv } from '@serverless-devs/utils';
+import handleError from '@/error';
 
 const v1 = (program: Command) => {
   program.action(async options => {
@@ -13,7 +16,8 @@ const v1 = (program: Command) => {
   });
 
   const doAction = async options => {
-    const argvData = core.getGlobalArgs(process.argv.slice(2));
+    const argv = process.argv.slice(2)
+    const argvData = core.getGlobalArgs(argv);
     const { _: rawData, access = 'default', help, silent } = argvData;
     // s cli
     if (rawData.length === 1 || (rawData.length === 1 && help)) {
@@ -59,13 +63,14 @@ const v1 = (program: Command) => {
           configPath: process.cwd(),
         },
       };
+      const reportData = { uid: await getUid(access), argv, command: _method, component: componentName, userAgent: getUserAgent({ component: componentName }) };
       try {
         const res = await instance[_method](inputs);
         if (isEmpty(res)) {
           return logger.write(chalk.green(`End of method: ${_method}`));
         }
         const showOutput = () => {
-          const argv = utils.parseArgv(process.argv.slice(2));
+          const argv = parseArgv(process.argv.slice(2));
           if (argv['output-file']) return;
           logger.unsilent();
           isString(res) ? (silent ? logger.write(res) : logger.write(chalk.green(res))) : logger.output(res);
@@ -73,14 +78,17 @@ const v1 = (program: Command) => {
         };
         showOutput();
         writeOutput(res);
+        execDaemon('report.js', { ...reportData, type: EReportType.command });
+
       } catch (error) {
-        throw new utils.DevsError(error.message, {
+        handleError(new DevsError(error.message, {
           stack: error.stack,
           exitCode: 101,
-        });
+          trackerType: ETrackerType.runtimeException,
+        }), reportData);
+        return;
       }
     }
-
     // s cli fc -h
     if (rawData.length === 2) {
       if (instance['index']) {
