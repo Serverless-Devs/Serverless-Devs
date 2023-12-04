@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import { emoji } from '@/utils';
 import { handleSecret } from '../utils';
 import logger from '@/logger';
+import { isEmpty } from 'lodash';
 
 const description = `You can get accounts.
  
@@ -33,6 +34,9 @@ export default (program: Command) => {
           });
         } else {
           const result = credential.getAll();
+          if (isEmpty(result)) {
+            throw new Error('Not found access');
+          }
           const show = {};
           for (const alias in result) {
             const value = result[alias];
