@@ -1,9 +1,9 @@
-import { maxBy, repeat, filter, get, each } from 'lodash';
+import { maxBy, repeat, filter, get, each, isEmpty, find } from 'lodash';
 import TableLayout from 'table-layout';
 import { getRootHome, parseArgv } from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import path from 'path';
-import { IOutput } from '@serverless-devs/parse-spec';
+import { IOutput, ENVIRONMENT_FILE_PATH, ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import yaml from 'js-yaml';
 const pkg = require('../../package.json');
@@ -12,6 +12,7 @@ import loadComponent from "@serverless-devs/load-component";
 import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from "@/command/env/constant";
 import Credential from "@serverless-devs/credential";
 import { IEnvArgs } from '@/type';
+import assert from 'assert';
 
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
@@ -140,3 +141,46 @@ export const getUid = async (access: string) => {
     return get(res, 'credential.AccountID');
   } catch (error) { };
 };
+
+// 获取默认环境
+export const getDefaultEnv = () => {
+  const envFile = utils.getAbsolutePath(ENVIRONMENT_FILE_NAME);
+  if (!fs.existsSync(envFile)) return null;
+  const envYamlContent = utils.getYamlContent(envFile);
+  const project = get(envYamlContent, 'project');
+  if (!project) return null;
+  if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
+    const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
+    const currentDefaultEnv = defaultEnvContent?.find(i => i.project === project && i.path === envFile);
+    if (!isEmpty(currentDefaultEnv) && fs.existsSync(currentDefaultEnv.path)) {
+      return currentDefaultEnv.default;
+    }
+    return null;
+  } else {
+    return null;
+  }
+};
+
+// 若有env参数或者默认env，运行组件
+export const runEnv = async (env: string | boolean) => {
+  if (typeof env === 'boolean') return;
+  if (isEmpty(env)) {
+    env = getDefaultEnv();
+    if (isEmpty(env)) return;
+  }
+  const template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME);
+  const { environments } = utils.getYamlContent(template);
+  const data = find(environments, item => item.name === env);
+  assert(data, `The environment ${env} was not found`);
+  const { access, ...rest } = data
+
+  const inputs = {
+    props: {
+      ...rest,
+    },
+    command: 'env',
+    args: ['deploy'],
+  };
+
+  await runEnvComponent(inputs, access);
+}

@@ -14,10 +14,8 @@ import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
 import { EReportType } from '@/type';
-import { emoji, showOutput, writeOutput, runEnvComponent } from '@/utils';
+import { emoji, showOutput, writeOutput, runEnv } from '@/utils';
 import { ETrackerType, DevsError, getUserAgent } from '@serverless-devs/utils'
-import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
-import assert from 'assert';
 
 export default class Custom {
   private spec = {} as ISpec;
@@ -32,24 +30,8 @@ export default class Custom {
     // help命令不处理
     if (raw[0] === 'help') return;
     // 若带env参数，运行env deploy
-    if (env && env !== true) {
-      const template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME);
-      const { environments } = utils.getYamlContent(template);
-      const data = find(environments, item => item.name === env);
-      assert(data, `The environment ${env} was not found`);
-      const { access, ...rest } = data
-
-      const inputs = {
-        props: {
-          ...rest,
-        },
-        command: 'env',
-        args: ['deploy'],
-      };
-
-      await runEnvComponent(inputs, access);
-    }
-    try {
+    runEnv(env);
+    try { 
       this.spec = await this.parseSpec();
     } catch (error) {
       /**

@@ -1,14 +1,10 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, showOutput, writeOutput, runEnvComponent } from '@/utils';
+import { emoji, showOutput, writeOutput, runEnv } from '@/utils';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '@/logger';
-import { get, omit, find } from 'lodash';
+import { get, omit } from 'lodash';
 import { parseArgv } from '@serverless-devs/utils';
-import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
-import assert from 'assert';
-import * as utils from '@serverless-devs/utils';
-import path from 'path';
 // TODO:文档链接
 const description = `Application preview.
   
@@ -27,23 +23,8 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const { template, env } = program.optsWithGlobals();
-      if (env && env !== true) {
-        const template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME);
-        const { environments } = utils.getYamlContent(template);
-        const data = find(environments, item => item.name === env);
-        assert(data, `The environment ${env} was not found`);
-        const { access, ...rest } = data
-
-        const inputs = {
-          props: {
-            ...rest,
-          },
-          command: 'env',
-          args: ['deploy'],
-        };
-
-        await runEnvComponent(inputs, access);
-      }
+      // 若有env或者默认env，运行环境组件的env deploy
+      runEnv(env);
       const spec = await new ParseSpec(template, { logger }).start();
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
