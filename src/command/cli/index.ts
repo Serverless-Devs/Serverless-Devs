@@ -38,7 +38,7 @@ export default async (program: Command) => {
     cliProgram.help();
   }
   const [componentName] = raw.slice(1);
-  const v3 = await isFc3(componentName)
+  const v3 = await isFc3(componentName);
   if (!v3) return v1(cliProgram);
   // s cli fc3 or s cli fc3 -h
   if (help || raw.length === 2) return new Help(cliProgram).init();
@@ -55,10 +55,14 @@ const isFc3 = async (componentName: string) => {
   } catch (error) {
     return false;
   }
-}
+};
 
 const doAction = async () => {
-  const { _: raw = [], silent, ...rest } = utils.parseArgv(process.argv.slice(2), {
+  const {
+    _: raw = [],
+    silent,
+    ...rest
+  } = utils.parseArgv(process.argv.slice(2), {
     alias: {
       props: 'p',
     },
@@ -106,11 +110,14 @@ const doAction = async () => {
       execDaemon('report.js', { ...reportData, type: EReportType.command });
       return;
     } catch (error) {
-      handleError(new utils.DevsError(error.message, {
-        stack: error.stack,
-        exitCode: 101,
-        trackerType: utils.ETrackerType.runtimeException,
-      }), reportData);
+      handleError(
+        new utils.DevsError(error.message, {
+          stack: error.stack,
+          exitCode: 101,
+          trackerType: utils.ETrackerType.runtimeException,
+        }),
+        reportData,
+      );
       return;
     }
   }

@@ -19,8 +19,16 @@ export default (program: Command) => {
     .option('--project <project>', 'Specify the project of the environment')
     .option('--name <name>', 'Specify the environment name')
     .option('--description <description>', 'Specify the description of the environment')
-    .addOption(new Option('--type <type>', 'Specify the type of the environment, which must be one of testing, staging, and production. The default is testing').choices(['testing', 'staging', 'production']))
-    .option('--overlays <jsonString>', 'Declare the differentiated configuration used in the environment, which is used to overwrite s.yaml during deployment', v => isJson(v, '--overlays'))
+    .addOption(
+      new Option('--type <type>', 'Specify the type of the environment, which must be one of testing, staging, and production. The default is testing').choices([
+        'testing',
+        'staging',
+        'production',
+      ]),
+    )
+    .option('--overlays <jsonString>', 'Declare the differentiated configuration used in the environment, which is used to overwrite s.yaml during deployment', v =>
+      isJson(v, '--overlays'),
+    )
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

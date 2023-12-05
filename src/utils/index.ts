@@ -8,9 +8,9 @@ import logger from '@/logger';
 import yaml from 'js-yaml';
 const pkg = require('../../package.json');
 import * as utils from '@serverless-devs/utils';
-import loadComponent from "@serverless-devs/load-component";
-import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from "@/command/env/constant";
-import Credential from "@serverless-devs/credential";
+import loadComponent from '@serverless-devs/load-component';
+import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from '@/command/env/constant';
+import Credential from '@serverless-devs/credential';
 import { IEnvArgs } from '@/type';
 import assert from 'assert';
 
@@ -139,7 +139,7 @@ export const getUid = async (access: string) => {
   try {
     const res = await new Credential({ logger }).get(access);
     return get(res, 'credential.AccountID');
-  } catch (error) { };
+  } catch (error) {}
 };
 
 // 获取默认环境
@@ -172,7 +172,7 @@ export const runEnv = async (env: string | boolean) => {
   const { environments } = utils.getYamlContent(template);
   const data = find(environments, item => item.name === env);
   assert(data, `The environment ${env} was not found`);
-  const { access, ...rest } = data
+  const { access, ...rest } = data;
 
   const inputs = {
     props: {
@@ -183,4 +183,4 @@ export const runEnv = async (env: string | boolean) => {
   };
 
   await runEnvComponent(inputs, access);
-}
+};

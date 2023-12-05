@@ -34,7 +34,7 @@ class Action {
       args: ['update'],
     };
 
-    const { 'project': p, ...envResult } = await runEnvComponent(inputs, access);
+    const { project: p, ...envResult } = await runEnvComponent(inputs, access);
     const newEnvironments = map(environments, item => {
       if (item.name === this.options.name) {
         return {

@@ -20,14 +20,14 @@ const { Report } = require('./lib');
         console.log('uid', uid);
         console.log('argv', argv);
         console.log('component', component);
-        return await instance.reportCommand({ uid, argv, command, component, userAgent })
+        return await instance.reportCommand({ uid, argv, command, component, userAgent });
       }
       // 解析异常
       if (type === 'parseException') {
         console.log('uid', uid);
         console.log('argv', argv);
         console.log('message', message);
-        return await instance.reportParseException({ argv, command, message, userAgent })
+        return await instance.reportParseException({ argv, command, message, userAgent });
       }
       // 执行异常
       if (type === 'runtimeException') {
@@ -35,9 +35,9 @@ const { Report } = require('./lib');
         console.log('argv', argv);
         console.log('component', component);
         console.log('message', message);
-        return await instance.reportRuntimeException({ uid, argv, command, component, message, userAgent })
+        return await instance.reportRuntimeException({ uid, argv, command, component, message, userAgent });
       }
-    }
+    };
     await run();
     console.log('********report successfully in daemon********');
     // Call process exit explicitly to terminate the child process,

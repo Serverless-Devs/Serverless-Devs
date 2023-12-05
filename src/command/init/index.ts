@@ -43,7 +43,7 @@ export default (program: Command) => {
       if (template && !template?.startsWith('-')) {
         options.project = template;
       }
-      
+
       const manager = new Manager({ ...options, ...program.optsWithGlobals() });
       await manager.init();
     });

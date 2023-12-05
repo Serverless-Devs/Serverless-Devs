@@ -17,7 +17,7 @@ class V1 {
   constructor(
     private program: Command,
     private spec = {} as ISpec,
-  ) { }
+  ) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, help } = parseArgv(argv);
@@ -63,10 +63,13 @@ class V1 {
       writeOutput(res);
       execDaemon('report.js', { ...reportData, type: EReportType.command });
     } catch (error) {
-      handleError(new DevsError(error.message, {
-        stack: error.stack,
-        trackerType: ETrackerType.runtimeException,
-      }), reportData)
+      handleError(
+        new DevsError(error.message, {
+          stack: error.stack,
+          trackerType: ETrackerType.runtimeException,
+        }),
+        reportData,
+      );
     }
   }
 

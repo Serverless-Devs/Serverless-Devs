@@ -16,7 +16,7 @@ const v1 = (program: Command) => {
   });
 
   const doAction = async options => {
-    const argv = process.argv.slice(2)
+    const argv = process.argv.slice(2);
     const argvData = core.getGlobalArgs(argv);
     const { _: rawData, access = 'default', help, silent } = argvData;
     // s cli
@@ -79,13 +79,15 @@ const v1 = (program: Command) => {
         showOutput();
         writeOutput(res);
         execDaemon('report.js', { ...reportData, type: EReportType.command });
-
       } catch (error) {
-        handleError(new DevsError(error.message, {
-          stack: error.stack,
-          exitCode: 101,
-          trackerType: ETrackerType.runtimeException,
-        }), reportData);
+        handleError(
+          new DevsError(error.message, {
+            stack: error.stack,
+            exitCode: 101,
+            trackerType: ETrackerType.runtimeException,
+          }),
+          reportData,
+        );
         return;
       }
     }

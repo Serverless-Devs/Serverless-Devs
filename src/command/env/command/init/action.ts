@@ -9,7 +9,7 @@ import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/p
 import * as utils from '@serverless-devs/utils';
 import Credential from '@serverless-devs/credential';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
-import { ENV_KEYS } from "@/command/env/constant";
+import { ENV_KEYS } from '@/command/env/constant';
 import { runEnvComponent } from '@/utils';
 
 class Action {
@@ -29,17 +29,20 @@ class Action {
       const { project } = utils.getYamlContent(template);
       basicInfo.project = project;
     }
-    const envInfo = { ...basicInfo }
+    const envInfo = { ...basicInfo };
     // initialize the infra stack information of the environment component
     if (deployInfraStack) {
-      const infraStackInfo = await runEnvComponent({
-        props: {
-          ...basicInfo
+      const infraStackInfo = await runEnvComponent(
+        {
+          props: {
+            ...basicInfo,
+          },
+          command: 'env',
+          args: ['init', '--prompt-infra-stack'],
         },
-        command: 'env',
-        args: ['init', '--prompt-infra-stack'],
-      }, access);
-      envInfo.infraStack = { ...infraStackInfo }
+        access,
+      );
+      envInfo.infraStack = { ...infraStackInfo };
     }
 
     logger.debug(`writeEnvironmentFile data: ${JSON.stringify(envInfo)}`);
@@ -53,11 +56,11 @@ class Action {
       args: ['init'],
     };
 
-    const { 'project': p, ...rest } = await runEnvComponent(inputs, access);
+    const { project: p, ...rest } = await runEnvComponent(inputs, access);
     const result = {
       access,
-      ...rest
-    }
+      ...rest,
+    };
     // 追加内容
     if (fs.existsSync(template)) {
       const { project, environments } = utils.getYamlContent(template);

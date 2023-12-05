@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy, isEmpty, join, keys, find } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty, join, keys } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
@@ -15,11 +15,11 @@ import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
 import { EReportType } from '@/type';
 import { emoji, showOutput, writeOutput, runEnv } from '@/utils';
-import { ETrackerType, DevsError, getUserAgent } from '@serverless-devs/utils'
+import { ETrackerType, DevsError, getUserAgent } from '@serverless-devs/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
-  constructor(private program: Command) { }
+  constructor(private program: Command) {}
   async init() {
     const argv = process.argv.slice(2);
     const { _: raw, template, help, version, verify = true, env, ...rest } = utils.parseArgv(argv);
@@ -31,7 +31,7 @@ export default class Custom {
     if (raw[0] === 'help') return;
     // 若带env参数，运行env deploy
     runEnv(env);
-    try { 
+    try {
       this.spec = await this.parseSpec();
     } catch (error) {
       /**
@@ -41,8 +41,8 @@ export default class Custom {
       if (raw.length > 0) {
         throw new DevsError(error.message, {
           stack: error.stack,
-          trackerType: ETrackerType.parseException
-        })
+          trackerType: ETrackerType.parseException,
+        });
       }
     }
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
@@ -60,8 +60,14 @@ export default class Custom {
         });
         const context = await engine.start();
         await this.updateComponent(context);
-        const reportComponent = await this.getReportComponent()
-        const reportData = { uid: get(context, 'credential.AccountID'), argv, command: this.spec.command, component: reportComponent, userAgent: getUserAgent({ component: reportComponent }) };
+        const reportComponent = await this.getReportComponent();
+        const reportData = {
+          uid: get(context, 'credential.AccountID'),
+          argv,
+          command: this.spec.command,
+          component: reportComponent,
+          userAgent: getUserAgent({ component: reportComponent }),
+        };
         if (get(context, 'status') === 'success') {
           execDaemon('report.js', { ...reportData, type: EReportType.command });
           rest['output-file'] ? writeOutput(get(context, 'output')) : this.output(context);

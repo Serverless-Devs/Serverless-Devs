@@ -19,7 +19,7 @@ class Action {
     const { project, environments } = utils.getYamlContent(template);
     const data = find(environments, item => item.name === name);
     assert(data, `The environment ${name} was not found`);
-    const { access, ...rest } = data
+    const { access, ...rest } = data;
 
     const inputs = {
       props: {

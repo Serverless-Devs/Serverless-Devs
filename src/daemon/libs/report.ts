@@ -3,7 +3,6 @@ import { ETrackerType } from '@serverless-devs/utils';
 import axios from 'axios';
 import { EReportType } from '@/type';
 
-
 interface IReportParseException {
   userAgent: string;
   argv: string[];
@@ -13,8 +12,7 @@ interface IReportParseException {
 type IReportRunTimeException = IReportParseException & {
   uid: string;
   component: string;
-}
-
+};
 
 interface IReportCommand {
   userAgent: string;
@@ -33,7 +31,7 @@ class Report {
     this.url = `${REPORT_BASE_URL}?APIVersion=0.6.0`;
   }
   private getUrl(payload = {} as Record<string, any>) {
-    let temp = `trackerType=${payload.trackerType}`
+    let temp = `trackerType=${payload.trackerType}`;
     const { argv = [] } = payload;
     if (argv.length > 0) {
       temp = `${temp}&trackerDesc=${`s ${argv.join(' ')}`}`;
