@@ -35,10 +35,13 @@
     "watch": "npm run build -- --watch",
     "prebuild": "rm -rf node_modules && npm install --production false",
     "build": "node ./scripts/build.js",
-    "pkg": "pkg bin/s --out-path releases",
+    "pkg": "pkg . --out-path releases",
     "prepublishOnly": "npm run build",
     "beta": "npm publish --tag=beta",
     "pub": "npm publish"
+  },
+  "pkg": {
+    "scripts": ["./lib/daemon/**/*.js"]
   },
   "main": "./lib/index.js",
   "bin": {
