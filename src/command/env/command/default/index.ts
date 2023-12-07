@@ -3,7 +3,6 @@ import chalk from 'chalk';
 import { emoji } from '@/utils';
 import Action from './action';
 
-// TODO: @封崇
 const description = `Set and check default environment.
 
 Supported vendors: Alibaba Cloud
@@ -18,7 +17,6 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    // TODO: @封崇
     .summary(`${emoji('🔤')} Set default environment`)
     .option('-n, --name <name>', 'Env name')
     .helpOption('-h, --help', 'Displsay help for command')

@@ -13,7 +13,6 @@ import { EReportType } from '@/type';
 import { getUserAgent } from '@serverless-devs/utils';
 import handleError from '@/error';
 
-// TODO:文档链接
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
   
   Example:

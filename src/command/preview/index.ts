@@ -5,7 +5,7 @@ import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import { get, omit } from 'lodash';
 import { parseArgv } from '@serverless-devs/utils';
-// TODO:文档链接
+
 const description = `Application preview.
   
   Example:
@@ -18,7 +18,6 @@ export default (program: Command) => {
     .command('preview')
     .description(description)
     .summary(`${emoji('👀')} Preview Yaml render results`)
-    // TODO: @封崇
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const { template, env } = program.optsWithGlobals();

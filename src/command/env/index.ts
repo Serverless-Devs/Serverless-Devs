@@ -25,8 +25,8 @@ export default (program: Command) => {
 
   subInit(envProgram);
   subList(envProgram);
-  // 暂时不需要 
-  // subUpdate(envProgram); 
+  // 暂时不需要
+  // subUpdate(envProgram);
   subDescribe(envProgram);
   subDestroy(envProgram);
   subDefault(envProgram);

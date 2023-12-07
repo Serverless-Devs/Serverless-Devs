@@ -7,7 +7,7 @@ import * as utils from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import TableLayout from 'table-layout';
 import { get, maxBy } from 'lodash';
-// TODO:文档链接
+
 const description = `Get details of installed components.
   
   Example:

@@ -3,7 +3,6 @@ import chalk from 'chalk';
 import { emoji } from '@/utils';
 import Action from './action';
 
-// TODO: @封崇
 const description = `You can add an account
 
     Example:
@@ -27,7 +26,6 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    // TODO: @封崇
     .summary(`${emoji(chalk.bold('+'))} set`)
     .requiredOption('--component <name>', 'Specify the component name')
     .helpOption('-h, --help', 'Displsay help for command')
