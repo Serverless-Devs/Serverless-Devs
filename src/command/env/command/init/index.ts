@@ -29,6 +29,7 @@ export default (program: Command) => {
     .option('--overlays <jsonString>', 'Declare the differentiated configuration used in the environment, which is used to overwrite s.yaml during deployment', v =>
       isJson(v, '--overlays'),
     )
+    .option('--infra-stack-name <infraStackName>', 'Specify the infra stack name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();
