@@ -9,6 +9,7 @@ import path from 'path';
 import { assert } from 'console';
 import { ENV_KEYS } from '../../constant';
 import { runEnvComponent } from '@/utils';
+import chalk from 'chalk';
 
 class Action {
   constructor(private options: IOptions) {
@@ -46,7 +47,7 @@ class Action {
       return item;
     });
     fs.writeFileSync(template, yaml.dump({ project, environments: newEnvironments }));
-    logger.write('Environment updated successfully');
+    logger.write(chalk.green('Environment updated successfully'));
   }
 }
 

@@ -11,6 +11,7 @@ import Credential from '@serverless-devs/credential';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import { ENV_KEYS } from '@/command/env/constant';
 import { runEnvComponent } from '@/utils';
+import chalk from 'chalk';
 
 class Action {
   constructor(private options: IOptions = {}) {
@@ -19,7 +20,7 @@ class Action {
   }
   async start() {
     await this.doAction();
-    logger.write('Environment init successfully');
+    logger.write(chalk.green('Environment init successfully'));
   }
   private async doAction() {
     // initialize the basic information of the environment
@@ -119,7 +120,7 @@ class Action {
           if (fs.existsSync(answers.template)) {
             const envContent = utils.getYamlContent(answers.template);
             if (find(envContent.environments, o => o.name === val))
-              return `name [${val}] already exists, you can specify other value except [${map(envContent.environments, o => o.name).join(', ')}]`;
+              return `Env [${val}] already exists, you can specify other value except [${map(envContent.environments, o => o.name).join(', ')}]`;
           }
           return true;
         },
@@ -172,6 +173,11 @@ class Action {
   private async getBasicInfo() {
     if (this.options.name) {
       this.options.template = get(this.options, 'template', path.join(process.cwd(), ENVIRONMENT_FILE_NAME));
+      if (fs.existsSync(this.options.template)) {
+        const envContent = utils.getYamlContent(this.options.template);
+        if (find(envContent.environments, o => o.name === this.options.name))
+          throw new Error(`Env [${this.options.name}] already exists, you can specify other value except [${map(envContent.environments, o => o.name).join(', ')}]`);
+      }
       this.options.access = get(this.options, 'access', 'default');
       return this.options;
     }

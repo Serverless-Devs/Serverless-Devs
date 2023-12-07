@@ -2,6 +2,7 @@ import logger from '@/logger';
 import { IOptions } from './type';
 import { setGlobalConfig } from '@serverless-devs/utils';
 import { ENV_COMPONENT_KEY } from '../../constant';
+import chalk from 'chalk';
 
 class Action {
   constructor(private options: IOptions) {
@@ -9,7 +10,7 @@ class Action {
   }
   async start() {
     setGlobalConfig(ENV_COMPONENT_KEY, this.options.component);
-    logger.write(`Set env component [${this.options.component}] successfully`);
+    logger.write(chalk.green(`Set env component [${this.options.component}] successfully`));
   }
 }
 

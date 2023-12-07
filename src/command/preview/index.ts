@@ -19,7 +19,6 @@ export default (program: Command) => {
     .description(description)
     .summary(`${emoji('👀')} Preview Yaml render results`)
     // TODO: @封崇
-    .option('--env <envName>', 'Specify the environment name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const { template, env } = program.optsWithGlobals();

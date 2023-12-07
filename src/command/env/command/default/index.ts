@@ -4,15 +4,14 @@ import { emoji } from '@/utils';
 import Action from './action';
 
 // TODO: @封崇
-const description = `You can add an account
+const description = `Set and check default environment.
+
+Supported vendors: Alibaba Cloud
 
     Example:
-        $ s config add
-        $ s config add --AccessKey ****** --SecretKey ******
-        $ s config add --AccessKeyID ****** --AccessKeySecret ****** --AccountID ****** --SecurityToken ******
-        $ s config add --keyList key1,key2,key3 --infoList value1,value2,value3
+        $ s env default -n default
 
-${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/env.md')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/env')}`;
 
 export default (program: Command) => {
   const command = program.command('default');
@@ -20,8 +19,8 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     // TODO: @封崇
-    .summary(`${emoji(chalk.bold('+'))} default`)
-    .option('--name <name>', 'Specify the env name')
+    .summary(`${emoji('🔤')} Set default environment`)
+    .option('-n, --name <name>', 'Env name')
     .helpOption('-h, --help', 'Displsay help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

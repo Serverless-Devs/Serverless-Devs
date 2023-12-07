@@ -28,10 +28,10 @@ Initialize a new project based on a template. You can initialize the application
 
 Example:
     $ s init
-    $ s init project 
-    $ s init project -d my_dir
-    $ s init project --app-name my-express
-    $ s init project --parameters '{"serviceName":"websiteService"}'
+    $ s init <project> 
+    $ s init <project> -d my_dir
+    $ s init <project> --app-name my-express
+    $ s init <project> --parameters '{"serviceName":"websiteService"}'
     $ s init git@github.com:foo/bar.git
     $ s init https://github.com/foo/bar.git
     

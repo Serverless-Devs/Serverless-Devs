@@ -6,6 +6,7 @@ import fs from 'fs-extra';
 import * as utils from '@serverless-devs/utils';
 import assert from 'assert';
 import { emoji } from '@/utils';
+import chalk from 'chalk';
 
 class Action {
   constructor(private options: IOptions) {
@@ -40,14 +41,14 @@ class Action {
       if (!isEmpty(currentDefaultEnv)) {
         set(currentDefaultEnv, 'default', this.options.name);
         fs.writeJSONSync(ENVIRONMENT_FILE_PATH, defaultEnvContent, { spaces: 2 });
-        return logger.write(msg);
+        return logger.write(chalk.green(msg));
       }
       fs.writeJSONSync(ENVIRONMENT_FILE_PATH, concat(defaultEnvContent, { project, default: this.options.name, path: envFile }), { spaces: 2 });
-      return logger.write(msg);
+      return logger.write(chalk.green(msg));
     }
     fs.ensureFileSync(ENVIRONMENT_FILE_PATH);
     fs.writeJSONSync(ENVIRONMENT_FILE_PATH, [{ project, default: this.options.name, path: envFile }], { spaces: 2 });
-    logger.write(msg);
+    logger.write(chalk.green(msg));
   }
 }
 

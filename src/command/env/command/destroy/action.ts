@@ -8,6 +8,7 @@ import path from 'path';
 import assert from 'assert';
 import yaml from 'js-yaml';
 import { runEnvComponent } from '@/utils';
+import chalk from 'chalk';
 
 class Action {
   constructor(private options: IOptions) {
@@ -33,7 +34,7 @@ class Action {
 
     const newEnvironments = filter(environments, item => item.name !== name);
     fs.writeFileSync(template, yaml.dump({ project, environments: newEnvironments }));
-    logger.write(`The environment ${name} was destroyed successfully`);
+    logger.write(chalk.green(`The environment ${name} was destroyed successfully`));
   }
 }
 

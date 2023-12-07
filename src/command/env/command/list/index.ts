@@ -4,12 +4,14 @@ import { emoji } from '@/utils';
 import Action from './action';
 
 // TODO: @封崇
-const description = `List all the environments associated with the project.
+const description = `Get env list.
+
+Supported vendors: Alibaba Cloud
 
     Example:
         $ s env list
 
-${emoji('📖')} Document: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/env.md')}`;
+${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/env')}`;
 
 export default (program: Command) => {
   const command = program.command('list');
@@ -17,7 +19,7 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     // TODO: @封崇
-    .summary(`List all the environments associated with the project`)
+    .summary(`${emoji('🔣')} View the list of existing environments`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();
