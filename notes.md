@@ -1,5 +1,4 @@
 ## 🚀 Features
-- Add an new parameter to `env init` command.
 - Add early versions of the `verify` command.
 
 ## 🛠️ Bug Fixes
@@ -11,3 +10,4 @@
 ## 💻 Maintenance
 - Add more help information to `env` command.
 - Improve `env` documentation.
+- Add an new parameter to `env init` command.
