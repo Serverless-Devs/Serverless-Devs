@@ -40,7 +40,8 @@ const root = async (program: Command) => {
   subComponent(program);
   subClean(program);
   subInit(program);
-  subVerify(program);
+  // TODO：未完善
+  // subVerify(program);
   await subCli(program);
 
   // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册

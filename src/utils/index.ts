@@ -106,6 +106,7 @@ export const showOutput = (data: any) => {
   return;
 };
 
+// 运行环境组件
 export const runEnvComponent = async (args: IEnvArgs, access: any) => {
   const componentName = utils.getGlobalConfig(ENV_COMPONENT_KEY, ENV_COMPONENT_NAME);
   const componentLogger = logger.loggerInstance.__generate(componentName);
@@ -183,4 +184,11 @@ export const runEnv = async (env: string | boolean) => {
   };
 
   await runEnvComponent(inputs, access);
+};
+
+export const getSchema = async (componentName: string) => {
+  const componentLogger = logger.loggerInstance.__generate(componentName);
+  const instance = await loadComponent(componentName, { logger: componentLogger });
+  if (!instance || !instance.getSchema) return null;
+  return instance.getSchema();
 };
