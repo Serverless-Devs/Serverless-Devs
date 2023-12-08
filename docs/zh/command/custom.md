@@ -1,7 +1,7 @@
 ---
 title: 自定义命令
 description: '自定义命令使用指南'
-position: 12
+position: 13
 category: '命令'
 ---
 

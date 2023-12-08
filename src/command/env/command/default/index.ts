@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { emoji } from '@/utils';
 import Action from './action';
 
-const description = `Set and check default environment.
+const description = `Set or check default environment.
 
 Supported vendors: Alibaba Cloud
 
