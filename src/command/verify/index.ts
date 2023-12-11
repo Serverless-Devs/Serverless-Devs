@@ -22,7 +22,7 @@ export default (program: Command) => {
       const { template, env } = program.optsWithGlobals();
       const ajv = new Ajv({ allErrors: true });
       // 若有env或者默认env，运行环境组件的env deploy
-      runEnv(env);
+      await runEnv(env);
       const spec = await new ParseSpec(template, { logger }).start();
       for (const i of spec.steps) {
         const schema = await getSchema(i.component);

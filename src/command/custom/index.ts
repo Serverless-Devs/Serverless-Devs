@@ -30,7 +30,7 @@ export default class Custom {
     // help命令不处理
     if (raw[0] === 'help') return;
     // 若带env参数，运行env deploy
-    runEnv(env);
+    await runEnv(env);
     try {
       this.spec = await this.parseSpec();
     } catch (error) {

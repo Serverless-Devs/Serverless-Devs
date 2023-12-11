@@ -10,6 +10,7 @@ import subRegistry from './registry';
 import subPreview from './preview';
 import subCli from './cli';
 import subComponent from './component';
+import subVerify from './verify';
 
 import Custom from './custom';
 
@@ -40,7 +41,7 @@ const root = async (program: Command) => {
   subClean(program);
   subInit(program);
   // TODO：未完全测试
-  // subVerify(program);
+  subVerify(program);
   await subCli(program);
 
   // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
