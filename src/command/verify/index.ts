@@ -27,7 +27,7 @@ export default (program: Command) => {
       for (const i of spec.steps) {
         const schema = await getSchema(i.component);
         if (isEmpty(schema)) continue;
-        const validate = ajv.compile(schema);
+        const validate = ajv.compile(JSON.parse(schema));
         if (!validate(i.props)) {
           throw new Error(ajv.errorsText(validate.errors));
         }

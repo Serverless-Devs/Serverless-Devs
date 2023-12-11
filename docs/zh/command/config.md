@@ -264,7 +264,7 @@ You can delete an account.
   Example:
     $ s config delete -a demo
     
-📖  Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/zh/command/config.md
+📖  Document: https://serverless.help/t/s/config
 
 Options:
   -h, --help                      Display help for command

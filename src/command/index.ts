@@ -10,7 +10,6 @@ import subRegistry from './registry';
 import subPreview from './preview';
 import subCli from './cli';
 import subComponent from './component';
-import subVerify from './verify';
 
 import Custom from './custom';
 
@@ -40,7 +39,7 @@ const root = async (program: Command) => {
   subComponent(program);
   subClean(program);
   subInit(program);
-  // TODO：未完善
+  // TODO：未完全测试
   // subVerify(program);
   await subCli(program);
 

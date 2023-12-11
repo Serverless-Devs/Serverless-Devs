@@ -18,6 +18,7 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`${emoji(chalk.bold('×'))} Delete an account`)
+    .option('-a, --access <aliasName>', 'Specify the access alias name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const credential = new Credential({ logger });
