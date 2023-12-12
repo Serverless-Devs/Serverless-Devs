@@ -38,7 +38,7 @@ const preRun = () => {
   await require('./command')(program);
   await program.parseAsync(process.argv);
   // exit after command execution finish
-  process.exit(1);
+  process.exit();
 })().catch(async error => {
   await handleError(error);
 });
