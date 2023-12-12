@@ -29,8 +29,6 @@ export default class Custom {
     if (systemCommandNames.includes(raw[0])) return;
     // help命令不处理
     if (raw[0] === 'help') return;
-    // 若带env参数，运行env deploy
-    await runEnv(env);
     try {
       this.spec = await this.parseSpec();
     } catch (error) {
@@ -46,6 +44,8 @@ export default class Custom {
       }
     }
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
+    // 若带env参数，运行env deploy
+    await runEnv(env);
     if (help) return await new Help(this.program, this.spec).init();
     this.program
       .command(raw[0])
