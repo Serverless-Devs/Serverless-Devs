@@ -24,12 +24,13 @@ export default (program: Command) => {
       // 若有env或者默认env，运行环境组件的env deploy
       await runEnv(env);
       const spec = await new ParseSpec(template, { logger }).start();
-      const errorsList = await getErrorList(spec, ajv);
-      
-      if (!isEmpty(errorsList)) {
-        throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));
-      }
       if (get(spec, 'yaml.use3x')) {
+        const errorsList = await getErrorList(spec, ajv);
+        
+        if (!isEmpty(errorsList)) {
+          throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));
+        }
+      
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
         return logger.write(chalk.green(`Verify [${get(spec, 'yaml.path', '').split('/').pop()}] success!`));
       }
