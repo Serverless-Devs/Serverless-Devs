@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { emoji, getSchema, runEnv } from '@/utils';
-import ParseSpec from '@serverless-devs/parse-spec';
+import ParseSpec, { ISpec } from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import { get, isEmpty } from 'lodash';
 import Ajv from 'ajv';
@@ -24,13 +24,10 @@ export default (program: Command) => {
       // 若有env或者默认env，运行环境组件的env deploy
       await runEnv(env);
       const spec = await new ParseSpec(template, { logger }).start();
-      for (const i of spec.steps) {
-        const schema = await getSchema(i.component);
-        if (isEmpty(schema)) continue;
-        const validate = ajv.compile(JSON.parse(schema));
-        if (!validate(i.props)) {
-          throw new Error(ajv.errorsText(validate.errors));
-        }
+      const errorsList = await getErrorList(spec, ajv);
+      
+      if (!isEmpty(errorsList)) {
+        throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));
       }
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
@@ -38,4 +35,24 @@ export default (program: Command) => {
       }
       logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
     });
+};
+
+const getErrorList = async (spec: ISpec, ajv: Ajv) => {
+  let errorsList = [];
+  for (const i of spec.steps) {
+    const schema = await getSchema(i.component);
+    if (isEmpty(schema)) continue;
+    const validate = ajv.compile(JSON.parse(schema));
+    if (!validate(i.props)) {
+      const errors = validate.errors;
+      for (const j of errors) {
+        j.instancePath = i.projectName + '/props' + j.instancePath;
+        if (j.keyword === 'enum') {
+          j.message = j.message + ': ' + j.params.allowedValues.join(', ');
+        }
+      }
+      errorsList = errorsList.concat(errors);
+    }
+  }
+  return errorsList;
 };

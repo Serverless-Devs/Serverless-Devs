@@ -370,7 +370,6 @@ resources:
 当用户执行`s deploy --debug`，此时，组件代码中的`deploy`方法，收到的`inputs`参数实际上是：
 
 ```json
-
 {
     "cwd": "/Users/start-component-v3/__tests__/mocks",
     "name": "hello-world-app",
@@ -397,5 +396,29 @@ resources:
         }
     }
 }
+```
 
+### 约定方法
+
+在3.0版本中，cli工具的部分指令会调用组件的特定方法，以便实现对应的功能。因此，若你的组件需要实现对应的功能，那么需要在组件代码中实现对应名称的方法。目前约定的方法如下：
+
+#### getSchema
+
+在`s verify`指令中，cli工具会调用组件的`getSchema`方法，获取组件的属性定义，并进行校验。因此，若你的组件想要对Yaml中填写的`props`进行校验，则需要在代码中实现一个名称为`getSchema`方法。该方法的入参出参应如下：
+
+| 入参 | 类型 | 含义 |
+|-----|-----|-----|
+| - | - | - |
+
+| 出参 | 类型 | 含义 | 
+|-----|-----|-----|
+| schema | object | 组件属性的JSON Schema |
+
+[fc3](https://github.com/devsapp/fc3)组件实现案例：
+
+```typescript
+public async getSchema(inputs: IInputs) {
+  logger.debug(`getSchema: ${JSON.stringify(inputs)}`);
+  return fs.readFileSync(SCHEMA_FILE_PATH, 'utf-8');
+}
 ```
