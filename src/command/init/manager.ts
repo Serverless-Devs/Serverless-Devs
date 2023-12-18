@@ -22,6 +22,7 @@ interface IOptions {
   project?: string;
   uri?: string;
   y?: boolean;
+  overwrite?: boolean;
 }
 
 export default class Manager {
@@ -178,6 +179,7 @@ export default class Manager {
       access: this.options.access,
       uri: this.options.uri,
       y: this.options.y,
+      overwrite: this.options.overwrite
     });
 
     if (appPath) {

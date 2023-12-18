@@ -30,6 +30,7 @@ export default (program: Command) => {
     .option('-y', 'Assume that the answer to any question which would be asked is yes')
     .option('--parameters <parameters>', 'Initialize with custom parameters')
     .option('--app-name <appName>', 'Modify default Application name')
+    .option('--no-overwrite', 'Only overwrite files with the same name')
     .action(async options => {
       if (options.parameters) {
         try {

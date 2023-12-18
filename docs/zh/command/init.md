@@ -45,6 +45,7 @@ Options:
   -y                              Assume that the answer to any question which would be asked is yes
   --parameters <parameters>       Initialize with custom parameters
   --app-name <appName>            Modify default Application name
+  --no-overwrite                  Only overwrite files with the same name
   -h, --help                      Display help for command
 ```
 
@@ -58,6 +59,7 @@ Options:
 | - | y | - | 所有问题都默认选择yes | 
 | parameters |  | {"serviceName":"websiteService"} | 初始化参数 | 
 | appName |  | my-express | 应用/项目名称 | 
+| no-overwrite | - | - | 只覆盖同名文件，不删除其他文件 | 
 
 ### 初始化项目
 
