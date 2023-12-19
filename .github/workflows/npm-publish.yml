@@ -16,11 +16,6 @@ jobs:
 
       - run: npm run build
       - run: npm publish
-        if: ${{ !contains(github.ref, 'beta')}}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: npm run beta
-        if: ${{ contains(github.ref, 'beta')}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -29,11 +24,6 @@ jobs:
 
       - run: npm run build
       - run: npm publish
-        if: ${{ !contains(github.ref, 'beta')}}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: npm run beta
-        if: ${{ contains(github.ref, 'beta')}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 

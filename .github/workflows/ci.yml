@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: s config
+        run: ./bin/s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} --AccountID ${{secrets.AccountID}} -f -a default
+
       - name: Run tests
         run: npm run test
       
