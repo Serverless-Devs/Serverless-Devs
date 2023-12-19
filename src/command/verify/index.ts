@@ -26,11 +26,11 @@ export default (program: Command) => {
       const spec = await new ParseSpec(template, { logger }).start();
       if (get(spec, 'yaml.use3x')) {
         const errorsList = await getErrorList(spec, ajv);
-        
+
         if (!isEmpty(errorsList)) {
           throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));
         }
-      
+
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
         return logger.write(chalk.green(`Verify [${get(spec, 'yaml.path', '').split('/').pop()}] success!`));
       }

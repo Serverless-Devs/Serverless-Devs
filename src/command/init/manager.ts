@@ -179,7 +179,7 @@ export default class Manager {
       access: this.options.access,
       uri: this.options.uri,
       y: this.options.y,
-      overwrite: this.options.overwrite
+      overwrite: this.options.overwrite,
     });
 
     if (appPath) {
