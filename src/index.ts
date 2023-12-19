@@ -37,8 +37,6 @@ const preRun = () => {
   // require: fix to catch error in low node version
   await require('./command')(program);
   await program.parseAsync(process.argv);
-  // exit after command execution finish
-  process.exit();
 })().catch(async error => {
   await handleError(error);
 });
