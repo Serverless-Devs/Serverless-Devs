@@ -21,20 +21,14 @@ class Help {
     const instance = await loadComponent(componentName);
     each(get(instance, 'commands'), (item, key) => {
       const desc = get(item, 'help.description');
-      const subCommand = componentCommand
-        .command(key)
-        .description(desc)
-        .summary(get(item, 'help.summary', desc));
+      const subCommand = componentCommand.command(key).description(desc).summary(get(item, 'help.summary', desc));
       each(get(item, 'help.option', []), obj => {
         const [start, ...rest] = obj;
         subCommand.option(start, ...rest);
       });
       each(get(item, 'subCommands', {}), (obj, cmd) => {
         const desc = get(obj, 'help.description');
-        subCommand
-          .command(cmd)
-          .description(desc)
-          .summary(get(obj, 'help.summary', desc));
+        subCommand.command(cmd).description(desc).summary(get(obj, 'help.summary', desc));
       });
     });
     componentCommand.help();
@@ -55,10 +49,7 @@ class Help {
     });
     each(get(data, 'subCommands', {}), (obj, cmd) => {
       const desc = get(obj, 'help.description');
-      const childCommand = subCommand
-        .command(cmd)
-        .description(desc)
-        .summary(get(obj, 'help.summary', desc));
+      const childCommand = subCommand.command(cmd).description(desc).summary(get(obj, 'help.summary', desc));
 
       each(get(obj, 'help.option', []), obj => {
         const [start, ...rest] = obj;
