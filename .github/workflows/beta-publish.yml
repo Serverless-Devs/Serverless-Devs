@@ -19,13 +19,13 @@ jobs:
       - run: npm run build
       - name: Publish Beta
         run: |
-          ./.github/prepare-beta.js
+          node ./.github/prepare-beta.js
           npm run beta
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: Change package.json name to s
-        run: ./.github/change-package-name.js
+        run: node ./.github/change-package-name.js
 
       - name: Publish s Beta
         run: npm run beta

@@ -20,7 +20,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: Change package.json name to s
-        run: ./.github/change-package-name.js
+        run: node ./.github/change-package-name.js
 
       - run: npm run build
       - run: npm publish
