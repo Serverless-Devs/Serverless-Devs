@@ -1,9 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
@@ -11,7 +8,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
 
     strategy:
       matrix:
@@ -36,31 +32,3 @@ jobs:
 
       - name: Run tests
         run: npm run test
-  
-  publish-beta:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          registry-url: https://registry.npmjs.org/
-      - run: npm install
-      - run: npm run build
-      - name: Publish Beta
-        run: |
-          node ./scripts/prepare-beta.js
-          npm run beta
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-      - name: Change package.json name to s
-        run: node ./scripts/change-package-name.js
-
-      - name: Publish s Beta
-        run: npm run beta
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
