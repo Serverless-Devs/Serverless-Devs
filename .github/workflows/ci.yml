@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install --registry="https://registry.npmjs.org"
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test
+      
+      - name: Publish Beta
+        run: |
+          node ./scripts/prepare-beta.js
+          npm run beta
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Change package.json name to s
+        run: node ./scripts/change-package-name.js
+
+      - name: Publish s Beta
+        run: npm run beta
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+

@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+
       - run: npm run build
       - run: npm publish
         if: ${{ !contains(github.ref, 'beta')}}
@@ -22,6 +23,20 @@ jobs:
         if: ${{ contains(github.ref, 'beta')}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Change package.json name to s
+        run: node ./scripts/change-package-name.js
+
+      - run: npm run build
+      - run: npm publish
+        if: ${{ !contains(github.ref, 'beta')}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: npm run beta
+        if: ${{ contains(github.ref, 'beta')}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
       - run: curl https://npmmirror.com/sync/@serverless-devs/s
       - name: pkg
         run: npm run pkg
