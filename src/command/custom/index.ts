@@ -83,6 +83,7 @@ export default class Custom {
     const reportComponentList = [];
     const components = get(this.spec, 'components');
     for (const name of components) {
+      if (isEmpty(name)) continue;
       const instance = await loadComponent(name);
       reportComponentList.push(instance.__info);
     }

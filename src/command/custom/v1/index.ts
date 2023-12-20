@@ -74,6 +74,7 @@ class V1 {
     const reportComponentList = [];
     const components = get(this.spec, 'components');
     for (const name of components) {
+      if (isEmpty(name)) continue;
       const instance = await loadComponent(name);
       const publishData = getYamlContent(path.join(instance.__path, 'publish.yaml'));
       const version = get(publishData, 'Version');
