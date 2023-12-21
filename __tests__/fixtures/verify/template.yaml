@@ -1,0 +1,18 @@
+edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: framework #  项目名称
+access: "default"
+
+vars:
+  region: cn-huhehaote
+
+resources:
+  demo:
+    component: fc3@dev
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "start-hello-qszl"
+      runtime: "nodejs"
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      timeout: abc

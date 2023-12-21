@@ -1,4 +1,4 @@
-import { maxBy, repeat, filter, get, each, isEmpty, find } from 'lodash';
+import { maxBy, repeat, filter, get, each, isEmpty, find, isString } from 'lodash';
 import TableLayout from 'table-layout';
 import { getRootHome, parseArgv } from '@serverless-devs/utils';
 import fs from 'fs-extra';
@@ -13,6 +13,7 @@ import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from '@/command/env/constant';
 import Credential from '@serverless-devs/credential';
 import { IEnvArgs } from '@/type';
 import assert from 'assert';
+import stripAnsi from 'strip-ansi';
 
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
@@ -92,16 +93,26 @@ export const isJson = (value: string, key: string = '-p/--props') => {
 export const showOutput = (data: any) => {
   logger.unsilent();
   const { output = IOutput.DEFAULT, silent } = parseArgv(process.argv.slice(2));
-  if (output === IOutput.JSON) {
-    return logger.write(JSON.stringify(data, null, 2));
+
+  if (output !== IOutput.DEFAULT) {
+    if (isString(data)) data = stripAnsi(data);
+    switch (output) {
+      case IOutput.JSON:
+        data = JSON.stringify(data, null, 2);
+        break;
+      case IOutput.YAML:
+        data = yaml.dump(data);
+        break;
+      case IOutput.RAW:
+        data = JSON.stringify(data);
+        break;
+      default:
+        break;
+    }
+    logger.write(data);
+  } else {
+    logger.output(data);
   }
-  if (output === IOutput.RAW) {
-    return logger.write(JSON.stringify(data));
-  }
-  if (output === IOutput.YAML) {
-    return logger.write(yaml.dump(data));
-  }
-  logger.output(data);
   if (silent) logger.silent();
   return;
 };

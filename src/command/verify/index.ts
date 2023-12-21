@@ -1,10 +1,11 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, getSchema, runEnv } from '@/utils';
+import { emoji, getSchema, runEnv, writeOutput, showOutput } from '@/utils';
 import ParseSpec, { ISpec } from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import { get, isEmpty } from 'lodash';
 import Ajv from 'ajv';
+import { parseArgv } from '@serverless-devs/utils';
 
 const description = `Verify Yaml format and values.
 
@@ -20,6 +21,7 @@ export default (program: Command) => {
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const { template, env } = program.optsWithGlobals();
+      const argvs = parseArgv(process.argv.slice(2));
       const ajv = new Ajv({ allErrors: true });
       // 若有env或者默认env，运行环境组件的env deploy
       await runEnv(env);
@@ -27,12 +29,19 @@ export default (program: Command) => {
       if (get(spec, 'yaml.use3x')) {
         const errorsList = await getErrorList(spec, ajv);
 
+        let data;
         if (!isEmpty(errorsList)) {
-          throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));
+          if (argvs['output']) {
+            data = errorsList;
+          } else {
+            throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));
+          }
+        } else {
+          data = chalk.green(`Verify [${get(spec, 'yaml.path', '').split('/').pop()}] success!`);
         }
 
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
-        return logger.write(chalk.green(`Verify [${get(spec, 'yaml.path', '').split('/').pop()}] success!`));
+        return argvs['output-file'] ? writeOutput(data) : showOutput(data);
       }
       logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
     });
