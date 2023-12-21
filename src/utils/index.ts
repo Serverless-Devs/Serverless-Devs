@@ -13,6 +13,7 @@ import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from '@/command/env/constant';
 import Credential from '@serverless-devs/credential';
 import { IEnvArgs } from '@/type';
 import assert from 'assert';
+import stripAnsi from 'strip-ansi';
 
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
@@ -93,12 +94,15 @@ export const showOutput = (data: any) => {
   logger.unsilent();
   const { output = IOutput.DEFAULT, silent } = parseArgv(process.argv.slice(2));
   if (output === IOutput.JSON) {
+    data = stripAnsi(data);
     return logger.write(JSON.stringify(data, null, 2));
   }
   if (output === IOutput.RAW) {
+    data = stripAnsi(data);
     return logger.write(JSON.stringify(data));
   }
   if (output === IOutput.YAML) {
+    data = stripAnsi(data);
     return logger.write(yaml.dump(data));
   }
   logger.output(data);
