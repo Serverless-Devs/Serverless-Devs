@@ -1,0 +1,64 @@
+edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: framework #  项目名称
+access: "default"
+
+vars:
+  region: cn-huhehaote
+
+template:
+  template1:
+    region: cn-hangzhou
+    runtime: python3
+    vpcConfig: vpc-1
+  template2:
+    region: cn-beijing
+    runtime: nodejs14
+    vpcConfig: vpc-2
+
+resources:
+  next_demo:
+    component: fc3test@0.0.1 # not validate
+    extend:
+      name: template1 # 继承template中的指定key对应的结构，与props内容进行合并
+      ignore: # 忽略的属性
+        - vpcConfig
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "next-start-hello-qszl"
+      runtime: ${env('runtime', 'nodejs16')}
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      timeout: 30
+      environmentVariables:
+        test: this is a test ${vars.region}-${config('AccountID')}-${resources.demo.props.functionName}-${resources.demo.output.hello}
+        AccountID: ${config('AccountID')}
+        name: ${this.name}
+        access: ${this.access}
+        code: ${this.props.code}
+  demo:
+    component: fc3test@0.0.2 # validate
+    extend:
+      name: template2
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "start-hello-qszl"
+      runtime: "nodejs16"
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      timeout: 30
+  last_demo:
+    component: fc3test
+    extend:
+      name: template2
+    props: # 组件的属性值
+      region: ${vars.region}
+      functionName: "start-hello-qszl"
+      runtime: "nodejs16"
+      code: ./code
+      handler: index.handler
+      memorySize: 128
+      timeout: 30
+      environmentVariables:
+        test: this is a test-${resources.demo.output.hello}-${resources.next_demo.output.helloxx}
