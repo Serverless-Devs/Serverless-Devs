@@ -7,11 +7,11 @@ export const first_level_template = [
   },
   {
     name: 'AWS Cloud Serverless',
-    value: 'devscomp/start-lambda',
+    value: 'devsapp/start-lambda',
   },
   {
     name: 'Tencent Cloud Serverless',
-    value: 'devscomp/start-scf',
+    value: 'devsapp/start-scf',
   },
   {
     name: 'Huawei Cloud Serverless',
