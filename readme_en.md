@@ -42,7 +42,7 @@
 ❶ Install Node.js(>=12.0.0) and NPM tool；   
 ❷ Install Serverless Devs；   
 ```shell script
-$ npm install @serverless-devs/s3 -g
+$ npm install @serverless-devs/s -g
 ```
 ❸ Execute the command `s` on the command line and press enter to start your Serverless journey；   
 

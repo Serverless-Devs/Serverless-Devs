@@ -142,7 +142,7 @@ AI Tips:
 You can try to solve the problem through: http://qa.devsapp.cn/7867adf78017601dffd8c3611c90cadf.html
 
 TraceId:     a483e74739551640838688289
-Environment: @serverless-devs/s3: 0.0.13, @serverless-devs/core: 0.1.23, darwin-x64, node-v12.15.0
+Environment: @serverless-devs/s: 0.0.13, @serverless-devs/core: 0.1.23, darwin-x64, node-v12.15.0
 Documents:   https://www.serverless-devs.com
 Discussions: https://github.com/Serverless-Devs/Serverless-Devs/discussions
 Issues:      https://github.com/Serverless-Devs/Serverless-Devs/issues

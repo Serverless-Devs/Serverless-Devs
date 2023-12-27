@@ -36,14 +36,14 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm install
-      - run: npm install -g @serverless-devs/s3
+      - run: npm install -g @serverless-devs/s
       - run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default -f
       - run: s deploy -y --use-local
 ```
 
 主要包括几个部分的内容：
 
-- `run: npm install -g @serverless-devs/s3`:  
+- `run: npm install -g @serverless-devs/s`:  
    通过 NPM 安装最新版本的 Serverless Devs 开发者工具；
 - `run: s config add --AccessKeyID ${{secrets.AccessKeyID}} --AccessKeySecret ${{secrets.AccessKeySecret}} -a default -f`  
    通过`config`命令进行密钥等信息的配置；
@@ -91,14 +91,14 @@ stages: # 构建阶段配置
             goals: | # 安装依赖，配置相关主题、部署参数并发布部署
               node -v
               npm -v
-              npm install -g @serverless-devs/s3
+              npm install -g @serverless-devs/s
               s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default -f
               s deploy -y --use-local
 ```
 
 主要包括几个部分的内容：
 
-- `npm install -g @serverless-devs/s3`:  
+- `npm install -g @serverless-devs/s`:  
    通过 NPM 安装最新版本的 Serverless Devs 开发者工具；
 - `s config add --AccessKeyID $ACCESSKEYID --AccessKeySecret $ACCESSKEYSECRET -a default -f`  
    通过`config`命令进行密钥等信息的配置；
@@ -211,14 +211,14 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
 
 ```
 # input your command here
-npm install -g @serverless-devs/s3
+npm install -g @serverless-devs/s
 s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f
 s deploy -y --use-local
 ```
 
 这里主要包括三个部分：
 
-- `npm install -g @serverless-devs/s3`:  
+- `npm install -g @serverless-devs/s`:  
    通过 NPM 安装最新版本的 Serverless Devs 开发者工具（虽然云效中已经拥有了相关版本的 Serverless Devs，但是实际上，这个版本可能比较老旧，所以可以通过该命令安装最新版本）；
 - `s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f`  
    通过`config`命令进行密钥等信息的配置；

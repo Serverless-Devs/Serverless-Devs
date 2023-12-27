@@ -24,7 +24,7 @@ This quick start case takes [Alibaba Cloud Function Computing](https://github.co
 Install via [npm](https://www.npmjs.com/) package management: applicable to Windows, Mac, and Linux platforms that have been pre-installed with npm. Execute the following commands on Windows, Mac, and Linux platforms to install Serverless Devs Tool.
 
 ```shell script
-$ npm install @serverless-devs/s3 -g
+$ npm install @serverless-devs/s -g
 ```
 Or install via [yarn](https://yarnpkg.com/)
 
@@ -34,7 +34,7 @@ $ yarn global add @serverless-devs/s
 
 > **illustrate**:
 > - If you execute the command under Linux or macOS and report an error and the error message is `Command not found`, please execute the command `ln -s serverless-devs installation location /usr/bin`, serverless-devs installation location can be found by `find / -name s`.
-> - If an error is reported when executing this command under Linux and the error message is `Error: EACCES: permission denied`, please execute the command `sudo npm install @serverless-devs/s3 -g`.
+> - If an error is reported when executing this command under Linux and the error message is `Error: EACCES: permission denied`, please execute the command `sudo npm install @serverless-devs/s -g`.
 > - If you have a slow installation process in mainland, you can consider using Taobao npm source. The installation command is `npm --registry=https://registry.npm.taobao.org install @serverless-devs/s -g`.
 
 ### Install by downloading the binary
