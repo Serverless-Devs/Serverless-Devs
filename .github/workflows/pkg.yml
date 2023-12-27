@@ -26,14 +26,6 @@ jobs:
           zip -r s-${{ github.ref_name }}-macos.zip s-${{ github.ref_name }}-macos
           zip -r s-${{ github.ref_name }}-linux.zip s-${{ github.ref_name }}-linux
           zip -r s-${{ github.ref_name }}-win.exe.zip s-${{ github.ref_name }}-win.exe
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          files: |
-            s-${{ github.ref_name }}-macos.zip
-            s-${{ github.ref_name }}-linux.zip
-            s-${{ github.ref_name }}-win.exe.zip
       - name: Install ossutil
         run: curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
       - name: Rename linux files
