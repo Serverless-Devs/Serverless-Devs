@@ -18,17 +18,17 @@ jobs:
         run: npm run pkg
       - name: Rename files
         run: |
-          mv releases/s-macos s-${{ github.ref_name }}-macos
-          mv releases/s-linux s-${{ github.ref_name }}-linux
-          mv releases/s-win.exe s-${{ github.ref_name }}-win.exe
+          mv releases/s-macos s-v3.0.0-macos
+          mv releases/s-linux s-v3.0.0-linux
+          mv releases/s-win.exe s-v3.0.0-win.exe
       - name: Zip files
         run: |
-          zip -r s-${{ github.ref_name }}-macos.zip s-${{ github.ref_name }}-macos
-          zip -r s-${{ github.ref_name }}-linux.zip s-${{ github.ref_name }}-linux
-          zip -r s-${{ github.ref_name }}-win.exe.zip s-${{ github.ref_name }}-win.exe
+          zip -r s-v3.0.0-macos.zip s-v3.0.0-macos
+          zip -r s-v3.0.0-linux.zip s-v3.0.0-linux
+          zip -r s-v3.0.0-win.exe.zip s-v3.0.0-win.exe
       - name: Install ossutil
         run: curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
       - name: Rename linux files
-        run: mv s-${{ github.ref_name }}-linux ${{ github.ref_name }}
+        run: mv s-v3.0.0-linux v3.0.0
       - name: Upload file to OSS
-        run: ossutil --endpoint oss-cn-hangzhou.aliyuncs.com --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp ${{ github.ref_name }} oss://serverless-tool-images/bin/s/
+        run: ossutil --endpoint oss-cn-hangzhou.aliyuncs.com --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp v3.0.0 oss://serverless-tool-images/bin/s/
