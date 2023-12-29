@@ -11,7 +11,7 @@ category: '概述'
 
 
 <p align="center">
-<a href="./install.md">安装文档</a> |  <a href="./command/readme.md">命令行操作</a> | <a href="./yaml.md">Yaml规范</a> | <a href="./cicd.md">CI/CD平台集成</a> | <a href="./package_dev.md">Package开发文档</a>
+<a href="./quick_start.md">安装文档</a> |  <a href="./command/readme.md">命令行操作</a> | <a href="./yaml.md">Yaml规范</a> | <a href="./cicd.md">CI/CD平台集成</a> | <a href="./package_dev.md">Package开发文档</a>
 </p>
 
 
@@ -45,7 +45,7 @@ Serverless Devs 是一个开源开发的 Serverless 领域的工具链项目，�
 在 Serverless Devs 中，拥有两个角色：
 
 - **开源贡献者**：开源贡献者将按照 [Serverless Package Model](./../../spec/zh/0.0.2/serverless_pacakge_model/readme.md) 进行[组件/应用的开发](./package_dev.md) ，并将内容发布到Serverless Hub中，既可以被更多人所使用；
-- **Serverless开发者**：通过开发者工具（包括[命令行工具](./install.md)以及桌面端等工具），进行[应用的初始化](./quick_start.md)，以及组件的使用；通过开发者工具，将业务按照预期部署到线上；
+- **Serverless开发者**：通过开发者工具（包括[命令行工具](./quick_start.md)以及桌面端等工具），进行[应用的初始化](./quick_start.md)，以及组件的使用；通过开发者工具，将业务按照预期部署到线上；
 
 在这样一个 Serverless Devs 的应用框架上，我们不难发现可以和其他任何一种模式/生态，具有相似的命名以及模块：
 

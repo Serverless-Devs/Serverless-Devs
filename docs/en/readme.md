@@ -10,7 +10,7 @@ category: 'Overview'
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635390357469_20211028030558116850.png)
 
 <p align="center">
-<a href="./install.md">Installation documentation</a> |  <a href="./command/readme.md">CLI operations</a> | <a href="./yaml.md">YAML specification</a> | <a href="./cicd.md">CI/CD platform integration</a> | <a href="./package_dev.md">Package development documentation</a>
+<a href="./quick_start.md">Installation documentation</a> |  <a href="./command/readme.md">CLI operations</a> | <a href="./yaml.md">YAML specification</a> | <a href="./cicd.md">CI/CD platform integration</a> | <a href="./package_dev.md">Package development documentation</a>
 </p>
 
 **Serverless Devs** is an open source serverless platform that provides a robust toolchain for developers. With Serverless Devs, developers can experience multi-cloud Serverless products with a few clicks, and quickly deploy Serverless projects. Developers can also manage projects throughout the lifecycle of Serverless applications, and fast integrate Serverless Devs with other tools and platforms with ease to further improve R&D and O&M efficiency. 
@@ -42,7 +42,7 @@ In Serverless Devs, developers can be:
 
 - **Open source contributors**: develop [components or applications](package_dev.md) by following the [Serverless Package Model](../../spec/en/0.0.2/serverless_pacakge_model/readme.md) specification, and share their development results to Serverless Hub with anyone inside or outside the communities.
 
-- **Serverless developers**: [initialize applications](quick_start.md) and use the components [with developer tools](install.md), including CLI tools and the tools on desktops, to deploy services online as expected.
+- **Serverless developers**: [initialize applications](quick_start.md) and use the components [with developer tools](quick_start.md), including CLI tools and the tools on desktops, to deploy services online as expected.
 
 In Serverless Devs infrastructure, you may find that Serverless Devs have similar names and modules as other development modes or ecosystems.
 

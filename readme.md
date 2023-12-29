@@ -46,11 +46,11 @@ $ npm install @serverless-devs/s -g
 ```
 ❸ 在命令行中执行命令`s`，并按回车，开启你的 Serverless 之旅；   
 
-> 更多详细信息可以参考[Serverless Devs 安装文档](./docs/zh/install.md)和[快速入门指南](./docs/zh/quick_start.md)
+> 更多详细信息可以参考[Serverless Devs 安装文档](./docs/zh/quick_start.md)和[快速入门指南](./docs/zh/quick_start.md)
 
 # 帮助文档
 
-- [安装文档](./docs/zh/install.md)
+- [安装文档](./docs/zh/quick_start.md)
 - [命令行操作](./docs/zh/command/readme.md)
 - [Yaml规范](./docs/zh/yaml.md)
 - [配置继承/多环境](./docs/zh/extend.md)

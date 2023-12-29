@@ -46,11 +46,11 @@ $ npm install @serverless-devs/s -g
 ```
 ❸ Execute the command `s` on the command line and press enter to start your Serverless journey；   
 
-> For more details, please refer to [Serverless Devs installation document](./docs/en/install.md) and [Quick start guide](./docs/en/quick_start.md)
+> For more details, please refer to [Serverless Devs installation document](./docs/en/quick_start.md) and [Quick start guide](./docs/en/quick_start.md)
 
 # Documentation
 
-- [Installation documentation](./docs/en/install.md)
+- [Installation documentation](./docs/en/quick_start.md)
 - [Command line operation](./docs/en/command/readme.md)
 - [Yaml specification](./docs/en/yaml.md)
 - [Configuration inheritance/multi-environment](./docs/en/extend.md)
