@@ -38,7 +38,7 @@ Options
   -h, --help                     Display help for command.      
 
 Commands
-  config                         👤  Configure venders account.                
+  config                         👤  Configure vendors account.                
   init                           💞  Initializing a serverless project.        
   cli                            🐚  Command line operation without yaml mode. 
   verify                         🔎  Verify the application.                   

@@ -348,7 +348,7 @@ Set default env [dev] for project [framework] successfully
 ```shell
 $ s env default
 
-👉  Current default envrironment: dev
+👉  Current default environment: dev
 ```
 
 若没有设置默认环境，则会提示：
@@ -356,5 +356,5 @@ $ s env default
 ```shell
 $ s env default
 
-👉  No default envrironment.
+👉  No default environment.
 ```

@@ -36,7 +36,7 @@ category: '命令'
 ```shell script
 Usage: s config [commands] [options]
 
-Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
+Configure vendors account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
 📖  Document: https://serverless.help/t/s/config
 

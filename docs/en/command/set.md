@@ -90,7 +90,7 @@ You can use the following methods to run the set registry command:
 > The following flowchart shows how data is loaded in Serverless Devs. 
 > ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635132866484_20211025033426634967.png)
 
-> 🙊 Note: By default, the serverless registry is `serverless devs offical registry [http://registry.devsapp.cn/simple] `.
+> 🙊 Note: By default, the serverless registry is `serverless devs official registry [http://registry.devsapp.cn/simple] `.
 
 ## set proxy command
 

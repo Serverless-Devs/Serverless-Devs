@@ -111,7 +111,7 @@ $ s init
 
 ? Hello Serverless for Cloud Vendors Alibaba Cloud Serverless
 ? Please select an Serverless-Devs Application fc-runtime-starter - 快速部署一个 FC 函数
-? Please select an templete fc-http-nodejs - 快速部署一个 nodejs12 http函数
+? Please select an template fc-http-nodejs - 快速部署一个 nodejs12 http函数
 
 ......
 
