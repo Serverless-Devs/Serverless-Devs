@@ -41,7 +41,7 @@ Options:
 
 Commands:
   login [options]                 😃  Login Serverless Registry
-  publish                         ✅  Public Serverless Package to Serverless Regsitry
+  publish                         ✅  Public Serverless Package to Serverless Registry
   list [options]                  🐵  List the packages you have published
   detail [options]                🌱  View specific package details
   delete [options]                ❌  Delete specific package

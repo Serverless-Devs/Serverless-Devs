@@ -7,7 +7,7 @@ import subDefault from './command/default';
 import subRename from './command/rename';
 import subRemove from './command/remove';
 
-const description = `Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
+const description = `Configure vendors account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/config')}`;
 
@@ -16,7 +16,7 @@ export default (program: Command) => {
   suggestCommand(configProgram);
   configProgram
     .description(description)
-    .summary(`${emoji('👤')} Configure venders account`)
+    .summary(`${emoji('👤')} Configure vendors account`)
     .usage('[commands] [options]')
     .addHelpCommand(false)
     .helpOption('-h, --help', 'Display help for command');

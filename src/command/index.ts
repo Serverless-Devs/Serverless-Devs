@@ -40,16 +40,12 @@ const root = async (program: Command) => {
   subComponent(program);
   subClean(program);
   subInit(program);
-  // TODO：未完全测试
   subVerify(program);
   await subCli(program);
 
   // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
   const customRootHelp = await new Custom(program).init();
 
-  // TODO: 需要支持命令
-  // program.addHelpCommand('edit', `${emoji('🙌')} Application editing.`);
-  // program.addHelpCommand('verify', `${emoji('🔎')} Verify the application.`); // TODO?
   program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
 
   // 追加的 help 信息

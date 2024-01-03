@@ -19,10 +19,10 @@ category: '命令'
 ```shell script
 Usage: s preview [options]
 
-Application priview.
+Application preview.
   
   Example:
-    $ s priview
+    $ s preview
     
 📖  Document: https://serverless.help/t/s/preview
 

@@ -48,7 +48,7 @@ If you want to obtain the information about a component, you can use the `--comp
 ```shell script
 $ s component --component fc-api
 Component: fc
-Reigstry: serverless registry [http://registry.devsapp.cn/simple] 
+Registry: serverless registry [http://registry.devsapp.cn/simple] 
 Version: 0.1.27  
 Size: 100 MB
 Description: 阿里云函数计算基础组件

@@ -33,7 +33,7 @@ After you run the `s config -h` command, the following help information is retur
 ```shell script
 Usage: s config [commands] [options]
 
-Configure venders account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
+Configure vendors account, including Alibaba Cloud, Baidu Cloud, Huawei Cloud, Tencent Cloud, etc.
 
 📖 Document: https://github.com/Serverless-Devs/Serverless-Devs/tree/master/docs/en/command/config.md
 

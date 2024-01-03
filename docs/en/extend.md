@@ -29,7 +29,7 @@ services:
       service:
         name: fc-service
         nasConfig: Auto
-        description: "Serverless Devs Serivce"
+        description: "Serverless Devs Service"
       function:
         name: hello-function
         description: "Serverless Devs Function"
@@ -74,7 +74,7 @@ services:
         name: fc-service-pro
         tracingConfig: Enable
         nasConfig: Auto
-        description: "Serverless Devs Serivce"
+        description: "Serverless Devs Service"
       function:
         name: hello-function
         description: "Serverless Devs Function"

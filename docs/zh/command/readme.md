@@ -45,7 +45,7 @@ Options:
   -h, --help                      Display help for command
 
 Commands:
-  config                          👤  Configure venders account
+  config                          👤  Configure vendors account
   env                             🌱  Environment operation
   set                             🔧  Settings for the tool
   registry                        🚢  Serverless registry platform
