@@ -211,15 +211,12 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
 
 ```
 # input your command here
-npm install -g @serverless-devs/s
 s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f
 s deploy -y --use-local
 ```
 
-这里主要包括三个部分：
+这里主要包括两个部分：
 
-- `npm install -g @serverless-devs/s`:  
-   通过 NPM 安装最新版本的 Serverless Devs 开发者工具（虽然云效中已经拥有了相关版本的 Serverless Devs，但是实际上，这个版本可能比较老旧，所以可以通过该命令安装最新版本）；
 - `s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f`  
    通过`config`命令进行密钥等信息的配置；
 - `s deploy -y --use-local`  

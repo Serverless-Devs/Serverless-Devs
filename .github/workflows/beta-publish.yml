@@ -28,7 +28,7 @@ jobs:
       - name: Change package.json name to s3
         run: node ./.github/change-package-name.js
 
-      - name: Publish s Beta
+      - name: Publish s3 Beta
         run: npm run beta
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
