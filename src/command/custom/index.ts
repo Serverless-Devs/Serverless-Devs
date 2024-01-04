@@ -84,7 +84,7 @@ export default class Custom {
     const components = get(this.spec, 'components');
     for (const name of components) {
       if (isEmpty(name)) continue;
-      const instance = await loadComponent(name);
+      const instance = await loadComponent(name, { logger });
       reportComponentList.push(instance.__info);
     }
     return join(reportComponentList, ',');
@@ -93,7 +93,7 @@ export default class Custom {
     let executedComponent = filter(get(context, 'steps'), item => item.status === STEP_STATUS.SUCCESS);
     executedComponent = uniqBy(executedComponent, item => item.component);
     for (const item of executedComponent) {
-      const instance = await loadComponent(item.component);
+      const instance = await loadComponent(item.component, { logger });
       const lockPath = utils.getLockFile(instance.__path);
       const lockInfo = utils.readJson(lockPath);
       if (!lockInfo.lastUpdateCheck || Date.now() - lockInfo.lastUpdateCheck > UPDATE_COMPONENT_CHECK_INTERVAL) {

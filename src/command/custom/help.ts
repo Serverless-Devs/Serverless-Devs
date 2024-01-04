@@ -32,7 +32,7 @@ class Help {
     ];
     // 仅有一个组件时
     if (components.length === 1) {
-      const instance = await loadComponent(first(components));
+      const instance = await loadComponent(first(components), { logger });
       helpInfo.push(this.customHelp(instance.commands));
       return helpInfo.join('\n');
     }
@@ -61,7 +61,7 @@ class Help {
     if (projectName) {
       const customProgram = this.program.command(projectName);
       const componentName = find(steps, item => item.projectName === projectName)?.component;
-      const instance = await loadComponent(componentName);
+      const instance = await loadComponent(componentName, { logger });
       const publishPath = path.join(instance.__path, 'publish.yaml');
       const publishContent = getYamlContent(publishPath);
       customProgram.addHelpText('before', `${emoji('🚀')} ${publishContent['Name']}@${publishContent['Version']}: ${publishContent['Description']}\n`);
@@ -83,7 +83,7 @@ class Help {
   }
   private async singleComponentHelp(componentName: string) {
     const { projectName, command } = this.spec;
-    const instance = await loadComponent(componentName);
+    const instance = await loadComponent(componentName, { logger });
     const data = get(instance, `commands.${command}`);
     if (isEmpty(data)) {
       logger.info('The help information of the component is not obtained');
