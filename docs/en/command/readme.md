@@ -1,80 +1,77 @@
 ---
-title: User guide of commands
-description: 'Serverless Devs User guide of commands'
-position: 1
+title: Command Operation Documentation
+description: 'Serverless Devs Command Operation Documentation'
+position: 2
 category: 'Commands'
 ---
-
-# User guide of commands
-
-- [Background information](#Background-information)
-- [Supported parameters](#Supported-parameters)
-- [Supported commands](#Supported-commands)
-    - [**Config**: Run the config command to configure a key](config.md)
-    - [**Init**: Run the init command to initialize a project](init.md)
-    - [**Cli**: Run the cli command to use the CLI mode](cli.md)
-    - [**Verify**: Run the verify command to verify the format of an application](verify.md)
-    - [**Edit**: Run the edit command to edit an application](edit.md)
-    - [**Clean**: Run the clean command to clean a tool](clean.md)
-    - [**Component**: Run the component command to query the information about a component](component.md)
-    - [**Set**: Run the set command to configure a tool](set.md)
-    - [**Custom**: Run the custom command to use a custom command](custom.md)
-
-## Background information
-
-Serverless Devs allows you to run a command that contains the `-h` parameter to query the help information about a command. For example, you can run the` s -h` command to query the help information about the `s` command.
-
+# Command Operation Documentation
+- [Preface](#preface)
+- [Global Parameters](#global-parameters)
+- [Command Details](#command-details)
+    - [config: Key Configuration](./config.md)
+    - [init: Project Initialization](./init.md)
+    - [cli: Pure Command Line Mode](./cli.md)
+    - [clean: Tool Cleanup](./clean.md)
+    - [component: Component Information](./component.md)
+    - [set: Tool Configuration](./set.md)
+    - [custom: Custom Commands](./custom.md)
+    - [registry: Template Management](./registry.md)
+    - [preview: Preview Render Results](./preview.md)
+## Preface
+Serverless Devs can invoke the corresponding help documentation for commands using `-h`. For example, to view help information for the `s` command, you can use: `s -h`
 ```shell script
 $ s -h
-🚀  Welcome to the Serverless Devs.
-
-Options
-  --debug                        Open debug model.              
-  --skip-actions                 Skip the extends section.      
-  -t, --template <path>          Specify the template file.     
-  -a, --access <aliasName>       Specify the access alias name. 
-  -o, --output <outputFormat>    Specify the output format: json, yaml, raw.  
-  -v, --version                  Output the version number.     
-  -h, --help                     Display help for command.      
-
-Commands
-  config                         👤  Configure vendors account.                
-  init                           💞  Initializing a serverless project.        
-  cli                            🐚  Command line operation without yaml mode. 
-  verify                         🔎  Verify the application.                   
-  set                            🔧  Settings for the tool.                    
-  clean                          💥  Clean up the environment.                 
-  component                      🔌  Installed component information.          
-  edit                           🙌  Application editing.                      
-
-
-Examples
-  init                           Perform [s init] fast experience Serverless Devs. 
-
-🧭  More information: https://github.com/Serverless-Devs/Serverless-Devs
-🚀  More applications: https://registry.serverless-devs.com
+😃  Welcome to the Serverless Devs
+Usage: s [options] [command]
+Options:
+  --debug                         Open debug model
+  --skip-actions                  Skip the extends section
+  -t, --template <path>           Specify the template file
+  -a, --access <aliasName>        Specify the access alias name
+  -o, --output <outputFormat>     Specify the output format (choices: "default", "json", "yaml", "raw")
+  --output-file <outputFilePath>  Specify the output file path
+  --env <envName>                 Specify the env name
+  --no-verify                     Do not verify yaml
+  --silent                        Silent mode
+  -v, --version                   Output the version number
+  -h, --help                      Display help for command
+Commands:
+  config                          👤  Configure vendors account
+  env                             🌱  Environment operation
+  set                             🔧  Settings for the tool
+  registry                        🚢  Serverless registry platform
+  preview [options]               👀  Preview Yaml render results
+  component                       🔌  Installed component information
+  clean [options]                 💥  Clean up the environment
+  init [options]                  💞  Initializing a serverless project
+  <custom>                        🧭  Custom Commands
+🙌   Quick Start:      https://docs.serverless-devs.com/quick-start
+🌟   Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
+💡   Documentation:    https://docs.serverless-devs.com
+🚀   Example Projects: https://registry.serverless-devs.com
+📝   Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues
 ```
-
-## Supported parameters
-
-| Parameter    | Abbreviation | Default value                                                | Description                                                  | Remarks                                                      |
-| ------------ | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| template     | t            | s.yaml/s.yml                                                 | Specifies the description file of a  resource.               |                                                              |
-| access       | a            | the value of the access parameter specified in a YAML file/default | Specifies the information about the key.                     | You can use the key information that is  configured by using [the config command](command/config.md#config-add-command) or [environment variables](command/config.md#Configure keys by using environment variables). |
-| skip-actions | -            | -                                                            | Skips the actions section that is specified in the YAML file. | -                                                            |
-| debug        | -            | -                                                            | Enables the debug mode.                                      | After you enable the debug mode, you can obtain a larger amount of information about the  execution process of a tool. |
-| output       | o           | `default`                     |  Specifies the output format. | Support: `default`, `json`, `yaml`, `raw`                  | 
-| version      | v            | -                                                            | Queries the version information.                             | -                                                            |
-| help         | h            | -                                                            | Queries the help information.                                | -                                                            |
-
-## Supported commands
-
-- [**Config**: Run the config command to configure a key](config.md)
-- [**Init**: Run the init command to initialize a project](init.md)
-- [**Cli**: Run the cli command to use the CLI mode](cli.md)
-- [**Verify**: Run the verify command to verify the format of an application](verify.md)
-- [**Edit**: Run the edit command to edit an application](edit.md)
-- [**Clean**: Run the clean command to clean a tool](clean.md)
-- [**Set**: Run the set command to configure a tool](set.md)
-- [**Component**: Run the component command to query the information about a component](component.md)
-- [**Custom**: Run the custom command to use a custom command](custom.md)
+## Global Parameters
+| Full Parameter | Abbreviation | Default Value | Meaning | Notes |
+|-----|-----|-----|-----|-----|
+| template | t | `s.yaml`/`s.yml` | Specify the resource description file |  | 
+| access | a | Specified in `yaml` or `default` | Specify the key information for the deployment | Can use keys configured via [config command](./command/config.md#config-add-command), as well as [keys configured in environment variables](./command/config.md#setting-keys-via-environment-variables) | 
+| skip-actions | - | - | Skip the `actions` module set in `yaml` | - | 
+| debug | - | - | Enable `Debug` mode | Enabling `Debug` mode allows viewing more information about tool execution | 
+| output | o | `default` | Specify the data output format | Supports `default`, `json`, `yaml`, `raw` formats | 
+| version | v | - | View version information | - | 
+| help | h | - | View help information | - | 
+| silent | - | - | Silent mode | Will only output component execution results | 
+| env | - | - | Specify the environment | Used in multi-environment scenarios | 
+| output-file | - | - | Specify the output file path | - | 
+| no-verify | - | - | Do not verify `yaml` file | - | 
+## Command Details
+- [config: Key Configuration](./config.md)
+- [init: Project Initialization](./init.md)
+- [cli: Pure Command Line Mode](./cli.md)
+- [clean: Tool Cleanup](./clean.md)
+- [set: Tool Configuration](./set.md)
+- [component: Component Information](./component.md)
+- [custom: Custom Commands](./custom.md)
+- [registry: Template Management](./registry.md)
+- [preview: Preview Render Results](./preview.md)

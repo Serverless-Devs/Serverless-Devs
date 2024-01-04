@@ -39,7 +39,7 @@ Options:
 使用方法主要是：
 
 ```shell script
-s cli [组件名称，例如fc，fc-api等] [组件的方法] -p/--props [该方法对应的Yaml属性（JSON字符串）] -a/--access [指定密钥信息] [其他设定]
+s cli [组件名称，例如fc，fc api等] [组件的方法] -p/--props [该方法对应的Yaml属性（JSON字符串）] -a/--access [指定密钥信息] [其他设定]
 ```
 
 

@@ -1,163 +1,122 @@
 ---
-title: Init command
-description: 'Init command'
-position: 3
+title: Init Command
+description: 'Init Command'
+position: 8
 category: 'Commands'
 ---
-
-# Init command
-
-The `init` commands are used to initialize serverless projects. 
-
-- [Command description](#Command-description)
-    - [Parameter description](#Parameter-description)
-    - [Initializes a project](#Initializes-a-project)
-        - [Follow instructions to initialize a project](#Follow-instructions-to-initialize-a-project)
-        - [Directly initialize a project](#Directly-initialize-a-project)
-            - [Initialize a repository application from Registry](#Initialize-a-repository-application-from-Regsitry)
-            - [Initialize a repository application from Git](#Initialize-a-repository-application-from-Git)
-
-## Command description
-
-After you run the `s init -h` command, the following help information is returned:
-
+# Init Command
+The `init` command is used to scaffold a Serverless project.
+- [Command Explanation](#command-explanation)
+    - [Parameter Analysis](#parameter-analysis)
+    - [Initialize Project](#initialize-project)
+        - [Interactive Initialization](#interactive-initialization)
+        - [Direct Initialization](#direct-initialization)
+            - [Initialize Registry Application](#initialize-registry-application)
+            - [Initialize Repository Application](#initialize-repository-application)
+## Command Explanation
+After executing `s init -h`, you can view related help information:
 ```shell script
 $ s init -h
-Usage: s init [options] [name | url]
-
+Usage: s init [options]
 Initialize a new project based on a template. You can initialize the application that conforms to the serverless devs project specification through GitHub, or you can initialize the application provided by the source by configuring the source.
-
-    Example:
-        $ s init
-        $ s init project
-        $ s init project -d my_dir
-        $ s init project --appName my-express
-        $ s init project --parameters '{"serviceName":"websiteService"}'
-        $ s init git@github.com:foo/bar.git
-        $ s init https://github.com/foo/bar.git
-        
-🚀 More Application: https://github.com/Serverless-Devs/Serverless-Devs/blob/master/docs/en/awesome.md
-
+Example:
+    $ s init
+    $ s init <project> 
+    $ s init <project> -d my_dir
+    $ s init <project> --app-name my-express
+    $ s init <project> --parameters '{"serviceName":"websiteService"}'
+    $ s init git@github.com:foo/bar.git
+    $ s init https://github.com/foo/bar.git
+    
+📖  Documentation: https://serverless.help/t/s/init
+🚀  More applications: https://registry.serverless-devs.com
 Options:
-  -d, --dir <dir>            Where to output the initialized app into (default: ./<ProjectName> )
-  -r, --registry <url>       Use specify registry
-  -a, --access <aliasName>   Specify the access alias name.
-  --parameters <parameters>  Initialize with custom parameters
-  --appName <appName>        Modify default Application name
-  -h, --help                 Display help for command
+  -d, --dir <dir>                 Where to output the initialized app into (default: ./<ProjectName> )
+  -r, --registry <url>            Use specify registry
+  --uri <uri>                     Use specify uri, Eg: remote url, local dir, local zip file
+  -y                              Assume that the answer to any question which would be asked is yes
+  --parameters <parameters>       Initialize with custom parameters
+  --app-name <appName>            Modify default Application name
+  --no-overwrite                  Only overwrite files with the same name
+  -h, --help                      Display help for command
 ```
-
-### Parameter description
-
-| Parameter | Abbreviation | Default value | Description |
-|-----|-----|-----|-----|-----|
-| dir | d | `./<ProjectName>` | The path or directory in which the project that you want to initialize is stored. | 
-| registry | -r | http://registry.devsapp.cn/simple | The URL that points to a repository. The repository is similar to the pip repository in Python and the npm repository in Node.js. |
-| parameters |  | {"serviceName":"websiteService"} | Custom parameters | 
-| appName |  | my-express | Application name | 
-
-
-### Initializes a project
-
-#### Follow instructions to initialize a project
-
-You can initialize a project by running the `s init` command.
-
+### Parameter Analysis
+| Full Parameter | Abbreviation | Default Value | Description |
+|-----|-----|-----|-----|
+| dir | d | `./<ProjectName>` | Path/directory where the project is initialized | 
+| registry | -r | http://registry.devsapp.cn/simple | Source configuration address, similar to specifying pip source in Python or NPM source in Node.js | 
+| uri | - | - | Address of a remote or local file |
+| - | y | - | Assume yes as the answer to all questions | 
+| parameters |  | {"serviceName":"websiteService"} | Parameters for initialization | 
+| appName |  | my-express | Application/project name | 
+| no-overwrite | - | - | Only overwrite files with the same name, do not delete other files | 
+### Initialize Project
+#### Interactive Initialization
+By running `s init`, you can directly enter the project initialization guide module:
 ```shell script
 $ s init
-
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-
+🚀  More applications: https://registry.serverless-devs.com
 ? Hello Serverless for Cloud Vendors (Use arrow keys or type to search)
 ❯ Alibaba Cloud Serverless 
   AWS Cloud Serverless 
-  Baidu Cloud Serverless 
-  Huawei Cloud Serverless 
   Tencent Cloud Serverless 
+  Huawei Cloud Serverless 
+  Baidu Cloud Serverless 
   Dev Template for Serverless Devs 
 ```
-
-Then, follow instructions to select options based on your business requirements. For example, if you select`Alibaba Cloud Serverless`, the following information about the application template categories of Alibaba Cloud serverless services is returned:
-
+At this point, you simply select the corresponding option and follow the instructions. For example, if you choose `Alibaba Cloud Serverless`, you can see the application template categories under Alibaba Cloud Serverless products:
 ```shell script
-? Please select an Serverless-Devs Application (Use arrow keys or type to search)
+? Hello, serverlesser. Which template do you like? (Use arrow keys or type to search)
 ❯ Quick start [Deploy a Hello World function to FaaS] 
+  Custom runtime example [Deploy function to FaaS with custom runtime] 
   Container example [Deploy function to FaaS with custom-container] 
-  Web Framework [Deploy a web framework to FaaS] 
-  Static website [Deploy a static website] 
-  Best practice [Experience serverless project] 
+  Custom domain example [Deploy function to FaaS with custom domain] 
 ```
-
-Select an application to initialize the application. For example, if you select the `fc-runtime-starter` application, the following information about the application templates is returned：
-
+You can then continue to select specific applications within a category to initialize. For instance, after choosing `Quick start`, you can see specific template applications under that category:
 ```shell script
 ? Which template do you like? (Use arrow keys or type to search)
-❯ [HTTP] Node.js 12 
-  [HTTP] Python3 
-  [HTTP] Java8 
-  [HTTP] PHP7 
-  [HTTP] C++ (custom) 
-  [Event] Node.js 12 
-  [Event] Python3 
+❯ Node.js 
+  Python3 
+  Java 
+  Go 
+  Dotnet 
 (Move up and down to reveal more choices)
 ```
-
-Select the `fc-http-nodejs` application to deploy the application：
-
+Selecting `Node.js` will complete the creation:
 ```shell script
 $ s init                                         
-
 🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-
+🚀  More applications: https://registry.serverless-devs.com
 ? Hello Serverless for Cloud Vendors Alibaba Cloud Serverless
-? Please select an Serverless-Devs Application fc-runtime-starter - 快速部署一个 FC 函数
-? Please select an template fc-http-nodejs - 快速部署一个 nodejs12 http函数
-
+? Hello, serverlesser. Which template do you like? Quick start [Deploy a Hello World function to FaaS]
+? Which template do you like? Node.js
 ......
-
-💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
+💞  Document ❤ Star: https://github.com/Serverless-Devs/Serverless-Devs
+🚀  More applications: https://registry.serverless-devs.com
 ```
-
-For more information about the application that corresponds to the default repository, see [Package Awesome](https://github.com/Serverless-Devs/package-awesome).
-
-#### Directly initialize a project
-
-You can obtain the project template from the `repository` that you configure or from the `repository URL` that you specify by running the `s init [name | url]` command. 
-
-##### Initialize a repository application from Registry
-
-The following sample code provide an example on how to initialize a project by running the `s init start-fc-http-nodejs12` command. In this example, the `default repository` that corresponds to the `start-fc-http-nodejs12` project is used.
-
+For more information about the applications corresponding to the default source, please refer to [Serverless Registry](https://registry.serverless-devs.com/).
+#### Direct Initialization
+Using `s init [name | url]`, you can obtain template projects from the configured `Registry` or specified repository `Url`.
+##### Initialize Registry Application
+Taking the default `Registry` as an example, you can initialize the corresponding sample project: `start-fc-http-nodejs12` by using the command `s init start-fc-http-nodejs12`:
 ```shell script
 $ s init start-fc-http-nodejs12
-
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-
+🚀  More applications: https://registry.serverless-devs.com
 ? Please input your project name (init dir) start-fc-http-nodejs12
-✔ file decompression completed
-
+Downloading[/simple/start-fc-http-nodejs12/zipball/1.1.23]...
 ......
-
-💞 Document ❤ Star：https://github.com/Serverless-Devs/Serverless-Devs
+💞  Document ❤ Star: https://github.com/Serverless-Devs/Serverless-Devs
+🚀  More applications: https://registry.serverless-devs.com
 ```
-
-##### Initialize a repository application from Git
-
-The following information describes how to initialize a repository application by running the `s init git@github.com:devsapp/puppeteer-app.git` command. In this example, a Github repository is used. For more information, see `https://github.com/devsapp/puppeteer-app`.
-
+##### Initialize Repository Application
+Taking the Github repository `https://github.com/devsapp/start-fc` as an example, you can initialize the sample project with the command `s init https://github.com/devsapp/start-fc.git`:
 ```shell script
-$ s init git@github.com:devsapp/puppeteer-app.git
-
-🚀 Serverless Awesome: https://github.com/Serverless-Devs/package-awesome
-
-Cloning into 'puppeteer-app'...
-remote: Enumerating objects: 35, done.
-remote: Counting objects: 100% (35/35), done.
-remote: Compressing objects: 100% (23/23), done.
-remote: Total 35 (delta 10), reused 30 (delta 6), pack-reused 0
-Receiving objects: 100% (35/35), 6.59 KiB | 3.30 MiB/s, done.
-Resolving deltas: 100% (10/10), done.
+$ s init https://github.com/devsapp/start-fc.git
+🚀  More applications: https://registry.serverless-devs.com
+Cloning into 'start-fc'...
+remote: Enumerating objects: 6403, done.
+remote: Counting objects: 100% (1693/1693), done.
+remote: Compressing objects: 100% (953/953), done.
+remote: Total 6403 (delta 863), reused 1462 (delta 667), pack-reused 4710
+Receiving objects: 100% (6403/6403), 33.25 MiB | 3.57 MiB/s, done.
 ```
-
-
-

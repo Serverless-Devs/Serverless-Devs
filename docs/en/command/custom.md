@@ -15,7 +15,7 @@ You can run custom commands based on the component types. Function Compute provi
 The following sample code shows the content of a YAML description file of a resource of or an operation on an application.
 
 ````yaml
-edition: 1.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
+edition: 3.0.0 # Command-line YAML specification version, following the Semantic Versioning specification
 name: FullStack # Project name
 access: xxx-account1
 
