@@ -29,7 +29,12 @@ jobs:
         run: npm run build
 
       - name: s config
+        if: matrix.os != 'windows-latest'
         run: ./bin/s config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
+      
+      - name: s config windows
+        if: matrix.os == 'windows-latest'
+        run: ./bin/s.cmd config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
 
       - name: Run tests
         run: npm run test

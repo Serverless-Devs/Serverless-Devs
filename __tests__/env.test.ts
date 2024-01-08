@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as utils from '@serverless-devs/utils';
 import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
 import { find, get } from 'lodash';
-const s = path.resolve(__dirname, '../bin/s');
+const s = path.resolve(__dirname, process.platform === 'win32' ? '../bin/s.cmd' : '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/env');
 
 test('set', async () => {

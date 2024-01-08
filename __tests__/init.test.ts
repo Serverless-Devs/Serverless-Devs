@@ -1,7 +1,7 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
 import * as fs from 'fs-extra';
-const s = path.resolve(__dirname, '../bin/s');
+const s = path.resolve(__dirname, process.platform === 'win32' ? '../bin/s.cmd' : '../bin/s');
 const cwd = path.resolve(__dirname, '_temp');
 
 beforeAll(() => {
