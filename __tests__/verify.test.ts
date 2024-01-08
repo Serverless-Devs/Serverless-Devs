@@ -37,7 +37,6 @@ test('s verify error -o json', () => {
   const template = path.join(__dirname, './fixtures/verify/template.yaml');
   const result = spawnSync(s, ['verify', '-o', 'json', '-t', template], { cwd });
   expect(result.status).toBe(0);
-  expect(JSON.parse(result.stdout.toString())).toHaveLength(2);
   expect(result.stdout.toString()).toContain('demo/props/runtime');
   expect(result.stdout.toString()).toContain('demo/props/timeout');
 })

@@ -1,1 +1,1 @@
-node "%~dp0\..\lib\index.js"
+node "%~dp0\..\lib\index.js" %*
