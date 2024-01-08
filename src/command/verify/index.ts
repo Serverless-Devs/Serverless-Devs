@@ -37,7 +37,7 @@ export default (program: Command) => {
             throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));
           }
         } else {
-          data = chalk.green(`Verify [${get(spec, 'yaml.path', '').split('/').pop()}] success!`);
+          data = chalk.green(`Format verification for [${get(spec, 'yaml.path', '').split('/').pop()}] passed.`);
         }
 
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);

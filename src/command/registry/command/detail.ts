@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import Registry from '@serverless-devs/registry';
 import { emoji } from '@/utils';
 import logger from '@/logger';
+import { get, set, omit } from 'lodash';
 
 const description = `View application details.
 
@@ -10,6 +11,19 @@ Example:
   $ s registry detail --package-name fc3
    
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-detail')}`;
+
+const notWantedInfoKeys = [
+  'platform'
+];
+
+function formatResult(result: Array<Object>): Array<any> {
+  const formattedResult = result.map((result) => {
+    const tmp = omit(result, notWantedInfoKeys);
+    return tmp;
+  });
+  
+  return formattedResult;
+};
 
 export default (program: Command) => {
   program
@@ -24,6 +38,7 @@ export default (program: Command) => {
       const { packageName, page } = option;
       const registry = new Registry({ logger });
       const result = await registry.detail(packageName, page);
-      logger.output(result);
+      const formattedResult = formatResult(result);
+      logger.output(formattedResult);
     });
 };
