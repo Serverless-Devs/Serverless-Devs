@@ -20,10 +20,10 @@ As a very simple example, if there is an application's resource description file
 
 ````yaml
 name: myApp
-edition: 1.0.0
+edition: 3.0.0
 access: "myaccess"
 
-services:
+resources:
   website-starter:
     component: devsapp/website
     props:
@@ -66,7 +66,7 @@ In `s cli` mode, since resource description files such as Yaml cannot be read, m
 | Mode | How to use | Advantages | Disadvantages | Applicable scenarios |
 | --- | --- | --- | --- | --- |
 | Yaml mode | In the application directory with a Yaml file that conforms to the Serverless Devs specification and has a resource/behavior description, execute the command corresponding to the component to use it directly, such as `s deploy`, `s servicename build`, etc. | Yes One-click deployment of a complete application (for example, a certain application specifies multiple services, which can be deployed with one click through this command); at the same time, through the resource/behavior description document, the application can be described in a better, simpler and clearer manner; | Need to learn the Yaml specification, and sometimes it will be more complicated to combine with some automated processes; | Operations such as deployment, operation and maintenance, especially batch operations are more suitable; |
-| Pure Cli mode | Triggered by subcommand `cli` in any directory, the same applies to all components, such as `s cli deploy -p "{/"function/": /"function-name/"}"`, `s cli fc-api listFunctions --service-name my-service` | Relatively speaking, it can be simpler and quicker to use the tool, and it can be easily combined with the automated process, reducing the learning difficulty of the Yaml format/specification | For For some complex projects, it is necessary to write too many parameters in the command line, and the probability of error will be higher; | More suitable for project management, self-directed operation |
+| Pure Cli mode | Triggered by subcommand `cli` in any directory, the same applies to all components, such as `s cli deploy -p "{/"function/": /"function-name/"}"`, `s cli fc api listFunctions --service-name my-service` | Relatively speaking, it can be simpler and quicker to use the tool, and it can be easily combined with the automated process, reducing the learning difficulty of the Yaml format/specification | For For some complex projects, it is necessary to write too many parameters in the command line, and the probability of error will be higher; | More suitable for project management, self-directed operation |
 
 ## Design ideas
 

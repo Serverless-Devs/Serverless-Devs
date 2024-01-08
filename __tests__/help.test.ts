@@ -1,6 +1,6 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
-const s = path.resolve(__dirname, '../bin/s');
+const s = path.resolve(__dirname, process.platform === 'win32' ? '../bin/s.cmd' : '../bin/s');
 const cwd = path.join(__dirname, './fixtures/help');
 
 test('s -h', async () => {

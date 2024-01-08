@@ -43,5 +43,5 @@ $ s component
 Component     Version           Size        Description 
 fc            0.1.27            100 MB      阿里云函数计算基础组件 
 devsapp/fc    0.1.27            100 MB      阿里云函数计算基础组件
-fc-api        0.0.44            100 MB      函数计算api操作组件
+fc api        0.0.44            100 MB      函数计算api操作组件
 ```

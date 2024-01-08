@@ -1,6 +1,6 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
-const s = path.resolve(__dirname, '../bin/s');
+const s = path.resolve(__dirname, process.platform === 'win32' ? '../bin/s.cmd' : '../bin/s');
 
 test('s config get from env', async () => {
   const res = spawnSync(s, ['config', 'get'], {

@@ -4,6 +4,8 @@ import fs from 'fs-extra';
 import logger from './logger';
 
 function execDaemon(filename: string, config: Record<string, any> = {}) {
+  // 测试环境不上报
+  if (process.env.NODE_ENV === 'test') return;
   const filePath = path.join(__dirname, 'daemon', filename);
   if (!fs.existsSync(filePath)) return;
   if (process.env['serverless_devs_daemon_enable'] === 'false') {

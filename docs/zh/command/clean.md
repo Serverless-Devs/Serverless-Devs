@@ -24,7 +24,7 @@ Usage: s clean [options]
 Clean up the cache related functions of serverless devs. You can clean up the environment, unused dependent packages and related cache contents through this command.
   
   Example:
-    $ s clean --component fc-api
+    $ s clean --component fc api
     $ s clean --all
 
   Tips:
@@ -54,8 +54,8 @@ Options:
 如果想要清理掉某个组件，可以通过`--component`参数与具体的组件名进行清理，例如：
 
 ```shell script
-$ s clean --component fc-api
-[2023-******][INFO][s_cli] Component [fc-api] has been cleaned up successfully.
+$ s clean --component fc api
+[2023-******][INFO][s_cli] Component [fc api] has been cleaned up successfully.
 ```
 
 如果想要清理缓存，可以通过`--cache`参数进行清理，例如：
