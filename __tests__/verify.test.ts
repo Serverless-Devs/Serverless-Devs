@@ -7,7 +7,7 @@ test('s verify', () => {
   const result = spawnSync(s, ['verify'], { cwd });
   expect(result.status).toBe(0);
   expect(result.stdout.toString()).toContain('s.yaml');
-  expect(result.stdout.toString()).toContain('success');
+  expect(result.stdout.toString()).toContain('passed');
 });
 
 test('s verify -t', () => {
@@ -15,14 +15,14 @@ test('s verify -t', () => {
   const result = spawnSync(s, ['verify', '-t', template], { cwd });
   expect(result.status).toBe(0);
   expect(result.stdout.toString()).toContain('verify.yaml');
-  expect(result.stdout.toString()).toContain('success');
+  expect(result.stdout.toString()).toContain('passed');
 });
 
 test('s verify -o', () => {
   const result = spawnSync(s, ['verify', '-o', 'json'], { cwd });
   expect(result.status).toBe(0);
   expect(result.stdout.toString()).toContain('s.yaml');
-  expect(result.stdout.toString()).toContain('success');
+  expect(result.stdout.toString()).toContain('passed');
 })
 
 test('s verify error', () => {
