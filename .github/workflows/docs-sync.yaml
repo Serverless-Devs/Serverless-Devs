@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0 
       - name: file_changes
-        uses: tj-actions/changed-files@v14.5
+        uses: tj-actions/changed-files@v41
         id: docs-changed
         with:
           files: |
