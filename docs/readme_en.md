@@ -37,7 +37,7 @@
 
 # Quick start
 
-❶ Install Node.js(>=12.0.0) and NPM package management tool;
+❶ Install Node.js(>=14.14.0) and NPM package management tool;
 ❷ Install Serverless Devs developer tools;
 ```shell script
 $ npm install @serverless-devs/s -g
