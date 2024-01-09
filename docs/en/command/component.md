@@ -9,11 +9,11 @@ category: 'Command'
 
 `component` is used to get the details of installed components.
 
-- [Command Parse](#Command-Parse)
-    - [Parameter](#Parameter)
-    - [Example](#Example)
+- [Command Overview](#command-overview)
+  - [Parameter](#parameter)
+  - [Example](#example)
 
-## Command Parse
+## Command Overview
 
 When we execute `s component -h`, we can get help information:
 

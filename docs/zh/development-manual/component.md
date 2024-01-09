@@ -15,6 +15,7 @@ category: '开发手册'
 - [组件模型元数据](#组件模型元数据)
   - [参数详解](#参数详解)
   - [代码规范](#代码规范)
+  - [约定方法](#约定方法)
 
 ## 快速开始
 
@@ -412,9 +413,9 @@ resources:
 
 | 出参 | 类型 | 含义 | 
 |-----|-----|-----|
-| schema | object | 组件属性的JSON Schema |
+| schema | string | 组件属性的JSON Schema。格式可参考[JSON Schema官方网站](https://json-schema.org/) |
 
-[fc3](https://github.com/devsapp/fc3)组件实现案例：
+[fc3](https://github.com/devsapp/fc3/blob/master/src/index.ts)组件实现案例：
 
 ```typescript
 public async getSchema(inputs: IInputs) {
