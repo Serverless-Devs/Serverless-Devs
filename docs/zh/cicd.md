@@ -224,7 +224,7 @@ s deploy -y --use-local -a default
 
 效果如下：
 
-![image](https://user-images.githubusercontent.com/21079031/144697943-2ce9ea56-7af8-4c3b-945b-6897e6d744b5.png)
+![image](https://github.com/Serverless-Devs/Serverless-Devs/assets/43384183/f6df38d1-65c7-4251-b1e8-2538998b8655)
 
 由于在命令中，引用了两个重要的环境变量：`ACCESSKEYID`, `ACCESSKEYSECRET`，所以还需要在环境变量中，增加类似的内容：
 
