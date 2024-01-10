@@ -39,7 +39,7 @@ Options:
 
 ### 操作案例
 
-通过执行`s preview`命令，可以查看资源描述 Yaml 文件的渲染结果。例如，若`s.yaml`的原文如下：
+通过执行`s preview`命令，可以查看资源描述 Yaml 文件（默认为当前目录下`s.yaml`文件，也可以通过`-t`指定其他文件和`--env`指定环境）的渲染结果。例如，若`s.yaml`的原文如下：
 
 ```yaml
 edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范

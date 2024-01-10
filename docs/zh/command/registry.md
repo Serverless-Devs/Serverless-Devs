@@ -121,7 +121,7 @@ Options:
 
 ```shell script
 $ s registry publish
-Package complete.
+Publish package XXXX@x.x.x success.
 ```
 
 ## registry list 命令
@@ -164,28 +164,15 @@ Options:
 ```shell script
 $ s registry list
 - 
-  id:           9
-  type:         Component
-  name:         aliyun_oss_bucket
-  description:  通过阿里云 ROS 部署阿里云资源
-  show:         公开
-  organization: 
-    id:   1
-    name: 阿里云函数计算（FC）
-  user: 
-    id:       3
-    username: ******
-  download:     0
-  provider: 
-    - 阿里云
-  platform:     3
-  category: 
-    id:   3
-    name: 基础云服务
+  type:        Project
+  name:        start-qwen-api-messages
+  description: 使用函数计算 FC 快速体验通义千问 API，通过 messages 以文本指令对话
+  category:    人工智能
   tags: 
-    - ROS
-    - IAC
--
+    - Web框架
+    - Flask
+    - 人工智能
+    - 通义千问
 ...
 ```
 
@@ -226,12 +213,10 @@ Options:
 ```shell script
 $ s registry detail --package-name fc3
 - 
-  platform:    3
   tag_name:    0.0.8
   created_at:  ******
   zipball_url: ******
 - 
-  platform:    3
   tag_name:    dev.0.56
   created_at:  ******
   zipball_url: ******
@@ -244,7 +229,6 @@ $ s registry detail --package-name fc3
 ```shell script
 $ s registry detail --package-name fc3 --page 2
 - 
-  platform:    3
   tag_name:    dev.0.41
   created_at:  ******
   zipball_url: ******
@@ -290,4 +274,11 @@ $ s registry delete --name fc --version-id 1.0.1
  
 Error Message:
 未找到指定资源
+```
+
+若成功，则会提示删除的包名和版本号：
+
+```shell script
+$ s registry delete --name showcase-test --version-id 0.0.8
+Delete package showcase-test@0.0.8 success.
 ```
