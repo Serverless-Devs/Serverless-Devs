@@ -19,6 +19,7 @@ category: '命令'
     - [custom: 自定义命令](./custom.md)
     - [registry: 模板管理](./registry.md)
     - [preview: 预览渲染结果](./preview.md)
+    - [verify: 校验Yaml内容](./verify.md)
 
 
 ## 前言
@@ -45,14 +46,15 @@ Options:
   -h, --help                      Display help for command
 
 Commands:
-  config                          👤  Configure vendors account
+  config                          👤  Configure venders account
   env                             🌱  Environment operation
   set                             🔧  Settings for the tool
   registry                        🚢  Serverless registry platform
-  preview [options]               👀  Preview Yaml render results
+  preview                         👀  Preview Yaml render results
   component                       🔌  Installed component information
   clean [options]                 💥  Clean up the environment
   init [options]                  💞  Initializing a serverless project
+  verify                          🔭  Verify Yaml content
   <custom>                        🧭  Custom Commands
 
 
@@ -90,3 +92,4 @@ Commands:
 - [custom: 自定义命令](./custom.md)
 - [registry: 模板管理](./registry.md)
 - [preview: 预览渲染结果](./preview.md)
+- [verify: 校验Yaml内容](./verify.md)

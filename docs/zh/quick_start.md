@@ -45,19 +45,19 @@ $ yarn global add @serverless-devs/s
 
 #### Windows 平台
 
-1. 找到一个最新的发布版本（Release），下载 `s-*-win.exe.zip` 文件（其中 * 表示版本号，如 2.1.9）。
+1. 找到一个最新的发布版本（Release），下载 `s-*-win.exe.zip` 文件（其中 * 表示版本号，如 v3.0.0）。
 2. 解压文件 `s-*-win.exe.zip` 得到 `s-*.win.exe` 文件，重名为 `s.exe`。
 3. 将 `s.exe` 文件拷贝到系统 PATH 目录即可，比如：`C:\WINDOWS\System32`。
 4. 打开命令终端，执行 `s.exe --version`，查看返回版本号以验证是否安装成功。
 
 
 #### Linux 平台
-1. 找到一个最新的发布版本（Release），下载 `s-*-linux.zip` 文件（其中 * 表示版本号，如 2.1.9）。
+1. 找到一个最新的发布版本（Release），下载 `s-*-linux.zip` 文件（其中 * 表示版本号，如 v3.0.0）。
 2. 解压 zip 文件
 ```
 $ unzip s-linux.zip
-Archive:  s-2.1.9-linux.zip
-  inflating: s-2.1.9-linux
+Archive:  s-v3.0.0-linux.zip
+  inflating: s-v3.0.0-linux
 ```
 3. 移到 PATH 目录
 ```
@@ -67,17 +67,17 @@ $ mv s-*-linux /usr/local/bin/s
 4. 验证版本
 ```
 $ s -v
-@serverless-devs/s: 0.0.13
+@serverless-devs/s: 3.0.0
 ```
 
 
 #### MacOS 平台
-1. 找到一个最新的发布版本（Release），下载 `s-*-macos.zip` 文件（其中 * 表示版本号，如 2.1.9）。
+1. 找到一个最新的发布版本（Release），下载 `s-*-macos.zip` 文件（其中 * 表示版本号，如 v3.0.0）。
 2. 解压 zip 文件
 ```
 $ unzip s-macos.zip
-Archive:  s-2.1.9-macos.zip
-  inflating: s-2.1.9-macos
+Archive:  s-v3.0.0-macos.zip
+  inflating: s-v3.0.0-macos
 ```
 
 3. 移到 PATH 目录
@@ -88,7 +88,7 @@ $ mv s-*-macos /usr/local/bin/s
 4. 验证版本
 ```
 $ s -v
-@serverless-devs/s: 0.0.13
+@serverless-devs/s: 3.0.0
 ```
 
 ### 通过脚本安装

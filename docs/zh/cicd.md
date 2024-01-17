@@ -209,22 +209,22 @@ jenkins-alicloud-access-key-secret : 阿里云 accessKeySecret
 - 在自定义命令中，输入以下内容即可：
   <img src="https://img.alicdn.com/imgextra/i1/O1CN01GhYPXD22biGZOvM1X_!!6000000007139-2-tps-2872-1576.png" />
 
-```
+```shell script
 # input your command here
 s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f
-s deploy -y --use-local
+s deploy -y --use-local -a default
 ```
 
 这里主要包括两个部分：
 
 - `s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f`  
    通过`config`命令进行密钥等信息的配置；
-- `s deploy -y --use-local`  
+- `s deploy -y --use-local -a default`  
    执行某些命令，例如通过`deploy`进行项目的部署，或者`build`等命令进行构建等；
 
 效果如下：
 
-![image](https://user-images.githubusercontent.com/21079031/144697943-2ce9ea56-7af8-4c3b-945b-6897e6d744b5.png)
+![image](https://github.com/Serverless-Devs/Serverless-Devs/assets/43384183/f6df38d1-65c7-4251-b1e8-2538998b8655)
 
 由于在命令中，引用了两个重要的环境变量：`ACCESSKEYID`, `ACCESSKEYSECRET`，所以还需要在环境变量中，增加类似的内容：
 
@@ -232,7 +232,8 @@ s deploy -y --use-local
 
 ## 注意事项
 
-- 在配置密钥的时候，使用了`s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f`命令，此时`-a default`代表的是给该密钥一个叫`default`的别名，这个别名要和项目所设定的使用密钥保持一致，例如在`s.yaml`中的`access`字段；`-f` 是指如果存在同别名的密钥则强制替换，防止使用配置不生效
+- 在配置密钥的时候，使用了`s config add --AccessKeyID ${ACCESSKEYID} --AccessKeySecret ${ACCESSKEYSECRET} -a default -f`命令，此时`-a default`代表的是给该密钥一个叫`default`的别名，这个别名要和项目所设定的使用密钥保持一致，例如在`s.yaml`中的`access`字段；`-f` 是指如果存在同别名的密钥则强制替换，防止使用配置不生效。
+- 如果用户在`s.yaml`的`access`属性中使用了不同于`default`的别名，那么可能会导致配置的密钥不生效。因此，在`s deploy`中，需要使用`-a`指定使用上文配置的`default`密钥，这样就可以无视`s.yaml`的`access`指定的密钥信息，强制使用`default`的密钥信息。
 - 如果在当前应用在，涉及到了配置部署到不同的平台或者账号下，可能会涉及到配置多个密钥信息，此时需要给不同的密钥不同的别名，并且在`s.yaml`中进行使用；
 - 如果想要配置更为灵活的密钥信息，可以考虑通过`-il`和`-kl`参数获取，例如同时配置两对密钥，并且使用自定义 Key ：
   ```yaml
