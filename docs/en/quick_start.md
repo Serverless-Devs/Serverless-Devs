@@ -44,19 +44,19 @@ After downloading locally, unzip it and use it directly.
 
 #### Windows Platform
 
-1. Find a latest release version (Release) and download the `s-*-win.exe.zip` file (where * represents the version number, such as 2.1.9).
+1. Find a latest release version (Release) and download the `s-*-win.exe.zip` file (where * represents the version number, such as v3.0.0).
 2. Unzip the file `s-*-win.exe.zip` to get `s-*.win.exe` file, rename it to `s.exe`.
 3. Just copy the s.exe file to the system PATH directory, for example: `C:\WINDOWS\System32`
 4. Open the command terminal, execute `s.exe --version`, and check the returned version number to verify whether the installation is successful.
 
 
 #### Linux platform
-1. Find a latest release version (Release) and download the `s-*-linux.zip` file (where * represents the version number, such as 2.1.9).
+1. Find a latest release version (Release) and download the `s-*-linux.zip` file (where * represents the version number, such as v3.0.0).
 2. Extract the zip file
 ```
 $ unzip s-linux.zip
-Archive: s-2.1.9-linux.zip
-  inflating: s-2.1.9-linux
+Archive: s-v3.0.0-linux.zip
+  inflating: s-v3.0.0-linux
 ```
 3. Move to PATH directory
 ```
@@ -66,17 +66,17 @@ $ mv s-*-linux /usr/local/bin/s
 4. Verify version
 ```
 $ s -v
-@serverless-devs/s: 2.1.9
+@serverless-devs/s: 3.0.0
 ```
 
 
 #### MacOS platform
-1. Find the latest release version (Release) and download the `s-*-macos.zip` file (where * represents the version number, such as 2.1.9).
+1. Find the latest release version (Release) and download the `s-*-macos.zip` file (where * represents the version number, such as v3.0.0).
 2. Extract the zip file
 ```
 $ unzip s-macos.zip
-Archive: s-2.1.9-macos.zip
-  inflating: s-2.1.9-macos
+Archive: s-v3.0.0-macos.zip
+  inflating: s-v3.0.0-macos
 ```
 
 3. Move to PATH directory
@@ -87,7 +87,7 @@ $ mv s-*-macos /usr/local/bin/s
 4. Verify version
 ```
 $ s -v
-@serverless-devs/s: 2.1.9
+@serverless-devs/s: 3.0.0
 ```
 
 ### Install via script
