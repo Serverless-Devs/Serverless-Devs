@@ -9,7 +9,7 @@
   </a>
   <a href="https://bestpractices.coreinfrastructure.org/projects/6486"><img src="https://bestpractices.coreinfrastructure.org/projects/6486/badge"></a>
   <a href="https://nodejs.org/en/">
-    <img src="https://img.shields.io/badge/node-%3E%3D%2012.0.0-brightgreen" alt="node.js version">
+    <img src="https://img.shields.io/badge/node-%3E%3D%2014.14.0-brightgreen" alt="node.js version">
   </a>
   <a href="https://github.com/Serverless-Devs/Serverless-Devs/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache2.0-green" alt="license">
