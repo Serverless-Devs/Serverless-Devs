@@ -44,9 +44,9 @@ export default class Custom {
       }
     }
     if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
-    // 若带env参数，运行env deploy
-    await runEnv(env);
     if (help) return await new Help(this.program, this.spec).init();
+    // 若带env参数以及是deploy或plan指令，运行env deploy
+    if (raw[0] === 'deploy' || raw[0] === 'plan') await runEnv(env);
     this.program
       .command(raw[0])
       .allowUnknownOption()
