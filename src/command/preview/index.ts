@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, showOutput, writeOutput, runEnv } from '@/utils';
+import { emoji, showOutput, writeOutput } from '@/utils';
 import ParseSpec from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import { get, omit } from 'lodash';
@@ -20,9 +20,9 @@ export default (program: Command) => {
     .summary(`${emoji('👀')} Preview Yaml render results`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      const { template, env } = program.optsWithGlobals();
+      const { template } = program.optsWithGlobals();
       // 若有env或者默认env，运行环境组件的env deploy
-      await runEnv(env);
+      // await runEnv(env);
       const spec = await new ParseSpec(template, { logger }).start();
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
