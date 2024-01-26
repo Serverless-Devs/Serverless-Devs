@@ -1,7 +1,7 @@
 import { concat, find, get, set, isEmpty } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
-import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
+import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH, ALIYUN_REMOTE_PROJECT_ENV_PARAM } from '@serverless-devs/parse-spec';
 import fs from 'fs-extra';
 import * as utils from '@serverless-devs/utils';
 import assert from 'assert';
@@ -13,12 +13,27 @@ class Action {
     logger.debug(`s env default --option: ${JSON.stringify(options)}`);
   }
   async start() {
-    const envFile = utils.getAbsolutePath(get(this.options, 'template', ENVIRONMENT_FILE_NAME));
-    // 未找到env.yaml文件
-    assert(fs.existsSync(envFile), `Environment file ${envFile} is not found`);
-    const envYamlContent = utils.getYamlContent(envFile);
-    const project = get(envYamlContent, 'project');
-    // env.yaml文件中不存在project字段
+    const remoteProjectName = process.env[ALIYUN_REMOTE_PROJECT_ENV_PARAM];
+    let envYamlContent: Record<string, any>;
+    let envFile: string;
+    let project: string;
+    if (remoteProjectName) {
+      envFile = utils.getAbsolutePath(get(this.options, 'template', ENVIRONMENT_FILE_NAME));
+      assert(fs.existsSync(envFile), `Environment file ${envFile} is not found`);
+      envYamlContent = utils.getYamlContent(envFile);
+      project = remoteProjectName;
+    } else {
+      const sFile = utils.getAbsolutePath(get(this.options, 'template', 's.yaml'));
+      assert(fs.existsSync(sFile), `Template file ${sFile} is not found`);
+      const sYamlContent = utils.getYamlContent(sFile);
+      const envFileName = get(sYamlContent, 'env', ENVIRONMENT_FILE_NAME);
+      envFile = utils.getAbsolutePath(envFileName);
+      // 未找到env.yaml文件
+      assert(fs.existsSync(envFile), `Environment file ${envFile} is not found`);
+      envYamlContent = utils.getYamlContent(envFile);
+      project = get(sYamlContent, 'name');
+    }
+    // 不存在project字段
     assert(project, `Environment file ${envFile} is not a valid yaml file, you must set project field`);
     if (!get(this.options, 'name')) {
       if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {

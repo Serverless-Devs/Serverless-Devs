@@ -3,7 +3,7 @@ import TableLayout from 'table-layout';
 import { getRootHome, parseArgv } from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import path from 'path';
-import { IOutput, ENVIRONMENT_FILE_PATH, ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
+import { IOutput, ENVIRONMENT_FILE_PATH, ENVIRONMENT_FILE_NAME, ALIYUN_REMOTE_PROJECT_ENV_PARAM } from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import yaml from 'js-yaml';
 const pkg = require('../../package.json');
@@ -155,11 +155,29 @@ export const getUid = async (access: string) => {
 };
 
 // 获取默认环境
-export const getDefaultEnv = () => {
-  const envFile = utils.getAbsolutePath(ENVIRONMENT_FILE_NAME);
-  if (!fs.existsSync(envFile)) return null;
-  const envYamlContent = utils.getYamlContent(envFile);
-  const project = get(envYamlContent, 'project');
+export const getDefaultEnv = (sPath: string) => {
+  const remoteProjectName = process.env[ALIYUN_REMOTE_PROJECT_ENV_PARAM];
+  let envYamlContent: Record<string, any>;
+  let envFile: string;
+  let project: string;
+  if (remoteProjectName) {
+    envFile = utils.getAbsolutePath(ENVIRONMENT_FILE_NAME);
+    if (!fs.existsSync(envFile)) return null;
+    envYamlContent = utils.getYamlContent(envFile);
+    project = remoteProjectName;
+  } else {
+    if (!fs.existsSync(sPath)) sPath = 's.yaml';
+    const sFile = utils.getAbsolutePath(sPath);
+    logger.write(`s.yaml: ${sFile}`);
+    if (!fs.existsSync(sFile)) return null;
+    const sYamlContent = utils.getYamlContent(sFile);
+    const envFileName = get(sYamlContent, 'env', ENVIRONMENT_FILE_NAME);
+    envFile = utils.getAbsolutePath(envFileName);
+    // 未找到env.yaml文件
+    if (!fs.existsSync(envFile)) return null;
+    envYamlContent = utils.getYamlContent(envFile);
+    project = get(sYamlContent, 'name');
+  }
   if (!project) return null;
   if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
     const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
@@ -174,10 +192,10 @@ export const getDefaultEnv = () => {
 };
 
 // 若有env参数或者默认env，运行组件
-export const runEnv = async (env: string | boolean) => {
+export const runEnv = async (env: string | boolean, sPath: string) => {
   if (typeof env === 'boolean') return;
   if (isEmpty(env)) {
-    env = getDefaultEnv();
+    env = getDefaultEnv(sPath);
     if (isEmpty(env)) return;
   }
   const template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME);

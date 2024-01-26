@@ -1,6 +1,7 @@
 edition: 3.0.0
 name: web-framework-app
 access: "default"
+env: env.yaml
 
 resources:
   function-a:
