@@ -49,7 +49,8 @@ export default async (program: Command) => {
 
 const isFc3 = async (componentName: string) => {
   try {
-    const instance = await loadComponent(componentName);
+    const componentLogger = logger.loggerInstance.__generate(componentName);
+    const instance = await loadComponent(componentName, { logger: componentLogger });
     if (instance.__path) return true;
   } catch (error) {
     return false;
