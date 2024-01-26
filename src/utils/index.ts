@@ -3,7 +3,7 @@ import TableLayout from 'table-layout';
 import { getRootHome, parseArgv } from '@serverless-devs/utils';
 import fs from 'fs-extra';
 import path from 'path';
-import { IOutput, ENVIRONMENT_FILE_PATH, ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
+import { IOutput, ENVIRONMENT_FILE_PATH, ENVIRONMENT_FILE_NAME, ALIYUN_REMOTE_PROJECT_ENV_PARAM } from '@serverless-devs/parse-spec';
 import logger from '@/logger';
 import yaml from 'js-yaml';
 const pkg = require('../../package.json');
@@ -156,7 +156,7 @@ export const getUid = async (access: string) => {
 
 // 获取默认环境
 export const getDefaultEnv = (sPath: string) => {
-  const remoteProjectName = process.env.ALIYUN_DEVS_REMOTE_PROJECT_NAME;
+  const remoteProjectName = process.env[ALIYUN_REMOTE_PROJECT_ENV_PARAM];
   let envYamlContent: Record<string, any>;
   let envFile: string;
   let project: string;

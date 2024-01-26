@@ -1,7 +1,7 @@
 import { concat, find, get, set, isEmpty } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
-import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
+import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH, ALIYUN_REMOTE_PROJECT_ENV_PARAM } from '@serverless-devs/parse-spec';
 import fs from 'fs-extra';
 import * as utils from '@serverless-devs/utils';
 import assert from 'assert';
@@ -13,7 +13,7 @@ class Action {
     logger.debug(`s env default --option: ${JSON.stringify(options)}`);
   }
   async start() {
-    const remoteProjectName = process.env.ALIYUN_DEVS_REMOTE_PROJECT_NAME;
+    const remoteProjectName = process.env[ALIYUN_REMOTE_PROJECT_ENV_PARAM];
     let envYamlContent: Record<string, any>;
     let envFile: string;
     let project: string;
