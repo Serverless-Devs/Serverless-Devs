@@ -139,31 +139,28 @@ Parameters: # 标准的JSON Scheme
 | Parameters | 是 | Struct | 应用中Yaml内需要填写的字段，严格遵守Json Schema规范标准 |
 
 
-###### Provider
+#### Provider
 
 取值范围：`阿里云`, `百度智能云`, `华为云`, `腾讯云`, `AWS`, `Azure`, `Google Cloud`, `其它`
 
-格式参考：
 ```yaml
 Provider:
     - 阿里云
     - 百度智能云
 ```
 
-###### Category
+#### Category
 
 取值范围：`基础云服务`, `Web框架`, `全栈应用`, `人工智能`, `音视频处理`, `图文处理`, `监控告警`, `大数据`, `IoT`, `新手入门`, `其它`, `开源项目`其他`
 
-格式参考：
 ```yaml
 Category: 基础云服务
 ```
 
-###### Service
+#### Service
 
 取值范围：`函数计算`, `容器服务`, `镜像服务`, `消息队列`, `工作流`, `CDN`, `对象存储`, `表格存储`, `MNS`, `日志服务`, `API网关`, `数据库`, `解析服务`, `云应用`, `其它`
 
-格式参考：
 ```yaml
 Service: # 使用的服务
   函数计算:
@@ -172,16 +169,15 @@ Service: # 使用的服务
       - 创建函数 # 所需要的权限
 ```
 
-###### Effective
+#### Effective
 
 取值范围：`Public，Private，Organization`
 
-格式参考：
 ```yaml
 Effective: Public
 ```
 
-###### Parameters
+#### Parameters
 
 在应用模型中，尽管已经有一个完整的`s.yaml`用来描述应用的信息，但是实际上还会存在诸如下面的情况：
 - 某些`s.yaml`中的参数需要使用者来填写，例如某些应用需要连接数据库，此时需要用户在初始化应用的时候进行参数的填写；
@@ -226,7 +222,7 @@ services:
     props:
       name: {{ inputsrgs }}
 ```
-    
+## 开发与调试
 为了兼容[spec 0.0.1](https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/zh/0.0.1/serverless_package_model/package_model.md#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83) 中，关于`s.yaml`的特殊格式定义，在当前版本中：
 1. 如果`s.yaml`中存在类似`'{{ bucket | alibaba oss bucket }}'`的内容 ，则直接提醒用户需要输入bucket这样的一个参数，作为Yaml中所必须的参数，并以`|`之后的内容"alibaba oss bucket"作为解释这个参数的含义；
 2. 如果`s.yaml`中存在类似`"{{ access }}"`内容，则判断`publish.yaml`中是否存在`Parameters`参数以及相关的Key：
@@ -234,3 +230,50 @@ services:
     - 如果不存在，直接提醒用户需要输入access这样的一个参数，作为Yaml中所必须的参数；
 
 > 关于Parameters参数的格式，严格遵循JSON Scheme的规范标准，更多使用示例可查看[Parameters参数](/serverless-devs/development-manual/parameters)文档。
+
+### 发布流程
+开发者可以在 src 下完成应用的开发，并对项目进行`publish.yaml`文件的编写。完成之后，即可通过以下几个步骤发布项目：
+
+- 更改 `publish.yaml` 里的 `Version` 字段。确保版本号比现有最高版本号大 1，例如：1.0.0 -> 1.0.1。
+
+  > 您可以使用固定的 dev 版本用于持续发布测试版本
+
+- 首次发布需要通过 [registry](https://docs.serverless-devs.com/serverless-devs/command/registry) 命令先登录 Serverless Devs Registry。
+
+  ```shell script
+  s registry login
+  ```
+
+  随后浏览器会跳出登陆窗口，根据提示进行操作即可。
+
+- 后续直接执行 `s registry publish` 即可进行发布
+
+- 测试应用
+
+  如果您使用 dev 版本进行了应用的发布， 假设您的应用名字为 start-application-v3, 那么您可以使用：
+
+  - 本地终端执行: `s init start-application-v3@dev`
+  - 浏览器打开: https://fcnext.console.aliyun.com/applications/create?template=start-application-v3@dev 进行测试
+
+### 查看已发布的应用
+
+> 详细可见 [registry 命令文档](https://docs.serverless-devs.com/serverless-devs/command/registry)
+
+可以通过`s registry list`指令查看当前登陆到 [Serverless Registry](https://registry.serverless-devs.com) 账号所发布的组件。例如：
+
+```shell script
+$ s registry list
+- 
+  type:        Project
+  name:        start-qwen-api-messages
+  description: 使用函数计算 FC 快速体验通义千问 API，通过 messages 以文本指令对话
+  category:    人工智能
+  tags: 
+    - Web框架
+    - Flask
+    - 人工智能
+    - 通义千问
+...
+```
+
+`list`指令会输出所有组件。在组件过多的情况下，可以通过`category`, `tag`和`page`参数进行筛选，还可以通过`search`参数搜索特定的组件。
