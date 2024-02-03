@@ -139,12 +139,28 @@ const huawei_template = [
 
 const huawei_quick_start_template = [
   {
+    name: '[HTTP] Node.js 18',
+    value: 'start-fg-http-nodejs18',
+  },
+  {
+    name: '[HTTP] Node.js 16',
+    value: 'start-fg-http-nodejs16',
+  },
+  {
     name: '[HTTP] Node.js 14',
     value: 'start-fg-http-nodejs14',
   },
   {
     name: '[HTTP] Python3',
     value: 'start-fg-http-python3',
+  },
+  {
+    name: '[Event] Node.js 18',
+    value: 'start-fg-event-nodejs18',
+  },
+  {
+    name: '[Event] Node.js 16',
+    value: 'start-fg-event-nodejs16',
   },
   {
     name: '[Event] Node.js 14',
