@@ -198,7 +198,10 @@ export const runEnv = async (env: string | boolean, sPath: string) => {
     env = getDefaultEnv(sPath);
     if (isEmpty(env)) return;
   }
-  const template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME);
+  if (!fs.existsSync(sPath)) sPath = 's.yaml';
+  const sFile = utils.getAbsolutePath(sPath);
+  const { env: envParam } = utils.getYamlContent(sFile);
+  const template = path.join(process.cwd(), envParam || ENVIRONMENT_FILE_NAME);
   const { environments } = utils.getYamlContent(template);
   const data = find(environments, item => item.name === env);
   assert(data, `The environment ${env} was not found`);
