@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy, isEmpty, join, keys } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
@@ -12,10 +12,10 @@ import chalk from 'chalk';
 import path from 'path';
 import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
-import { UPDATE_COMPONENT_CHECK_INTERVAL } from '@/constant';
+import { UPDATE_COMPONENT_CHECK_INTERVAL, CICD_ENV_KEY } from '@/constant';
 import { EReportType } from '@/type';
-import { emoji, showOutput, writeOutput, runEnv } from '@/utils';
-import { ETrackerType, DevsError, getUserAgent } from '@serverless-devs/utils';
+import { emoji, showOutput, writeOutput, runEnv, deepObfuscate } from '@/utils';
+import { ETrackerType, DevsError, getUserAgent, isCiCdEnvironment } from '@serverless-devs/utils';
 
 export default class Custom {
   private spec = {} as ISpec;
@@ -106,11 +106,43 @@ export default class Custom {
     if (keys(data).length === 1) return data[keys(data)[0]];
     return data;
   }
-  private output(context: IContext) {
+  private async output(context: IContext) {
     if (isEmpty(get(context, 'output'))) return;
-    const data = this.parseOutput(get(context, 'output'));
+    const data = await this.processOutput(context);
     logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     showOutput(data);
+  }
+  // cicd环境下默认隐藏，选择性显示
+  private async processOutput(context: IContext) {
+    const { steps, command } = this.spec;
+    if (process.env[CICD_ENV_KEY] == 'true' || isCiCdEnvironment()) {
+      const showData = deepObfuscate(get(context, 'output'));
+      const originalData = cloneDeep(get(context, 'output')); 
+      for (const i in showData) {
+        const obj = showData[i];
+        const originalObj = originalData[i];
+        const step = find(steps, item => item.projectName === i);
+        const componentName = get(step, 'component');
+        const instance = await loadComponent(componentName, { logger });
+        if (instance.getShownProps) {
+          const shownPropsObj = instance.getShownProps();
+          const keyList = keys(shownPropsObj);
+          const destKey = find(keyList, item => {
+            try {
+              return new RegExp(item).test(command);
+            } catch {
+              return false;
+            }
+          });
+          const shownPropsList = get(shownPropsObj, destKey);
+          for (const i of shownPropsList) {
+            set(obj, i, get(originalObj, i));
+          }
+        }
+      }
+      return this.parseOutput(showData);
+    }
+    return this.parseOutput(get(context, 'output'));
   }
   private async parseSpec() {
     const argv = process.argv.slice(2);

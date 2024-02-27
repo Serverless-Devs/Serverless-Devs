@@ -25,8 +25,8 @@ Usage: s cli [options]
 Utilize Serverless Devs components for application development and management without the need for yaml configuration.
   
   Examples:
-    $ s cli fc api ListServices
-    $ s cli fc api ListFunctions --path '{"serviceName": "serviceName"}' --body '{"K1": "V1"}'
+    $ s cli fc3 info --region cn-hangzhou --function-name  test -a myAccess
+    $ s cli fc3 invoke --region cn-hangzhou --function-name  test -e "{"key" : "val"}" -a myAccess
     
 📖  Documentation: https://serverless.help/t/s/
 Options:
@@ -73,22 +73,34 @@ s cli devsapp/website deploy -p "{\"bucket\":\"testbucket\",\"src\":{\"codeUri\"
 
 ### Specific Component Support
 
-Serverless Devs offers several well-designed components that are optimized for Cli mode. For example, the `fc api` component is prioritized for command line usage, facilitating quick interactions with certain Aliyun Function Compute (FC) service interfaces, such as:
+Serverless Devs offers several well-designed components that are optimized for Cli mode. For example, the `fc3` component is prioritized for command line usage, facilitating quick interactions with certain Aliyun Function Compute (FC) service interfaces, such as:
 
-- Listing functions within a specified service and region:
+- Listing functions within a specified function and region:
 
-  ```shell script
-  s cli fc api listFunctions --service-name my-service --region cn-beijing -a myaccess
-  ```
+   ```bash
+    s cli fc3 info --region cn-hangzhou --function-name  test -a myAccess
+    ```
 
-- Updating function code via the command line:
+- Invoking function via the command line:
 
-  ```shell script
-  s cli fc api updateFunction --region cn-hangzhou --serviceName fc-deploy-service --functionName http-trigger-function --code '{"zipFile":"./"}'
-  ```
+    ```bash
+    s cli fc3 invoke --region cn-hangzhou --function-name  test -e "{\"key\" : \"val\"}" -a myAccess
+    ```
 
-Furthermore, several components that typically support Yaml mode may also offer an optimized pure command line interface for specific operations. An example is the `fc` component, which provides commands for resource synchronization:
+Furthermore, several components that typically support Yaml mode may also offer an optimized pure command line interface for specific operations. An example is the `fc3` component, which provides commands for resource synchronization:
 
-```shell script
-s cli fc sync --region cn-shanghai --service-name myService --type config 
+```bash
+$ s cli fc3 sync -h
+Usage: s cli fc3 sync [options]
+
+Synchronize online resources to offline resources.
+
+Examples with Yaml:
+  $ s sync
+  $ s sync --target-dir ./test --qualifier testAlias
+
+Examples with CLI:
+  $ s cli fc3 sync --region cn-hangzhou --function-name test -a default
+  $ s cli fc3 sync --region cn-hangzhou --function-name s1\$f1 -a default
+...
 ```

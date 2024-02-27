@@ -1,6 +1,6 @@
 {
   "name": "@serverless-devs/s",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Serverless devs tool, serverless developer tool, supports Alibaba cloud, AWS, azure, baidu cloud, Huawei cloud, Google cloud and Tencent cloud.",
   "homepage": "https://www.serverless-devs.com",
   "keywords": [
@@ -33,7 +33,6 @@
     "test:watch": "jest --testTimeout 10000 --watchAll",
     "format": "prettier --write src/ __tests__/**/*.test.ts",
     "watch": "npm run build -- --watch",
-    "prebuild": "cross-os prebuild",
     "build": "node ./scripts/build.js",
     "pkg": "pkg . --out-path releases",
     "prepublishOnly": "npm run build",

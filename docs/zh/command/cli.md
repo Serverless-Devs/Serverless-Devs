@@ -26,8 +26,8 @@ Usage: s cli [options]
 Directly use serverless devs to use components, develop and manage applications without yaml configuration.
   
   Example:
-    $ s cli fc api ListServices
-    $ s cli fc api ListFunctions --path '{"serviceName": "serviceName"}' --body '{"K1": "V1"}'
+    $ s cli fc3 info --region cn-hangzhou --function-name  test -a myAccess
+    $ s cli fc3 invoke --region cn-hangzhou --function-name  test -e "{"key" : "val"}" -a myAccess
     
 📖  Document: https://serverless.help/t/s/cli
 
@@ -79,18 +79,34 @@ s cli devsapp/website deploy -p "{\"bucket\":\"testbucket\",\"src\":{\"codeUri\"
 
 ### 特定组件的支持
 
-在 Serverless Devs 目前已经存在的组件中，已经有一些比较优秀且针对 Cli 模式设计的组件，例如`fc api`组件，就是一款命令行模式优先的组件，通过该组件，可以快速的使用阿里云函数计算的一些接口，进行操作，例如：
+在 Serverless Devs 目前已经存在的组件中，已经有一些比较优秀且针对 Cli 模式设计的组件，例如`fc3`组件，就是一款命令行模式优先的组件，通过该组件，可以快速的使用阿里云函数计算的一些接口，进行操作，例如：
 
-- 查看阿里云函数计算的某个地区下某个服务下的函数列表：
-    ```shell script
-    s cli fc api listFunctions --service-name my-service --region cn-beijing -a myaccess
-    ```
-- 通过纯命令行形式，对函数进行代码更新：
-    ```shell script
-    s cli fc api updateFunction --region cn-hangzhou --serviceName fc-deploy-service --functionName http-trigger-function --code '{"zipFile":"./"}'
+- 查看阿里云函数计算的某个地区下某个函数信息：
+
+    ```bash
+    s cli fc3 info --region cn-hangzhou --function-name  test -a myAccess
     ```
 
-除此之外，很多组件可以即对 Yaml 模式有比较好的支持，也会在某些情况下对 纯命令行模式，进行额外优化设计，例如 `fc` 组件的线上线下资源同步操作：
-```shell script
-s cli fc sync --region cn-shanghai --service-name myService --type config
+- 调用阿里云函数计算的某个地区下某个函数：
+
+    ```bash
+    s cli fc3 invoke --region cn-hangzhou --function-name  test -e "{\"key\" : \"val\"}" -a myAccess
+    ```
+
+除此之外，很多组件既可以对 Yaml 模式有比较好的支持，也会在某些情况下对 纯命令行模式，进行额外优化设计，例如 `fc3` 组件的线上线下资源同步操作：
+
+```bash
+$ s cli fc3 sync -h
+Usage: s cli fc3 sync [options]
+
+Synchronize online resources to offline resources.
+
+Examples with Yaml:
+  $ s sync
+  $ s sync --target-dir ./test --qualifier testAlias
+
+Examples with CLI:
+  $ s cli fc3 sync --region cn-hangzhou --function-name test -a default
+  $ s cli fc3 sync --region cn-hangzhou --function-name s1\$f1 -a default
+...
 ```

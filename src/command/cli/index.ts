@@ -16,8 +16,8 @@ import handleError from '@/error';
 const description = `Directly use serverless devs to use components, develop and manage applications without yaml configuration.
   
   Example:
-    $ s cli fc api ListServices
-    $ s cli fc api ListFunctions --path '{"serviceName": "serviceName"}' --body '{"K1": "V1"}'
+    $ s cli fc3 info --region cn-hangzhou --function-name  test -a myAccess
+    $ s cli fc3 invoke --region cn-hangzhou --function-name  test -e "{\"key\" : \"val\"}" -a myAccess
     
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/cli')}`;
 
