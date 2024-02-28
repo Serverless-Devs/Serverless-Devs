@@ -102,7 +102,9 @@ Serverless Devs 遵循 [Apache-2.0 license](./LICENSE) 开源许可。
 
 <p align="center">
 <br/><br/>
-<img src="https://landscape.cncf.io/images/right-logo.svg](https://landscape.cncf.io/images/cncf-landscape-horizontal-color.svg" width="200"/>&nbsp;&nbsp;
+
+![](https://landscape.cncf.io/images/cncf-landscape-horizontal-color.svg)
+  
 <br/><br/>
 Serverless Devs 是 CNCF Sandbox 项目，可以在 <a href="https://landscape.cncf.io/?group=serverless&view-mode=grid&item=serverless--tools--serverless-devs-serverless">CNCF Cloud Native Landscape</a> 中查看。
 </p>
