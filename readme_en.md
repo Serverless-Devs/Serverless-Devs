@@ -103,13 +103,15 @@ All files located in `node_modules` and external directories are externally main
 
 <p align="center">
 <br/><br/>
-<img src="https://landscape.cncf.io/images/left-logo.svg" width="150"/>&nbsp;&nbsp;<img src="https://landscape.cncf.io/images /right-logo.svg" width="200"/>&nbsp;&nbsp;
+
+![](https://landscape.cncf.io/images/cncf-landscape-horizontal-color.svg)
+
 <br/><br/>
-Serverless Devs is a CNCF Sandbox project that can be viewed at <a href="https://landscape.cncf.io/serverless?license=apache-license-2-0">CNCF Cloud Native Landscape</a>.
+Serverless Devs is a CNCF Sandbox project that can be viewed at <a href="https://landscape.cncf.io/?group=serverless&view-mode=grid&item=serverless--tools--serverless-devs-serverless">CNCF Cloud Native Landscape</a>.
 </p>
 
 
-If you have feedback about bugs or future expectations, you can post them in [Issues](https://github.com/serverless-devs/serverless-devs/issues) and [Discussions](https://github.com/ serverless-devs/serverless-devs/discussions) for feedback and exchanges. If you'd like to join our discussion group or keep up to date with Serverless Devs, you can do so through the following channels:
+If you have feedback about bugs or future expectations, you can post them in [Issues](https://github.com/serverless-devs/serverless-devs/issues) and [Discussions](https://github.com/serverless-devs/serverless-devs/discussions) for feedback and exchanges. If you'd like to join our discussion group or keep up to date with Serverless Devs, you can do so through the following channels:
 
 <p align="center">
 
