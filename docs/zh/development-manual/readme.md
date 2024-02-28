@@ -220,7 +220,7 @@ services:
   component-test:
     component: demo
     props:
-      name: {{ inputsrgs }}
+      name: {{ inputargs }}
 ```
 ## 开发与调试
 为了兼容[spec 0.0.1](https://github.com/Serverless-Devs/Serverless-Devs/blob/master/spec/zh/0.0.1/serverless_package_model/package_model.md#%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B%E8%A7%84%E8%8C%83) 中，关于`s.yaml`的特殊格式定义，在当前版本中：

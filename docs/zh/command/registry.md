@@ -7,7 +7,7 @@ category: '命令'
 
 # Registry 命令
 
-`registry`命令是将安利模板发到 [Serverless Registry](https://registry.serverless-devs.com) 并对相关内容进行管理的命令。
+`registry`命令是将案例模板发到 [Serverless Registry](https://registry.serverless-devs.com) 并对相关内容进行管理的命令。
 
 - [命令解析](#命令解析)
 - [login 命令](#registry-login-命令)
