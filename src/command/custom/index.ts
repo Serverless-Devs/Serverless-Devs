@@ -135,9 +135,13 @@ export default class Custom {
             }
           });
           const shownPropsList = get(shownPropsObj, destKey);
-          for (const i of shownPropsList) {
-            set(obj, i, get(originalObj, i));
+          for (const j of shownPropsList) {
+            set(obj, j, get(originalObj, j));
           }
+        } else {
+          const envVarKey = 'environmentVariables';
+          if (get(originalObj, envVarKey)) set(originalObj, envVarKey, get(obj, envVarKey));
+          set(showData, i, cloneDeep(originalObj));
         }
       }
       return this.parseOutput(showData);
