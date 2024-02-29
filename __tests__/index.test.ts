@@ -7,6 +7,7 @@ const pkg = require('../package.json');
 const cwd = path.resolve(__dirname, './fixtures/basic');
 
 test('s -v', async () => {
+  spawnSync(s, ['emptyarray'], { cwd });
   const res = spawnSync(s, ['-v']);
   const stdout = res.stdout.toString();
   console.log(stdout);

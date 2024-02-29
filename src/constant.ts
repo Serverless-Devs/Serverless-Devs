@@ -13,3 +13,6 @@ export const UPDATE_CHECK_INTERVAL = 1000 * 60 * 60 * 12;
 export const UPDATE_COMPONENT_CHECK_INTERVAL = 1000 * 60 * 10;
 
 export const REPORT_BASE_URL = 'http://serverless-devs3-metrics.cn-hangzhou.log.aliyuncs.com/logstores/serverless-devs/track';
+
+// 环境变量key
+export const CICD_ENV_KEY = 'CICD_ENV';

@@ -1,4 +1,4 @@
-import { maxBy, repeat, filter, get, each, isEmpty, find, isString } from 'lodash';
+import { maxBy, repeat, filter, get, each, isEmpty, find, isString, cloneDeepWith, isObject, isArray, isFunction } from 'lodash';
 import TableLayout from 'table-layout';
 import { getRootHome, parseArgv } from '@serverless-devs/utils';
 import fs from 'fs-extra';
@@ -89,6 +89,15 @@ export const isJson = (value: string, key: string = '-p/--props') => {
     throw new Error(`${key} parameter format error`);
   }
 };
+
+export const deepObfuscate = (obj) => {
+  return cloneDeepWith(obj, (value) => {
+    if (isObject(value) && !isArray(value) && !isFunction(value)) {
+      return undefined; 
+    }
+    return '******';
+  });
+}
 
 export const showOutput = (data: any) => {
   logger.unsilent();
