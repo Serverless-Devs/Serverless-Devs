@@ -177,7 +177,6 @@ export const getDefaultEnv = (sPath: string) => {
   } else {
     if (!fs.existsSync(sPath)) sPath = 's.yaml';
     const sFile = utils.getAbsolutePath(sPath);
-    logger.write(`s.yaml: ${sFile}`);
     if (!fs.existsSync(sFile)) return null;
     const sYamlContent = utils.getYamlContent(sFile);
     const envFileName = get(sYamlContent, 'env', ENVIRONMENT_FILE_NAME);
