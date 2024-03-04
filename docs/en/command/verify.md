@@ -33,7 +33,7 @@ The functionality of the `verify` command includes two parts:
 1. Serverless Devs tool side: Performs basic checks on the Yaml file's format, magic variables, and versions. This part of the functionality is similar to the `preview` command.
 2. Component side: The component provides a method, according to certain conventions, to conduct a more detailed truth verification of all resource attribute values in the Yaml file, such as whether the type is correct and whether the value exists in the enumeration options.
 
-The convention method and development examples for the component side can be found here: [Serverless Devs Component Development Specification](https://docs.serverless-devs.com/serverless-devs/development-manual/component#约定方法).
+The convention method and development examples for the component side can be found here: [Serverless Devs Component Development Specification](https://manual.serverless-devs.com/dev-guide/component/).
 
 ### Operation Examples
 
