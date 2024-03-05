@@ -37,7 +37,7 @@ Options:
 1. Serverless Devs 工具侧：对 Yaml 文件的格式，魔法变量，版本等进行基本校验。这部分功能与`preview`命令的功能雷同。
 2. 组件侧：通过组件按照一定约定提供的方法，对 Yaml 文件中所有资源的属性值进行更加细致的真值校验，例如类型是否正确，取值是否存在于枚举项中等。
 
-组件侧的约定方法和开发案例可见：[Serverless Devs 组件开发规范](https://docs.serverless-devs.com/serverless-devs/development-manual/component#%E7%BA%A6%E5%AE%9A%E6%96%B9%E6%B3%95)。
+组件侧的约定方法和开发案例可见：[Serverless Devs 组件开发规范](https://manual.serverless-devs.com/dev-guide/component/)。
 
 ### 操作案例
 

@@ -14,7 +14,7 @@ ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/verify
 export default (program: Command) => {
   program
     .command('verify')
-    .usage('[commands] [options]')
+    .usage('[options]')
     .description(description)
     .summary(`${emoji('🔭')} Verify Yaml content`)
     .addHelpCommand(false)

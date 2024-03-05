@@ -56,9 +56,9 @@ Commands:
   <custom>                        🧭  Custom Commands
 
 
-🙌   Quick Start:      https://docs.serverless-devs.com/quick-start
+🙌   Quick Start:      https://manual.serverless-devs.com/getting-started/
 🌟   Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
-💡   Documentation:    https://docs.serverless-devs.com
+💡   Documentation:    https://manual.serverless-devs.com
 🚀   Example Projects: https://registry.serverless-devs.com
 📝   Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues
 ```

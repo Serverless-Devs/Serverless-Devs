@@ -19,6 +19,7 @@ export default (program: Command) => {
     .description(description)
     .usage('[commands] [options]')
     .summary(`${emoji('🚢')} Serverless registry platform`)
+    .addHelpCommand(false)
     .helpOption('-h, --help', 'Display help for command');
 
   subLogin(configProgram);

@@ -54,9 +54,9 @@ const root = async (program: Command) => {
     'after',
     `
 ${customRootHelp || ''}
-${emoji('🙌')}  Quick Start:      https://docs.serverless-devs.com/quick-start
+${emoji('🙌')}  Quick Start:      https://manual.serverless-devs.com/getting-started
 ${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
-${emoji('💡')}  Documentation:    https://docs.serverless-devs.com
+${emoji('💡')}  Documentation:    https://manual.serverless-devs.com
 ${emoji('🚀')}  Example Projects: https://registry.serverless-devs.com
 ${emoji('📝')}  Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues
 `,

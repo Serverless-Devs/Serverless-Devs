@@ -238,7 +238,7 @@ services:
 
   > 您可以使用固定的 dev 版本用于持续发布测试版本
 
-- 首次发布需要通过 [registry](https://docs.serverless-devs.com/serverless-devs/command/registry) 命令先登录 Serverless Devs Registry。
+- 首次发布需要通过 [registry](https://manual.serverless-devs.com/user-guide/builtin/registry/) 命令先登录 Serverless Devs Registry。
 
   ```shell script
   s registry login
@@ -257,7 +257,7 @@ services:
 
 ### 查看已发布的应用
 
-> 详细可见 [registry 命令文档](https://docs.serverless-devs.com/serverless-devs/command/registry)
+> 详细可见 [registry 命令文档](https://manual.serverless-devs.com/user-guide/builtin/registry/)
 
 可以通过`s registry list`指令查看当前登陆到 [Serverless Registry](https://registry.serverless-devs.com) 账号所发布的组件。例如：
 
