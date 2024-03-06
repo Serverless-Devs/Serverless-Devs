@@ -9,7 +9,6 @@ import handleError from '@/error';
 import { ISpec } from './types';
 import Help from './help';
 import chalk from 'chalk';
-import path from 'path';
 import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL, CICD_ENV_KEY } from '@/constant';
@@ -71,9 +70,9 @@ export default class Custom {
         if (get(context, 'status') === 'success') {
           execDaemon('report.js', { ...reportData, type: EReportType.command });
           rest['output-file'] ? writeOutput(get(context, 'output')) : this.output(context);
-          if (utils.getGlobalConfig('log') !== 'disable') {
-            logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
-          }
+          // if (utils.getGlobalConfig('log') !== 'disable') {
+          //   logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
+          // }
           return;
         }
         await handleError(context.error, reportData);
@@ -125,7 +124,7 @@ export default class Custom {
         const componentName = get(step, 'component');
         const instance = await loadComponent(componentName, { logger });
         if (instance.getShownProps) {
-          const shownPropsObj = instance.getShownProps();
+          const shownPropsObj = await instance.getShownProps();
           const keyList = keys(shownPropsObj);
           const destKey = find(keyList, item => {
             try {
