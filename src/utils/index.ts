@@ -92,7 +92,7 @@ export const isJson = (value: string, key: string = '-p/--props') => {
 
 export const deepObfuscate = (obj) => {
   return cloneDeepWith(obj, (value) => {
-    if (isObject(value) && !isArray(value) && !isFunction(value)) {
+    if (isObject(value) || isArray(value) && !isFunction(value)) {
       return undefined; 
     }
     return '******';
