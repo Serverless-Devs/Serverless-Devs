@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set, unset } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
@@ -115,10 +115,9 @@ export default class Custom {
   private async processOutput(context: IContext) {
     const { steps, command } = this.spec;
     if (process.env[CICD_ENV_KEY] == 'true' || isCiCdEnvironment()) {
-      const showData = deepObfuscate(get(context, 'output'));
+      const showData = {};
       const originalData = cloneDeep(get(context, 'output')); 
-      for (const i in showData) {
-        const obj = showData[i];
+      for (const i in originalData) {
         const originalObj = originalData[i];
         const step = find(steps, item => item.projectName === i);
         const componentName = get(step, 'component');
@@ -135,11 +134,11 @@ export default class Custom {
           });
           const shownPropsList = get(shownPropsObj, destKey);
           for (const j of shownPropsList) {
-            set(obj, j, get(originalObj, j));
+            set(showData, i + '.' + j, get(originalObj, j));
           }
         } else {
           const envVarKey = 'environmentVariables';
-          if (get(originalObj, envVarKey)) set(originalObj, envVarKey, get(obj, envVarKey));
+          if (get(originalObj, envVarKey)) unset(originalObj, envVarKey);
           set(showData, i, cloneDeep(originalObj));
         }
       }
