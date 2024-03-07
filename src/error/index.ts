@@ -9,6 +9,8 @@ import { IEngineError } from '@serverless-devs/engine';
 import { get, isArray } from 'lodash';
 import execDaemon from '@/exec-daemon';
 export { default as HumanError } from './human-error';
+import * as utils from '@serverless-devs/utils';
+
 
 const pkg = require('../../package.json');
 
@@ -34,6 +36,8 @@ const handleError = async (error: IEngineError | IEngineError[], params: Record<
       exitCode = code;
     }
   }
+  logger.write(' ');
+  logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
   // 空出一行间隙
   logger.write(' ');
   logger.write(
