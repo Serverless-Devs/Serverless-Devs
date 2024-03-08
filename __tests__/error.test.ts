@@ -49,7 +49,7 @@ test('s xx -t basic.yaml', async () => {
   const res = spawnSync(s, ['xx', '-t', 'basic.yaml'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toMatch(/WARNING/);
+  expect(stdout).toMatch(/TIPS/);
   expect(stdout).toMatch(/The \[xx\] command was not found/);
 });
 

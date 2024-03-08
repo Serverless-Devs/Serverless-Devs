@@ -166,13 +166,11 @@ export const getUid = async (access: string) => {
 // 获取默认环境
 export const getDefaultEnv = (sPath: string) => {
   const remoteProjectName = process.env[ALIYUN_REMOTE_PROJECT_ENV_PARAM];
-  let envYamlContent: Record<string, any>;
   let envFile: string;
   let project: string;
   if (remoteProjectName) {
     envFile = utils.getAbsolutePath(ENVIRONMENT_FILE_NAME);
     if (!fs.existsSync(envFile)) return null;
-    envYamlContent = utils.getYamlContent(envFile);
     project = remoteProjectName;
   } else {
     if (!fs.existsSync(sPath)) sPath = 's.yaml';
@@ -183,7 +181,6 @@ export const getDefaultEnv = (sPath: string) => {
     envFile = utils.getAbsolutePath(envFileName);
     // 未找到env.yaml文件
     if (!fs.existsSync(envFile)) return null;
-    envYamlContent = utils.getYamlContent(envFile);
     project = get(sYamlContent, 'name');
   }
   if (!project) return null;
