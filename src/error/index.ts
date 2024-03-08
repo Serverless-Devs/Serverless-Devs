@@ -37,7 +37,7 @@ const handleError = async (error: IEngineError | IEngineError[], params: Record<
     }
   }
   logger.write(' ');
-  logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
+  logger.write(`A complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}`);
   // 空出一行间隙
   logger.write(' ');
   logger.write(
