@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
+import Engine, { IContext, STEP_STATUS, verify } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
 import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set, unset, includes, split } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
@@ -111,39 +111,49 @@ export default class Custom {
     logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
     showOutput(data);
   }
+  private async getProcessedOutput(context: IContext) {
+    const { steps, command } = this.spec;
+    const showData = {};
+    const originalData = cloneDeep(get(context, 'output')); 
+    for (const i in originalData) {
+      const originalObj = originalData[i];
+      const step = find(steps, item => item.projectName === i);
+      const componentName = get(step, 'component');
+      const instance = await loadComponent(componentName, { logger });
+      if (instance.getShownProps) {
+        const shownPropsObj = await instance.getShownProps();
+        if (!isEmpty(shownPropsObj)) {
+          const keyList = keys(shownPropsObj);
+          if (keyList) {
+            const destKey = find(keyList, item => {
+              try {
+                return new RegExp(item).test(command);
+              } catch {
+                return false;
+              }
+            });
+            const shownPropsList = get(shownPropsObj, destKey);
+            if (!isEmpty(shownPropsList)) {
+              for (const j of shownPropsList) {
+                // 适配[*]写法
+                const keyList = split(j, '[*]');
+                this.deepSet(showData, originalData, keyList, i + '.');
+              }
+              continue;
+            }
+          }
+        }
+      } 
+      const envVarKey = 'environmentVariables';
+      if (get(originalObj, envVarKey)) unset(originalObj, envVarKey);
+      set(showData, i, cloneDeep(originalObj));
+    }
+    return showData;
+  }
   // cicd环境下默认隐藏，选择性显示
   private async processOutput(context: IContext) {
-    const { steps, command } = this.spec;
     if (process.env[CICD_ENV_KEY] == 'true' || isCiCdEnvironment()) {
-      const showData = {};
-      const originalData = cloneDeep(get(context, 'output')); 
-      for (const i in originalData) {
-        const originalObj = originalData[i];
-        const step = find(steps, item => item.projectName === i);
-        const componentName = get(step, 'component');
-        const instance = await loadComponent(componentName, { logger });
-        if (instance.getShownProps) {
-          const shownPropsObj = await instance.getShownProps();
-          const keyList = keys(shownPropsObj);
-          const destKey = find(keyList, item => {
-            try {
-              return new RegExp(item).test(command);
-            } catch {
-              return false;
-            }
-          });
-          const shownPropsList = get(shownPropsObj, destKey);
-          for (const j of shownPropsList) {
-            // 适配[*]写法
-            const keyList = split(j, '[*]');
-            this.deepSet(showData, originalData, keyList, i + '.');
-          }
-        } else {
-          const envVarKey = 'environmentVariables';
-          if (get(originalObj, envVarKey)) unset(originalObj, envVarKey);
-          set(showData, i, cloneDeep(originalObj));
-        }
-      }
+      const showData = await this.getProcessedOutput(context);
       return this.parseOutput(showData);
     }
     return this.parseOutput(get(context, 'output'));
