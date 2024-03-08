@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set, unset } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set, unset, includes, split } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
@@ -13,7 +13,7 @@ import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL, CICD_ENV_KEY } from '@/constant';
 import { EReportType } from '@/type';
-import { emoji, showOutput, writeOutput, runEnv, deepObfuscate } from '@/utils';
+import { emoji, showOutput, writeOutput, runEnv } from '@/utils';
 import { ETrackerType, DevsError, getUserAgent, isCiCdEnvironment } from '@serverless-devs/utils';
 
 export default class Custom {
@@ -134,7 +134,9 @@ export default class Custom {
           });
           const shownPropsList = get(shownPropsObj, destKey);
           for (const j of shownPropsList) {
-            set(showData, i + '.' + j, get(originalObj, j));
+            // 适配[*]写法
+            const keyList = split(j, '[*]');
+            this.deepSet(showData, originalData, keyList, i + '.');
           }
         } else {
           const envVarKey = 'environmentVariables';
@@ -146,6 +148,20 @@ export default class Custom {
     }
     return this.parseOutput(get(context, 'output'));
   }
+  // 深度遍历设置属性值
+  private deepSet(showData: Object, context: Object, keyList: Array<string>, path: string) {
+    const key = keyList.shift();
+    path += key;
+    if (keyList.length === 0) {
+      if (get(context, path)) set(showData, path, get(context, path));
+      return;
+    }
+    const arrayLength = get(context, path).length;
+    for (let i = 0; i < arrayLength; i++) {
+      const _keyList = cloneDeep(keyList);
+      this.deepSet(showData, context, _keyList, path + `[${i}]`);
+    }
+  } 
   private async parseSpec() {
     const argv = process.argv.slice(2);
     const { template } = utils.parseArgv(argv);
