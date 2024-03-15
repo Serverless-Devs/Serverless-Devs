@@ -1,0 +1,71 @@
+# ------------------------------------
+#   If you need English case, you can refer to [s_en.yaml] file
+# ------------------------------------
+#   欢迎您使用阿里云函数计算 FC 组件进行项目开发
+#   组件仓库地址：https://github.com/devsapp/fc
+#   组件帮助文档：https://www.serverless-devs.com/fc/readme
+#   Yaml参考文档：https://www.serverless-devs.com/fc/yaml/readme
+#   关于Serverless Devs和FC组件的关系、如何声明/部署多个函数等问题，可以参考文档：https://www.serverless-devs.com/fc/tips
+#   关于如何做CICD等问题，可以参考：https://www.serverless-devs.com/serverless-devs/cicd
+#   关于如何进行环境划分等问题，可以参考：https://www.serverless-devs.com/serverless-devs/extend
+#   更多函数计算案例，可参考：https://github.com/devsapp/awesome/
+#   有问题快来钉钉群问一下吧：33947367
+# ------------------------------------
+edition: 3.0.0
+name: hello-world-app
+# access 是当前应用所需要的密钥信息配置：
+# 密钥配置可以参考：https://www.serverless-devs.com/serverless-devs/command/config
+# 密钥使用顺序可以参考：https://www.serverless-devs.com/serverless-devs/tool#密钥使用顺序与规范
+access: "default"
+
+vars: # 全局变量
+  region: "cn-huhehaote"
+
+resources:
+  hello_world:
+    # 如果只想针对 hello_world 下面的业务进行相关操作，可以在命令行中加上 hello_world，例如：
+    # 只对 hello_world 进行构建：s hello_world build
+    # 如果不带有 hello_world ，而是直接执行 s build，工具则会对当前Yaml下，所有和 hello_world 平级的业务模块（如有其他平级的模块，例如下面注释的next_function），按照一定顺序进行 build 操作
+    component: fc3test # 组件名称，Serverless Devs 工具本身类似于一种游戏机，不具备具体的业务能力，组件类似于游戏卡，用户通过向游戏机中插入不同的游戏卡实现不同的功能，即通过使用不同的组件实现不同的具体业务能力
+    actions: # 自定义执行逻辑，关于actions 的使用，可以参考：https://docs.serverless-devs.com/serverless-devs/yaml#%E8%A1%8C%E4%B8%BA%E6%8F%8F%E8%BF%B0actions
+      pre-deploy:
+        - run: echo "hello world"
+        - component: fc3test test
+    props:
+      region: ${vars.region} # 关于变量的使用方法，可以参考：https://docs.serverless-devs.com/serverless-devs/yaml#%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC
+      function:
+        functionName: "start-nodejs-b97b"
+        description: "hello world by serverless devs"
+        runtime: "nodejs14"
+        code: ./code
+        handler: index.handler
+        memorySize: 128
+        timeout: 60
+      # triggers:
+      #   - triggerName: httpTrigger # 触发器名称
+      #     triggerType: http # 触发器类型
+      #     description: 'xxxx'
+      #     qualifier: LATEST # 触发服务的版本
+      #     triggerConfig:
+      #       authType: anonymous # 鉴权类型，可选值：anonymous、function
+      #       disableURLInternet: false # 是否禁用公网访问 URL
+      #       methods: # HTTP 触发器支持的访问方法，可选值：GET、POST、PUT、DELETE、HEAD
+      #         - GET
+      #         - POST
+
+  # next_function: # 第二个函数的案例，仅供参考
+  #  # 如果在当前项目下执行 s deploy，会同时部署模块
+  #  # 如果想单独部署当前服务与函数，可以执行 s + 模块名/业务名 + deploy，例如：s next_function deploy
+  #  # 如果想单独部署当前函数，可以执行 s + 模块名/业务名 + deploy function，例如：s next_function deploy function
+  #  # 更多命令可参考：https://www.serverless-devs.com/fc/readme#文档相关
+  #   component: fc3
+  #   props:
+  #     region: ${vars.region}
+  #     function: # 定义一个新的函数
+  #       functionName: next_function_example
+  #       description: 'hello world by serverless devs'
+  #       runtime: "nodejs14"
+  #       codeUri: ./code
+  #       handler: index.handler
+  #       memorySize: 128
+  #       timeout: 60
