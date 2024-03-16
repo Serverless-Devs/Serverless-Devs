@@ -1,7 +1,7 @@
 import { Command } from 'commander';
-import Engine, { IContext, STEP_STATUS, verify } from '@serverless-devs/engine';
+import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
-import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set, unset, includes, split } from 'lodash';
+import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set, unset, split, isArray } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
 import V1 from './v1';
 import logger from '@/logger';
@@ -124,10 +124,10 @@ export default class Custom {
         const shownPropsObj = await instance.getShownProps();
         if (!isEmpty(shownPropsObj)) {
           const keyList = keys(shownPropsObj);
-          if (keyList) {
+          if (!isEmpty(keyList)) {
             const destKey = find(keyList, item => {
               try {
-                return new RegExp(item).test(command);
+                return new RegExp('^' + item + '$').test(command);
               } catch {
                 return false;
               }
@@ -162,11 +162,13 @@ export default class Custom {
   private deepSet(showData: Object, context: Object, keyList: Array<string>, path: string) {
     const key = keyList.shift();
     path += key;
-    if (keyList.length === 0) {
+    const subKeyList = get(context, path, []);
+    if (isEmpty(keyList)) {
       if (get(context, path)) set(showData, path, get(context, path));
       return;
     }
-    const arrayLength = get(context, path).length;
+    if (!isArray(subKeyList)) return;
+    const arrayLength = subKeyList.length;
     for (let i = 0; i < arrayLength; i++) {
       const _keyList = cloneDeep(keyList);
       this.deepSet(showData, context, _keyList, path + `[${i}]`);
