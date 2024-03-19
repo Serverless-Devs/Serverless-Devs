@@ -5,17 +5,17 @@ import Action from './action';
 
 const description = `Set default env component.
 
-Example:
-    $ s set env --component ServerlessDevsAdmin
+    Example:
+        $ s set env --component ServerlessDevsAdmin
 
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/set')}`;
 
 export default (program: Command) => {
-  const command = program.command('set', { hidden: true });
+  const command = program.command('env');
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('+'))} set`)
+    .summary(`${emoji(chalk.bold('+'))}  Set the default env component`)
     .requiredOption('--component <name>', 'Specify the component name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {

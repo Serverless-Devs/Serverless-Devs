@@ -6,6 +6,7 @@ import subRegistry from './command/registry';
 import subProxy from './command/proxy';
 import subAnalysis from './command/analysis';
 import subLog from './command/log';
+import subEnv from './command/env';
 
 const description = `You can make some default settings for the tool here.
 
@@ -25,4 +26,5 @@ export default (program: Command) => {
   subProxy(configProgram);
   subAnalysis(configProgram);
   subLog(configProgram);
+  subEnv(configProgram);
 };
