@@ -36,11 +36,13 @@ const handleError = async (error: IEngineError | IEngineError[], params: Record<
       exitCode = code;
     }
   }
-  logger.write(' ');
-  logger.write(`A complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}`);
+  if (utils.getGlobalConfig('log') !== 'disable') {
+    logger.write(' ');
+    logger.write(chalk.gray(`A complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}`));
+  }
   // 空出一行间隙
   logger.write(' ');
-  logger.write(
+  logger.write(chalk.gray(
     formatError([
       {
         key: 'Env:',
@@ -49,7 +51,7 @@ const handleError = async (error: IEngineError | IEngineError[], params: Record<
       { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid)) },
       { key: 'Get Help:', value: `DingTalk: 33947367` },
       { key: 'Feedback:', value: chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues') },
-    ]),
+    ]))
   );
   if (silent) logger.silent();
   process.exitCode = exitCode;

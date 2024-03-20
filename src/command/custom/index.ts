@@ -108,7 +108,7 @@ export default class Custom {
   private async output(context: IContext) {
     if (isEmpty(get(context, 'output'))) return;
     const data = await this.processOutput(context);
-    logger.write(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`);
+    logger.write(chalk.gray(`\n${emoji('🚀')} Result for [${this.spec.command}] of [${get(this.spec, 'yaml.appName')}]\n${chalk.gray('====================')}`));
     showOutput(data);
   }
   private async getProcessedOutput(context: IContext) {
