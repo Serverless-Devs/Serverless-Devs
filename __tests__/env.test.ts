@@ -135,3 +135,19 @@ test('list', async () => {
   console.log(stdout);
   expect(res.status).toBe(0);
 });
+
+test('specify env not found', async () => {
+  const res = spawnSync(s, ['deploy', '--env', 'dev1'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+  expect(stdout).toContain('Env [dev1] was not found, run without environment.');
+});
+
+test('default env not found', async () => {
+  const res = spawnSync(s, ['deploy'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+  expect(stdout).toContain('Default env [dev] is not found, run without environment.');
+});
