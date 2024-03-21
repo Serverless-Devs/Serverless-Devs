@@ -15,6 +15,9 @@ class Logger {
   tips: (...args: any[]) => any;
   unsilent: (...args: any[]) => any;
   silent: (...args: any[]) => any;
+  tipsOnce: (...args: any[]) => any;
+  warnOnce: (...args: any[]) => any;
+  writeOnce: (...args: any[]) => any;
 
   initialization = () => {
     this.loggerInstance = new _Logger({
@@ -36,6 +39,9 @@ class Logger {
     this.tips = (...args) => logger.tips.apply(logger, args);
     this.unsilent = (...args) => logger.unsilent.apply(logger, args);
     this.silent = (...args) => logger.silent.apply(logger, args);
+    this.tipsOnce = (...args) => logger.tipsOnce.apply(logger, args);
+    this.warnOnce = (...args) => logger.warnOnce.apply(logger, args);
+    this.writeOnce = (...args) => logger.writeOnce.apply(logger, args);
   };
 }
 

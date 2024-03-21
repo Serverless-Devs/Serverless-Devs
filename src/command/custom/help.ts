@@ -68,6 +68,7 @@ class Help {
       each(instance.commands, (item, key) => {
         customProgram.command(key).summary(get(item, 'help.summary', get(item, 'help.description')));
       });
+      customProgram.addHelpCommand(false);
       if (publishContent['HomePage']) {
         customProgram.addHelpText('after', `\n${emoji('🧭')} ${'More information: ' + chalk.underline(publishContent['HomePage'])}`);
       }

@@ -12,7 +12,6 @@ import loadComponent from '@serverless-devs/load-component';
 import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from '@/command/env/constant';
 import Credential from '@serverless-devs/credential';
 import { IEnvArgs } from '@/type';
-import assert from 'assert';
 import stripAnsi from 'strip-ansi';
 
 export { default as checkNodeVersion } from './check-node-version';
@@ -209,7 +208,7 @@ export const runEnv = async (env: string | boolean, sPath: string) => {
   const template = path.join(process.cwd(), envParam || ENVIRONMENT_FILE_NAME);
   const { environments } = utils.getYamlContent(template);
   const data = find(environments, item => item.name === env);
-  assert(data, `The environment ${env} was not found`);
+  if (!data) return;
   const { access, ...rest } = data;
 
   const inputs = {
