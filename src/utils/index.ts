@@ -100,24 +100,17 @@ export const deepObfuscate = (obj) => {
 
 export const showOutput = (data: any) => {
   logger.unsilent();
-  const { output = IOutput.DEFAULT, silent } = parseArgv(process.argv.slice(2));
-
+  const argvData = parseArgv(process.argv.slice(2));
+  const silent = get(argvData, 'silent');
+  const output = get(argvData, 'output') || get(argvData, 'output-format') || IOutput.DEFAULT;
   if (output !== IOutput.DEFAULT) {
     if (isString(data)) data = stripAnsi(data);
-    switch (output) {
-      case IOutput.JSON:
-        data = JSON.stringify(data, null, 2);
-        break;
-      case IOutput.YAML:
-        data = yaml.dump(data);
-        break;
-      case IOutput.RAW:
-        data = JSON.stringify(data);
-        break;
-      default:
-        break;
-    }
-    logger.write(data);
+    const newMap = {
+      [IOutput.JSON]: JSON.stringify(data, null, 2),
+      [IOutput.YAML]: yaml.dump(data),
+      [IOutput.RAW]: JSON.stringify(data),
+    };
+    logger.write(get(newMap, output));
   } else {
     logger.output(data);
   }

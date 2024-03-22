@@ -80,6 +80,8 @@ class Help {
       return;
     }
     const res = await this.singleComponentHelp(first(components));
+    res.option('--env <envName>', '[Optional] Specify the env name');
+    res.option('--skip-actions', '[Optional] Skip the extends section');
     res && res.outputHelp();
   }
   private async singleComponentHelp(componentName: string) {
@@ -124,6 +126,8 @@ class Help {
     for (const item of steps) {
       logger.info(`Start executing project ${item.projectName}`);
       const res = await this.singleComponentHelp(item.component);
+      res.option('--env <envName>', '[Optional] Specify the env name');
+      res.option('--skip-actions', '[Optional] Skip the extends section');
       res && res.outputHelp();
       logger.info(`Project ${item.projectName} successfully to execute`);
     }
@@ -146,6 +150,8 @@ class Help {
     }
     // 仅有一个组件时
     const res = await this.singleComponentHelp(first(components));
+    res.option('--env <envName>', '[Optional] Specify the env name');
+    res.option('--skip-actions', '[Optional] Skip the extends section');
     res && res.outputHelp();
   }
 }
