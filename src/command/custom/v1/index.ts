@@ -51,7 +51,7 @@ class V1 {
           skipActions: rest['skip-actions'],
           debug,
           help,
-          output,
+          output: output || rest['output-format'],
         },
         env: {
           serverless_devs_temp_argv: JSON.stringify(process.argv.slice(2)),

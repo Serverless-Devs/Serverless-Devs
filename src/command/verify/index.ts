@@ -18,6 +18,7 @@ export default (program: Command) => {
     .description(description)
     .summary(`${emoji('🔭')} Verify Yaml content`)
     .addHelpCommand(false)
+    .option('--env <envName>', 'Specify the env name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const { template } = program.optsWithGlobals();
@@ -31,7 +32,7 @@ export default (program: Command) => {
 
         let data;
         if (!isEmpty(errorsList)) {
-          if (argvs['output']) {
+          if (argvs['output'] || argvs['output-format']) {
             data = errorsList;
           } else {
             throw new Error(ajv.errorsText(errorsList, { dataVar: '', separator: '\n\n' }));

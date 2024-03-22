@@ -18,6 +18,7 @@ export default (program: Command) => {
     .command('preview')
     .description(description)
     .summary(`${emoji('👀')} Preview Yaml render results`)
+    .option('--env <envName>', 'Specify the env name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const { template } = program.optsWithGlobals();

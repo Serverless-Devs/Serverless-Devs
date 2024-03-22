@@ -13,23 +13,25 @@ import subComponent from './component';
 import subVerify from './verify';
 
 import Custom from './custom';
+import chalk from 'chalk';
 
 const root = async (program: Command) => {
   program
     .name('s')
     .option('--debug', 'Open debug model')
-    .option('--skip-actions', 'Skip the extends section')
+    .addOption(new Option('--skip-actions', 'Skip the extends section').hideHelp())
     .option('-t, --template <path>', 'Specify the template file')
     .option('-a, --access <aliasName>', 'Specify the access alias name')
-    .addOption(new Option('-o, --output <outputFormat>', 'Specify the output format').choices(['default', 'json', 'yaml', 'raw']))
-    .option('--output-file <outputFilePath>', 'Specify the output file path')
-    .option('--env <envName>', 'Specify the env name')
-    .option('--no-verify', 'Do not verify yaml')
+    .addOption(new Option('--output <outputFormat>', 'Specify the output format').choices(['default', 'json', 'yaml', 'raw']).hideHelp())
+    .addOption(new Option('-o, --output-format <outputFormat>', 'Specify the output format').choices(['default', 'json', 'yaml', 'raw']))
+    .addOption(new Option('--output-file <outputFilePath>', 'Specify the output file path').hideHelp())
+    .addOption(new Option('--env <envName>', 'Specify the env name').hideHelp())
+    .addOption(new Option('--no-verify', 'Do not verify yaml').hideHelp())
     .option('--silent', 'Silent mode')
     .configureHelp({ showGlobalOptions: true })
     .helpOption('-h, --help', 'Display help for command')
     .addHelpCommand(false)
-    .version(getVersion(), '-v, --version', 'Output the version number');
+    .version(getVersion(), '-v, --version', 'Show version information');
 
   // 支持的系统命令
   subConfig(program);
@@ -54,13 +56,15 @@ const root = async (program: Command) => {
     'after',
     `
 ${customRootHelp || ''}
-${emoji('🙌')}  Quick Start:      https://manual.serverless-devs.com/getting-started
+${chalk.gray(
+`${emoji('🙌')}  Quick Start:      https://manual.serverless-devs.com/getting-started
 ${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
 ${emoji('💡')}  Documentation:    https://manual.serverless-devs.com
 ${emoji('🚀')}  Example Projects: https://registry.serverless-devs.com
-${emoji('📝')}  Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues
+${emoji('📝')}  Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues`
+)}
 `,
-  );
+);
 };
 
 export = root;

@@ -12,7 +12,7 @@ const writeOutput = (data: Record<string, any>) => {
   const outputFile = get(argvData, 'output-file');
   if (!outputFile) return;
   const filePath = utils.getAbsolutePath(outputFile);
-  const output = get(argvData, 'output');
+  const output = get(argvData, 'output') || get(argvData, 'output-format');
   const newMap = {
     [IOutput.JSON]: JSON.stringify(data, null, 2),
     [IOutput.YAML]: yaml.dump(data),
