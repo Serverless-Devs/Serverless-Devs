@@ -47,9 +47,9 @@ export default (program: Command) => {
       } catch (error) {
         if (error.message.includes('Not found access')) {
           const msg = `
-  ${emoji('🤔')} You have not yet been found to have configured key information.
-  ${emoji('🧭')} You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
-  ${emoji('😈')} If you have questions, please tell us: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`;
+  You have not yet been found to have configured key information.
+  You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
+  If you have questions, please tell us: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`;
           logger.write(msg);
           return;
         }
