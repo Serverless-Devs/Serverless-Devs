@@ -22,7 +22,7 @@ export default (program: Command) => {
     .command('init')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('💞')} Initializing a serverless project`)
+    .summary(`Initializing a serverless project`)
     .helpOption('-h, --help', 'Display help for command')
     .option('-d, --dir <dir>', 'Where to output the initialized app into (default: ./<ProjectName> )')
     .option('-r, --registry <url>', 'Use specify registry')

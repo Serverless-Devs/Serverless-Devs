@@ -17,7 +17,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('🔣')} View the list of existing environments`)
+    .summary(`View the list of existing environments`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await new Action({ ...options, ...program.optsWithGlobals() }).start();

@@ -16,7 +16,7 @@ export default (program: Command) => {
     .command('delete')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('❌')} Delete specific package`)
+    .summary(`Delete specific package`)
     .option('--name <name>', 'Serverless Package name')
     .option('--version-id <version-id>', 'Serverless Package version')
     .helpOption('-h, --help', 'Display help for command')

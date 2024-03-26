@@ -17,7 +17,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('↩️'))}  Delete specified environment`)
+    .summary(`Delete specified environment`)
     .requiredOption('-n, --name <name>', 'Env name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {

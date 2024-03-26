@@ -48,7 +48,7 @@ const root = async (program: Command) => {
   // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
   const customRootHelp = await new Custom(program).init();
 
-  program.command('<custom>').summary(`${emoji('🧭')} Custom Commands`);
+  program.command('<custom>').summary(`Custom Commands`);
 
   // 追加的 help 信息
   program.addHelpText('before', `${emoji('😃')} Welcome to the Serverless Devs\n`);
@@ -57,14 +57,14 @@ const root = async (program: Command) => {
     `
 ${customRootHelp || ''}
 ${chalk.gray(
-`${emoji('🙌')}  Quick Start:      https://manual.serverless-devs.com/getting-started
-${emoji('🌟')}  Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
-${emoji('💡')}  Documentation:    https://manual.serverless-devs.com
-${emoji('🚀')}  Example Projects: https://registry.serverless-devs.com
-${emoji('📝')}  Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues`
+  `Quick Start:      https://manual.serverless-devs.com/getting-started
+Github Repo:      https://github.com/Serverless-Devs/Serverless-Devs
+Documentation:    https://manual.serverless-devs.com
+Example Projects: https://registry.serverless-devs.com
+Feedback:         https://github.com/Serverless-Devs/Serverless-Devs/issues`,
 )}
 `,
-);
+  );
 };
 
 export = root;

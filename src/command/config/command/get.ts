@@ -20,7 +20,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('√'))} Get accounts`)
+    .summary(`Get accounts`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       try {

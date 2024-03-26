@@ -16,7 +16,7 @@ export default (program: Command) => {
     .command('verify')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('🔭')} Verify Yaml content`)
+    .summary(`Verify Yaml content`)
     .addHelpCommand(false)
     .option('--env <envName>', 'Specify the env name')
     .helpOption('-h, --help', 'Display help for command')
@@ -52,7 +52,9 @@ const getErrorList = async (spec: ISpec, ajv: Ajv) => {
   let errorsList = [];
   for (const i of spec.steps) {
     const schema = await getSchema(i.component);
-    if (isEmpty(schema)) continue;
+    if (isEmpty(schema)) {
+      continue;
+    }
     const validate = ajv.compile(JSON.parse(schema));
     if (!validate(i.props)) {
       const errors = validate.errors;

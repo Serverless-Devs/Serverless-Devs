@@ -19,7 +19,7 @@ export default (program: Command) => {
   program
     .command('component')
     .description(description)
-    .summary(`${emoji('🔌')} Installed component information`)
+    .summary(`Installed component information`)
     .helpOption('-h, --help', 'Display help for command.')
     .action(async options => {
       await doAction(options);

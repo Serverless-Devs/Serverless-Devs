@@ -18,7 +18,7 @@ export default (program: Command) => {
   suggestCommand(envProgram);
   envProgram
     .description(description)
-    .summary(`${emoji('🌱')} Environment operation`)
+    .summary(`Environment operation`)
     .usage('[commands] [options]')
     .addHelpCommand(false)
     .helpOption('-h, --help', 'Display help for command');

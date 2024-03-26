@@ -17,7 +17,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('🔤')} Set default environment`)
+    .summary(`Set default environment`)
     .option('-n, --name <name>', 'Env name')
     .helpOption('-h, --help', 'Displsay help for command')
     .action(async options => {

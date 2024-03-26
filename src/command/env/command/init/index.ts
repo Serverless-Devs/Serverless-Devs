@@ -15,7 +15,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('🆕')} Initialize a new environment`)
+    .summary(`Initialize a new environment`)
     .option('--project <project>', 'Specify the project of the environment')
     .option('-n, --name <name>', 'Env name')
     .option('--description <description>', 'Specify the description of the environment')

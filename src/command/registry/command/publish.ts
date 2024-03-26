@@ -15,7 +15,7 @@ export default (program: Command) => {
   program
     .command('publish')
     .description(description)
-    .summary(`${emoji('✅')} Public Serverless Package to Serverless Registry`)
+    .summary(`Public Serverless Package to Serverless Registry`)
     .usage('[options]')
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {

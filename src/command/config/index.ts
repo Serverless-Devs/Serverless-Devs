@@ -16,7 +16,7 @@ export default (program: Command) => {
   suggestCommand(configProgram);
   configProgram
     .description(description)
-    .summary(`${emoji('👤')} Configure vendors account`)
+    .summary(`Configure vendors account`)
     .usage('[commands] [options]')
     .addHelpCommand(false)
     .helpOption('-h, --help', 'Display help for command');

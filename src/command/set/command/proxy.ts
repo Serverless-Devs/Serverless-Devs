@@ -19,7 +19,7 @@ export default (program: Command) => {
     .command('proxy')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('🔧')} Set proxy information`)
+    .summary(`Set proxy information`)
     .option('--enable', 'whether to enable proxy')
     .option('--no-enable', 'whether to disable proxy', true)
     .option('--http_proxy <http_proxy_value>', 'Specify the http_proxy.')

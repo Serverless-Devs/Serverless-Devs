@@ -29,7 +29,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('+'))} Add an account`)
+    .summary(`Add an account`)
     .option('--AccountID <AccountID>', 'AccountID of key information')
     .option('--AccessKeyID <AccessKeyID>', 'AccessKeyID of key information')
     .option('--AccessKeySecret <AccessKeySecret>', 'AccessKeySecret of key information')

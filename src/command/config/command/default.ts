@@ -18,7 +18,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('-'))} Set default accounts`)
+    .summary(`Set default accounts`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       const credential = new Credential({ logger });

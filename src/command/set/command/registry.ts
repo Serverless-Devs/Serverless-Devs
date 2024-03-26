@@ -52,13 +52,13 @@ const registryInquire = [
 
 export default (program: Command) => {
   program
-    .command('registry', { hidden: true })
+    .command('registry')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('👀')} Set registry information`)
+    .summary(`Set registry information`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
-      logger.write(`\n${emoji('👀')} Current registry action: ${getGlobalConfig('registry', DEFAULT_REGISTRY)}\n`);
+      logger.write(`\nCurrent registry action: ${getGlobalConfig('registry', DEFAULT_REGISTRY)}\n`);
       const { _: raw } = parseArgv(process.argv.slice(2));
       let registry: string = raw[2];
       if (!registry) {
