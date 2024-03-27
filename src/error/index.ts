@@ -11,7 +11,6 @@ import execDaemon from '@/exec-daemon';
 export { default as HumanError } from './human-error';
 import * as utils from '@serverless-devs/utils';
 
-
 const pkg = require('../../package.json');
 
 const handleError = async (error: IEngineError | IEngineError[], params: Record<string, any> = {}) => {
@@ -42,18 +41,21 @@ const handleError = async (error: IEngineError | IEngineError[], params: Record<
   }
   // 空出一行间隙
   logger.write(' ');
-  logger.write(chalk.gray(
-    formatError([
-      {
-        key: 'Env:',
-        value: `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch} node-${process.version}`,
-      },
-      { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid)) },
-      { key: 'Get Help:', value: `DingTalk: 33947367` },
-      { key: 'Feedback:', value: chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues') },
-    ]))
+  logger.write(
+    chalk.gray(
+      formatError([
+        {
+          key: 'Env:',
+          value: `${pkg.name}: ${pkg.version}, ${process.platform}-${process.arch} node-${process.version}`,
+        },
+        { key: 'Logs:', value: chalk.underline(path.join(getRootHome(), 'logs', process.env.serverless_devs_traceid)) },
+        { key: 'Feedback:', value: chalk.cyan.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues') },
+      ]),
+    ),
   );
-  if (silent) logger.silent();
+  if (silent) {
+    logger.silent();
+  }
   process.exitCode = exitCode;
 };
 
@@ -107,7 +109,9 @@ const writeError = (error: IEngineError) => {
 };
 
 const showStack = (msg: string) => {
-  if (isDebugMode()) return;
+  if (isDebugMode()) {
+    return;
+  }
   logger.debug(msg);
 };
 
