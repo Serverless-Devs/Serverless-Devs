@@ -39,10 +39,9 @@ class Action {
       if (fs.existsSync(ENVIRONMENT_FILE_PATH)) {
         const defaultEnvContent = require(ENVIRONMENT_FILE_PATH);
         const currentDefaultEnv = defaultEnvContent?.find(i => i.project === project && i.path === envFile);
-        return logger.write(currentDefaultEnv ? `\n${emoji('👉')} Current default environment: ${currentDefaultEnv.default}\n` : `\n${emoji('👉')} No default environment.\n`);
-      } else {
-        return logger.write(`\n${emoji('👉')} No default environment.\n`);
+        return logger.write(currentDefaultEnv ? `\nCurrent default environment: ${currentDefaultEnv.default}\n` : `\nNo default environment.\n`);
       }
+      return logger.write(`\nNo default environment.\n`);
     }
     assert(
       find(envYamlContent.environments, o => o.name === this.options.name),

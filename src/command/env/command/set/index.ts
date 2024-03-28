@@ -15,7 +15,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('+'))} set`)
+    .summary(`set`)
     .requiredOption('--component <name>', 'Specify the component name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {

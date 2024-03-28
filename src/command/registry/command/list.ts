@@ -12,30 +12,24 @@ Example:
    
 ${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-list')}`;
 
-const wantedInfoKeys = [
-  'type',
-  'name',
-  'description',
-  'category',
-  'tags'
-];
+const wantedInfoKeys = ['type', 'name', 'description', 'category', 'tags'];
 
-function formatResult(result: Array<Object>): Array<any> {
-  const formattedResult = result.map((result) => {
+function formatResult(result: Array<object>): Array<any> {
+  const formattedResult = result.map(result => {
     const tmp = pick(result, wantedInfoKeys);
     set(tmp, 'category', get(tmp, 'category.name'));
     return tmp;
   });
-  
+
   return formattedResult;
-};
+}
 
 export default (program: Command) => {
   program
     .command('list')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('🐵')} List the packages you have published`)
+    .summary(`List the packages you have published`)
     .option('--category <category>', 'category ID')
     .option('--tag <tag>', 'Tag ID')
     .option('--search <search>', 'Search keyword')

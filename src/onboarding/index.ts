@@ -4,15 +4,14 @@ import inquirer from 'inquirer';
 import { getYamlPath } from '@serverless-devs/utils';
 import logger from '@/logger';
 import chalk from 'chalk';
-import { emoji } from '@/utils';
 
 async function onboarding() {
   if (getYamlPath('s.yaml')) {
     const arr = [
       red("A Serverless-Devs project is detected in the current directory, please deploy via 's deploy' or get more information via 's -h'"),
-      `\n${emoji('📘')} ${red('Documents: ')}${red.underline('https://www.serverless-devs.com')}`,
-      `${emoji('🙌')} ${red('Discussions: ')}${red.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}`,
-      `${emoji('❓')} ${red('Issues: ')}${red.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`,
+      `\n${red('Documents: ')}${red.underline('https://www.serverless-devs.com')}`,
+      `${red('Discussions: ')}${red.underline('https://github.com/Serverless-Devs/Serverless-Devs/discussions')}`,
+      `${red('Issues: ')}${red.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`,
     ];
     return logger.write(arr.join('\n'));
   }

@@ -17,7 +17,7 @@ export default (program: Command) => {
   program
     .command('preview')
     .description(description)
-    .summary(`${emoji('👀')} Preview Yaml render results`)
+    .summary(`Preview Yaml render results`)
     .option('--env <envName>', 'Specify the env name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {

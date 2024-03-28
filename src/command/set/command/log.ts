@@ -37,10 +37,10 @@ export default (program: Command) => {
     .command('log')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('🔊')} Set to enable or disable log`)
+    .summary(`Set to enable or disable log`)
     .helpOption('-h, --help', 'Display help for command')
     .action(async () => {
-      logger.write(`\n${emoji('🔊')} Current log action: ${getGlobalConfig('log', 'enable')}\n`);
+      logger.write(`\nCurrent log action: ${getGlobalConfig('log', 'enable')}\n`);
       const { _: raw } = parseArgv(process.argv.slice(2));
       let type = raw[2];
       if (type) {

@@ -17,7 +17,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('×'))} Delete an account`)
+    .summary(`Delete an account`)
     .option('-a, --access <aliasName>', 'Specify the access alias name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {

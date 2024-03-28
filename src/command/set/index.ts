@@ -18,7 +18,7 @@ export default (program: Command) => {
   configProgram
     .usage('[commands] [options]')
     .description(description)
-    .summary(`${emoji('🔧')} Settings for the tool`)
+    .summary(`Settings for the tool`)
     .addHelpCommand(false)
     .helpOption('-h, --help', 'Display help for command');
 

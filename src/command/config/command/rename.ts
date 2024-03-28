@@ -18,7 +18,7 @@ export default (program: Command) => {
   command
     .usage('[options]')
     .description(description)
-    .summary(`${emoji(chalk.bold('>'))} Rename an account`)
+    .summary(`Rename an account`)
     .option('--source <source>', 'Source alias name')
     .option('--target <target>', 'Target alias name')
     .helpOption('-h, --help', 'Display help for command')

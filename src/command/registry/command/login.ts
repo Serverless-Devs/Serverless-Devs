@@ -18,7 +18,7 @@ export default (program: Command) => {
     .command('login')
     .usage('[options]')
     .description(description)
-    .summary(`${emoji('😃')} Login Serverless Registry`)
+    .summary(`Login Serverless Registry`)
     .option('--token <token>', 'Login by token')
     .option('--retoken', 'Reset login token')
     // .option('--get-token', 'Get login token')

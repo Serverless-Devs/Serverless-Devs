@@ -51,9 +51,3 @@ jobs:
             s-${{ github.ref_name }}-macos.zip
             s-${{ github.ref_name }}-linux.zip
             s-${{ github.ref_name }}-win.exe.zip
-      - name: Install ossutil
-        run: curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
-      - name: Rename linux files
-        run: mv s-${{ github.ref_name }}-linux ${{ github.ref_name }}
-      - name: Upload file to OSS
-        run: ossutil --endpoint oss-cn-hangzhou.aliyuncs.com --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp ${{ github.ref_name }} oss://serverless-tool-images/bin/s/
