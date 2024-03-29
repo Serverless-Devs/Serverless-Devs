@@ -15,18 +15,13 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       
-      - run: npm install
-
-      - run: npm run build
-      - run: npm publish
+      - name: s latest
+        run: npm dist-tag add @serverless-devs/s@${{ github.ref_name }} latest
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-      - name: Change package.json name to s3
-        run: node ./.github/change-package-name.js
-
-      - run: npm run build
-      - run: npm publish
+      - name: s3 latest
+        run: npm dist-tag add @serverless-devs/s3@${{ github.ref_name }} latest
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
