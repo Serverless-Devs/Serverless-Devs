@@ -70,20 +70,20 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Update CHANGELOG.md
-        id: changelog
-        uses: requarks/changelog-action@v1
-        with:
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          tag: ${{ github.ref_name }}
+      # - name: Update CHANGELOG.md
+      #   id: changelog
+      #   uses: requarks/changelog-action@v1
+      #   with:
+      #     token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+      #     tag: ${{ github.ref_name }}
 
-      - name: Commit CHANGELOG.md
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: master
-          commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
-          file_pattern: CHANGELOG.md
-          push_options: --force
+      # - name: Commit CHANGELOG.md
+      #   uses: stefanzweifel/git-auto-commit-action@v5
+      #   with:
+      #     branch: master
+      #     commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
+      #     file_pattern: CHANGELOG.md
+      #     push_options: --force
 
       - run: npx changelogithub # or changelogithub@0.12 if ensure the stable result
         env:
