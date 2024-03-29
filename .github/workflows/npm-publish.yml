@@ -14,7 +14,8 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      
+      - run: npm install
+      - run: npm run build
       - name: s latest
         run: npm dist-tag add @serverless-devs/s@${{ github.ref_name }} latest
         env:
