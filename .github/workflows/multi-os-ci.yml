@@ -31,6 +31,8 @@ jobs:
         with:
           node-version: 16
 
+      - name: Install dependencies
+        run: npm install --registry="https://registry.npmjs.org"
       - name: Build
         run: npm run build
 
@@ -74,6 +76,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+      - name: Install dependencies
+        run: npm install --registry="https://registry.npmjs.org"
       - run: npm run build
       - name: Build binary package
         run: npm run pkg
