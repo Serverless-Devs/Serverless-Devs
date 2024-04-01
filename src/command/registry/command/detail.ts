@@ -29,7 +29,7 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`View specific package details`)
-    .option('--package-name <name>', 'Serverless Package name')
+    .requiredOption('--package-name <name>', 'Serverless Package name')
     .option('--page <number>', 'Page number', '1')
     .helpOption('-h, --help', 'Display help for command')
     .action(async option => {
