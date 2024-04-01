@@ -32,17 +32,17 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: sudo npm install --registry="https://registry.npmjs.org"
+        run: npm install --registry="https://registry.npmjs.org"
 
       - name: Build
-        run: sudo npm run build
+        run: npm run build
 
       - name: Run tests on Linux
         if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos')
         run: |
           echo "Running tests on Linux or MacOS"
           ./bin/s config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
-          sudo npm run test
+          npm run test
 
 
       - name: Run tests on Windows
@@ -52,7 +52,7 @@ jobs:
           # And then run your test commands
           echo "Running tests on Windows"
           ./bin/s.cmd config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
-          sudo npm run test
+          npm run test
 
   Binary-test:
     strategy:
@@ -91,7 +91,7 @@ jobs:
             ./releases/s-macos -v
           elif [ "${{ matrix.os }}" = "windows-latest" ]; then
             ./releases/s-win.exe -v
-          else; then
+          else
             ./releases/s-linux -v
           fi
 
