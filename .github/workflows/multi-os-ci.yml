@@ -36,7 +36,7 @@ jobs:
 
       - name: Set Permissions Linux/MacOS
         if: runner.os != 'Windows'
-        run: chmod +x ./scripts/build.js
+        run: chown $USER:$USER -R .
       - name: Build
         run: npm run build
 
@@ -84,7 +84,7 @@ jobs:
         run: npm install --registry="https://registry.npmjs.org"
       - name: Set Permissions Linux/MacOS
         if: runner.os != 'Windows'
-        run: chmod +x ./scripts/build.js
+        run: chown $USER:$USER -R .
       - run: npm run build
       - name: Build binary package
         run: npm run pkg
