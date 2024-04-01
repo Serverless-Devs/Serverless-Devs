@@ -37,11 +37,6 @@ const registryInquire = [
         value: 'https://api.github.com/repos',
       },
       {
-        key: 'http://gitee.registry.devsapp.cn/simple',
-        name: 'gitee registry [http://gitee.registry.devsapp.cn/simple] ',
-        value: 'http://gitee.registry.devsapp.cn/simple',
-      },
-      {
         key: CUSTOMER_KEY,
         name: 'custom registry',
         value: CUSTOMER_KEY,
