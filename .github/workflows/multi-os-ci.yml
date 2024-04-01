@@ -32,17 +32,17 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: npm install --registry="https://registry.npmjs.org"
+        run: sudo npm install --registry="https://registry.npmjs.org"
 
       - name: Build
-        run: npm run build
+        run: sudo npm run build
 
       - name: Run tests on Linux
         if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos')
         run: |
           echo "Running tests on Linux or MacOS"
           ./bin/s config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
-          npm run test
+          sudo npm run test
 
 
       - name: Run tests on Windows
@@ -52,7 +52,7 @@ jobs:
           # And then run your test commands
           echo "Running tests on Windows"
           ./bin/s.cmd config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
-          npm run test
+          sudo npm run test
 
   Binary-test:
     strategy:
@@ -84,7 +84,7 @@ jobs:
         run: npm run pkg
       - name: Set Permissions Linux/MacOS
         if: runner.os != 'Windows'
-        run: chmod +x tool_${{ runner.os == 'Linux' && 'linux' || 'macos' }}
+        run: chmod +x ./releases/s-${{ runner.os == 'Linux' && 'linux' || 'macos' }}
       - name: Run Tests
         run: |
           if [ "${{ matrix.os }}" = "macos-latest" ]; then
@@ -123,6 +123,6 @@ jobs:
       - name: Run Tests
         run: s -v
       - name: Install s3
-        run: npm install @serverless-devs/s3 -g --registry="https://registry.npmjs.org"
+        run: npm install @serverless-devs/s3 -g --registry="https://registry.npmjs.org" --force
       - name: Run Tests
         run: s -v
