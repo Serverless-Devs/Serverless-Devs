@@ -21,6 +21,7 @@ export default (program: Command) => {
     .usage('[options]')
     .description(description)
     .summary(`Get accounts`)
+    .option('-a, --access <aliasName>', 'Specify the access alias name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       try {
