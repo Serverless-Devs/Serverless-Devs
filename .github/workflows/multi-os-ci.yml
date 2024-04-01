@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: npm install --registry="https://registry.npmjs.org"
 
+      - name: Set Permissions Linux/MacOS
+        if: runner.os != 'Windows'
+        run: chmod +x ./scripts/build.js
       - name: Build
         run: npm run build
 
@@ -77,9 +80,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - run: curl https://npmmirror.com/sync/@serverless-devs/s
       - name: Install dependencies
         run: npm install --registry="https://registry.npmjs.org"
+      - name: Set Permissions Linux/MacOS
+        if: runner.os != 'Windows'
+        run: chmod +x ./scripts/build.js
       - run: npm run build
       - name: Build binary package
         run: npm run pkg
