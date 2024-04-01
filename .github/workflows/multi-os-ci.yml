@@ -33,10 +33,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install --registry="https://registry.npmjs.org"
-
-      - name: Set Permissions Linux/MacOS
-        if: runner.os != 'Windows'
-        run: chown $USER:$USER -R .
       - name: Build
         run: npm run build
 
@@ -82,9 +78,6 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: npm install --registry="https://registry.npmjs.org"
-      - name: Set Permissions Linux/MacOS
-        if: runner.os != 'Windows'
-        run: chown $USER:$USER -R .
       - run: npm run build
       - name: Build binary package
         run: npm run pkg
