@@ -1,0 +1,128 @@
+name: Scheduled Multi-OS CI
+
+on:
+  schedule:
+    # At 00:00 (midnight) every day
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  Package-test:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+          - os: ubuntu-latest
+            container: debian:latest
+          - os: ubuntu-latest
+            container: centos:latest
+
+    runs-on: ${{ matrix.os }}
+
+    # Only define container if it is present in the matrix
+    container: ${{ matrix.container || '' }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install --registry="https://registry.npmjs.org"
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests on Linux
+        if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos')
+        run: |
+          echo "Running tests on Linux or MacOS"
+          ./bin/s config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
+          npm run test
+
+
+      - name: Run tests on Windows
+        if: contains(matrix.os, 'windows')
+        run: |
+          # Add setup steps for Windows
+          # And then run your test commands
+          echo "Running tests on Windows"
+          ./bin/s.cmd config add --AccessKeyID ${{secrets.ALIYUN_ACCESS_KEY_ID}} --AccessKeySecret ${{secrets.ALIYUN_ACCESS_KEY_SECRET}} --AccountID ${{secrets.ALIYUN_ACCOUNT_ID}} -f -a default
+          npm run test
+
+  Binary-test:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+          - os: ubuntu-latest
+            container: debian:latest
+          - os: ubuntu-latest
+            container: centos:latest
+
+    runs-on: ${{ matrix.os }}
+
+    # Only define container if it is present in the matrix
+    container: ${{ matrix.container || '' }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm install --registry="https://registry.npmjs.org"
+      - run: curl https://npmmirror.com/sync/@serverless-devs/s
+      - name: Build binary package
+        run: npm run pkg
+      - name: Set Permissions Linux/MacOS
+        if: runner.os != 'Windows'
+        run: chmod +x tool_${{ runner.os == 'Linux' && 'linux' || 'macos' }}
+      - name: Run Tests
+        run: |
+          if [ "${{ matrix.os }}" = "macos-latest" ]; then
+            ./releases/s-macos -v
+          elif [ "${{ matrix.os }}" = "windows-latest" ]; then
+            ./releases/s-win.exe -v
+          else; then
+            ./releases/s-linux -v
+          fi
+
+  NPM-test:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+          - os: ubuntu-latest
+            container: debian:latest
+          - os: ubuntu-latest
+            container: centos:latest
+
+    runs-on: ${{ matrix.os }}
+
+    # Only define container if it is present in the matrix
+    container: ${{ matrix.container || '' }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install s
+        run: npm install @serverless-devs/s -g --registry="https://registry.npmjs.org"
+      - name: Run Tests
+        run: s -v
+      - name: Install s3
+        run: npm install @serverless-devs/s3 -g --registry="https://registry.npmjs.org"
+      - name: Run Tests
+        run: s -v
