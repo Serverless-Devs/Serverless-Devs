@@ -16,8 +16,8 @@ jobs:
           - os: windows-latest
           # - os: ubuntu-latest
           #   container: debian:latest
-          - os: ubuntu-latest
-            container: centos:latest
+          # - os: ubuntu-latest
+          #   container: centos:latest
 
     runs-on: ${{ matrix.os }}
 
