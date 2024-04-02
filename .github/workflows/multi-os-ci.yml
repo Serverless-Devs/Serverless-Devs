@@ -89,7 +89,7 @@ jobs:
         run: ./releases/s-${{ runner.os == 'Linux' && 'linux' || 'macos' }} -v
       - name: Run Tests
         if: runner.os == 'Windows'
-        run: ./releases/s.exe -v
+        run: ./releases/s-win.exe -v
 
   NPM-test:
     strategy:
