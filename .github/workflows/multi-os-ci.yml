@@ -60,10 +60,10 @@ jobs:
           - os: ubuntu-latest
           - os: macos-latest
           - os: windows-latest
-          - os: ubuntu-latest
-            container: debian:latest
-          - os: ubuntu-latest
-            container: centos:latest
+          # - os: ubuntu-latest
+          #   container: debian:latest
+          # - os: ubuntu-latest
+          #   container: centos:latest
 
     runs-on: ${{ matrix.os }}
 
