@@ -35,6 +35,7 @@
     "watch": "npm run build -- --watch",
     "prebuild": "cross-os prebuild",
     "build": "node ./scripts/build.js",
+    "build:ci": "node ./scripts/build.js",
     "pkg": "pkg . --out-path releases",
     "prepublishOnly": "npm run build",
     "beta": "npm publish --tag=beta",
