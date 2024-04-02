@@ -85,14 +85,11 @@ jobs:
         if: runner.os != 'Windows'
         run: chmod +x ./releases/s-${{ runner.os == 'Linux' && 'linux' || 'macos' }}
       - name: Run Tests
-        run: |
-          if [ "${{ matrix.os }}" = "macos-latest" ]; then
-            ./releases/s-macos -v
-          elif [ "${{ matrix.os }}" = "windows-latest" ]; then
-            ./releases/s-win.exe -v
-          else
-            ./releases/s-linux -v
-          fi
+        if: runner.os != 'Windows'
+        run: ./releases/s-${{ runner.os == 'Linux' && 'linux' || 'macos' }} -v
+      - name: Run Tests
+        if: runner.os == 'Windows'
+        run: ./releases/s.exe -v
 
   NPM-test:
     strategy:
