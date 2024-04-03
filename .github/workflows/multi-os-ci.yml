@@ -14,10 +14,10 @@ jobs:
           - os: ubuntu-latest
           - os: macos-latest
           - os: windows-latest
-          # - os: ubuntu-latest
-          #   container: debian:latest
-          # - os: ubuntu-latest
-          #   container: centos:latest
+          - os: ubuntu-latest
+            container: debian:latest
+          - os: ubuntu-latest
+            container: centos:latest
 
     runs-on: ${{ matrix.os }}
 
@@ -26,15 +26,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install dependencies
         run: npm install --registry="https://registry.npmjs.org"
       - name: Build
-        run: npm run build
+        run: npm run build:ci
 
       - name: Run tests on Linux
         if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos')
@@ -72,27 +72,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
       - name: Install dependencies
         run: npm install --registry="https://registry.npmjs.org"
-      - run: npm run build
+      - run: npm run build:ci
       - name: Build binary package
         run: npm run pkg
       - name: Set Permissions Linux/MacOS
         if: runner.os != 'Windows'
         run: chmod +x ./releases/s-${{ runner.os == 'Linux' && 'linux' || 'macos' }}
       - name: Run Tests
-        run: |
-          if [ "${{ matrix.os }}" = "macos-latest" ]; then
-            ./releases/s-macos -v
-          elif [ "${{ matrix.os }}" = "windows-latest" ]; then
-            ./releases/s-win.exe -v
-          else
-            ./releases/s-linux -v
-          fi
+        if: runner.os != 'Windows'
+        run: ./releases/s-${{ runner.os == 'Linux' && 'linux' || 'macos' }} -v
+      - name: Run Tests
+        if: runner.os == 'Windows'
+        run: ./releases/s-win.exe -v
 
   NPM-test:
     strategy:
@@ -113,10 +110,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
       - name: Install s
         run: npm install @serverless-devs/s -g --registry="https://registry.npmjs.org"
       - name: Run Tests
