@@ -66,9 +66,9 @@
   "devDependencies": {
     "@serverless-devs/core": "^0.1.67-beta.1",
     "@serverless-devs/credential": "^0.0.6-beta.1",
-    "@serverless-devs/engine": "^0.1.2-beta.7",
+    "@serverless-devs/engine": "^0.1.2-beta.8",
     "@serverless-devs/load-application": "^0.0.13-beta.5",
-    "@serverless-devs/load-component": "^0.0.7-beta.3",
+    "@serverless-devs/load-component": "^0.0.7-beta.4",
     "@serverless-devs/logger": "^0.0.5-beta.2",
     "@serverless-devs/parse-spec": "^0.0.26-beta.3",
     "@serverless-devs/registry": "^0.0.9",
