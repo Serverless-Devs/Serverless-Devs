@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.0.7] - 2024-04-11
+### :sparkles: New Features
+- [`1238897`](https://github.com/Serverless-Devs/Serverless-Devs/commit/1238897ffea71ef540d542b3ea0df73fabaa9021) - support custom registry *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`b802381`](https://github.com/Serverless-Devs/Serverless-Devs/commit/b802381f7ca5acd1758338743c2d190a746121e6) - support no input parameters *(PR [#818](https://github.com/Serverless-Devs/Serverless-Devs/pull/818) by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`25fa1c5`](https://github.com/Serverless-Devs/Serverless-Devs/commit/25fa1c523c705532de00c07a164bda824963b435) - registry provider support huoshan *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`c1a3cba`](https://github.com/Serverless-Devs/Serverless-Devs/commit/c1a3cba3d8ed86f3ccd2c680b948b8721f17b75c) - github registry default load from devsapp *(PR [#813](https://github.com/Serverless-Devs/Serverless-Devs/pull/813) by [@zxypro1](https://github.com/zxypro1))*
+- [`578af2f`](https://github.com/Serverless-Devs/Serverless-Devs/commit/578af2fcad5073e90bbbbce03cfaaf3066101876) - action `fc3 invoke` timeout *(PR [#815](https://github.com/Serverless-Devs/Serverless-Devs/pull/815) by [@zxypro1](https://github.com/zxypro1))*
+- [`9987d34`](https://github.com/Serverless-Devs/Serverless-Devs/commit/9987d3438dee31cb29b7c15d3361c19983f8e379) - component action command not found *(PR [#816](https://github.com/Serverless-Devs/Serverless-Devs/pull/816) by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.0.6] - 2024-03-29
 ### :bug: Bug Fixes
 - [`94e67dc`](https://github.com/Serverless-Devs/Serverless-Devs/commit/94e67dc6eac0cca8861bc8ff8df5c551db017136) - remove dingtalk *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -11,3 +23,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [v3.0.6]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.5...v3.0.6
+[v3.0.7]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.6...v3.0.7
