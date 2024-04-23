@@ -9,6 +9,7 @@ import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/p
 import * as utils from '@serverless-devs/utils';
 import Credential from '@serverless-devs/credential';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
+import { ENV_COMPONENT_KEY } from '@/command/env/constant';
 import { ENV_KEYS } from '@/command/env/constant';
 import { runEnvComponent } from '@/utils';
 import chalk from 'chalk';
@@ -26,6 +27,7 @@ class Action {
     // initialize the basic information of the environment
     const { deployInfraStack, ...basicInfo } = await this.getBasicInfo();
     const { access, template } = basicInfo;
+    const { template: t, ...envBasicInfo } = basicInfo;
     if (!basicInfo.project) {
       const { project } = utils.getYamlContent(template);
       basicInfo.project = project;
@@ -60,6 +62,7 @@ class Action {
     const { project: p, ...rest } = await runEnvComponent(inputs, access);
     const result = {
       access,
+      ...envBasicInfo,
       ...rest,
     };
     // 追加内容
@@ -76,7 +79,7 @@ class Action {
   private getPromptOptions() {
     const credential = new Credential({ logger });
     const access = Object.keys(credential.getAll());
-    return [
+    const promptOptions: any[] = [
       {
         type: 'input',
         message: 'Please specify the manifest file of the environment:',
@@ -162,13 +165,16 @@ class Action {
           return access;
         },
       },
-      {
+    ];
+    if (utils.getGlobalConfig(ENV_COMPONENT_KEY)) {
+      promptOptions.push({
         type: 'confirm',
         name: 'deployInfraStack',
-        message: 'Do you want to apply InfraStack now?',
+        message: 'Do you want to apply InfraStack now? (supported by vendors)',
         default: false,
-      },
-    ];
+      });
+    }
+    return promptOptions;
   }
   private async getBasicInfo() {
     if (this.options.name) {
