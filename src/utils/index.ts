@@ -9,7 +9,7 @@ import yaml from 'js-yaml';
 const pkg = require('../../package.json');
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
-import { ENV_COMPONENT_KEY, ENV_COMPONENT_NAME } from '@/command/env/constant';
+import { ENV_COMPONENT_KEY } from '@/command/env/constant';
 import Credential from '@serverless-devs/credential';
 import { IEnvArgs } from '@/type';
 import stripAnsi from 'strip-ansi';
@@ -120,7 +120,8 @@ export const showOutput = (data: any) => {
 
 // 运行环境组件
 export const runEnvComponent = async (args: IEnvArgs, access: any) => {
-  const componentName = utils.getGlobalConfig(ENV_COMPONENT_KEY, ENV_COMPONENT_NAME);
+  const componentName = utils.getGlobalConfig(ENV_COMPONENT_KEY);
+  if (!componentName) return {};
   const componentLogger = logger.loggerInstance.__generate(componentName);
   const instance = await loadComponent(componentName, { logger: componentLogger });
 
