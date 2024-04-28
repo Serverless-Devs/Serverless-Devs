@@ -2,11 +2,12 @@ import { spawnSync } from 'child_process';
 import path from 'path';
 import fs from 'fs-extra';
 import * as utils from '@serverless-devs/utils';
-const s = path.resolve(__dirname, '../bin/s');
+const s = path.resolve(__dirname, process.platform === 'win32' ? '../bin/s.cmd' : '../bin/s');
 const pkg = require('../package.json');
 const cwd = path.resolve(__dirname, './fixtures/basic');
 
 test('s -v', async () => {
+  spawnSync(s, ['emptyarray'], { cwd });
   const res = spawnSync(s, ['-v']);
   const stdout = res.stdout.toString();
   console.log(stdout);
