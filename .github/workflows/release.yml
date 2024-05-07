@@ -33,6 +33,9 @@ jobs:
       - run: npm run canary
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      
+      - name: Change package.json name back to s
+        run: node ./.github/change-package-name-to-s.js
 
       - run: curl https://npmmirror.com/sync/@serverless-devs/s
       - name: pkg
