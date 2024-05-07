@@ -20,7 +20,9 @@ const preRun = () => {
   // 设置全局代理
   setProxy();
   // 检查更新
-  new UpdateNotifier().init().notify();
+  try {
+    new UpdateNotifier().init().notify();
+  } catch {}
   // 加载.env文件
   expand(dotenv.config({ path: path.join(process.cwd(), '.env') }));
 };
