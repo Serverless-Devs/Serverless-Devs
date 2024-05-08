@@ -42,9 +42,9 @@ jobs:
         run: npm run pkg
       - name: Rename files
         run: |
-          mv releases/s3-macos s-${{ github.ref_name }}-macos
-          mv releases/s3-linux s-${{ github.ref_name }}-linux
-          mv releases/s3-win.exe s-${{ github.ref_name }}-win.exe
+          mv releases/s-macos s-${{ github.ref_name }}-macos
+          mv releases/s-linux s-${{ github.ref_name }}-linux
+          mv releases/s-win.exe s-${{ github.ref_name }}-win.exe
       - name: Zip files
         run: |
           zip -r s-${{ github.ref_name }}-macos.zip s-${{ github.ref_name }}-macos
