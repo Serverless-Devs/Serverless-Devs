@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.0.8] - 2024-05-09
+### :boom: BREAKING CHANGES
+- due to [`38392d8`](https://github.com/Serverless-Devs/Serverless-Devs/commit/38392d8e961889213b361fadda60fbab182fbd1f) - only use env component after being manually set *(PR [#820](https://github.com/Serverless-Devs/Serverless-Devs/pull/820) by [@zxypro1](https://github.com/zxypro1))*:
+
+  only use env component after being manually set (#820)
+
+
+### :sparkles: New Features
+- [`38392d8`](https://github.com/Serverless-Devs/Serverless-Devs/commit/38392d8e961889213b361fadda60fbab182fbd1f) - only use env component after being manually set *(PR [#820](https://github.com/Serverless-Devs/Serverless-Devs/pull/820) by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`b6b8494`](https://github.com/Serverless-Devs/Serverless-Devs/commit/b6b8494dc45b1038c132b3b9c2a2922add47c206) - flow stuck when flow projects > 1 and diff *(PR [#821](https://github.com/Serverless-Devs/Serverless-Devs/pull/821) by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.0.7] - 2024-04-11
 ### :sparkles: New Features
 - [`1238897`](https://github.com/Serverless-Devs/Serverless-Devs/commit/1238897ffea71ef540d542b3ea0df73fabaa9021) - support custom registry *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -24,3 +38,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [v3.0.6]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.5...v3.0.6
 [v3.0.7]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.6...v3.0.7
+[v3.0.8]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.7...v3.0.8
