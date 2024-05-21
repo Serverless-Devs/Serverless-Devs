@@ -5,7 +5,6 @@ import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH, ALIYUN_REMOTE_PROJECT_ENV
 import fs from 'fs-extra';
 import * as utils from '@serverless-devs/utils';
 import assert from 'assert';
-import { emoji } from '@/utils';
 import chalk from 'chalk';
 
 class Action {

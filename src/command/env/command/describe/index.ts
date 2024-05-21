@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji } from '@/utils';
+import { emoji, checkTemplateVersion } from '@/utils';
 import Action from './action';
 
 const description = `Describe specified env.
@@ -21,6 +21,8 @@ export default (program: Command) => {
     .requiredOption('-n, --name <name>', 'Env name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      await new Action({ ...options, ...program.optsWithGlobals() }).start();
+      await checkTemplateVersion(program) ? 
+        await new Action({ ...options, ...program.optsWithGlobals() }).start() : 
+        null;
     });
 };

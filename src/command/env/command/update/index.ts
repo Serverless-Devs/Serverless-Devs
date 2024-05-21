@@ -1,6 +1,6 @@
 import { Command, Option } from 'commander';
 import chalk from 'chalk';
-import { emoji, isJson } from '@/utils';
+import { emoji, isJson, checkTemplateVersion } from '@/utils';
 import Action from './action';
 
 const description = `Update environment properties.
@@ -30,6 +30,8 @@ export default (program: Command) => {
     )
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      await new Action({ ...options, ...program.optsWithGlobals() }).start();
+      await checkTemplateVersion(program) ? 
+        await new Action({ ...options, ...program.optsWithGlobals() }).start() : 
+        null;
     });
 };

@@ -13,6 +13,8 @@ import { ENV_COMPONENT_KEY } from '@/command/env/constant';
 import Credential from '@serverless-devs/credential';
 import { IEnvArgs } from '@/type';
 import stripAnsi from 'strip-ansi';
+import { Command } from 'commander';
+import ParseSpec from '@serverless-devs/parse-spec';
 
 export { default as checkNodeVersion } from './check-node-version';
 export { default as setProxy } from './set-proxy';
@@ -216,9 +218,21 @@ export const runEnv = async (env: string | boolean, sPath: string) => {
   await runEnvComponent(inputs, access);
 };
 
+// 获取组件提供的Schema
 export const getSchema = async (componentName: string) => {
   const componentLogger = logger.loggerInstance.__generate(componentName);
   const instance = await loadComponent(componentName, { logger: componentLogger });
   if (!instance || !instance.getSchema) return null;
   return instance.getSchema();
 };
+
+// 检查模版是否为3.x版本
+export const checkTemplateVersion = async (program: Command): Promise<boolean> => {
+  const { template } = program.optsWithGlobals();
+  const spec = await new ParseSpec(template, { logger }).start();
+  if (!get(spec, 'yaml.use3x')) {
+    logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
+    return false;
+  }
+  return true;
+}
