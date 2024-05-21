@@ -39,7 +39,7 @@ test('init', async () => {
 
 test('init -t', async () => {
   const name = 'custom';
-  const template = 'custom.yaml';
+  const template = 's.yaml';
   const environmentFilePath = path.join(cwd, template);
   fs.removeSync(environmentFilePath);
   const args = [
