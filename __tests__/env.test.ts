@@ -40,7 +40,8 @@ test('init', async () => {
 test('init -t', async () => {
   const name = 'custom';
   const template = 's-custom.yaml';
-  const environmentFilePath = path.join(cwd, template);
+  const envFilePath = get(utils.getYamlContent(template), 'env');
+  const environmentFilePath = path.join(cwd, envFilePath);
   fs.removeSync(environmentFilePath);
   const args = [
     '--name',
@@ -77,7 +78,8 @@ test('preview', async () => {
 test('update', async () => {
   const name = 'dev';
   const template = 's-update.yaml';
-  const environmentFilePath = path.join(cwd, template);
+  const envFilePath = get(utils.getYamlContent(template), 'env');
+  const environmentFilePath = path.join(cwd, envFilePath);
   const args = [
     '--name',
     name,
