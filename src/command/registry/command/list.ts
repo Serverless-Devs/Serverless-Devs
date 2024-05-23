@@ -10,7 +10,7 @@ const description = `View all published public packages and private packages own
 Example:
   $ s registry list
    
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-list')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/registry/')}`;
 
 const wantedInfoKeys = ['type', 'name', 'description', 'category', 'tags'];
 

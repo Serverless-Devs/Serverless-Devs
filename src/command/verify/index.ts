@@ -9,7 +9,7 @@ import { parseArgv } from '@serverless-devs/utils';
 
 const description = `Verify Yaml format and values.
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/verify')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/registry/')}`;
 
 export default (program: Command) => {
   program

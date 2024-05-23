@@ -9,7 +9,7 @@ const description = `Publish Serverless Registry.
 Example:
   $ s registry publish
    
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-publish')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/registry/')}`;
 
 export default (program: Command) => {
   program

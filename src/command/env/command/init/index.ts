@@ -8,7 +8,7 @@ const description = `Initialize env.
     Example:
         $ s env init --name test --project demo --description 'This is a test environment' --type testing
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/env')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/env/')}`;
 
 export default (program: Command) => {
   const command = program.command('init');

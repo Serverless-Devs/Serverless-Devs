@@ -12,7 +12,7 @@ const description = `Managing multiple environments for serverless applications,
 
 Supported vendors: Alibaba Cloud
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/env')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/env/')}`;
 export default (program: Command) => {
   const envProgram = program.command('env');
   suggestCommand(envProgram);

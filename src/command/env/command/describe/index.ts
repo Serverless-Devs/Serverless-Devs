@@ -10,7 +10,7 @@ Supported vendors: Alibaba Cloud
     Example:
         $ s env describe --name test-env
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/env')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/env/')}`;
 
 export default (program: Command) => {
   const command = program.command('describe');

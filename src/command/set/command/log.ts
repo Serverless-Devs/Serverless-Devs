@@ -12,7 +12,7 @@ const description = `Set log action.
     $ s set log enable
     $ s set log disable
         
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/set')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/set/')}`;
 
 const promptOption = [
   {
