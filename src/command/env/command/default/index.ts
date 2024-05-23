@@ -19,7 +19,7 @@ export default (program: Command) => {
     .description(description)
     .summary(`Set default environment`)
     .option('-n, --name <name>', 'Env name')
-    .helpOption('-h, --help', 'Displsay help for command')
+    .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
       await checkTemplateVersion(program) ? 
         await new Action({ ...options, ...program.optsWithGlobals() }).start() : 

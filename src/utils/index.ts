@@ -236,3 +236,9 @@ export const checkTemplateVersion = async (program: Command): Promise<boolean> =
   }
   return true;
 }
+
+export const getEnvFilePath = async (template: string): Promise<string> => {
+  const spec = await new ParseSpec(template, { logger }).start();
+  const envPath = utils.getAbsolutePath(get(spec, 'yaml.content.env', ENVIRONMENT_FILE_NAME));
+  return envPath;
+}

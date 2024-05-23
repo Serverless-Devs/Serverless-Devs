@@ -39,7 +39,7 @@ test('init', async () => {
 
 test('init -t', async () => {
   const name = 'custom';
-  const template = 's.yaml';
+  const template = 's-custom.yaml';
   const environmentFilePath = path.join(cwd, template);
   fs.removeSync(environmentFilePath);
   const args = [
@@ -76,7 +76,7 @@ test('preview', async () => {
 
 test('update', async () => {
   const name = 'dev';
-  const template = 'update.yaml';
+  const template = 's-update.yaml';
   const environmentFilePath = path.join(cwd, template);
   const args = [
     '--name',
@@ -98,7 +98,7 @@ test('update', async () => {
 
 test('describe', async () => {
   const name = 'dev';
-  const template = 'update.yaml';
+  const template = 's-update.yaml';
   const args = ['--name', name, '-t', template];
   const res = spawnSync(s, ['env', 'describe', ...args], { cwd });
   const stdout = res.stdout.toString();
@@ -130,7 +130,7 @@ test('destroy', async () => {
 });
 
 test('list', async () => {
-  const res = spawnSync(s, ['env', 'list', '-t', 'update.yaml'], { cwd });
+  const res = spawnSync(s, ['env', 'list', '-t', 's-update.yaml'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);

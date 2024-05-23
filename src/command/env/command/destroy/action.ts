@@ -2,12 +2,11 @@ import { filter, find } from 'lodash';
 import logger from '@/logger';
 import { IOptions } from './type';
 import fs from 'fs-extra';
-import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
 import path from 'path';
 import assert from 'assert';
 import yaml from 'js-yaml';
-import { runEnvComponent } from '@/utils';
+import { getEnvFilePath, runEnvComponent } from '@/utils';
 import chalk from 'chalk';
 
 class Action {
@@ -15,9 +14,10 @@ class Action {
     logger.debug(`s env update --option: ${JSON.stringify(options)}`);
   }
   async start() {
-    const { template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME), name } = this.options;
-    assert(fs.existsSync(template), `The file ${template} was not found`);
-    const { project, environments } = utils.getYamlContent(template);
+    const { template = path.join(process.cwd(), 's.yaml'), name } = this.options;
+    const envFilePath = await getEnvFilePath(template);
+    assert(fs.existsSync(envFilePath), `The file ${envFilePath} was not found`);
+    const { project, environments } = utils.getYamlContent(envFilePath);
     const data = find(environments, item => item.name === name);
     assert(data, `The environment ${name} was not found`);
     const { access, ...rest } = data;
