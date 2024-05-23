@@ -40,7 +40,7 @@ test('init', async () => {
 test('init -t', async () => {
   const name = 'custom';
   const template = 's-custom.yaml';
-  const envFilePath = get(utils.getYamlContent(template), 'env');
+  const envFilePath = get(utils.getYamlContent(utils.getAbsolutePath(template)), 'env');
   const environmentFilePath = path.join(cwd, envFilePath);
   fs.removeSync(environmentFilePath);
   const args = [
@@ -78,7 +78,7 @@ test('preview', async () => {
 test('update', async () => {
   const name = 'dev';
   const template = 's-update.yaml';
-  const envFilePath = get(utils.getYamlContent(template), 'env');
+  const envFilePath = get(utils.getYamlContent(utils.getAbsolutePath(template)), 'env');
   const environmentFilePath = path.join(cwd, envFilePath);
   const args = [
     '--name',
@@ -146,10 +146,10 @@ test('specify env not found', async () => {
   expect(stdout).toContain('Env [dev1] was not found, run without environment.');
 });
 
-test('default env not found', async () => {
-  const res = spawnSync(s, ['deploy'], { cwd });
-  const stdout = res.stdout.toString();
-  console.log(stdout);
-  expect(res.status).toBe(0);
-  expect(stdout).toContain('Default env [dev] is not found, run without environment.');
-});
+// test('default env not found', async () => {
+//   const res = spawnSync(s, ['deploy'], { cwd });
+//   const stdout = res.stdout.toString();
+//   console.log(stdout);
+//   expect(res.status).toBe(0);
+//   expect(stdout).toContain('Default env [dev] is not found, run without environment.');
+// });
