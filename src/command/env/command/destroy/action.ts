@@ -33,7 +33,7 @@ class Action {
     await runEnvComponent(inputs, access);
 
     const newEnvironments = filter(environments, item => item.name !== name);
-    fs.writeFileSync(template, yaml.dump({ project, environments: newEnvironments }));
+    fs.writeFileSync(envFilePath, yaml.dump({ project, environments: newEnvironments }));
     logger.write(chalk.green(`The environment ${name} was destroyed successfully`));
   }
 }
