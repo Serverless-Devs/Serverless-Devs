@@ -35,7 +35,7 @@
 ![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
 
 
-> 更多关于 Serverless Devs 的介绍可以参考[项目介绍文档](./docs/zh/readme.md)
+> 更多关于 Serverless Devs 的介绍可以参考[项目介绍文档](https://docs.serverless-devs.com/)
 
 # 快速上手
 
@@ -46,19 +46,19 @@ $ npm install @serverless-devs/s -g
 ```
 ❸ 在命令行中执行命令`s`，并按回车，开启你的 Serverless 之旅；   
 
-> 更多详细信息可以参考[Serverless Devs 安装文档](./docs/zh/quick_start.md)和[快速入门指南](./docs/zh/quick_start.md)
+> 更多详细信息可以参考[Serverless Devs 安装文档](https://docs.serverless-devs.com/user-guide/install/)和[快速入门指南](https://docs.serverless-devs.com/getting-started/)
 
 # 帮助文档
 
-- [安装文档](./docs/zh/quick_start.md)
-- [命令行操作](./docs/zh/command/readme.md)
-- [Yaml规范](./docs/zh/yaml.md)
-- [配置继承/多环境](./docs/zh/extend.md)
-- [CI/CD平台集成](./docs/zh/cicd.md)
+- [安装文档](https://docs.serverless-devs.com/user-guide/install/)
+- [命令行操作](https://docs.serverless-devs.com/user-guide/builtin/)
+- [Yaml规范](https://docs.serverless-devs.com/user-guide/spec/)
+- [配置继承/多环境](https://docs.serverless-devs.com/user-guide/spec/#yaml)
+- [CI/CD平台集成](https://docs.serverless-devs.com/user-guide/cicd/)
 
-> 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](./docs/zh/package_dev.md)   
+> 如果您想为 Serverless Devs 贡献 Package（包括组件和应用），您可以参考 [Package开发文档](https://docs.serverless-devs.com/dev-guide/application/)   
 
-> Serverless Devs 天然支持 Yaml 模式与 Cli 模式，关于两者的区别和试用场景，可以参考文档[ **Yaml 模式 Cli 模式对比**](./docs/zh/yaml_and_cli.md)；关于[**Exit Code 定义**](./docs/zh/tool.md#exit-code-定义)、[**Yaml 文件优先级规范**](./docs/zh/tool.md#yaml-文件优先级规范)、[**密钥使用顺序与规范**](./docs/zh/tool.md#密钥使用顺序与规范)、[**通过环境变量设置密钥**](./docs/zh/tool.md#通过环境变量设置密钥)更多关于项目设计的一些细节可以参考[**开发者工具设计文档**](./docs/zh/tool.md) 
+> Serverless Devs 天然支持 Yaml 模式与 Cli 模式，关于两者的区别和试用场景，可以参考文档[ **Yaml 模式 Cli 模式对比**](https://docs.serverless-devs.com/user-guide/spec/#yaml-cli)；关于[**Exit Code 定义**](https://docs.serverless-devs.com/dev-guide/cli_design/#exit-code)、[**Yaml 文件优先级规范**](https://docs.serverless-devs.com/dev-guide/cli_design/#yaml)、[**密钥使用顺序与规范**](https://docs.serverless-devs.com/dev-guide/cli_design/#_11)、[**通过环境变量设置密钥**](https://docs.serverless-devs.com/dev-guide/cli_design/#_12)更多关于项目设计的一些细节可以参考[**开发者工具设计文档**](https://docs.serverless-devs.com/) 
 
 # 相关资源
 
