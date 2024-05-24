@@ -31,9 +31,11 @@ test('init', async () => {
     '{"components":{"fc3test":{"region":"hangzhou"}}}',
     '--debug',
   ];
-  spawnSync(s, ['env', 'init', ...args], { cwd, stdio: 'inherit' });
+  const runRes = spawnSync(s, ['env', 'init', ...args], { cwd, stdio: 'inherit' });
   const res = utils.getYamlContent(environmentFilePath);
   console.log(res);
+  console.log(runRes);
+  expect(runRes.status).toBe(0);
   expect(find(get(res, 'environments'), { name })).toBeTruthy();
 });
 
@@ -52,12 +54,16 @@ test('init -t', async () => {
     'this is a description',
     '--type',
     'testing',
+    '--overlays',
+    '{"components":{"fc3test":{"region":"hangzhou"}}}',
     '-t',
     template,
   ];
-  spawnSync(s, ['env', 'init', ...args], { cwd, stdio: 'inherit' });
+  const runRes = spawnSync(s, ['env', 'init', ...args], { cwd, stdio: 'inherit' });
   const res = utils.getYamlContent(environmentFilePath);
   console.log(res);
+  console.log(runRes);
+  expect(runRes.status).toBe(0);
   expect(find(get(res, 'environments'), { name })).toBeTruthy();
 });
 
@@ -73,29 +79,6 @@ test('preview', async () => {
   const stdout = res.stdout.toString();
   console.log(stdout);
   expect(res.status).toBe(0);
-});
-
-test('update', async () => {
-  const name = 'dev';
-  const template = 's-update.yaml';
-  const envFilePath = 'update.yaml';
-  const environmentFilePath = path.join(cwd, envFilePath);
-  const args = [
-    '--name',
-    name,
-    '--description',
-    'this is a description',
-    '--type',
-    'staging',
-    '--region',
-    'cn-chengdu',
-    '-t',
-    template,
-  ];
-  spawnSync(s, ['env', 'update', ...args], { cwd, stdio: 'inherit' });
-  const res = utils.getYamlContent(environmentFilePath);
-  console.log(res);
-  expect(find(get(res, 'environments'), { name })).toBeTruthy();
 });
 
 test('describe', async () => {
@@ -146,10 +129,58 @@ test('specify env not found', async () => {
   expect(stdout).toContain('Env [dev1] was not found, run without environment.');
 });
 
-// test('default env not found', async () => {
-//   const res = spawnSync(s, ['deploy'], { cwd });
-//   const stdout = res.stdout.toString();
-//   console.log(stdout);
-//   expect(res.status).toBe(0);
-//   expect(stdout).toContain('Default env [dev] is not found, run without environment.');
-// });
+test('default env not found', async () => {
+  const res = spawnSync(s, ['deploy'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+  expect(stdout).toContain('Default env [dev] is not found, run without environment.');
+});
+
+test('init v2', async () => {
+  const name = 'dev';
+  const args = [
+    '--name',
+    name,
+    '--project',
+    'custom-project',
+    '--description',
+    'this is a description',
+    '--type',
+    'testing',
+    '--overlays',
+    '{"components":{"fc3test":{"region":"hangzhou"}}}',
+    '--debug',
+    '-t',
+    's-v2.yaml'
+  ];
+  const res = spawnSync(s, ['env', 'init', ...args], { cwd, stdio: 'inherit' });
+  console.log(res);
+  expect(res.status).toBe(0);
+});
+
+test('describe v2', async () => {
+  const name = 'dev';
+  const template = 's-v2.yaml';
+  const args = ['--name', name, '-t', template];
+  const res = spawnSync(s, ['env', 'describe', ...args], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(stdout).toContain('Not support template');
+});
+
+test('destroy v2', async () => {
+  const name = 'dev';
+  const args = ['--name', name, '-t', 's-v2.yaml'];
+  const res = spawnSync(s, ['env', 'destroy', ...args], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(stdout).toContain('Not support template');
+});
+
+test('list v2', async () => {
+  const res = spawnSync(s, ['env', 'list', '-t', 's-v2.yaml'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(stdout).toContain('Not support template');
+})
