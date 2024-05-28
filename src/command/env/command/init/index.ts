@@ -1,6 +1,6 @@
 import { Command, Option } from 'commander';
 import chalk from 'chalk';
-import { emoji, isJson } from '@/utils';
+import { emoji, isJson, checkTemplateVersion } from '@/utils';
 import Action from './action';
 
 const description = `Initialize env.
@@ -8,7 +8,7 @@ const description = `Initialize env.
     Example:
         $ s env init --name test --project demo --description 'This is a test environment' --type testing
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/env')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/env/')}`;
 
 export default (program: Command) => {
   const command = program.command('init');
@@ -32,6 +32,8 @@ export default (program: Command) => {
     .option('--infra-stack-name <infraStackName>', 'Specify the infra stack name')
     .helpOption('-h, --help', 'Display help for command')
     .action(async options => {
-      await new Action({ ...options, ...program.optsWithGlobals() }).start();
+      await checkTemplateVersion(program) ? 
+        await new Action({ ...options, ...program.optsWithGlobals() }).start() : 
+        null;
     });
 };

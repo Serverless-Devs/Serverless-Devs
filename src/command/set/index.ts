@@ -10,7 +10,7 @@ import subEnv from './command/env';
 
 const description = `You can make some default settings for the tool here.
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/set')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/set/')}`;
 
 export default (program: Command) => {
   const configProgram = program.command('set');

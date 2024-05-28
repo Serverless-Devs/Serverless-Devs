@@ -10,7 +10,7 @@ const description = `View application details.
 Example:
   $ s registry detail --package-name fc3
    
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-detail')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/registry/')}`;
 
 const notWantedInfoKeys = ['platform'];
 

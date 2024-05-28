@@ -19,7 +19,7 @@ const description = `Directly use serverless devs to use components, develop and
     $ s cli fc3 info --region cn-hangzhou --function-name  test -a myAccess
     $ s cli fc3 invoke --region cn-hangzhou --function-name  test -e "{\"key\" : \"val\"}" -a myAccess
     
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/cli')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/cli/')}`;
 
 export default async (program: Command) => {
   const { _: raw = [], help } = utils.parseArgv(process.argv.slice(2));

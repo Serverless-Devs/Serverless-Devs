@@ -2,7 +2,6 @@ import { concat, find, map, isEmpty, trim, endsWith, get, pick, lowerCase } from
 import logger from '@/logger';
 import { IOptions } from './type';
 import inquirer, { Answers } from 'inquirer';
-import path from 'path';
 import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH } from '@serverless-devs/parse-spec';
@@ -11,7 +10,7 @@ import Credential from '@serverless-devs/credential';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import { ENV_COMPONENT_KEY } from '@/command/env/constant';
 import { ENV_KEYS } from '@/command/env/constant';
-import { runEnvComponent } from '@/utils';
+import { getEnvFilePath, runEnvComponent } from '@/utils';
 import chalk from 'chalk';
 
 class Action {
@@ -178,7 +177,7 @@ class Action {
   }
   private async getBasicInfo() {
     if (this.options.name) {
-      this.options.template = get(this.options, 'template', path.join(process.cwd(), ENVIRONMENT_FILE_NAME));
+      this.options.template = await getEnvFilePath(get(this.options, 'template', 's.yaml'));
       if (fs.existsSync(this.options.template)) {
         const envContent = utils.getYamlContent(this.options.template);
         if (find(envContent.environments, o => o.name === this.options.name))

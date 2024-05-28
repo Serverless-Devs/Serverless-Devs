@@ -27,7 +27,7 @@ class Help {
       '  Can be used in projects with Serverless Devs Yaml. Usage：',
       '    - s <component_command>：Operate on the project, E.x: s deploy',
       '    - s <project_name> <component_command>：Operate on the resource, E.x: s website deploy',
-      '  More information: https://serverless.help/t/s/custom',
+      '  More information: https://docs.serverless-devs.com/user-guide/builtin/custom/',
       '',
     ];
     // 仅有一个组件时
@@ -80,8 +80,6 @@ class Help {
       return;
     }
     const res = await this.singleComponentHelp(first(components));
-    res.option('--env <envName>', '[Optional] Specify the env name');
-    res.option('--skip-actions', '[Optional] Skip the extends section');
     res && res.outputHelp();
   }
   private async singleComponentHelp(componentName: string) {
@@ -114,6 +112,8 @@ class Help {
       .command(first(subCommand))
       .description(subDescription)
       .summary(get(subCommandInfo, 'help.summary', subDescription))
+      .option('--env <envName>', '[Optional] Specify the env name') // 可选 env和skip-actions
+      .option('--skip-actions', '[Optional] Skip the extends section')
       .option('-h, --help', 'Display help for command', undefined); // 手动调用help信息
     each(get(subCommandInfo, 'help.option', []), item => {
       const [start, ...rest] = item;
@@ -126,8 +126,6 @@ class Help {
     for (const item of steps) {
       logger.info(`Start executing project ${item.projectName}`);
       const res = await this.singleComponentHelp(item.component);
-      res.option('--env <envName>', '[Optional] Specify the env name');
-      res.option('--skip-actions', '[Optional] Skip the extends section');
       res && res.outputHelp();
       logger.info(`Project ${item.projectName} successfully to execute`);
     }

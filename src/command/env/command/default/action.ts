@@ -5,8 +5,8 @@ import { ENVIRONMENT_FILE_NAME, ENVIRONMENT_FILE_PATH, ALIYUN_REMOTE_PROJECT_ENV
 import fs from 'fs-extra';
 import * as utils from '@serverless-devs/utils';
 import assert from 'assert';
-import { emoji } from '@/utils';
 import chalk from 'chalk';
+import { getEnvFilePath } from '@/utils';
 
 class Action {
   constructor(private options: IOptions) {
@@ -18,7 +18,7 @@ class Action {
     let envFile: string;
     let project: string;
     if (remoteProjectName) {
-      envFile = utils.getAbsolutePath(get(this.options, 'template', ENVIRONMENT_FILE_NAME));
+      envFile = await getEnvFilePath(get(this.options, 'template', 's.yaml'));
       assert(fs.existsSync(envFile), `Environment file ${envFile} is not found`);
       envYamlContent = utils.getYamlContent(envFile);
       project = remoteProjectName;

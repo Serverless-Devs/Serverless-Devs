@@ -1,19 +1,20 @@
 import logger from '@/logger';
 import { IGlobalOptions } from '@/type';
 import fs from 'fs-extra';
-import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
 import * as utils from '@serverless-devs/utils';
 import path from 'path';
 import assert from 'assert';
+import { getEnvFilePath } from '@/utils';
 
 class Action {
   constructor(private options: IGlobalOptions) {
     logger.debug(`s env update --option: ${JSON.stringify(options)}`);
   }
   async start() {
-    const { template = path.join(process.cwd(), ENVIRONMENT_FILE_NAME) } = this.options;
-    assert(fs.existsSync(template), `The file ${template} was not found`);
-    const { environments } = utils.getYamlContent(template);
+    const { template = path.join(process.cwd(), 's.yaml') } = this.options;
+    const envFilePath = await getEnvFilePath(template);
+    assert(fs.existsSync(envFilePath), `The file ${envFilePath} was not found`);
+    const { environments } = utils.getYamlContent(envFilePath);
     logger.output(environments);
   }
 }

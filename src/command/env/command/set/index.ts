@@ -8,7 +8,7 @@ const description = `Set default env component.
 Example:
     $ s set env --component ServerlessDevsAdmin
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/set')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/set/')}`;
 
 export default (program: Command) => {
   const command = program.command('set', { hidden: true });

@@ -11,7 +11,7 @@ const description = `Set analysis action.
         $ s set analysis
         $ s set analysis disable
         
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/set')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/set/')}`;
 
 const promptOption = [
   {

@@ -11,7 +11,7 @@ const description = `Application preview.
   Example:
     $ s preview
     
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/preview')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/preview/')}`;
 
 export default (program: Command) => {
   program

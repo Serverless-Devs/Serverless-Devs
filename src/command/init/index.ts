@@ -14,7 +14,7 @@ Example:
     $ s init git@github.com:foo/bar.git
     $ s init https://github.com/foo/bar.git
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/init')}
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/init/')}
 ${emoji('🚀')} More applications: ${chalk.underline('https://registry.serverless-devs.com')}`;
 
 export default (program: Command) => {

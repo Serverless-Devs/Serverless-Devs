@@ -9,7 +9,7 @@ const description = `You can delete an account.
   Example:
     $ s config delete -a demo
     
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/config')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/config/')}`;
 
 export default (program: Command) => {
   const command = program.command('delete');

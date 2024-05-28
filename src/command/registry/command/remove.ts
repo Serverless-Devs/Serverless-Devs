@@ -9,7 +9,7 @@ const description = `Delete application version.
 Example:
   $ s registry delete --name fc --version-id 1.0.1
    
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry-delete')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/registry/')}`;
 
 export default (program: Command) => {
   program

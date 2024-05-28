@@ -10,7 +10,7 @@ import subDelete from './command/remove';
 
 const description = `You can manage Serverless Packages on Serverless Registry.
 
-${emoji('📖')} Document: ${chalk.underline('https://serverless.help/t/s/registry')}`;
+${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/registry/')}`;
 
 export default (program: Command) => {
   const configProgram = program.command('registry');
