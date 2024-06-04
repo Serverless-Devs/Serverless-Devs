@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.0.9] - 2024-06-04
+### :sparkles: New Features
+- [`36b45d8`](https://github.com/Serverless-Devs/Serverless-Devs/commit/36b45d8d6adf8add31f87b0c6d435065746893ed) - add `--private` for `s registry list` command to show private packages *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`9d0fb6f`](https://github.com/Serverless-Devs/Serverless-Devs/commit/9d0fb6fd98e4aed436e15aea6ccc357f833f553e) - help info *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`8a52b3e`](https://github.com/Serverless-Devs/Serverless-Devs/commit/8a52b3e8859ff3759a96864b86d8304148e636cf) - env command only run with 3.x version yaml *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.0.8] - 2024-05-09
 ### :boom: BREAKING CHANGES
 - due to [`38392d8`](https://github.com/Serverless-Devs/Serverless-Devs/commit/38392d8e961889213b361fadda60fbab182fbd1f) - only use env component after being manually set *(PR [#820](https://github.com/Serverless-Devs/Serverless-Devs/pull/820) by [@zxypro1](https://github.com/zxypro1))*:
@@ -39,3 +48,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.0.6]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.5...v3.0.6
 [v3.0.7]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.6...v3.0.7
 [v3.0.8]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.7...v3.0.8
+[v3.0.9]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.8...v3.0.9
