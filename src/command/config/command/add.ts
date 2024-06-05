@@ -20,6 +20,7 @@ const description = `You can add an account
         huawei: AccessKey, SecretKey
         google: PrivateKeyData
         tencent: AccountID, SecretID, SecretKey
+        volcengine: AccessKey, SecretKey
 
 ${emoji('🧭')} How to get the key: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/config/#cloud-vendor')}`;
 
