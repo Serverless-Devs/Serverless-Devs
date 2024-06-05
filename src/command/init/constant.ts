@@ -6,6 +6,10 @@ export const first_level_template = [
     value: 'Alibaba_Cloud_Serverless',
   },
   {
+    name: 'Volcengine Serverless',
+    value: 'Volcengine_Serverless'
+  },
+  {
     name: 'AWS Cloud Serverless',
     value: 'devsapp/start-lambda',
   },
@@ -194,7 +198,23 @@ const baidu_quick_start_template = [
 
 const all_baidu_template = concat(baidu_template, baidu_quick_start_template);
 
-export const ALL_TEMPLATE = concat(first_level_template, all_huawei_template, all_baidu_template, devs_template);
+const volcengine_template = [
+  {
+    name: 'Quick start',
+    value: 'quick_start',
+  },
+]
+
+const volcengine_quick_start_template = [
+  {
+    name: 'Node.js 14',
+    value: 'volcano-webserver-node14',
+  }
+];
+
+const all_volcengine_template = concat(volcengine_template, volcengine_quick_start_template);
+
+export const ALL_TEMPLATE = concat(first_level_template, all_volcengine_template, all_huawei_template, all_baidu_template, devs_template);
 
 export const APPLICATION_TEMPLATE = [
   {
@@ -273,6 +293,37 @@ export const APPLICATION_TEMPLATE = [
         return baidu_quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
       }
       return baidu_quick_start_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'volcengine_template',
+    when(answers) {
+      return answers.firstLevel === 'Volcengine_Serverless';
+    },
+    default: first(volcengine_template).value,
+    message: 'Hello, serverlesser. Which template do you like?',
+    source: async function (_answersSoFar, input) {
+      if (input) {
+        return all_volcengine_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
+      }
+      return volcengine_template;
+    },
+  },
+  {
+    type: 'autocomplete',
+    name: 'template',
+    loop: true,
+    when(answers) {
+      return answers.volcengine_template === 'quick_start';
+    },
+    message: 'Which template do you like?',
+    default: first(volcengine_quick_start_template).value,
+    source: async function (_answersSoFar, input) {
+      if (input) {
+        return volcengine_quick_start_template.filter((item: any) => lowerCase(item.name).includes(lowerCase(input)));
+      }
+      return volcengine_quick_start_template;
     },
   },
 ];
