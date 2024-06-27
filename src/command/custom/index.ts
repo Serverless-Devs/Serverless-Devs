@@ -69,6 +69,11 @@ export default class Custom {
         };
         if (get(context, 'status') === 'success') {
           execDaemon('report.js', { ...reportData, type: EReportType.command });
+          // add __component info to output
+          for (const i in get(context, 'output')) {
+            const step = get(context, 'steps').find(step => step.projectName === i);
+            set(context, `output.${i}.__component`, get(step, 'component'));
+          }
           rest['output-file'] ? writeOutput(get(context, 'output')) : this.output(context);
           // if (utils.getGlobalConfig('log') !== 'disable') {
           //   logger.write(`\nA complete log of this run can be found in: ${chalk.underline(path.join(utils.getRootHome(), 'logs', process.env.serverless_devs_traceid))}\n`);
