@@ -3,17 +3,15 @@ import Engine, { IContext, STEP_STATUS } from '@serverless-devs/engine';
 import * as utils from '@serverless-devs/utils';
 import { get, each, filter, uniqBy, isEmpty, join, keys, cloneDeep, find, set, unset, split, isArray } from 'lodash';
 import ParseSpec from '@serverless-devs/parse-spec';
-import V1 from './v1';
 import logger from '@/logger';
 import handleError from '@/error';
 import { ISpec } from './types';
-import Help from './help';
 import chalk from 'chalk';
 import loadComponent from '@serverless-devs/load-component';
 import execDaemon from '@/exec-daemon';
 import { UPDATE_COMPONENT_CHECK_INTERVAL, CICD_ENV_KEY } from '@/constant';
 import { EReportType } from '@/type';
-import { emoji, showOutput, writeOutput, runEnv } from '@/utils';
+import { emoji, showOutput, writeOutput } from '@/utils';
 import { ETrackerType, DevsError, getUserAgent, isCiCdEnvironment } from '@serverless-devs/utils';
 
 export default class Custom {
@@ -42,10 +40,19 @@ export default class Custom {
         });
       }
     }
-    if (!get(this.spec, 'yaml.use3x')) return await new V1(this.program, this.spec).init();
-    if (help) return await new Help(this.program, this.spec).init();
+    if (!get(this.spec, 'yaml.use3x')) {
+      const V1 = (await import('./v1')).default;
+      return await new V1(this.program, this.spec).init();
+    }
+    if (help) {
+      const Help = (await import('./help')).default;
+      return await new Help(this.program, this.spec).init();
+    }
     // 若带env参数以及是deploy或plan指令，运行env deploy
-    if (raw[0] === 'deploy' || raw[0] === 'plan') await runEnv(env, template);
+    if (raw[0] === 'deploy' || raw[0] === 'plan') {
+      const runEnv = (await import('@/utils')).runEnv;
+      await runEnv(env, template);
+    }
     this.program
       .command(raw[0])
       .allowUnknownOption()

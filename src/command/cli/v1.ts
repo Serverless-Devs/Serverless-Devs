@@ -105,7 +105,7 @@ const v1 = (program: Command) => {
       if (instance[method]) {
         return await execComponent(method);
       }
-      throw new utils.DevsError('The specified command cannot be found.', {
+      throw new DevsError('The specified command cannot be found.', {
         exitCode: 100,
         tips: 'Please refer to the help document of [-h/--help] command.',
       });

@@ -24,9 +24,9 @@ const preRun = () => {
   // 设置全局代理
   setProxy();
   // 检查更新
-  try {
-    new UpdateNotifier().init().notify();
-  } catch {}
+  // try {
+  //   new UpdateNotifier().init().notify();
+  // } catch {}
   // 加载.env文件
   expand(dotenv.config({ path: path.join(process.cwd(), '.env') }));
 };
@@ -34,8 +34,7 @@ const preRun = () => {
 (async () => {
   preRun();
   // 处理 onboarding
-  const { _: raw, help, version } = utils.parseArgv(process.argv.slice(2));
-  if (raw.length === 0 && !help && !version) {
+  if (process.argv.slice(2).length === 0) {
     return await onboarding();
   }
   // 处理指令
@@ -56,6 +55,8 @@ process.on('exit', code => {
   logger.debug(`Process exitCode: ${code}`);
   // fix 光标位置
   logger.loggerInstance.__clear();
+  process.emit('DEVS:exit' as any);
+  process.exit();
 });
 
 process.on('SIGINT', () => {

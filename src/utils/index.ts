@@ -237,6 +237,16 @@ export const checkTemplateVersion = async (program: Command): Promise<boolean> =
   return true;
 }
 
+export const mount = async (module: string, program: Command) => {
+  const subCommand = (await import(`../command/${module}`)).default;
+  subCommand(program);
+}
+
+export const mountAsync = async (module: string, program: Command) => {
+  const subCommand = (await import(`../command/${module}`)).default;
+  await subCommand(program);
+}
+
 export const getEnvFilePath = async (template: string): Promise<string> => {
   const spec = await new ParseSpec(template, { logger }).start();
   const envPath = utils.getAbsolutePath(get(spec, 'yaml.content.env', ENVIRONMENT_FILE_NAME));
