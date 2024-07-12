@@ -1,7 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { emoji, getUid, isJson, writeOutput } from '@/utils';
-import v1 from './v1';
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import Credential from '@serverless-devs/credential';
@@ -28,7 +27,7 @@ export default async (program: Command) => {
   const cliProgram = program
     .command('cli')
     .description(description)
-    .summary(`${emoji('🐚')} Command line operation without yaml mode`)
+    .summary(`Command line operation without yaml mode`)
     .option('-p, --props <jsonString>', 'The json string of props', v => isJson(v))
     .option('-h, --help', 'Display help for command', undefined) // 避免自动调用help信息（s cli fc -h）
     .allowUnknownOption();
@@ -38,7 +37,10 @@ export default async (program: Command) => {
   }
   const [componentName] = raw.slice(1);
   const v3 = await isFc3(componentName);
-  if (!v3) return v1(cliProgram);
+  if (!v3) {
+    const v1 = (await import('./v1')).default;
+    return v1(cliProgram);
+  }
   // s cli fc3 or s cli fc3 -h
   if (help || raw.length === 2) return new Help(cliProgram).init();
   cliProgram.action(async () => {

@@ -1,19 +1,22 @@
 import { Command, Option } from 'commander';
-import { emoji, getVersion } from '@/utils';
+import { emoji, getVersion, mount, mountAsync } from '@/utils';
+import { parseArgv } from '@serverless-devs/utils';
 
-import subConfig from './config';
-import subEnv from './env';
-import subSet from './set';
-import subClean from './clean';
-import subInit from './init';
-import subRegistry from './registry';
-import subPreview from './preview';
-import subCli from './cli';
-import subComponent from './component';
-import subVerify from './verify';
-
-import Custom from './custom';
+// import Custom from './custom';
 import chalk from 'chalk';
+
+const commandDict = {
+  config: 'config/index.ts',
+  env: 'env/index.ts',
+  set: 'set/index.ts',
+  clean: 'clean/index.ts',
+  init: 'init/index.ts',
+  registry: 'registry/index.ts',
+  preview: 'preview/index.ts',
+  component: 'component/index.ts',
+  verify: 'verify/index.ts',
+  cli: 'cli/index.ts'
+};
 
 const root = async (program: Command) => {
   program
@@ -33,20 +36,45 @@ const root = async (program: Command) => {
     .addHelpCommand(false)
     .version(getVersion(), '-v, --version', 'Show version information');
 
-  // 支持的系统命令
-  subConfig(program);
-  subEnv(program);
-  subSet(program);
-  subRegistry(program);
-  subPreview(program);
-  subComponent(program);
-  subClean(program);
-  subInit(program);
-  subVerify(program);
-  await subCli(program);
+  const argv = process.argv.slice(2);
+  const { version, _: rest } = parseArgv(argv);
+  if (version) return;
+  let customRootHelp = null;
 
-  // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
-  const customRootHelp = await new Custom(program).init();
+  // 支持的系统命令
+  if (rest.length !== 0) {
+    if (Object.keys(commandDict).includes(rest[0])) {
+      if (rest[0] === 'cli') {
+        await mountAsync(commandDict[rest[0]], program);
+      } else {
+        await mount(commandDict[rest[0]], program);
+      }
+    } else {
+      // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
+      const Custom = (await import('./custom')).default;
+      customRootHelp = await new Custom(program).init();
+    }
+  } else {
+    for (const command of Object.values(commandDict)) {
+      await mount(command, program);
+      // 自定义指令，所有的系统的指令必须写在自定义指令之前 否则会被抢先注册
+      const Custom = (await import('./custom')).default;
+      customRootHelp = await new Custom(program).init();
+    }
+  }
+  // const Custom = require('./custom/index.ts').default;
+  // customRootHelp = await new Custom(program).init();
+  // subConfig(program);
+  // subEnv(program);
+  // subSet(program);
+  // subRegistry(program);
+  // subPreview(program);
+  // subComponent(program);
+  // console.log(subClean.default);
+  // subClean.default(program);
+  // subInit(program);
+  // subVerify(program);
+  // await subCli(program);  // ！！！！时间很长
 
   program.command('<custom>').summary(`Custom Commands`);
 
