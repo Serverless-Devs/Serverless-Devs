@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.0] - 2024-07-15
+### :sparkles: New Features
+- [`384220c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/384220ca9c5b9c30f93b968207eb4ce179e4cbab) - support `resources.xx.info.xx` *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`910f97e`](https://github.com/Serverless-Devs/Serverless-Devs/commit/910f97e602668ad23b451885a050e2524c5baf53) - add __component info to output *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`76c2ab5`](https://github.com/Serverless-Devs/Serverless-Devs/commit/76c2ab5f4459ac221dc53bf0243b74f434bb990a) - support ${components.xx.output} *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`ecbcbf1`](https://github.com/Serverless-Devs/Serverless-Devs/commit/ecbcbf1a640c50dcb04ad47e1ec971253cf7ecb9) - fail to get info using `s [resourceName] [command]` *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.0.10] - 2024-06-17
 ### :sparkles: New Features
 - [`322394c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/322394c34d006a22f49f18f095a0ae588db863e4) - volcengine support *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -56,3 +66,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.0.8]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.7...v3.0.8
 [v3.0.9]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.8...v3.0.9
 [v3.0.10]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.9...v3.0.10
+[v3.1.0]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.10...v3.1.0
