@@ -33,7 +33,7 @@
 
 **Serverless Devs** is an open source and open serverless developer platform dedicated to providing developers with a powerful tool chain system. Through this platform, developers can not only experience multi cloud serverless products with one click and rapidly deploy serverless projects, but also manage projects in the whole life cycle of serverless applications, and combine serverless devs with other tools / platforms very simply and quickly to further improve the efficiency of R & D, operation and maintenance.
 
-![图片alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
+![图片alt](https://img.alicdn.com/imgextra/i3/O1CN018uXKtJ22SYYkiojId_!!6000000007119-0-tps-1998-276.jpg)
 
 > For more information about Serverless Devs, please refer to [project introduction document](./docs/en/readme.md)
 
