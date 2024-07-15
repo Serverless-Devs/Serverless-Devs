@@ -1,12 +1,6 @@
 import { Command } from 'commander';
-import { emoji, suggestCommand } from '@/utils';
+import { emoji, mount, suggestCommand } from '@/utils';
 import chalk from 'chalk';
-
-import subRegistry from './command/registry';
-import subProxy from './command/proxy';
-import subAnalysis from './command/analysis';
-import subLog from './command/log';
-import subEnv from './command/env';
 
 const description = `You can make some default settings for the tool here.
 
@@ -22,9 +16,9 @@ export default (program: Command) => {
     .addHelpCommand(false)
     .helpOption('-h, --help', 'Display help for command');
 
-  subRegistry(configProgram);
-  subProxy(configProgram);
-  subAnalysis(configProgram);
-  subLog(configProgram);
-  subEnv(configProgram);
+  mount('set/command/registry.ts', configProgram);
+  mount('set/command/proxy.ts', configProgram);
+  mount('set/command/analysis.ts', configProgram);
+  mount('set/command/log.ts', configProgram);
+  mount('set/command/env/index.ts', configProgram);
 };
