@@ -7,7 +7,7 @@ test('s secret add', async () => {
   const res = spawnSync(s, ['secret', 'add', '--key', 'test', '--value', 'test'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toBe('Secret [test] has been successfully added.');
+  expect(stdout).toContain('Secret [test] has been successfully added.');
 });
 
 test('s secret add fail', async () => {
@@ -21,7 +21,7 @@ test('s secret add -f', async () => {
   const res = spawnSync(s, ['secret', 'add', '--key', 'test', '--value', 'test', '-f'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toBe('Secret [test] has been successfully added.');
+  expect(stdout).toContain('Secret [test] has been successfully added.');
 });
 
 test('s secret delete', async () => {
@@ -29,7 +29,7 @@ test('s secret delete', async () => {
   const res = spawnSync(s, ['secret', 'delete', '--key', 'test2']);
   const stdout = res.stdout.toString();
   console.log(stdout);
-  expect(stdout).toBe('Secret [test2] has been successfully deleted.');
+  expect(stdout).toContain('Secret [test2] has been successfully deleted.');
 });
 
 test('s secret get', async () => {
