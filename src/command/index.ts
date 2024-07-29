@@ -15,7 +15,8 @@ const commandDict = {
   preview: 'preview/index.ts',
   component: 'component/index.ts',
   verify: 'verify/index.ts',
-  cli: 'cli/index.ts'
+  cli: 'cli/index.ts',
+  secret: 'secret/index.ts',
 };
 
 const root = async (program: Command) => {
