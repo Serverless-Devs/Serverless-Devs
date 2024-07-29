@@ -24,7 +24,7 @@ export default (program: Command) => {
       const { template } = program.optsWithGlobals();
       // 若有env或者默认env，运行环境组件的env deploy
       // await runEnv(env);
-      const spec = await new ParseSpec(template, { logger }).start();
+      const spec = await new ParseSpec(template, { logger, isPreview: true }).start();
       if (get(spec, 'yaml.use3x')) {
         logger.debug(`Template: ${get(spec, 'yaml.path')}`);
         const content = get(spec, 'yaml.content');

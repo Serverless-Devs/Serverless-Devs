@@ -51,6 +51,6 @@ test('s preview with ${secret}, ${this.vars} and ${resources.xx.vars}', async ()
   const stdout = res.stdout.toString();
   const status = res.status;
   console.log(stdout);
-  expect(stdout).toContain('test');
+  expect(stdout).toContain('${secret(\'test\')}');
   expect(status).toBe(0);
 });
