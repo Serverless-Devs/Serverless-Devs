@@ -229,12 +229,18 @@ export const getSchema = async (componentName: string) => {
 // 检查模版是否为3.x版本
 export const checkTemplateVersion = async (program: Command): Promise<boolean> => {
   const { template } = program.optsWithGlobals();
-  const spec = await new ParseSpec(template, { logger }).start();
-  if (!get(spec, 'yaml.use3x')) {
-    logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
-    return false;
+  try {
+    const spec = await new ParseSpec(template, { logger }).start();
+    if (!get(spec, 'yaml.use3x')) {
+      logger.tips(`Not support template: ${get(spec, 'yaml.path')}, you can update template to 3.x version`);
+      return false;
+    }
+    return true;
+  } catch {
+    // fix: env work without s.yaml
+    logger.debug('no s.yaml, env work without s.yaml');
+    return true;
   }
-  return true;
 }
 
 export const mount = async (module: string, program: Command) => {
@@ -248,7 +254,13 @@ export const mountAsync = async (module: string, program: Command) => {
 }
 
 export const getEnvFilePath = async (template: string): Promise<string> => {
-  const spec = await new ParseSpec(template, { logger }).start();
-  const envPath = utils.getAbsolutePath(get(spec, 'yaml.content.env', ENVIRONMENT_FILE_NAME));
-  return envPath;
+  try {
+    const spec = await new ParseSpec(template, { logger }).start();
+    const envPath = utils.getAbsolutePath(get(spec, 'yaml.content.env', ENVIRONMENT_FILE_NAME));
+    return envPath;
+  } catch (error) {
+    logger.debug('no template file, use default env.yaml');
+    // fix: use default env.yaml
+    return utils.getAbsolutePath(ENVIRONMENT_FILE_NAME);
+  }
 }
