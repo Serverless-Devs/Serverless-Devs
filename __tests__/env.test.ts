@@ -201,7 +201,7 @@ test('init with no s.yaml', async () => {
     '{"components":{"fc3test":{"region":"hangzhou"}}}',
     '--debug',
   ];
-  const res = spawnSync(s, ['env', 'init', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
+  const res = spawnSync(s, ['env', 'init', ...args], { cwd: cwdEmpty });
   console.log(res);
   expect(res.status).toBe(0);
   expect(fs.existsSync(path.join(cwd, 'env.yaml'))).toBeTruthy();
@@ -210,7 +210,7 @@ test('init with no s.yaml', async () => {
 test('describe with no s.yaml', async () => {
   const name = 'dev';
   const args = ['--name', name];
-  const res = spawnSync(s, ['env', 'describe', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
+  const res = spawnSync(s, ['env', 'describe', ...args], { cwd: cwdEmpty });
   console.log(res);
   expect(res.status).toBe(0);
   const stdout = res.stdout.toString();
@@ -218,7 +218,7 @@ test('describe with no s.yaml', async () => {
 });
 
 test('list with no s.yaml', async () => {
-  const res = spawnSync(s, ['env', 'list'], { cwd: cwdEmpty, stdio: 'inherit' });
+  const res = spawnSync(s, ['env', 'list'], { cwd: cwdEmpty });
   console.log(res);
   expect(res.status).toBe(0);
   const stdout = res.stdout.toString();
@@ -226,7 +226,7 @@ test('list with no s.yaml', async () => {
 });
 
 test('default with no s.yaml', async () => {
-  const res = spawnSync(s, ['env', 'default'], { cwd: cwdEmpty, stdio: 'inherit' });
+  const res = spawnSync(s, ['env', 'default'], { cwd: cwdEmpty });
   expect(res.status).toBe(1);
   const stderr = res.stderr.toString();
   expect(stderr).toContain('the s.yaml/s.yml file was not found.');
@@ -235,7 +235,7 @@ test('default with no s.yaml', async () => {
 test('destroy with no s.yaml', async () => {
   const name = 'dev';
   const args = ['--name', name];
-  const res = spawnSync(s, ['env', 'destroy', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
+  const res = spawnSync(s, ['env', 'destroy', ...args], { cwd: cwdEmpty });
   console.log(res);
   expect(res.status).toBe(0);
   const stdout = res.stdout.toString();
