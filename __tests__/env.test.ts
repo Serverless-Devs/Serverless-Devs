@@ -6,6 +6,7 @@ import { ENVIRONMENT_FILE_NAME } from '@serverless-devs/parse-spec';
 import { find, get } from 'lodash';
 const s = path.resolve(__dirname, process.platform === 'win32' ? '../bin/s.cmd' : '../bin/s');
 const cwd = path.resolve(__dirname, './fixtures/env');
+const cwdEmpty = path.resolve(__dirname, './fixtures/empty');
 
 test('set', async () => {
   const res = spawnSync(s, ['env', 'set', '--component', 'ServerlessDevsAdmin@dev'], { cwd });
@@ -184,3 +185,56 @@ test('list v2', async () => {
   console.log(stdout);
   expect(stdout).toContain('Not support template');
 })
+
+test('init with no s.yaml', async () => {
+  const name = 'dev';
+  const args = [
+    '--name',
+    name,
+    '--project',
+    'custom-project',
+    '--description',
+    'this is a description',
+    '--type',
+    'testing',
+    '--overlays',
+    '{"components":{"fc3test":{"region":"hangzhou"}}}',
+    '--debug',
+  ];
+  const res = spawnSync(s, ['env', 'init', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
+  console.log(res);
+  expect(res.status).toBe(0);
+  expect(fs.existsSync(path.join(cwd, 'env.yaml'))).toBeTruthy();
+});
+
+test('describe with no s.yaml', async () => {
+  const name = 'dev';
+  const args = ['--name', name];
+  const res = spawnSync(s, ['env', 'describe', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
+  console.log(res);
+  expect(res.status).toBe(0);
+  expect(res).toContain('this is a description');
+});
+
+test('list with no s.yaml', async () => {
+  const res = spawnSync(s, ['env', 'list'], { cwd: cwdEmpty, stdio: 'inherit' });
+  console.log(res);
+  expect(res.status).toBe(0);
+  expect(res).toContain('this is a description');
+});
+
+test('default with no s.yaml', async () => {
+  const res = spawnSync(s, ['env', 'default'], { cwd: cwdEmpty, stdio: 'inherit' });
+  console.log(res);
+  expect(res.status).toBe(1);
+  expect(res).toContain('the s.yaml/s.yml file was not found.');
+});
+
+test('destroy with no s.yaml', async () => {
+  const name = 'dev';
+  const args = ['--name', name];
+  const res = spawnSync(s, ['env', 'destroy', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
+  console.log(res);
+  expect(res.status).toBe(0);
+  expect(res).toContain('The environment dev was destroyed successfully');
+});
