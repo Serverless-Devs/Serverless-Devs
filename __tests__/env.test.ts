@@ -229,7 +229,7 @@ test('default with no s.yaml', async () => {
   const res = spawnSync(s, ['env', 'default'], { cwd: cwdEmpty });
   expect(res.status).toBe(1);
   const stdout = res.stdout.toString();
-  expect(stdout).toContain('file was not found.');
+  expect(stdout).toContain('is not found');
 });
 
 test('destroy with no s.yaml', async () => {
