@@ -213,21 +213,23 @@ test('describe with no s.yaml', async () => {
   const res = spawnSync(s, ['env', 'describe', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
   console.log(res);
   expect(res.status).toBe(0);
-  expect(res).toContain('this is a description');
+  const stdout = res.stdout.toString();
+  expect(stdout).toContain('this is a description');
 });
 
 test('list with no s.yaml', async () => {
   const res = spawnSync(s, ['env', 'list'], { cwd: cwdEmpty, stdio: 'inherit' });
   console.log(res);
   expect(res.status).toBe(0);
-  expect(res).toContain('this is a description');
+  const stdout = res.stdout.toString();
+  expect(stdout).toContain('this is a description');
 });
 
 test('default with no s.yaml', async () => {
   const res = spawnSync(s, ['env', 'default'], { cwd: cwdEmpty, stdio: 'inherit' });
-  console.log(res);
   expect(res.status).toBe(1);
-  expect(res).toContain('the s.yaml/s.yml file was not found.');
+  const stderr = res.stderr.toString();
+  expect(stderr).toContain('the s.yaml/s.yml file was not found.');
 });
 
 test('destroy with no s.yaml', async () => {
@@ -236,5 +238,6 @@ test('destroy with no s.yaml', async () => {
   const res = spawnSync(s, ['env', 'destroy', ...args], { cwd: cwdEmpty, stdio: 'inherit' });
   console.log(res);
   expect(res.status).toBe(0);
-  expect(res).toContain('The environment dev was destroyed successfully');
+  const stdout = res.stdout.toString();
+  expect(stdout).toContain('The environment dev was destroyed successfully');
 });
