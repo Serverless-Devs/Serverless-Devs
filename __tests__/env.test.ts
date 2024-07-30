@@ -228,8 +228,8 @@ test('list with no s.yaml', async () => {
 test('default with no s.yaml', async () => {
   const res = spawnSync(s, ['env', 'default'], { cwd: cwdEmpty });
   expect(res.status).toBe(1);
-  const stderr = res.stderr.toString();
-  expect(stderr).toContain('the s.yaml/s.yml file was not found.');
+  const stdout = res.stdout.toString();
+  expect(stdout).toContain('the s.yaml/s.yml file was not found.');
 });
 
 test('destroy with no s.yaml', async () => {
