@@ -32,7 +32,7 @@ const root = async (program: Command) => {
     .addOption(new Option('--env <envName>', 'Specify the env name').hideHelp())
     .addOption(new Option('--no-verify', 'Do not verify yaml').hideHelp())
     .option('--silent', 'Silent mode')
-    .option('--baseline-template <templateName>', 'Baseline Yaml file to do diff on')
+    .addOption(new Option('--baseline-template <path>', 'Baseline Yaml file to do diff on').hideHelp())
     .configureHelp({ showGlobalOptions: true })
     .helpOption('-h, --help', 'Display help for command')
     .addHelpCommand(false)
