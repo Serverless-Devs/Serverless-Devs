@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.1] - 2024-08-23
+### :sparkles: New Features
+- [`bf60b54`](https://github.com/Serverless-Devs/Serverless-Devs/commit/bf60b545a539b80f2c6135b714c41f9ca16c75b3) - support ${this.vars} ${resources.xx.vars} *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`f1bc8d2`](https://github.com/Serverless-Devs/Serverless-Devs/commit/f1bc8d20b0ba353bde6b19eb5a4d2e4a2a3798ec) - add secret command *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`25f15f3`](https://github.com/Serverless-Devs/Serverless-Devs/commit/25f15f3d0c82ec125b7e5e4d7d68f85cb9dc3b6c) - preview ${config} won't throw error, ${secret} will be hidden *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`3db2430`](https://github.com/Serverless-Devs/Serverless-Devs/commit/3db243055e6ab0fb3653e459bc476b2e44abb4db) - when -o, --output-format exist, allow failure *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`d0f8bd6`](https://github.com/Serverless-Devs/Serverless-Devs/commit/d0f8bd6be63f7ab7aaccf195f38fbfaedaf1aa4a) - add `--baseline-template`, submit diff result to component *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`c618b3e`](https://github.com/Serverless-Devs/Serverless-Devs/commit/c618b3eb16fb8adec3e7ec6be8ba1a70db621738) - support {self.xx} *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`a7fc08e`](https://github.com/Serverless-Devs/Serverless-Devs/commit/a7fc08e373f74f7313d5f8191f25a4306588b951) - support ${shared} *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`3595991`](https://github.com/Serverless-Devs/Serverless-Devs/commit/3595991d7be8886590dd0623e4c44e124793d104) - load-application *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`cab786d`](https://github.com/Serverless-Devs/Serverless-Devs/commit/cab786d13e8b63c2e951d002bf6bb1703f609977) - env work without s.yaml *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`ee88d72`](https://github.com/Serverless-Devs/Serverless-Devs/commit/ee88d724f38058dfa8b48b9d14f0b56dcd6381d5) - DEBUG support fix *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`23358b3`](https://github.com/Serverless-Devs/Serverless-Devs/commit/23358b3ecd0dfafa947ad30d044909f0a36205c3) - sts api fail *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :wrench: Chores
+- [`8613121`](https://github.com/Serverless-Devs/Serverless-Devs/commit/86131211c11b802e46de54f987f04dbf2b3406d9) - hide --baseline-template *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.0] - 2024-07-15
 ### :sparkles: New Features
 - [`384220c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/384220ca9c5b9c30f93b968207eb4ce179e4cbab) - support `resources.xx.info.xx` *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -67,3 +87,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.0.9]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.8...v3.0.9
 [v3.0.10]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.9...v3.0.10
 [v3.1.0]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.10...v3.1.0
+[v3.1.1]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.0...v3.1.1
