@@ -51,7 +51,8 @@ export default (program: Command) => {
 You have not yet been found to have configured key information.
 You can use [s config add] for key configuration, or use [s config add -h] to view configuration help.
 If you already used [s config add], please check the permission of file [{HOMEPATH}/.s/access.yaml].
-If you have questions, please tell us: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}`;
+If you have questions, please tell us: ${chalk.underline('https://github.com/Serverless-Devs/Serverless-Devs/issues')}
+`;
           logger.write(msg);
           return;
         }
