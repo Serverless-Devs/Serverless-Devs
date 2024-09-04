@@ -16,7 +16,7 @@ const preRun = () => {
   // 初始化日志
   logger.initialization();
   // 不推荐使用管理员权限
-  if (process.getuid && process.getuid() === 0) {
+  if (process.getuid && process.getuid() === 0 && !utils.isCiCdEnvironment()) {
     logger.warn('It is not recommended to run the command as root user.');
   }
   // 检查node版本是否过低
