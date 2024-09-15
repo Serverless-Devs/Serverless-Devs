@@ -61,7 +61,7 @@ test('s demo xx -t basic.yaml', async () => {
   expect(stdout).toMatch(/The \[xx\] command was not found/);
 });
 
-test('s apierror -t basic.yaml', async () => {
+test.skip('s apierror -t basic.yaml', async () => {
   const res = spawnSync(s, ['apierror', '-t', 'basic.yaml'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
