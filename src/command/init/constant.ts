@@ -209,6 +209,10 @@ const volcengine_quick_start_template = [
   {
     name: 'Node.js 14',
     value: 'volcano-webserver-node14',
+  },
+  {
+    name: 'Node.js 20',
+    value: 'volcano-webserver-node20',
   }
 ];
 
