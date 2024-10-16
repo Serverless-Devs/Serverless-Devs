@@ -67,3 +67,23 @@ test('start-cadt-app@0.0.4', async () => {
   console.log(stdout);
   expect(fs.existsSync(dest)).toBeTruthy();
 });
+
+test('extend-test-app@dev', async () => {
+  const template = 'extend-test-app@dev';
+  const dest = path.join(cwd, template);
+  const res = spawnSync(s, [
+    'init',
+    template,
+    '-d',
+    dest,
+    '-a',
+    'default',
+    '--app-name',
+    'appName',
+    '--parameters',
+    '{"region":"cn-hangzhou"}',
+  ]);
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(fs.existsSync(dest)).toBeTruthy();
+});
