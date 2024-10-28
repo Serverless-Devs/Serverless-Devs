@@ -64,16 +64,16 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{secrets.CUSTOM_GITHUB_TOKEN}}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
 
-      - run: npx changelogithub # or changelogithub@0.12 if ensure the stable result
+      - run: npx changelogithub@0.12 # or changelogithub@0.12 if ensure the stable result
         env:
           GITHUB_TOKEN: ${{secrets.CUSTOM_GITHUB_TOKEN}}
 
