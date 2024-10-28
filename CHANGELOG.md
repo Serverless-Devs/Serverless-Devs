@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.2] - 2024-10-28
+### :sparkles: New Features
+- [`88850cf`](https://github.com/Serverless-Devs/Serverless-Devs/commit/88850cf3c3b59ec732d4bf371359af44cd6c3be8) - if resource does not exist in baseline yaml, diffs will be empty *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`c7e7037`](https://github.com/Serverless-Devs/Serverless-Devs/commit/c7e7037677f27a9c15913c4e6879201f34627d1c) - when -f, ${resources.info} don't throw error *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`076b778`](https://github.com/Serverless-Devs/Serverless-Devs/commit/076b77802b64a576588f9a6c7fddcd3c5c051fab) - volcano engine add node20 template *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`4802487`](https://github.com/Serverless-Devs/Serverless-Devs/commit/4802487894557d47a84157b12108fb2adc921f83) - aliyun-cli support StsToken *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`a2f31be`](https://github.com/Serverless-Devs/Serverless-Devs/commit/a2f31bec5f16cca57ad36d1cd032c42daed9da2e) - `s config get` access error message *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`3731ca8`](https://github.com/Serverless-Devs/Serverless-Devs/commit/3731ca8797c0b91a530e5ca2b79f9e2315b4b697) - cicd env won't show permission warn *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`a0e9aef`](https://github.com/Serverless-Devs/Serverless-Devs/commit/a0e9aef11b68bec32a73c34f5fb5ad0b1f2f7c92) - devs art template won't support {{}} *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`e9149b8`](https://github.com/Serverless-Devs/Serverless-Devs/commit/e9149b8efc0a2e4e90cc2d606961017a65e21fff) - acc type invalid *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.1] - 2024-08-23
 ### :sparkles: New Features
 - [`bf60b54`](https://github.com/Serverless-Devs/Serverless-Devs/commit/bf60b545a539b80f2c6135b714c41f9ca16c75b3) - support ${this.vars} ${resources.xx.vars} *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -88,3 +102,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.0.10]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.9...v3.0.10
 [v3.1.0]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.10...v3.1.0
 [v3.1.1]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.0...v3.1.1
+[v3.1.2]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.1...v3.1.2
