@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.3] - 2024-11-07
+### :bug: Bug Fixes
+- [`6c59ee3`](https://github.com/Serverless-Devs/Serverless-Devs/commit/6c59ee35d08b01fed3a225d6038679cea9ba8c51) - init error when template have if else *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.2] - 2024-10-28
 ### :sparkles: New Features
 - [`88850cf`](https://github.com/Serverless-Devs/Serverless-Devs/commit/88850cf3c3b59ec732d4bf371359af44cd6c3be8) - if resource does not exist in baseline yaml, diffs will be empty *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -103,3 +108,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.1.0]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.0.10...v3.1.0
 [v3.1.1]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.0...v3.1.1
 [v3.1.2]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.1...v3.1.2
+[v3.1.3]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.2...v3.1.3
