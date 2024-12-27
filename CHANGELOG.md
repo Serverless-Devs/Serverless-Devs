@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.5] - 2024-12-27
+### :bug: Bug Fixes
+- [`d44fa7c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/d44fa7c293283223f26ff59a040f2facf3b54b70) - can't publish package without s.yaml *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.4] - 2024-12-27
 ### :boom: BREAKING CHANGES
 - due to [`3e6cdbe`](https://github.com/Serverless-Devs/Serverless-Devs/commit/3e6cdbef8259d62bdd4f45850787ad427cb4e1c8) - publish package size must be less than 20MB and will show warning when larger than 10MB *(commit by [@zxypro1](https://github.com/zxypro1))*:
@@ -133,3 +138,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.1.2]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.1...v3.1.2
 [v3.1.3]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.2...v3.1.3
 [v3.1.4]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.3...v3.1.4
+[v3.1.5]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.4...v3.1.5
