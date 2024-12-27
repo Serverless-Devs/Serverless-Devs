@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.4] - 2024-12-27
+### :boom: BREAKING CHANGES
+- due to [`3e6cdbe`](https://github.com/Serverless-Devs/Serverless-Devs/commit/3e6cdbef8259d62bdd4f45850787ad427cb4e1c8) - publish package size must be less than 20MB and will show warning when larger than 10MB *(commit by [@zxypro1](https://github.com/zxypro1))*:
+
+  publish package size must be less than 20MB and will show warning when larger than 10MB
+
+
+### :sparkles: New Features
+- [`4d53dff`](https://github.com/Serverless-Devs/Serverless-Devs/commit/4d53dffd7b3fb80a2d3eaf2f1e9184ce0172b24c) - remove props key if value is undefined or null *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`3e6cdbe`](https://github.com/Serverless-Devs/Serverless-Devs/commit/3e6cdbef8259d62bdd4f45850787ad427cb4e1c8) - publish package size must be less than 20MB and will show warning when larger than 10MB *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`cdfad5c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/cdfad5c5b6f659259d7e616194f5c13f8d7f3ce0) - variables, build, publish yaml validation *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`d56c0eb`](https://github.com/Serverless-Devs/Serverless-Devs/commit/d56c0eb1e1de663bd12942e90b446add8738b860) - add duplicate variables validation *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`350bf67`](https://github.com/Serverless-Devs/Serverless-Devs/commit/350bf67a4f02e75938ff12e96295ca127fa84feb) - support cond *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`0142da8`](https://github.com/Serverless-Devs/Serverless-Devs/commit/0142da81e1017bf2e84877c6452ba89a12ba8524) - beta.x.x#x url error *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`833e9aa`](https://github.com/Serverless-Devs/Serverless-Devs/commit/833e9aa06034c71df05e53b4f5c9929a40165251) - aliyun task worker won't have stderr *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`29faf72`](https://github.com/Serverless-Devs/Serverless-Devs/commit/29faf72b14eb9177ebd3cba0a383390489149bc4) - variable.yaml *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :wrench: Chores
+- [`a7f137a`](https://github.com/Serverless-Devs/Serverless-Devs/commit/a7f137ab11adb644b4d8736e3160d408a92cce32) - more validate info *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.3] - 2024-11-07
 ### :bug: Bug Fixes
 - [`6c59ee3`](https://github.com/Serverless-Devs/Serverless-Devs/commit/6c59ee35d08b01fed3a225d6038679cea9ba8c51) - init error when template have if else *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -109,3 +132,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.1.1]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.0...v3.1.1
 [v3.1.2]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.1...v3.1.2
 [v3.1.3]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.2...v3.1.3
+[v3.1.4]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.3...v3.1.4
