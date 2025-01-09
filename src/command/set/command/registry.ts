@@ -10,7 +10,7 @@ const description = `Set registry information.
 
 Example:
    $ s set registry
-   $ s set registry http://registry.devsapp.cn/simple
+   $ s set registry https://api.devsapp.cn/v3
    
 ${emoji('📖')} Document: ${chalk.underline('https://docs.serverless-devs.com/user-guide/builtin/set/')}`;
 
