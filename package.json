@@ -73,7 +73,7 @@
     "@serverless-devs/parse-spec": "^0.0.29-beta.5",
     "@serverless-devs/registry": "^0.0.11-beta.13",
     "@serverless-devs/secret": "^0.0.3",
-    "@serverless-devs/utils": "^0.0.17",
+    "@serverless-devs/utils": "^0.0.18",
     "@types/fs-extra": "^11.0.4",
     "@types/inquirer": "^9.0.7",
     "@types/jest": "^29.5.8",
