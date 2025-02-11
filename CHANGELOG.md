@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.6] - 2025-02-11
+### :sparkles: New Features
+- [`58d8b01`](https://github.com/Serverless-Devs/Serverless-Devs/commit/58d8b0187a4e7f12c1c162143d666a43aa54a294) - s set registry clean *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`d352c8c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/d352c8c78d8bce76ac28a8760312af0b733588b4) - incorrect category for registry *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`f3c6e83`](https://github.com/Serverless-Devs/Serverless-Devs/commit/f3c6e839acbd28e10a7c1d6fe413894a94376184) - set registry not working *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`2a59963`](https://github.com/Serverless-Devs/Serverless-Devs/commit/2a5996370143c943e56a4ceb42269d48eb82e883) - set registry *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`0f9cf01`](https://github.com/Serverless-Devs/Serverless-Devs/commit/0f9cf01a6ea83ff26a9e75f8a7268c71f6d391c3) - hang in node20+ *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`5a084b1`](https://github.com/Serverless-Devs/Serverless-Devs/commit/5a084b161a05d92b2edfbdddb6d03f9ec575c8fe) - publish err in linux *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`aa102da`](https://github.com/Serverless-Devs/Serverless-Devs/commit/aa102dacde57c61bb46f127bf477ca12ba628c61) - linux ext *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`c9ef21c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/c9ef21c0ac4a705d7ce8018c71c824c6fad02b28) - hanging in node20 *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.5] - 2024-12-27
 ### :bug: Bug Fixes
 - [`d44fa7c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/d44fa7c293283223f26ff59a040f2facf3b54b70) - can't publish package without s.yaml *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -139,3 +153,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.1.3]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.2...v3.1.3
 [v3.1.4]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.3...v3.1.4
 [v3.1.5]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.4...v3.1.5
+[v3.1.6]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.5...v3.1.6
