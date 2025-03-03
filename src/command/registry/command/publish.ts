@@ -18,6 +18,7 @@ export default (program: Command) => {
     .summary(`Public Serverless Package to Serverless Registry`)
     .usage('[options]')
     .helpOption('-h, --help', 'Display help for command')
+    .option('-f, --force', 'Force push your template')
     .action(async () => {
       const registry = new Registry({ logger });
       await registry.publish();
