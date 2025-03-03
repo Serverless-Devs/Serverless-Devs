@@ -55,7 +55,7 @@ const isFc3 = async (componentName: string) => {
     const instance = await loadComponent(componentName, { logger: componentLogger });
     if (instance.__path) return true;
   } catch (error) {
-    logger.warn(`error: ${error}`);
+    throw error;
     return false;
   }
 };
