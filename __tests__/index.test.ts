@@ -108,8 +108,6 @@ test('--output-format', async () => {
 });
 
 test('s cli infrastructure-as-template -h', async () => {
-  const dest = path.join(__dirname, './fixtures/basic');
-  const template = path.join(dest, 's.yaml');
   const res = spawnSync(s, ['cli', 'infrastructure-as-template', '-h'], { cwd });
   const stdout = res.stdout.toString();
   console.log(stdout);
