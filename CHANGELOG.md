@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.7] - 2025-03-21
+### :sparkles: New Features
+- [`1562c13`](https://github.com/Serverless-Devs/Serverless-Devs/commit/1562c1345aa90e1dd33ba86edcb2b384d7720bf8) - -f bypass size limit *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`0bdb74c`](https://github.com/Serverless-Devs/Serverless-Devs/commit/0bdb74c6808114f25298ca742960f010a3223370) - add -f to publish *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`d8408f2`](https://github.com/Serverless-Devs/Serverless-Devs/commit/d8408f2dffb17ddc08586274d07e86d52569c2bc) - two region support *(commit by [@zxypro1](https://github.com/zxypro1))*
+- [`85f4ff1`](https://github.com/Serverless-Devs/Serverless-Devs/commit/85f4ff1f2f8e3d658465774b1f1460a14e4fbd03) - support render .stpl files *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`59479a5`](https://github.com/Serverless-Devs/Serverless-Devs/commit/59479a5a3fc277bc62baa79fb43d487db49e2077) - registry add more error info *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.6] - 2025-02-11
 ### :sparkles: New Features
 - [`58d8b01`](https://github.com/Serverless-Devs/Serverless-Devs/commit/58d8b0187a4e7f12c1c162143d666a43aa54a294) - s set registry clean *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -154,3 +165,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.1.4]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.3...v3.1.4
 [v3.1.5]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.4...v3.1.5
 [v3.1.6]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.5...v3.1.6
+[v3.1.7]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.6...v3.1.7
