@@ -106,5 +106,14 @@ test('--output-format', async () => {
   expect(res.status).toBe(0);
   expect(stdout).toContain('\"hello\": \"world\"');
 });
+
+test('s cli infrastructure-as-template -h', async () => {
+  const dest = path.join(__dirname, './fixtures/basic');
+  const template = path.join(dest, 's.yaml');
+  const res = spawnSync(s, ['cli', 'infrastructure-as-template', '-h'], { cwd });
+  const stdout = res.stdout.toString();
+  console.log(stdout);
+  expect(res.status).toBe(0);
+});
 // sl cli fc api ListServices -o json --output-file o.json
 // sl cli fc3 layer list -a shl --region cn-hangzhou -o json --output-file o.json
