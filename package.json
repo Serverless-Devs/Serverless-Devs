@@ -71,7 +71,7 @@
     "@serverless-devs/load-component": "^0.0.9",
     "@serverless-devs/logger": "^0.0.6",
     "@serverless-devs/parse-spec": "^0.0.29",
-    "@serverless-devs/registry": "^0.0.12-beta.3",
+    "@serverless-devs/registry": "^0.0.12-beta.4",
     "@serverless-devs/secret": "^0.0.3",
     "@serverless-devs/utils": "^0.0.18",
     "@types/fs-extra": "^11.0.4",
