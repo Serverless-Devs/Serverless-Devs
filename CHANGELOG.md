@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.9] - 2025-03-28
+### :bug: Bug Fixes
+- [`ddc8369`](https://github.com/Serverless-Devs/Serverless-Devs/commit/ddc836926a760c3b1f612832665984b1dcbc08dc) - registry login failure *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+
 ## [v3.1.7] - 2025-03-21
 ### :sparkles: New Features
 - [`1562c13`](https://github.com/Serverless-Devs/Serverless-Devs/commit/1562c1345aa90e1dd33ba86edcb2b384d7720bf8) - -f bypass size limit *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -166,3 +171,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.1.5]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.4...v3.1.5
 [v3.1.6]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.5...v3.1.6
 [v3.1.7]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.6...v3.1.7
+[v3.1.9]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.8...v3.1.9
