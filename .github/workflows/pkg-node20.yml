@@ -1,0 +1,41 @@
+name: Binary Package Node20
+
+on: 
+  workflow_dispatch:
+    inputs:
+      version: 
+        description: 'Version id to package'
+        required: true
+
+jobs:
+  publish-npm:
+    if: github.repository == 'Serverless-Devs/Serverless-Devs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - run: npm install
+
+      - run: npm run build
+      - name: pkg
+        run: npm run pkg
+      - name: Rename files
+        run: |
+          mv releases/s-macos s-${{ github.event.inputs.version }}-macos
+          mv releases/s-linux s-${{ github.event.inputs.version }}-linux
+          mv releases/s-win.exe s-${{ github.event.inputs.version }}-win.exe
+      - name: Zip files
+        run: |
+          zip -r s-${{ github.event.inputs.version }}-macos.zip s-${{ github.event.inputs.version }}-macos
+          zip -r s-${{ github.event.inputs.version }}-linux.zip s-${{ github.event.inputs.version }}-linux
+          zip -r s-${{ github.event.inputs.version }}-win.exe.zip s-${{ github.event.inputs.version }}-win.exe
+      - name: Install ossutil
+        run: curl https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
+      - name: Rename linux files
+        run: mv s-${{ github.event.inputs.version }}-linux ${{ github.event.inputs.version }}-node20
+      - name: Upload file to OSS
+        run: ossutil --endpoint oss-cn-hangzhou.aliyuncs.com --access-key-id ${{secrets.AK}} --access-key-secret ${{secrets.SK}} cp ${{ github.event.inputs.version }}-node20 oss://serverless-tool-images/bin/s/
