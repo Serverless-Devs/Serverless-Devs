@@ -103,7 +103,7 @@
     "latest-version": "^7.0.0",
     "leven": "^4.0.0",
     "lodash": "^4.17.21",
-    "pkg": "^5.8.1",
+    "@yao-pkg/pkg": "^6.3.2",
     "prettier": "^3.1.0",
     "prettyjson": "^1.2.5",
     "rimraf": "^5.0.5",
