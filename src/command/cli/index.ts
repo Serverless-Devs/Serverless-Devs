@@ -1,10 +1,10 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { emoji, getUid, isJson, writeOutput } from '@/utils';
+import { emoji, getUid, isJson, showOutput, writeOutput } from '@/utils';
 import * as utils from '@serverless-devs/utils';
 import loadComponent from '@serverless-devs/load-component';
 import Credential from '@serverless-devs/credential';
-import { each, filter, get, includes, isString } from 'lodash';
+import { each, filter, get, includes } from 'lodash';
 import logger from '@/logger';
 import Help from './help';
 import execDaemon from '@/exec-daemon';
@@ -102,14 +102,10 @@ const doAction = async () => {
     const reportData = { uid: await getUid(access), argv, command, component: componentName, userAgent: getUserAgent({ component: componentName }) };
     try {
       const res = await instance[command](inputs);
-      const showOutput = () => {
-        if (rest['output-file']) return;
-        logger.unsilent();
-        isString(res) ? (silent ? logger.write(res) : logger.write(chalk.green(res))) : logger.output(res);
-        if (silent) logger.silent();
-      };
-      showOutput();
-      writeOutput(res);
+      const argv = process.argv.slice(2);
+      const argvData = utils.parseArgv(argv);
+      const outputFile = get(argvData, 'output-file');
+      outputFile ? writeOutput(res) : showOutput(res);
       execDaemon('report.js', { ...reportData, type: EReportType.command });
       return;
     } catch (error) {

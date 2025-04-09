@@ -1,8 +1,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import * as core from '@serverless-devs/core';
-import { emoji, getUid, writeOutput } from '@/utils';
-import { includes, isEmpty, isPlainObject, isString } from 'lodash';
+import { emoji, getUid, showOutput, writeOutput } from '@/utils';
+import { get, includes, isEmpty, isPlainObject } from 'lodash';
 import logger from '@/logger';
 import path from 'path';
 import execDaemon from '@/exec-daemon';
@@ -18,7 +18,7 @@ const v1 = (program: Command) => {
   const doAction = async options => {
     const argv = process.argv.slice(2);
     const argvData = core.getGlobalArgs(argv);
-    const { _: rawData, access = 'default', help, silent } = argvData;
+    const { _: rawData, access = 'default', help } = argvData;
     // s cli
     if (rawData.length === 1 || (rawData.length === 1 && help)) {
       program.help();
@@ -69,15 +69,10 @@ const v1 = (program: Command) => {
         if (isEmpty(res)) {
           return logger.write(chalk.green(`End of method: ${_method}`));
         }
-        const showOutput = () => {
-          const argv = parseArgv(process.argv.slice(2));
-          if (argv['output-file']) return;
-          logger.unsilent();
-          isString(res) ? (silent ? logger.write(res) : logger.write(chalk.green(res))) : logger.output(res);
-          if (silent) logger.silent();
-        };
-        showOutput();
-        writeOutput(res);
+        const argv = process.argv.slice(2);
+        const argvData = parseArgv(argv);
+        const outputFile = get(argvData, 'output-file');
+        outputFile ? writeOutput(res) : showOutput(res);
         execDaemon('report.js', { ...reportData, type: EReportType.command });
       } catch (error) {
         handleError(
