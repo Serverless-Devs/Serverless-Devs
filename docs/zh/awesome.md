@@ -14,6 +14,7 @@ category: '概述'
 - [百度智能云函数计算（CFC）](https://github.com/xinwuyun/cfc)
 - [华为云函数工作流（FG）](https://github.com/zy-linn/fgs-component)
 - [腾讯云云函数（SCF）](https://github.com/devscomp/scf)
+- [火山函数服务（veFaaS）](https://registry.serverless-devs.com/details/volcano-vefaas?type=Component)
 
 ## 应用集合
 
