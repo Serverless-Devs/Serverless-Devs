@@ -70,6 +70,7 @@ $ npm install @serverless-devs/s -g
   - 百度智能云函数计算（CFC）: [项目仓库](https://github.com/xinwuyun/cfc)
   - 华为云函数工作流（FG）: [项目仓库](https://github.com/zy-linn/fgs-component)
   - 腾讯云云函数（SCF）: [项目仓库](https://github.com/devscomp/scf)
+  - 火山函数服务（veFaaS）：[项目详情](https://registry.serverless-devs.com/details/volcano-vefaas?type=Component)
 - Installable
   - OpenFunction（ofn）: [项目仓库](https://github.com/OpenFunction/serverless-devs)
   - Laf: 开发中...

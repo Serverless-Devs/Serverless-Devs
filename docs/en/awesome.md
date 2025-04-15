@@ -15,6 +15,7 @@ category: 'Overview'
 - [Baidu Cloud Cloud Function Compute (CFC)](https://github.com/xinwuyun/cfc)
 - [HUAWEI CLOUD FunctionGraph (FG)](https://github.com/zy-linn/fgs-component)
 - [Tencent Cloud Serverless Cloud Function (SCF)](https://github.com/devscomp/scf)
+- [Volcano Engine Function as a Service (veFaaS)](https://registry.serverless-devs.com/details/volcano-vefaas?type=Component)
 
 
 

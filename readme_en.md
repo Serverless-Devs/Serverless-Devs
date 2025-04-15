@@ -70,6 +70,7 @@ FaaS platforms/products currently supported by the Serverless Devs project:
   - Baidu Intelligent Cloud Function Computing (CFC): [Project Repository](https://github.com/xinwuyun/cfc)
   - HUAWEI CLOUD Function Workflow (FG): [Project Repository](https://github.com/zy-linn/fgs-component)
   - Tencent Cloud Function (SCF): [Project repository](https://github.com/devscomp/scf)
+  - Volcano Engine Function as a Service (veFaaS): [Project registry](https://registry.serverless-devs.com/details/volcano-vefaas?type=Component)
 - Installable
   - OpenFunction(of): [Project repository](https://github.com/OpenFunction/serverless-devs)
   - Laf: Coming soon...
