@@ -46,6 +46,9 @@ const preRun = () => {
   await program.parseAsync(process.argv);
 })().catch(async error => {
   await handleError(error);
+}).finally(() => {
+  // 退出时清除日志
+  logger.loggerInstance.__clear();
 });
 
 process.on('uncaughtException', async err => {
