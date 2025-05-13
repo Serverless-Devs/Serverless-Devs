@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.1.10] - 2025-05-13
+### :sparkles: New Features
+- [`644f5d6`](https://github.com/Serverless-Devs/Serverless-Devs/commit/644f5d6ed9e9ec558894b5a6019338920ecb706a) - add 'replace_output' props to plugin, allowing plugins to modify resource's output. *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :bug: Bug Fixes
+- [`36e17be`](https://github.com/Serverless-Devs/Serverless-Devs/commit/36e17be30914e668a697df100571c87945a6faea) - cli dont support --output-format *(commit by [@zxypro1](https://github.com/zxypro1))*
+
+### :wrench: Chores
+- [`3618f15`](https://github.com/Serverless-Devs/Serverless-Devs/commit/3618f15c2e67d824758c32771e28849b88553983) - update vefaas description *(commit by [@songhn233](https://github.com/songhn233))*
+
+
 ## [v3.1.9] - 2025-03-28
 ### :bug: Bug Fixes
 - [`ddc8369`](https://github.com/Serverless-Devs/Serverless-Devs/commit/ddc836926a760c3b1f612832665984b1dcbc08dc) - registry login failure *(commit by [@zxypro1](https://github.com/zxypro1))*
@@ -172,3 +183,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v3.1.6]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.5...v3.1.6
 [v3.1.7]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.6...v3.1.7
 [v3.1.9]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.8...v3.1.9
+[v3.1.10]: https://github.com/Serverless-Devs/Serverless-Devs/compare/v3.1.9...v3.1.10
