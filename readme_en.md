@@ -30,12 +30,58 @@
   <span><b><a href="./readme.md">中文</a> ｜ <a href="./readme_en.md">English</a></b></span><br>
 </p>
 
-
 **Serverless Devs** is an open source and open serverless developer platform dedicated to providing developers with a powerful tool chain system. Through this platform, developers can not only experience multi cloud serverless products with one click and rapidly deploy serverless projects, but also manage projects in the whole life cycle of serverless applications, and combine serverless devs with other tools / platforms very simply and quickly to further improve the efficiency of R & D, operation and maintenance.
 
-![图片alt](https://img.alicdn.com/imgextra/i3/O1CN018uXKtJ22SYYkiojId_!!6000000007119-0-tps-1998-276.jpg)
+# Six Benefits
 
-> For more information about Serverless Devs, please refer to [project introduction document](./docs/en/readme.md)
+![picture alt](https://serverless-article-picture.oss-cn-hangzhou.aliyuncs.com/1635319587379_20211027072627561648.png)
+
+- **Easy deployment**: The pluggable features of Serverless Devs allows you to easily deploy projects of different vendors, or allows you to deploy the projects on different cloud platforms with a few clicks. Serverless Devs supports multi-cloud products based on Function-as-a-Service (FaaS). The multi-cloud products include [Alibaba Cloud Function Compute](https://github.com/devsapp/fc), [AWS Lambda](https://github.com/devscomp/lambda), [Baidu Cloud Function Compute (CFC)](https://github.com/xinwuyun/cfc), [HUAWEI CLOUD FunctionGraph](https://github.com/zy-linn/fgs-component), and [Tencent Cloud Serverless Cloud Function (SFC)](https://github.com/devscomp/scf).
+- **Open source development**: Developers develop projects by using open source code in an open ecosystem. Developers can view and participate in the contributions to Serverless Devs developer tools, and can also make contributions to related components and applications anytime and anywhere. In addition to the open source development, some enterprise grade teams are encouraged to build registry by using [Serverless Registry Mode](./spec/en/0.0.2/serverless_registry_model/readme.md) to customize components that are inconvenient to disclose to the public.
+- **Pluggable features**: The capabilities of Serverless Devs are implemented by using components, and the components are pluggable. Developers can customize relevant commands and features for the components. Developers can select different components in an application to meet the requirements of different modules.
+- **Hands-on tutorials**: Based on models and specification of open Serverless Registry, multiple [hands-on cases that are in different forms](./docs/en/awesome.md) and can be applied to scenarios in diverse industries. Beginners are provided with the hands-on cases that help them quickly understand, learn, and get started with projects in the Serverless architecture. Various projects are described in the tutorials, such as [**Serverless: Hello World**](./docs/en/quick_start.md#ServerlessHello-World) in [Hands-on guide](./docs/en/quick_start.md), [**Artificial intelligence: object detection**](./docs/en/quick_start.md#AITarget-Detection), and [**Traditional framework: Django-based blog projects**](./docs/en/quick_start.md#Traditional-framework-based-on-django-blog-project).
+- **Full lifecycle management**: With the support of components, Serverless Devs can unleash its power to manage applications in a project during the full lifecycle. For example, developers can use[ the FC component of Alibaba Cloud Function Compute](https://github.com/devsapp/fc) to create applications in a project and manage the applications during the full lifecycle, in which the developers can develop, debug, and observe the project.
+- **Excellent integration**: Projects on Serverless Devs can be well integrated. With the support of components, the projects can be easily integrated into the traditional ecosystems. The Serverless Devs developer tools can also be integrated into mass automated processes. For example, cases, such as the [**integration with GitHub Action**](./docs/en/cicd.md#Integration-with-GitHub-Actions), [**integration with Gitee Go**](./docs/en/cicd.md#Integration-with-Gitee-Go), and [**integration with Jenkins**](./docs/en/cicd.md#Integration-with-Jenkins), are described in [CI/CD documentations](./docs/en/cicd.md).
+
+# Design principles
+
+Serverless Devs is an open source toolchain project in the Serverless field. To a certain extent, Serverless Devs is not only a CLI tool, but also a complete toolchain system.
+
+![](https://example-static.oss-cn-beijing.aliyuncs.com/github-static/01.png)
+
+In Serverless Devs, developers can be:
+
+- **Open source contributors**: develop [components or applications](./docs/en/package_dev.md) by following the [Serverless Package Model](./spec/en/0.0.2/serverless_pacakge_model/readme.md) specification, and share their development results to Serverless Hub with anyone inside or outside the communities.
+- **Serverless developers**: [initialize applications](./docs/en/quick_start.md) and use the components [with developer tools](./docs/en/quick_start.md), including CLI tools and the tools on desktops, to deploy services online as expected.
+
+In Serverless Devs infrastructure, you may find that Serverless Devs have similar names and modules as other development modes or ecosystems.
+
+- **Serverless Hub**: provides resources, such as components, applications, and cases. It is similar to Docker Hub.
+- **Serverless Registry**: manages components or applications, or provides specification models. It is similar to Pypi in the Python ecosystem or NPM in the Node.js ecosystem.
+
+As you can find in the preceding figure, the two words component and application appear frequently.
+- **Component**: refers to a block of code that follows the Serverless Package Model specification that is developed and published by Package developers. The code block is referenced in an application, loaded in Serverless Devs tools, and executed to perform specified operations based on the predefined rules. For example, you can deploy your code on Serverless Devs, build and package Serverless applications, and debug Serverless applications.
+- **Application**: refers to an application that is shared and published to Serverless Registry by Package developers for more people to learn and use. For example, a contributor has contributed an application that is used to recognize cats and dogs, or an individual developer has developed a facial recognition application. An application can use one or more components, and the application is deployed on Serverless Devs by using Serverless Devs developer tools. For example, you have developed an application that is used to recognize cats and dogs. In the application, you use the Lambda component to deploy service logics to FaaS and the Website component to deploy frontend code to Object Storage Service (OSS).
+
+The design principles of Serverless Devs models are to help developers to focus more on business logics and improve the efficiency in developing, deploying, and maintaining Serverless applications by using a simpler, more scientific, and more standardized Serverless toolchain system. Developers can use Serverless products of different cloud vendors and from open source communities in a more flexible and convenient way. This helps you manage Serverless applications in a more efficient, concise, and convenient manner.
+
+# Growth history
+
+![](https://example-static.oss-cn-beijing.aliyuncs.com/github-static/02.png)
+
+Serverless improves the development efficiency of traditional applications, and the Serverless Devs developer tools improve the performance of Serverless application development. Serverless Devs is developed from version 1.0 to version 2.0, of which has leap from simple efficiency improvement to a more standardized and scientific efficiency improvement. We hope that the Serverless Devs toolchain mode and ideas can provide great convenience and manage application development and traditional projects on the Serverless architecture in a more scientific manner.
+
+- On October 23, 2020, Serverless Devs, a Serverless developer platform, was officially open-sourced.
+- In November, 2020, Serverless Devs was included by Cloud Native Computing Foundation (CNCF) Landscope, which is the first included serverless tool in China.
+- In November, 2020, the Serverless Developer Meetup was first held and became a new channel for Serverless technical communications with developers.
+- In November, 2020, Serverless Devs was shortlisted for InfoQ and was nominated one of the Top 10 new open source projects in 2020.
+- In December, 2020, the number of Serverless Devs downloads exceeded 5,000, and the cumulative usage of components and applications exceeded 10,000.
+- In April, 2021, Serverless Developer Meetup was held in Shanghai, China and the Serverless Devs 2.0 was officially released.
+- In June, 2021, the number of Serverless Devs downloads exceeded 10,000.
+- In July, 2021, Serverless Developer Meetup was held in Hangzhou, China. In the conference, the Alibaba Cloud Function Compute team officially released the features of Serverless Devs, including cloud-terminal joint debugging and the Serverless desktop client.
+- In August, 2021, the number of Serverless Devs downloads exceeded 20,000.
+- In October, 2021, a keynote speech of Serverless Devs is delivered, whose topic focuses on how to build a toolchain in the full lifecycle of serverless at 2021 OpenInfra Days China.
+- In December, 2021, Serverless Developer Meetup was held in Shanghai, China, and Serverless Devs Model was introduced to the public.
 
 # Get started
 
@@ -65,7 +111,7 @@ $ npm install @serverless-devs/s -g
 FaaS platforms/products currently supported by the Serverless Devs project:
 
 - Hosted
-  - Alibaba Cloud Function Compute (FC): [Project repository](https://github.com/devsapp/fc)
+  - Alibaba Cloud Function Compute (FC): [Project repository](https://github.com/devsapp/fc3)
   - AWS Lambda: [Project repository](https://github.com/devscomp/lambda)
   - Baidu Intelligent Cloud Function Computing (CFC): [Project Repository](https://github.com/xinwuyun/cfc)
   - HUAWEI CLOUD Function Workflow (FG): [Project Repository](https://github.com/zy-linn/fgs-component)
@@ -118,7 +164,7 @@ If you have feedback about bugs or future expectations, you can post them in [Is
 
 | <img src="https://img.alicdn.com/imgextra/i2/O1CN01zifTV61Mkg9QRNBUs_!!6000000001473-2-tps-466-462.png" width="200px" > | <img src="https://img.alicdn.com/imgextra/i3/O1CN016kRQ1A24zePZnV87T_!!6000000007462-0-tps-528-528.jpg" width="200px" > | <img src="https://img.alicdn.com/imgextra/i1/O1CN01ECE9wN1RMvgS6d1JM_!!6000000002098-0-tps-881-877.jpg" width="200px" > |
 |--- | --- | --- |
-| <center>Follow WeChat Official Account: `serverless`</center> | <center>Contact WeChat Assistant: `xiaojiangwh`</center> | <center>Join DingTalk Group: `33947367`</center> |
+| <center>Follow WeChat Official Account: `serverless`</center> | <center>Contact WeChat Assistant: `xiaojiangwh`</center> | <center>Join DingTalk Group: `33947367`</center> | 
 
 </p>
 
@@ -127,3 +173,4 @@ If you have feedback about bugs or future expectations, you can post them in [Is
 > Serverless Devs developer tools follow [Serverless Devs Model](./spec/readme.md) , more model/specification information can refer to [Serverless Registry Model](./spec/en/0.0.2/serverless_registry_model/readme.md) , [Serverless User Model](./spec/en/0.0.2/serverless_user_model/readme.md) and [Serverless Package Model](./spec/en/0.0.2/serverless_package_model/readme.md).
 
 > Privacy statement: In order to provide developers with an optimized user experience, Serverless Devs will collect some client-side error messages to help the community optimize tools. Of course, these error messages are all desensitized error messages. If you still have doubts or If you don't want to use this feature, you can disable it with the command `s set analysis disable`.
+
