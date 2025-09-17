@@ -11,6 +11,7 @@ category: 'Overview'
 - [Integration with Gitee Go](#Integration-with-Gitee-Go)
 - [Integration with Jenkins](#Integration-with-Jenkins)
 - [Integration with Yunxiao](#Integration-with-Yunxiao)
+- [Integration with CNB](#Integration-with-CNB)
 - [Precautions](#Precautions)
 
 ## Integration with GitHub Actions
@@ -207,6 +208,35 @@ In the command, the following environment variables are referenced: `ACCESSKEYID
 ![image](https://user-images.githubusercontent.com/21079031/144699074-3dad63d7-835f-4eb8-bd95-662de683dbbc.png)
 
 > For more information about key configurations, see [Precautions](#Precautions).
+
+## Integrating with CNB
+
+[Cloud Native Build](https://cnb.cool/) are based on the Docker ecosystem, abstracting environments, caches, and plugins through declarative syntax to help developers build software in a more sophisticated manner.
+
+To create a key repository, add key information to the key file:
+
+```yaml title="secret.yml"
+AccessKeyID: xxx
+AccessKeySecret: xxx
+```
+
+Configure the pipeline in the repository's `.cnb.yml` file:
+
+```yaml title=".cnb.yml"
+# Trigger Branch
+main:
+  # Trigger Event
+  push:
+    - stages:
+      - name: serverless deploy
+        # Image with the Serverless Devs developer tools installed
+        image: tencentcom/serverless-devs
+        # Address of the key file configured in the previous step
+        imports: https://cnb.cool/xxx/xxx/-/blob/main/secret.yml
+        script: |
+          s config add --AccessKeyID ${AccessKeyID} --AccessKeySecret ${AccessKeySecret} -a default -f
+          s deploy -y --use-local
+```
 
 ## Precautions
   
