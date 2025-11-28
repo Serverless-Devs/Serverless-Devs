@@ -11,6 +11,7 @@ category: '概述'
 - [与 Gitee Go 的集成](#与-gitee-go-的集成)
 - [与 Jenkins 的集成](#与-jenkins-的集成)
 - [与云效的集成](#与云效的集成)
+- [与云原生构建的集成](#与云原生构建的集成)
 - [注意事项](#注意事项)
 
 ## 与 Github Action 的集成
@@ -229,6 +230,35 @@ s deploy -y --use-local -a default
 由于在命令中，引用了两个重要的环境变量：`ACCESSKEYID`, `ACCESSKEYSECRET`，所以还需要在环境变量中，增加类似的内容：
 
 ![image](https://user-images.githubusercontent.com/21079031/144699074-3dad63d7-835f-4eb8-bd95-662de683dbbc.png)
+
+## 与云原生构建的集成
+
+[云原生构建](https://cnb.cool/) 基于 Docker 生态，对环境、缓存、插件进行抽象，通过声明式的语法，帮助开发者以更酷的方式构建软件。
+
+创建密钥仓库，在密钥文件中，添加密钥信息：
+
+```yaml title="secret.yml"
+AccessKeyID: xxx
+AccessKeySecret: xxx
+```
+
+在仓库 `.cnb.yml` 中配置流水线：
+
+```yaml title=".cnb.yml"
+# 触发分支
+main:
+  # 触发事件
+  push:
+    - stages:
+      - name: serverless deploy
+        # 安装了 Serverless Devs 开发者工具的镜像
+        image: tencentcom/serverless-devs
+        # 上一步配置的密钥文件的地址
+        imports: https://cnb.cool/xxx/xxx/-/blob/main/secret.yml
+        script: |
+          s config add --AccessKeyID ${AccessKeyID} --AccessKeySecret ${AccessKeySecret} -a default -f
+          s deploy -y --use-local
+```
 
 ## 注意事项
 
