@@ -20,6 +20,13 @@ jobs:
 
       - run: npm install
 
+      - name: Update package.json version
+        run: |
+          VERSION=${{ github.event.inputs.version }}
+          # Remove 'v' prefix if present
+          VERSION=${VERSION#v}
+          npm version $VERSION --no-git-tag-version --allow-same-version
+
       - run: npm run build
       - name: pkg
         run: npm run pkg
