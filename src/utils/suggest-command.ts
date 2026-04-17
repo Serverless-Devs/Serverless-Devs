@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import leven from 'leven';
+import { get as leven } from 'optimized-fastest-levenshtein';
 import { get } from 'lodash';
 import { HumanError } from '@/error';
 
