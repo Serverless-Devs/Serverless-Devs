@@ -24,6 +24,14 @@ test('s error -t format-error.yaml', async () => {
   expect(stdout).toMatch(/format-error.yaml format is incorrect/);
 });
 
+test('s error with closed stdout pipe (EPIPE) should exit instead of infinite loop', () => {
+  // Simulates `s deploy -t format-error.yaml 2>&1 | head -1`: the pipe consumer exits early, subsequent writes to stdout fail with EPIPE
+  // Before the fix: EPIPE triggers an infinite loop of uncaughtException → error handling → write to stdout again → EPIPE, the process never exits and spawns a report.js subprocess each round
+  const res = spawnSync('sh', ['-c', `"${s}" deploy -t format-error.yaml 2>&1 | head -1`], { cwd, timeout: 8000 });
+  expect(res.error).toBeUndefined();
+  expect(res.status).toBe(0);
+});
+
 test('s error -t ./extend/s.yaml', async () => {
   const res = spawnSync(s, ['deploy', '-t', './extend/s.yaml'], { cwd });
   const stdout = res.stdout.toString();

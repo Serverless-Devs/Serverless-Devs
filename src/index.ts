@@ -9,6 +9,16 @@ import dotenv from 'dotenv';
 import { expand } from 'dotenv-expand';
 import path from 'path';
 
+// 下游管道提前退出（如 `s ... | head`）后继续写 stdout/stderr 会触发 EPIPE uncaughtException，
+// 而错误处理流程会再次写 stdout 并 spawn 遥测子进程，形成无限循环。遵循 Unix SIGPIPE 语义：EPIPE 时直接退出。
+const exitOnEpipe = (err: Error) => {
+  if ((err as NodeJS.ErrnoException).code === 'EPIPE') {
+    process.exit(0);
+  }
+};
+process.stdout?.on?.('error', exitOnEpipe);
+process.stderr?.on?.('error', exitOnEpipe);
+
 const preRun = () => {
   // 添加环境变量
   process.env.serverless_devs_version = getPkgInfo('version');
@@ -49,6 +59,10 @@ const preRun = () => {
 });
 
 process.on('uncaughtException', async err => {
+  // EPIPE 说明管道下游已退出，进入错误处理流程只会再次写 stdout 造成无限循环
+  if ((err as NodeJS.ErrnoException)?.code === 'EPIPE' || String(err?.message ?? '').includes('EPIPE')) {
+    process.exit(1);
+  }
   await handleError(err);
 });
 
